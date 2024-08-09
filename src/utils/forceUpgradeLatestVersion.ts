@@ -1,7 +1,7 @@
-(() => {
+export default () => {
   // Force update latest version
   if (import.meta.env.PROD && "serviceWorker" in navigator) {
-    let refreshing: boolean = false;
+    let refreshing = false;
 
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       if (refreshing) return;
@@ -28,6 +28,9 @@
             }
           });
         });
+      })
+      .catch((error: unknown) => {
+        console.error(">>> register service worker failure:", error);
       });
   }
-})();
+};
