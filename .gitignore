@@ -15,6 +15,7 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
 .DS_Store
 *.suo
@@ -31,3 +32,18 @@ dist-ssr
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Storybook
+*storybook.log
+storybook-static
+
+# SonarQube
+.scannerwork
+sonar-project.properties
+
+# Vitest
+coverage
+
+# Other
+.npmrc
+.yarnrc.yml
