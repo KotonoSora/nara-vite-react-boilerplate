@@ -1,4 +1,4 @@
-import { options as tailwindPluginOptions } from 'prettier-plugin-tailwindcss';
+import { options as tailwindPluginOptions } from 'prettier-plugin-tailwindcss'
 
 export default {
   printWidth: 120,
@@ -17,4 +17,4 @@ export default {
   endOfLine: 'auto',
   singleAttributePerLine: true,
   plugins: [tailwindPluginOptions],
-};
+}
