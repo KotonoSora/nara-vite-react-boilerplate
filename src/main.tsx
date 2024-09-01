@@ -1,18 +1,24 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-
-import forceUpgradeVersion from './utils/forceUpgradeVersion'
+import RootPage from '#root/core/interfaces/pages/RootPage'
 
 const root = document.getElementById('root')
 
 if (root) {
   createRoot(root).render(
     <StrictMode>
-      <App />
+      <RootPage />
     </StrictMode>
   )
 
-  forceUpgradeVersion()
+  if (import.meta.env.PROD) {
+    import('#root/infrastructure/utils/forceUpgradeVersion.ts')
+      .then(module => {
+        module.default()
+        console.log('Module imported and function executed successfully.')
+      })
+      .catch(error => {
+        console.error('Failed to load the module:', error)
+      })
+  }
 }
