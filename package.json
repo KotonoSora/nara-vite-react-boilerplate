@@ -1,7 +1,11 @@
 {
-  "name": "nara-vite-react-boilerplate",
+  "name": "@kotonosora/nara-vite-react-boilerplate",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KotonoSora/nara-vite-react-boilerplate.git"
+  },
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
