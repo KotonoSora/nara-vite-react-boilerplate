@@ -2,120 +2,202 @@
 
 ## Folder Structure
 
-[The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html):
+### Knowledge
 
-- `domain/`: Core business entities and models (Domain Layer).
-- `actions/`: Application logic and business rules (Application Layer).
-- `interfaces/`: Adapters for UI and external system communication (Adapters Layer).
-- `infrastructure/`: External system integrations and framework-specific implementations (Infrastructure Layer).
+1. [The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-## Simple Example
+### Rule
 
-1. Root Folder Structure
+```bash
+- public/
+  - favicon.ico
+  - logo.png
 
-```
-my-app/
-├── public/                     # Static assets
-├── src/                        # Source code directory
-│   ├── domain/                 # Core business logic (Domain Layer)
-│   ├── actions/                # Application-specific business rules (Application Layer)
-│   ├── interfaces/             # Adapters (UI, API, etc.) (Adapters Layer)
-│   └── infrastructure/         # Frameworks, APIs, and utilities (Infrastructure Layer)
-├── .eslintrc.json              # ESLint configuration
-├── .prettierrc                 # Prettier configuration
-├── tsconfig.json               # TypeScript configuration
-├── vite.config.ts              # Vite configuration
-├── tailwind.config.js          # Tailwind CSS configuration
-├── package.json                # Project dependencies and scripts
-└── README.md                   # Project documentation
-```
+- src/
+  - assets/
+    - images/
+      - logo_small.png
+      - background_image.jpg
+    - icons/
+      - icon_menu.svg
+      - icon_calendar.svg
 
-2. Detailed src Folder Structure
+  - core/
+    - domain/
+      - entities/
+        - user.ts
+        - auth.ts
+      - interfaces/
+        - iUserRepository.ts
+        - iAuthService.ts
+      - use-cases/
+        - authenticateUser.ts
+        - registerUser.ts
 
-```
-src/
-├── domain/
-│   ├── models/             # Data models (e.g., User, Product)
-│   └── interfaces/         # Interfaces for models and repositories
-├── actions/
-│   ├── userActions.ts       # Actions related to User management
-│   └── authActions.ts       # Actions related to Authentication
-├── interfaces/
-│   ├── controllers/         # Controllers managing inputs/outputs
-│   ├── ui/                  # UI components, pages, and layouts
-│   ├── hooks/               # React hooks for state and side effects
-│   └── api/                 # API implementations (e.g., REST, GraphQL)
-├── infrastructure/
-│   ├── api/                 # API clients and services
-│   ├── redux/               # Redux setup and store
-│   ├── context/             # Context API providers
-│   ├── tailwind/            # Tailwind CSS configurations
-│   ├── storybook/           # Storybook configuration and stories
-│   └── vitest/              # Vitest configurations and tests
+    - infrastructure/
+      - repositories/
+        - userRepository.ts
+      - services/
+        - authService.ts
+      - providers/
+        - apiProvider.ts
 
-```
+    - application/
+      - services/
+        - userService.ts
+      - mappers/
+        - userMapper.ts
 
-## Real-case example
+    - presentation/
+      - components/
+        - appShell/
+          - header.tsx
+          - sidebar.tsx
+        - layout/
+          - pageContainer.tsx
+      - hooks/
+        - useAuth.ts
+      - pages/
+        - home/
+          - homePage.tsx
+        - login/
+          - loginPage.tsx
 
-1. Root src Folder Structure
+  - features/
+    - auth/
+      - domain/
+        - entities/
+          - user.ts
+        - use-cases/
+          - login.ts
+          - logout.ts
 
-```
-src/
-├── core/                   # Core business logic and shared utilities
-├── features/               # Specialized features
-│   ├── qr-code/            # QR Code specific feature
-│   │   ├── domain/         # Domain logic specific to QR Code
-│   │   ├── actions/        # Application logic for QR Code
-│   │   ├── interfaces/     # Adapters (UI components, controllers) for QR Code
-│   │   └── infrastructure/ # Infrastructure for QR Code feature (API, etc.)
-│   ├── ai/                 # AI specific feature
-│   │   ├── domain/
-│   │   ├── actions/
-│   │   ├── interfaces/
-│   │   └── infrastructure/
-│   ├── tree-family/        # Tree Family specific feature
-│   │   ├── domain/
-│   │   ├── actions/
-│   │   ├── interfaces/
-│   │   └── infrastructure/
-│   ├── landing-page/       # Landing Page feature
-│   │   ├── domain/
-│   │   ├── actions/
-│   │   ├── interfaces/
-│   │   └── infrastructure/
-└── infrastructure/         # Shared infrastructure components (e.g., global API configs, shared services)
-```
+      - infrastructure/
+        - services/
+          - authService.ts
+        - repositories/
+          - authRepository.ts
 
-2. Feature-Specific Folder Example (qr-code):
+      - application/
+        - services/
+          - authFacade.ts
 
-```
-src/
-└── features/
-    └── qr-code/
-        ├── domain/              # Core models and entities for QR Code feature
-        │   └── QRCode.ts        # QR Code specific entity/model
-        ├── actions/             # Use cases or business logic specific to QR Code
-        │   └── scanQRCode.ts    # Example action for scanning QR Codes
-        ├── interfaces/          # Adapters for UI, API, or other external interactions
-        │   ├── controllers/     # Controllers handling input/output for QR Code
-        │   ├── ui/              # UI components (React components) for QR Code
-        │   │   └── QRScanner.tsx # QR Code scanner component
-        │   └── api/             # API service implementations for QR Code feature
-        └── infrastructure/      # Feature-specific infrastructure like API configurations or utilities
-            └── apiClient.ts     # QR Code API client
-```
+      - presentation/
+        - components/
+          - loginForm.tsx
+        - hooks/
+          - useAuth.ts
+        - pages/
+          - loginPage.tsx
 
-3. Shared Infrastructure Folder Example:
+    - billing/
+      - domain/
+        - entities/
+          - invoice.ts
+        - use-cases/
+          - createInvoice.ts
+          - getBillingInfo.ts
 
-```
-src/
-└── infrastructure/
-    ├── api/                     # Global API configurations and base clients
-    │   └── axiosInstance.ts     # Example Axios configuration
-    ├── redux/                   # Redux setup and store configuration
-    ├── context/                 # Global Context API providers
-    ├── tailwind/                # Global Tailwind CSS configurations
-    └── utils/                   # Shared utilities and helpers
+      - infrastructure/
+        - services/
+          - billingService.ts
+        - repositories/
+          - billingRepository.ts
+
+      - application/
+        - services/
+          - billingFacade.ts
+
+      - presentation/
+        - components/
+          - billingInfo.tsx
+        - pages/
+          - billingPage.tsx
+
+    - calendar/
+      - domain/
+        - entities/
+          - event.ts
+        - use-cases/
+          - createEvent.ts
+          - getEvents.ts
+
+      - infrastructure/
+        - repositories/
+          - calendarRepository.ts
+
+      - application/
+        - services/
+          - calendarService.ts
+
+      - presentation/
+        - components/
+          - calendarView.tsx
+        - pages/
+          - calendarPage.tsx
+
+    - notification-center/
+      - domain/
+        - entities/
+          - notification.ts
+        - use-cases/
+          - sendNotification.ts
+          - getNotifications.ts
+
+      - infrastructure/
+        - services/
+          - notificationService.ts
+        - repositories/
+          - notificationRepository.ts
+
+      - application/
+        - services/
+          - notificationFacade.ts
+
+      - presentation/
+        - components/
+          - notificationList.tsx
+        - pages/
+          - notificationPage.tsx
+
+    - tools/
+      - qr-scan/
+        - domain/
+          - entities/
+            - qrCode.ts
+          - use-cases/
+            - scanQRCode.ts
+        - infrastructure/
+          - services/
+            - qrScanner.ts
+        - presentation/
+          - components/
+            - qrScannerComponent.tsx
+
+    - progress-photo/
+      - domain/
+        - entities/
+          - photo.ts
+        - use-cases/
+          - uploadPhoto.ts
+        - infrastructure/
+          - repositories/
+            - photoRepository.ts
+        - presentation/
+          - components/
+            - photoGallery.tsx
+
+  - main.tsx
+  - vite-env.d.ts
+
+- index.html
+- vite.config.ts
+- tsconfig.app.json
+- tsconfig.json
+- tsconfig.node.json
+- tailwind.config.js
+- package.json
+- yarn.lock
 ```
 
 ---
