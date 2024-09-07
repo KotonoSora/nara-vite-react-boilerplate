@@ -15,189 +15,251 @@
 
 - src/
   - assets/
-    - images/
-      - logo_small.png
-      - background_image.jpg
     - icons/
-      - icon_menu.svg
-      - icon_calendar.svg
+      - logo.svg
+    - images/
+      - background_image.jpg
 
   - core/
     - domain/
       - entities/
-        - user.ts
-        - auth.ts
-      - interfaces/
-        - iUserRepository.ts
-        - iAuthService.ts
-      - use-cases/
-        - authenticateUser.ts
-        - registerUser.ts
-
-    - infrastructure/
+        - User.ts
+        - Billing.ts
+      - valueObjects/
+        - Email.ts
+        - Money.ts
       - repositories/
         - userRepository.ts
+        - billingRepository.ts
       - services/
         - authService.ts
-      - providers/
-        - apiProvider.ts
+        - billingService.ts
 
-    - application/
-      - services/
-        - userService.ts
-      - mappers/
-        - userMapper.ts
+    - infrastructure/
+      - routing/
+        - RouterProvider.tsx  # Quản lý điều hướng sử dụng react-router-dom và React.lazy
+      - persistence/
+        - database.ts         # Cấu hình database hoặc các persistent storage
+      - styles/
+        - tailwind.css        # Các import của TailwindCSS
 
     - presentation/
       - components/
-        - appShell/
-          - header.tsx
-          - sidebar.tsx
-        - layout/
-          - pageContainer.tsx
+        - App.tsx             # Thành phần gốc của ứng dụng
+        - Layout.tsx          # Layout chính của ứng dụng
+        - Header.tsx
+        - Footer.tsx
       - hooks/
         - useAuth.ts
+        - useBilling.ts
+      - routes/
+        - AppRoutes.tsx       # Định nghĩa các route không phụ thuộc vào react-router-dom (nội dung logic route)
       - pages/
-        - home/
-          - homePage.tsx
-        - login/
-          - loginPage.tsx
+        - HomePage.tsx
+        - LoginPage.tsx
+        - DashboardPage.tsx
+
+    - application/
+      - useCases/
+        - loginUser.ts        # Use case đăng nhập người dùng
+        - generateBilling.ts  # Use case tạo hóa đơn
 
   - features/
     - auth/
       - domain/
         - entities/
-          - user.ts
-        - use-cases/
-          - login.ts
-          - logout.ts
-
-      - infrastructure/
-        - services/
-          - authService.ts
+          - AuthToken.ts
         - repositories/
           - authRepository.ts
-
-      - application/
         - services/
-          - authFacade.ts
-
+          - authService.ts
+      - infrastructure/
+        - persistence/
+          - authLocalStorage.ts
       - presentation/
         - components/
-          - loginForm.tsx
+          - AuthProvider.tsx  # High Order Component (HOC) cho Auth
         - hooks/
-          - useAuth.ts
-        - pages/
-          - loginPage.tsx
+          - useAuthContext.ts
+        - routes/
+          - AuthRouter.tsx
+      - application/
+        - useCases/
+          - login.ts
 
     - billing/
       - domain/
         - entities/
-          - invoice.ts
-        - use-cases/
-          - createInvoice.ts
-          - getBillingInfo.ts
-
-      - infrastructure/
-        - services/
-          - billingService.ts
+          - Invoice.ts
         - repositories/
-          - billingRepository.ts
-
-      - application/
+          - invoiceRepository.ts
         - services/
-          - billingFacade.ts
-
+          - invoiceService.ts
+      - infrastructure/
+        - persistence/
+          - invoiceAPI.ts
       - presentation/
         - components/
-          - billingInfo.tsx
-        - pages/
-          - billingPage.tsx
+          - BillingProvider.tsx  # High Order Component cho Billing
+        - hooks/
+          - useInvoice.ts
+        - routes/
+          - BillingRouter.tsx
+      - application/
+        - useCases/
+          - generateInvoice.ts
 
     - calendar/
       - domain/
         - entities/
-          - event.ts
-        - use-cases/
-          - createEvent.ts
-          - getEvents.ts
-
-      - infrastructure/
+          - Event.ts
         - repositories/
-          - calendarRepository.ts
-
-      - application/
-        - services/
-          - calendarService.ts
-
+          - eventRepository.ts
+      - infrastructure/
+        - persistence/
+          - calendarAPI.ts
       - presentation/
         - components/
-          - calendarView.tsx
-        - pages/
-          - calendarPage.tsx
+          - CalendarProvider.tsx
+        - hooks/
+          - useCalendar.ts
+        - routes/
+          - CalendarRouter.tsx
+      - application/
+        - useCases/
+          - createEvent.ts
+
+    - qr-scan/
+      - domain/
+        - entities/
+          - QRCode.ts
+        - repositories/
+          - qrCodeRepository.ts
+      - infrastructure/
+        - services/
+          - qrScannerService.ts
+      - presentation/
+        - components/
+          - QRScanner.tsx
+        - hooks/
+          - useQRScanner.ts
+      - application/
+        - useCases/
+          - scanQRCode.ts
+
+    - finance/
+      - domain/
+        - entities/
+          - Transaction.ts
+        - repositories/
+          - transactionRepository.ts
+      - infrastructure/
+        - persistence/
+          - financeAPI.ts
+      - presentation/
+        - components/
+          - FinanceProvider.tsx
+        - hooks/
+          - useFinance.ts
+      - application/
+        - useCases/
+          - calculateBudget.ts
+
+    - tools/
+      - domain/
+        - entities/
+          - Tool.ts
+      - infrastructure/
+        - persistence/
+          - toolAPI.ts
+      - presentation/
+        - components/
+          - ToolList.tsx
+        - hooks/
+          - useTools.ts
+      - application/
+        - useCases/
+          - fetchTools.ts
+
+    - inbox/
+      - domain/
+        - entities/
+          - Message.ts
+        - repositories/
+          - inboxRepository.ts
+      - infrastructure/
+        - persistence/
+          - inboxAPI.ts
+      - presentation/
+        - components/
+          - Inbox.tsx
+        - hooks/
+          - useInbox.ts
+      - application/
+        - useCases/
+          - fetchMessages.ts
 
     - notification-center/
       - domain/
         - entities/
-          - notification.ts
-        - use-cases/
-          - sendNotification.ts
-          - getNotifications.ts
-
-      - infrastructure/
-        - services/
-          - notificationService.ts
+          - Notification.ts
         - repositories/
           - notificationRepository.ts
-
-      - application/
-        - services/
-          - notificationFacade.ts
-
+      - infrastructure/
+        - persistence/
+          - notificationAPI.ts
       - presentation/
         - components/
-          - notificationList.tsx
-        - pages/
-          - notificationPage.tsx
+          - NotificationList.tsx
+        - hooks/
+          - useNotifications.ts
+      - application/
+        - useCases/
+          - sendNotification.ts
 
-    - tools/
-      - qr-scan/
-        - domain/
-          - entities/
-            - qrCode.ts
-          - use-cases/
-            - scanQRCode.ts
-        - infrastructure/
-          - services/
-            - qrScanner.ts
-        - presentation/
-          - components/
-            - qrScannerComponent.tsx
+    - resources/
+      - domain/
+        - entities/
+          - Resource.ts
+      - infrastructure/
+        - persistence/
+          - resourceAPI.ts
+      - presentation/
+        - components/
+          - ResourceList.tsx
+        - hooks/
+          - useResources.ts
+      - application/
+        - useCases/
+          - fetchResources.ts
 
     - progress-photo/
       - domain/
         - entities/
-          - photo.ts
-        - use-cases/
+          - Photo.ts
+        - repositories/
+          - photoRepository.ts
+      - infrastructure/
+        - persistence/
+          - photoAPI.ts
+      - presentation/
+        - components/
+          - ProgressPhoto.tsx
+        - hooks/
+          - useProgressPhoto.ts
+      - application/
+        - useCases/
           - uploadPhoto.ts
-        - infrastructure/
-          - repositories/
-            - photoRepository.ts
-        - presentation/
-          - components/
-            - photoGallery.tsx
 
-  - main.tsx
-  - vite-env.d.ts
+  - main.tsx                  # Điểm bắt đầu ứng dụng
 
-- index.html
-- vite.config.ts
-- tsconfig.app.json
-- tsconfig.json
-- tsconfig.node.json
-- tailwind.config.js
-- package.json
-- yarn.lock
+- index.html                   # Cấu hình trang gốc HTML
+- vite.config.ts               # Cấu hình Vite.js
+- tsconfig.app.json            # Cấu hình TypeScript
+- tsconfig.json                # Cấu hình TypeScript
+- tsconfig.node.json           # Cấu hình TypeScript
+- tailwind.config.js           # Cấu hình Tailwind CSS
+- package.json                 # Quản lý các package và scripts
 ```
 
 ---

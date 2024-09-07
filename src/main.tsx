@@ -1,13 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import RootPage from '#root/core/presentation/pages/root'
+import App from '#core/presentation/components/App'
+import '#core/infrastructure/styles/tailwind.css'
 
 const root = document.getElementById('root')
 
 if (root) {
   createRoot(root).render(
     <StrictMode>
-      <RootPage />
+      <App />
     </StrictMode>
   )
 

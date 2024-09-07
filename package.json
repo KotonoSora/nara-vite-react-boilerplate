@@ -12,11 +12,12 @@
     "build": "tsc -b && vite build",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "preview": "vite preview",
-    "postinstall": "CI=${CI:-false}; if [ \"$CI\" = \"false\" ]; then echo 'Running Yarn SDK setup for local development...'; yarn dlx @yarnpkg/sdks vscode; else echo 'Skipping SDK setup on CI environment'; fi"
+    "postinstall": "bash -c 'CI=${CI:-false}; if [ \"$CI\" = \"false\" ]; then echo \"Running Yarn SDK setup for local development...\"; yarn dlx @yarnpkg/sdks vscode; else echo \"Skipping SDK setup on CI environment\"; fi'"
   },
   "dependencies": {
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-router-dom": "6.26.1"
   },
   "devDependencies": {
     "@eslint/js": "9.9.0",
