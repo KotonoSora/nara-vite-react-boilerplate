@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import RootPage from '#root/core/interfaces/pages/RootPage'
+import RootPage from '#root/core/presentation/pages/root'
 
 const root = document.getElementById('root')
 
@@ -12,10 +12,10 @@ if (root) {
   )
 
   if (import.meta.env.PROD) {
-    import('#root/infrastructure/utils/forceUpgradeVersion.ts')
+    import('#root/core/infrastructure/providers/forceUpgradeVersion')
       .then(module => {
         module.default()
-        console.log('Module imported and function executed successfully.')
+        console.info('Module imported and function executed successfully.')
       })
       .catch(error => {
         console.error('Failed to load the module:', error)

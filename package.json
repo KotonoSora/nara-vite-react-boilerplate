@@ -10,8 +10,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint ./src",
-    "preview": "vite preview"
+    "lint": "eslint './src/**/*.{ts,tsx}'",
+    "preview": "vite preview",
+    "postinstall": "CI=${CI:-false}; if [ \"$CI\" = \"false\" ]; then echo 'Running Yarn SDK setup for local development...'; yarn dlx @yarnpkg/sdks vscode; else echo 'Skipping SDK setup on CI environment'; fi"
   },
   "dependencies": {
     "react": "18.3.1",

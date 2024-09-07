@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import reactLogo from '#root/assets/react.svg'
+import reactLogo from '#assets/icons/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
 import './index.css'
+import './styles.css'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <div className='flex flex-row content-center justify-center'>
+      <div>
         <a
           href='https://vitejs.dev'
           target='_blank'

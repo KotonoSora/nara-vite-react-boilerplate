@@ -10,6 +10,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '#root': resolve(__dirname, 'src'),
+      '#assets': resolve(__dirname, 'src/assets'),
+      '#core': resolve(__dirname, 'src/core'),
+      '#features': resolve(__dirname, 'src/features'),
       '#plugins': resolve(__dirname, 'plugins'),
     },
   },
