@@ -9,7 +9,7 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <Navigate
-        to='/app'
+        to='/home'
         replace
       />
     ),
