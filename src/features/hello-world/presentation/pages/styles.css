@@ -1,8 +1,10 @@
-#root {
+#hello-world-root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+
+  @apply fixed inset-0 flex flex-col items-center justify-center;
 }
 
 .logo {

@@ -1,7 +1,16 @@
 {
   "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
+  "compilerOptions": {
+    /* Path Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "#root/*": ["src/*"],
+      "#assets/*": ["src/assets/*"],
+      "#core/*": ["src/core/*"],
+      "#features/*": ["src/features/*"],
+      "#shadcn-ui/*": ["src/core/infrastructure/shadcn-ui/*"],
+      "#plugins/*": ["plugins/*"]
+    }
+  }
 }

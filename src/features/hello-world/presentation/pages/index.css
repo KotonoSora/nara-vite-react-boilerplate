@@ -1,4 +1,4 @@
-:root {
+#hello-world-root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -55,7 +55,7 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
+  #hello-world-root {
     color: #213547;
     background-color: #ffffff;
   }

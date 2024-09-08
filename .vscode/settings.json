@@ -10,5 +10,6 @@
   "prettier.configPath": "prettier.config.mjs",
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "cSpell.words": ["shadcn", "tailwindcss"]
 }

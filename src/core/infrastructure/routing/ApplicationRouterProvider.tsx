@@ -1,8 +1,4 @@
-import { FC, lazy } from 'react'
 import { createBrowserRouter, Navigate, RouterProvider as RRProvider } from 'react-router-dom'
-
-const HelloWorld = lazy<FC>(() => import('#root/features/hello-world/presentation/pages'))
-const NotFoundPage = lazy<FC>(() => import('#core/presentation/pages/NotFoundPage'))
 
 const router = createBrowserRouter([
   {
@@ -16,17 +12,24 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <HelloWorld />,
-    children: [
-      {
-        path: 'hello-world',
-        element: <HelloWorld />,
-      },
-    ],
+    lazy: async () => {
+      const module = await import('#core/presentation/pages/HomePage')
+      return { Component: module.default }
+    },
+  },
+  {
+    path: '/hello-world',
+    lazy: async () => {
+      const module = await import('#root/features/hello-world/presentation/pages/HelloWorldPage')
+      return { Component: module.default }
+    },
   },
   {
     path: '*',
-    element: <NotFoundPage />,
+    lazy: async () => {
+      const module = await import('#core/presentation/pages/NotFoundPage')
+      return { Component: module.default }
+    },
   },
 ])
 

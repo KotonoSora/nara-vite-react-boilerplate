@@ -8,8 +8,8 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
+    <div id='hello-world-root'>
+      <div className='flex flex-row'>
         <a
           href='https://vitejs.dev'
           target='_blank'
@@ -39,7 +39,7 @@ function App() {
         </p>
       </div>
       <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
-    </>
+    </div>
   )
 }
 

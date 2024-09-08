@@ -13,6 +13,7 @@ export default defineConfig({
       '#assets': resolve(__dirname, 'src/assets'),
       '#core': resolve(__dirname, 'src/core'),
       '#features': resolve(__dirname, 'src/features'),
+      '#shadcn-ui': resolve(__dirname, 'src/core/infrastructure/shadcn-ui'),
       '#plugins': resolve(__dirname, 'plugins'),
     },
   },
