@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 import reactLogo from '#assets/icons/react.svg'
 import viteLogo from '/vite.svg'
 import './index.css'
@@ -9,6 +10,9 @@ function App() {
 
   return (
     <div id='hello-world-root'>
+      <Helmet>
+        <title>Hello World Page</title>
+      </Helmet>
       <div className='flex flex-row'>
         <a
           href='https://vitejs.dev'

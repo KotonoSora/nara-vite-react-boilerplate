@@ -1,11 +1,14 @@
 import { FC, Suspense } from 'react'
+import { HelmetProvider } from 'react-helmet-async'
 import { RouterProvider } from '#core/infrastructure/routing/ApplicationRouterProvider'
 import { FullScreenSpinner } from '#core/presentation/components/Loading'
 
 const App: FC = () => {
   return (
     <Suspense fallback={<FullScreenSpinner />}>
-      <RouterProvider />
+      <HelmetProvider>
+        <RouterProvider />
+      </HelmetProvider>
     </Suspense>
   )
 }
