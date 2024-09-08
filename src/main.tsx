@@ -13,7 +13,7 @@ if (root) {
   )
 
   if (import.meta.env.PROD) {
-    import('#root/core/infrastructure/providers/forceUpgradeVersion')
+    import('#core/infrastructure/providers/forceUpgradeVersion')
       .then(module => {
         module.default()
         console.info('Module imported and function executed successfully.')
