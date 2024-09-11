@@ -36,12 +36,21 @@
         - billingService.ts
 
     - infrastructure/
+      - providers/
+        - forceUpgradeVersion.ts
       - routing/
-        - RouterProvider.tsx  # Quản lý điều hướng sử dụng react-router-dom và React.lazy
+        - ApplicationRouterProvider.tsx  # Quản lý điều hướng sử dụng react-router-dom và React.lazy
       - persistence/
         - database.ts         # Cấu hình database hoặc các persistent storage
-      - styles/
-        - tailwind.css        # Các import của TailwindCSS
+      - shadcn-ui/
+        - app/
+          - ui/
+        - components/
+        - lib/
+          - utils.ts
+        - hooks/
+      - tailwind/
+        - global.css        # Các import của TailwindCSS
 
     - presentation/
       - components/
@@ -253,8 +262,62 @@
 
   - main.tsx                  # Điểm bắt đầu ứng dụng
 
+- tests/                      # Thư mục chứa tất cả các file kiểm thử
+  - unit/                     # Kiểm thử đơn vị
+    - core/
+      - domain/
+        - entities/
+          - UserEntity.test.ts
+          - BillingEntity.test.ts
+        - valueObjects/
+          - EmailValueObject.test.ts
+          - MoneyValueObject.test.ts
+        - services/
+          - AuthService.test.ts
+          - BillingService.test.ts
+
+    - features/
+      - auth/
+        - domain/
+          - AuthToken.test.ts
+        - application/
+          - useCases/
+            - loginUser.test.ts
+        - infrastructure/
+          - persistence/
+            - authLocalStorage.test.ts
+        - presentation/
+          - components/
+            - AuthProvider.test.ts
+          - hooks/
+            - useAuthContext.test.ts
+      - billing/
+        - application/
+          - useCases/
+            - generateInvoice.test.ts
+
+  - integration/                # Kiểm thử tích hợp
+    - core/
+      - domain/
+        - services/
+          - AuthServiceIntegration.test.ts
+          - BillingServiceIntegration.test.ts
+      - infrastructure/
+        - persistence/
+          - databaseIntegration.test.ts
+
+  - e2e/                       # Kiểm thử đầu cuối
+    - auth/
+      - loginE2E.test.ts
+    - billing/
+      - generateInvoiceE2E.test.ts
+
+  - vitestGlobalSetup.ts       # Cấu hình thiết lập cho Vitest
+
 - index.html                   # Cấu hình trang gốc HTML
 - vite.config.ts               # Cấu hình Vite.js
+- vitest.config.ts             # Cấu hình Vitest
+- playwright.config.ts         # Cấu hình Playwright
 - tsconfig.app.json            # Cấu hình TypeScript
 - tsconfig.json                # Cấu hình TypeScript
 - tsconfig.node.json           # Cấu hình TypeScript

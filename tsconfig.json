@@ -10,7 +10,8 @@
       "#core/*": ["src/core/*"],
       "#features/*": ["src/features/*"],
       "#shadcn-ui/*": ["src/core/infrastructure/shadcn-ui/*"],
-      "#plugins/*": ["plugins/*"]
+      "#plugins/*": ["plugins/*"],
+      "#tests/*": ["tests/*"]
     }
   }
 }
