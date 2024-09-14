@@ -3,7 +3,7 @@ import { FC } from 'react'
 export const FullScreenSpinner: FC = () => (
   <div
     className='fixed inset-0 flex items-center justify-center bg-gray-100 z-50'
-    role='status'
+    data-testid='fullscreen-wrapper'
     aria-label='Loading...'
   >
     <div

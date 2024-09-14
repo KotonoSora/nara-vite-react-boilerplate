@@ -42,7 +42,6 @@ const HomePage: FC = () => {
       >
         <Link
           to='/link'
-          role='button'
           aria-label='Link Button'
         >
           Link
@@ -75,7 +74,6 @@ const HomePage: FC = () => {
       >
         <Link
           to='/hello-world'
-          role='button'
           aria-label='Hello World Button'
         >
           Hello World Page

@@ -15,7 +15,6 @@ const NotFoundPage: FC = () => {
 
       <h1
         className='text-6xl font-bold text-gray-800'
-        role='heading'
         aria-level={1}
         data-testid='not-found-heading'
       >
@@ -23,7 +22,6 @@ const NotFoundPage: FC = () => {
       </h1>
       <h2
         className='text-2xl font-semibold text-gray-700 mt-4'
-        role='heading'
         aria-level={2}
         data-testid='not-found-subheading'
       >

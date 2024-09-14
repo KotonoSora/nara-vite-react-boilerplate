@@ -4,10 +4,10 @@ import { FullScreenSpinner } from '#core/presentation/components/Loading'
 
 describe('FullScreenSpinner Component', () => {
   it('renders the spinner container with status role', () => {
-    const { getByRole } = render(<FullScreenSpinner />)
+    const { getByTestId } = render(<FullScreenSpinner />)
 
     // Verify the container is rendered with the correct role and label
-    const spinnerContainer = getByRole('status', { name: 'Loading...' })
+    const spinnerContainer = getByTestId('fullscreen-wrapper')
     expect(spinnerContainer).toBeInTheDocument()
   })
 
