@@ -6,21 +6,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import NotFoundPage from '#core/presentation/pages/NotFoundPage'
 
 describe('NotFoundPage Component', () => {
-  it('renders the correct content', () => {
-    const { getByText } = render(
-      <HelmetProvider>
-        <MemoryRouter>
-          <NotFoundPage />
-        </MemoryRouter>
-      </HelmetProvider>
-    )
-
-    expect(getByText('404')).toBeInTheDocument()
-    expect(getByText('Page Not Found')).toBeInTheDocument()
-    expect(getByText('Sorry, the page you are looking for does not exist.')).toBeInTheDocument()
-  })
-
-  it('has the correct title in Helmet', async () => {
+  it('renders the page title correctly', async () => {
     render(
       <HelmetProvider>
         <MemoryRouter>
@@ -29,14 +15,14 @@ describe('NotFoundPage Component', () => {
       </HelmetProvider>
     )
 
-    // Wait for the document title to be updated
+    // Test that Helmet sets the correct page title
     await waitFor(() => {
       expect(document.title).toBe('Not Found Page')
     })
   })
 
-  it('renders the Go Back Home button with a link to /home', () => {
-    const { getByRole } = render(
+  it('renders the correct headings, message, and button', () => {
+    const { getByTestId } = render(
       <HelmetProvider>
         <MemoryRouter>
           <NotFoundPage />
@@ -44,9 +30,24 @@ describe('NotFoundPage Component', () => {
       </HelmetProvider>
     )
 
-    // Find the button by its role
-    const buttonElement = getByRole('link', { name: /go back home/i })
-    expect(buttonElement).toBeInTheDocument()
-    expect(buttonElement).toHaveAttribute('href', '/home')
+    // Verify the 404 heading is rendered
+    expect(getByTestId('not-found-heading')).toBeInTheDocument()
+    expect(getByTestId('not-found-heading')).toHaveTextContent('404')
+
+    // Verify the subheading is rendered
+    expect(getByTestId('not-found-subheading')).toBeInTheDocument()
+    expect(getByTestId('not-found-subheading')).toHaveTextContent('Page Not Found')
+
+    // Verify the message is rendered
+    expect(getByTestId('not-found-message')).toBeInTheDocument()
+    expect(getByTestId('not-found-message')).toHaveTextContent('Sorry, the page you are looking for does not exist.')
+
+    // Verify the Go Back Home button is rendered
+    expect(getByTestId('go-back-link')).toBeInTheDocument()
+
+    // Verify the link inside the button
+    const linkElement = getByTestId('go-back-link')
+    expect(linkElement).toHaveAttribute('href', '/home')
+    expect(linkElement).toHaveTextContent('Go Back Home')
   })
 })

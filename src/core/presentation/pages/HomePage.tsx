@@ -10,35 +10,76 @@ const HomePage: FC = () => {
       <Helmet>
         <title>Home Page</title>
       </Helmet>
-      <Button>Button</Button>
-      <Button variant='secondary'>Secondary</Button>
-      <Button variant='destructive'>Destructive</Button>
-      <Button variant='outline'>Outline</Button>
-      <Button variant='ghost'>Ghost</Button>
+      <Button data-testid='primary-button'>Button</Button>
       <Button
-        variant='link'
-        asChild
+        data-testid='secondary-button'
+        variant='secondary'
       >
-        <Link to='/link'>Link</Link>
+        Secondary
+      </Button>
+      <Button
+        data-testid='destructive-button'
+        variant='destructive'
+      >
+        Destructive
+      </Button>
+      <Button
+        data-testid='outline-button'
+        variant='outline'
+      >
+        Outline
+      </Button>
+      <Button
+        data-testid='ghost-button'
+        variant='ghost'
+      >
+        Ghost
+      </Button>
+      <Button
+        asChild
+        variant='link'
+        data-testid='link-button'
+      >
+        <Link
+          to='/link'
+          role='button'
+          aria-label='Link Button'
+        >
+          Link
+        </Link>
       </Button>
       <Button
         variant='outline'
         size='icon'
+        aria-label='Chevron Button'
+        data-testid='chevron-button'
       >
         <ChevronRightIcon className='h-4 w-4 flex-shrink-0' />
       </Button>
-      <Button>
+      <Button data-testid='login-button'>
         <EnvelopeOpenIcon className='mr-2 h-4 w-4' /> Login with Email
       </Button>
-      <Button disabled>
+
+      <Button
+        disabled
+        data-testid='loading-button'
+        aria-label='Please Wait'
+      >
         <ReloadIcon className='mr-2 h-4 w-4 animate-spin flex-shrink-0' />
         Please wait
       </Button>
       <Button
         asChild
         variant='link'
+        data-testid='hello-world-button'
       >
-        <Link to='/hello-world'>Hello World Page</Link>
+        <Link
+          to='/hello-world'
+          role='button'
+          aria-label='Hello World Button'
+        >
+          Hello World Page
+        </Link>
       </Button>
     </div>
   )

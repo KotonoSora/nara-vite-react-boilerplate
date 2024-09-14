@@ -25,6 +25,13 @@ const router = createBrowserRouter([
     },
   },
   {
+    path: '/fullscreen-spinner',
+    lazy: async () => {
+      const module = await import('#core/presentation/components/Loading')
+      return { Component: module.FullScreenSpinner }
+    },
+  },
+  {
     path: '*',
     lazy: async () => {
       const module = await import('#core/presentation/pages/NotFoundPage')
