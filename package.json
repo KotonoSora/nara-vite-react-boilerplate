@@ -12,7 +12,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "preview": "vite preview",
-    "postinstall": "bash -c 'CI=${CI:-false}; if [ \"$CI\" = \"false\" ]; then echo \"Running Yarn SDK setup for local development...\"; yarn dlx @yarnpkg/sdks vscode; else echo \"Skipping SDK setup on CI environment\"; fi'"
+    "postinstall": "bash -c 'CI=${CI:-false}; if [ \"$CI\" = \"false\" ]; then echo \"Running Yarn SDK setup for local development...\"; yarn dlx @yarnpkg/sdks vscode; else echo \"Skipping SDK setup on CI environment\"; fi'",
+    "test:dev": "vitest dev",
+    "test:run": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "react": "18.3.1",
@@ -30,6 +34,7 @@
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@vitejs/plugin-react-swc": "3.5.0",
+    "@vitest/coverage-v8": "2.0.5",
     "autoprefixer": "10.4.20",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
