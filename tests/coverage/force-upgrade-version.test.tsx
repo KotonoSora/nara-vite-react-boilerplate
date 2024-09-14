@@ -177,4 +177,28 @@ describe('forceUpgradeVersion', () => {
 
     expect(newWorker.postMessage).not.toHaveBeenCalled()
   })
+
+  // Add this test case to your forceUpgradeVersion.test.ts
+
+  it('should return early when newWorker is falsy', async () => {
+    const registration = {
+      installing: null, // newWorker will be null
+      addEventListener: vi.fn((event: string, callback: () => void) => {
+        if (event === 'updatefound') {
+          callback() // Simulate updatefound event
+        }
+      }),
+    }
+
+    navigator.serviceWorker.register = vi.fn().mockResolvedValue(registration)
+
+    forceUpgradeVersion()
+
+    await Promise.resolve()
+
+    // Since newWorker is falsy, confirm should not be called
+    expect(confirm).not.toHaveBeenCalled()
+    // Ensure that newWorker's event listener was not added
+    expect(registration.installing).toBeNull()
+  })
 })
