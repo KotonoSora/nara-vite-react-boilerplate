@@ -21,7 +21,14 @@ const router = createBrowserRouter([
   {
     path: '/hello-world',
     lazy: async () => {
-      const module = await import('#root/features/hello-world/presentation/pages/HelloWorldPage')
+      const module = await import('#features/hello-world/presentation/pages/HelloWorldPage')
+      return { Component: module.default }
+    },
+  },
+  {
+    path: '/highlight',
+    lazy: async () => {
+      const module = await import('#features/highlight/presentation/pages/App')
       return { Component: module.default }
     },
   },

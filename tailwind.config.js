@@ -68,6 +68,10 @@ export default {
         'spin': {
           '100%': { transform: 'rotate(1turn)' },
         },
+        'ping-slow-extended': {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '100%': { transform: 'scale(4)', opacity: '0' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -75,6 +79,11 @@ export default {
         'spin': 'spin 1s linear infinite',
         'spin-slow': 'spin 2s linear infinite',
         'spin-slower': 'spin 3s linear infinite',
+        'ping-slower-extended': 'ping-slow-extended 3s cubic-bezier(0, 0, 0.2, 1) infinite',
+      },
+      transitionDelay: {
+        1000: '1000ms',
+        2000: '2000ms',
       },
     },
   },

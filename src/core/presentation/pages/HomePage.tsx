@@ -79,6 +79,18 @@ const HomePage: FC = () => {
           Hello World Page
         </Link>
       </Button>
+      <Button
+        asChild
+        variant='link'
+        data-testid='highlight-button'
+      >
+        <Link
+          to='/highlight'
+          aria-label='highlight Button'
+        >
+          Highlight Page
+        </Link>
+      </Button>
     </div>
   )
 }
