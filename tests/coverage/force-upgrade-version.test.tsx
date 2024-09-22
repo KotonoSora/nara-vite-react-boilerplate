@@ -1,5 +1,5 @@
 // forceUpgradeVersion.test.ts
-import forceUpgradeVersion from '#core/infrastructure/providers/forceUpgradeVersion'
+import { forceUpgradeVersion } from '#root/core/infrastructure/providers/force-upgrade-version'
 import type { Mock } from 'vitest'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 

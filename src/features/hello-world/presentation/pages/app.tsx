@@ -5,7 +5,7 @@ import './index.css'
 import './styles.css'
 import viteLogo from '/vite.svg'
 
-function App() {
+export function App() {
   const [count, setCount] = useState(0)
 
   return (
@@ -69,5 +69,3 @@ function App() {
     </div>
   )
 }
-
-export default App

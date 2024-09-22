@@ -1,4 +1,4 @@
-import { FullScreenSpinner } from '#core/presentation/components/Loading'
+import { FullScreenSpinner } from '#root/core/presentation/components/loading'
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 

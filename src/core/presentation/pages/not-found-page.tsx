@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 
-const NotFoundPage: FC = () => {
+export const NotFoundPage: FC = () => {
   return (
     <div
       className='fixed inset-0 bg-gray-100 flex flex-col justify-center items-center'
@@ -44,5 +44,3 @@ const NotFoundPage: FC = () => {
     </div>
   )
 }
-
-export default NotFoundPage

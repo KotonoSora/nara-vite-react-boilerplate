@@ -1,4 +1,4 @@
-import App from '#features/hello-world/presentation/pages/HelloWorldPage'
+import { App } from '#root/features/hello-world/presentation/pages/app'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { HelmetProvider } from 'react-helmet-async'
 import { MemoryRouter } from 'react-router-dom'

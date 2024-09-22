@@ -6,7 +6,7 @@ export default mergeConfig(
   defineConfig({
     test: {
       environment: 'jsdom',
-      setupFiles: './tests/vitestGlobalSetup.ts',
+      setupFiles: './tests/vitest-global-setup.ts',
       globals: true,
       coverage: {
         enabled: true,

@@ -1,4 +1,4 @@
-import { FullScreenSpinner } from '#core/presentation/components/Loading'
+import { FullScreenSpinner } from '#root/core/presentation/components/loading'
 import { createBrowserRouter, Navigate, RouterProvider as RRProvider } from 'react-router-dom'
 
 const router = createBrowserRouter([
@@ -14,22 +14,22 @@ const router = createBrowserRouter([
   {
     path: '/home',
     lazy: async () => {
-      const module = await import('#core/presentation/pages/HomePage')
-      return { Component: module.default }
+      const module = await import('#root/core/presentation/pages/home-page')
+      return { Component: module.HomePage }
     },
   },
   {
     path: '/hello-world',
     lazy: async () => {
-      const module = await import('#features/hello-world/presentation/pages/HelloWorldPage')
-      return { Component: module.default }
+      const module = await import('#root/features/hello-world/presentation/pages/app')
+      return { Component: module.App }
     },
   },
   {
     path: '/highlight',
     lazy: async () => {
-      const module = await import('#features/highlight/presentation/pages/App')
-      return { Component: module.default }
+      const module = await import('#features/highlight/presentation/pages/app')
+      return { Component: module.HighlightSquare }
     },
   },
   {
@@ -39,8 +39,8 @@ const router = createBrowserRouter([
   {
     path: '*',
     lazy: async () => {
-      const module = await import('#core/presentation/pages/NotFoundPage')
-      return { Component: module.default }
+      const module = await import('#root/core/presentation/pages/not-found-page')
+      return { Component: module.NotFoundPage }
     },
   },
 ])

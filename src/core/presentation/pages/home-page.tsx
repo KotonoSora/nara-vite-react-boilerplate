@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 
-const HomePage: FC = () => {
+export const HomePage: FC = () => {
   return (
     <div className='fixed inset-0 flex flex-col flex-wrap gap-2 items-center justify-center'>
       <Helmet>
@@ -94,5 +94,3 @@ const HomePage: FC = () => {
     </div>
   )
 }
-
-export default HomePage

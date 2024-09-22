@@ -1,6 +1,6 @@
 import React from 'react'
 
-const HighlightSquare: React.FC = () => {
+export const HighlightSquare: React.FC = () => {
   return (
     <div className='fixed inset-0 flex flex-col flex-wrap gap-2 items-center justify-center'>
       <div className='relative w-[5px] h-[5px]'>
@@ -12,5 +12,3 @@ const HighlightSquare: React.FC = () => {
     </div>
   )
 }
-
-export default HighlightSquare

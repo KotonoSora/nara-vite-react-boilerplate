@@ -1,4 +1,4 @@
-import NotFoundPage from '#core/presentation/pages/NotFoundPage'
+import { NotFoundPage } from '#root/core/presentation/pages/not-found-page'
 import '@testing-library/jest-dom'
 import { render, waitFor } from '@testing-library/react'
 import { HelmetProvider } from 'react-helmet-async'

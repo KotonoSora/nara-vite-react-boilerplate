@@ -1,4 +1,4 @@
-import HomePage from '#core/presentation/pages/HomePage'
+import { HomePage } from '#root/core/presentation/pages/home-page'
 import { render, waitFor } from '@testing-library/react'
 import { HelmetProvider } from 'react-helmet-async'
 import { MemoryRouter } from 'react-router-dom'
