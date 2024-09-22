@@ -1,5 +1,5 @@
-import { RouterProvider } from '#root/core/infrastructure/routing/application-router-provider'
-import { FullScreenSpinner } from '#root/core/presentation/components/loading'
+import { RouterProvider } from '#core/infrastructure/routing/application-router-provider'
+import { FullScreenSpinner } from '#core/presentation/components/loading'
 import { FC, Suspense } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 
