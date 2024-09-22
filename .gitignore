@@ -34,16 +34,17 @@ dist-ssr
 !.yarn/versions
 
 # Storybook
-*storybook.log
-storybook-static
+/*storybook.log
+/storybook-static
 
 # SonarQube
-.scannerwork
-sonar-project.properties
+/.sonar
+/.scannerwork
+/sonar-project.properties
 
 # Vitest
-coverage
+/coverage/
 
 # Other
-.npmrc
-.yarnrc.yml
+/.npmrc
+/.yarnrc.yml

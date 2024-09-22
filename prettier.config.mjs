@@ -1,5 +1,7 @@
 import { options as tailwindPluginOptions } from 'prettier-plugin-tailwindcss'
+import organizeImports from 'prettier-plugin-organize-imports'
 
+/** @type {import('prettier').Config} */
 export default {
   printWidth: 120,
   tabWidth: 2,
@@ -16,5 +18,5 @@ export default {
   htmlWhitespaceSensitivity: 'strict',
   endOfLine: 'auto',
   singleAttributePerLine: true,
-  plugins: [tailwindPluginOptions],
+  plugins: [tailwindPluginOptions, organizeImports],
 }

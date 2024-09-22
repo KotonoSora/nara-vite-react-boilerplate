@@ -1,7 +1,7 @@
+import '#core/infrastructure/tailwindcss/global.css'
+import { App } from '#root/core/presentation/components/main-app'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from '#core/presentation/components/App'
-import '#core/infrastructure/tailwindcss/global.css'
 
 const root = document.getElementById('root')
 
@@ -13,9 +13,9 @@ if (root) {
   )
 
   if (import.meta.env.PROD) {
-    import('#core/infrastructure/providers/forceUpgradeVersion')
+    import('#root/core/infrastructure/providers/force-upgrade-version')
       .then(module => {
-        module.default()
+        module.forceUpgradeVersion()
         console.info('Module imported and function executed successfully.')
       })
       .catch(error => {

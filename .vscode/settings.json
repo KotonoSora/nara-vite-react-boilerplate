@@ -12,7 +12,12 @@
     "*.css": "tailwindcss"
   },
   "cSpell.words": [
+    "clsx",
+    "cssnano",
+    "kotonosora",
     "shadcn",
-    "tailwindcss"
+    "sonarqube",
+    "tailwindcss",
+    "testid"
   ]
 }

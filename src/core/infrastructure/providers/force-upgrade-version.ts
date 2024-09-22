@@ -1,4 +1,4 @@
-export default function forceUpgradeVersion() {
+export function forceUpgradeVersion() {
   // Force update latest version
   if (import.meta.env.PROD && 'serviceWorker' in navigator) {
     let refreshing: boolean = false
