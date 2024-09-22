@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest'
-import { render, waitFor } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async'
 import HomePage from '#core/presentation/pages/HomePage'
+import { render, waitFor } from '@testing-library/react'
+import { HelmetProvider } from 'react-helmet-async'
+import { MemoryRouter } from 'react-router-dom'
+import { describe, expect, it } from 'vitest'
 
 describe('HomePage Component', () => {
   it('renders the page title correctly', async () => {

@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
-import { render } from '@testing-library/react'
 import { FullScreenSpinner } from '#core/presentation/components/Loading'
+import { render } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
 
 describe('FullScreenSpinner Component', () => {
   it('renders the spinner container with status role', () => {

@@ -56,6 +56,7 @@ const RAW_RUNTIME_STATE =
           ["postcss-import", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:16.1.0"],\
           ["postcss-preset-env", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:10.0.2"],\
           ["prettier", "npm:3.3.3"],\
+          ["prettier-plugin-organize-imports", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:4.1.0"],\
           ["prettier-plugin-tailwindcss", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:0.6.6"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:18.3.1"],\
@@ -3921,6 +3922,7 @@ const RAW_RUNTIME_STATE =
           ["postcss-import", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:16.1.0"],\
           ["postcss-preset-env", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:10.0.2"],\
           ["prettier", "npm:3.3.3"],\
+          ["prettier-plugin-organize-imports", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:4.1.0"],\
           ["prettier-plugin-tailwindcss", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:0.6.6"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:18.3.1"],\
@@ -10740,6 +10742,36 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["prettier-plugin-organize-imports", [\
+      ["npm:4.1.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/prettier-plugin-organize-imports-npm-4.1.0-49b8116ea7-10c0.zip/node_modules/prettier-plugin-organize-imports/",\
+        "packageDependencies": [\
+          ["prettier-plugin-organize-imports", "npm:4.1.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:4.1.0", {\
+        "packageLocation": "./.yarn/__virtual__/prettier-plugin-organize-imports-virtual-8ff257809f/4/.yarn/berry/cache/prettier-plugin-organize-imports-npm-4.1.0-49b8116ea7-10c0.zip/node_modules/prettier-plugin-organize-imports/",\
+        "packageDependencies": [\
+          ["prettier-plugin-organize-imports", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:4.1.0"],\
+          ["@types/prettier", null],\
+          ["@types/typescript", null],\
+          ["@types/vue-tsc", null],\
+          ["prettier", "npm:3.3.3"],\
+          ["typescript", "patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=379a07"],\
+          ["vue-tsc", null]\
+        ],\
+        "packagePeers": [\
+          "@types/prettier",\
+          "@types/typescript",\
+          "@types/vue-tsc",\
+          "prettier",\
+          "typescript",\
+          "vue-tsc"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["prettier-plugin-tailwindcss", [\
       ["npm:0.6.6", {\
         "packageLocation": "../../../.yarn/berry/cache/prettier-plugin-tailwindcss-npm-0.6.6-58b0e5c1f3-10c0.zip/node_modules/prettier-plugin-tailwindcss/",\
@@ -10782,7 +10814,7 @@ const RAW_RUNTIME_STATE =
           ["prettier-plugin-marko", null],\
           ["prettier-plugin-multiline-arrays", null],\
           ["prettier-plugin-organize-attributes", null],\
-          ["prettier-plugin-organize-imports", null],\
+          ["prettier-plugin-organize-imports", "virtual:3f6c16c7f4d307f678465359bae829184fe0c1cabc7d3a5817a301cb3308695a3411ce171f868b61657845f07cbc3ef795c70db51cfc367331443d64a33468b2#npm:4.1.0"],\
           ["prettier-plugin-sort-imports", null],\
           ["prettier-plugin-style-order", null],\
           ["prettier-plugin-svelte", null]\

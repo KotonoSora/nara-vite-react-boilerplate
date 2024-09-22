@@ -1,9 +1,9 @@
+import reactLogo from '#assets/icons/react.svg'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import reactLogo from '#assets/icons/react.svg'
-import viteLogo from '/vite.svg'
 import './index.css'
 import './styles.css'
+import viteLogo from '/vite.svg'
 
 function App() {
   const [count, setCount] = useState(0)

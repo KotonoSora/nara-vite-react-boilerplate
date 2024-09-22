@@ -1,9 +1,9 @@
-import { describe, it, expect } from 'vitest'
-import { render, waitFor } from '@testing-library/react'
-import '@testing-library/jest-dom'
-import { MemoryRouter } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async'
 import NotFoundPage from '#core/presentation/pages/NotFoundPage'
+import '@testing-library/jest-dom'
+import { render, waitFor } from '@testing-library/react'
+import { HelmetProvider } from 'react-helmet-async'
+import { MemoryRouter } from 'react-router-dom'
+import { describe, expect, it } from 'vitest'
 
 describe('NotFoundPage Component', () => {
   it('renders the page title correctly', async () => {
