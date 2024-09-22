@@ -42,6 +42,7 @@
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
     "cssnano": "7.0.5",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "9.9.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-react-hooks": "5.1.0-rc.0",
@@ -68,5 +69,10 @@
   "packageManager": "yarn@4.4.1",
   "engines": {
     "node": "20.17.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
