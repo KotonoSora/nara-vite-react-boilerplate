@@ -1,7 +1,9 @@
 import '#core/infrastructure/tailwindcss/global.css'
-import { App } from '#core/presentation/components/main-app'
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+
+import { App } from '#core/presentation/components/main-app'
 
 const root = document.getElementById('root')
 

@@ -1,8 +1,9 @@
-import { Button } from '#shadcn-ui/app/ui/button'
 import { ChevronRightIcon, EnvelopeOpenIcon, ReloadIcon } from '@radix-ui/react-icons'
 import { FC } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
+
+import { Button } from '#shadcn-ui/app/ui/button'
 
 export const HomePage: FC = () => {
   return (
