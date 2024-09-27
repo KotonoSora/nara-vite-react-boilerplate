@@ -48,3 +48,8 @@ dist-ssr
 # Other
 /.npmrc
 /.yarnrc.yml
+/package-lock.json
+/yarn.lock
+/bun.lockb
+
+

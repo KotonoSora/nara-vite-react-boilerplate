@@ -12,7 +12,6 @@
     "build": "tsc -b && vite build",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "preview": "vite preview",
-    "postinstall": "bash -c 'CI=${CI:-false}; if [ \"$CI\" = \"false\" ]; then echo \"Running Yarn SDK setup for local development...\"; yarn dlx @yarnpkg/sdks vscode; else echo \"Skipping SDK setup on CI environment\"; fi'",
     "test:dev": "vitest dev",
     "test:run": "vitest run",
     "test:watch": "vitest watch",
@@ -65,7 +64,6 @@
     "vite-plugin-pwa": "0.20.2",
     "vitest": "2.0.5"
   },
-  "packageManager": "yarn@4.5.0",
   "engines": {
     "node": "20.17.0"
   }
