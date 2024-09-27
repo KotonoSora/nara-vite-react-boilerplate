@@ -23,25 +23,25 @@
   - core/
     - domain/
       - entities/
-        - User.ts
-        - Billing.ts
-      - valueObjects/
-        - Email.ts
-        - Money.ts
+        - user.ts
+        - billing.ts
+      - value-objects/
+        - email.ts
+        - money.ts
       - repositories/
-        - userRepository.ts
-        - billingRepository.ts
+        - user-repository.ts
+        - billing-repository.ts
       - services/
-        - authService.ts
-        - billingService.ts
+        - auth-service.ts
+        - billing-service.ts
 
     - infrastructure/
       - providers/
-        - forceUpgradeVersion.ts
+        - force-upgrade-version.ts
       - routing/
-        - ApplicationRouterProvider.tsx  # Quản lý điều hướng sử dụng react-router-dom và React.lazy
+        - application-router-provider.tsx
       - persistence/
-        - database.ts         # Cấu hình database hoặc các persistent storage
+        - database.ts
       - shadcn-ui/
         - app/
           - ui/
@@ -50,279 +50,279 @@
           - utils.ts
         - hooks/
       - tailwind/
-        - global.css        # Các import của TailwindCSS
+        - global.css
 
     - presentation/
       - components/
-        - App.tsx             # Thành phần gốc của ứng dụng
-        - Layout.tsx          # Layout chính của ứng dụng
-        - Header.tsx
-        - Footer.tsx
+        - app.tsx
+        - layout.tsx
+        - header.tsx
+        - footer.tsx
       - hooks/
-        - useAuth.ts
-        - useBilling.ts
+        - use-auth.ts
+        - use-billing.ts
       - routes/
-        - AppRoutes.tsx       # Định nghĩa các route không phụ thuộc vào react-router-dom (nội dung logic route)
+        - app-routes.tsx
       - pages/
-        - HomePage.tsx
-        - LoginPage.tsx
-        - DashboardPage.tsx
+        - home-page.tsx
+        - login-page.tsx
+        - dashboard-page.tsx
 
     - application/
-      - useCases/
-        - loginUser.ts        # Use case đăng nhập người dùng
-        - generateBilling.ts  # Use case tạo hóa đơn
+      - use-cases/
+        - login-user.ts
+        - generate-billing.ts
 
   - features/
     - auth/
       - domain/
         - entities/
-          - AuthToken.ts
+          - auth-token.ts
         - repositories/
-          - authRepository.ts
+          - auth-repository.ts
         - services/
-          - authService.ts
+          - auth-service.ts
       - infrastructure/
         - persistence/
-          - authLocalStorage.ts
+          - auth-local-storage.ts
       - presentation/
         - components/
-          - AuthProvider.tsx  # High Order Component (HOC) cho Auth
+          - auth-provider.tsx
         - hooks/
-          - useAuthContext.ts
+          - use-auth-context.ts
         - routes/
-          - AuthRouter.tsx
+          - auth-router.tsx
       - application/
-        - useCases/
+        - use-cases/
           - login.ts
 
     - billing/
       - domain/
         - entities/
-          - Invoice.ts
+          - invoice.ts
         - repositories/
-          - invoiceRepository.ts
+          - invoice-repository.ts
         - services/
-          - invoiceService.ts
+          - invoice-service.ts
       - infrastructure/
         - persistence/
-          - invoiceAPI.ts
+          - invoice-api.ts
       - presentation/
         - components/
-          - BillingProvider.tsx  # High Order Component cho Billing
+          - billing-provider.tsx
         - hooks/
-          - useInvoice.ts
+          - use-invoice.ts
         - routes/
-          - BillingRouter.tsx
+          - billing-router.tsx
       - application/
-        - useCases/
-          - generateInvoice.ts
+        - use-cases/
+          - generate-invoice.ts
 
     - calendar/
       - domain/
         - entities/
-          - Event.ts
+          - event.ts
         - repositories/
-          - eventRepository.ts
+          - event-repository.ts
       - infrastructure/
         - persistence/
-          - calendarAPI.ts
+          - calendar-api.ts
       - presentation/
         - components/
-          - CalendarProvider.tsx
+          - calendar-provider.tsx
         - hooks/
-          - useCalendar.ts
+          - use-calendar.ts
         - routes/
-          - CalendarRouter.tsx
+          - calendar-router.tsx
       - application/
-        - useCases/
-          - createEvent.ts
+        - use-cases/
+          - create-event.ts
 
     - qr-scan/
       - domain/
         - entities/
-          - QRCode.ts
+          - qr-code.ts
         - repositories/
-          - qrCodeRepository.ts
+          - qr-code-repository.ts
       - infrastructure/
         - services/
-          - qrScannerService.ts
+          - qr-scanner-service.ts
       - presentation/
         - components/
-          - QRScanner.tsx
+          - qr-scanner.tsx
         - hooks/
-          - useQRScanner.ts
+          - use-qr-scanner.ts
       - application/
-        - useCases/
-          - scanQRCode.ts
+        - use-cases/
+          - scan-qr-code.ts
 
     - finance/
       - domain/
         - entities/
-          - Transaction.ts
+          - transaction.ts
         - repositories/
-          - transactionRepository.ts
+          - transaction-repository.ts
       - infrastructure/
         - persistence/
-          - financeAPI.ts
+          - finance-api.ts
       - presentation/
         - components/
-          - FinanceProvider.tsx
+          - finance-provider.tsx
         - hooks/
-          - useFinance.ts
+          - use-finance.ts
       - application/
-        - useCases/
-          - calculateBudget.ts
+        - use-cases/
+          - calculate-budget.ts
 
     - tools/
       - domain/
         - entities/
-          - Tool.ts
+          - tool.ts
       - infrastructure/
         - persistence/
-          - toolAPI.ts
+          - tool-api.ts
       - presentation/
         - components/
-          - ToolList.tsx
+          - tool-list.tsx
         - hooks/
-          - useTools.ts
+          - use-tools.ts
       - application/
-        - useCases/
-          - fetchTools.ts
+        - use-cases/
+          - fetch-tools.ts
 
     - inbox/
       - domain/
         - entities/
-          - Message.ts
+          - message.ts
         - repositories/
-          - inboxRepository.ts
+          - inbox-repository.ts
       - infrastructure/
         - persistence/
-          - inboxAPI.ts
+          - inbox-api.ts
       - presentation/
         - components/
-          - Inbox.tsx
+          - inbox.tsx
         - hooks/
-          - useInbox.ts
+          - use-inbox.ts
       - application/
-        - useCases/
-          - fetchMessages.ts
+        - use-cases/
+          - fetch-messages.ts
 
     - notification-center/
       - domain/
         - entities/
-          - Notification.ts
+          - notification.ts
         - repositories/
-          - notificationRepository.ts
+          - notification-repository.ts
       - infrastructure/
         - persistence/
-          - notificationAPI.ts
+          - notification-api.ts
       - presentation/
         - components/
-          - NotificationList.tsx
+          - notification-list.tsx
         - hooks/
-          - useNotifications.ts
+          - use-notifications.ts
       - application/
-        - useCases/
-          - sendNotification.ts
+        - use-cases/
+          - send-notification.ts
 
     - resources/
       - domain/
         - entities/
-          - Resource.ts
+          - resource.ts
       - infrastructure/
         - persistence/
-          - resourceAPI.ts
+          - resource-api.ts
       - presentation/
         - components/
-          - ResourceList.tsx
+          - resource-list.tsx
         - hooks/
-          - useResources.ts
+          - use-resources.ts
       - application/
-        - useCases/
-          - fetchResources.ts
+        - use-cases/
+          - fetch-resources.ts
 
     - progress-photo/
       - domain/
         - entities/
-          - Photo.ts
+          - photo.ts
         - repositories/
-          - photoRepository.ts
+          - photo-repository.ts
       - infrastructure/
         - persistence/
-          - photoAPI.ts
+          - photo-api.ts
       - presentation/
         - components/
-          - ProgressPhoto.tsx
+          - progress-photo.tsx
         - hooks/
-          - useProgressPhoto.ts
+          - use-progress-photo.ts
       - application/
-        - useCases/
-          - uploadPhoto.ts
+        - use-cases/
+          - upload-photo.ts
 
-  - main.tsx                  # Điểm bắt đầu ứng dụng
+  - main.tsx
 
-- tests/                      # Thư mục chứa tất cả các file kiểm thử
-  - unit/                     # Kiểm thử đơn vị
+- tests/
+  - unit/
     - core/
       - domain/
         - entities/
-          - UserEntity.test.ts
-          - BillingEntity.test.ts
+          - user-entity.test.ts
+          - billing-entity.test.ts
         - valueObjects/
-          - EmailValueObject.test.ts
-          - MoneyValueObject.test.ts
+          - email-value-object.test.ts
+          - money-value-object.test.ts
         - services/
-          - AuthService.test.ts
-          - BillingService.test.ts
+          - auth-service.test.ts
+          - billing-service.test.ts
 
     - features/
       - auth/
         - domain/
-          - AuthToken.test.ts
+          - auth-token.test.ts
         - application/
-          - useCases/
-            - loginUser.test.ts
+          - use-cases/
+            - login-user.test.ts
         - infrastructure/
           - persistence/
-            - authLocalStorage.test.ts
+            - auth-local-storage.test.ts
         - presentation/
           - components/
-            - AuthProvider.test.ts
+            - auth-provider.test.ts
           - hooks/
-            - useAuthContext.test.ts
+            - use-auth-context.test.ts
       - billing/
         - application/
-          - useCases/
-            - generateInvoice.test.ts
+          - use-cases/
+            - generate-invoice.test.ts
 
-  - integration/                # Kiểm thử tích hợp
+  - integration/
     - core/
       - domain/
         - services/
-          - AuthServiceIntegration.test.ts
-          - BillingServiceIntegration.test.ts
+          - auth-service-integration.test.ts
+          - billing-service-integration.test.ts
       - infrastructure/
         - persistence/
-          - databaseIntegration.test.ts
+          - database-integration.test.ts
 
-  - e2e/                       # Kiểm thử đầu cuối
+  - e2e/
     - auth/
-      - loginE2E.test.ts
+      - login-e2e.test.ts
     - billing/
-      - generateInvoiceE2E.test.ts
+      - generate-invoice-e2e.test.ts
 
-  - vitestGlobalSetup.ts       # Cấu hình thiết lập cho Vitest
+  - vitestGlobalSetup.ts
 
-- index.html                   # Cấu hình trang gốc HTML
-- vite.config.ts               # Cấu hình Vite.js
-- vitest.config.ts             # Cấu hình Vitest
-- playwright.config.ts         # Cấu hình Playwright
-- tsconfig.app.json            # Cấu hình TypeScript
-- tsconfig.json                # Cấu hình TypeScript
-- tsconfig.node.json           # Cấu hình TypeScript
-- tailwind.config.js           # Cấu hình Tailwind CSS
-- package.json                 # Quản lý các package và scripts
+- index.html
+- vite.config.ts
+- vitest.config.ts
+- playwright.config.ts
+- tsconfig.app.json
+- tsconfig.json
+- tsconfig.node.json
+- tailwind.config.js
+- package.json
 ```
 
 ---
