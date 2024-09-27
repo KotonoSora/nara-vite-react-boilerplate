@@ -1,8 +1,11 @@
-import reactLogo from '#assets/icons/react.svg'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
+
+import reactLogo from '#assets/icons/react.svg'
+
 import './index.css'
 import './styles.css'
+
 import viteLogo from '/vite.svg'
 
 export function App() {

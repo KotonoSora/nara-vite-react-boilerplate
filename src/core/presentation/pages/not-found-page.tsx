@@ -1,7 +1,8 @@
-import { Button } from '#shadcn-ui/app/ui/button'
 import { FC } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
+
+import { Button } from '#shadcn-ui/app/ui/button'
 
 export const NotFoundPage: FC = () => {
   return (

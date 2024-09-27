@@ -1,5 +1,6 @@
-import { FullScreenSpinner } from '#core/presentation/components/loading'
 import { createBrowserRouter, Navigate, RouterProvider as RRProvider } from 'react-router-dom'
+
+import { FullScreenSpinner } from '#core/presentation/components/loading'
 
 const router = createBrowserRouter([
   {
