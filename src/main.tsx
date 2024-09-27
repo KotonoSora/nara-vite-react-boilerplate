@@ -1,3 +1,4 @@
+import '#core/infrastructure/modern-normalize/global.css'
 import '#core/infrastructure/tailwindcss/global.css'
 
 import { StrictMode } from 'react'
