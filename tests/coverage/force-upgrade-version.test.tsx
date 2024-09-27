@@ -1,7 +1,9 @@
 // forceUpgradeVersion.test.ts
-import { forceUpgradeVersion } from '#root/core/infrastructure/providers/force-upgrade-version'
-import type { Mock } from 'vitest'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import type { Mock } from 'vitest'
+
+import { forceUpgradeVersion } from '#root/core/infrastructure/providers/force-upgrade-version'
 
 describe('forceUpgradeVersion', () => {
   let originalNavigator: Navigator

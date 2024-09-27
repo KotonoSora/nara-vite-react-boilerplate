@@ -1,8 +1,9 @@
-import { App } from '#root/features/hello-world/presentation/pages/app'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { HelmetProvider } from 'react-helmet-async'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
+
+import { App } from '#root/features/hello-world/presentation/pages/app'
 
 describe('App Component', () => {
   it('renders the App component and verifies static content', async () => {
