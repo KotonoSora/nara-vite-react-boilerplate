@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "bunx --bun vite",
     "build": "tsc -b && bunx --bun vite build",
-    "lint": "eslint './src/**/*.{ts,tsx}'",
+    "lint": "eslint './src/**/*.{ts,tsx}' './tests/**/*.{ts,tsx}' './plugins/**/*.{ts,tsx}'",
     "preview": "bunx --bun vite preview",
     "test:dev": "vitest dev",
     "test:run": "vitest run",

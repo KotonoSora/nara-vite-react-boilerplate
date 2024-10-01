@@ -1,7 +1,5 @@
 import { createBrowserRouter, Navigate, RouterProvider as RRProvider } from 'react-router-dom'
 
-import { FullScreenSpinner } from '#core/presentation/components/loading'
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -18,24 +16,6 @@ const router = createBrowserRouter([
       const module = await import('#core/presentation/pages/home-page')
       return { Component: module.HomePage }
     },
-  },
-  {
-    path: '/hello-world',
-    lazy: async () => {
-      const module = await import('#features/hello-world/presentation/pages/app')
-      return { Component: module.App }
-    },
-  },
-  {
-    path: '/highlight',
-    lazy: async () => {
-      const module = await import('#features/highlight/presentation/pages/dot')
-      return { Component: module.HighlightSquare }
-    },
-  },
-  {
-    path: '/fullscreen-spinner',
-    element: <FullScreenSpinner />,
   },
   {
     path: '*',
