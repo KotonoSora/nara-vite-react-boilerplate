@@ -40,7 +40,7 @@ export const NotFoundPage: FC = () => {
         className='mt-6'
         data-testid='go-back-link'
       >
-        <Link to='/home'>Go Back Home</Link>
+        <Link to='/'>Go Back Home</Link>
       </Button>
     </div>
   )
