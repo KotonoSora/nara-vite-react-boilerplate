@@ -5,7 +5,7 @@ import { defineConfig } from 'vite'
 
 import pwa from './plugins/pwa'
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), pwa],
   resolve: {

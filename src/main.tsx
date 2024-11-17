@@ -1,5 +1,6 @@
 import '#core/infrastructure/modern-normalize/global.css'
 import '#core/infrastructure/tailwindcss/global.css'
+import '#core/infrastructure/custom-css/global.css'
 
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'

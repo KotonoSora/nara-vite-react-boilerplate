@@ -1,8 +1,9 @@
-import { FC, Suspense } from 'react'
+import { FC, lazy, Suspense } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 
-import { RouterProvider } from '#core/infrastructure/routing/application-router-provider'
 import { FullScreenSpinner } from '#core/presentation/components/loading'
+
+const RouterProvider = lazy(() => import('#core/infrastructure/routing/application-router-provider'))
 
 export const App: FC = () => {
   return (
