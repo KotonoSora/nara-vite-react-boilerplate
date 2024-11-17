@@ -1,41 +1,12 @@
-import { createBrowserRouter, Navigate, RouterProvider as RRProvider } from 'react-router-dom'
+import { createBrowserRouter, RouteObject, RouterProvider as RRProvider } from 'react-router-dom'
 
-import { FullScreenSpinner } from '#core/presentation/components/loading'
-
-const router = createBrowserRouter([
+const routers: RouteObject[] = [
   {
     path: '/',
-    element: (
-      <Navigate
-        to='/home'
-        replace
-      />
-    ),
-  },
-  {
-    path: '/home',
     lazy: async () => {
       const module = await import('#core/presentation/pages/home-page')
       return { Component: module.HomePage }
     },
-  },
-  {
-    path: '/hello-world',
-    lazy: async () => {
-      const module = await import('#features/hello-world/presentation/pages/app')
-      return { Component: module.App }
-    },
-  },
-  {
-    path: '/highlight',
-    lazy: async () => {
-      const module = await import('#features/highlight/presentation/pages/dot')
-      return { Component: module.HighlightSquare }
-    },
-  },
-  {
-    path: '/fullscreen-spinner',
-    element: <FullScreenSpinner />,
   },
   {
     path: '*',
@@ -44,8 +15,21 @@ const router = createBrowserRouter([
       return { Component: module.NotFoundPage }
     },
   },
-])
+]
 
-export const RouterProvider = () => {
-  return <RRProvider router={router} />
+const configs = {
+  future: {
+    v7_relativeSplatPath: true,
+    v7_startTransition: true,
+    v7_fetcherPersist: true,
+    v7_normalizeFormMethod: true,
+    v7_partialHydration: true,
+    v7_skipActionErrorRevalidation: true,
+  },
+}
+
+const browserRouterConfig = createBrowserRouter(routers, configs)
+
+export default () => {
+  return <RRProvider router={browserRouterConfig} />
 }

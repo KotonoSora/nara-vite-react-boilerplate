@@ -2,5 +2,15 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
-  "cSpell.words": ["bunx", "clsx", "cssnano", "kotonosora", "shadcn", "sonarqube", "tailwindcss", "testid"]
+  "cSpell.words": [
+    "bunx",
+    "clsx",
+    "cssnano",
+    "kotonosora",
+    "shadcn",
+    "sonarqube",
+    "tailwindcss",
+    "testid",
+    "tsbuildinfo"
+  ]
 }
