@@ -1,7 +1,21 @@
 {
   "recommendations": [
-    "arcanis.vscode-zipfs",
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "PKief.material-icon-theme",
+    "bradlc.vscode-tailwindcss",
+    "mgmcdermott.vscode-language-babel",
+    "streetsidesoftware.code-spell-checker",
+    "usernamehw.errorlens",
+    "xabikos.ReactSnippets",
+    "christian-kohler.npm-intellisense",
+    "DavidAnson.vscode-markdownlint",
+    "wix.vscode-import-cost",
+    "mikestead.dotenv",
+    "naumovs.color-highlight",
+    "VisualStudioExptTeam.vscodeintellicode",
+    "foxundermoon.shell-format",
+    "pranaygp.vscode-css-peek",
+    "eamodio.gitlens"
   ]
 }
