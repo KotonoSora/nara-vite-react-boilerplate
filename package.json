@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint src",
+    "lint": "eslint src tests plugins",
     "preview": "vite preview",
     "test:dev": "vitest dev",
     "test:run": "vitest run",
