@@ -1,4 +1,5 @@
-import { createBrowserRouter, RouteObject, RouterProvider as RRProvider } from 'react-router-dom'
+import { createBrowserRouter, RouteObject } from 'react-router'
+import { RouterProvider as RRProvider } from 'react-router/dom'
 
 const routers: RouteObject[] = [
   {
