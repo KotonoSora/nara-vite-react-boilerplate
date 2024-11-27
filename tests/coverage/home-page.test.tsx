@@ -3,7 +3,16 @@ import { HelmetProvider } from 'react-helmet-async'
 import { MemoryRouter } from 'react-router'
 import { describe, expect, it } from 'vitest'
 
-import { HomePage } from '#root/core/presentation/pages/home-page'
+import HomePage from '#core/presentation/pages/home.component'
+
+vi.mock('react-router', async () => {
+  const actual = await vi.importActual('react-router')
+
+  return {
+    ...actual,
+    useLoaderData: vi.fn().mockReturnValue({ title: 'Home Page - Mocked Loader Data' }),
+  }
+})
 
 describe('HomePage Component', () => {
   it('renders the page title correctly', async () => {
@@ -17,7 +26,7 @@ describe('HomePage Component', () => {
 
     // Test the page title set by Helmet
     await waitFor(() => {
-      expect(document.title).toBe('Home Page')
+      expect(document.title).toBe('Home Page - Mocked Loader Data')
     })
   })
 

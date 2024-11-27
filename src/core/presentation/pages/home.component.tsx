@@ -1,12 +1,17 @@
-import { FC } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { useLoaderData } from 'react-router'
 
-export const HomePage: FC = () => {
+import Button from '#shadcn-ui/app/ui/button'
+
+export default function HomePage() {
+  const data = useLoaderData()
+
   return (
     <>
       <Helmet>
-        <title>Home Page</title>
+        <title>{data.title}</title>
       </Helmet>
+
       <div className='min-h-screen bg-gray-100 flex flex-col items-center justify-center'>
         <header
           className='text-4xl font-bold text-gray-900'
@@ -20,12 +25,13 @@ export const HomePage: FC = () => {
         >
           This is the main landing page of the website.
         </p>
-        <button
-          className='mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700'
+        <Button
+          size='lg'
+          className='mt-6 bg-blue-600 hover:bg-blue-700'
           data-testid='get-started-button'
         >
           Get Started
-        </button>
+        </Button>
       </div>
     </>
   )
