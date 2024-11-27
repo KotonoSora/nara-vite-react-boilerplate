@@ -3,7 +3,16 @@ import { HelmetProvider } from 'react-helmet-async'
 import { MemoryRouter } from 'react-router'
 import { describe, expect, it } from 'vitest'
 
-import { NotFoundPage } from '#core/presentation/pages/not-found-page'
+import NotFoundPage from '#core/presentation/pages/not-found.component'
+
+vi.mock('react-router', async () => {
+  const actual = await vi.importActual('react-router')
+
+  return {
+    ...actual,
+    useLoaderData: vi.fn().mockReturnValue({ title: 'Not Found Page - Mocked Loader Data' }),
+  }
+})
 
 describe('NotFoundPage Component', () => {
   it('renders the page title correctly', async () => {
@@ -17,7 +26,7 @@ describe('NotFoundPage Component', () => {
 
     // Test that Helmet sets the correct page title
     await waitFor(() => {
-      expect(document.title).toBe('Not Found Page')
+      expect(document.title).toBe('Not Found Page - Mocked Loader Data')
     })
   })
 
