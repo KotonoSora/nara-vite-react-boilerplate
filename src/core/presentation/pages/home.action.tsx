@@ -1,3 +1,3 @@
-export default async function action() {
+export default async function clientAction() {
   return {}
 }

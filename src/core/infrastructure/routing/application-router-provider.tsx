@@ -5,10 +5,10 @@ type Module<T> = {
   default: T
 }
 
-function convert<A, L, C>([action, loader, Component]: [Module<A>, Module<L>, Module<C>]) {
+function convert<A, L, C>([clientAction, clientLoader, Component]: [Module<A>, Module<L>, Module<C>]) {
   return {
-    loader: loader.default,
-    action: action.default,
+    action: clientAction.default,
+    loader: clientLoader.default,
     Component: Component.default,
   }
 }
