@@ -1,12 +1,21 @@
-import { FC } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { useLoaderData } from 'react-router'
 
-export const HomePage: FC = () => {
+export async function clientLoader() {
+  return {
+    title: 'Home Page',
+  }
+}
+
+export default function HomePage() {
+  const data = useLoaderData()
+
   return (
     <>
       <Helmet>
-        <title>Home Page</title>
+        <title>{data.title}</title>
       </Helmet>
+
       <div className='min-h-screen bg-gray-100 flex flex-col items-center justify-center'>
         <header
           className='text-4xl font-bold text-gray-900'
