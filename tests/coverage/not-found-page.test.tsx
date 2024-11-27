@@ -3,7 +3,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { MemoryRouter } from 'react-router'
 import { describe, expect, it } from 'vitest'
 
-import NotFoundPage from '#core/presentation/pages/not-found-page'
+import NotFoundPage from '#core/presentation/pages/not-found.component'
 
 vi.mock('react-router', async () => {
   const actual = await vi.importActual('react-router')

@@ -1,12 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { useLoaderData } from 'react-router'
 
-export async function clientLoader() {
-  return {
-    title: 'Home Page',
-  }
-}
-
 export default function HomePage() {
   const data = useLoaderData()
 

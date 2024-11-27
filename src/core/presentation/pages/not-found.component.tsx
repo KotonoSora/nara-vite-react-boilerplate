@@ -3,12 +3,6 @@ import { Link, useLoaderData } from 'react-router'
 
 import { Button } from '#shadcn-ui/app/ui/button'
 
-export async function clientLoader() {
-  return {
-    title: 'Not Found Page',
-  }
-}
-
 export default function NotFoundPage() {
   const data = useLoaderData()
 

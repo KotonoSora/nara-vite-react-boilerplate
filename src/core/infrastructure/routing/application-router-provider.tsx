@@ -1,14 +1,15 @@
 import { createBrowserRouter, RouteObject } from 'react-router'
 import { RouterProvider as RRProvider } from 'react-router/dom'
 
-function convert(m: any) {
-  const { clientLoader, clientAction, default: Component, ...rest } = m
+type Module<T> = {
+  default: T
+}
 
+function convert<A, L, C>([action, loader, Component]: [Module<A>, Module<L>, Module<C>]) {
   return {
-    ...rest,
-    loader: clientLoader,
-    action: clientAction,
-    Component,
+    loader: loader.default,
+    action: action.default,
+    Component: Component.default,
   }
 }
 
@@ -16,11 +17,21 @@ const routers: RouteObject[] = [
   {
     path: '/',
     index: true,
-    lazy: async () => import('#core/presentation/pages/home-page').then(convert),
+    lazy: async () =>
+      Promise.all([
+        import('#core/presentation/pages/home.action'),
+        import('#core/presentation/pages/home.loader'),
+        import('#core/presentation/pages/home.component'),
+      ]).then(convert),
   },
   {
     path: '*',
-    lazy: async () => import('#core/presentation/pages/not-found-page').then(convert),
+    lazy: async () =>
+      Promise.all([
+        import('#core/presentation/pages/not-found.action'),
+        import('#core/presentation/pages/not-found.loader'),
+        import('#core/presentation/pages/not-found.component'),
+      ]).then(convert),
   },
 ]
 

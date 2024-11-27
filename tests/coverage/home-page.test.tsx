@@ -3,7 +3,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { MemoryRouter } from 'react-router'
 import { describe, expect, it } from 'vitest'
 
-import HomePage from '#root/core/presentation/pages/home-page'
+import HomePage from '#core/presentation/pages/home.component'
 
 vi.mock('react-router', async () => {
   const actual = await vi.importActual('react-router')
