@@ -25,7 +25,7 @@ const routers: RouteObject[] = [
       ]).then(convert),
   },
   {
-    path: '*',
+    path: '/*',
     lazy: async () =>
       Promise.all([
         import('#core/presentation/pages/not-found.action'),
