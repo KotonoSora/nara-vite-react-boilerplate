@@ -27,13 +27,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "#root/*": ["src/*"],
-      "#assets/*": ["src/assets/*"],
-      "#core/*": ["src/core/*"],
-      "#features/*": ["src/features/*"],
-      "#shadcn-ui/*": ["src/core/infrastructure/shadcn-ui/*"],
-      "#plugins/*": ["plugins/*"],
-      "#tests/*": ["tests/*"]
+      "#root/*": ["./src/*"],
+      "#assets/*": ["./src/assets/*"],
+      "#core/*": ["./src/core/*"],
+      "#features/*": ["./src/features/*"],
+      "#shadcn-ui/*": ["./src/*"],
+      "#plugins/*": ["./plugins/*"],
+      "#tests/*": ["./tests/*"]
     }
   },
   "include": ["src", "plugins", "tests"]
