@@ -1,7 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { Link, useLoaderData } from 'react-router'
-
-import Button from '#shadcn-ui/app/ui/button'
+import { useLoaderData } from 'react-router'
 
 export default function NotFoundPage() {
   const data = useLoaderData()
@@ -37,13 +35,13 @@ export default function NotFoundPage() {
           Sorry, the page you are looking for does not exist.
         </p>
 
-        <Button
+        {/* <Button
           asChild
           className='mt-6'
           data-testid='go-back-link'
         >
           <Link to='/'>Go Back Home</Link>
-        </Button>
+        </Button> */}
       </div>
     </>
   )
