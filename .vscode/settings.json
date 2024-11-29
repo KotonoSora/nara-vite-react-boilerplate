@@ -5,12 +5,18 @@
   "cSpell.words": [
     "bunx",
     "clsx",
+    "commitlint",
     "cssnano",
     "kotonosora",
+    "lockb",
+    "nvmrc",
+    "scannerwork",
     "shadcn",
     "sonarqube",
     "tailwindcss",
     "testid",
-    "tsbuildinfo"
+    "tsbuildinfo",
+    "vite",
+    "vitest"
   ]
 }
