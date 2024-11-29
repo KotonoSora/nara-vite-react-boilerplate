@@ -36,6 +36,7 @@ const routers: RouteObject[] = [
 ]
 
 const configs = {
+  basename: import.meta.env.BASE_URL,
   future: {
     v7_relativeSplatPath: true,
     v7_startTransition: true,
