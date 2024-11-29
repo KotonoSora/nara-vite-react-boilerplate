@@ -1,4 +1,4 @@
-import { resolve } from 'node:path'
+import path from 'path'
 
 import react from '@vitejs/plugin-react-swc'
 import { defineConfig } from 'vite'
@@ -10,13 +10,14 @@ export default defineConfig({
   plugins: [react(), pwa],
   resolve: {
     alias: {
-      '#root': resolve(__dirname, 'src'),
-      '#assets': resolve(__dirname, 'src/assets'),
-      '#core': resolve(__dirname, 'src/core'),
-      '#features': resolve(__dirname, 'src/features'),
-      '#shadcn-ui': resolve(__dirname, 'src/core/infrastructure/shadcn-ui'),
-      '#plugins': resolve(__dirname, 'plugins'),
-      '#tests': resolve(__dirname, 'tests'),
+      "@": path.resolve(__dirname, "./src"),
+      '#root': path.resolve(__dirname, './src'),
+      '#assets': path.resolve(__dirname, './src/assets'),
+      '#core': path.resolve(__dirname, './src/core'),
+      '#features': path.resolve(__dirname, './src/features'),
+      '#shadcn-ui': path.resolve(__dirname, './src'),
+      '#plugins': path.resolve(__dirname, './plugins'),
+      '#tests': path.resolve(__dirname, './tests'),
     },
   },
 })

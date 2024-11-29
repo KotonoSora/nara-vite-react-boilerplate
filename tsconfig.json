@@ -8,6 +8,7 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
+      "@/*": ["./src/*"],
       "#root/*": ["src/*"],
       "#assets/*": ["src/assets/*"],
       "#core/*": ["src/core/*"],

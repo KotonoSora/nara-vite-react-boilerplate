@@ -26,7 +26,7 @@
     "",
     "^(@)(/.*)$",
     "",
-    "^(#root|#assets|#core|#features|#plugins|#tests)(/.*)$",
+    "^(#root|#assets|#core|#features|#shadcn-ui|#plugins|#tests)(/.*)$",
     "",
     "^[.]",
     "",
