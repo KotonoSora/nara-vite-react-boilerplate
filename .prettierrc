@@ -24,6 +24,8 @@
     "<TYPES>",
     "<TYPES>^[.]",
     "",
+    "^(@)(/.*)$",
+    "",
     "^(#root|#assets|#core|#features|#shadcn-ui|#plugins|#tests)(/.*)$",
     "",
     "^[.]",

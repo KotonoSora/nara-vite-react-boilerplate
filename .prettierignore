@@ -1,10 +1,30 @@
-# Ignore artifacts:
-/build
-/coverage
-/node_modules
-/dist
-/dist-ssr
-/.yarn
-/.pnp.*
-/storybook-static
-/.scannerwork
+# Ignore everything
+**
+
+# Allow specific files within root
+!package.json
+
+# Allow src and its contents
+!src/
+
+# Allow src/main.tsx
+!src/main.tsx
+
+# Allow src/core and its contents
+!src/core/
+!src/core/**
+
+# Ignore a specific file within src/core
+src/core/infrastructure/tailwindcss/global.css
+
+# Allow src/features and its contents
+!src/features/
+!src/features/**
+
+# Allow tests and its contents
+!tests/
+!tests/**
+
+# Allow plugins and its contents
+!plugins/
+!plugins/**

@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { useLoaderData } from 'react-router'
 
-import Button from '#shadcn-ui/app/ui/button'
+import { Button } from '#shadcn-ui/components/ui/button'
 
 export default function HomePage() {
   const data = useLoaderData()
