@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { Link, useLoaderData } from 'react-router'
 
-import Button from '#shadcn-ui/app/ui/button'
+import { Button } from '#shadcn-ui/components/ui/button'
 
 export default function NotFoundPage() {
   const data = useLoaderData()

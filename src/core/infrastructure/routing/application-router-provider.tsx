@@ -13,6 +13,10 @@ function convert<A, L, C>([clientAction, clientLoader, Component]: [Module<A>, M
   }
 }
 
+function convertModule<D>(module: Module<D>) {
+  return { Component: module.default }
+}
+
 const routers: RouteObject[] = [
   {
     path: '/',
@@ -25,7 +29,7 @@ const routers: RouteObject[] = [
       ]).then(convert),
   },
   {
-    path: '*',
+    path: '/*',
     lazy: async () =>
       Promise.all([
         import('#core/presentation/pages/not-found.action'),
@@ -33,9 +37,23 @@ const routers: RouteObject[] = [
         import('#core/presentation/pages/not-found.component'),
       ]).then(convert),
   },
+  {
+    path: '/sample',
+    children: [
+      {
+        path: 'login',
+        lazy: async () => await import('@/app/login-01/page').then(convertModule),
+      },
+      {
+        path: 'sidebar-01',
+        lazy: async () => await import('@/app/dashboard-01/page').then(convertModule),
+      },
+    ],
+  },
 ]
 
 const configs = {
+  basename: import.meta.env.BASE_URL,
   future: {
     v7_relativeSplatPath: true,
     v7_startTransition: true,
