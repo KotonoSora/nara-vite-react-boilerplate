@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { useLoaderData } from 'react-router'
+import { Link, useLoaderData } from 'react-router'
 
 import { Button } from '#shadcn-ui/components/ui/button'
 
@@ -26,11 +26,12 @@ export default function HomePage() {
           This is the main landing page of the website.
         </p>
         <Button
+          asChild
           size='lg'
           className='mt-6 bg-blue-600 hover:bg-blue-700'
           data-testid='get-started-button'
         >
-          Get Started
+          <Link to='/'>Get Started</Link>
         </Button>
       </div>
     </>
