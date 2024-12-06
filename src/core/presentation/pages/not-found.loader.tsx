@@ -1,5 +1,5 @@
 export default async function clientLoader() {
   return {
-    title: 'Not Found Page',
+    title: '404 Not Found',
   }
 }

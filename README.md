@@ -325,6 +325,48 @@
 - package.json
 ```
 
+### Sample
+
+```bash
+src/
+├── domain/
+│   ├── auth/
+│   │   ├── Role.js
+│   │   ├── User.js
+│   │   └── AuthService.js
+│   ├── route/
+│   │   ├── Router.js
+│   │   ├── DynamicRouteHandler.js
+│   │   └── RouteGuard.js
+│   └── state/
+│       ├── AppState.js
+│       └── ErrorHandler.js
+├── infrastructure/
+│   ├── http/
+│   │   └── BasicAuth.js
+│   └── i18n/
+│       └── LanguageService.js
+├── application/
+│   ├── useCase/
+│   │   ├── InitializeRouter.js
+│   │   ├── SyncStateWithURL.js
+│   │   └── ValidateUserAccess.js
+│   └── middleware/
+│       └── ErrorHandlingMiddleware.js
+└── presentation/
+    ├── components/
+    │   ├── ProtectedRoute.js
+    │   ├── DynamicRouter.js
+    │   ├── ErrorPage.js
+    │   └── NotFoundPage.js
+    ├── views/
+    │   ├── HomePage.js
+    │   ├── DashboardPage.js
+    │   └── LoginPage.js
+    └── routes/
+        └── AppRoutes.js
+```
+
 ---
 
 ## React + TypeScript + Vite

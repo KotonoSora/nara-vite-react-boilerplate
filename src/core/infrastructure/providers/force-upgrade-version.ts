@@ -9,22 +9,22 @@ export function forceUpgradeVersion() {
       window.location.reload()
     })
 
-    navigator.serviceWorker
-      .register(import.meta.env.BASE_URL + 'sw.js')
-      .then((registration: ServiceWorkerRegistration) => {
-        registration.addEventListener('updatefound', () => {
-          const newWorker: ServiceWorker | null = registration.installing
+    const serviceWorkerUrl = import.meta.env.BASE_URL + 'sw.js'
 
-          if (!newWorker) return
+    navigator.serviceWorker.register(serviceWorkerUrl).then((registration: ServiceWorkerRegistration) => {
+      registration.addEventListener('updatefound', () => {
+        const newWorker: ServiceWorker | null = registration.installing
 
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              if (confirm('New version available. Do you want to update?')) {
-                newWorker.postMessage({ type: 'SKIP_WAITING' })
-              }
+        if (!newWorker) return
+
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            if (confirm('New version available. Do you want to update?')) {
+              newWorker.postMessage({ type: 'SKIP_WAITING' })
             }
-          })
+          }
         })
       })
+    })
   }
 }
