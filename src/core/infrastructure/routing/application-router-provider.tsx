@@ -1,15 +1,21 @@
 import { createBrowserRouter, RouteObject } from 'react-router'
-import { RouterProvider as RRProvider } from 'react-router/dom'
+import { RouterProvider } from 'react-router/dom'
 
 type Module<T> = {
   default: T
 }
 
-function convert<A, L, C>([clientAction, clientLoader, Component]: [Module<A>, Module<L>, Module<C>]) {
+function convert<A, L, C, E>([clientAction, clientLoader, Component, ErrorBoundary]: [
+  Module<A>,
+  Module<L>,
+  Module<C>,
+  Module<E>,
+]) {
   return {
     action: clientAction.default,
     loader: clientLoader.default,
     Component: Component.default,
+    ErrorBoundary: ErrorBoundary.default,
   }
 }
 
@@ -26,6 +32,17 @@ const routers: RouteObject[] = [
         import('#core/presentation/pages/home.action'),
         import('#core/presentation/pages/home.loader'),
         import('#core/presentation/pages/home.component'),
+        import('#core/presentation/pages/error-boundary.component'),
+      ]).then(convert),
+  },
+  {
+    path: '/403',
+    lazy: async () =>
+      Promise.all([
+        import('#core/presentation/pages/forbidden.action'),
+        import('#core/presentation/pages/forbidden.loader'),
+        import('#core/presentation/pages/forbidden.component'),
+        import('#core/presentation/pages/error-boundary.component'),
       ]).then(convert),
   },
   {
@@ -35,6 +52,7 @@ const routers: RouteObject[] = [
         import('#core/presentation/pages/not-found.action'),
         import('#core/presentation/pages/not-found.loader'),
         import('#core/presentation/pages/not-found.component'),
+        import('#core/presentation/pages/error-boundary.component'),
       ]).then(convert),
   },
   {
@@ -67,5 +85,5 @@ const configs = {
 const browserRouterConfig = createBrowserRouter(routers, configs)
 
 export default function ApplicationRouterProvider() {
-  return <RRProvider router={browserRouterConfig} />
+  return <RouterProvider router={browserRouterConfig} />
 }

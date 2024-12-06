@@ -68,7 +68,9 @@ describe('forceUpgradeVersion', () => {
 
     forceUpgradeVersion()
 
-    expect(navigator.serviceWorker.register).toHaveBeenCalledWith('/sw.js')
+    const serviceWorkerUrl = import.meta.env.BASE_URL + 'sw.js'
+
+    expect(navigator.serviceWorker.register).toHaveBeenCalledWith(serviceWorkerUrl)
   })
 
   it('should reload the page when controllerchange event is fired', () => {
