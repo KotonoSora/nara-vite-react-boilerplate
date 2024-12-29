@@ -16,7 +16,7 @@
     "test:run": "vitest run",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
-    "prepare": "husky install",
+    "prepare": "husky",
     "commitlint": "commitlint --edit"
   },
   "dependencies": {
