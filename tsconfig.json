@@ -8,12 +8,10 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
       "#root/*": ["./src/*"],
       "#assets/*": ["./src/assets/*"],
       "#core/*": ["./src/core/*"],
       "#features/*": ["./src/features/*"],
-      "#shadcn-ui/*": ["./src/shadcn-ui/*"],
       "#plugins/*": ["./plugins/*"],
       "#tests/*": ["./tests/*"]
     }

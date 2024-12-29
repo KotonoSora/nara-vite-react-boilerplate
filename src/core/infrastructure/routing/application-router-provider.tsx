@@ -19,9 +19,9 @@ function convert<A, L, C, E>([clientAction, clientLoader, Component, ErrorBounda
   }
 }
 
-function convertModule<D>(module: Module<D>) {
-  return { Component: module.default }
-}
+// function convertModule<D>(module: Module<D>) {
+//   return { Component: module.default }
+// }
 
 const routers: RouteObject[] = [
   {
@@ -57,16 +57,7 @@ const routers: RouteObject[] = [
   },
   {
     path: '/sample',
-    children: [
-      {
-        path: 'login',
-        lazy: async () => await import('@/app/login-01/page').then(convertModule),
-      },
-      {
-        path: 'sidebar-01',
-        lazy: async () => await import('@/app/dashboard-01/page').then(convertModule),
-      },
-    ],
+    children: [],
   },
 ]
 
