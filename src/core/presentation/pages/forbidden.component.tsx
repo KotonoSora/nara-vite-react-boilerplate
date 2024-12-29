@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 
-import { Alert, AlertDescription, AlertTitle } from '#shadcn-ui/components/ui/alert'
-import { Button } from '#shadcn-ui/components/ui/button'
+import { Alert, AlertDescription, AlertTitle } from '#root/components/ui/alert'
+import { Button } from '#root/components/ui/button'
 
 export default function ForbiddenPage() {
   return (
