@@ -11,12 +11,10 @@ export default defineConfig({
   plugins: [react(), pwa],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
       '#root': path.resolve(__dirname, './src'),
       '#assets': path.resolve(__dirname, './src/assets'),
       '#core': path.resolve(__dirname, './src/core'),
       '#features': path.resolve(__dirname, './src/features'),
-      '#shadcn-ui': path.resolve(__dirname, './src/shadcn-ui'),
       '#plugins': path.resolve(__dirname, './plugins'),
       '#tests': path.resolve(__dirname, './tests'),
     },

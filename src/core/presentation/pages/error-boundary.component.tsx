@@ -1,8 +1,8 @@
 import { HomeIcon, RefreshCwIcon as RefreshIcon } from 'lucide-react'
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router'
 
-import { Alert, AlertDescription, AlertTitle } from '#shadcn-ui/components/ui/alert'
-import { Button } from '#shadcn-ui/components/ui/button'
+import { Alert, AlertDescription, AlertTitle } from '#root/components/ui/alert'
+import { Button } from '#root/components/ui/button'
 
 export default function ErrorBoundary() {
   const error = useRouteError()
