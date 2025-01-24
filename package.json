@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "tsc -b && eslint src/main.tsx src/core tests plugins",
+    "lint": "tsc --noEmit && eslint src/main.tsx src/core tests plugins",
     "preview": "vite preview",
     "test:dev": "vitest dev",
     "test:run": "vitest run",
