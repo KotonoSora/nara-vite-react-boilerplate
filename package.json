@@ -5,7 +5,7 @@
     "url": "git@github.com:KotonoSora/nara-vite-react-boilerplate.git"
   },
   "private": true,
-  "version": "3.7.0",
+  "version": "3.9.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
