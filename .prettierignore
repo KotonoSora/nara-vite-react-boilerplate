@@ -3,28 +3,10 @@
 
 # Allow specific files within root
 !package.json
+!vite.config.ts
 
-# Allow src and its contents
+# Allow folder app and src
+!app/
+!app/**
 !src/
-
-# Allow src/main.tsx
-!src/main.tsx
-
-# Allow src/core and its contents
-!src/core/
-!src/core/**
-
-# Ignore a specific file within src/core
-src/core/infrastructure/tailwindcss/global.css
-
-# Allow src/features and its contents
-!src/features/
-!src/features/**
-
-# Allow tests and its contents
-!tests/
-!tests/**
-
-# Allow plugins and its contents
-!plugins/
-!plugins/**
+!src/**

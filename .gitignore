@@ -52,3 +52,7 @@ dist-ssr
 /yarn.lock
 /bun.lockb
 /bun.lock
+
+# React Router
+/.react-router/
+/build/
