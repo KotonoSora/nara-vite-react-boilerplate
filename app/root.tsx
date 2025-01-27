@@ -2,9 +2,9 @@ import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration }
 
 import type { Route } from './+types/root'
 
-import stylesheet from './app.css?url'
+import './app.css'
 
-export const links: Route.LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
+export const links: Route.LinksFunction = () => []
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
