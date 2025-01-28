@@ -18,6 +18,8 @@ dist-ssr
 !.vscode/settings.json
 .idea
 .DS_Store
+/node_modules/
+*.tsbuildinfo
 *.suo
 *.ntvs*
 *.njsproj
@@ -56,3 +58,7 @@ dist-ssr
 # React Router
 /.react-router/
 /build/
+
+# Cloudflare
+.mf
+.wrangler

@@ -3,6 +3,7 @@
 ## 4.0.0
 
 - Breaking change using react-router-v7 framework
+- Use template cloudflare-d1
 - Remove shadcn-ui
 
 ## 3.9.0

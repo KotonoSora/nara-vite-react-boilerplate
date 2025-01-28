@@ -2,8 +2,6 @@
 
 A modern, production-ready template for building full-stack React applications using React Router.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
-
 ## Features
 
 - 🚀 Server-side rendering
@@ -26,6 +24,12 @@ npm install
 
 ### Development
 
+Run an initial database migration:
+
+```bash
+npm run db:migrate
+```
+
 Start the development server with HMR:
 
 ```bash
@@ -44,51 +48,38 @@ npm run build
 
 ## Deployment
 
-### Docker Deployment
+Deployment is done using the Wrangler CLI.
 
-This template includes three Dockerfiles optimized for different package managers:
+First, you need to create a d1 database in Cloudflare.
 
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
-
-```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+```sh
+npx wrangler d1 create <name-of-your-database>
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+Be sure to update the `wrangler.toml` file with the correct database name and id.
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+You will also need to [update the `drizzle.config.ts` file](https://orm.drizzle.team/docs/guides/d1-http-with-drizzle-kit), and then run the production migration:
 
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
+```sh
+npm run db:migrate-production
 ```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+
+To build and deploy directly to production:
+
+```sh
+npm run deploy
+```
+
+To deploy a preview URL:
+
+```sh
+npx wrangler versions upload
+```
+
+You can then promote a version to production after verification or roll it out progressively.
+
+```sh
+npx wrangler versions deploy
 ```
 
 ## Styling
