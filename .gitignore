@@ -48,13 +48,13 @@ dist-ssr
 /coverage/
 
 # Other
-/.npmrc
-/.yarnrc.yml
-/package-lock.json
-/yarn.lock
-/bun.lockb
-/bun.lock
-/.env
+.npmrc
+.yarnrc.yml
+package-lock.json
+yarn.lock
+bun.lockb
+bun.lock
+.env
 
 # React Router
 /.react-router/

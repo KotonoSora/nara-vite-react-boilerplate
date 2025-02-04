@@ -10,3 +10,5 @@
 !app/**
 !src/
 !src/**
+!packages/
+!packages/**
