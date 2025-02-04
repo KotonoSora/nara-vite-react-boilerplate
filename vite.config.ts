@@ -1,22 +1,42 @@
-import path from 'path'
+import { reactRouter } from "@react-router/dev/vite";
+import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
-import react from '@vitejs/plugin-react-swc'
-import { defineConfig } from 'vite'
+import { getLoadContext } from "./load-context";
 
-import pwa from './plugins/pwa'
-
-// https://vite.dev/config/
-export default defineConfig({
-  base: '/',
-  plugins: [react(), pwa],
-  resolve: {
-    alias: {
-      '#root': path.resolve(__dirname, './src'),
-      '#assets': path.resolve(__dirname, './src/assets'),
-      '#core': path.resolve(__dirname, './src/core'),
-      '#features': path.resolve(__dirname, './src/features'),
-      '#plugins': path.resolve(__dirname, './plugins'),
-      '#tests': path.resolve(__dirname, './tests'),
+export default defineConfig(({ isSsrBuild }) => ({
+  build: {
+    rollupOptions: isSsrBuild
+      ? {
+          input: "./workers/app.ts",
+        }
+      : undefined,
+  },
+  ssr: {
+    target: "webworker",
+    noExternal: true,
+    resolve: {
+      conditions: ["workerd", "browser"],
+    },
+    optimizeDeps: {
+      include: [
+        "react",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+        "react-dom",
+        "react-dom/server",
+        "react-router",
+      ],
     },
   },
-})
+  plugins: [
+    cloudflareDevProxy({
+      getLoadContext,
+    }),
+    tailwindcss(),
+    reactRouter(),
+    tsconfigPaths(),
+  ],
+}));
