@@ -9,6 +9,12 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "rootDirs": [".", "./.react-router/types"],
+    "paths": {
+      "~/database/*": ["./database/*"],
+      "~/*": ["./app/*"]
+    },
   }
 }
