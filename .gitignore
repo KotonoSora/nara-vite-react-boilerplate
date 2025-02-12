@@ -18,6 +18,8 @@ dist-ssr
 !.vscode/settings.json
 .idea
 .DS_Store
+/node_modules/
+*.tsbuildinfo
 *.suo
 *.ntvs*
 *.njsproj
@@ -46,9 +48,18 @@ dist-ssr
 /coverage/
 
 # Other
-/.npmrc
-/.yarnrc.yml
-/package-lock.json
-/yarn.lock
-/bun.lockb
-/bun.lock
+.npmrc
+.yarnrc.yml
+package-lock.json
+yarn.lock
+bun.lockb
+bun.lock
+.env
+
+# React Router
+/.react-router/
+/build/
+
+# Cloudflare
+.mf
+.wrangler
