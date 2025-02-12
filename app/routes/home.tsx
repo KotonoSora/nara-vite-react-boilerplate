@@ -1,6 +1,6 @@
-import * as schema from "~/database/schema";
-
 import type { Route } from "./+types/home";
+
+import * as schema from "~/database/schema";
 
 import { Welcome } from "../welcome/welcome";
 
