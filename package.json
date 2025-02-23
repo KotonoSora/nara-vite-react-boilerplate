@@ -21,7 +21,7 @@
     "commitlint": "commitlint --edit"
   },
   "dependencies": {
-    "@hookform/resolvers": "4.1.0",
+    "@hookform/resolvers": "4.1.1",
     "@radix-ui/react-accordion": "1.2.3",
     "@radix-ui/react-alert-dialog": "1.1.6",
     "@radix-ui/react-aspect-ratio": "1.1.2",
@@ -68,7 +68,7 @@
     "react-router": "7.2.0",
     "recharts": "2.15.1",
     "sonner": "2.0.1",
-    "tailwind-merge": "3.0.1",
+    "tailwind-merge": "3.0.2",
     "tailwindcss-animate": "1.0.7",
     "vaul": "1.1.2",
     "zod": "3.24.2"
@@ -79,22 +79,22 @@
     "@commitlint/config-conventional": "19.7.1",
     "@ianvs/prettier-plugin-sort-imports": "4.4.1",
     "@react-router/dev": "7.2.0",
-    "@tailwindcss/vite": "4.0.7",
+    "@tailwindcss/vite": "4.0.8",
     "@types/node": "22",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "dotenv-cli": "8.0.0",
     "drizzle-kit": "~0.30.4",
     "husky": "9.1.7",
-    "prettier": "3.5.1",
+    "prettier": "3.5.2",
     "prettier-plugin-tailwindcss": "0.6.11",
-    "tailwindcss": "4.0.7",
+    "tailwindcss": "4.0.8",
     "typescript": "5.7.3",
     "vite": "6.1.1",
     "vite-tsconfig-paths": "5.1.4",
     "wrangler": "3.109.2"
   },
   "engines": {
-    "node": "22.13.1"
+    "node": "22.14.0"
   }
 }
