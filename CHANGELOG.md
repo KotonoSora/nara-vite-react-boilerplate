@@ -3,6 +3,7 @@
 ## 4.1.0
 
 - Implement shadcn-ui
+- Setup page demo
 - Upgrade dependencies at 2025-03
 
 ## 4.0.0
