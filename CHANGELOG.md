@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.1.0
+
+- Implement shadcn-ui
+- Setup page demo
+- Upgrade dependencies at 2025-03
+
 ## 4.0.0
 
 - Breaking change using react-router-v7 framework
