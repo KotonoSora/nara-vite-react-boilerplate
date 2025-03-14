@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -9,9 +10,13 @@ import {
 
 import type { Route } from "./+types/root";
 
-import { Toaster } from "~/components/ui/sonner";
-
 import "./app.css";
+
+const Toaster = lazy(() =>
+  import("~/components/ui/sonner").then((module) => ({
+    default: module.Toaster,
+  })),
+);
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -39,14 +44,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
-        <Toaster />
       </body>
     </html>
   );
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Outlet />
+      <Toaster />
+    </Suspense>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
