@@ -78,7 +78,7 @@
     "@commitlint/config-conventional": "19.8.0",
     "@ianvs/prettier-plugin-sort-imports": "4.4.1",
     "@react-router/dev": "7.4.0",
-    "@tailwindcss/vite": "4.0.14",
+    "@tailwindcss/vite": "4.0.16",
     "@types/node": "22",
     "@types/react": "19.0.12",
     "@types/react-dom": "19.0.4",
@@ -87,11 +87,11 @@
     "husky": "9.1.7",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.11",
-    "tailwindcss": "4.0.14",
+    "tailwindcss": "4.0.16",
     "typescript": "5.8.2",
-    "vite": "6.2.2",
+    "vite": "6.2.3",
     "vite-tsconfig-paths": "5.1.4",
-    "wrangler": "4.2.0"
+    "wrangler": "4.4.0"
   },
   "engines": {
     "node": "22.14.0"
