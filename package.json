@@ -15,7 +15,7 @@
     "deploy": "bun run build && wrangler deploy",
     "dev": "react-router dev",
     "start": "wrangler dev",
-    "typecheck": "wrangler types && react-router typegen && tsc -b",
+    "typecheck": "react-router typegen && tsc -b",
     "lint": "tsc --noEmit",
     "prepare": "husky",
     "commitlint": "commitlint --edit"
@@ -48,8 +48,8 @@
     "@radix-ui/react-toggle": "1.1.2",
     "@radix-ui/react-toggle-group": "1.1.2",
     "@radix-ui/react-tooltip": "1.1.8",
-    "@react-router/node": "7.4.0",
-    "@react-router/serve": "7.4.0",
+    "@react-router/node": "7.3.0",
+    "@react-router/serve": "7.3.0",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "cmdk": "1.1.1",
@@ -65,7 +65,7 @@
     "react-dom": "19.0.0",
     "react-hook-form": "7.54.2",
     "react-resizable-panels": "2.1.7",
-    "react-router": "7.4.0",
+    "react-router": "7.3.0",
     "recharts": "2.15.1",
     "sonner": "2.0.1",
     "tailwind-merge": "3.0.2",
@@ -74,10 +74,11 @@
     "zod": "3.24.2"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "4.20250303.0",
     "@commitlint/cli": "19.8.0",
     "@commitlint/config-conventional": "19.8.0",
     "@ianvs/prettier-plugin-sort-imports": "4.4.1",
-    "@react-router/dev": "7.4.0",
+    "@react-router/dev": "7.3.0",
     "@tailwindcss/vite": "4.0.16",
     "@types/node": "22",
     "@types/react": "19.0.12",
@@ -91,7 +92,7 @@
     "typescript": "5.8.2",
     "vite": "6.2.3",
     "vite-tsconfig-paths": "5.1.4",
-    "wrangler": "4.4.0"
+    "wrangler": "3.114.1"
   },
   "engines": {
     "node": "22.14.0"
