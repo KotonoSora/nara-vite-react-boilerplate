@@ -13,6 +13,9 @@ export default defineConfig(({ isSsrBuild }) => ({
           input: "./workers/app.ts",
         }
       : undefined,
+    cssCodeSplit: true,
+    minify: "esbuild",
+    target: "es2022",
   },
   ssr: {
     target: "webworker",
