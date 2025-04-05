@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /_routes.json  # Block Cloudflare Pages internal route file
+Disallow: /_worker.js    # Block Cloudflare worker script
+Disallow: /404/         # Block explicit 404 page if served separately
+Disallow: /*?*          # Block URLs with query parameters (e.g., tracking)
+Allow: /
