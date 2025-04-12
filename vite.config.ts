@@ -1,43 +1,17 @@
+import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
-import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-import { getLoadContext } from "./load-context";
-
-export default defineConfig(({ isSsrBuild }) => ({
+export default defineConfig(() => ({
   build: {
-    rollupOptions: isSsrBuild
-      ? {
-          input: "./workers/app.ts",
-        }
-      : undefined,
     cssCodeSplit: true,
-    minify: "esbuild",
+    minify: "esbuild" as const,
     target: "es2022",
   },
-  ssr: {
-    target: "webworker",
-    noExternal: ["recharts"],
-    resolve: {
-      conditions: ["workerd", "browser"],
-    },
-    optimizeDeps: {
-      include: [
-        "react",
-        "react/jsx-runtime",
-        "react/jsx-dev-runtime",
-        "react-dom",
-        "react-dom/server",
-        "react-router",
-      ],
-    },
-  },
   plugins: [
-    cloudflareDevProxy({
-      getLoadContext,
-    }),
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
     reactRouter(),
     tsconfigPaths(),
