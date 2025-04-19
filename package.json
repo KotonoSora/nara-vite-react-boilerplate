@@ -73,7 +73,7 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.0.8",
-    "@cloudflare/workers-types": "4.20250412.0",
+    "@cloudflare/workers-types": "4.20250419.0",
     "@commitlint/cli": "19.8.0",
     "@commitlint/config-conventional": "19.8.0",
     "@ianvs/prettier-plugin-sort-imports": "4.4.1",
@@ -89,9 +89,9 @@
     "prettier-plugin-tailwindcss": "0.6.11",
     "tailwindcss": "4.1.4",
     "typescript": "5.8.3",
-    "vite": "6.2.6",
+    "vite": "6.3.2",
     "vite-tsconfig-paths": "5.1.4",
-    "wrangler": "4.10.0"
+    "wrangler": "4.12.0"
   },
   "engines": {
     "node": "22.14.0"
