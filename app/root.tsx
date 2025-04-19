@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import {
   isRouteErrorResponse,
   Links,
@@ -5,13 +6,21 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteLoaderData,
 } from "react-router";
+import {
+  PreventFlashOnWrongTheme,
+  Theme,
+  ThemeProvider,
+  useTheme,
+} from "remix-themes";
 
 import type { Route } from "./+types/root";
 
-import "./app.css";
-
 import { Toaster } from "~/components/ui/sonner";
+import { themeSessionResolver } from "~/sessions.server";
+
+import "./app.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -26,13 +35,29 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export async function loader({ request }: Route.LoaderArgs) {
+  const { getTheme } = await themeSessionResolver(request);
+  return {
+    theme: getTheme(),
+  };
+}
+
+function InnerLayout({
+  ssrTheme,
+  children,
+}: {
+  ssrTheme: boolean;
+  children: React.ReactNode;
+}) {
+  const [theme] = useTheme();
+
   return (
-    <html lang="en">
+    <html lang="en" className={clsx(theme)}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
+        <PreventFlashOnWrongTheme ssrTheme={ssrTheme} />
         <Links />
       </head>
       <body>
@@ -42,6 +67,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Toaster />
       </body>
     </html>
+  );
+}
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useRouteLoaderData<typeof loader>("root");
+
+  return (
+    <ThemeProvider
+      specifiedTheme={data?.theme as Theme}
+      themeAction="/action/set-theme"
+    >
+      <InnerLayout ssrTheme={Boolean(data?.theme)}>{children}</InnerLayout>
+    </ThemeProvider>
   );
 }
 
