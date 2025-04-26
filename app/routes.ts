@@ -7,4 +7,5 @@ export default [
   route("welcome", "routes/welcome.tsx"),
   route("dashboard", "routes/dashboard.tsx"),
   route("login", "routes/login.tsx"),
+  route("action/set-theme", "routes/action.set-theme.ts"),
 ] satisfies RouteConfig;
