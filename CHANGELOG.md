@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.4.0
+
+- Config hono for cloudflare workers
+- Config vitest
+- Config code snippets for new router on react-router-v7
+
 ## 4.3.0
 
 - Implement change theme by mode switcher
