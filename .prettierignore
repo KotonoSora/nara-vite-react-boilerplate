@@ -4,11 +4,14 @@
 # Allow specific files within root
 !package.json
 !vite.config.ts
+!vitest.config.ts
 
-# Allow folder app and src
+# Allow folder .vscode
+!.vscode/
+!.vscode/*.code-snippets
+
+# Allow folder source
 !app/
 !app/**
-!src/
-!src/**
-!packages/
-!packages/**
+!workers/
+!workers/**
