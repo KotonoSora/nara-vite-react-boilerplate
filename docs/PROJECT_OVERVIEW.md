@@ -51,10 +51,9 @@ nara-vite-react-boilerplate/
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) v1+
-- Node.js v18+
-- Git
-- (Recommended) VS Code
+- [Bun](https://bun.sh/) v1.2.14
+- [Node.js](https://nodejs.org/) v22.16.0
+- [Git](https://git-scm.com/) v2.49.0
 
 ### 1. Clone & Install
 

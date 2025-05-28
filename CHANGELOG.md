@@ -6,6 +6,7 @@
 - Configured Vitest for unit and integration testing.
 - Added code snippets for new routing patterns in React Router v7.
 - Updated project dependencies.
+- Upgraded Node.js LTS to v22.16.0.
 
 ## 4.3.0 (May 2025)
 
