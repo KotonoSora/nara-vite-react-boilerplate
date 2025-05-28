@@ -1,0 +1,25 @@
+{
+  "React Router v7 Route Page": {
+    "prefix": "rr7route",
+    "body": [
+      "import type { Route } from './+types/$1';",
+      "",
+      "export function meta({}: Route.MetaArgs) {",
+      "  return [",
+      "    { title: '$2' },",
+      "    { name: 'description', content: '$3' },",
+      "  ];",
+      "}",
+      "",
+      "export default function ${4:Page}({}: Route.ComponentProps) {",
+      "  return (",
+      "    <div>",
+      "      <h1>${2}</h1>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "}",
+    ],
+    "description": "Creates a simple React Router v7 route page with meta and default component",
+  },
+}

@@ -1,14 +1,23 @@
 import { Link } from "react-router";
 
-import { ModeToggle } from "~/components/mode-toggle";
+import type { Route } from "./+types/_index";
+
+import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 
-export default function HomePage() {
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Home Page" },
+    { name: "description", content: "Home Page Demo!" },
+  ];
+}
+
+export default function HomeDemo({}: Route.ComponentProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background p-4">
       <div className="absolute top-4 right-4">
-        <ModeToggle />
+        <ModeSwitcher />
       </div>
       <Card className="w-full max-w-md text-center shadow-lg">
         <CardContent className="p-6 space-y-4">
