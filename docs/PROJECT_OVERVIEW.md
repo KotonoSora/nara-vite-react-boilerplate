@@ -1,10 +1,10 @@
 # Nara Vite React Boilerplate: Cloudflare-First Full-Stack Starter
 
-A modern, production-ready React boilerplate designed for edge computing with Cloudflare Workers and Hono.js. Build globally distributed, lightning-fast applications with a best-in-class developer experience.
+A modern, production-ready React boilerplate for building globally distributed, lightning-fast applications on Cloudflare Workers with Hono.js. Enjoy best-in-class developer experience, edge-first performance, and a robust, scalable architecture.
 
 ---
 
-## 🚀 Why Choose This Boilerplate?
+## ✨ Features at a Glance
 
 - **Cloudflare-First**: Deploy instantly to 300+ edge locations for sub-100ms response times.
 - **Hono.js**: Ultra-light, Express-like API framework optimized for edge environments.
@@ -12,16 +12,15 @@ A modern, production-ready React boilerplate designed for edge computing with Cl
 - **TypeScript Everywhere**: End-to-end type safety for frontend, backend, and database.
 - **Cloudflare D1 + Drizzle ORM**: Serverless, distributed SQLite with type-safe queries.
 - **Tailwind CSS v4 + shadcn/ui**: Rapid, utility-first styling and beautiful, accessible components.
-- **Production-Ready**: Built-in testing, analytics, and best practices for modern SaaS, e-commerce, and content platforms.
+- **Production-Ready**: Built-in testing, analytics, and best practices for SaaS, e-commerce, and content platforms.
 
 ---
 
-## 🌐 Edge Computing with Cloudflare & Hono.js
+## 👤 Who is this for?
 
-- **Global Performance**: Serve users from the nearest edge, eliminating cold starts and latency.
-- **Automatic Scaling**: Handles any traffic, scales to zero when idle, pay only for what you use.
-- **Enterprise Security**: DDoS protection, WAF, and bot management by default.
-- **Developer Experience**: Familiar Express-like API, first-class TypeScript, and rich middleware ecosystem.
+- Developers building modern SaaS, e-commerce, or content platforms.
+- Teams seeking edge performance, scalability, and type safety.
+- Anyone who wants a full-stack, batteries-included React starter optimized for Cloudflare.
 
 ---
 
@@ -38,13 +37,13 @@ nara-vite-react-boilerplate/
 ├── ...config files (Vite, Wrangler, Drizzle, etc.)
 ```
 
-| Directory         | Purpose                            |
-| ----------------- | ---------------------------------- |
-| `app/routes/`     | Add new pages (file-based routing) |
-| `app/components/` | Reusable UI components             |
-| `workers/api/`    | Backend API endpoints (Hono.js)    |
-| `database/`       | Database schema (Drizzle ORM)      |
-| `public/`         | Static files (images, icons)       |
+| Directory         | Purpose                                                          |
+| ----------------- | ---------------------------------------------------------------- |
+| `app/routes/`     | Add new pages (file-based routing, processed by `app/routes.ts`) |
+| `app/components/` | Reusable UI components                                           |
+| `workers/api/`    | Backend API endpoints (Hono.js)                                  |
+| `database/`       | Database schema (Drizzle ORM)                                    |
+| `public/`         | Static files (images, icons)                                     |
 
 ---
 
@@ -60,8 +59,16 @@ nara-vite-react-boilerplate/
 ### 1. Clone & Install
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/KotonoSora/nara-vite-react-boilerplate.git
 cd nara-vite-react-boilerplate
+bun install
+```
+
+Alternatively, use `degit` to quickly bootstrap the project into a **new** directory named `your-project-name`:
+
+```bash
+npx degit KotonoSora/nara-vite-react-boilerplate your-project-name
+cd your-project-name
 bun install
 ```
 
@@ -113,30 +120,20 @@ bun run deploy
 
 ## 🧑‍💻 Development Workflow
 
-1. **Pull latest**: `git pull origin main`
-2. **Install deps**: `bun install`
-3. **Migrate DB**: `bun run db:migrate`
-4. **Start dev**: `bun run dev`
-5. **Test**: `bun run test`
-6. **Typecheck**: `bun run typecheck`
-7. **Build**: `bun run build`
+1. **Pull Latest Changes**: `git pull origin main`
+2. **Install/Update Dependencies**: `bun install` (ensures your dependencies match `bun.lockb`)
+3. **Apply Database Migrations**: `bun run db:migrate` (apply pending schema changes, especially after pulling or changing `database/schema.ts`)
+4. **Start Development Server**: `bun run dev`
+5. **Run Tests**: `bun run test`
+6. **Check Types**: `bun run typecheck`
+7. **Build for Production**: `bun run build`
 
 ---
 
 ## 🧪 Testing
 
 - **Unit & Integration**: Vitest for components, APIs, and DB
-- **API Example**:
-
-  ```typescript
-  // workers/tests/book.test.ts
-  import { testClient } from "hono/testing";
-
-  import app from "../api/book";
-
-  // ...test code...
-  ```
-
+- **API Example**: Refer to `workers/tests/book.test.ts` for examples of how API endpoints are tested using Vitest and Hono's testing utilities.
 - **Run all tests**: `bun run test`
 - **Coverage**: `bun run coverage`
 
@@ -144,11 +141,10 @@ bun run deploy
 
 ## 🖌️ Styling & UI
 
-- **Tailwind v4**: CSS-based config in `app/app.css` (`@theme` block)
-- **shadcn/ui**: Pre-built, accessible components in `app/components/ui/`
+- **Tailwind v4**: CSS-based config in [`app/app.css`](../app/app.css) (`@theme` block)
+- **shadcn/ui**: Pre-built, accessible components in [`app/components/ui/`](../app/components/ui/)
 - **Dark mode**: `ModeSwitcher` component, auto system detection
 - **Style guidelines**:
-
   - Use Tailwind utilities first
   - Follow design tokens in `app/app.css`
   - Test both light/dark themes
@@ -158,12 +154,13 @@ bun run deploy
 
 ## ⚙️ Environment & Deployment
 
-- **Cloudflare credentials**: Set `CF_ACCOUNT_ID`, `CF_AUTH_TOKEN` in `.env`
-- **D1 DB**: Created via Wrangler CLI
-- **Production migration**: `bun run db:migrate-production`
-- **Deploy**: `bun run deploy`
-- **Preview**: `npx wrangler versions upload`
-- **Promote**: `npx wrangler versions deploy`
+- **Cloudflare credentials**: Set `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN` (ensure your token has appropriate D1 permissions) in a `.env` file at the project root. This file is used by scripts that interact with Cloudflare, like Drizzle Kit for migration generation.
+- **D1 DB**: Created via Wrangler CLI (e.g., `wrangler d1 create <YOUR_DB_NAME>`). Ensure the `database_name` and `database_id` in `wrangler.jsonc` are updated accordingly.
+- **Production migration**:
+  1. Generate migration SQL files based on your schema changes: `bun run db:generate`
+  2. Apply these migrations to your production D1 database using Wrangler (replace `DB` with your D1 binding name if different): `wrangler d1 migrations apply DB --remote`
+- **Deploy**: `bun run deploy` (this typically deploys to the default environment specified in `wrangler.jsonc`).
+- **Working with Environments**: For staging or multiple deployment targets, configure [Wrangler environments](https://developers.cloudflare.com/workers/wrangler/environments/). Deploy to a specific environment using `wrangler deploy -e <your-env-name>`. For local development that mirrors the Cloudflare environment more closely, use `wrangler dev --remote`.
 
 ---
 
@@ -172,18 +169,21 @@ bun run deploy
 - Fork, clone, `bun install`, `bun run dev`
 - Follow TypeScript, component, and commit standards
 - Write tests for new features
-- Use conventional commits (e.g., `feat: add user profile`)
-- See [Project Overview](docs/PROJECT_OVERVIEW.md) for full guide
+- Use [Conventional Commits](https://www.conventionalcommits.org/) (e.g., `feat: add user profile`)
+- Ensure your contributions align with the guidelines and standards outlined in this document.
 
 ---
 
-## 🛠️ Common Issues & Solutions
+## 🛠️ Common Issues & Solutions (FAQ)
 
-- **DB not found**: `bun run db:migrate`
-- **Type errors**: `bun run typecheck`
-- **Dev server issues**: Restart with `bun run dev`
-- **Port in use**: `lsof -ti:5173 | xargs kill -9`
-- **Wrangler auth**: `wrangler auth login`
+- **DB not found**: Run `bun run db:migrate` to initialize the local database.
+- **Type errors**: Run `bun run typecheck` to check and fix type issues.
+- **Dev server issues**: Restart with `bun run dev`.
+- **Port in use (e.g., 5173)**:
+  - **macOS/Linux**: `lsof -ti:5173 | xargs kill -9`
+  - **Windows**: Use `netstat -ano | findstr :5173` to find the Process ID (PID), then `taskkill /PID <PID> /F` to terminate it.
+  - Alternatively, configure the development server to use a different port if 5173 is consistently occupied (check Vite configuration).
+- **Wrangler auth**: Run `wrangler login` to authenticate with your Cloudflare account.
 
 ---
 
@@ -198,4 +198,4 @@ bun run deploy
 
 ---
 
-For a deep dive into architecture, patterns, and advanced usage, see the full [Project Overview](docs/PROJECT_OVERVIEW.md) and code comments.
+For a deep dive into architecture, patterns, and advanced usage, see the code comments and this Project Overview.
