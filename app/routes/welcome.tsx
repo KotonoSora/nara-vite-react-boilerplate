@@ -140,7 +140,7 @@ export default function WelcomeDemo({
               )}
             </Form>
             <ul className="text-center">
-              {<li className="p-3">{message}</li>}
+              <li className="p-3">{message}</li>
               {guestBook.map(({ id, name }) => (
                 <li key={id} className="p-3">
                   {name}
