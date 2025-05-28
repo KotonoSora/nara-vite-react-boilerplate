@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 
-const app = new Hono();
+const app = new Hono<{ Bindings: CloudflareEnvironment }>();
 
 app.get("/", (c) => {
   return c.text("Many posts");

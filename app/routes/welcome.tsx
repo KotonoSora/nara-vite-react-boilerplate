@@ -2,6 +2,18 @@ import { Form, useNavigation } from "react-router";
 
 import type { Route } from "./+types/welcome";
 
+import { Alert } from "~/components/ui/alert";
+import { Button } from "~/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
 import * as schema from "~/database/schema";
 
 import logoDark from "/assets/logo-dark.svg?url";
@@ -76,78 +88,91 @@ export default function WelcomeDemo({
           </div>
         </header>
         <div className="max-w-[300px] w-full space-y-6 px-4">
-          <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
-            <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
-              What&apos;s next?
-            </p>
-            <ul>
-              {resources.map(({ href, text, icon }) => (
-                <li key={href}>
-                  <a
-                    className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {icon}
-                    {text}
-                  </a>
+          <Card className="w-full max-w-md">
+            <CardHeader>
+              <CardTitle className="text-center">What's next?</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {resources.map(({ href, text, icon }) => (
+                  <li key={href}>
+                    <a
+                      className="flex items-center gap-3 text-blue-600 hover:underline dark:text-blue-400"
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {icon}
+                      {text}
+                    </a>
+                  </li>
+                ))}
+                <li className="text-sm text-muted-foreground text-center">
+                  {message}
                 </li>
-              ))}
-              <li className="self-stretch p-3 leading-normal">{message}</li>
-            </ul>
-          </nav>
-          <section className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
-            <Form
-              method="post"
-              className="space-y-4 w-full max-w-lg"
-              onSubmit={(event) => {
-                if (navigation.state === "submitting") {
-                  event.preventDefault();
-                }
-                const form = event.currentTarget;
-                requestAnimationFrame(() => {
-                  form.reset();
-                });
-              }}
-            >
-              <input
-                aria-label="Name"
-                name="name"
-                placeholder="Name"
-                required
-                className="w-full dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:focus:ring-blue-500 h-10 px-3 rounded-lg border border-gray-200 focus:ring-1 focus:ring-blue-500"
-              />
-              <input
-                aria-label="Email"
-                name="email"
-                type="email"
-                placeholder="your@email.com"
-                required
-                className="w-full dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:focus:ring-blue-500 h-10 px-3 rounded-lg border border-gray-200 focus:ring-1 focus:ring-blue-500"
-              />
-              <button
-                type="submit"
-                disabled={navigation.state === "submitting"}
-                className="w-full h-10 px-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+              </ul>
+            </CardContent>
+          </Card>
+          <Card className="w-full max-w-md">
+            <CardHeader>
+              <CardTitle>Sign Guest Book</CardTitle>
+              <CardDescription>
+                Leave your name and email to join our guest book.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Form
+                method="post"
+                className="space-y-4"
+                onSubmit={(event) => {
+                  if (navigation.state === "submitting") {
+                    event.preventDefault();
+                  }
+                  const form = event.currentTarget;
+                  requestAnimationFrame(() => {
+                    form.reset();
+                  });
+                }}
               >
-                Sign Guest Book
-              </button>
-              {guestBookError && (
-                <p className="text-red-500 dark:text-red-400">
-                  {guestBookError}
-                </p>
-              )}
-            </Form>
-            <ul className="text-center">
-              {<li className="p-3">{message}</li>}
-              {guestBook.map(({ id, name }) => (
-                <li key={id} className="p-3">
-                  {name}
-                </li>
-              ))}
-            </ul>
-          </section>
+                <div className="grid gap-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input id="name" name="name" placeholder="Name" required />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="your@email.com"
+                      required
+                    />
+                  </div>
+                </div>
+                {guestBookError && (
+                  <Alert variant="destructive">{guestBookError}</Alert>
+                )}
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={navigation.state === "submitting"}
+                >
+                  Sign Guest Book
+                </Button>
+              </Form>
+            </CardContent>
+            <CardFooter>
+              <ul className="space-y-2 w-full text-center">
+                <li className="text-sm text-muted-foreground">{message}</li>
+                {guestBook.map(({ id, name }) => (
+                  <li key={id} className="text-sm">
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </CardFooter>
+          </Card>
         </div>
       </div>
     </main>

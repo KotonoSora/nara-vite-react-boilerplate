@@ -4,7 +4,14 @@ import type { Route } from "./+types/_index";
 
 import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
-import { Card, CardContent } from "~/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -19,26 +26,30 @@ export default function HomeDemo({}: Route.ComponentProps) {
       <div className="absolute top-4 right-4">
         <ModeSwitcher />
       </div>
-      <Card className="w-full max-w-md text-center shadow-lg">
-        <CardContent className="p-6 space-y-4">
-          <h1 className="text-2xl font-bold">Welcome to Our App</h1>
-          <p className="text-gray-600">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-1 text-center">
+          <CardTitle className="text-2xl">Welcome to Our App</CardTitle>
+          <CardDescription>
             Navigate easily to different sections.
-          </p>
-          <div className="space-y-2">
-            <Button variant="outline" asChild className="w-full">
-              <Link to="/welcome">Welcome</Link>
-            </Button>
-            <Button variant="outline" asChild className="w-full">
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button variant="outline" asChild className="w-full">
-              <Link to="/dashboard">Dashboard</Link>
-            </Button>
-          </div>
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-6 grid gap-3">
+          <Button variant="outline" asChild className="w-full">
+            <Link to="/welcome">Welcome</Link>
+          </Button>
+          <Button variant="outline" asChild className="w-full">
+            <Link to="/login">Login</Link>
+          </Button>
+          <Button variant="outline" asChild className="w-full">
+            <Link to="/dashboard">Dashboard</Link>
+          </Button>
         </CardContent>
+        <CardFooter className="justify-center">
+          <p className="text-sm text-muted-foreground">
+            © 2025 Your Company. All rights reserved.
+          </p>
+        </CardFooter>
       </Card>
-      <p className="text-sm mt-4">© 2025 Your Company. All rights reserved.</p>
     </div>
   );
 }

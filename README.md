@@ -19,7 +19,7 @@ A modern, production-ready template for building full-stack React applications u
 Install the dependencies:
 
 ```bash
-npm install
+bun install
 ```
 
 ### Development
@@ -27,13 +27,13 @@ npm install
 Run an initial database migration:
 
 ```bash
-npm run db:migrate
+bun run db:migrate
 ```
 
 Start the development server with HMR:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 Your application will be available at `http://localhost:5173`.
@@ -43,7 +43,7 @@ Your application will be available at `http://localhost:5173`.
 Create a production build:
 
 ```bash
-npm run build
+bun run build
 ```
 
 ## Deployment
@@ -61,13 +61,13 @@ Be sure to update the `wrangler.toml` file with the correct database name and id
 You will also need to [update the `drizzle.config.ts` file](https://orm.drizzle.team/docs/guides/d1-http-with-drizzle-kit), and then run the production migration:
 
 ```sh
-npm run db:migrate-production
+bun run db:migrate-production
 ```
 
 To build and deploy directly to production:
 
 ```sh
-npm run deploy
+bun run deploy
 ```
 
 To deploy a preview URL:
@@ -85,6 +85,10 @@ npx wrangler versions deploy
 ## Styling
 
 This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+
+## Documentation
+
+For a deeper understanding of the project boilerplate and structure, see the [Project Overview](docs/PROJECT_OVERVIEW.md) document.
 
 ---
 
