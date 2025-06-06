@@ -61,7 +61,7 @@
     "isbot": "5.1.28",
     "lucide-react": "0.513.0",
     "react": "19.1.0",
-    "react-day-picker": "8.10.1",
+    "react-day-picker": "9.7.0",
     "react-dom": "19.1.0",
     "react-hook-form": "7.57.0",
     "react-resizable-panels": "3.0.2",
