@@ -23,7 +23,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@hookform/resolvers": "5.0.1",
+    "@hookform/resolvers": "5.1.0",
     "@radix-ui/react-accordion": "1.2.11",
     "@radix-ui/react-alert-dialog": "1.1.14",
     "@radix-ui/react-aspect-ratio": "1.1.7",
@@ -98,7 +98,7 @@
     "typescript": "5.8.3",
     "vite": "6.3.5",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "~3.1.4",
+    "vitest": "3.1.4",
     "wrangler": "4.19.1"
   },
   "engines": {

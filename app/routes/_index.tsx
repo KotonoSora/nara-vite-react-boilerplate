@@ -1,9 +1,6 @@
-import { Link } from "react-router";
-
 import type { Route } from "./+types/_index";
 
 import { ModeSwitcher } from "~/components/mode-switcher";
-import { Button } from "~/components/ui/button";
 import {
   Card,
   CardContent,
@@ -34,15 +31,9 @@ export default function HomeDemo({}: Route.ComponentProps) {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-6 grid gap-3">
-          <Button variant="outline" asChild className="w-full">
-            <Link to="/welcome">Welcome</Link>
-          </Button>
-          <Button variant="outline" asChild className="w-full">
-            <Link to="/login">Login</Link>
-          </Button>
-          <Button variant="outline" asChild className="w-full">
-            <Link to="/dashboard">Dashboard</Link>
-          </Button>
+          <div className="text-center text-lg text-muted-foreground">
+            Hello, this is a demo page of Nara!
+          </div>
         </CardContent>
         <CardFooter className="justify-center">
           <p className="text-sm text-muted-foreground">
