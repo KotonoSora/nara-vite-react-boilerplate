@@ -1,200 +1,154 @@
-# Nara Vite React Boilerplate: Cloudflare-First Full-Stack Starter
+# PROJECT OVERVIEW
 
-A modern, production-ready React boilerplate for building globally distributed, lightning-fast applications on Cloudflare Workers with Hono.js. Enjoy best-in-class developer experience, edge-first performance, and a robust, scalable architecture.
+## PROJECT: Nara Vite React Boilerplate - A modern React Router v7 full-stack application template
 
----
+A production-ready boilerplate for building full-stack React applications using React Router v7, featuring server-side rendering, Cloudflare deployment, and modern development tools.
 
-## ✨ Features at a Glance
+## STACK:
 
-- **Cloudflare-First**: Deploy instantly to 300+ edge locations for sub-100ms response times.
-- **Hono.js**: Ultra-light, Express-like API framework optimized for edge environments.
-- **React 19 + SSR**: Latest React features, server-side rendering, and file-based routing.
-- **TypeScript Everywhere**: End-to-end type safety for frontend, backend, and database.
-- **Cloudflare D1 + Drizzle ORM**: Serverless, distributed SQLite with type-safe queries.
-- **Tailwind CSS v4 + shadcn/ui**: Rapid, utility-first styling and beautiful, accessible components.
-- **Production-Ready**: Built-in testing, analytics, and best practices for SaaS, e-commerce, and content platforms.
+- **Frontend**: React 19, React Router v7, TypeScript
+- **Styling**: TailwindCSS v4, Radix UI components, Lucide icons
+- **Backend**: Hono API, Cloudflare Workers
+- **Database**: Cloudflare D1 (SQLite), Drizzle ORM
+- **Build Tools**: Vite, Bun runtime
+- **Deployment**: Cloudflare Workers & Pages
+- **Testing**: Vitest, Cloudflare Workers testing
 
----
-
-## 👤 Who is this for?
-
-- Developers building modern SaaS, e-commerce, or content platforms.
-- Teams seeking edge performance, scalability, and type safety.
-- Anyone who wants a full-stack, batteries-included React starter optimized for Cloudflare.
-
----
-
-## 🏗️ Project Structure
-
-```text
-nara-vite-react-boilerplate/
-├── app/         # Frontend React app (SSR, routes, components, hooks)
-├── database/    # Drizzle ORM schema
-├── drizzle/     # DB migrations
-├── workers/     # Cloudflare Workers API (Hono.js endpoints, tests)
-├── public/      # Static assets
-├── docs/        # Documentation
-├── ...config files (Vite, Wrangler, Drizzle, etc.)
-```
-
-| Directory         | Purpose                                                          |
-| ----------------- | ---------------------------------------------------------------- |
-| `app/routes/`     | Add new pages (file-based routing, processed by `app/routes.ts`) |
-| `app/components/` | Reusable UI components                                           |
-| `workers/api/`    | Backend API endpoints (Hono.js)                                  |
-| `database/`       | Database schema (Drizzle ORM)                                    |
-| `public/`         | Static files (images, icons)                                     |
-
----
-
-## ⚡ Quick Start
-
-### Prerequisites
-
-- [Bun](https://bun.sh/) v1.2.14
-- [Node.js](https://nodejs.org/) v22.16.0
-- [Git](https://git-scm.com/) v2.49.0
-
-### 1. Clone & Install
+## QUICK START:
 
 ```bash
-git clone https://github.com/KotonoSora/nara-vite-react-boilerplate.git
-cd nara-vite-react-boilerplate
+# Clone and install dependencies
 bun install
-```
 
-Alternatively, use `degit` to quickly bootstrap the project into a **new** directory named `your-project-name`:
-
-```bash
-npx degit KotonoSora/nara-vite-react-boilerplate your-project-name
-cd your-project-name
-bun install
-```
-
-### 2. Database Setup
-
-```bash
+# Set up database
 bun run db:migrate
-```
 
-### 3. Start Development
-
-```bash
+# Start development server
 bun run dev
-# App: http://localhost:5173
+# App available at http://localhost:5173
+
+# Deploy to Cloudflare
+bun run deploy
 ```
 
-### 4. Verify
+## FEATURES:
 
-- Homepage: `/`
-- Welcome: `/welcome` (try guest book)
-- Dashboard: `/dashboard`
-- Theme toggle: switch light/dark
+- 🚀 Server-side rendering (SSR) with React Router v7
+- ⚡️ Hot Module Replacement (HMR) for fast development
+- 📦 Asset bundling and optimization via Vite
+- 🔄 Full-stack data loading and mutations
+- 🔒 TypeScript-first development
+- 🎨 Modern UI with TailwindCSS v4 and shadcn/ui components
+- 🌓 Dark/light theme support with persistence
+- 📱 Responsive design with mobile-first approach
+- 🗄️ Database integration with Cloudflare D1 and Drizzle ORM
+- 🔌 RESTful API with Hono framework
+- ☁️ Cloudflare Workers deployment-ready
+- 🧪 Testing setup with Vitest and Workers testing
+- 📝 Type-safe forms with validation
+- 🔔 Toast notifications with Sonner
+- 🎯 SEO-friendly with meta tag management
 
----
+## STRUCTURE:
 
-## 🚀 Production Deployment
+```
+/app                    - React Router application
+  /components          - Reusable UI components
+    /ui               - shadcn/ui component library
+  /routes             - File-based routing
+  /hooks              - Custom React hooks
+  /lib                - Utility functions
+  root.tsx            - App shell and layout
+  entry.server.tsx    - Server entry point
+  sessions.server.tsx - Session management
+
+/workers              - Cloudflare Workers API
+  /api               - API route handlers
+  app.ts             - Main worker entry
+
+/database             - Database schema and migrations
+  schema.ts          - Drizzle schema definitions
+
+/drizzle              - Database migrations
+/public               - Static assets
+/docs                 - Documentation
+```
+
+## DEVELOPMENT:
+
+**Setup**:
 
 ```bash
-bun run build
-bun run deploy
-# Live on your Cloudflare Workers domain!
+bun install                    # Install dependencies
+bun run db:migrate            # Set up local database
+bun run dev                   # Start dev server with HMR
 ```
 
----
+**Testing**:
 
-## 🛠️ Key Technologies
+```bash
+bun run test                  # Run unit tests
+bun run coverage             # Generate coverage report
+bun run typecheck           # Type checking
+```
 
-- **React 19**: Server components, concurrent rendering
-- **Hono.js**: Fast, minimal API framework for Workers
-- **Cloudflare D1**: Distributed SQLite at the edge
-- **Drizzle ORM**: Type-safe DB queries & migrations
-- **Tailwind CSS v4**: Utility-first, CSS-based config
-- **shadcn/ui**: Accessible, customizable React components
-- **Vitest**: Fast, Vite-native testing
-- **Bun**: Fast runtime, package manager, and test runner
-- **Wrangler**: Cloudflare CLI for deployment & DB
+**Build**:
 
----
+```bash
+bun run build               # Production build
+bun run start               # Preview production build locally
+```
 
-## 🧑‍💻 Development Workflow
+## CONTRIBUTING:
 
-1. **Pull Latest Changes**: `git pull origin main`
-2. **Install/Update Dependencies**: `bun install` (ensures your dependencies match `bun.lockb`)
-3. **Apply Database Migrations**: `bun run db:migrate` (apply pending schema changes, especially after pulling or changing `database/schema.ts`)
-4. **Start Development Server**: `bun run dev`
-5. **Run Tests**: `bun run test`
-6. **Check Types**: `bun run typecheck`
-7. **Build for Production**: `bun run build`
+- **Code style**: TypeScript strict mode, ESLint + Prettier configured
+- **Process**:
+  1. Fork the repository
+  2. Create feature branch from `main`
+  3. Make changes with proper TypeScript types
+  4. Add tests for new functionality
+  5. Run `bun run lint` and `bun run test`
+  6. Submit pull request with clear description
+- **Help needed**:
+  - Additional UI component examples
+  - Advanced authentication patterns
+  - Performance optimization guides
+  - Mobile app integration examples
 
----
+## TEMPLATE GUIDE:
 
-## 🧪 Testing
+**Customize**:
 
-- **Unit & Integration**: Vitest for components, APIs, and DB
-- **API Example**: Refer to `workers/tests/book.test.ts` for examples of how API endpoints are tested using Vitest and Hono's testing utilities.
-- **Run all tests**: `bun run test`
-- **Coverage**: `bun run coverage`
+- Update `package.json` name, description, and repository
+- Modify `wrangler.jsonc` worker name and database config
+- Replace logos in `/public/assets/`
+- Update brand colors in `app.css` and component themes
+- Configure `drizzle.config.ts` with your database credentials
 
----
+**Extend**:
 
-## 🖌️ Styling & UI
+- Add new routes in `/app/routes/` (file-based routing)
+- Create API endpoints in `/workers/api/`
+- Define database schemas in `/database/schema.ts`
+- Add UI components in `/app/components/`
+- Implement custom hooks in `/app/hooks/`
 
-- **Tailwind v4**: CSS-based config in [`app/app.css`](../app/app.css) (`@theme` block)
-- **shadcn/ui**: Pre-built, accessible components in [`app/components/ui/`](../app/components/ui/)
-- **Dark mode**: `ModeSwitcher` component, auto system detection
-- **Style guidelines**:
-  - Use Tailwind utilities first
-  - Follow design tokens in `app/app.css`
-  - Test both light/dark themes
-  - Mobile-first, accessible, performant
+**Tips**:
 
----
+- Use the shadcn/ui CLI to add new components: `npx shadcn-ui@latest add [component]`
+- Database migrations are automatically generated: `bun run db:generate`
+- Environment variables go in `.dev.vars` for local and Cloudflare dashboard for production
+- Follow the existing file structure for consistency
+- Leverage React Router v7's data loading patterns for optimal performance
+- Use Drizzle's type-safe queries for database operations
+- Take advantage of Cloudflare's edge computing capabilities
 
-## ⚙️ Environment & Deployment
+**Architecture Patterns**:
 
-- **Cloudflare credentials**: Set `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN` (ensure your token has appropriate D1 permissions) in a `.env` file at the project root. This file is used by scripts that interact with Cloudflare, like Drizzle Kit for migration generation.
-- **D1 DB**: Created via Wrangler CLI (e.g., `wrangler d1 create <YOUR_DB_NAME>`). Ensure the `database_name` and `database_id` in `wrangler.jsonc` are updated accordingly.
-- **Production migration**:
-  1. Generate migration SQL files based on your schema changes: `bun run db:generate`
-  2. Apply these migrations to your production D1 database using Wrangler (replace `DB` with your D1 binding name if different): `wrangler d1 migrations apply DB --remote`
-- **Deploy**: `bun run deploy` (this typically deploys to the default environment specified in `wrangler.jsonc`).
-- **Working with Environments**: For staging or multiple deployment targets, configure [Wrangler environments](https://developers.cloudflare.com/workers/wrangler/environments/). Deploy to a specific environment using `wrangler deploy -e <your-env-name>`. For local development that mirrors the Cloudflare environment more closely, use `wrangler dev --remote`.
+- **File-based routing**: Routes automatically created from `/app/routes/` structure
+- **Server-side rendering**: Pages render on the server for better SEO and performance
+- **Progressive enhancement**: Forms work without JavaScript, enhanced with client-side interactions
+- **Type safety**: End-to-end TypeScript from database to UI components
+- **Edge-first**: Designed to run on Cloudflare's global edge network
 
----
-
-## 🤝 Contributing
-
-- Fork, clone, `bun install`, `bun run dev`
-- Follow TypeScript, component, and commit standards
-- Write tests for new features
-- Use [Conventional Commits](https://www.conventionalcommits.org/) (e.g., `feat: add user profile`)
-- Ensure your contributions align with the guidelines and standards outlined in this document.
-
----
-
-## 🛠️ Common Issues & Solutions (FAQ)
-
-- **DB not found**: Run `bun run db:migrate` to initialize the local database.
-- **Type errors**: Run `bun run typecheck` to check and fix type issues.
-- **Dev server issues**: Restart with `bun run dev`.
-- **Port in use (e.g., 5173)**:
-  - **macOS/Linux**: `lsof -ti:5173 | xargs kill -9`
-  - **Windows**: Use `netstat -ano | findstr :5173` to find the Process ID (PID), then `taskkill /PID <PID> /F` to terminate it.
-  - Alternatively, configure the development server to use a different port if 5173 is consistently occupied (check Vite configuration).
-- **Wrangler auth**: Run `wrangler login` to authenticate with your Cloudflare account.
-
----
-
-## 📚 Resources
-
-- [Hono.js Docs](https://hono.dev/)
-- [Cloudflare Workers](https://developers.cloudflare.com/workers/)
-- [Drizzle ORM](https://orm.drizzle.team/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [shadcn/ui](https://ui.shadcn.com/)
-- [React Router](https://reactrouter.com/)
-
----
-
-For a deep dive into architecture, patterns, and advanced usage, see the code comments and this Project Overview.
+This template provides a solid foundation for building modern, scalable web applications with React Router v7 and Cloudflare's infrastructure.
