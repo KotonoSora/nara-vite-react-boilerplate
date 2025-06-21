@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.5.1 (2025-06-21)
+
+- Configured Github Actions
+
 ## 4.4.0 (2025-05-28)
 
 - Configured Hono.js for Cloudflare Workers API.

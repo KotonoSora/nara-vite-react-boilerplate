@@ -12,7 +12,7 @@ describe("common", () => {
   });
 
   test("GET /api", async () => {
-    const res = await appRoute.request("/api", {});
+    const res = await appRoute.request("/api");
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
       message: `Hello from Hono! Running in API`,
@@ -33,12 +33,13 @@ describe("common", () => {
   });
 
   test("POST /api/posts with Request object", async () => {
+    const env = import.meta.env;
     const req = new Request("http://localhost/api");
     const res = await appRoute.fetch(req);
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
       message: `Hello from Hono! Running in API`,
-      env: import.meta.env,
+      env,
     });
   });
 });
