@@ -1,4 +1,21 @@
-# Welcome to React Router!
+# Nara Vite React Boilerplate
+
+> ✨ A modern full-stack template powered by **React Router v7**, **Vite**, **Tailwind CSS**, and **Bun**
+
+[![CI – PR Quality Checks](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/ci-pr-check.yml/badge.svg)](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/ci-pr-check.yml)
+[![Manual Deploy](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/manual-deploy-cloudflare.yml/badge.svg)](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/manual-deploy-cloudflare.yml)
+
+---
+
+## 📘 Overview
+
+A fast, opinionated starter for building **full-stack React apps** with **modern tooling** and **Cloudflare Workers deployment**. Designed with focus on **type safety**, **performance**, and **developer ergonomics**.
+
+📖 See [Project Overview](docs/PROJECT_OVERVIEW.md) for more on project structure.
+
+---
+
+## Welcome to React Router
 
 A modern, production-ready template for building full-stack React applications using React Router.
 
@@ -85,10 +102,6 @@ npx wrangler versions deploy
 ## Styling
 
 This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
-## Documentation
-
-For a deeper understanding of the project boilerplate and structure, see the [Project Overview](docs/PROJECT_OVERVIEW.md) document.
 
 ---
 
