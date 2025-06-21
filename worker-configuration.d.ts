@@ -2,7 +2,6 @@
 
 declare namespace Cloudflare {
   interface Env {
-    VALUE_FROM_CLOUDFLARE: string;
     DB: D1Database;
   }
 }

@@ -1,12 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "my-worker",
+  "name": "nara-vite-react-boilerplate",
   "compatibility_date": "2025-04-09",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./workers/app.ts",
-  "vars": {
-    "VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare",
-  },
+  "vars": {},
   "d1_databases": [
     {
       "binding": "DB",
