@@ -33,7 +33,7 @@ app.notFound((c) => c.json({ error: "Not Found" }, 404));
 
 // Routes
 app.get("/", (c) => {
-  const env = c.env.VALUE_FROM_CLOUDFLARE;
+  const env = import.meta.env;
   return c.json({ message: `Hello from Hono! Running in API`, env });
 });
 
