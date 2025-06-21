@@ -1,0 +1,67 @@
+name: Manual Deploy to Cloudflare Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: true
+        default: main
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Manual Deploy to Cloudflare
+    runs-on: ubuntu-latest
+    if: |
+      github.repository == 'KotonoSora/nara-vite-react-boilerplate' &&
+      secrets.CLOUDFLARE_API_TOKEN != '' &&
+      secrets.CLOUDFLARE_ACCOUNT_ID != '' &&
+      secrets.D1_DATABASE_ID != '' &&
+      secrets.D1_DATABASE_NAME != ''
+    environment: production
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Cache Bun dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install project dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Generate Wrangler types
+        run: bun run wrangler types
+
+      - name: Inject D1 config
+        run: |
+          sed -i "s|your-database-name|${{ secrets.D1_DATABASE_NAME }}|g" wrangler.jsonc
+          sed -i "s|your-database-id|${{ secrets.D1_DATABASE_ID }}|g" wrangler.jsonc
+          sed -i "s|your-database-id|${{ secrets.D1_DATABASE_ID }}|g" drizzle.config.ts
+
+      - name: Run D1 migrations
+        run: bun run db:migrate-production
+
+      - name: Deploy to Cloudflare Pages
+        run: bun run deploy
+
+    env:
+      CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+      D1_DATABASE_NAME: ${{ secrets.D1_DATABASE_NAME }}
+      NODE_ENV: production
