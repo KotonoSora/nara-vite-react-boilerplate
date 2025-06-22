@@ -49,7 +49,7 @@ This guide explains the GitHub Actions workflows used to test and deploy the NAR
 
 ---
 
-## 🔐 Secrets Setup (Repository Settings > Secrets)
+## 🔐 Secrets Setup (GitHub Repository Settings > Secrets)
 
 | Key                   | Description                      |
 | --------------------- | -------------------------------- |
@@ -57,6 +57,18 @@ This guide explains the GitHub Actions workflows used to test and deploy the NAR
 | CLOUDFLARE_ACCOUNT_ID | Your Cloudflare account ID       |
 | D1_DATABASE_ID        | Your Cloudflare D1 database ID   |
 | D1_DATABASE_NAME      | Your Cloudflare D1 database name |
+
+## 🔐 Cloudflare Setup (Cloudflare Dashboard → My Profile → API Tokens)
+
+- Click Create Token → Use the Edit Cloudflare Workers template.
+- Click edit Token name
+- Assign permissions:
+  - Account → D1 → Edit
+  - Account → Cloudflare Pages → Edit
+  - Account → Workers Scripts → Edit
+- Assign Account Resources
+- Define how long this token will stay active
+- Copy the API token
 
 ---
 
