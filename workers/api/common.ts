@@ -4,7 +4,7 @@ import { HTTPException } from "hono/http-exception";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 
-const app = new Hono<{ Bindings: CloudflareEnvironment }>();
+const app = new Hono<{ Bindings: Env }>();
 
 // Middleware
 app.use("*", logger()); // Request logging

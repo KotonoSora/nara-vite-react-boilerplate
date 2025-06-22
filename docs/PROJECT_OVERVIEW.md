@@ -1,154 +1,183 @@
-# PROJECT OVERVIEW
+# NARA Boilerplate (Non‑Abstract Reusable App)
 
-## PROJECT: Nara Vite React Boilerplate - A modern React Router v7 full-stack application template
+A fast, opinionated starter template for building full-stack React apps powered by **React Router v7**, **Cloudflare Workers**, and **modern tooling**. Built with a focus on **type safety**, **performance**, and **developer ergonomics**.
 
-A production-ready boilerplate for building full-stack React applications using React Router v7, featuring server-side rendering, Cloudflare deployment, and modern development tools.
+---
 
-## STACK:
+## 🧱 Tech Stack
 
-- **Frontend**: React 19, React Router v7, TypeScript
-- **Styling**: TailwindCSS v4, Radix UI components, Lucide icons
-- **Backend**: Hono API, Cloudflare Workers
-- **Database**: Cloudflare D1 (SQLite), Drizzle ORM
-- **Build Tools**: Vite, Bun runtime
-- **Deployment**: Cloudflare Workers & Pages
-- **Testing**: Vitest, Cloudflare Workers testing
+- **Frontend**: React 19.1.0, React Router 7.6.2, TypeScript 5.8.3
+- **Styling**: TailwindCSS 4.1.10, shadcn/ui (Radix UI + Lucide icons)
+- **Backend**: Hono framework on Cloudflare Workers
+- **Database**: Cloudflare D1 (SQLite) + Drizzle ORM
+- **Tooling**: Bun, Vite, Vitest
+- **Deployment**: Cloudflare Pages & Workers
 
-## QUICK START:
+---
+
+## 🚀 Quick Start
 
 ```bash
-# Clone and install dependencies
+# Install dependencies
 bun install
 
-# Set up database
+# Set up the local database
+bun run db:generate
 bun run db:migrate
 
 # Start development server
 bun run dev
-# App available at http://localhost:5173
+# → http://localhost:5173
+
+# Build production bundle
+bun run build
+
+# Preview production locally
+bun run start
+# → http://localhost:4173
 
 # Deploy to Cloudflare
 bun run deploy
 ```
 
-## FEATURES:
+---
 
-- 🚀 Server-side rendering (SSR) with React Router v7
-- ⚡️ Hot Module Replacement (HMR) for fast development
-- 📦 Asset bundling and optimization via Vite
-- 🔄 Full-stack data loading and mutations
-- 🔒 TypeScript-first development
-- 🎨 Modern UI with TailwindCSS v4 and shadcn/ui components
-- 🌓 Dark/light theme support with persistence
-- 📱 Responsive design with mobile-first approach
-- 🗄️ Database integration with Cloudflare D1 and Drizzle ORM
-- 🔌 RESTful API with Hono framework
+## ✨ Features
+
+- ⚡️ Server-side rendering (SSR) with React Router
+- 🔄 Full-stack data loading & mutations
+- 🔥 Fast HMR with Vite & Bun
+- 🔒 TypeScript-first across frontend & backend
+- 🎨 Pre-configured TailwindCSS, shadcn/ui (Radix UI + Lucide icons)
+- 🌓 Dark mode + theme persistence
+- 📱 Mobile-first responsive layout
+- 🗃️ D1 database integration via Drizzle ORM
 - ☁️ Cloudflare Workers deployment-ready
-- 🧪 Testing setup with Vitest and Workers testing
-- 📝 Type-safe forms with validation
-- 🔔 Toast notifications with Sonner
-- 🎯 SEO-friendly with meta tag management
+- 🧪 Testing with Vitest + Cloudflare Workers test utils
+- 📝 Type-safe forms & validation
+- 🔔 Toasts with Sonner
+- 🧠 SEO metadata & progressive enhancement
 
-## STRUCTURE:
+---
 
+## 📁 Project Structure
+
+```text
+/app
+  /components       – Shared UI components
+    /ui             – shadcn/ui system
+  /routes           – File-based routes
+  /hooks            – Custom React hooks
+  /lib              – Utilities
+  root.tsx          – App shell/layout
+  entry.server.tsx  – Server entry point
+  sessions.server.tsx – Session logic
+
+/workers
+  /api              – API route handlers
+  app.ts            – Worker entry point
+
+/database
+  schema.ts         – Drizzle schema definitions
+
+/drizzle            – Migrations
+/public             – Static assets
+/docs               – Project docs
 ```
-/app                    - React Router application
-  /components          - Reusable UI components
-    /ui               - shadcn/ui component library
-  /routes             - File-based routing
-  /hooks              - Custom React hooks
-  /lib                - Utility functions
-  root.tsx            - App shell and layout
-  entry.server.tsx    - Server entry point
-  sessions.server.tsx - Session management
 
-/workers              - Cloudflare Workers API
-  /api               - API route handlers
-  app.ts             - Main worker entry
+---
 
-/database             - Database schema and migrations
-  schema.ts          - Drizzle schema definitions
-
-/drizzle              - Database migrations
-/public               - Static assets
-/docs                 - Documentation
-```
-
-## DEVELOPMENT:
-
-**Setup**:
+## 🛠️ Development Tasks
 
 ```bash
-bun install                    # Install dependencies
-bun run db:migrate            # Set up local database
-bun run dev                   # Start dev server with HMR
+# Install dependencies
+bun install
+
+# Database setup
+bun run db:generate
+bun run db:migrate
+
+# Start dev server
+bun run dev
 ```
 
-**Testing**:
+### ✅ Testing
 
 ```bash
-bun run test                  # Run unit tests
-bun run coverage             # Generate coverage report
-bun run typecheck           # Type checking
+bun run test         # Unit tests
+bun run coverage     # Coverage report
+bun run typecheck    # TypeScript checks
 ```
 
-**Build**:
+### 🧱 Build
 
 ```bash
-bun run build               # Production build
-bun run start               # Preview production build locally
+bun run build        # Production build
+bun run start        # Local preview
 ```
 
-## CONTRIBUTING:
+---
 
-- **Code style**: TypeScript strict mode, ESLint + Prettier configured
-- **Process**:
-  1. Fork the repository
-  2. Create feature branch from `main`
-  3. Make changes with proper TypeScript types
-  4. Add tests for new functionality
-  5. Run `bun run lint` and `bun run test`
-  6. Submit pull request with clear description
-- **Help needed**:
-  - Additional UI component examples
-  - Advanced authentication patterns
-  - Performance optimization guides
-  - Mobile app integration examples
+## 🤝 Contributing
 
-## TEMPLATE GUIDE:
+- **Style**: TypeScript strict mode, ESLint + Prettier
+- **Workflow**:
+  1. Fork the repo
+  2. Create a branch from `main`
+  3. Make changes with types + tests
+  4. Run checks: `bun run lint` + `bun run test`
+  5. Submit PR with a clear description
 
-**Customize**:
+### 🚧 Areas to contribute
 
-- Update `package.json` name, description, and repository
-- Modify `wrangler.jsonc` worker name and database config
-- Replace logos in `/public/assets/`
-- Update brand colors in `app.css` and component themes
-- Configure `drizzle.config.ts` with your database credentials
+- Add UI components
+- Auth examples
+- Performance tips
+- Cloudflare Services integrations
 
-**Extend**:
+---
 
-- Add new routes in `/app/routes/` (file-based routing)
-- Create API endpoints in `/workers/api/`
-- Define database schemas in `/database/schema.ts`
-- Add UI components in `/app/components/`
-- Implement custom hooks in `/app/hooks/`
+## 🧰 Template Guide
 
-**Tips**:
+### Customize
 
-- Use the shadcn/ui CLI to add new components: `npx shadcn-ui@latest add [component]`
-- Database migrations are automatically generated: `bun run db:generate`
-- Environment variables go in `.dev.vars` for local and Cloudflare dashboard for production
-- Follow the existing file structure for consistency
-- Leverage React Router v7's data loading patterns for optimal performance
-- Use Drizzle's type-safe queries for database operations
-- Take advantage of Cloudflare's edge computing capabilities
+- Edit `package.json` name, description
+- Update `wrangler.jsonc` (worker name, D1 config)
+- Run `bun run wrangler:types` after changes
+- Replace branding assets in `/public/assets`
+- Edit `app.css` for theme overrides
+- Configure `drizzle.config.ts` with database info
 
-**Architecture Patterns**:
+### Extend
 
-- **File-based routing**: Routes automatically created from `/app/routes/` structure
-- **Server-side rendering**: Pages render on the server for better SEO and performance
-- **Progressive enhancement**: Forms work without JavaScript, enhanced with client-side interactions
-- **Type safety**: End-to-end TypeScript from database to UI components
-- **Edge-first**: Designed to run on Cloudflare's global edge network
+- Add routes in `/app/routes/`
+- Write APIs in `/workers/api/`
+- Define schema in `/database/schema.ts`
+- Build UI in `/app/components/`
+- Write hooks in `/app/hooks/`
 
-This template provides a solid foundation for building modern, scalable web applications with React Router v7 and Cloudflare's infrastructure.
+### Tips
+
+- Use `shadcn/ui` CLI: `bunx --bun shadcn@latest add [component]`
+- Local env: `.dev.vars`, production env via Cloudflare dashboard
+- Stick to structure → easier scaling
+- Use React Router’s data APIs + Drizzle’s typesafe queries
+- Deploy fast with Cloudflare edge runtime
+
+---
+
+## 🧭 Architecture Patterns
+
+| Pattern                 | Description                       |
+| ----------------------- | --------------------------------- |
+| File-based routing      | Pages auto-mapped from `/routes/` |
+| SSR                     | Fast initial load + SEO           |
+| Progressive enhancement | Forms work w/o JS                 |
+| Type-safe E2E           | TS from DB to UI                  |
+| Edge-first              | Global deployments via Workers    |
+
+---
+
+## 🚢 Deployment
+
+📖 See [CI Deploy Guide](./CI_DEPLOY_OVERVIEW.md) for full setup via GitHub Actions.

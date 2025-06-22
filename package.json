@@ -15,6 +15,7 @@
     "deploy": "bun run build && wrangler deploy",
     "dev": "react-router dev",
     "start": "wrangler dev",
+    "wrangler:types": "wrangler types",
     "typecheck": "react-router typegen && tsc -b",
     "lint": "tsc --noEmit",
     "prepare": "husky",

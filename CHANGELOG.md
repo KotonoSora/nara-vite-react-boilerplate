@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.5.2 (2025-06-22)
+
+- Configured Github Actions
+- Implemented project documents
+
 ## 4.5.1 (2025-06-21)
 
 - Configured Github Actions

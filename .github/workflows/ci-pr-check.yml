@@ -17,6 +17,13 @@ jobs:
     if: github.repository == 'KotonoSora/nara-vite-react-boilerplate'
 
     steps:
+      - name: Skip duplicate runs
+        uses: fkirc/skip-duplicate-actions@v5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          cancel_others: false
+          skip_after_successful_duplicate: true
+
       - name: Checkout source
         uses: actions/checkout@v4
 
