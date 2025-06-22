@@ -8,4 +8,6 @@ Please don't suggest code generation or refection solution.
 
 My app motto is prefer quality than quantity so I want to keep everything flexible so i could add arbitrary features to any NARA if I want. I prefer everything to be type-safe.
 
-You must follow the React Router v7 guidelines outlined here: `./instructions/react-router-v7.instructions.md`
+You must follow the React Router v7 guidelines outlined here: 
+- `.github/instructions/react-router-v7-file-route.instructions.md`
+- `.github/instructions/react-router-v7-framework-mode.instructions.md`
