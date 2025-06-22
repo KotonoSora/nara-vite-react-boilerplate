@@ -15,23 +15,33 @@ jobs:
   deploy:
     name: Manual Deploy to Cloudflare
     runs-on: ubuntu-latest
-    if: |
-      github.repository == 'KotonoSora/nara-vite-react-boilerplate' &&
-      secrets.CLOUDFLARE_TOKEN != '' &&
-      secrets.CLOUDFLARE_ACCOUNT_ID != '' &&
-      secrets.D1_DATABASE_ID != '' &&
-      secrets.D1_DATABASE_NAME != ''
+    if: github.repository == 'KotonoSora/nara-vite-react-boilerplate'
     environment: production
+
     steps:
+      - name: Validate required secrets
+        run: |
+          missing=()
+          [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && missing+=("CLOUDFLARE_API_TOKEN")
+          [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ] && missing+=("CLOUDFLARE_ACCOUNT_ID")
+          [ -z "${{ secrets.D1_DATABASE_ID }}" ] && missing+=("D1_DATABASE_ID")
+          [ -z "${{ secrets.D1_DATABASE_NAME }}" ] && missing+=("D1_DATABASE_NAME")
+
+          if [ ${#missing[@]} -ne 0 ]; then
+            echo "❌ Missing secrets: ${missing[*]}"
+            exit 1
+          fi
+
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.branch }}
 
-      - name: Cache Bun dependencies
+      - name: Setup Bun cache
         uses: actions/cache@v4
         with:
-          path: ~/.bun/install/cache
+          path: |
+            ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-bun-
@@ -60,7 +70,7 @@ jobs:
         run: bun run deploy
 
     env:
-      CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
       D1_DATABASE_NAME: ${{ secrets.D1_DATABASE_NAME }}
