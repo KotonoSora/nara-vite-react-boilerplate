@@ -11,11 +11,11 @@ permissions:
   contents: read
 
 jobs:
-  quality-checks:
-    name: Typecheck, Lint, and Unit Test
+  check-skip:
+    name: Check if duplicate run
     runs-on: ubuntu-latest
-    if: github.repository == 'KotonoSora/nara-vite-react-boilerplate'
-
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
     steps:
       - name: Skip duplicate runs
         id: skip_check
@@ -25,18 +25,16 @@ jobs:
           cancel_others: false
           skip_after_successful_duplicate: true
 
-      - name: Stop job if duplicate run was already successful
-        if: steps.skip_check.outputs.should_skip == 'true'
-        run: |
-          echo "✅ Skipping this run because a successful duplicate was found."
-          exit 0
-
+  quality-checks:
+    name: Typecheck, Lint, and Unit Test
+    needs: check-skip
+    if: needs.check-skip.outputs.should_skip != 'true' && github.repository == 'KotonoSora/nara-vite-react-boilerplate'
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout source
-        if: steps.skip_check.outputs.should_skip != 'true'
         uses: actions/checkout@v4
 
       - name: Setup Bun cache
-        if: steps.skip_check.outputs.should_skip != 'true'
         uses: actions/cache@v4
         with:
           path: |
@@ -46,23 +44,18 @@ jobs:
             ${{ runner.os }}-bun-
 
       - name: Install Bun
-        if: steps.skip_check.outputs.should_skip != 'true'
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
       - name: Install dependencies
-        if: steps.skip_check.outputs.should_skip != 'true'
         run: bun install --frozen-lockfile
 
       - name: Run TypeScript typecheck
-        if: steps.skip_check.outputs.should_skip != 'true'
         run: bun run typecheck
 
       - name: Run ESLint
-        if: steps.skip_check.outputs.should_skip != 'true'
         run: bun run lint
 
       - name: Run unit tests
-        if: steps.skip_check.outputs.should_skip != 'true'
         run: bun run test --run --silent 'passed-only'
