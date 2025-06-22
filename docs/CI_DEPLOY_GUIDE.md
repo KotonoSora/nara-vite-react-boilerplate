@@ -40,7 +40,7 @@ This guide explains the GitHub Actions workflows used to test and deploy the NAR
 
 **Secrets Required**:
 
-- `CLOUDFLARE_TOKEN`
+- `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
 - `D1_DATABASE_ID`
 - `D1_DATABASE_NAME`
@@ -53,12 +53,14 @@ This guide explains the GitHub Actions workflows used to test and deploy the NAR
 
 | Key                   | Description                      |
 | --------------------- | -------------------------------- |
-| CLOUDFLARE_TOKEN      | API token with write permissions |
+| CLOUDFLARE_API_TOKEN  | API token with write permissions |
 | CLOUDFLARE_ACCOUNT_ID | Your Cloudflare account ID       |
 | D1_DATABASE_ID        | Your Cloudflare D1 database ID   |
 | D1_DATABASE_NAME      | Your Cloudflare D1 database name |
 
 ## 🔐 Cloudflare Setup (Cloudflare Dashboard → My Profile → API Tokens)
+
+In a non-interactive environment, it's necessary to set a `CLOUDFLARE_API_TOKEN` environment variable for wrangler to work. Please go to [guide](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) for instructions on how to create an api token, and assign its value to `CLOUDFLARE_API_TOKEN`
 
 - Click Create Token → Use the Edit Cloudflare Workers template.
 - Click edit Token name
