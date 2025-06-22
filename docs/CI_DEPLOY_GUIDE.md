@@ -60,7 +60,7 @@ This guide explains the GitHub Actions workflows used to test and deploy the NAR
 
 ## 🔐 Cloudflare Setup (Cloudflare Dashboard → My Profile → API Tokens)
 
-In a non-interactive environment, it's necessary to set a `CLOUDFLARE_API_TOKEN` environment variable for wrangler to work. Please go to [guide](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) for instructions on how to create an api token, and assign its value to `CLOUDFLARE_API_TOKEN`
+In a non-interactive environment, it's necessary to set a `CLOUDFLARE_API_TOKEN` environment variable for wrangler to work. Refer to the [guide](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) for instructions on how to create an API token, and assign its value to `CLOUDFLARE_API_TOKEN`
 
 - Click Create Token → Use the Edit Cloudflare Workers template.
 - Click edit Token name
