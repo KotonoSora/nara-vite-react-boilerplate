@@ -18,11 +18,18 @@ jobs:
 
     steps:
       - name: Skip duplicate runs
+        id: skip_check
         uses: fkirc/skip-duplicate-actions@v5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           cancel_others: false
           skip_after_successful_duplicate: true
+
+      - name: Stop job if duplicate run was already successful
+        if: steps.skip_check.outputs.should_skip == 'true'
+        run: |
+          echo "✅ Skipping this run because a successful duplicate was found."
+          exit 0
 
       - name: Checkout source
         uses: actions/checkout@v4
