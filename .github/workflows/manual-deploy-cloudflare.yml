@@ -15,14 +15,23 @@ jobs:
   deploy:
     name: Manual Deploy to Cloudflare
     runs-on: ubuntu-latest
-    if: |
-      github.repository == 'KotonoSora/nara-vite-react-boilerplate' &&
-      secrets.CLOUDFLARE_TOKEN != '' &&
-      secrets.CLOUDFLARE_ACCOUNT_ID != '' &&
-      secrets.D1_DATABASE_ID != '' &&
-      secrets.D1_DATABASE_NAME != ''
+    if: github.repository == 'KotonoSora/nara-vite-react-boilerplate'
     environment: production
+
     steps:
+      - name: Validate required secrets
+        run: |
+          missing=()
+          [ -z "${{ secrets.CLOUDFLARE_TOKEN }}" ] && missing+=("CLOUDFLARE_TOKEN")
+          [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ] && missing+=("CLOUDFLARE_ACCOUNT_ID")
+          [ -z "${{ secrets.D1_DATABASE_ID }}" ] && missing+=("D1_DATABASE_ID")
+          [ -z "${{ secrets.D1_DATABASE_NAME }}" ] && missing+=("D1_DATABASE_NAME")
+
+          if [ ${#missing[@]} -ne 0 ]; then
+            echo "❌ Missing secrets: ${missing[*]}"
+            exit 1
+          fi
+
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
