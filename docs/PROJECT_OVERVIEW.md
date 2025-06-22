@@ -180,4 +180,4 @@ bun run start        # Local preview
 
 ## 🚢 Deployment
 
-📖 See [CI Deploy Guide](./CI_DEPLOY_OVERVIEW.md) for full setup via GitHub Actions.
+📖 See [CI Deploy Guide](./CI_DEPLOY_GUIDE.md) for full setup via GitHub Actions.
