@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.repository == 'KotonoSora/nara-vite-react-boilerplate' &&
-      secrets.CLOUDFLARE_API_TOKEN != '' &&
+      secrets.CLOUDFLARE_TOKEN != '' &&
       secrets.CLOUDFLARE_ACCOUNT_ID != '' &&
       secrets.D1_DATABASE_ID != '' &&
       secrets.D1_DATABASE_NAME != ''
