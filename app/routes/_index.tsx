@@ -28,7 +28,7 @@ export default function Page({}: Route.ComponentProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Header/Navigation */}
-      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="border-b bg-background">
         <div className="container flex h-14 items-center justify-between mx-auto px-2">
           <div className="flex items-center space-x-2">
             <h1 className="text-xl font-bold">NARA</h1>
@@ -38,14 +38,13 @@ export default function Page({}: Route.ComponentProps) {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-background to-secondary/20 py-24 px-4">
-        <div className="absolute inset-0 bg-muted" />
-        <div className="container mx-auto text-center relative">
+      <section className="py-24 px-4 bg-background">
+        <div className="container mx-auto text-center">
           <div className="mx-auto max-w-4xl">
             <div className="inline-block px-4 py-2 bg-accent border border-primary/20 rounded-full text-sm font-medium text-primary mb-6">
               ✨ Production-Ready Boilerplate
             </div>
-            <h1 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h1 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6">
               NARA Boilerplate
             </h1>
             <p className="text-2xl font-semibold text-muted-foreground mb-4">
@@ -57,11 +56,7 @@ export default function Page({}: Route.ComponentProps) {
               majority of your project ideas.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                size="lg"
-                className="text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all duration-300"
-                asChild
-              >
+              <Button size="lg" className="text-lg px-8 py-6" asChild>
                 <Link
                   to="https://github.com/KotonoSora/nara-vite-react-boilerplate"
                   target="_blank"
@@ -83,7 +78,7 @@ export default function Page({}: Route.ComponentProps) {
             <div className="inline-block px-4 py-2 bg-accent border border-primary/20 rounded-full text-sm font-medium text-primary mb-6">
               🚀 Why Choose NARA
             </div>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
               Production-Ready Features
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -92,9 +87,9 @@ export default function Page({}: Route.ComponentProps) {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 hover:-translate-y-1">
+            <Card className="border-2 border-primary/20">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <div className="w-6 h-6 bg-primary rounded-sm"></div>
                 </div>
                 <CardTitle className="text-xl">Type Safety</CardTitle>
@@ -107,10 +102,10 @@ export default function Page({}: Route.ComponentProps) {
               </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 hover:-translate-y-1">
+            <Card className="border-2 border-primary/20">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary/70 rounded-sm"></div>
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-6 h-6 bg-primary rounded-sm"></div>
                 </div>
                 <CardTitle className="text-xl">Performance</CardTitle>
               </CardHeader>
@@ -122,9 +117,9 @@ export default function Page({}: Route.ComponentProps) {
               </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 hover:-translate-y-1">
+            <Card className="border-2 border-primary/20">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <div className="w-6 h-6 bg-primary rounded-full"></div>
                 </div>
                 <CardTitle className="text-xl">Developer Ergonomics</CardTitle>
@@ -137,10 +132,10 @@ export default function Page({}: Route.ComponentProps) {
               </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 hover:-translate-y-1">
+            <Card className="border-2 border-primary/20">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <div className="w-6 h-6 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-lg"></div>
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-6 h-6 bg-primary rounded-lg"></div>
                 </div>
                 <CardTitle className="text-xl">Versatile</CardTitle>
               </CardHeader>
@@ -162,7 +157,7 @@ export default function Page({}: Route.ComponentProps) {
             <div className="inline-block px-4 py-2 bg-accent border border-primary/20 rounded-full text-sm font-medium text-primary mb-6">
               ⚡ Modern Stack
             </div>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
               Modern Tech Stack
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
@@ -170,9 +165,9 @@ export default function Page({}: Route.ComponentProps) {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 hover:-translate-y-1 bg-background/60 backdrop-blur-sm">
+            <Card className="border-2 border-primary/20 bg-background/60">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
+                <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4">
                   <div className="w-6 h-6 bg-blue-500 rounded-sm"></div>
                 </div>
                 <CardTitle className="text-xl">Frontend</CardTitle>
@@ -201,9 +196,9 @@ export default function Page({}: Route.ComponentProps) {
               </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 hover:-translate-y-1 bg-background/60 backdrop-blur-sm">
+            <Card className="border-2 border-primary/20 bg-background/60">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
+                <div className="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center mb-4">
                   <div className="w-6 h-6 bg-purple-500 rounded-sm"></div>
                 </div>
                 <CardTitle className="text-xl">Styling</CardTitle>
@@ -232,9 +227,9 @@ export default function Page({}: Route.ComponentProps) {
               </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 hover:-translate-y-1 bg-background/60 backdrop-blur-sm">
+            <Card className="border-2 border-primary/20 bg-background/60">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-colors">
+                <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
                   <div className="w-6 h-6 bg-green-500 rounded-sm"></div>
                 </div>
                 <CardTitle className="text-xl">Backend</CardTitle>
@@ -263,9 +258,9 @@ export default function Page({}: Route.ComponentProps) {
               </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 hover:-translate-y-1 bg-background/60 backdrop-blur-sm">
+            <Card className="border-2 border-primary/20 bg-background/60">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-orange-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-orange-500/20 transition-colors">
+                <div className="w-12 h-12 bg-orange-500/10 rounded-lg flex items-center justify-center mb-4">
                   <div className="w-6 h-6 bg-orange-500 rounded-sm"></div>
                 </div>
                 <CardTitle className="text-xl">Database</CardTitle>
@@ -294,9 +289,9 @@ export default function Page({}: Route.ComponentProps) {
               </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 hover:-translate-y-1 bg-background/60 backdrop-blur-sm">
+            <Card className="border-2 border-primary/20 bg-background/60">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-red-500/20 transition-colors">
+                <div className="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4">
                   <div className="w-6 h-6 bg-red-500 rounded-sm"></div>
                 </div>
                 <CardTitle className="text-xl">Tooling</CardTitle>
@@ -325,9 +320,9 @@ export default function Page({}: Route.ComponentProps) {
               </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 hover:-translate-y-1 bg-background/60 backdrop-blur-sm">
+            <Card className="border-2 border-primary/20 bg-background/60">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-cyan-500/20 transition-colors">
+                <div className="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center mb-4">
                   <div className="w-6 h-6 bg-cyan-500 rounded-sm"></div>
                 </div>
                 <CardTitle className="text-xl">Deployment</CardTitle>
