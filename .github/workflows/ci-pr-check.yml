@@ -11,11 +11,11 @@ permissions:
   contents: read
 
 jobs:
-  quality-checks:
-    name: Typecheck, Lint, and Unit Test
+  check-skip:
+    name: Check if duplicate run
     runs-on: ubuntu-latest
-    if: github.repository == 'KotonoSora/nara-vite-react-boilerplate'
-
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
     steps:
       - name: Skip duplicate runs
         id: skip_check
@@ -25,12 +25,12 @@ jobs:
           cancel_others: false
           skip_after_successful_duplicate: true
 
-      - name: Stop job if duplicate run was already successful
-        if: steps.skip_check.outputs.should_skip == 'true'
-        run: |
-          echo "✅ Skipping this run because a successful duplicate was found."
-          exit 0
-
+  quality-checks:
+    name: Typecheck, Lint, and Unit Test
+    needs: check-skip
+    if: needs.check-skip.outputs.should_skip != 'true' && github.repository == 'KotonoSora/nara-vite-react-boilerplate'
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
