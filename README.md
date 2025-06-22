@@ -1,6 +1,4 @@
-# Nara Vite React Boilerplate
-
-> ✨ A modern full-stack template powered by **React Router v7**, **Vite**, **Tailwind CSS**, and **Bun**
+# NARA (Non‑Abstract Reusable App) boilerplate
 
 [![CI – PR Quality Checks](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/ci-pr-check.yml/badge.svg)](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/ci-pr-check.yml)
 [![Manual Deploy](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/manual-deploy-cloudflare.yml/badge.svg)](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/manual-deploy-cloudflare.yml)
