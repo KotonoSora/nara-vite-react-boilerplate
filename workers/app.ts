@@ -1,5 +1,7 @@
-import { getLoadContext } from "load-context";
+import { drizzle } from "drizzle-orm/d1";
 import { createRequestHandler } from "react-router";
+
+import * as schema from "~/database/schema";
 
 import apiRoute from "./api/common";
 import appRoute from "./api/setup";
@@ -17,12 +19,12 @@ appRoute.all("*", async (c) => {
   const env = c.env; // Cloudflare environment
   const ctx = c.executionCtx; // Cloudflare execution context
 
-  const loadContext = getLoadContext({
-    request,
-    context: { cloudflare: { env, ctx } },
-  });
+  const db = drizzle(env.DB, { schema });
 
-  const response = await requestHandler(request, loadContext);
+  const response = await requestHandler(request, {
+    cloudflare: { env, ctx },
+    db,
+  });
   return response;
 });
 
