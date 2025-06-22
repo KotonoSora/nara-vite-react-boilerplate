@@ -44,14 +44,14 @@ jobs:
       - name: Install project dependencies
         run: bun install --frozen-lockfile
 
-      - name: Generate Wrangler types
-        run: bun run wrangler types
-
       - name: Inject D1 config
         run: |
           sed -i "s|your-database-name|${{ secrets.D1_DATABASE_NAME }}|g" wrangler.jsonc
           sed -i "s|your-database-id|${{ secrets.D1_DATABASE_ID }}|g" wrangler.jsonc
           sed -i "s|your-database-id|${{ secrets.D1_DATABASE_ID }}|g" drizzle.config.ts
+
+      - name: Generate Wrangler types
+        run: bun run wrangler types
 
       - name: Run D1 migrations
         run: bun run db:migrate-production

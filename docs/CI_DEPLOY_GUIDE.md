@@ -33,14 +33,14 @@ This guide explains the GitHub Actions workflows used to test and deploy the NAR
 - Checkout selected branch
 - Restore Bun cache
 - Install dependencies with Bun
-- Generate Wrangler types
 - Inject Cloudflare D1 database config (via `wrangler.jsonc` and `drizzle.config.ts`)
+- Generate Wrangler types
 - Run D1 migrations (`bun run db:migrate-production`)
 - Deploy to Cloudflare Pages using Wrangler
 
 **Secrets Required**:
 
-- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
 - `D1_DATABASE_ID`
 - `D1_DATABASE_NAME`
