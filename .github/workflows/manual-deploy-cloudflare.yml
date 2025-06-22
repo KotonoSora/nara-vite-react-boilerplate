@@ -38,7 +38,6 @@ jobs:
           ref: ${{ github.event.inputs.branch }}
 
       - name: Setup Bun cache
-        if: steps.skip_check.outputs.should_skip != 'true'
         uses: actions/cache@v4
         with:
           path: |
