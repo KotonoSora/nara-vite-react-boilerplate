@@ -53,7 +53,7 @@ This guide explains the GitHub Actions workflows used to test and deploy the NAR
 
 | Key                   | Description                      |
 | --------------------- | -------------------------------- |
-| CLOUDFLARE_API_TOKEN  | API token with write permissions |
+| CLOUDFLARE_TOKEN      | API token with write permissions |
 | CLOUDFLARE_ACCOUNT_ID | Your Cloudflare account ID       |
 | D1_DATABASE_ID        | Your Cloudflare D1 database ID   |
 | D1_DATABASE_NAME      | Your Cloudflare D1 database name |
