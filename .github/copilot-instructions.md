@@ -4,9 +4,9 @@ Never write code unless I explicitly request it.
 
 If something seems wrong, ask for confirmation. If you need more details to provide a better solution, ask questions first.
 
-Please don't suggest code generation or refection solution.
+Please don't suggest code generation or reflection solution.
 
-My app motto is prefer quality than quantity so I want to keep everything flexible so i could add arbitrary features to any NARA if I want. I prefer everything to be type-safe.
+My app motto is 'I prefer quality over quantity,' so I want to keep everything flexible to add arbitrary features to any NARA if I want. I prefer everything to be type-safe.
 
 You must follow the React Router v7 guidelines outlined here: 
 - `.github/instructions/react-router-v7-file-route.instructions.md`
