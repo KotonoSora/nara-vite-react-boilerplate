@@ -93,14 +93,14 @@
     "dotenv-cli": "8.0.0",
     "drizzle-kit": "~0.31.1",
     "husky": "9.1.7",
-    "prettier": "3.5.3",
+    "prettier": "3.6.0",
     "prettier-plugin-tailwindcss": "0.6.12",
     "tailwindcss": "4.1.10",
     "typescript": "5.8.3",
     "vite": "6.3.5",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4",
-    "wrangler": "4.20.5"
+    "wrangler": "4.21.0"
   },
   "engines": {
     "node": "22.16.0"
