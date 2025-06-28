@@ -60,7 +60,7 @@
     "hono": "4.8.3",
     "input-otp": "1.4.2",
     "isbot": "5.1.28",
-    "lucide-react": "0.519.0",
+    "lucide-react": "0.525.0",
     "react": "19.1.0",
     "react-day-picker": "9.7.0",
     "react-dom": "19.1.0",
