@@ -19,7 +19,7 @@
     "typecheck": "react-router typegen && tsc -b",
     "lint": "tsc --noEmit",
     "prepare": "husky",
-    "commitlint": "commitlint --edit",
+    "lint:commitlint": "commitlint --edit",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
