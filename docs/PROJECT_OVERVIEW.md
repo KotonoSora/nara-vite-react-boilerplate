@@ -181,3 +181,40 @@ bun run start        # Local preview
 ## 🚢 Deployment
 
 📖 See [CI Deploy Guide](./CI_DEPLOY_GUIDE.md) for full setup via GitHub Actions.
+
+---
+
+## 📄 License
+
+This project is licensed under the **AGPL-3.0** license.
+
+You may use, modify, and deploy this project freely, **but**:
+
+- If you deploy it as a public service (e.g. SaaS), **you must release your full source code**, including any modifications.
+- You **may not use this in closed-source/commercial projects** without complying with AGPL-3.0 terms.
+
+---
+
+## 💼 Planned Commercial Edition
+
+We are working on a commercial version of this project with extended features and a license that allows:
+
+- ✅ Use in closed-source projects  
+- ✅ One-time payment per version  
+- ✅ No requirement to release your modifications
+
+It will be distributed as a `.zip` file with a commercial license via Gumroad.
+
+Follow this repository to get notified when it’s available
+
+<!-- ---
+
+## 💼 Commercial Edition
+
+A commercial version with extended features and a non-AGPL license is available at:
+
+👉 [https://gumroad.com/kotonsora/nara-boilerplate](https://gumroad.com/kotonsora/nara-boilerplate)
+
+- ✅ Use in closed-source projects  
+- ✅ One-time payment per version  
+- ✅ No requirement to release your modifications -->
