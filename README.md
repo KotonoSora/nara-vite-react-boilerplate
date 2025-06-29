@@ -51,4 +51,4 @@ A commercial version with extended features and a non-AGPL license is available 
 
 ---
 
-Built with ❤️ from KotonoSora.
+Built with ❤️ by KotonoSora — to help you ship faster and with confidence.

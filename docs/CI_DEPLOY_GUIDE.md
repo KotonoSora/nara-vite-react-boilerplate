@@ -91,4 +91,4 @@ In a non-interactive environment, it's necessary to set a `CLOUDFLARE_API_TOKEN`
 
 ---
 
-Built with ❤️ to help you ship fast and with confidence.
+Built with ❤️ by KotonoSora — to help you ship faster and with confidence.

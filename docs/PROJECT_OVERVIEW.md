@@ -218,3 +218,7 @@ A commercial version with extended features and a non-AGPL license is available 
 - ✅ Use in closed-source projects  
 - ✅ One-time payment per version  
 - ✅ No requirement to release your modifications -->
+
+---
+
+Built with ❤️ by KotonoSora — to help you ship faster and with confidence.
