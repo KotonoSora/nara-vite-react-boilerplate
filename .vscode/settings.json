@@ -9,10 +9,13 @@
     "commitlint",
     "cssnano",
     "embla",
+    "Gumroad",
     "ianvs",
     "isbot",
     "kotonosora",
     "lockb",
+    "njsproj",
+    "ntvs",
     "nums",
     "nvmrc",
     "scannerwork",
@@ -24,6 +27,7 @@
     "tsbuildinfo",
     "vaul",
     "vite",
-    "vitest"
+    "vitest",
+    "yarnrc"
   ]
 }
