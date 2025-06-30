@@ -9,6 +9,7 @@ export default defineConfig(() => ({
     cssCodeSplit: true,
     minify: "esbuild" as const,
     target: "es2022",
+    assetsInlineLimit: 0,
   },
   plugins: [
     cloudflare({ viteEnvironment: { name: "ssr" } }),
