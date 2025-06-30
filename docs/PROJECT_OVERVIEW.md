@@ -199,8 +199,8 @@ You may use, modify, and deploy this project freely, **but**:
 
 We are working on a commercial version of this project with extended features and a license that allows:
 
-- ✅ Use in closed-source projects  
-- ✅ One-time payment per version  
+- ✅ Use in closed-source projects
+- ✅ One-time payment per version
 - ✅ No requirement to release your modifications
 
 It will be distributed as a `.zip` file with a commercial license via Gumroad.
@@ -215,8 +215,8 @@ A commercial version with extended features and a non-AGPL license is available 
 
 👉 [https://gumroad.com/kotonsora/nara-boilerplate](https://gumroad.com/kotonsora/nara-boilerplate)
 
-- ✅ Use in closed-source projects  
-- ✅ One-time payment per version  
+- ✅ Use in closed-source projects
+- ✅ One-time payment per version
 - ✅ No requirement to release your modifications -->
 
 ---

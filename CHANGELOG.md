@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.6.0 (2025-06-29)
+
+- Write documents for new License: AGPL-3.0
+- Upgrade dependencies versions
+
 ## 4.5.2 (2025-06-22)
 
 - Configured Github Actions
