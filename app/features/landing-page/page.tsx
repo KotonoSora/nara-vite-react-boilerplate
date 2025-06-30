@@ -68,9 +68,9 @@ export function ContentPage({
               Production-Ready Boilerplate
             </div>
 
-            <h1 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
+            <p className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
               NARA Boilerplate
-            </h1>
+            </p>
 
             <p className="text-2xl font-semibold text-primary mb-4">
               The Full-Stack React Boilerplate That Actually Ships
