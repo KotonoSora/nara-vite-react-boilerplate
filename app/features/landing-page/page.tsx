@@ -9,6 +9,7 @@ import {
   Wrench,
   Zap,
 } from "lucide-react";
+import { lazy, Suspense } from "react";
 import { Link } from "react-router";
 
 import { ModeSwitcher } from "~/components/mode-switcher";
@@ -21,11 +22,11 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 
-import { GitHubButton } from "./components/github-button";
-import { LicenseSection } from "./components/license-section";
-import { ShowcaseSection } from "./components/showcase";
+const GitHubButton = lazy(() => import("./components/github-button"));
+const LicenseSection = lazy(() => import("./components/license-section"));
+const ShowcaseSection = lazy(() => import("./components/showcase"));
 
-export function ContentPage({
+export default function ContentPage({
   githubRepository,
   commercialLink,
   showcases,
@@ -53,7 +54,9 @@ export function ContentPage({
             <h1 className="text-xl font-bold">NARA</h1>
           </div>
           <div className="flex items-center space-x-2">
-            <GitHubButton githubRepository={githubRepository} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <GitHubButton githubRepository={githubRepository} />
+            </Suspense>
             <ModeSwitcher />
           </div>
         </div>
@@ -475,13 +478,17 @@ export function ContentPage({
       </section>
 
       {/* License */}
-      <LicenseSection
-        githubRepository={githubRepository}
-        commercialLink={commercialLink}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <LicenseSection
+          githubRepository={githubRepository}
+          commercialLink={commercialLink}
+        />
+      </Suspense>
 
       {/* Showcase */}
-      <ShowcaseSection showcases={showcases} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ShowcaseSection showcases={showcases} />
+      </Suspense>
 
       {/* Footer */}
       <footer className="border-t py-12 px-4 bg-background/80 backdrop-blur-sm">

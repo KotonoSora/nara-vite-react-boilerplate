@@ -1,8 +1,11 @@
+import { lazy, Suspense } from "react";
+
 import type { Route } from "./+types/_index";
 
-import { ContentPage } from "~/features/landing-page/page";
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
+
+const ContentPage = lazy(() => import("~/features/landing-page/page"));
 
 export async function loader({ context }: Route.LoaderArgs) {
   try {
@@ -40,5 +43,9 @@ export function meta({ data }: Route.MetaArgs) {
 export default function Page({ loaderData }: Route.ComponentProps) {
   if (!loaderData) return null;
 
-  return <ContentPage {...loaderData} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ContentPage {...loaderData} />
+    </Suspense>
+  );
 }

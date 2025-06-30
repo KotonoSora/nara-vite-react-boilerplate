@@ -6,7 +6,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import SocialPreview from "~/features/landing-page/assets/social-preview.svg";
 
-export function ShowcaseItem({ project }: { project: ProjectInfo }) {
+export default function ShowcaseItem({ project }: { project: ProjectInfo }) {
   return (
     <Card className="overflow-hidden hover:shadow-xl transition-shadow py-0 gap-0">
       <CardHeader className="p-0 gap-0">
