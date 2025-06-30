@@ -21,3 +21,5 @@
 !workers/**
 !docs/
 !docs/**
+!database/
+!database/**
