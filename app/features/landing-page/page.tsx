@@ -25,7 +25,7 @@ import { GitHubButton } from "./components/github-button";
 import { LicenseSection } from "./components/license-section";
 import { ShowcaseSection } from "./components/showcase";
 
-export default function Page({
+export function ContentPage({
   githubRepository,
   commercialLink,
   showcases,

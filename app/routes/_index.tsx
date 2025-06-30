@@ -1,6 +1,7 @@
 import type { Route } from "./+types/_index";
 
-import ContentPage from "~/features/landing-page/page";
+import { ContentPage } from "~/features/landing-page/page";
+import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 
 export async function loader({ context }: Route.LoaderArgs) {
@@ -10,30 +11,17 @@ export async function loader({ context }: Route.LoaderArgs) {
       db,
     } = context;
 
-    const {
-      LANDING_PAGE_TITLE,
-      LANDING_PAGE_DESCRIPTION,
-      LANDING_PAGE_REPOSITORY,
-      LANDING_PAGE_COMMERCIAL_LINK,
-    } = env as LandingPageEnv;
+    const { title, description, githubRepository, commercialLink } =
+      await getPageInformation({ ...env } as any);
+    const showcases = await getShowcases(db);
 
-    const responseShowcases = await getShowcases(db);
-
-    const pageInformationData: PageInformation = {
-      title:
-        LANDING_PAGE_TITLE ||
-        "NARA Boilerplate - Production-Ready React Starter",
-      description:
-        LANDING_PAGE_DESCRIPTION ||
-        "Fast, opinionated starter template for building full-stack React apps with modern tooling and Cloudflare Workers deployment.",
-      githubRepository:
-        LANDING_PAGE_REPOSITORY ||
-        "https://github.com/KotonoSora/nara-vite-react-boilerplate",
-      commercialLink: LANDING_PAGE_COMMERCIAL_LINK,
-      showcases: responseShowcases,
-    };
-
-    return pageInformationData;
+    return {
+      title,
+      description,
+      githubRepository,
+      commercialLink,
+      showcases,
+    } as PageInformation;
   } catch (error) {
     console.error(error);
     return null;

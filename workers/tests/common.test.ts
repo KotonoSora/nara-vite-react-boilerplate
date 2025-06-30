@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, test, vi } from "vitest";
 
-import { default as appRoute } from "../app";
+import { default as appRoute } from "~/workers/app";
 
 describe("common", () => {
   beforeAll(() => {
