@@ -18,6 +18,10 @@ A fast, opinionated starter template for building full-stack React apps powered 
 ## 🚀 Quick Start
 
 ```bash
+# Makes copies of git repositories
+npx degit KotonoSora/nara-vite-react-boilerplate#main my-new-project
+cd my-new-project
+
 # Install dependencies
 bun install
 
@@ -66,6 +70,7 @@ bun run deploy
 /app
   /components       – Shared UI components
     /ui             – shadcn/ui system
+  /features         - Features
   /routes           – File-based routes
   /hooks            – Custom React hooks
   /lib              – Utilities
@@ -114,6 +119,13 @@ bun run typecheck    # TypeScript checks
 ```bash
 bun run build        # Production build
 bun run start        # Local preview
+```
+
+### 🚢 Deployment
+
+```bash
+bun run db:migrate-production # Migrate database production
+bun run deploy       # Production build and wrangler deploy to cloudflare
 ```
 
 ---
