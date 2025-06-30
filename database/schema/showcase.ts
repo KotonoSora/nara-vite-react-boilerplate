@@ -14,5 +14,5 @@ export const showcaseTag = sqliteTable("showcase_tags", {
   showcaseId: integer("showcase_id")
     .notNull()
     .references(() => showcase.id, { onDelete: "cascade" }),
-  tag: text("tag").notNull().unique(),
+  tag: text("tag").notNull(),
 });

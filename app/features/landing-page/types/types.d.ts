@@ -14,3 +14,10 @@ type PageInformation = {
   commercialLink?: string;
   showcases: ProjectInfo[];
 };
+
+type LandingPageEnv = {
+  LANDING_PAGE_TITLE?: string;
+  LANDING_PAGE_DESCRIPTION?: string;
+  LANDING_PAGE_REPOSITORY?: string;
+  LANDING_PAGE_COMMERCIAL_LINK?: string;
+};

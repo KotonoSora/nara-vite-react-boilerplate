@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "659230e5-19ac-471f-851e-1bf5f65f0c2b",
+  "id": "5f56bf03-a91c-4374-a35b-e3af6f174568",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "showcases": {
@@ -74,15 +74,7 @@
           "autoincrement": false
         }
       },
-      "indexes": {
-        "showcase_tags_tag_unique": {
-          "name": "showcase_tags_tag_unique",
-          "columns": [
-            "tag"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "showcase_tags_showcase_id_showcases_id_fk": {
           "name": "showcase_tags_showcase_id_showcases_id_fk",

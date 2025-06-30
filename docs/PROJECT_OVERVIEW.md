@@ -121,7 +121,7 @@ bun run build        # Production build
 bun run start        # Local preview
 ```
 
-### 🚢 Deployment
+### 🚢 Deploy
 
 ```bash
 bun run db:migrate-production # Migrate database production

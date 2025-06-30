@@ -12,5 +12,3 @@ CREATE TABLE `showcase_tags` (
 	`tag` text NOT NULL,
 	FOREIGN KEY (`showcase_id`) REFERENCES `showcases`(`id`) ON UPDATE no action ON DELETE cascade
 );
---> statement-breakpoint
-CREATE UNIQUE INDEX `showcase_tags_tag_unique` ON `showcase_tags` (`tag`);
