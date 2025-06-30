@@ -1,1 +1,1 @@
-export * from './schema/demo'
+export * from "./schema/showcase";

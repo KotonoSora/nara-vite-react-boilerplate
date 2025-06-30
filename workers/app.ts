@@ -4,6 +4,7 @@ import { createRequestHandler } from "react-router";
 import * as schema from "~/database/schema";
 
 import apiRoute from "./api/common";
+import landingPageRoute from "./api/landing-page";
 import appRoute from "./api/setup";
 
 const requestHandler = createRequestHandler(
@@ -12,6 +13,7 @@ const requestHandler = createRequestHandler(
 );
 
 // Routes
+apiRoute.route("/landing-page", landingPageRoute);
 appRoute.route("/api", apiRoute);
 
 appRoute.all("*", async (c) => {

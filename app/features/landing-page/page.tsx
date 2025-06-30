@@ -23,14 +23,13 @@ import {
 
 import { GitHubButton } from "./components/github-button";
 import { LicenseSection } from "./components/license-section";
+import { ShowcaseSection } from "./components/showcase";
 
 export default function Page({
   githubRepository,
   commercialLink,
-}: {
-  githubRepository: string;
-  commercialLink?: string;
-}) {
+  showcases,
+}: PageInformation) {
   return (
     <div className="min-h-screen bg-background relative overflow-visible">
       {/* Background Pattern */}
@@ -86,7 +85,7 @@ export default function Page({
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
               <Button
                 size="lg"
-                className="text-lg px-8 py-6 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-shadow duration-300 will-change-transform backface-hidden transform-gpu"
+                className="text-lg px-8 h-12 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-shadow duration-300 will-change-transform backface-hidden transform-gpu"
                 asChild
               >
                 <Link
@@ -104,7 +103,7 @@ export default function Page({
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 py-6 border-2 hover:bg-primary/5 transition-all duration-300"
+                className="text-lg px-8 border-2 h-12 hover:bg-primary/5 transition-all duration-300"
                 asChild
               >
                 <Link
@@ -478,6 +477,9 @@ export default function Page({
         githubRepository={githubRepository}
         commercialLink={commercialLink}
       />
+
+      {/* Showcase */}
+      <ShowcaseSection showcases={showcases} />
 
       {/* Footer */}
       <footer className="border-t py-12 px-4 bg-background/80 backdrop-blur-sm">
