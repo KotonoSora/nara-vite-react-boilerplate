@@ -65,6 +65,7 @@ export function LicenseSection({
                   to={githubRepository}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Get Started Free"
                 >
                   Get Started Free
                 </Link>
@@ -114,6 +115,7 @@ export function LicenseSection({
                     to={commercialLink}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Get Commercial License"
                   >
                     Get Commercial License
                   </Link>

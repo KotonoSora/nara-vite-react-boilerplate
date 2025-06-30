@@ -93,6 +93,7 @@ export default function Page({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3"
+                  aria-label="Star on GitHub"
                 >
                   <Star className="h-5 w-5" />
                   Star on GitHub
@@ -111,6 +112,7 @@ export default function Page({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3"
+                  aria-label="Quick Start"
                 >
                   <Rocket className="h-5 w-5" />
                   Quick Start
@@ -143,7 +145,7 @@ export default function Page({
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="bg-card border-2 border-primary/20 rounded-xl p-6 shadow-lg">
+            <div className="bg-card border-2 border-primary/60 rounded-xl p-6 shadow-lg">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                 <div className="space-y-2">
                   <div className="text-3xl font-bold text-primary">5min</div>
@@ -152,7 +154,7 @@ export default function Page({
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <div className="text-3xl font-bold text-green-500">100%</div>
+                  <div className="text-3xl font-bold text-green-700">100%</div>
                   <div className="text-sm text-muted-foreground">Type-safe</div>
                 </div>
                 <div className="space-y-2">
@@ -292,7 +294,7 @@ export default function Page({
                   <div className="flex items-center justify-between">
                     <span className="font-medium">React Router</span>
                     <span className="text-sm text-muted-foreground bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded">
-                      7.6.2
+                      7.6.3
                     </span>
                   </div>
                 </div>
@@ -314,7 +316,7 @@ export default function Page({
                   <div className="flex items-center justify-between">
                     <span className="font-medium">TailwindCSS</span>
                     <span className="text-sm text-muted-foreground bg-purple-500/10 border border-purple-500/20 px-2 py-1 rounded">
-                      4.1.10
+                      4.1.11
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
