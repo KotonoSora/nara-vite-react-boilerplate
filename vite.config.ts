@@ -10,6 +10,23 @@ export default defineConfig(() => ({
     minify: "esbuild" as const,
     target: "es2022",
     assetsInlineLimit: 0,
+    manifest: true,
+    ssrManifest: true,
+    chunkSizeWarningLimit: 14,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            const pkgPath = id.split("node_modules/")[1];
+            const pkg = pkgPath.startsWith("@")
+              ? pkgPath.split("/").slice(0, 2).join("/")
+              : pkgPath.split("/")[0];
+
+            return `vendor-${pkg.replace("/", "-")}`;
+          }
+        },
+      },
+    },
   },
   plugins: [
     cloudflare({ viteEnvironment: { name: "ssr" } }),
