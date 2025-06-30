@@ -2,21 +2,33 @@ import type { Route } from "./+types/_index";
 
 import ContentPage from "~/features/landing-page/page";
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ request, params, context }: Route.LoaderArgs) {
   try {
     const url = new URL(request.url);
     const origin = url.origin;
 
+    console.log({
+      request,
+      params,
+      context,
+      url,
+      origin,
+      api: `${origin}/api/landing-page`,
+    });
+
     const response = await fetch(`${origin}/api/landing-page`);
+
+    console.log({ response });
+
     if (!response.ok) {
-      throw new Error(`Failed to fetch currencies: ${response.statusText}`);
+      throw new Error(`Failed to fetch information: ${response.statusText}`);
     }
 
     const pageInformationData: PageInformation = await response.json();
 
     return pageInformationData;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return null;
   }
 }
