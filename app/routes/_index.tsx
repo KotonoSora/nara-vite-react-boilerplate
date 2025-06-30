@@ -16,6 +16,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
     return pageInformationData;
   } catch (error) {
+    console.log(error);
     return null;
   }
 }
