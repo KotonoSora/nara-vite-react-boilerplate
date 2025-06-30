@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS demo;
+DROP TABLE IF EXISTS showcase_tags;
+DROP TABLE IF EXISTS showcases;
+
 CREATE TABLE `showcases` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
