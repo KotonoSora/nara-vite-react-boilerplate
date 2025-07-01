@@ -23,22 +23,7 @@ import { themeSessionResolver } from "~/sessions.server";
 import "~/app.css";
 import "~/styles/fonts.css";
 
-export const links: Route.LinksFunction = () => [
-  {
-    rel: "preload",
-    href: "/fonts/inter/Inter-VariableFont_opsz,wght.ttf",
-    as: "font",
-    type: "font/ttf",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "preload",
-    href: "/fonts/inter/Inter-Italic-VariableFont_opsz,wght.ttf",
-    as: "font",
-    type: "font/ttf",
-    crossOrigin: "anonymous",
-  },
-];
+export const links: Route.LinksFunction = () => [];
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { getTheme } = await themeSessionResolver(request);
