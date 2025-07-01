@@ -1,5 +1,6 @@
 import type { Route } from "./+types/_index";
 
+import { PageContext } from "~/features/landing-page/context/page-context";
 import { ContentPage } from "~/features/landing-page/page";
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
@@ -40,5 +41,9 @@ export function meta({ data }: Route.MetaArgs) {
 export default function Page({ loaderData }: Route.ComponentProps) {
   if (!loaderData) return null;
 
-  return <ContentPage {...loaderData} />;
+  return (
+    <PageContext.Provider value={loaderData}>
+      <ContentPage />
+    </PageContext.Provider>
+  );
 }

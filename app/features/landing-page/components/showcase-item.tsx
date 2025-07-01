@@ -1,4 +1,5 @@
 import { ExternalLink } from "lucide-react";
+import { memo } from "react";
 import { Link } from "react-router";
 
 import { Badge } from "~/components/ui/badge";
@@ -6,7 +7,11 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import SocialPreview from "~/features/landing-page/assets/social-preview.svg";
 
-export function ShowcaseItem({ project }: { project: ProjectInfo }) {
+export const ShowcaseItem = memo(function ShowcaseItem({
+  project,
+}: {
+  project: ProjectInfo;
+}) {
   return (
     <Card className="overflow-hidden hover:shadow-xl transition-shadow py-0 gap-0">
       <CardHeader className="p-0 gap-0">
@@ -14,6 +19,7 @@ export function ShowcaseItem({ project }: { project: ProjectInfo }) {
           src={project.image ?? SocialPreview}
           alt={project.name}
           className="w-full h-48 object-cover border-b block"
+          loading="lazy"
         />
       </CardHeader>
       <CardContent className="p-5 space-y-3">
@@ -41,4 +47,4 @@ export function ShowcaseItem({ project }: { project: ProjectInfo }) {
       </CardContent>
     </Card>
   );
-}
+});

@@ -1,10 +1,19 @@
-import { ShowcaseItem } from "./showcase-item";
+import { memo } from "react";
 
-export function ShowcaseSection({ showcases }: { showcases?: ProjectInfo[] }) {
+import { ShowcaseItem } from "~/features/landing-page/components/showcase-item";
+
+export const ShowcaseSection = memo(function ShowcaseSection({
+  showcases,
+}: {
+  showcases?: ProjectInfo[];
+}) {
   if (!showcases || showcases.length < 1) return null;
 
   return (
-    <section className="py-16 px-6 lg:px-24 bg-background">
+    <section
+      className="py-16 px-6 lg:px-24 bg-background"
+      style={{ contentVisibility: "auto" }}
+    >
       <div className="max-w-5xl mx-auto text-center space-y-4">
         <h2 className="text-3xl font-bold tracking-tight">🌟 Showcase</h2>
         <p className="text-muted-foreground text-sm">
@@ -20,4 +29,4 @@ export function ShowcaseSection({ showcases }: { showcases?: ProjectInfo[] }) {
       </div>
     </section>
   );
-}
+});

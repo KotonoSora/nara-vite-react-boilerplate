@@ -1,14 +1,14 @@
+import { memo } from "react";
 import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
 import GitHubLogoDark from "~/features/landing-page/assets/GitHub_Invertocat_Dark.svg";
 import GitHubLogoLight from "~/features/landing-page/assets/GitHub_Invertocat_Light.svg";
+import { usePageContext } from "~/features/landing-page/context/page-context";
 
-export function GitHubButton({
-  githubRepository,
-}: {
-  githubRepository: string;
-}) {
+export const GitHubButton = memo(function GitHubButton() {
+  const { githubRepository } = usePageContext();
+
   return (
     <Button
       variant="ghost"
@@ -26,13 +26,15 @@ export function GitHubButton({
           src={GitHubLogoLight}
           alt=""
           className="w-4 h-4 hidden [html.dark_&]:block"
+          loading="lazy"
         />
         <img
           src={GitHubLogoDark}
           alt=""
           className="w-4 h-4 hidden [html.light_&]:block"
+          loading="lazy"
         />
       </Link>
     </Button>
   );
-}
+});
