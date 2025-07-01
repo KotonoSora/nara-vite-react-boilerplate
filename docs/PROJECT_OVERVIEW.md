@@ -6,8 +6,8 @@ A fast, opinionated starter template for building full-stack React apps powered 
 
 ## 🧱 Tech Stack
 
-- **Frontend**: React 19.1.0, React Router 7.6.2, TypeScript 5.8.3
-- **Styling**: TailwindCSS 4.1.10, shadcn/ui (Radix UI + Lucide icons)
+- **Frontend**: React 19.1.0, React Router 7.6.3, TypeScript 5.8.3
+- **Styling**: TailwindCSS 4.1.11, shadcn/ui (Radix UI + Lucide icons)
 - **Backend**: Hono framework on Cloudflare Workers
 - **Database**: Cloudflare D1 (SQLite) + Drizzle ORM
 - **Tooling**: Bun, Vite, Vitest

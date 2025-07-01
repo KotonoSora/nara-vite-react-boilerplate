@@ -2,7 +2,7 @@ import { MoonIcon, SunIcon } from "lucide-react";
 import React from "react";
 import { Theme, useTheme } from "remix-themes";
 
-import { Button } from "./ui/button";
+import { Button } from "~/components/ui/button";
 
 export function ModeSwitcher() {
   const [theme, setTheme] = useTheme();
@@ -15,11 +15,12 @@ export function ModeSwitcher() {
     <Button
       variant="ghost"
       className="group/toggle h-8 w-8 px-0 cursor-pointer"
+      aria-label="Toggle theme"
       onClick={toggleTheme}
+      style={{ contentVisibility: "auto" }}
     >
       <SunIcon className="hidden [html.dark_&]:block" />
       <MoonIcon className="hidden [html.light_&]:block" />
-      <span className="sr-only">Toggle theme</span>
     </Button>
   );
 }

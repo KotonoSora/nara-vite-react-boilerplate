@@ -78,7 +78,7 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.7.5",
     "@cloudflare/vitest-pool-workers": "0.8.38",
-    "@cloudflare/workers-types": "4.20250628.0",
+    "@cloudflare/workers-types": "4.20250701.0",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@ianvs/prettier-plugin-sort-imports": "4.4.2",

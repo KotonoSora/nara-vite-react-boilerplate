@@ -1,19 +1,20 @@
-import { Shield, Sparkles } from "lucide-react";
+import { Shield } from "lucide-react";
+import { memo } from "react";
 import { Link } from "react-router";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
+import { usePageContext } from "~/features/landing-page/context/page-context";
 
-export function LicenseSection({
-  githubRepository,
-  commercialLink,
-}: {
-  githubRepository: string;
-  commercialLink?: string;
-}) {
+export const LicenseSection = memo(function LicenseSection() {
+  const { githubRepository, commercialLink } = usePageContext();
+
   return (
-    <section className="py-16 px-6 lg:px-24 bg-gradient-to-br from-muted/40 to-primary/5">
+    <section
+      className="py-16 px-6 lg:px-24 bg-gradient-to-br from-muted/40 to-primary/5"
+      style={{ contentVisibility: "auto" }}
+    >
       <div className="max-w-4xl mx-auto space-y-6 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-full text-sm font-medium text-green-600 dark:text-green-400 mb-6">
           <Shield className="h-4 w-4" />
@@ -35,7 +36,7 @@ export function LicenseSection({
                 >
                   AGPL-3.0
                 </Badge>
-                <span className="text-2xl font-bold text-green-500">Free</span>
+                <span className="text-2xl font-bold text-green-700">Free</span>
               </div>
 
               <div>
@@ -65,6 +66,7 @@ export function LicenseSection({
                   to={githubRepository}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Get Started Free"
                 >
                   Get Started Free
                 </Link>
@@ -114,6 +116,7 @@ export function LicenseSection({
                     to={commercialLink}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Get Commercial License"
                   >
                     Get Commercial License
                   </Link>
@@ -133,4 +136,4 @@ export function LicenseSection({
       </div>
     </section>
   );
-}
+});
