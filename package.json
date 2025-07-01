@@ -51,7 +51,7 @@
     "zod": "3.25.67"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.7.5",
+    "@cloudflare/vite-plugin": "1.8.0",
     "@cloudflare/vitest-pool-workers": "0.8.38",
     "@cloudflare/workers-types": "4.20250701.0",
     "@commitlint/cli": "19.8.1",
