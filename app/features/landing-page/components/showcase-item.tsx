@@ -13,7 +13,10 @@ export const ShowcaseItem = memo(function ShowcaseItem({
   project: ProjectInfo;
 }) {
   return (
-    <Card className="overflow-hidden hover:shadow-xl transition-shadow py-0 gap-0">
+    <Card
+      className="overflow-hidden hover:shadow-xl transition-shadow py-0 gap-0"
+      style={{ contentVisibility: "auto" }}
+    >
       <CardHeader className="p-0 gap-0">
         <img
           src={project.image ?? SocialPreview}
