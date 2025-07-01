@@ -36,7 +36,7 @@ export const LicenseSection = memo(function LicenseSection() {
                 >
                   AGPL-3.0
                 </Badge>
-                <span className="text-2xl font-bold text-green-500">Free</span>
+                <span className="text-2xl font-bold text-green-700">Free</span>
               </div>
 
               <div>

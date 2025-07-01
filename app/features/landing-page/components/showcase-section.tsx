@@ -1,12 +1,11 @@
 import { memo } from "react";
 
 import { ShowcaseItem } from "~/features/landing-page/components/showcase-item";
+import { usePageContext } from "~/features/landing-page/context/page-context";
 
-export const ShowcaseSection = memo(function ShowcaseSection({
-  showcases,
-}: {
-  showcases?: ProjectInfo[];
-}) {
+export const ShowcaseSection = memo(function ShowcaseSection() {
+  const { showcases } = usePageContext();
+
   if (!showcases || showcases.length < 1) return null;
 
   return (
