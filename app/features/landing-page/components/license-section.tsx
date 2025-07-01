@@ -5,7 +5,7 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 
-export default function LicenseSection({
+export function LicenseSection({
   githubRepository,
   commercialLink,
 }: {

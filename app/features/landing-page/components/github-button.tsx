@@ -4,7 +4,7 @@ import { Button } from "~/components/ui/button";
 import GitHubLogoDark from "~/features/landing-page/assets/GitHub_Invertocat_Dark.svg";
 import GitHubLogoLight from "~/features/landing-page/assets/GitHub_Invertocat_Light.svg";
 
-export default function GitHubButton({
+export function GitHubButton({
   githubRepository,
 }: {
   githubRepository: string;

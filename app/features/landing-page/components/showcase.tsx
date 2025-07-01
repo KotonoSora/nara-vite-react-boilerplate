@@ -1,12 +1,6 @@
-import { lazy, Suspense } from "react";
+import { ShowcaseItem } from "./showcase-item";
 
-const ShowcaseItem = lazy(() => import("./showcase-item"));
-
-export default function ShowcaseSection({
-  showcases,
-}: {
-  showcases?: ProjectInfo[];
-}) {
+export function ShowcaseSection({ showcases }: { showcases?: ProjectInfo[] }) {
   if (!showcases || showcases.length < 1) return null;
 
   return (
@@ -20,11 +14,9 @@ export default function ShowcaseSection({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 max-w-5xl mx-auto">
-        <Suspense fallback={<div>Loading...</div>}>
-          {showcases.map((project: ProjectInfo) => (
-            <ShowcaseItem key={project.id} project={project} />
-          ))}
-        </Suspense>
+        {showcases.map((project: ProjectInfo) => (
+          <ShowcaseItem key={project.id} project={project} />
+        ))}
       </div>
     </section>
   );
