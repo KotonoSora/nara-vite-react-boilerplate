@@ -12,7 +12,7 @@ export default defineConfig(() => ({
     assetsInlineLimit: 0,
     manifest: true,
     ssrManifest: true,
-    chunkSizeWarningLimit: 14,
+    reportCompressedSize: false,
     rollupOptions: {
       output: {
         manualChunks(id) {
