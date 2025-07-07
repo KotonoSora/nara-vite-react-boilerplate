@@ -1,10 +1,22 @@
 import { drizzle } from "drizzle-orm/d1";
 import { createRequestHandler } from "react-router";
 
-import * as schema from "~/database/schema";
+import type { DrizzleD1Database } from "drizzle-orm/d1";
 
-import apiRoute from "./api/common";
-import appRoute from "./api/setup";
+import * as schema from "~/database/schema";
+import apiRoute from "~/workers/api/common";
+import landingPageRoute from "~/workers/api/features/landing-page";
+import appRoute from "~/workers/api/setup";
+
+declare module "react-router" {
+  export interface AppLoadContext {
+    cloudflare: {
+      env: Env;
+      ctx: ExecutionContext;
+    };
+    db: DrizzleD1Database<typeof schema>;
+  }
+}
 
 const requestHandler = createRequestHandler(
   () => import("virtual:react-router/server-build"),
@@ -12,6 +24,7 @@ const requestHandler = createRequestHandler(
 );
 
 // Routes
+apiRoute.route("/landing-page", landingPageRoute);
 appRoute.route("/api", apiRoute);
 
 appRoute.all("*", async (c) => {

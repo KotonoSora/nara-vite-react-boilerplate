@@ -5,7 +5,9 @@ import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config";
 export default defineWorkersConfig({
   resolve: {
     alias: {
-      "~": path.resolve(__dirname, "./"),
+      "~/workers": path.resolve(__dirname, "./workers/"),
+      "~/database": path.resolve(__dirname, "./database/"),
+      "~": path.resolve(__dirname, "./app/"),
     },
   },
   test: {
