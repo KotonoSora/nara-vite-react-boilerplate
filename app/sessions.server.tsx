@@ -4,7 +4,6 @@ import { createThemeSessionResolver } from "remix-themes";
 const sessionStorage = createCookieSessionStorage({
   cookie: {
     name: "__nara_theme",
-    domain: import.meta.env.PROD ? "nara.local" : undefined,
     path: "/",
     httpOnly: true,
     sameSite: "lax",
