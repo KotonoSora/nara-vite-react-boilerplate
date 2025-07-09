@@ -20,23 +20,21 @@ import type { Route } from "./+types/root";
 import appCssUrl from "~/app.css?url";
 import { Toaster } from "~/components/ui/sonner";
 import { themeSessionResolver } from "~/sessions.server";
-import fontCssUrl from "~/styles/fonts.css?url";
+import fontInterItalicCssUrl from "~/styles/fonts-inter-italic.css?url";
+import fontInterRegularCssUrl from "~/styles/fonts-inter-regular.css?url";
 
 export const links: Route.LinksFunction = () => [
   {
-    rel: "preload",
-    href: "/fonts/inter/font-variable.woff2",
-    as: "font",
-    type: "font/woff2",
-    crossOrigin: "anonymous",
-  },
-  {
     rel: "stylesheet",
-    href: fontCssUrl,
+    href: fontInterRegularCssUrl,
   },
   {
     rel: "stylesheet",
     href: appCssUrl,
+  },
+  {
+    rel: "stylesheet",
+    href: fontInterItalicCssUrl,
   },
 ];
 
