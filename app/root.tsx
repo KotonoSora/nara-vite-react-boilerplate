@@ -17,13 +17,28 @@ import {
 
 import type { Route } from "./+types/root";
 
+import appCssUrl from "~/app.css?url";
 import { Toaster } from "~/components/ui/sonner";
 import { themeSessionResolver } from "~/sessions.server";
+import fontCssUrl from "~/styles/fonts.css?url";
 
-import "~/styles/fonts.css";
-import "~/app.css";
-
-export const links: Route.LinksFunction = () => [];
+export const links: Route.LinksFunction = () => [
+  {
+    rel: "preload",
+    href: "/fonts/inter/font-variable.woff2",
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous",
+  },
+  {
+    rel: "stylesheet",
+    href: fontCssUrl,
+  },
+  {
+    rel: "stylesheet",
+    href: appCssUrl,
+  },
+];
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { getTheme } = await themeSessionResolver(request);
