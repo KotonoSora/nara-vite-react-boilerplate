@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("/fonts/inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  src: url("/fonts/inter/font-variable.woff2") format("woff2");
 }
 
 @font-face {
@@ -11,6 +11,5 @@
   font-style: italic;
   font-weight: 100 900;
   font-display: swap;
-  src: url("/fonts/inter/Inter-Italic-VariableFont_opsz,wght.ttf")
-    format("truetype");
+  src: url("/fonts/inter/font-italic-variable.woff2") format("woff2");
 }

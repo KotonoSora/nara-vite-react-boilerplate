@@ -20,8 +20,8 @@ import type { Route } from "./+types/root";
 import { Toaster } from "~/components/ui/sonner";
 import { themeSessionResolver } from "~/sessions.server";
 
-import "~/app.css";
 import "~/styles/fonts.css";
+import "~/app.css";
 
 export const links: Route.LinksFunction = () => [];
 
