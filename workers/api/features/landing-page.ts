@@ -60,7 +60,7 @@ app.post("/showcase/seed", async (c) => {
 const showcaseBodySchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
-  url: z.string().url(),
+  url: z.url(),
   image: z.string().optional(),
   tags: z.array(z.string().trim().min(1)).optional(),
 });
