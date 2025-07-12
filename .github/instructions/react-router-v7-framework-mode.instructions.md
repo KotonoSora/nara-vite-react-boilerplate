@@ -1,6 +1,7 @@
 ---
 applyTo: 'src/routes/**/*.tsx'
 ---
+
 # React Router v7 Framework Mode - Copilot Instructions Rules
 
 ## 🚨 CRITICAL: Route Type Imports - NEVER MAKE THIS MISTAKE

@@ -11,3 +11,4 @@ My app motto is 'I prefer quality over quantity,' so I want to keep everything f
 You must follow the React Router v7 guidelines outlined here: 
 - `.github/instructions/react-router-v7-file-route.instructions.md`
 - `.github/instructions/react-router-v7-framework-mode.instructions.md`
+- `.github\instructions\hono.instructions.md`
