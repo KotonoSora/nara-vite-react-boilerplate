@@ -15,3 +15,4 @@ You must follow the React Router v7 guidelines outlined here:
 - `.github/instructions/cloudflare-d1-drizzle.instructions.md`
 - `.github/instructions/cloudflare-d1.instructions.md`
 - `.github/instructions/drizzle.instructions.md`
+- `.github/instructions/tailwindcss.instructions.md`
