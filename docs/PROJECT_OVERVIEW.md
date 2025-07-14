@@ -15,6 +15,37 @@ A fast, opinionated starter template for building full-stack React apps powered 
 
 ---
 
+## 🛠 Development System Requirements
+
+Before starting development, ensure your environment meets the following system requirements to maintain compatibility and stability across the project.
+
+### ⚙️ Runtime Environment
+
+- **Bun**: `1.2.18`  
+  Install from [https://bun.sh](https://bun.sh) or use your system’s package manager.
+
+- **Node.js**: `v22.17.0`  
+  Use [nvm](https://github.com/nvm-sh/nvm) or a similar version manager to install and manage Node versions.
+
+### 🔒 Version Enforcement
+
+> All team members and CI/CD environments **must use the exact versions** listed above.  
+> Use `.nvmrc` and `.bun-version` files to help enforce version consistency.
+
+### 📦 Package Manager
+
+> This project **only supports [Bun](https://bun.sh)** as the package manager and script runner.  
+> Other tools like `npm`, `yarn`, or `pnpm` are **not supported**.
+
+Verify your setup:
+
+```bash
+bun --version   # should output 1.2.18
+node --version  # should output v22.17.0
+```
+
+---
+
 ## 🚀 Quick Start
 
 ```bash
