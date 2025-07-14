@@ -1,7 +1,8 @@
 ---
 applyTo: 'src/routes/**/*.tsx'
 ---
-# File Route Conventions
+
+# File Route Conventions - Copilot Instructions Rules
 
 The `@react-router/fs-routes` package enables file-convention based route config.
 

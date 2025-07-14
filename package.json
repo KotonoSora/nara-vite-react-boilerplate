@@ -31,7 +31,7 @@
     "date-fns": "4.1.0",
     "drizzle-orm": "~0.44.2",
     "embla-carousel-react": "8.6.0",
-    "hono": "4.8.4",
+    "hono": "4.8.5",
     "input-otp": "1.4.2",
     "isbot": "5.1.28",
     "lucide-react": "0.525.0",
@@ -48,15 +48,15 @@
     "tailwind-merge": "3.3.1",
     "tw-animate-css": "1.3.5",
     "vaul": "1.1.2",
-    "zod": "4.0.2"
+    "zod": "4.0.5"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.9.1",
-    "@cloudflare/vitest-pool-workers": "0.8.50",
-    "@cloudflare/workers-types": "4.20250710.0",
+    "@cloudflare/vite-plugin": "1.9.4",
+    "@cloudflare/vitest-pool-workers": "0.8.53",
+    "@cloudflare/workers-types": "4.20250712.0",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
-    "@ianvs/prettier-plugin-sort-imports": "4.4.2",
+    "@ianvs/prettier-plugin-sort-imports": "4.5.1",
     "@react-router/dev": "7.6.3",
     "@react-router/fs-routes": "7.6.3",
     "@tailwindcss/vite": "4.1.11",
@@ -72,10 +72,10 @@
     "prettier-plugin-tailwindcss": "0.6.14",
     "tailwindcss": "4.1.11",
     "typescript": "5.8.3",
-    "vite": "7.0.3",
+    "vite": "7.0.4",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4",
-    "wrangler": "4.24.0"
+    "wrangler": "4.24.3"
   },
   "engines": {
     "node": "22.17.0"
