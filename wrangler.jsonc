@@ -13,4 +13,11 @@
       "migrations_dir": "drizzle",
     },
   ],
+  "vars": {
+    // Add your environment variables here or use wrangler secret for sensitive data
+    // STRIPE_PUBLISHABLE_KEY: "pk_test_..."
+  }
+  // For sensitive environment variables, use:
+  // wrangler secret put STRIPE_SECRET_KEY
+  // wrangler secret put STRIPE_WEBHOOK_SECRET
 }

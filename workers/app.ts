@@ -6,6 +6,9 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import * as schema from "~/database/schema";
 import apiRoute from "~/workers/api/common";
 import landingPageRoute from "~/workers/api/features/landing-page";
+import paymentRoute from "~/workers/api/features/payment";
+import paymentWebhookRoute from "~/workers/api/features/payment-webhook";
+import productsRoute from "~/workers/api/features/products";
 import appRoute from "~/workers/api/setup";
 
 declare module "react-router" {
@@ -25,6 +28,9 @@ const requestHandler = createRequestHandler(
 
 // Routes
 apiRoute.route("/landing-page", landingPageRoute);
+apiRoute.route("/payment", paymentRoute);
+apiRoute.route("/products", productsRoute);
+appRoute.route("/webhooks/stripe", paymentWebhookRoute);
 appRoute.route("/api", apiRoute);
 
 appRoute.all("*", async (c) => {
