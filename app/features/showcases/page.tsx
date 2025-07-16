@@ -110,13 +110,19 @@ export function ContentShowcasePage() {
   };
 
   const handleDelete = async (id: number) => {
+    if (!window.confirm("Are you sure you want to delete this project?")) {
+      return;
+    }
+    
     setIsLoading(true);
     try {
       // call delete API
       // In a real app, this would make an API call
       console.log("Deleting project:", id);
+      // Show success feedback here
     } catch (error) {
       console.error("Error deleting project:", error);
+      // Show error feedback here
     } finally {
       setIsLoading(false);
     }
@@ -178,6 +184,7 @@ export function ContentShowcasePage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
+              aria-label="Search projects by name, description, or tags"
             />
           </div>
           
@@ -307,6 +314,15 @@ export function ContentShowcasePage() {
                 viewMode === "compact" ? "flex flex-row" : "flex flex-col"
               }`}
               onClick={() => openDetail(project.name)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  openDetail(project.name);
+                }
+              }}
+              aria-label={`View details for ${project.name}`}
             >
               {/* Project Image */}
               <div className={`relative overflow-hidden ${
@@ -319,6 +335,9 @@ export function ContentShowcasePage() {
                     viewMode === "compact" ? "w-32 h-full" : "w-full h-48"
                   }`}
                   loading="lazy"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = SocialPreview;
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
