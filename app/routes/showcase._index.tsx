@@ -12,13 +12,15 @@ export async function loader({ context }: Route.LoaderArgs) {
     const showcases = await getShowcases(db);
 
     return {
-      showcases,
+      showcases: showcases || [],
     } as {
       showcases: ProjectInfo[];
     };
   } catch (error) {
     console.error(error);
-    return null;
+    return {
+      showcases: [],
+    };
   }
 }
 
@@ -32,9 +34,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Page({ loaderData }: Route.ComponentProps) {
   const outletContextData = useOutletContext();
 
-  if (!loaderData) return null;
-
-  const { showcases } = loaderData;
+  const { showcases } = loaderData!;
   const { openDetail, closeDetail } = outletContextData as {
     openDetail: Function;
     closeDetail: Function;
