@@ -12,6 +12,68 @@ A fast, opinionated starter for building **full-stack React apps** with **modern
 
 📖 See [Project Overview](docs/PROJECT_OVERVIEW.md) for more on project structure.
 
+## 🚀 Getting Started
+
+### Method 1: Quick Setup (Recommended)
+
+Create a new project with automatic setup:
+
+```bash
+npx degit KotonoSora/nara-vite-react-boilerplate#main my-new-project
+cd my-new-project
+node setup.mjs
+```
+
+The setup script will:
+- Configure your `package.json` with project details
+- Create a project-specific `README.md`
+- Prompt for project name, description, and other details
+
+### Method 2: Manual Setup
+
+If you prefer manual configuration:
+
+```bash
+npx degit KotonoSora/nara-vite-react-boilerplate#main my-new-project
+cd my-new-project
+cp package.template.json package.json
+cp README.template.md README.md
+# Edit package.json and README.md manually
+```
+
+### After Setup
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   # or
+   bun install
+   ```
+
+2. **Configure environment:**
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your settings
+   ```
+
+3. **Set up database:**
+   ```bash
+   npm run db:generate
+   npm run db:migrate
+   ```
+
+4. **Start development:**
+   ```bash
+   npm run dev
+   ```
+
+## 📁 What's Included
+
+The boilerplate automatically excludes development-specific files:
+- ✅ **Included:** Core app code, configurations, development tools
+- ❌ **Excluded:** Docs, changelog, CI workflows, lock files
+- 🔄 **Templates:** `package.template.json`, `README.template.md`, `setup.mjs`
+
 ---
 
 ## 📄 License

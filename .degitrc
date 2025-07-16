@@ -1,0 +1,25 @@
+# Degit configuration to exclude files/folders when using this as a boilerplate
+# Usage: npx degit KotonoSora/nara-vite-react-boilerplate#main my-new-project
+
+# Exclude project-specific documentation
+docs
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+SECURITY.md
+
+# Exclude boilerplate-specific README (will use README.template.md instead)
+README.md
+
+# Exclude CI/CD workflows specific to the boilerplate repo
+.github/workflows
+
+# Exclude lock files (should be regenerated in new projects)
+bun.lock
+package-lock.json
+
+# Exclude git history
+.git
+
+# Exclude node_modules (should be installed fresh)
+node_modules
