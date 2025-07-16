@@ -18,7 +18,9 @@ import {
 import type { Route } from "./+types/root";
 
 import { Toaster } from "~/components/ui/sonner";
-import { themeSessionResolver } from "~/sessions.server";
+import { AuthProvider } from "~/features/auth/hooks/use-auth";
+import { getUserById } from "~/features/auth/services/user.server";
+import { getUserId, themeSessionResolver } from "~/sessions.server";
 
 import "~/app.css";
 
@@ -33,10 +35,25 @@ export const links: Route.LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
 ];
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   const { getTheme } = await themeSessionResolver(request);
+  
+  // Get current user if logged in and context is available
+  const userId = await getUserId(request);
+  let user = null;
+  
+  if (userId && context?.db) {
+    try {
+      user = await getUserById(context.db, userId);
+    } catch (error) {
+      // If user lookup fails, continue without user (they'll be logged out)
+      console.error("Error loading user:", error);
+    }
+  }
+  
   return {
     theme: getTheme(),
+    user,
   };
 }
 
