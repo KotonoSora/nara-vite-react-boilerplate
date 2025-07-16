@@ -25,30 +25,53 @@ You may use, modify, and deploy this project freely, **but**:
 
 ---
 
-## 💼 Planned Commercial Edition
+## 💼 Commercial Licenses Available
 
-We are working on a commercial version of this project with extended features and a license that allows:
+**Need to use NARA in commercial projects without AGPL restrictions?** 
 
-- ✅ Use in closed-source projects
-- ✅ One-time payment per version
-- ✅ No requirement to release your modifications
+We offer commercial licenses that allow you to:
+- ✅ Use in closed-source/proprietary projects
+- ✅ Keep your modifications private
+- ✅ No requirement to open-source your application
+- ✅ Professional support and updates included
 
-It will be distributed as a `.zip` file with a commercial license via Gumroad.
+### License Options
 
-Follow this repository to get notified when it’s available
+| License | Price | Developers | Support | Best For |
+|---------|-------|------------|---------|----------|
+| **Individual** | $99 | 1 | 6 months | Solo developers, side projects |
+| **Team Small** | $299 | Up to 5 | 12 months | Small teams, startups |
+| **Team Medium** | $599 | Up to 20 | 18 months | Growing companies |
+| **Enterprise** | $1,299 | Unlimited | 24 months | Large organizations |
+| **Source Access** | $2,499 | Unlimited | Lifetime | Full control, white-label |
 
-<!-- ---
+### Why Choose Commercial License?
 
-## 💼 Commercial Edition
+- **⚡ Time Savings**: Skip weeks of setup, go from idea to deployment in hours
+- **🏗️ Production Ready**: Battle-tested architecture, not just a template
+- **🔒 Legal Clarity**: Clear licensing for commercial use without AGPL compliance
+- **🛟 Professional Support**: Direct access to the creators for help and guidance
+- **📈 Stay Current**: Regular updates with latest React Router and Cloudflare features
 
-A commercial version with extended features and a non-AGPL license is available at:
+### Ready to Purchase?
 
-👉 [https://gumroad.com/kotonsora/nara-boilerplate](https://gumroad.com/kotonsora/nara-boilerplate)
+👉 **[Get Your Commercial License](https://gumroad.com/l/nara-boilerplate)** 
 
-- ✅ Use in closed-source projects
-- ✅ One-time payment per version
-- ✅ No requirement to release your modifications -->
+📧 **Questions?** Email us at [licenses@kotonosora.com](mailto:licenses@kotonosora.com)
 
+💬 **Need custom terms?** [Contact us](mailto:enterprise@kotonosora.com) for enterprise licensing
+
+---
+
+### What's Included in Commercial Licenses?
+
+- Complete NARA boilerplate source code
+- Commercial license allowing proprietary use
+- Setup documentation and best practices guide
+- Professional email support (duration varies by tier)
+- Access to private customer portal
+- Regular updates and security patches
+- Money-back guarantee (30 days)
 ---
 
 Built with ❤️ by KotonoSora — to help you ship faster and with confidence.

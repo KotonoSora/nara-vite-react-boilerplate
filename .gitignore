@@ -65,3 +65,4 @@ bun.lockb
 # Cloudflare
 .mf
 .wrangler
+*.backup
