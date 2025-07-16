@@ -23,3 +23,7 @@ package-lock.json
 
 # Exclude node_modules (should be installed fresh)
 node_modules
+
+# Exclude build artifacts
+.react-router
+*.tsbuildinfo
