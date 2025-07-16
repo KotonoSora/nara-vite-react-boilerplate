@@ -65,3 +65,6 @@ bun.lockb
 # Cloudflare
 .mf
 .wrangler
+
+# Plugin system
+plugins/.plugin-status.json

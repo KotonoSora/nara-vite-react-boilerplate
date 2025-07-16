@@ -92,6 +92,7 @@ bun run deploy
 - 📝 Type-safe forms & validation
 - 🔔 Toasts with Sonner
 - 🧠 SEO metadata & progressive enhancement
+- 🔌 **Modular Plugin System** - WordPress-style plugins for modular features
 
 ---
 
@@ -135,6 +136,23 @@ bun run db:migrate
 
 # Start dev server
 bun run dev
+```
+
+### 🔌 Plugin Management
+
+```bash
+# List all plugins
+bun plugin list
+
+# Create a new plugin
+bun plugin create "My Feature"
+
+# Enable/disable plugins
+bun plugin enable plugin-id
+bun plugin disable plugin-id
+
+# Show plugin information
+bun plugin info plugin-id
 ```
 
 ### ✅ Testing

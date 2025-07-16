@@ -10,7 +10,10 @@
 
 A fast, opinionated starter for building **full-stack React apps** with **modern tooling** and **Cloudflare Workers deployment**. Designed with focus on **type safety**, **performance**, and **developer ergonomics**.
 
-📖 See [Project Overview](docs/PROJECT_OVERVIEW.md) for more on project structure.
+**🔌 NEW: Modular Plugin System** - Install only the features you need! Similar to WordPress plugins, the NARA boilerplate now supports modular features that can be easily enabled, disabled, and managed.
+
+📖 See [Project Overview](docs/PROJECT_OVERVIEW.md) for more on project structure.  
+🔌 See [Plugin System Guide](docs/PLUGIN_SYSTEM.md) for the modular plugin system.
 
 ---
 

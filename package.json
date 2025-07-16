@@ -21,7 +21,8 @@
     "prepare": "husky",
     "lint:commitlint": "commitlint --edit",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "plugin": "bun run scripts/plugins/cli.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "5.1.1",
