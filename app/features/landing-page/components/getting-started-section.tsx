@@ -98,7 +98,10 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
 
                     {step.note && (
                       <p className="text-xs text-muted-foreground mt-2 italic">
-                        💡 {step.note}
+                        <span role="img" aria-label="Tip">
+                          💡
+                        </span>{" "}
+                        {step.note}
                       </p>
                     )}
                   </div>
