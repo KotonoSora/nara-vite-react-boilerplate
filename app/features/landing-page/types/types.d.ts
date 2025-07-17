@@ -7,12 +7,21 @@ type ProjectInfo = {
   tags: string[];
 };
 
+type Step = {
+  number: number;
+  title: string;
+  description: string;
+  command: string;
+  note?: string;
+};
+
 type PageInformation = {
   title: string;
   description: string;
   githubRepository: string;
   commercialLink?: string;
   showcases: ProjectInfo[];
+  steps: Step[];
 };
 
 type LandingPageEnv = {
