@@ -10,8 +10,9 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
   const { steps } = usePageContext();
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
 
-  const copyToClipboard = async (text: string, stepNumber: number) => {
+  const copyToClipboard = (step: Step) => async () => {
     try {
+      const { command: text, number: stepNumber } = step;
       await navigator.clipboard.writeText(text);
       setCopiedStep(stepNumber);
       setTimeout(() => setCopiedStep(null), 2000);
@@ -78,10 +79,9 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
                         <Button
                           size="sm"
                           variant="ghost"
-                          className="h-8 w-8 p-0 hover:bg-primary/10 transition-colors"
-                          onClick={() =>
-                            copyToClipboard(step.command, step.number)
-                          }
+                          className="h-8 w-8 p-0 hover:bg-primary/10 transition-colors cursor-pointer"
+                          aria-label={`Copy step ${step.number} command`}
+                          onClick={copyToClipboard(step)}
                         >
                           {copiedStep === step.number ? (
                             <Check className="h-4 w-4 text-green-500" />

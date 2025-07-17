@@ -5,6 +5,11 @@ import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { usePageContext } from "~/features/landing-page/context/page-context";
 
+import {
+  BackgroundDecoration,
+  heroDecorationConfig,
+} from "./shared/background-decoration";
+
 export const HeroSection = memo(function HeroSection() {
   const { githubRepository } = usePageContext();
 
@@ -14,9 +19,18 @@ export const HeroSection = memo(function HeroSection() {
       style={{ contentVisibility: "auto" }}
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5" />
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full blur-3xl opacity-20 animate-pulse" />
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full blur-3xl opacity-20 animate-pulse"
+        aria-hidden="true"
+      />
 
       <div className="container mx-auto text-center relative">
         <div className="mx-auto max-w-5xl">
@@ -93,9 +107,7 @@ export const HeroSection = memo(function HeroSection() {
           </div>
 
           {/* Floating elements for visual interest */}
-          <div className="absolute top-20 left-10 w-4 h-4 bg-primary/20 rounded-full animate-bounce delay-1000" />
-          <div className="absolute top-32 right-20 w-6 h-6 bg-purple-500/20 rounded-full animate-bounce delay-1500" />
-          <div className="absolute bottom-20 left-20 w-3 h-3 bg-primary/30 rounded-full animate-bounce delay-2000" />
+          <BackgroundDecoration elements={heroDecorationConfig} />
         </div>
       </div>
     </section>

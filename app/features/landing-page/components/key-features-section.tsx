@@ -9,6 +9,11 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 
+import {
+  BackgroundDecoration,
+  keyFeaturesDecorationConfig,
+} from "./shared/background-decoration";
+
 export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
   return (
     <section
@@ -16,8 +21,14 @@ export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
       style={{ contentVisibility: "auto" }}
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-green-500/5" />
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:80px_80px]" />
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-green-500/5"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-grid-white/[0.02] bg-[size:80px_80px]"
+        aria-hidden="true"
+      />
 
       <div className="container mx-auto relative">
         <div className="text-center mb-20">
@@ -109,10 +120,7 @@ export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
         </div>
 
         {/* Floating background elements */}
-        <div className="absolute top-20 left-10 w-4 h-4 bg-primary/20 rounded-full animate-bounce delay-1000" />
-        <div className="absolute top-40 right-20 w-6 h-6 bg-green-500/20 rounded-full animate-bounce delay-1500" />
-        <div className="absolute bottom-20 left-1/4 w-3 h-3 bg-yellow-500/20 rounded-full animate-bounce delay-2000" />
-        <div className="absolute bottom-32 right-10 w-5 h-5 bg-purple-500/20 rounded-full animate-bounce delay-2500" />
+        <BackgroundDecoration elements={keyFeaturesDecorationConfig} />
       </div>
     </section>
   );
