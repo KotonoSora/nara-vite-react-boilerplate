@@ -7,6 +7,7 @@ export const PageContext = createContext<PageInformation>({
   commercialLink: "",
   showcases: [],
   steps: [],
+  featuresConfig: [],
 });
 
 export const usePageContext = () => useContext(PageContext);

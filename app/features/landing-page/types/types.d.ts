@@ -15,6 +15,19 @@ type Step = {
   note?: string;
 };
 
+type FeatureCardConfig = {
+  icon: string;
+  title: string;
+  description: string;
+  colors: {
+    primary: string;
+    secondary: string;
+    icon: string;
+    hover: string;
+    background: string;
+  };
+};
+
 type PageInformation = {
   title: string;
   description: string;
@@ -22,6 +35,7 @@ type PageInformation = {
   commercialLink?: string;
   showcases: ProjectInfo[];
   steps: Step[];
+  featuresConfig: FeatureCardConfig[];
 };
 
 type LandingPageEnv = {
