@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
+    "build:shopify": "./scripts/build-shopify-theme.sh",
     "db:generate": "dotenv -- drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply --local DB",
     "db:migrate-production": "dotenv -- drizzle-kit migrate",

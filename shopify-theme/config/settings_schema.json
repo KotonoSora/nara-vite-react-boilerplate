@@ -1,0 +1,119 @@
+{
+  "name": "NARA React Theme",
+  "theme_documentation_url": "https://github.com/KotonoSora/nara-vite-react-boilerplate",
+  "theme_author": "KotonoSora",
+  "theme_version": "1.0.0",
+  "theme_support_url": "https://github.com/KotonoSora/nara-vite-react-boilerplate/issues",
+  "current": {
+    "logo_width": {
+      "type": "range",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 120
+    },
+    "colors_accent_1": {
+      "type": "color",
+      "label": "Accent color 1",
+      "default": "#000000"
+    },
+    "colors_accent_2": {
+      "type": "color", 
+      "label": "Accent color 2",
+      "default": "#ffffff"
+    },
+    "type_header_font": {
+      "type": "font_picker",
+      "label": "Heading font",
+      "default": "source_sans_pro_n4"
+    },
+    "type_body_font": {
+      "type": "font_picker",
+      "label": "Body font", 
+      "default": "source_sans_pro_n4"
+    },
+    "enable_cart_drawer": {
+      "type": "checkbox",
+      "label": "Enable cart drawer",
+      "default": true
+    },
+    "show_vendor": {
+      "type": "checkbox",
+      "label": "Show product vendor",
+      "default": false
+    },
+    "show_secondary_image": {
+      "type": "checkbox",
+      "label": "Show secondary product image on hover",
+      "default": false
+    },
+    "product_grid_image_size": {
+      "type": "select",
+      "label": "Product grid image size",
+      "options": [
+        {
+          "value": "natural",
+          "label": "Natural"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (2:3)"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape (3:2)"
+        }
+      ],
+      "default": "natural"
+    },
+    "collection_card_image_ratio": {
+      "type": "select", 
+      "label": "Collection card image ratio",
+      "options": [
+        {
+          "value": "natural",
+          "label": "Natural"
+        },
+        {
+          "value": "square", 
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (2:3)"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape (3:2)"
+        }
+      ],
+      "default": "landscape"
+    },
+    "enable_quick_add": {
+      "type": "checkbox",
+      "label": "Enable quick add to cart",
+      "default": true
+    },
+    "cart_type": {
+      "type": "select",
+      "label": "Cart type",
+      "options": [
+        {
+          "value": "drawer",
+          "label": "Drawer"
+        },
+        {
+          "value": "page",
+          "label": "Page"
+        }
+      ],
+      "default": "drawer"
+    }
+  }
+}

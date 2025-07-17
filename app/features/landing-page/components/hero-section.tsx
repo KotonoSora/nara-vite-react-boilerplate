@@ -1,4 +1,4 @@
-import { ArrowRight, ExternalLink, Rocket, Star } from "lucide-react";
+import { ArrowRight, ExternalLink, Rocket, Star, ShoppingBag } from "lucide-react";
 import { memo } from "react";
 import { Link } from "react-router";
 
@@ -27,11 +27,16 @@ export const HeroSection = memo(function HeroSection() {
           <p className="text-2xl font-semibold text-primary mb-4">
             The Full-Stack React Boilerplate That Actually Ships
           </p>
+          
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-emerald-500/10 border border-blue-500/20 rounded-full text-sm font-medium text-blue-600 dark:text-blue-400 mb-6">
+            <ShoppingBag className="h-4 w-4" />
+            Now with Shopify eCommerce Integration!
+          </div>
 
           <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
             Stop wasting time on boilerplate setup. Start with a
             production-ready foundation built for developers who ship fast and
-            ship often.
+            ship often. Now includes modern Shopify theme development capabilities!
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
@@ -50,6 +55,23 @@ export const HeroSection = memo(function HeroSection() {
                 <Star className="h-5 w-5" />
                 Star on GitHub
                 <ExternalLink className="h-4 w-4" />
+              </Link>
+            </Button>
+
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 border-2 h-12 hover:bg-blue-50 dark:hover:bg-blue-950 transition-all duration-300"
+              asChild
+            >
+              <Link
+                to="/shop"
+                className="flex items-center gap-3"
+                aria-label="View Shop Demo"
+              >
+                <ShoppingBag className="h-5 w-5" />
+                Shop Demo
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
 
@@ -77,6 +99,10 @@ export const HeroSection = memo(function HeroSection() {
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               From git clone to production in 5 minutes
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+              Shopify-ready eCommerce themes
             </div>
           </div>
         </div>

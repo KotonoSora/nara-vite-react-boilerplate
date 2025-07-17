@@ -1,0 +1,14 @@
+{
+  "logo_width": 120,
+  "colors_accent_1": "#000000",
+  "colors_accent_2": "#ffffff", 
+  "type_header_font": "source_sans_pro_n4",
+  "type_body_font": "source_sans_pro_n4",
+  "enable_cart_drawer": true,
+  "show_vendor": false,
+  "show_secondary_image": false,
+  "product_grid_image_size": "natural",
+  "collection_card_image_ratio": "landscape",
+  "enable_quick_add": true,
+  "cart_type": "drawer"
+}

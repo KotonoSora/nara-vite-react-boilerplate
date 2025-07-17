@@ -18,6 +18,8 @@ import {
 import type { Route } from "./+types/root";
 
 import { Toaster } from "~/components/ui/sonner";
+import { Navigation } from "~/components/navigation";
+import { ShopifyProvider } from "~/contexts/shopify-context";
 import { themeSessionResolver } from "~/sessions.server";
 
 import "~/app.css";
@@ -35,8 +37,16 @@ export const links: Route.LinksFunction = () => [
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { getTheme } = await themeSessionResolver(request);
+  
+  // Get Shopify configuration from environment
+  const shopifyDomain = process.env.SHOPIFY_DOMAIN;
+  const shopifyToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+
   return {
     theme: getTheme(),
+    shopifyConfig: shopifyDomain && shopifyToken 
+      ? { domain: shopifyDomain, storefrontAccessToken: shopifyToken }
+      : null,
   };
 }
 
@@ -59,6 +69,7 @@ function InnerLayout({
         <Links />
       </head>
       <body>
+        <Navigation />
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -76,7 +87,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
       specifiedTheme={data?.theme as Theme}
       themeAction="/action/set-theme"
     >
-      <InnerLayout ssrTheme={Boolean(data?.theme)}>{children}</InnerLayout>
+      <ShopifyProvider config={data?.shopifyConfig || undefined}>
+        <InnerLayout ssrTheme={Boolean(data?.theme)}>
+          <div className="min-h-screen bg-background">
+            {children}
+          </div>
+        </InnerLayout>
+      </ShopifyProvider>
     </ThemeProvider>
   );
 }

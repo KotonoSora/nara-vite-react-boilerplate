@@ -10,7 +10,10 @@
 
 A fast, opinionated starter for building **full-stack React apps** with **modern tooling** and **Cloudflare Workers deployment**. Designed with focus on **type safety**, **performance**, and **developer ergonomics**.
 
+✨ **NEW**: Now includes **Shopify eCommerce integration** for building modern, React-powered Shopify themes!
+
 📖 See [Project Overview](docs/PROJECT_OVERVIEW.md) for more on project structure.
+🛍️ See [Shopify Integration Guide](docs/SHOPIFY_INTEGRATION.md) for eCommerce features.
 
 ---
 
