@@ -1,5 +1,5 @@
 import { Check, Copy, Play, Terminal } from "lucide-react";
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
@@ -10,7 +10,7 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
   const { steps } = usePageContext();
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
 
-  const copyToClipboard = (step: Step) => async () => {
+  const copyToClipboard = async (step: Step) => {
     try {
       const { command: text, number: stepNumber } = step;
       await navigator.clipboard.writeText(text);
@@ -20,6 +20,10 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
       console.error("Failed to copy text: ", err);
     }
   };
+
+  const handleCopyClick = useCallback((step: Step) => {
+    return () => copyToClipboard(step);
+  }, []);
 
   return (
     <section
@@ -81,7 +85,7 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
                           variant="ghost"
                           className="h-8 w-8 p-0 hover:bg-primary/10 transition-colors cursor-pointer"
                           aria-label={`Copy step ${step.number} command`}
-                          onClick={copyToClipboard(step)}
+                          onClick={handleCopyClick(step)}
                         >
                           {copiedStep === step.number ? (
                             <Check className="h-4 w-4 text-green-500" />
