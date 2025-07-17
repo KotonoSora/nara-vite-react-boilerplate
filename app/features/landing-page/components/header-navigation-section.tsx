@@ -1,6 +1,7 @@
 import { memo } from "react";
 
 import { ModeSwitcher } from "~/components/mode-switcher";
+import { UserPreferencesDialog } from "~/components/user-preferences-dialog";
 import { GitHubButton } from "~/features/landing-page/components/github-button";
 
 export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
@@ -24,6 +25,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
         </div>
         <div className="flex items-center space-x-2">
           <GitHubButton />
+          <UserPreferencesDialog />
           <ModeSwitcher />
         </div>
       </div>

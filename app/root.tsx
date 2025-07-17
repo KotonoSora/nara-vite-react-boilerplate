@@ -18,6 +18,7 @@ import {
 import type { Route } from "./+types/root";
 
 import { Toaster } from "~/components/ui/sonner";
+import { UserPreferencesProvider } from "~/hooks/use-user-preferences";
 import { themeSessionResolver } from "~/sessions.server";
 
 import "~/app.css";
@@ -76,7 +77,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       specifiedTheme={data?.theme as Theme}
       themeAction="/action/set-theme"
     >
-      <InnerLayout ssrTheme={Boolean(data?.theme)}>{children}</InnerLayout>
+      <UserPreferencesProvider>
+        <InnerLayout ssrTheme={Boolean(data?.theme)}>{children}</InnerLayout>
+      </UserPreferencesProvider>
     </ThemeProvider>
   );
 }

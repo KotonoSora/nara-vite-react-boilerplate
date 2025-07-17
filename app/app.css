@@ -64,8 +64,13 @@ body {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-accordion-down: accordion-down var(--animation-duration, 0.2s) ease-out;
+  --animate-accordion-up: accordion-up var(--animation-duration, 0.2s) ease-out;
+  
+  /* User customization variables */
+  --font-scale: 1;
+  --animation-duration: 0.2s;
+  --transition-duration: 0.15s;
 
   @keyframes accordion-down {
     from {
@@ -161,5 +166,71 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    font-size: calc(1rem * var(--font-scale, 1));
+    transition: var(--transition-duration, 0.15s) ease-in-out;
+    transition-property: font-size, background-color, color;
   }
 }
+
+/* High contrast mode */
+.high-contrast {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --primary: oklch(0 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --border: oklch(0 0 0);
+  --input: oklch(0.9 0 0);
+}
+
+.dark.high-contrast {
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0 0 0);
+  --border: oklch(1 0 0);
+  --input: oklch(0.1 0 0);
+}
+
+/* Compact mode */
+.compact-mode {
+  --spacing-scale: 0.75;
+}
+
+.compact-mode .container {
+  padding-left: calc(0.5rem * var(--spacing-scale, 1));
+  padding-right: calc(0.5rem * var(--spacing-scale, 1));
+}
+
+.compact-mode h1,
+.compact-mode h2,
+.compact-mode h3,
+.compact-mode h4,
+.compact-mode h5,
+.compact-mode h6 {
+  line-height: calc(1.2 * var(--spacing-scale, 1));
+}
+
+.compact-mode p,
+.compact-mode div {
+  margin-bottom: calc(0.5rem * var(--spacing-scale, 1));
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Font size scaling */
+h1 { font-size: calc(2.25rem * var(--font-scale, 1)); }
+h2 { font-size: calc(1.875rem * var(--font-scale, 1)); }
+h3 { font-size: calc(1.5rem * var(--font-scale, 1)); }
+h4 { font-size: calc(1.25rem * var(--font-scale, 1)); }
+h5 { font-size: calc(1.125rem * var(--font-scale, 1)); }
+h6 { font-size: calc(1rem * var(--font-scale, 1)); }
