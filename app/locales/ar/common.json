@@ -1,0 +1,69 @@
+{
+  "navigation": {
+    "home": "الرئيسية",
+    "about": "حول",
+    "showcase": "العرض",
+    "features": "الميزات",
+    "docs": "التوثيق"
+  },
+  "common": {
+    "loading": "جارٍ التحميل...",
+    "error": "خطأ",
+    "notFound": "غير موجود",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "edit": "تحرير",
+    "delete": "حذف",
+    "close": "إغلاق",
+    "open": "فتح",
+    "search": "بحث",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "language": "اللغة"
+  },
+  "theme": {
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "النظام",
+    "toggle": "تبديل الموضوع"
+  },
+  "landing": {
+    "title": "NARA React النموذج الأساسي",
+    "subtitle": "بداية سريعة ومنظمة لبناء تطبيقات React كاملة المكدس",
+    "description": "مبني باستخدام React Router v7، TypeScript، Cloudflare Workers، والأدوات الحديثة. مصمم مع التركيز على أمان الأنواع والأداء وتجربة المطور.",
+    "getStarted": "ابدأ",
+    "viewDocs": "عرض التوثيق",
+    "features": {
+      "title": "الميزات",
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "أمان كامل للأنواع مع دعم TypeScript",
+      "reactRouter": "React Router v7",
+      "reactRouterDesc": "توجيه حديث مع العرض من جانب الخادم",
+      "cloudflare": "Cloudflare Workers",
+      "cloudflareDesc": "نشر على الحافة مع أداء عالمي",
+      "database": "قاعدة بيانات جاهزة",
+      "databaseDesc": "Drizzle ORM مع تكامل Cloudflare D1",
+      "ui": "واجهة مستخدم حديثة",
+      "uiDesc": "مكونات جميلة مع Tailwind CSS و shadcn/ui",
+      "testing": "إعداد الاختبار",
+      "testingDesc": "Vitest وأدوات الاختبار المكونة مسبقاً"
+    }
+  },
+  "showcase": {
+    "title": "العرض",
+    "description": "أمثلة وعروض توضيحية لميزات النموذج الأساسي",
+    "components": "المكونات",
+    "examples": "الأمثلة",
+    "demos": "العروض التوضيحية"
+  },
+  "errors": {
+    "pageNotFound": "لا يمكن العثور على الصفحة المطلوبة.",
+    "unexpectedError": "حدث خطأ غير متوقع.",
+    "goHome": "الذهاب للرئيسية",
+    "tryAgain": "حاول مرة أخرى"
+  }
+}

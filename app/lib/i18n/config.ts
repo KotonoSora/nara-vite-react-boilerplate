@@ -1,12 +1,18 @@
-export const SUPPORTED_LANGUAGES = ['en', 'es', 'fr'] as const;
+export const SUPPORTED_LANGUAGES = ['en', 'es', 'fr', 'zh', 'hi', 'ar', 'vi', 'ja', 'th'] as const;
 export const DEFAULT_LANGUAGE = 'en' as const;
 
 export type SupportedLanguage = typeof SUPPORTED_LANGUAGES[number];
 
 export const LANGUAGE_NAMES: Record<SupportedLanguage, string> = {
   en: 'English',
-  es: 'Español',
+  es: 'Español', 
   fr: 'Français',
+  zh: '中文',
+  hi: 'हिन्दी',
+  ar: 'العربية',
+  vi: 'Tiếng Việt',
+  ja: '日本語',
+  th: 'ไทย',
 } as const;
 
 export function isSupportedLanguage(lang: string): lang is SupportedLanguage {

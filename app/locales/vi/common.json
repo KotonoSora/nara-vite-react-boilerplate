@@ -1,0 +1,69 @@
+{
+  "navigation": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "showcase": "Trình diễn",
+    "features": "Tính năng",
+    "docs": "Tài liệu"
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "notFound": "Không tìm thấy",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "previous": "Trước đó",
+    "submit": "Gửi",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "close": "Đóng",
+    "open": "Mở",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "sort": "Sắp xếp",
+    "language": "Ngôn ngữ"
+  },
+  "theme": {
+    "light": "Sáng",
+    "dark": "Tối",
+    "system": "Hệ thống",
+    "toggle": "Chuyển đổi chủ đề"
+  },
+  "landing": {
+    "title": "NARA React Boilerplate",
+    "subtitle": "Một khởi đầu nhanh chóng và có ý kiến để xây dựng ứng dụng React full-stack",
+    "description": "Được xây dựng với React Router v7, TypeScript, Cloudflare Workers và các công cụ hiện đại. Được thiết kế tập trung vào tính an toàn kiểu, hiệu suất và trải nghiệm nhà phát triển.",
+    "getStarted": "Bắt đầu",
+    "viewDocs": "Xem tài liệu",
+    "features": {
+      "title": "Tính năng",
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "Tính an toàn kiểu đầy đủ với hỗ trợ TypeScript",
+      "reactRouter": "React Router v7",
+      "reactRouterDesc": "Định tuyến hiện đại với kết xuất phía máy chủ",
+      "cloudflare": "Cloudflare Workers",
+      "cloudflareDesc": "Triển khai edge với hiệu suất toàn cầu",
+      "database": "Cơ sở dữ liệu sẵn sàng",
+      "databaseDesc": "Drizzle ORM với tích hợp Cloudflare D1",
+      "ui": "Giao diện hiện đại",
+      "uiDesc": "Các component đẹp với Tailwind CSS và shadcn/ui",
+      "testing": "Thiết lập kiểm thử",
+      "testingDesc": "Vitest và các tiện ích kiểm thử được cấu hình sẵn"
+    }
+  },
+  "showcase": {
+    "title": "Trình diễn",
+    "description": "Các ví dụ và minh họa về các tính năng của boilerplate",
+    "components": "Thành phần",
+    "examples": "Ví dụ",
+    "demos": "Demo"
+  },
+  "errors": {
+    "pageNotFound": "Không thể tìm thấy trang được yêu cầu.",
+    "unexpectedError": "Đã xảy ra lỗi không mong muốn.",
+    "goHome": "Về trang chủ",
+    "tryAgain": "Thử lại"
+  }
+}

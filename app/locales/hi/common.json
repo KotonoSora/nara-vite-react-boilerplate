@@ -1,0 +1,69 @@
+{
+  "navigation": {
+    "home": "होम",
+    "about": "के बारे में",
+    "showcase": "प्रदर्शन",
+    "features": "विशेषताएं",
+    "docs": "दस्तावेज़"
+  },
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "error": "त्रुटि",
+    "notFound": "नहीं मिला",
+    "back": "वापस",
+    "next": "अगला",
+    "previous": "पिछला",
+    "submit": "सबमिट करें",
+    "cancel": "रद्द करें",
+    "save": "सेव करें",
+    "edit": "संपादित करें",
+    "delete": "हटाएं",
+    "close": "बंद करें",
+    "open": "खोलें",
+    "search": "खोजें",
+    "filter": "फ़िल्टर करें",
+    "sort": "क्रमबद्ध करें",
+    "language": "भाषा"
+  },
+  "theme": {
+    "light": "लाइट",
+    "dark": "डार्क",
+    "system": "सिस्टम",
+    "toggle": "थीम बदलें"
+  },
+  "landing": {
+    "title": "NARA React बॉयलरप्लेट",
+    "subtitle": "फुल-स्टैक React ऐप्स बनाने के लिए एक तेज़, व्यावहारिक स्टार्टर",
+    "description": "React Router v7, TypeScript, Cloudflare Workers और आधुनिक टूलिंग के साथ बनाया गया। टाइप सेफ्टी, प्रदर्शन और डेवलपर अनुभव पर फ़ोकस के साथ डिज़ाइन किया गया।",
+    "getStarted": "शुरू करें",
+    "viewDocs": "दस्तावेज़ देखें",
+    "features": {
+      "title": "विशेषताएं",
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "TypeScript सपोर्ट के साथ पूर्ण टाइप सेफ्टी",
+      "reactRouter": "React Router v7",
+      "reactRouterDesc": "सर्वर-साइड रेंडरिंग के साथ आधुनिक राउटिंग",
+      "cloudflare": "Cloudflare Workers",
+      "cloudflareDesc": "ग्लोबल प्रदर्शन के साथ एज डिप्लॉयमेंट",
+      "database": "डेटाबेस तैयार",
+      "databaseDesc": "Cloudflare D1 इंटीग्रेशन के साथ Drizzle ORM",
+      "ui": "आधुनिक UI",
+      "uiDesc": "Tailwind CSS और shadcn/ui के साथ सुंदर कंपोनेंट्स",
+      "testing": "टेस्टिंग सेटअप",
+      "testingDesc": "पूर्व-कॉन्फ़िगर्ड Vitest और टेस्टिंग यूटिलिटीज़"
+    }
+  },
+  "showcase": {
+    "title": "प्रदर्शन",
+    "description": "बॉयलरप्लेट फीचर्स के उदाहरण और प्रदर्शन",
+    "components": "कंपोनेंट्स",
+    "examples": "उदाहरण",
+    "demos": "डेमो"
+  },
+  "errors": {
+    "pageNotFound": "अनुरोधित पेज नहीं मिला।",
+    "unexpectedError": "एक अप्रत्याशित त्रुटि हुई।",
+    "goHome": "होम पर जाएं",
+    "tryAgain": "फिर कोशिश करें"
+  }
+}

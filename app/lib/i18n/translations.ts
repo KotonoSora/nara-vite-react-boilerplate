@@ -6,11 +6,23 @@ import { DEFAULT_LANGUAGE } from './config';
 import enCommon from '../../locales/en/common.json';
 import esCommon from '../../locales/es/common.json';
 import frCommon from '../../locales/fr/common.json';
+import zhCommon from '../../locales/zh/common.json';
+import hiCommon from '../../locales/hi/common.json';
+import arCommon from '../../locales/ar/common.json';
+import viCommon from '../../locales/vi/common.json';
+import jaCommon from '../../locales/ja/common.json';
+import thCommon from '../../locales/th/common.json';
 
 const translations: Record<SupportedLanguage, NestedTranslationObject> = {
   en: enCommon,
   es: esCommon,
   fr: frCommon,
+  zh: zhCommon,
+  hi: hiCommon,
+  ar: arCommon,
+  vi: viCommon,
+  ja: jaCommon,
+  th: thCommon,
 };
 
 function getNestedValue(obj: any, path: string): string | undefined {

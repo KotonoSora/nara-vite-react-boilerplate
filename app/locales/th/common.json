@@ -1,0 +1,69 @@
+{
+  "navigation": {
+    "home": "หน้าหลัก",
+    "about": "เกี่ยวกับ",
+    "showcase": "โชว์เคส",
+    "features": "คุณสมบัติ",
+    "docs": "เอกสาร"
+  },
+  "common": {
+    "loading": "กำลังโหลด...",
+    "error": "ข้อผิดพลาด",
+    "notFound": "ไม่พบ",
+    "back": "กลับ",
+    "next": "ถัดไป",
+    "previous": "ก่อนหน้า",
+    "submit": "ส่ง",
+    "cancel": "ยกเลิก",
+    "save": "บันทึก",
+    "edit": "แก้ไข",
+    "delete": "ลบ",
+    "close": "ปิด",
+    "open": "เปิด",
+    "search": "ค้นหา",
+    "filter": "กรอง",
+    "sort": "เรียงลำดับ",
+    "language": "ภาษา"
+  },
+  "theme": {
+    "light": "สว่าง",
+    "dark": "มืด",
+    "system": "ระบบ",
+    "toggle": "สลับธีม"
+  },
+  "landing": {
+    "title": "NARA React Boilerplate",
+    "subtitle": "ตัวเริ่มต้นที่รวดเร็วและมีความคิดเห็นสำหรับการสร้างแอป React แบบ full-stack",
+    "description": "สร้างด้วย React Router v7, TypeScript, Cloudflare Workers และเครื่องมือสมัยใหม่ ออกแบบโดยมุ่งเน้นที่ความปลอดภัยของประเภท ประสิทธิภาพ และประสบการณ์ของนักพัฒนา",
+    "getStarted": "เริ่มต้น",
+    "viewDocs": "ดูเอกสาร",
+    "features": {
+      "title": "คุณสมบัติ",
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "ความปลอดภัยของประเภทแบบเต็มรูปแบบด้วยการสนับสนุน TypeScript",
+      "reactRouter": "React Router v7",
+      "reactRouterDesc": "การกำหนดเส้นทางสมัยใหม่พร้อมการเรนเดอร์ฝั่งเซิร์ฟเวอร์",
+      "cloudflare": "Cloudflare Workers",
+      "cloudflareDesc": "การปรับใช้ edge พร้อมประสิทธิภาพระดับโลก",
+      "database": "ฐานข้อมูลพร้อม",
+      "databaseDesc": "Drizzle ORM พร้อมการรวม Cloudflare D1",
+      "ui": "UI สมัยใหม่",
+      "uiDesc": "คอมโพเนนต์ที่สวยงามด้วย Tailwind CSS และ shadcn/ui",
+      "testing": "การตั้งค่าการทดสอบ",
+      "testingDesc": "Vitest และยูทิลิตี้การทดสอบที่กำหนดค่าไว้ล่วงหน้า"
+    }
+  },
+  "showcase": {
+    "title": "โชว์เคส",
+    "description": "ตัวอย่างและการสาธิตคุณสมบัติของ boilerplate",
+    "components": "คอมโพเนนต์",
+    "examples": "ตัวอย่าง",
+    "demos": "เดโม"
+  },
+  "errors": {
+    "pageNotFound": "ไม่สามารถค้นหาหน้าที่ร้องขอได้",
+    "unexpectedError": "เกิดข้อผิดพลาดที่ไม่คาดคิด",
+    "goHome": "กลับหน้าหลัก",
+    "tryAgain": "ลองอีกครั้ง"
+  }
+}
