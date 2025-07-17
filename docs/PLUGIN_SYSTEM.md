@@ -1,6 +1,6 @@
 # NARA Plugin System
 
-The NARA boilerplate includes a powerful plugin system that allows you to create modular, reusable features similar to WordPress plugins. This system enables you to build applications with only the features you need, making the codebase clean and maintainable.
+The NARA boilerplate includes a powerful plugin system that allows you to create modular, reusable features similar to WordPress plugins. This system enables you to build applications with only the features you need, making the codebase clean and maintainable, and includes full support for remote plugin distribution and sharing.
 
 ## Overview
 
@@ -11,6 +11,9 @@ The plugin system provides:
 - **CLI Management**: Easy plugin installation, enabling, and disabling via command line
 - **Type Safety**: Full TypeScript support throughout the plugin system
 - **Hot Loading**: Plugins are loaded dynamically at runtime (in development)
+- **Remote Distribution**: Install and share plugins over the internet
+- **Package Management**: Version control and dependency management
+- **Plugin Registry**: Discover plugins through search functionality
 
 ## Plugin Structure
 
@@ -198,6 +201,52 @@ export const plugin: Plugin = {
 };
 ```
 
+## Installing Plugins
+
+### From Remote Sources
+
+Install plugins from remote sources like npm, GitHub, or custom registries:
+
+```bash
+# Install from npm registry
+bun plugin install @nara-plugin/blog
+
+# Install from GitHub
+bun plugin install username/nara-blog-plugin
+
+# Install from custom registry
+bun plugin install my-plugin --registry https://plugins.example.com
+
+# Install from local directory
+bun plugin install ./my-local-plugin
+```
+
+### Search Available Plugins
+
+Discover plugins available in remote registries:
+
+```bash
+# Search for plugins
+bun plugin search "blog"
+bun plugin search "ecommerce"
+bun plugin search "authentication"
+```
+
+### Installation Options
+
+```bash
+# Install specific version
+bun plugin install @nara-plugin/blog --version 2.1.0
+
+# Force reinstall
+bun plugin install @nara-plugin/auth --force
+
+# Install from custom registry
+bun plugin install my-plugin --registry https://custom-registry.com
+```
+
+For complete documentation on plugin distribution, see [Plugin Distribution Guide](./PLUGIN_DISTRIBUTION.md).
+
 ## CLI Commands
 
 The plugin system includes a CLI for managing plugins:
@@ -225,6 +274,21 @@ bun plugin info plugin-id
 ### Create a New Plugin
 ```bash
 bun plugin create "Plugin Name"
+```
+
+### Update a Plugin
+```bash
+bun plugin update plugin-id
+```
+
+### Publish a Plugin
+```bash
+bun plugin publish ./my-plugin
+```
+
+### Package a Plugin
+```bash
+bun plugin package ./my-plugin
 ```
 
 ## Plugin Dependencies

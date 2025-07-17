@@ -149,6 +149,96 @@ export interface PluginInstallationStatus {
   enabled: boolean;
   version?: string;
   error?: string;
+  source?: PluginSource;
+  installedAt?: Date;
+  updatedAt?: Date;
+}
+
+/**
+ * Plugin source information for remote distribution
+ */
+export interface PluginSource {
+  type: "local" | "npm" | "git" | "url" | "registry";
+  url?: string;
+  registry?: string;
+  version?: string;
+  checksum?: string;
+}
+
+/**
+ * Remote plugin registry entry
+ */
+export interface RemotePluginInfo {
+  id: string;
+  name: string;
+  description: string;
+  version: string;
+  author: string;
+  keywords?: string[];
+  homepage?: string;
+  repository?: string;
+  license?: string;
+  downloads?: number;
+  rating?: number;
+  lastUpdated: Date;
+  verified?: boolean;
+  source: PluginSource;
+  dependencies?: PluginDependency[];
+  screenshots?: string[];
+  readme?: string;
+}
+
+/**
+ * Plugin dependency with version constraints
+ */
+export interface PluginDependency {
+  id: string;
+  version?: string;
+  optional?: boolean;
+}
+
+/**
+ * Plugin search options
+ */
+export interface PluginSearchOptions {
+  query?: string;
+  category?: PluginType;
+  author?: string;
+  keywords?: string[];
+  verified?: boolean;
+  limit?: number;
+  offset?: number;
+  sortBy?: "downloads" | "rating" | "updated" | "name";
+  sortOrder?: "asc" | "desc";
+}
+
+/**
+ * Plugin package metadata for distribution
+ */
+export interface PluginPackage {
+  config: PluginConfig;
+  files: Record<string, string>; // filename -> content
+  manifest: PluginManifest;
+}
+
+/**
+ * Plugin manifest for distribution
+ */
+export interface PluginManifest {
+  name: string;
+  version: string;
+  description: string;
+  author: string;
+  license?: string;
+  repository?: string;
+  homepage?: string;
+  keywords?: string[];
+  dependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+  files: string[];
+  main?: string;
+  types?: string;
+  checksum: string;
 }
 
 /**
@@ -156,7 +246,7 @@ export interface PluginInstallationStatus {
  */
 export interface PluginManager {
   /** Install a plugin from a source */
-  install(source: string): Promise<PluginInstallationStatus>;
+  install(source: string, options?: InstallOptions): Promise<PluginInstallationStatus>;
   /** Uninstall a plugin */
   uninstall(id: string): Promise<boolean>;
   /** List all available plugins */
@@ -165,4 +255,58 @@ export interface PluginManager {
   update(id: string): Promise<PluginInstallationStatus>;
   /** Get plugin status */
   getStatus(id: string): PluginInstallationStatus | undefined;
+  /** Search remote plugins */
+  search(options: PluginSearchOptions): Promise<RemotePluginInfo[]>;
+  /** Publish a plugin to registry */
+  publish(pluginPath: string, registry?: string): Promise<boolean>;
+  /** Package a plugin for distribution */
+  package(pluginPath: string): Promise<PluginPackage>;
+}
+
+/**
+ * Plugin installation options
+ */
+export interface InstallOptions {
+  version?: string;
+  registry?: string;
+  dev?: boolean;
+  force?: boolean;
+  skipValidation?: boolean;
+}
+
+/**
+ * Plugin registry client for remote operations
+ */
+export interface PluginRegistryClient {
+  /** Search plugins in registry */
+  search(options: PluginSearchOptions): Promise<RemotePluginInfo[]>;
+  /** Get plugin information */
+  getPlugin(id: string, version?: string): Promise<RemotePluginInfo | null>;
+  /** Download plugin package */
+  download(id: string, version?: string): Promise<PluginPackage>;
+  /** Publish plugin to registry */
+  publish(pluginPackage: PluginPackage, auth: RegistryAuth): Promise<boolean>;
+  /** Get registry information */
+  getRegistryInfo(): Promise<RegistryInfo>;
+}
+
+/**
+ * Registry authentication
+ */
+export interface RegistryAuth {
+  token?: string;
+  username?: string;
+  password?: string;
+  apiKey?: string;
+}
+
+/**
+ * Registry information
+ */
+export interface RegistryInfo {
+  name: string;
+  url: string;
+  version: string;
+  totalPlugins: number;
+  featuredPlugins: string[];
 }

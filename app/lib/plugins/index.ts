@@ -22,6 +22,7 @@ export type * from "./types";
 // Core classes
 export { PluginRegistry, pluginRegistry } from "./registry";
 export { PluginManager, pluginManager } from "./manager";
+export { DefaultRegistryClient, createRegistryClient, defaultRegistryClient } from "./remote-registry";
 
 // Utilities
 export {

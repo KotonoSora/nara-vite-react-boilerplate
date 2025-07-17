@@ -29,6 +29,12 @@ async function main() {
       case "list":
         await listPlugins(getPluginInfo);
         break;
+      case "search":
+        await searchPlugins(arg, pluginManager);
+        break;
+      case "install":
+        await installPlugin(arg, process.argv.slice(4), pluginManager);
+        break;
       case "enable":
         await enablePlugin(arg, pluginRegistry);
         break;
@@ -40,6 +46,15 @@ async function main() {
         break;
       case "create":
         await createPlugin(arg);
+        break;
+      case "update":
+        await updatePlugin(arg, pluginManager);
+        break;
+      case "publish":
+        await publishPlugin(arg, pluginManager);
+        break;
+      case "package":
+        await packagePlugin(arg, pluginManager);
         break;
       default:
         showHelp();
@@ -207,6 +222,160 @@ export default plugin;`;
   console.log(`4. Run 'bun plugin enable ${pluginId}' to enable it`);
 }
 
+async function searchPlugins(query: string, pluginManager: any) {
+  if (!query) {
+    console.error("Please specify a search query");
+    return;
+  }
+
+  console.log(`🔍 Searching for plugins: "${query}"\n`);
+
+  try {
+    const results = await pluginManager.search({
+      query,
+      limit: 10,
+      sortBy: "downloads",
+      sortOrder: "desc"
+    });
+
+    if (results.length === 0) {
+      console.log("No plugins found matching your query.");
+      return;
+    }
+
+    console.log("Name".padEnd(25) + "Version".padEnd(10) + "Author".padEnd(20) + "Description");
+    console.log("-".repeat(85));
+
+    for (const plugin of results) {
+      const truncatedDesc = plugin.description.length > 30 
+        ? plugin.description.substring(0, 27) + "..." 
+        : plugin.description;
+      
+      console.log(
+        plugin.name.padEnd(25) +
+        plugin.version.padEnd(10) +
+        plugin.author.padEnd(20) +
+        truncatedDesc
+      );
+    }
+
+    console.log(`\nFound ${results.length} plugins. Use 'bun plugin install <name>' to install.`);
+  } catch (error) {
+    console.error("Search failed:", error instanceof Error ? error.message : String(error));
+  }
+}
+
+async function installPlugin(source: string, options: string[], pluginManager: any) {
+  if (!source) {
+    console.error("Please specify a plugin source (npm package, git repo, or local path)");
+    return;
+  }
+
+  console.log(`📦 Installing plugin from: ${source}`);
+
+  const installOptions: any = {};
+  
+  // Parse command line options
+  for (let i = 0; i < options.length; i++) {
+    const option = options[i];
+    switch (option) {
+      case "--force":
+        installOptions.force = true;
+        break;
+      case "--dev":
+        installOptions.dev = true;
+        break;
+      case "--version":
+        installOptions.version = options[i + 1];
+        i++; // Skip next argument
+        break;
+      case "--registry":
+        installOptions.registry = options[i + 1];
+        i++; // Skip next argument
+        break;
+    }
+  }
+
+  try {
+    const result = await pluginManager.install(source, installOptions);
+    
+    if (result.installed) {
+      console.log(`✅ Plugin '${result.id}' installed successfully!`);
+      console.log(`   Version: ${result.version}`);
+      console.log(`   Status: ${result.enabled ? "Enabled" : "Disabled"}`);
+      
+      if (!result.enabled) {
+        console.log(`\nTo enable the plugin, run: bun plugin enable ${result.id}`);
+      }
+    } else {
+      console.log(`❌ Plugin installation failed: ${result.error}`);
+    }
+  } catch (error) {
+    console.error("Installation failed:", error instanceof Error ? error.message : String(error));
+  }
+}
+
+async function updatePlugin(id: string, pluginManager: any) {
+  if (!id) {
+    console.error("Please specify a plugin ID");
+    return;
+  }
+
+  console.log(`🔄 Updating plugin: ${id}`);
+
+  try {
+    const result = await pluginManager.update(id);
+    
+    if (result.installed) {
+      console.log(`✅ Plugin '${result.id}' updated successfully to version ${result.version}!`);
+    } else {
+      console.log(`❌ Plugin update failed: ${result.error}`);
+    }
+  } catch (error) {
+    console.error("Update failed:", error instanceof Error ? error.message : String(error));
+  }
+}
+
+async function publishPlugin(pluginPath: string, pluginManager: any) {
+  const path = pluginPath || ".";
+  
+  console.log(`📤 Publishing plugin from: ${path}`);
+
+  try {
+    const success = await pluginManager.publish(path);
+    
+    if (success) {
+      console.log(`✅ Plugin published successfully!`);
+      console.log("Note: Publishing to public registries requires proper authentication.");
+    } else {
+      console.log(`❌ Plugin publishing failed`);
+    }
+  } catch (error) {
+    console.error("Publishing failed:", error instanceof Error ? error.message : String(error));
+  }
+}
+
+async function packagePlugin(pluginPath: string, pluginManager: any) {
+  if (!pluginPath) {
+    console.error("Please specify a plugin path");
+    return;
+  }
+
+  console.log(`📦 Packaging plugin from: ${pluginPath}`);
+
+  try {
+    const packageInfo = await pluginManager.package(pluginPath);
+    
+    console.log(`✅ Plugin packaged successfully!`);
+    console.log(`   Name: ${packageInfo.config.name}`);
+    console.log(`   Version: ${packageInfo.config.version}`);
+    console.log(`   Files: ${Object.keys(packageInfo.files).length}`);
+    console.log(`   Checksum: ${packageInfo.manifest.checksum}`);
+  } catch (error) {
+    console.error("Packaging failed:", error instanceof Error ? error.message : String(error));
+  }
+}
+
 function showHelp() {
   console.log(`
 📦 NARA Plugin CLI
@@ -214,18 +383,41 @@ function showHelp() {
 Usage: bun plugin <command> [arguments]
 
 Commands:
-  list                    List all plugins
+  list                    List all installed plugins
+  search <query>          Search remote plugins
+  install <source>        Install plugin from remote source
   enable <id>             Enable a plugin
   disable <id>            Disable a plugin
   info <id>               Show plugin information
   create <name>           Create a new plugin template
+  update <id>             Update a plugin to latest version
+  publish [path]          Publish plugin to registry
+  package <path>          Package plugin for distribution
+
+Install Sources:
+  npm-package             Install from npm (e.g., @nara-plugin/blog)
+  username/repo           Install from GitHub
+  https://...             Install from URL
+  ./local/path            Install from local directory
+
+Install Options:
+  --force                 Force reinstall
+  --version <ver>         Install specific version
+  --registry <url>        Use custom registry
 
 Examples:
   bun plugin list
+  bun plugin search "blog"
+  bun plugin install @nara-plugin/blog
+  bun plugin install username/my-plugin
+  bun plugin install ./local-plugin --force
   bun plugin enable landing-page
   bun plugin disable showcases
   bun plugin info landing-page
-  bun plugin create my-awesome-feature
+  bun plugin create "My Awesome Feature"
+  bun plugin update blog
+  bun plugin publish ./my-plugin
+  bun plugin package ./my-plugin
 `);
 }
 
