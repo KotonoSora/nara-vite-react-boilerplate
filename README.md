@@ -8,7 +8,9 @@
 
 ## 📘 Overview
 
-A fast, opinionated starter for building **full-stack React apps** with **modern tooling** and **Cloudflare Workers deployment**. Designed with focus on **type safety**, **performance**, and **developer ergonomics**.
+A fast, opinionated starter for building **full-stack React apps** with **modern tooling** and
+**Cloudflare Workers deployment**. Designed with focus on **type safety**, **performance**, and
+**developer ergonomics**.
 
 ## 📚 Comprehensive Documentation
 

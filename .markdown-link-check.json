@@ -1,0 +1,16 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https?://",
+      "comment": "Skip external URLs - focus on internal documentation links"
+    },
+    {
+      "pattern": "^\\[!\\w+\\]",
+      "comment": "Ignore GitHub alert callouts"
+    }
+  ],
+  "timeout": "5s",
+  "retryOn429": true,
+  "retryCount": 1,
+  "aliveStatusCodes": [200, 206, 301, 302, 307, 308, 403, 405, 999]
+}

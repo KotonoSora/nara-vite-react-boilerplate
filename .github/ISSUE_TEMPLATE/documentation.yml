@@ -1,0 +1,99 @@
+name: 📚 Documentation Improvement
+description: Suggest improvements to existing documentation or request new documentation
+title: "[DOCS] "
+labels: ["documentation", "enhancement"]
+assignees: []
+
+body:
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation improvement is this?
+      options:
+        - New documentation needed
+        - Existing documentation unclear
+        - Documentation outdated
+        - Documentation error/correction
+        - Documentation enhancement
+        - Missing code examples
+        - Broken links
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: affected-docs
+    attributes:
+      label: Affected Documentation
+      description: Which documentation files are affected? (e.g., docs/API_GUIDE.md, README.md)
+      placeholder: docs/COMPONENT_GUIDE.md
+    validations:
+      required: false
+
+  - type: textarea
+    id: current-issue
+    attributes:
+      label: Current Issue
+      description: What's wrong with the current documentation or what's missing?
+      placeholder: |
+        Describe what's currently unclear, missing, or incorrect:
+        - Specific sections that are confusing
+        - Missing information you expected to find
+        - Outdated examples or instructions
+        - Broken links or references
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-improvement
+    attributes:
+      label: Suggested Improvement
+      description: How should the documentation be improved?
+      placeholder: |
+        Describe your suggested improvement:
+        - What should be added, changed, or removed
+        - Better ways to explain concepts
+        - Additional examples or use cases
+        - Structure improvements
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any additional context that would help improve the documentation
+      placeholder: |
+        - Your experience level with the project
+        - What you were trying to accomplish
+        - Where you looked for information
+        - Other resources that might be helpful
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to help improve the documentation?
+      options:
+        - label: I'd like to contribute this documentation improvement myself
+          required: false
+        - label: I can help review documentation changes
+          required: false
+        - label: I can provide additional examples or use cases
+          required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before Submitting
+      description: Please confirm you have done the following
+      options:
+        - label: I searched existing issues to avoid duplicates
+          required: true
+        - label: I checked the [Documentation Index](docs/README.md) to see if this is already covered
+          required: true
+        - label: I reviewed the [Documentation Standards](docs/DOCS_STANDARDS.md)
+          required: false
