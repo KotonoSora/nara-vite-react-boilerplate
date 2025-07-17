@@ -1,4 +1,4 @@
-import type { Route } from "./+types/_index";
+import type { Route } from "./+types/($lang)._index";
 
 import { PageContext } from "~/features/landing-page/context/page-context";
 import { ContentPage } from "~/features/landing-page/page";

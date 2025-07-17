@@ -1,0 +1,57 @@
+import type { SupportedLanguage } from './config';
+import type { TranslationKey, NestedTranslationObject } from './types';
+import { DEFAULT_LANGUAGE } from './config';
+
+// Import translation files
+import enCommon from '../../locales/en/common.json';
+import esCommon from '../../locales/es/common.json';
+import frCommon from '../../locales/fr/common.json';
+
+const translations: Record<SupportedLanguage, NestedTranslationObject> = {
+  en: enCommon,
+  es: esCommon,
+  fr: frCommon,
+};
+
+function getNestedValue(obj: any, path: string): string | undefined {
+  return path.split('.').reduce((current, key) => {
+    return current && typeof current === 'object' ? current[key] : undefined;
+  }, obj);
+}
+
+export function getTranslation(
+  language: SupportedLanguage,
+  key: TranslationKey,
+  params?: Record<string, string | number>
+): string {
+  const languageTranslations = translations[language];
+  const fallbackTranslations = translations[DEFAULT_LANGUAGE];
+  
+  // Try to get translation from the requested language
+  let translation = getNestedValue(languageTranslations, key);
+  
+  // Fallback to default language if translation not found
+  if (translation === undefined) {
+    translation = getNestedValue(fallbackTranslations, key);
+  }
+  
+  // Final fallback to the key itself if nothing is found
+  if (translation === undefined) {
+    console.warn(`Translation not found for key: ${key} in language: ${language}`);
+    translation = key;
+  }
+  
+  // Handle parameter replacement
+  if (params && typeof translation === 'string') {
+    Object.entries(params).forEach(([paramKey, value]) => {
+      translation = translation!.replace(new RegExp(`{{${paramKey}}}`, 'g'), String(value));
+    });
+  }
+  
+  return translation;
+}
+
+export function createTranslationFunction(language: SupportedLanguage) {
+  return (key: TranslationKey, params?: Record<string, string | number>) =>
+    getTranslation(language, key, params);
+}

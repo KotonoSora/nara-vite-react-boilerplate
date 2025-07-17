@@ -1,0 +1,69 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "showcase": "Showcase",
+    "features": "Features",
+    "docs": "Documentation"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "notFound": "Not Found",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "close": "Close",
+    "open": "Open",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "language": "Language"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggle": "Toggle theme"
+  },
+  "landing": {
+    "title": "NARA React Boilerplate",
+    "subtitle": "A fast, opinionated starter for building full-stack React apps",
+    "description": "Built with React Router v7, TypeScript, Cloudflare Workers, and modern tooling. Designed with focus on type safety, performance, and developer ergonomics.",
+    "getStarted": "Get Started",
+    "viewDocs": "View Documentation",
+    "features": {
+      "title": "Features",
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "Full type safety with TypeScript support",
+      "reactRouter": "React Router v7",
+      "reactRouterDesc": "Modern routing with server-side rendering",
+      "cloudflare": "Cloudflare Workers",
+      "cloudflareDesc": "Edge deployment with global performance",
+      "database": "Database Ready",
+      "databaseDesc": "Drizzle ORM with Cloudflare D1 integration",
+      "ui": "Modern UI",
+      "uiDesc": "Beautiful components with Tailwind CSS and shadcn/ui",
+      "testing": "Testing Setup",
+      "testingDesc": "Vitest and testing utilities pre-configured"
+    }
+  },
+  "showcase": {
+    "title": "Showcase",
+    "description": "Examples and demonstrations of the boilerplate features",
+    "components": "Components",
+    "examples": "Examples",
+    "demos": "Demos"
+  },
+  "errors": {
+    "pageNotFound": "The requested page could not be found.",
+    "unexpectedError": "An unexpected error occurred.",
+    "goHome": "Go Home",
+    "tryAgain": "Try Again"
+  }
+}

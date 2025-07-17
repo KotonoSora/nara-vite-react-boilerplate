@@ -1,0 +1,69 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "showcase": "Vitrine",
+    "features": "Fonctionnalités",
+    "docs": "Documentation"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "notFound": "Non Trouvé",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "save": "Sauvegarder",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "language": "Langue"
+  },
+  "theme": {
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système",
+    "toggle": "Basculer le thème"
+  },
+  "landing": {
+    "title": "NARA React Boilerplate",
+    "subtitle": "Un démarreur rapide et structuré pour construire des applications React full-stack",
+    "description": "Construit avec React Router v7, TypeScript, Cloudflare Workers et des outils modernes. Conçu en mettant l'accent sur la sécurité des types, les performances et l'ergonomie du développeur.",
+    "getStarted": "Commencer",
+    "viewDocs": "Voir la Documentation",
+    "features": {
+      "title": "Fonctionnalités",
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "Sécurité de type complète avec support TypeScript",
+      "reactRouter": "React Router v7",
+      "reactRouterDesc": "Routage moderne avec rendu côté serveur",
+      "cloudflare": "Cloudflare Workers",
+      "cloudflareDesc": "Déploiement en périphérie avec performance globale",
+      "database": "Base de Données Prête",
+      "databaseDesc": "Drizzle ORM avec intégration Cloudflare D1",
+      "ui": "UI Moderne",
+      "uiDesc": "Beaux composants avec Tailwind CSS et shadcn/ui",
+      "testing": "Configuration de Tests",
+      "testingDesc": "Vitest et utilitaires de test préconfigurés"
+    }
+  },
+  "showcase": {
+    "title": "Vitrine",
+    "description": "Exemples et démonstrations des fonctionnalités du boilerplate",
+    "components": "Composants",
+    "examples": "Exemples",
+    "demos": "Démos"
+  },
+  "errors": {
+    "pageNotFound": "La page demandée n'a pas pu être trouvée.",
+    "unexpectedError": "Une erreur inattendue s'est produite.",
+    "goHome": "Aller à l'Accueil",
+    "tryAgain": "Réessayer"
+  }
+}

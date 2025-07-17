@@ -4,9 +4,11 @@ import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
 import { usePageContext } from "~/features/landing-page/context/page-context";
+import { useTranslation } from "~/lib/i18n";
 
 export const HeroSection = memo(function HeroSection() {
   const { githubRepository } = usePageContext();
+  const t = useTranslation();
 
   return (
     <section
@@ -21,17 +23,15 @@ export const HeroSection = memo(function HeroSection() {
           </div>
 
           <p className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-            NARA Boilerplate
+            {t('landing.title')}
           </p>
 
           <p className="text-2xl font-semibold text-primary mb-4">
-            The Full-Stack React Boilerplate That Actually Ships
+            {t('landing.subtitle')}
           </p>
 
           <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            Stop wasting time on boilerplate setup. Start with a
-            production-ready foundation built for developers who ship fast and
-            ship often.
+            {t('landing.description')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
@@ -45,10 +45,10 @@ export const HeroSection = memo(function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3"
-                aria-label="Star on GitHub"
+                aria-label={t('landing.getStarted')}
               >
                 <Star className="h-5 w-5" />
-                Star on GitHub
+                {t('landing.getStarted')}
                 <ExternalLink className="h-4 w-4" />
               </Link>
             </Button>
@@ -64,10 +64,10 @@ export const HeroSection = memo(function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3"
-                aria-label="Quick Start"
+                aria-label={t('landing.viewDocs')}
               >
                 <Rocket className="h-5 w-5" />
-                Quick Start
+                {t('landing.viewDocs')}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>

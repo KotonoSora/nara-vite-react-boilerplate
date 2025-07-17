@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router";
 
-import type { Route } from "./+types/showcase";
+import type { Route } from "./+types/($lang).showcase._index";
 
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { PageContext } from "~/features/showcases/context/page-context";
