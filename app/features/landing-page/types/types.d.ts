@@ -7,12 +7,35 @@ type ProjectInfo = {
   tags: string[];
 };
 
+type Step = {
+  number: number;
+  title: string;
+  description: string;
+  command: string;
+  note?: string;
+};
+
+type FeatureCardConfig = {
+  icon: string;
+  title: string;
+  description: string;
+  colors: {
+    primary: string;
+    secondary: string;
+    icon: string;
+    hover: string;
+    background: string;
+  };
+};
+
 type PageInformation = {
   title: string;
   description: string;
   githubRepository: string;
   commercialLink?: string;
   showcases: ProjectInfo[];
+  steps: Step[];
+  featuresConfig: FeatureCardConfig[];
 };
 
 type LandingPageEnv = {
