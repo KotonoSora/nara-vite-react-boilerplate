@@ -48,18 +48,6 @@ dist-ssr
 # Vitest
 /coverage/
 
-# Documentation build artifacts
-docs/.cache/
-docs/dist/
-docs/build/
-*.docs.tmp
-.markdownlint-cli2.jsonc
-.markdown-link-check.log
-
-# Documentation generation
-docs/api/
-docs/generated/
-
 # Other
 .npmrc
 .yarnrc.yml

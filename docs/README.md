@@ -72,7 +72,6 @@ The NARA boilerplate documentation is organized into focused guides that cover d
 
 ### Contributing
 - **[Contributing Guidelines](../CONTRIBUTING.md)** - How to contribute to the project
-- **[Documentation Contribution Guide](./CONTRIBUTING_DOCS.md)** - Comprehensive guide for documentation contributors
 - **[Code of Conduct](../CODE_OF_CONDUCT.md)** - Community guidelines
 - **[Security Policy](../SECURITY.md)** - Security reporting guidelines
 
@@ -196,60 +195,6 @@ When creating a new issue, include:
 - Documentation is updated with each release
 - Breaking changes are documented in [Changelog](../CHANGELOG.md)
 - Community contributions are welcome and appreciated
-
-### Docs-as-Code Infrastructure
-
-Our documentation uses a comprehensive **Docs-as-Code** approach with automated tooling:
-
-#### 🛠 Development Tools
-```bash
-# Install documentation tools
-npm run docs:setup
-
-# Lint documentation for consistency
-npm run docs:lint
-
-# Auto-fix linting issues
-npm run docs:lint:fix
-
-# Check all links for validity
-npm run docs:check-links
-
-# Run comprehensive validation
-npm run docs:validate
-```
-
-#### 📋 Documentation Standards
-- **[Documentation Standards](./DOCS_STANDARDS.md)** - Complete guidelines for writing and maintaining docs
-- **[Templates](./templates/)** - Consistent templates for different types of documentation
-- **Automated validation** - Linting, link checking, and structure validation
-- **GitHub integration** - Automated checks and PR comments
-
-#### 🔧 Quality Assurance
-- **Markdown linting** - Consistent formatting and style
-- **Link validation** - Automatic broken link detection
-- **Structure validation** - Required files and proper organization
-- **Content quality checks** - Completeness and coverage analysis
-
-#### 📝 Template System
-Use our templates for consistent documentation:
-- **[Guide Template](./templates/guide-template.md)** - For comprehensive guides
-- **[Tutorial Template](./templates/tutorial-template.md)** - For step-by-step tutorials
-- **[API Reference Template](./templates/api-reference-template.md)** - For API documentation
-- **[Troubleshooting Template](./templates/troubleshooting-template.md)** - For issue resolution
-
-#### 🤝 Collaboration Features
-- **GitHub workflows** - Automated documentation validation on PRs
-- **Issue templates** - Structured templates for documentation requests
-- **PR templates** - Include documentation considerations in code reviews
-- **Review process** - Documentation reviews follow same standards as code
-
-#### 📊 Analytics and Metrics
-Track documentation effectiveness:
-- Documentation coverage analysis
-- Link health monitoring
-- Content quality metrics
-- Usage pattern tracking
 
 ---
 

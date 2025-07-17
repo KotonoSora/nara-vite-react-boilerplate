@@ -1,6 +1,3 @@
 bun run typecheck
 bun run lint
 bun run test --run --silent 'passed-only'
-
-# Documentation validation for commits that include doc changes
-git diff --cached --name-only | grep -E '\.(md)$' > /dev/null && npm run docs:lint || true
