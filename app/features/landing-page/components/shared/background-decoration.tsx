@@ -3,6 +3,7 @@ import { memo } from "react";
 import { cn } from "~/lib/utils";
 
 interface FloatingElement {
+  id: string;
   size: "sm" | "md" | "lg";
   color: "primary" | "green" | "yellow" | "purple";
   position: {
@@ -41,9 +42,9 @@ export const BackgroundDecoration = memo(function BackgroundDecoration({
       className={cn("absolute inset-0 pointer-events-none", className)}
       aria-hidden="true"
     >
-      {elements.map((element, index) => (
+      {elements.map((element) => (
         <div
-          key={index}
+          key={element.id}
           className={cn(
             "absolute rounded-full animate-bounce",
             sizeClasses[element.size],
@@ -65,18 +66,21 @@ export const BackgroundDecoration = memo(function BackgroundDecoration({
 // Predefined configurations for different sections
 export const heroDecorationConfig: FloatingElement[] = [
   {
+    id: "hero-bg-1",
     size: "md",
     color: "primary",
     position: { top: "5rem", left: "2.5rem" },
     delay: 1000,
   },
   {
+    id: "hero-bg-2",
     size: "lg",
     color: "purple",
     position: { top: "8rem", right: "5rem" },
     delay: 1500,
   },
   {
+    id: "hero-bg-3",
     size: "sm",
     color: "primary",
     position: { bottom: "5rem", left: "5rem" },
@@ -86,24 +90,28 @@ export const heroDecorationConfig: FloatingElement[] = [
 
 export const keyFeaturesDecorationConfig: FloatingElement[] = [
   {
+    id: "key-features-bg-1",
     size: "md",
     color: "primary",
     position: { top: "5rem", left: "2.5rem" },
     delay: 1000,
   },
   {
+    id: "key-features-bg-2",
     size: "lg",
     color: "green",
     position: { top: "10rem", right: "5rem" },
     delay: 1500,
   },
   {
+    id: "key-features-bg-3",
     size: "sm",
     color: "yellow",
     position: { bottom: "5rem", left: "25%" },
     delay: 2000,
   },
   {
+    id: "key-features-bg-4",
     size: "md",
     color: "purple",
     position: { bottom: "8rem", right: "2.5rem" },

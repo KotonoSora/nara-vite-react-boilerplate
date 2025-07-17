@@ -88,7 +88,7 @@ export const HeroSection = memo(function HeroSection() {
                 to={`${githubRepository}/blob/main/docs/PROJECT_OVERVIEW.md#-quick-start`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3"
+                className="group flex items-center gap-3"
                 aria-label="Quick Start"
               >
                 <Rocket className="h-5 w-5" />
