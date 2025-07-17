@@ -4,7 +4,7 @@ export interface UserPreferences {
   fontSize: number; // Scale factor (0.75, 1, 1.25, 1.5)
   
   // Color preferences
-  colorTheme: 'light' | 'dark' | 'custom';
+  colorTheme: 'light' | 'dark' | 'system' | 'custom';
   customColors?: {
     primary: string;
     secondary: string;
@@ -25,7 +25,7 @@ export interface UserPreferences {
 export const defaultPreferences: UserPreferences = {
   fontFamily: 'Inter',
   fontSize: 1,
-  colorTheme: 'light',
+  colorTheme: 'system',
   reducedMotion: false,
   highContrast: false,
   soundEnabled: true,

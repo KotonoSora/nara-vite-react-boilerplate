@@ -43,12 +43,9 @@ export function UserPreferencesDialog() {
   const [theme, setTheme] = useTheme();
 
   const handleThemeChange = (newTheme: string) => {
-    if (newTheme === 'light' || newTheme === 'dark') {
-      setTheme(newTheme as Theme);
-      updatePreferences({ colorTheme: newTheme as 'light' | 'dark' });
-    } else if (newTheme === 'system') {
-      setTheme(Theme.LIGHT); // Default to light, let system preference handle the rest
-      updatePreferences({ colorTheme: 'light' });
+    if (newTheme === 'light' || newTheme === 'dark' || newTheme === 'system') {
+      updatePreferences({ colorTheme: newTheme as 'light' | 'dark' | 'system' });
+      // The actual theme application will be handled by the UserPreferencesProvider
     }
   };
 
@@ -112,7 +109,7 @@ export function UserPreferencesDialog() {
               </Label>
               <div className="grid grid-cols-3 gap-2">
                 <Button
-                  variant={theme === Theme.LIGHT ? "default" : "outline"}
+                  variant={preferences.colorTheme === 'light' ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleThemeChange('light')}
                   className="flex items-center gap-2"
@@ -121,7 +118,7 @@ export function UserPreferencesDialog() {
                   Light
                 </Button>
                 <Button
-                  variant={theme === Theme.DARK ? "default" : "outline"}
+                  variant={preferences.colorTheme === 'dark' ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleThemeChange('dark')}
                   className="flex items-center gap-2"
@@ -130,7 +127,7 @@ export function UserPreferencesDialog() {
                   Dark
                 </Button>
                 <Button
-                  variant="outline"
+                  variant={preferences.colorTheme === 'system' ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleThemeChange('system')}
                   className="flex items-center gap-2"
@@ -271,7 +268,6 @@ export function UserPreferencesDialog() {
                 variant="destructive"
                 onClick={() => {
                   resetPreferences();
-                  setTheme(Theme.LIGHT);
                   playSound();
                 }}
               >
