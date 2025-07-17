@@ -6,6 +6,7 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import * as schema from "~/database/schema";
 import apiRoute from "~/workers/api/common";
 import landingPageRoute from "~/workers/api/features/landing-page";
+import featureFlagsRoute from "~/workers/api/features/feature-flags";
 import appRoute from "~/workers/api/setup";
 
 declare module "react-router" {
@@ -25,6 +26,7 @@ const requestHandler = createRequestHandler(
 
 // Routes
 apiRoute.route("/landing-page", landingPageRoute);
+apiRoute.route("/feature-flags", featureFlagsRoute);
 appRoute.route("/api", apiRoute);
 
 appRoute.all("*", async (c) => {

@@ -8,6 +8,13 @@
       "when": 1751283109753,
       "tag": "0000_square_cloak",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1752729029419,
+      "tag": "0001_peaceful_loki",
+      "breakpoints": true
     }
   ]
 }

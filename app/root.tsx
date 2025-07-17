@@ -18,6 +18,8 @@ import {
 import type { Route } from "./+types/root";
 
 import { Toaster } from "~/components/ui/sonner";
+import { FeatureFlagProvider } from "~/features/feature-flags";
+import { evaluateFeatureFlags } from "~/features/feature-flags/utils";
 import { themeSessionResolver } from "~/sessions.server";
 
 import "~/app.css";
@@ -33,10 +35,30 @@ export const links: Route.LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
 ];
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   const { getTheme } = await themeSessionResolver(request);
+  
+  // Load feature flags for the current context
+  // In a real app, you would extract user context from authentication
+  let featureFlags = {};
+  try {
+    if (context?.db) {
+      // For now, we'll use default context - in real app this would come from user session
+      const flagContext = {
+        userId: undefined, // Would come from user session
+        userGroups: [], // Would come from user session  
+        isAdmin: false, // Would come from user session
+      };
+      featureFlags = await evaluateFeatureFlags(context.db, flagContext);
+    }
+  } catch (error) {
+    console.error("Failed to load feature flags:", error);
+    // Don't fail the app if feature flags fail to load
+  }
+
   return {
     theme: getTheme(),
+    featureFlags,
   };
 }
 
@@ -76,7 +98,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       specifiedTheme={data?.theme as Theme}
       themeAction="/action/set-theme"
     >
-      <InnerLayout ssrTheme={Boolean(data?.theme)}>{children}</InnerLayout>
+      <FeatureFlagProvider flags={data?.featureFlags || {}}>
+        <InnerLayout ssrTheme={Boolean(data?.theme)}>{children}</InnerLayout>
+      </FeatureFlagProvider>
     </ThemeProvider>
   );
 }

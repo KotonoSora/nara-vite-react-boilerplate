@@ -6,6 +6,7 @@ import { KeyFeaturesSection } from "~/features/landing-page/components/key-featu
 import { LicenseSection } from "~/features/landing-page/components/license-section";
 import { ShowcaseSection } from "~/features/landing-page/components/showcase-section";
 import { TechStackSection } from "~/features/landing-page/components/tech-stack-section";
+import { FeatureFlagDemo } from "~/features/feature-flags/demo";
 
 export function ContentPage() {
   return (
@@ -27,6 +28,13 @@ export function ContentPage() {
 
       {/* Tech Stack Section */}
       <TechStackSection />
+
+      {/* Feature Flags Demo Section */}
+      <section className="relative py-16">
+        <div className="container mx-auto px-4">
+          <FeatureFlagDemo />
+        </div>
+      </section>
 
       {/* License Section */}
       <LicenseSection />

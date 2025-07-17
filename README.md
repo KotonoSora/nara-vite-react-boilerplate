@@ -12,6 +12,18 @@ A fast, opinionated starter for building **full-stack React apps** with **modern
 
 📖 See [Project Overview](docs/PROJECT_OVERVIEW.md) for more on project structure.
 
+### 🚩 Feature Flags System
+
+This boilerplate includes a comprehensive **feature flag system** for controlled rollouts:
+
+- **Gradual Rollout Phases**: Internal → Beta 1/2/3 → Production
+- **Targeted Groups**: White-label partners, enterprise customers, premium users  
+- **Percentage Rollout**: Consistent hash-based gradual releases
+- **Type-Safe**: Full TypeScript support with React hooks and components
+- **Database-Backed**: Persistent flags with Cloudflare D1
+
+📖 See [Feature Flags Documentation](docs/FEATURE_FLAGS.md) for complete usage guide.
+
 ---
 
 ## 📄 License
