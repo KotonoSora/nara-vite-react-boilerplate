@@ -1,9 +1,5 @@
 [
   {
-    "action": "clone",
-    "src": "KotonoSora/nara-vite-react-boilerplate"
-  },
-  {
     "action": "remove",
     "files": [
       "README.md",
