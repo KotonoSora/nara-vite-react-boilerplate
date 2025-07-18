@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { Theme, useTheme } from "remix-themes";
 
 type ThemeMode = "light" | "dark" | "system";
@@ -12,6 +12,9 @@ export const useThemeMode = () => {
   });
 
   const getSystemTheme = useCallback((): Theme => {
+    if (typeof window === "undefined") {
+      return Theme.LIGHT;
+    }
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
     ).matches;
@@ -31,6 +34,10 @@ export const useThemeMode = () => {
       }
 
       if (currentMode === "system") {
+        if (typeof window === "undefined") {
+          setTheme(Theme.LIGHT);
+          return;
+        }
         setTheme(getSystemTheme());
         return;
       }
@@ -38,10 +45,12 @@ export const useThemeMode = () => {
     [setTheme, getSystemTheme],
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     applyTheme(mode);
+  }, [mode, applyTheme]);
 
-    if (mode !== "system") {
+  useEffect(() => {
+    if (mode !== "system" || typeof window === "undefined") {
       return;
     }
 
