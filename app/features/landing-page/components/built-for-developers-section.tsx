@@ -34,7 +34,7 @@ export const BuiltForDevelopersSection = memo(
                   <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center mb-3 motion-safe:group-hover:scale-110 transition-transform duration-300">
                     <Clock className="w-8 h-8 text-primary" />
                   </div>
-                  <div className="text-4xl font-bold text-primary bg-gradient-to-br from-primary to-primary/80 bg-clip-text text-transparent">
+                  <div className="text-4xl font-bold text-transparent bg-gradient-to-br from-primary to-primary/80 bg-clip-text">
                     5min
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">
@@ -49,7 +49,7 @@ export const BuiltForDevelopersSection = memo(
                   <div className="mx-auto w-16 h-16 bg-gradient-to-br from-green-500/20 to-green-500/10 rounded-2xl flex items-center justify-center mb-3 motion-safe:group-hover:scale-110 transition-transform duration-300">
                     <Shield className="w-8 h-8 text-green-600" />
                   </div>
-                  <div className="text-4xl font-bold text-green-600 bg-gradient-to-br from-green-600 to-green-500 bg-clip-text text-transparent">
+                  <div className="text-4xl font-bold text-transparent bg-gradient-to-br from-green-600 to-green-500 bg-clip-text">
                     100%
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">
@@ -64,7 +64,7 @@ export const BuiltForDevelopersSection = memo(
                   <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-500/20 to-blue-500/10 rounded-2xl flex items-center justify-center mb-3 motion-safe:group-hover:scale-110 transition-transform duration-300">
                     <Heart className="w-8 h-8 text-blue-600" />
                   </div>
-                  <div className="text-4xl font-bold text-blue-600 bg-gradient-to-br from-blue-600 to-blue-500 bg-clip-text text-transparent">
+                  <div className="text-4xl font-bold text-transparent bg-gradient-to-br from-blue-600 to-blue-500 bg-clip-text">
                     0
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">
@@ -77,8 +77,8 @@ export const BuiltForDevelopersSection = memo(
               </div>
 
               {/* Decorative elements */}
-              <div className="absolute top-4 right-4 w-2 h-2 bg-primary/30 rounded-full animate-ping" />
-              <div className="absolute bottom-4 left-4 w-1 h-1 bg-purple-500/30 rounded-full animate-ping delay-1000" />
+              <div className="absolute top-4 right-4 w-2 h-2 bg-primary/30 rounded-full motion-safe:animate-ping" />
+              <div className="absolute bottom-4 left-4 w-1 h-1 bg-purple-500/30 rounded-full motion-safe:animate-ping delay-1000" />
             </div>
           </div>
         </div>
