@@ -1,0 +1,19 @@
+[
+  {
+    "action": "clone",
+    "src": "KotonoSora/nara-vite-react-boilerplate"
+  },
+  {
+    "action": "remove",
+    "files": [
+      "README.md",
+      "LICENSE",
+      "CHANGELOG.md",
+      "CODE_OF_CONDUCT.md",
+      "CONTRIBUTING.md",
+      "SECURITY.md",
+      ".github",
+      ".vscode"
+    ]
+  }
+]

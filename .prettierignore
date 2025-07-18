@@ -9,6 +9,7 @@
 !wrangler.jsonc
 !README.md
 !CHANGELOG.md
+!degit.json
 
 # Allow folder .vscode
 !.vscode/
