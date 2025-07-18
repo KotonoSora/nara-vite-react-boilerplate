@@ -1,4 +1,3 @@
-import type { UserPreferences } from './types';
 import { defaultPreferences } from './defaults';
 
 // Local storage key

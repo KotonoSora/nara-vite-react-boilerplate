@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import type { UserPreferences } from '~/lib/user-preferences/types';
 import { defaultPreferences } from '~/lib/user-preferences/defaults';
 import { loadPreferences, savePreferences } from '~/lib/user-preferences/storage';
 

@@ -1,4 +1,4 @@
-export interface UserPreferences {
+interface UserPreferences {
   // Font preferences
   fontFamily: string;
   fontSize: number; // Scale factor (0.75, 1, 1.25, 1.5)

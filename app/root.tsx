@@ -18,7 +18,7 @@ import {
 import type { Route } from "./+types/root";
 
 import { Toaster } from "~/components/ui/sonner";
-import { UserPreferencesProvider } from "~/hooks/use-user-preferences";
+import { UserPreferencesProvider } from "~/contexts/user-preferences-context";
 import { themeSessionResolver } from "~/sessions.server";
 
 import "~/app.css";

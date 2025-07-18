@@ -1,5 +1,3 @@
-import type { UserPreferences } from './types';
-
 export const defaultPreferences: UserPreferences = {
   fontFamily: 'Inter',
   fontSize: 1,
