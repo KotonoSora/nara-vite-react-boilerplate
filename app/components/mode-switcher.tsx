@@ -37,7 +37,6 @@ export function ModeSwitcher() {
       variant="ghost"
       className="group/toggle h-8 w-8 px-0"
       aria-label={`Current: ${label}. Click to switch to ${nextModeLabel} theme`}
-      aria-pressed={mode !== "system"}
       onClick={toggleMode}
       style={{ contentVisibility: "auto" }}
     >
