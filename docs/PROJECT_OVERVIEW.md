@@ -24,7 +24,7 @@ Before starting development, ensure your environment meets the following system 
 - **Bun**: `1.2.18`  
   Install from [https://bun.sh](https://bun.sh) or use your system’s package manager.
 
-- **Node.js**: `v22.17.0`  
+- **Node.js**: `v22.17.1`  
   Use [nvm](https://github.com/nvm-sh/nvm) or a similar version manager to install and manage Node versions.
 
 ### 🔒 Version Enforcement
@@ -41,7 +41,7 @@ Verify your setup:
 
 ```bash
 bun --version   # should output 1.2.18
-node --version  # should output v22.17.0
+node --version  # should output v22.17.1
 ```
 
 ---
