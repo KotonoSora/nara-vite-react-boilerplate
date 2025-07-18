@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { UserPreferences } from '~/lib/user-preferences';
+import type { UserPreferences } from '~/lib/user-preferences/types';
 
 export function useFontLoader(fontFamily: string, isClient: boolean) {
   useEffect(() => {

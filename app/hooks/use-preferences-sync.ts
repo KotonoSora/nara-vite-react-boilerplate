@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { UserPreferences } from '~/lib/user-preferences';
+import type { UserPreferences } from '~/lib/user-preferences/types';
 
 export function usePreferencesSync(preferences: UserPreferences, isClient: boolean) {
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTheme, Theme } from 'remix-themes';
-import type { UserPreferences } from '~/lib/user-preferences';
+import type { UserPreferences } from '~/lib/user-preferences/types';
 
 export function useThemeSync(preferences: UserPreferences, isClient: boolean) {
   const [, setTheme] = useTheme();

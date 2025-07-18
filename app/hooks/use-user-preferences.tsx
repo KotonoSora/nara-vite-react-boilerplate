@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import type { UserPreferences } from '~/lib/user-preferences';
+import type { UserPreferences } from '~/lib/user-preferences/types';
 import { usePreferencesStorage } from './use-preferences-storage';
 import { useThemeSync } from './use-theme-sync';
 import { useFontLoader } from './use-font-loader';
