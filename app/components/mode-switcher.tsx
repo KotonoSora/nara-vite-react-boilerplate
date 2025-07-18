@@ -3,7 +3,7 @@ import React from "react";
 import { Theme, useTheme } from "remix-themes";
 
 import { Button } from "~/components/ui/button";
-import { useUserPreferences } from "~/hooks/use-user-preferences";
+import { useUserPreferences } from "~/contexts/user-preferences-context";
 
 export function ModeSwitcher() {
   const [theme] = useTheme();

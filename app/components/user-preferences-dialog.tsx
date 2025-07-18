@@ -34,7 +34,7 @@ import { Separator } from "~/components/ui/separator";
 import { Slider } from "~/components/ui/slider";
 import { Switch } from "~/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { useUserPreferences } from "~/hooks/use-user-preferences";
+import { useUserPreferences } from "~/contexts/user-preferences-context";
 import { availableFonts, fontSizeOptions } from "~/lib/user-preferences/fonts";
 
 export function UserPreferencesDialog() {
