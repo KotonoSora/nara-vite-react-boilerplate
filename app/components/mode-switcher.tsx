@@ -4,11 +4,11 @@ import { Theme, useTheme } from "remix-themes";
 
 import { Button } from "~/components/ui/button";
 
-type ModeSwitcherTypeTheme = "light" | "dark" | "system";
+type ThemeMode = "light" | "dark" | "system";
 
 export function ModeSwitcher() {
   const [theme, setTheme] = useTheme();
-  const [colorTheme, setColorTheme] = useState<ModeSwitcherTypeTheme>("system");
+  const [colorTheme, setColorTheme] = useState<ThemeMode>("system");
 
   useEffect(() => {
     const applyTheme = () => {
@@ -35,12 +35,11 @@ export function ModeSwitcher() {
   }, [colorTheme, setTheme]);
 
   const toggleTheme = useCallback(() => {
-    const currentTheme = colorTheme;
-    let nextTheme: ModeSwitcherTypeTheme;
+    let nextTheme: ThemeMode;
 
-    if (currentTheme === "light") {
+    if (colorTheme === "light") {
       nextTheme = "dark";
-    } else if (currentTheme === "dark") {
+    } else if (colorTheme === "dark") {
       nextTheme = "system";
     } else {
       nextTheme = "light";
