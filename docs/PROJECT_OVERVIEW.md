@@ -48,6 +48,21 @@ node --version  # should output v22.17.1
 
 ## 🚀 Quick Start
 
+> **📋 Quick Reference**
+>
+> **One-Line Setup:** `npx degit KotonoSora/nara-vite-react-boilerplate#main my-project && cd my-project && bun install && bun run db:migrate && bun run dev`
+>
+> **Key URLs:**
+>
+> - Development: <http://localhost:5173>
+> - Production Preview: <http://localhost:4173>
+> - Drizzle Studio: <http://localhost:4983> (when running `bunx drizzle-kit studio`)
+>
+> **Quick Checks:** ✅ Node v22.17.1 ✅ Bun 1.2.18 ✅ Git installed  
+> **Time to first run:** ~5 minutes | **Difficulty:** 🟢 Beginner
+>
+> **Need Help:** [Developer Onboarding](./docs/DEVELOPER_ONBOARDING.md) | [Troubleshooting](./docs/TROUBLESHOOTING.md) | [Project Documentation](./docs/README.md)
+
 ```bash
 # Makes copies of git repositories
 npx degit KotonoSora/nara-vite-react-boilerplate#main my-new-project
@@ -204,7 +219,7 @@ bun run deploy       # Production build and wrangler deploy to cloudflare
 - Use `shadcn/ui` CLI: `bunx --bun shadcn@latest add [component]`
 - Local env: `.dev.vars`, production env via Cloudflare dashboard
 - Stick to structure → easier scaling
-- Use React Router’s data APIs + Drizzle’s typesafe queries
+- Use React Router’s data APIs + Drizzle’s type-safe queries
 - Deploy fast with Cloudflare edge runtime
 
 ---

@@ -10,7 +10,21 @@
 
 A fast, opinionated starter for building **full-stack React apps** with **modern tooling** and **Cloudflare Workers deployment**. Designed with focus on **type safety**, **performance**, and **developer ergonomics**.
 
-📖 See [Project Overview](docs/PROJECT_OVERVIEW.md) for more on project structure.
+## 📚 Comprehensive Documentation
+
+**New to the project?** Start with our comprehensive documentation:
+
+- **[📖 Documentation Index](docs/README.md)** - Organized guide index with quick-access navigation, use-case routing, and cross-referenced learning paths
+- **[🚀 Developer Onboarding](docs/DEVELOPER_ONBOARDING.md)** - Step-by-step setup for new developers
+- **[🏗 Architecture Deep Dive](docs/ARCHITECTURE.md)** - Design patterns and technical decisions
+- **[🧩 Component Guide](docs/COMPONENT_GUIDE.md)** - UI components and styling patterns
+- **[🗄 Database Guide](docs/DATABASE_GUIDE.md)** - Drizzle ORM, schema design, migrations
+- **[🌐 API Development Guide](docs/API_GUIDE.md)** - Hono framework and backend patterns
+- **[🧪 Testing Guide](docs/TESTING_GUIDE.md)** - Comprehensive testing strategies
+- **[🚢 CI Deploy Guide](docs/CI_DEPLOY_GUIDE.md)** - Deployment and CI/CD setup
+- **[🆘 Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Common issues and solutions
+
+📖 See [Project Overview](docs/PROJECT_OVERVIEW.md) for detailed project structure and tech stack.
 
 ---
 
