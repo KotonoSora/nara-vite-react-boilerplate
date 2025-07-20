@@ -1,5 +1,12 @@
 import Stripe from 'stripe';
 
+/**
+ * Legacy Stripe utilities for backward compatibility
+ * 
+ * These functions are kept for backward compatibility with existing code.
+ * New implementations should use the multi-provider payment system in app/lib/payments/
+ */
+
 export function getStripe(secretKey: string) {
   if (!secretKey) {
     throw new Error('Stripe secret key is required');
@@ -30,3 +37,10 @@ export function toCents(dollars: number): number {
 export function toDollars(cents: number): number {
   return cents / 100;
 }
+
+// Re-export from the new multi-provider system for consistency
+export { 
+  formatAmount, 
+  toCents as toMultiProviderCents, 
+  toDollars as toMultiProviderDollars 
+} from './payments';

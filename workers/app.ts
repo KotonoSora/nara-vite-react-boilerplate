@@ -7,6 +7,7 @@ import * as schema from "~/database/schema";
 import apiRoute from "~/workers/api/common";
 import landingPageRoute from "~/workers/api/features/landing-page";
 import paymentRoute from "~/workers/api/features/payment";
+import multiProviderPaymentRoute from "~/workers/api/features/multi-provider-payment";
 import paymentWebhookRoute from "~/workers/api/features/payment-webhook";
 import productsRoute from "~/workers/api/features/products";
 import appRoute from "~/workers/api/setup";
@@ -28,7 +29,8 @@ const requestHandler = createRequestHandler(
 
 // Routes
 apiRoute.route("/landing-page", landingPageRoute);
-apiRoute.route("/payment", paymentRoute);
+apiRoute.route("/payment", paymentRoute); // Legacy Stripe-only API
+apiRoute.route("/payments", multiProviderPaymentRoute); // New multi-provider API
 apiRoute.route("/products", productsRoute);
 appRoute.route("/webhooks/stripe", paymentWebhookRoute);
 appRoute.route("/api", apiRoute);

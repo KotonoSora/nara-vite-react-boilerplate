@@ -3,12 +3,21 @@ import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 // Products that can be sold (SaaS, digital downloads, courses, etc.)
 export const product = sqliteTable("products", {
   id: integer("id").primaryKey({ autoIncrement: true }),
+  
+  // Provider-specific IDs (JSON object to support multiple providers)
+  providerProductIds: text("provider_product_ids"), // JSON: {"stripe": "prod_123", "paypal": "PROD-456"}
+  
+  // Legacy Stripe field for backward compatibility
   stripeProductId: text("stripe_product_id").unique(),
   
   name: text("name").notNull(),
   description: text("description").notNull(),
   type: text("type").notNull(), // 'saas', 'digital_download', 'course', 'bundle'
   category: text("category"), // optional categorization
+  
+  // Provider configuration
+  supportedProviders: text("supported_providers"), // JSON array: ["stripe", "paypal"]
+  defaultProvider: text("default_provider"), // 'stripe', 'paypal', etc.
   
   // Metadata
   features: text("features"), // JSON string of features array
@@ -22,7 +31,13 @@ export const product = sqliteTable("products", {
 // Pricing plans for products (one-time, subscription, etc.)
 export const plan = sqliteTable("plans", {
   id: integer("id").primaryKey({ autoIncrement: true }),
+  
+  // Provider-specific IDs (JSON object to support multiple providers)
+  providerPriceIds: text("provider_price_ids"), // JSON: {"stripe": "price_123", "paypal": "P-456"}
+  
+  // Legacy Stripe field for backward compatibility
   stripePriceId: text("stripe_price_id").unique(),
+  
   productId: integer("product_id")
     .notNull()
     .references(() => product.id, { onDelete: "cascade" }),
@@ -39,6 +54,10 @@ export const plan = sqliteTable("plans", {
   // Trial settings
   trialPeriodDays: integer("trial_period_days"),
   
+  // Provider configuration
+  supportedProviders: text("supported_providers"), // JSON array: ["stripe", "paypal"]
+  defaultProvider: text("default_provider"), // 'stripe', 'paypal', etc.
+  
   // Features and limits
   features: text("features"), // JSON string of plan-specific features
   limits: text("limits"), // JSON string of usage limits
@@ -53,6 +72,11 @@ export const plan = sqliteTable("plans", {
 // Customer information
 export const customer = sqliteTable("customers", {
   id: integer("id").primaryKey({ autoIncrement: true }),
+  
+  // Provider-specific IDs (JSON object to support multiple providers)
+  providerCustomerIds: text("provider_customer_ids"), // JSON: {"stripe": "cus_123", "paypal": "CUST-456"}
+  
+  // Legacy Stripe field for backward compatibility
   stripeCustomerId: text("stripe_customer_id").unique(),
   
   email: text("email").notNull().unique(),
@@ -60,7 +84,11 @@ export const customer = sqliteTable("customers", {
   
   // Billing information
   billingAddress: text("billing_address"), // JSON string
-  paymentMethods: text("payment_methods"), // JSON string of payment method IDs
+  paymentMethods: text("payment_methods"), // JSON string of payment method IDs by provider
+  
+  // Provider preferences
+  preferredProvider: text("preferred_provider"), // User's preferred payment provider
+  supportedProviders: text("supported_providers"), // JSON array of providers customer has accounts with
   
   // Customer status
   isActive: integer("is_active", { mode: "boolean" }).notNull().default(true),
@@ -72,6 +100,12 @@ export const customer = sqliteTable("customers", {
 // Active subscriptions
 export const subscription = sqliteTable("subscriptions", {
   id: integer("id").primaryKey({ autoIncrement: true }),
+  
+  // Provider information
+  provider: text("provider").notNull(), // 'stripe', 'paypal', 'square', etc.
+  providerSubscriptionId: text("provider_subscription_id").notNull(), // Provider-specific subscription ID
+  
+  // Legacy Stripe field for backward compatibility
   stripeSubscriptionId: text("stripe_subscription_id").unique(),
   
   customerId: integer("customer_id")
@@ -93,6 +127,9 @@ export const subscription = sqliteTable("subscriptions", {
   canceledAt: integer("canceled_at", { mode: "timestamp" }),
   cancelAtPeriodEnd: integer("cancel_at_period_end", { mode: "boolean" }).default(false),
   
+  // Provider-specific data
+  providerData: text("provider_data"), // JSON string for provider-specific information
+  
   // Usage tracking
   usageData: text("usage_data"), // JSON string for tracking usage limits
   
@@ -103,6 +140,12 @@ export const subscription = sqliteTable("subscriptions", {
 // One-time purchase orders
 export const order = sqliteTable("orders", {
   id: integer("id").primaryKey({ autoIncrement: true }),
+  
+  // Provider information
+  provider: text("provider").notNull(), // 'stripe', 'paypal', 'square', etc.
+  providerPaymentIntentId: text("provider_payment_intent_id").notNull(), // Provider-specific payment ID
+  
+  // Legacy Stripe field for backward compatibility
   stripePaymentIntentId: text("stripe_payment_intent_id").unique(),
   
   customerId: integer("customer_id")
@@ -119,6 +162,9 @@ export const order = sqliteTable("orders", {
   status: text("status").notNull(), // 'pending', 'succeeded', 'failed', 'refunded'
   amount: integer("amount").notNull(), // amount paid in cents
   currency: text("currency").notNull().default("usd"),
+  
+  // Provider-specific data
+  providerData: text("provider_data"), // JSON string for provider-specific information
   
   // Delivery information
   downloadUrl: text("download_url"), // for digital downloads
@@ -137,7 +183,13 @@ export const order = sqliteTable("orders", {
 // Webhook events log for debugging and audit
 export const webhookEvent = sqliteTable("webhook_events", {
   id: integer("id").primaryKey({ autoIncrement: true }),
-  stripeEventId: text("stripe_event_id").unique().notNull(),
+  
+  // Provider information
+  provider: text("provider").notNull(), // 'stripe', 'paypal', 'square', etc.
+  providerEventId: text("provider_event_id").notNull(), // Provider-specific event ID
+  
+  // Legacy Stripe field for backward compatibility
+  stripeEventId: text("stripe_event_id").unique(),
   
   eventType: text("event_type").notNull(),
   processed: integer("processed", { mode: "boolean" }).notNull().default(false),
@@ -145,4 +197,31 @@ export const webhookEvent = sqliteTable("webhook_events", {
   eventData: text("event_data").notNull(), // JSON string of the full event
   
   createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+});
+
+// Provider configurations table for managing multiple payment providers
+export const providerConfig = sqliteTable("provider_configs", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  
+  provider: text("provider").notNull(), // 'stripe', 'paypal', 'square', etc.
+  environment: text("environment").notNull(), // 'sandbox', 'production'
+  
+  // Configuration (encrypted in production)
+  publishableKey: text("publishable_key"), // Public keys are safe to store
+  webhookEndpoint: text("webhook_endpoint"), // Custom webhook endpoints per provider
+  
+  // Feature toggles
+  isEnabled: integer("is_enabled", { mode: "boolean" }).notNull().default(true),
+  isDefault: integer("is_default", { mode: "boolean" }).notNull().default(false),
+  
+  // Provider-specific settings
+  additionalConfig: text("additional_config"), // JSON string for provider-specific configuration
+  
+  // Metadata
+  displayName: text("display_name"), // Human-readable name for UI
+  description: text("description"), // Description for admin interface
+  supportedFeatures: text("supported_features"), // JSON array of supported features
+  
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
 });
