@@ -25,6 +25,20 @@ import type {
   ProviderIds
 } from '../types';
 
+/**
+ * Safely parse JSON string, returning undefined on error instead of throwing
+ */
+function safeJsonParse<T = any>(jsonString: string | undefined | null): T | undefined {
+  if (!jsonString) return undefined;
+  
+  try {
+    return JSON.parse(jsonString) as T;
+  } catch (error) {
+    console.warn('Failed to parse JSON metadata:', error);
+    return undefined;
+  }
+}
+
 export class StripeProvider extends PaymentProvider {
   private stripe: Stripe | null = null;
 
@@ -218,7 +232,7 @@ export class StripeProvider extends PaymentProvider {
         description: product.description || '',
         type: (product.metadata?.type as any) || 'saas',
         category: product.metadata?.category,
-        features: product.metadata?.features ? JSON.parse(product.metadata.features) : undefined,
+        features: safeJsonParse<string[]>(product.metadata?.features),
         metadata: product.metadata,
         isActive: product.active,
         productId: product.id
@@ -255,7 +269,7 @@ export class StripeProvider extends PaymentProvider {
         description: product.description || '',
         type: (product.metadata?.type as any) || 'saas',
         category: product.metadata?.category,
-        features: product.metadata?.features ? JSON.parse(product.metadata.features) : undefined,
+        features: safeJsonParse<string[]>(product.metadata?.features),
         metadata: product.metadata,
         isActive: product.active,
         productId: product.id
@@ -333,8 +347,8 @@ export class StripeProvider extends PaymentProvider {
         amount: price.unit_amount || 0,
         currency: price.currency,
         trialPeriodDays: price.recurring?.trial_period_days || undefined,
-        features: price.metadata?.features ? JSON.parse(price.metadata.features) : undefined,
-        limits: price.metadata?.limits ? JSON.parse(price.metadata.limits) : undefined,
+        features: safeJsonParse<string[]>(price.metadata?.features),
+        limits: safeJsonParse<Record<string, number>>(price.metadata?.limits),
         isActive: price.active,
         sortOrder: price.metadata?.sortOrder ? parseInt(price.metadata.sortOrder) : 0,
         planId: price.id
@@ -373,8 +387,8 @@ export class StripeProvider extends PaymentProvider {
         amount: price.unit_amount || 0,
         currency: price.currency,
         trialPeriodDays: price.recurring?.trial_period_days || undefined,
-        features: price.metadata?.features ? JSON.parse(price.metadata.features) : undefined,
-        limits: price.metadata?.limits ? JSON.parse(price.metadata.limits) : undefined,
+        features: safeJsonParse<string[]>(price.metadata?.features),
+        limits: safeJsonParse<Record<string, number>>(price.metadata?.limits),
         isActive: price.active,
         sortOrder: price.metadata?.sortOrder ? parseInt(price.metadata.sortOrder) : 0,
         planId: price.id

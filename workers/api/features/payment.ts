@@ -6,6 +6,15 @@ import { eq, and } from "drizzle-orm";
 import * as schema from "~/database/schema";
 import { getStripe } from "~/lib/stripe";
 
+/**
+ * Safely parse a numeric parameter, returning null if invalid
+ */
+function safeParseInt(value: string | undefined): number | null {
+  if (!value) return null;
+  const parsed = parseInt(value, 10);
+  return isNaN(parsed) ? null : parsed;
+}
+
 type Bindings = {
   DB: D1Database;
   STRIPE_SECRET_KEY: string;
@@ -197,7 +206,11 @@ app.post("/create-order", async (c) => {
 // Get customer subscriptions
 app.get("/subscriptions/:customerId", async (c) => {
   try {
-    const customerId = parseInt(c.req.param("customerId"));
+    const customerId = safeParseInt(c.req.param("customerId"));
+    if (!customerId) {
+      return c.json({ error: "Invalid customer ID" }, 400);
+    }
+    
     const db = drizzle(c.env.DB, { schema });
 
     const subscriptions = await db
@@ -221,7 +234,11 @@ app.get("/subscriptions/:customerId", async (c) => {
 // Cancel subscription
 app.post("/subscriptions/:subscriptionId/cancel", async (c) => {
   try {
-    const subscriptionId = parseInt(c.req.param("subscriptionId"));
+    const subscriptionId = safeParseInt(c.req.param("subscriptionId"));
+    if (!subscriptionId) {
+      return c.json({ error: "Invalid subscription ID" }, 400);
+    }
+    
     const { cancelAtPeriodEnd = true } = await c.req.json();
     
     const db = drizzle(c.env.DB, { schema });
@@ -264,7 +281,11 @@ app.post("/subscriptions/:subscriptionId/cancel", async (c) => {
 // Get customer orders
 app.get("/orders/:customerId", async (c) => {
   try {
-    const customerId = parseInt(c.req.param("customerId"));
+    const customerId = safeParseInt(c.req.param("customerId"));
+    if (!customerId) {
+      return c.json({ error: "Invalid customer ID" }, 400);
+    }
+    
     const db = drizzle(c.env.DB, { schema });
 
     const orders = await db

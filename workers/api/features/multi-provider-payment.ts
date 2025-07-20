@@ -19,6 +19,15 @@ import {
   type ProviderConfig 
 } from "~/lib/payments";
 
+/**
+ * Safely parse a numeric parameter, returning null if invalid
+ */
+function safeParseInt(value: string | undefined): number | null {
+  if (!value) return null;
+  const parsed = parseInt(value, 10);
+  return isNaN(parsed) ? null : parsed;
+}
+
 type Bindings = {
   DB: D1Database;
   
@@ -244,7 +253,11 @@ app.get("/subscriptions/:id", async (c) => {
 // Cancel subscription across providers
 app.post("/subscriptions/:id/cancel", async (c) => {
   try {
-    const subscriptionId = parseInt(c.req.param("id"));
+    const subscriptionId = safeParseInt(c.req.param("id"));
+    if (!subscriptionId) {
+      return c.json({ error: "Invalid subscription ID" }, 400);
+    }
+    
     const { cancelAtPeriodEnd = true, reason } = await c.req.json();
     
     const db = drizzle(c.env.DB, { schema });

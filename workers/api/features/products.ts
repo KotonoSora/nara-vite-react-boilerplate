@@ -5,6 +5,20 @@ import { eq } from "drizzle-orm";
 import * as schema from "~/database/schema";
 import { seedDemoProducts } from "~/lib/seed-demo-data";
 
+/**
+ * Safely parse JSON string, returning the fallback value on error instead of throwing
+ */
+function safeJsonParse<T>(jsonString: string | null | undefined, fallback: T): T {
+  if (!jsonString) return fallback;
+  
+  try {
+    return JSON.parse(jsonString) as T;
+  } catch (error) {
+    console.warn('Failed to parse JSON in products:', error);
+    return fallback;
+  }
+}
+
 type Bindings = {
   DB: D1Database;
 };
@@ -33,10 +47,10 @@ app.get("/products", async (c) => {
           ...product,
           plans: plans.map(plan => ({
             ...plan,
-            features: plan.features ? JSON.parse(plan.features) : [],
-            limits: plan.limits ? JSON.parse(plan.limits) : {},
+            features: safeJsonParse(plan.features, []),
+            limits: safeJsonParse(plan.limits, {}),
           })),
-          features: product.features ? JSON.parse(product.features) : [],
+          features: safeJsonParse(product.features, []),
         };
       })
     );
@@ -74,10 +88,10 @@ app.get("/products/:id", async (c) => {
       ...product,
       plans: plans.map(plan => ({
         ...plan,
-        features: plan.features ? JSON.parse(plan.features) : [],
-        limits: plan.limits ? JSON.parse(plan.limits) : {},
+        features: safeJsonParse(plan.features, []),
+        limits: safeJsonParse(plan.limits, {}),
       })),
-      features: product.features ? JSON.parse(product.features) : [],
+      features: safeJsonParse(product.features, []),
     };
 
     return c.json({ product: productWithPlans });

@@ -363,7 +363,16 @@ export class PayPalProvider extends PaymentProvider {
       // PayPal webhook verification would happen here
       // This is different from Stripe's approach
       
-      const event = JSON.parse(payload);
+      let event;
+      try {
+        event = JSON.parse(payload);
+      } catch (parseError) {
+        return this.createErrorResult({
+          code: 'INVALID_JSON',
+          message: 'Failed to parse PayPal webhook payload',
+          details: { originalError: parseError }
+        });
+      }
       
       return this.createSuccessResult({
         id: event.id || `paypal_event_${Date.now()}`,

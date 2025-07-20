@@ -6,6 +6,23 @@ import { cn } from "~/lib/utils";
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
 
+/**
+ * Sanitize a CSS identifier to prevent CSS injection
+ */
+function sanitizeCssIdentifier(input: string): string {
+  // Only allow alphanumeric characters, hyphens, and underscores
+  return input.replace(/[^a-zA-Z0-9_-]/g, '');
+}
+
+/**
+ * Sanitize a CSS color value to prevent CSS injection
+ */
+function sanitizeCssColor(color: string): string {
+  // Allow hex colors, rgb/rgba, hsl/hsla, and named colors
+  const colorPattern = /^(#[0-9a-fA-F]{3,6}|rgb\([^)]+\)|rgba\([^)]+\)|hsl\([^)]+\)|hsla\([^)]+\)|[a-zA-Z]+)$/;
+  return colorPattern.test(color) ? color : '';
+}
+
 export type ChartConfig = {
   [k in string]: {
     label?: React.ReactNode;
@@ -76,20 +93,29 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
     return null;
   }
 
+  // Sanitize the chart ID to prevent CSS injection
+  const sanitizedId = sanitizeCssIdentifier(id);
+
   return (
     <style
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
           .map(
             ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
+${prefix} [data-chart="${sanitizedId}"] {
 ${colorConfig
   .map(([key, itemConfig]) => {
     const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
       itemConfig.color;
-    return color ? `  --color-${key}: ${color};` : null;
+    
+    // Sanitize both key and color to prevent CSS injection
+    const sanitizedKey = sanitizeCssIdentifier(key);
+    const sanitizedColor = color ? sanitizeCssColor(color) : '';
+    
+    return sanitizedColor && sanitizedKey ? `  --color-${sanitizedKey}: ${sanitizedColor};` : null;
   })
+  .filter(Boolean) // Remove null entries
   .join("\n")}
 }
 `,
