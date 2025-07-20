@@ -52,6 +52,13 @@ const PROVIDER_INFO: Record<string, ProviderInfo> = {
     icon: '🏦',
     color: 'bg-blue-50 border-blue-200 hover:border-blue-300'
   },
+  zalopay: {
+    type: 'zalopay',
+    name: 'ZaloPay',
+    description: 'Vietnamese e-wallet popular in Southeast Asia',
+    icon: '💰',
+    color: 'bg-green-50 border-green-200 hover:border-green-300'
+  },
   square: {
     type: 'square',
     name: 'Square',

@@ -17,6 +17,7 @@ This system provides:
 |----------|--------|---------------|----------|---------|--------|-------------|
 | **Stripe** | ✅ Full | ✅ | ✅ | ✅ | ✅ | ✅ |
 | **PayPal** | 🚧 Demo | ✅ | ✅ | ✅ | ❌ | ❌ |
+| **ZaloPay** | ✅ Full | ❌ | ✅ | ✅ | ❌ | ❌ |
 | **Square** | 📋 Planned | ✅ | ✅ | ✅ | ✅ | ❌ |
 
 ## 🏗️ Architecture
@@ -30,6 +31,7 @@ This system provides:
 2. **Provider Implementations** (`app/lib/payments/providers/`)
    - `StripeProvider` - Full Stripe integration
    - `PayPalProvider` - PayPal implementation
+   - `ZaloPayProvider` - Vietnamese e-wallet integration
    - `SquareProvider` - Planned for future
 
 3. **Provider Factory** (`app/lib/payments/factory.ts`)
@@ -71,6 +73,11 @@ PAYPAL_CLIENT_ID=your_paypal_client_id
 PAYPAL_CLIENT_SECRET=your_paypal_client_secret
 PAYPAL_WEBHOOK_ID=your_webhook_id
 
+# ZaloPay
+ZALOPAY_APP_ID=your_zalopay_app_id
+ZALOPAY_KEY1=your_zalopay_key1
+ZALOPAY_KEY2=your_zalopay_key2
+
 # Square (future)
 SQUARE_ACCESS_TOKEN=your_square_token
 SQUARE_APPLICATION_ID=your_app_id
@@ -102,6 +109,15 @@ await paymentService.initialize([
     environment: 'sandbox',
     additionalConfig: {
       clientSecret: process.env.PAYPAL_CLIENT_SECRET
+    }
+  }),
+  createProviderConfig('zalopay', {
+    apiKey: process.env.ZALOPAY_APP_ID,
+    publishableKey: process.env.ZALOPAY_APP_ID,
+    environment: 'sandbox',
+    additionalConfig: {
+      key1: process.env.ZALOPAY_KEY1,
+      key2: process.env.ZALOPAY_KEY2
     }
   })
 ]);
@@ -378,6 +394,101 @@ To add a new payment provider:
 3. Add configuration to `workers/api/features/multi-provider-payment.ts`
 4. Update documentation and tests
 5. Submit PR with comprehensive testing
+
+## 🇻🇳 ZaloPay Integration Guide
+
+ZaloPay is a popular Vietnamese e-wallet and payment platform that enables easy digital transactions across Vietnam and Southeast Asia.
+
+### Key Features
+- **One-time payments** for digital products and services
+- **VND currency support** optimized for Vietnamese market
+- **Digital wallet integration** with ZaloPay mobile app
+- **Bank transfer support** for Vietnamese banks
+- **Refund capabilities** with asynchronous processing
+- **Webhook notifications** for real-time payment status updates
+
+### Configuration Requirements
+
+To integrate ZaloPay, you need to obtain the following credentials from the [ZaloPay Developer Portal](https://developers.zalopay.vn):
+
+```bash
+# ZaloPay Configuration
+ZALOPAY_APP_ID=your_app_id_here          # Application ID from ZaloPay
+ZALOPAY_KEY1=your_key1_here              # Key 1 for MAC generation
+ZALOPAY_KEY2=your_key2_here              # Key 2 for webhook verification
+ENVIRONMENT=sandbox                       # Use 'production' for live
+```
+
+### Integration Example
+
+```typescript
+import { paymentService } from '~/lib/payments';
+
+// Create a ZaloPay checkout session
+const checkoutResult = await paymentService.createCheckoutSession({
+  planId: 'your_plan_id',
+  customerEmail: 'customer@example.com',
+  successUrl: 'https://yoursite.com/success',
+  cancelUrl: 'https://yoursite.com/cancel'
+}, 'zalopay');
+
+if (checkoutResult.success) {
+  // Redirect customer to ZaloPay payment page
+  window.location.href = checkoutResult.data.url;
+}
+```
+
+### Capabilities & Limitations
+
+**✅ Supported Features:**
+- One-time payments up to 50,000,000 VND
+- Refunds (processed within 1-3 business days)
+- Webhook notifications for payment events
+- Sandbox testing environment
+
+**❌ Not Supported:**
+- Recurring subscriptions (use Stripe for subscription models)
+- Trial periods or complex billing cycles
+- Multi-currency transactions (VND only)
+- Usage-based billing
+
+### Testing in Sandbox
+
+ZaloPay provides a comprehensive sandbox environment for testing:
+
+1. **Test App ID**: Use sandbox credentials from developer portal
+2. **Test Payments**: Use ZaloPay sandbox app for payment simulation
+3. **Test Webhooks**: Configure ngrok or similar for local webhook testing
+4. **Test Refunds**: Refund processing is simulated in sandbox
+
+### Production Deployment
+
+Before going live with ZaloPay:
+
+1. **Merchant Verification**: Complete KYC verification with ZaloPay
+2. **Production Keys**: Replace sandbox keys with production credentials
+3. **Webhook URLs**: Update webhook endpoints to production URLs
+4. **SSL Certificate**: Ensure HTTPS for all payment and webhook URLs
+5. **Compliance**: Follow Vietnamese payment regulations and data protection laws
+
+### Webhook Handling
+
+ZaloPay sends webhooks for payment events. The system automatically handles:
+
+- `payment.succeeded` - Payment completed successfully
+- `payment.failed` - Payment failed or was cancelled
+- `refund.processed` - Refund has been completed
+
+Webhook payloads are verified using HMAC-SHA256 with your Key2.
+
+### Regional Considerations
+
+When using ZaloPay, consider:
+
+- **Target Audience**: Primarily Vietnamese users familiar with ZaloPay
+- **Currency**: All amounts in Vietnamese Dong (VND)
+- **Banking Hours**: Some bank transfers may have processing delays outside business hours
+- **Holiday Schedule**: Vietnamese national holidays may affect processing times
 
 ---
 

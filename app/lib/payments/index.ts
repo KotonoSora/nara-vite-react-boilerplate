@@ -13,6 +13,7 @@ export { PaymentProviderFactory, providerFactory, registerMultipleProviders, get
 // Provider implementations
 export { StripeProvider } from './providers/stripe';
 export { PayPalProvider } from './providers/paypal';
+export { ZaloPayProvider } from './providers/zalopay';
 
 // Type exports
 export type {

@@ -41,6 +41,11 @@ type Bindings = {
   PAYPAL_CLIENT_SECRET: string;
   PAYPAL_WEBHOOK_ID: string;
   
+  // ZaloPay configuration
+  ZALOPAY_APP_ID: string;
+  ZALOPAY_KEY1: string;
+  ZALOPAY_KEY2: string;
+  
   // Square configuration (future)
   SQUARE_ACCESS_TOKEN: string;
   SQUARE_APPLICATION_ID: string;
@@ -76,6 +81,19 @@ app.use("*", async (c, next) => {
       environment: c.env.ENVIRONMENT === 'production' ? 'production' : 'sandbox',
       additionalConfig: {
         clientSecret: c.env.PAYPAL_CLIENT_SECRET
+      }
+    }));
+  }
+  
+  // Add ZaloPay if configured
+  if (c.env.ZALOPAY_APP_ID && c.env.ZALOPAY_KEY1 && c.env.ZALOPAY_KEY2) {
+    configs.push(createProviderConfig('zalopay', {
+      apiKey: c.env.ZALOPAY_APP_ID,
+      publishableKey: c.env.ZALOPAY_APP_ID, // ZaloPay uses App ID as public key
+      environment: c.env.ENVIRONMENT === 'production' ? 'production' : 'sandbox',
+      additionalConfig: {
+        key1: c.env.ZALOPAY_KEY1,
+        key2: c.env.ZALOPAY_KEY2
       }
     }));
   }

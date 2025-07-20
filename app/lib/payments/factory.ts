@@ -8,6 +8,7 @@
 import { PaymentProvider } from './provider';
 import { StripeProvider } from './providers/stripe';
 import { PayPalProvider } from './providers/paypal';
+import { ZaloPayProvider } from './providers/zalopay';
 import type {
   PaymentProviderType,
   ProviderConfig,
@@ -21,6 +22,7 @@ import type {
 const PROVIDER_REGISTRY = {
   stripe: StripeProvider,
   paypal: PayPalProvider,
+  zalopay: ZaloPayProvider,
   // Future providers can be added here:
   // square: SquareProvider,
   // razorpay: RazorpayProvider,
@@ -335,6 +337,12 @@ export function getProviderInfo(): Array<{
       name: 'PayPal',
       capabilities: PaymentProviderFactory.getProviderCapabilities('paypal')!,
       description: 'Popular digital wallet and payment platform with global reach'
+    },
+    {
+      type: 'zalopay',
+      name: 'ZaloPay',
+      capabilities: PaymentProviderFactory.getProviderCapabilities('zalopay')!,
+      description: 'Vietnamese e-wallet and payment platform, popular in Southeast Asia for digital transactions'
     }
     // Add more providers as they are implemented
   ];

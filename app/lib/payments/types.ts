@@ -6,7 +6,7 @@
  */
 
 // Supported payment providers
-export type PaymentProviderType = 'stripe' | 'paypal' | 'square';
+export type PaymentProviderType = 'stripe' | 'paypal' | 'square' | 'zalopay';
 
 // Generic customer data structure
 export interface CustomerData {
