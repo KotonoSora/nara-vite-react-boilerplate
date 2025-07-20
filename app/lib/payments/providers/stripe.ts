@@ -26,8 +26,14 @@ import type {
 } from '../types';
 
 /**
- * Safely parse JSON string, returning undefined on error instead of throwing
+ * Safely parse integer with validation, returning default value on error
  */
+function safeParseInt(value: string | undefined | null, defaultValue: number = 0): number {
+  if (!value) return defaultValue;
+  
+  const parsed = parseInt(value, 10);
+  return isNaN(parsed) ? defaultValue : parsed;
+}
 function safeJsonParse<T = any>(jsonString: string | undefined | null): T | undefined {
   if (!jsonString) return undefined;
   
@@ -48,7 +54,7 @@ export class StripeProvider extends PaymentProvider {
     }
 
     this.stripe = new Stripe(this.config.apiKey, {
-      apiVersion: '2025-06-30.basil',
+      apiVersion: '2024-12-18.acacia',
       typescript: true,
     });
 
@@ -123,15 +129,15 @@ export class StripeProvider extends PaymentProvider {
 
       return this.createSuccessResult({
         id: customer.id,
-        email: customer.email || '',
-        name: customer.name || undefined,
+        email: customer.email ?? '',
+        name: customer.name ?? undefined,
         billingAddress: customer.address ? {
-          line1: customer.address.line1 || undefined,
-          line2: customer.address.line2 || undefined,
-          city: customer.address.city || undefined,
-          state: customer.address.state || undefined,
-          postal_code: customer.address.postal_code || undefined,
-          country: customer.address.country || undefined,
+          line1: customer.address.line1 ?? undefined,
+          line2: customer.address.line2 ?? undefined,
+          city: customer.address.city ?? undefined,
+          state: customer.address.state ?? undefined,
+          postal_code: customer.address.postal_code ?? undefined,
+          country: customer.address.country ?? undefined,
         } : undefined,
         customerId: customer.id
       }, customer);
@@ -160,15 +166,15 @@ export class StripeProvider extends PaymentProvider {
 
       return this.createSuccessResult({
         id: customer.id,
-        email: customer.email || '',
-        name: customer.name || undefined,
+        email: customer.email ?? '',
+        name: customer.name ?? undefined,
         billingAddress: customer.address ? {
-          line1: customer.address.line1 || undefined,
-          line2: customer.address.line2 || undefined,
-          city: customer.address.city || undefined,
-          state: customer.address.state || undefined,
-          postal_code: customer.address.postal_code || undefined,
-          country: customer.address.country || undefined,
+          line1: customer.address.line1 ?? undefined,
+          line2: customer.address.line2 ?? undefined,
+          city: customer.address.city ?? undefined,
+          state: customer.address.state ?? undefined,
+          postal_code: customer.address.postal_code ?? undefined,
+          country: customer.address.country ?? undefined,
         } : undefined,
         customerId: customer.id
       }, customer);
@@ -340,13 +346,13 @@ export class StripeProvider extends PaymentProvider {
       return this.createSuccessResult({
         id: price.id,
         productId: price.product as string,
-        name: price.nickname || 'Unnamed Plan',
-        type: (price.metadata?.type as any) || 'one_time',
+        name: price.nickname ?? 'Unnamed Plan',
+        type: (price.metadata?.type as any) ?? 'one_time',
         interval: price.recurring?.interval,
         intervalCount: price.recurring?.interval_count,
-        amount: price.unit_amount || 0,
+        amount: price.unit_amount ?? 0,
         currency: price.currency,
-        trialPeriodDays: price.recurring?.trial_period_days || undefined,
+        trialPeriodDays: price.recurring?.trial_period_days ?? undefined,
         features: safeJsonParse<string[]>(price.metadata?.features),
         limits: safeJsonParse<Record<string, number>>(price.metadata?.limits),
         isActive: price.active,
@@ -380,13 +386,13 @@ export class StripeProvider extends PaymentProvider {
       return this.createSuccessResult({
         id: price.id,
         productId: price.product as string,
-        name: price.nickname || 'Unnamed Plan',
-        type: (price.metadata?.type as any) || 'one_time',
+        name: price.nickname ?? 'Unnamed Plan',
+        type: (price.metadata?.type as any) ?? 'one_time',
         interval: price.recurring?.interval,
         intervalCount: price.recurring?.interval_count,
-        amount: price.unit_amount || 0,
+        amount: price.unit_amount ?? 0,
         currency: price.currency,
-        trialPeriodDays: price.recurring?.trial_period_days || undefined,
+        trialPeriodDays: price.recurring?.trial_period_days ?? undefined,
         features: safeJsonParse<string[]>(price.metadata?.features),
         limits: safeJsonParse<Record<string, number>>(price.metadata?.limits),
         isActive: price.active,
@@ -495,7 +501,7 @@ export class StripeProvider extends PaymentProvider {
         trialStart: subscription.trial_start ? new Date(subscription.trial_start * 1000) : undefined,
         trialEnd: subscription.trial_end ? new Date(subscription.trial_end * 1000) : undefined,
         canceledAt: subscription.canceled_at ? new Date(subscription.canceled_at * 1000) : undefined,
-        cancelAtPeriodEnd: subscription.cancel_at_period_end || false,
+        cancelAtPeriodEnd: subscription.cancel_at_period_end ?? false,
         subscriptionId: subscription.id
       }, subscription);
 
@@ -517,14 +523,14 @@ export class StripeProvider extends PaymentProvider {
         id: subscription.id,
         customerId: subscription.customer as string,
         productId: '', // Would extract from items
-        planId: subscription.items.data[0]?.price?.id || '',
+        planId: subscription.items.data[0]?.price?.id ?? '',
         status: subscription.status as any,
         currentPeriodStart: subscription.current_period_start ? new Date(subscription.current_period_start * 1000) : undefined,
         currentPeriodEnd: subscription.current_period_end ? new Date(subscription.current_period_end * 1000) : undefined,
         trialStart: subscription.trial_start ? new Date(subscription.trial_start * 1000) : undefined,
         trialEnd: subscription.trial_end ? new Date(subscription.trial_end * 1000) : undefined,
         canceledAt: subscription.canceled_at ? new Date(subscription.canceled_at * 1000) : undefined,
-        cancelAtPeriodEnd: subscription.cancel_at_period_end || false,
+        cancelAtPeriodEnd: subscription.cancel_at_period_end ?? false,
         subscriptionId: subscription.id
       }, subscription);
 
@@ -549,14 +555,14 @@ export class StripeProvider extends PaymentProvider {
         id: subscription.id,
         customerId: subscription.customer as string,
         productId: '',
-        planId: subscription.items.data[0]?.price?.id || '',
+        planId: subscription.items.data[0]?.price?.id ?? '',
         status: subscription.status as any,
         currentPeriodStart: subscription.current_period_start ? new Date(subscription.current_period_start * 1000) : undefined,
         currentPeriodEnd: subscription.current_period_end ? new Date(subscription.current_period_end * 1000) : undefined,
         trialStart: subscription.trial_start ? new Date(subscription.trial_start * 1000) : undefined,
         trialEnd: subscription.trial_end ? new Date(subscription.trial_end * 1000) : undefined,
         canceledAt: subscription.canceled_at ? new Date(subscription.canceled_at * 1000) : undefined,
-        cancelAtPeriodEnd: subscription.cancel_at_period_end || false,
+        cancelAtPeriodEnd: subscription.cancel_at_period_end ?? false,
         subscriptionId: subscription.id
       }, subscription);
 
@@ -613,11 +619,17 @@ export class StripeProvider extends PaymentProvider {
     return this.createErrorResult({ code: 'not_implemented', message: 'Method not yet implemented' });
   }
 
-  async updateSubscription(subscriptionId: string, options: any): Promise<PaymentResult<SubscriptionData & ProviderIds>> {
+  async updateSubscription(subscriptionId: string, options: {
+    planId?: string;
+    cancelAtPeriodEnd?: boolean;
+    metadata?: Record<string, any>;
+  }): Promise<PaymentResult<SubscriptionData & ProviderIds>> {
     return this.createErrorResult({ code: 'not_implemented', message: 'Method not yet implemented' });
   }
 
-  async createOrder(customerId: string, planId: string, options?: any): Promise<PaymentResult<OrderData & ProviderIds>> {
+  async createOrder(customerId: string, planId: string, options?: {
+    metadata?: Record<string, any>;
+  }): Promise<PaymentResult<OrderData & ProviderIds>> {
     return this.createErrorResult({ code: 'not_implemented', message: 'Method not yet implemented' });
   }
 
@@ -661,7 +673,10 @@ export class StripeProvider extends PaymentProvider {
     return this.createErrorResult({ code: 'not_implemented', message: 'Method not yet implemented' });
   }
 
-  async getUsageRecords(subscriptionId: string, options?: any): Promise<PaymentResult<UsageRecord[]>> {
+  async getUsageRecords(subscriptionId: string, options?: {
+    startDate?: Date;
+    endDate?: Date;
+  }): Promise<PaymentResult<UsageRecord[]>> {
     return this.createErrorResult({ code: 'not_implemented', message: 'Method not yet implemented' });
   }
 }

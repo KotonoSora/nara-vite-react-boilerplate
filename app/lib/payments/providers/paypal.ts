@@ -27,6 +27,30 @@ import type {
 } from '../types';
 
 /**
+ * Safely parse JSON string, returning undefined on error instead of throwing
+ */
+function safeJsonParse<T = any>(jsonString: string | undefined | null): T | undefined {
+  if (!jsonString) return undefined;
+  
+  try {
+    return JSON.parse(jsonString) as T;
+  } catch (error) {
+    console.warn('Failed to parse JSON metadata:', error);
+    return undefined;
+  }
+}
+
+/**
+ * Safely parse integer with validation, returning default value on error
+ */
+function safeParseInt(value: string | undefined | null, defaultValue: number = 0): number {
+  if (!value) return defaultValue;
+  
+  const parsed = parseInt(value, 10);
+  return isNaN(parsed) ? defaultValue : parsed;
+}
+
+/**
  * PayPal Provider Implementation
  * 
  * This demonstrates how to implement a different payment provider
