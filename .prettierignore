@@ -20,7 +20,7 @@
 !app/**
 !workers/
 !workers/**
-!docs/
-!docs/**
+# !docs/
+# !docs/**
 !database/
 !database/**
