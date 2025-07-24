@@ -5,11 +5,19 @@ type ThemeMode = "light" | "dark" | "system";
 
 export const useThemeMode = () => {
   const [theme, setTheme] = useTheme();
-  const [mode, setMode] = useState<ThemeMode>(() => {
-    if (theme === Theme.DARK) return "dark";
-    if (theme === Theme.LIGHT) return "light";
-    return "system";
-  });
+  // Initialize to "system" to ensure consistent SSR/client rendering
+  const [mode, setMode] = useState<ThemeMode>("system");
+
+  // Update mode based on theme after hydration
+  useEffect(() => {
+    if (theme === Theme.DARK) {
+      setMode("dark");
+    } else if (theme === Theme.LIGHT) {
+      setMode("light");
+    } else {
+      setMode("system");
+    }
+  }, [theme]);
 
   const getSystemTheme = useCallback((): Theme => {
     if (typeof window === "undefined") {
