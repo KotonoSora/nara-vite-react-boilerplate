@@ -43,9 +43,11 @@ app.get("/health", (c) => c.json({ status: "ok" }));
 app.route("/landing-page", landingPageRoute);
 
 // Example route to test error handling
-app.get("/error", () => {
-  throw new HTTPException(400, { message: "This is a test error" });
-});
+if (import.meta.env.NODE_ENV === "development") {
+  app.get("/error", () => {
+    throw new HTTPException(400, { message: "This is a test error" });
+  });
+}
 
 // Throw not found response
 app.all("*", async (c) => c.notFound());
