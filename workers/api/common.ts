@@ -4,6 +4,8 @@ import { HTTPException } from "hono/http-exception";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 
+import landingPageRoute from "~/workers/api/features/landing-page";
+
 const app = new Hono<{ Bindings: Env }>();
 
 // Middleware
@@ -40,5 +42,15 @@ app.get("/", (c) => {
 app.get("/hello-world", (c) => c.json({ message: "Hello, World!" }));
 
 app.get("/health", (c) => c.json({ status: "ok" }));
+
+app.route("/landing-page", landingPageRoute);
+
+// Example route to test error handling
+app.get("/error", () => {
+  throw new HTTPException(400, { message: "This is a test error" });
+});
+
+// Throw not found response
+app.get("*", async (c) => c.notFound());
 
 export default app;
