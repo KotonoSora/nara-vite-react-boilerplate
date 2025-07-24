@@ -421,34 +421,24 @@ jobs:
 
 **Minimum Required Permissions**:
 
-```json
-{
-  "policies": [
-    {
-      "effect": "allow",
-      "resources": {
-        "com.cloudflare.api.account.*": "*"
-      },
-      "permission_groups": [
-        {
-          "id": "c8fed203ed3043cba015a93ad1616f1f",
-          "name": "Zone:Zone:Read"
-        },
-        {
-          "id": "82e64a83756745bbbb1c9c2701bf816b",
-          "name": "Page:Edit"
-        },
-        {
-          "id": "D1:edit"
-        },
-        {
-          "id": "Workers Scripts:Edit"
-        }
-      ]
-    }
-  ]
-}
-```
+- Assign permissions:
+  - Account → D1 → Edit
+  - Account → Cloudflare Pages → Edit
+  - Account → Workers Scripts → Edit
+  
+#### 🔐 Cloudflare Setup (Cloudflare Dashboard → My Profile → API Tokens)
+
+In a non-interactive environment, it's necessary to set a `CLOUDFLARE_API_TOKEN` environment variable for wrangler to work. Refer to the [guide](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) for instructions on how to create an API token, and assign its value to `CLOUDFLARE_API_TOKEN`
+
+- Click Create Token → Use the Edit Cloudflare Workers template.
+- Click edit Token name
+- Assign permissions:
+  - Account → D1 → Edit
+  - Account → Cloudflare Pages → Edit
+  - Account → Workers Scripts → Edit
+- Assign Account Resources
+- Define how long this token will stay active
+- Copy the API token
 
 ---
 
