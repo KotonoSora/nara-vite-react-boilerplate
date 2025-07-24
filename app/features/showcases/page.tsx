@@ -24,7 +24,7 @@ export function ContentShowcasePage() {
 
   return (
     <main
-      className="min-h-screen bg-background relative"
+      className="min-h-screen bg-background"
       style={{ contentVisibility: "auto" }}
     >
       {/* Header/Navigation Section */}
