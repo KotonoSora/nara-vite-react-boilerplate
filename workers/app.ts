@@ -31,7 +31,7 @@ app.notFound((c) => c.json({ error: "Not Found" }, 404));
 // Routes
 app.route("/api", apiRoute);
 
-app.get("*", async (c) => {
+app.all("*", async (c) => {
   const request = c.req.raw; // Get the raw Request object
   const env = c.env; // Cloudflare environment
   const ctx = c.executionCtx; // Cloudflare execution context

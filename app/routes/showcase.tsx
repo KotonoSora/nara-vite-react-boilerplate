@@ -1,15 +1,40 @@
-import { Menu } from "lucide-react";
-import { useState } from "react";
-import { Outlet } from "react-router";
+import type { Route } from "./+types/showcase";
 
-import { Button } from "~/components/ui/button";
+import { getShowcases } from "~/features/landing-page/utils/get-showcases";
+import { PageContext } from "~/features/showcases/context/page-context";
+import { ContentShowcasePage } from "~/features/showcases/page";
 
-export default function ShowcaseLayout() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+export async function loader({ context }: Route.LoaderArgs) {
+  try {
+    const { db } = context;
+    const showcases = await getShowcases(db);
+
+    return {
+      showcases: showcases || [],
+    } as {
+      showcases: ProjectInfo[];
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      showcases: [],
+    };
+  }
+}
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Showcase" },
+    { name: "description", content: "All project use NARA boilerplate" },
+  ];
+}
+
+export default function Page({ loaderData }: Route.ComponentProps) {
+  const { showcases } = loaderData ?? { showcases: [] };
 
   return (
-    <main className="flex-1 overflow-auto">
-      <Outlet />
-    </main>
+    <PageContext.Provider value={{ showcases }}>
+      <ContentShowcasePage />
+    </PageContext.Provider>
   );
 }

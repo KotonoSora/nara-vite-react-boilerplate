@@ -48,6 +48,6 @@ app.get("/error", () => {
 });
 
 // Throw not found response
-app.get("*", async (c) => c.notFound());
+app.all("*", async (c) => c.notFound());
 
 export default app;
