@@ -29,7 +29,7 @@ const app = new Hono<{ Bindings: Env }>();
 app.notFound((c) => c.json({ error: "Not Found" }, 404));
 
 // Routes
-app.route("api", apiRoute);
+app.route("/api", apiRoute);
 
 app.get("*", async (c) => {
   const request = c.req.raw; // Get the raw Request object
