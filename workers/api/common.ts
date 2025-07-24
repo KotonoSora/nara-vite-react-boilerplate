@@ -30,9 +30,6 @@ app.onError((err, c) => {
   return c.json({ error: "Internal Server Error" }, 500);
 });
 
-// Not found handler
-app.notFound((c) => c.json({ error: "Not Found" }, 404));
-
 // Routes
 app.get("/", (c) => {
   const env = import.meta.env;

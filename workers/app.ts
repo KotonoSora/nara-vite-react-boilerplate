@@ -25,6 +25,9 @@ const requestHandler = createRequestHandler(
 // Init app
 const app = new Hono<{ Bindings: Env }>();
 
+// Not found handler
+app.notFound((c) => c.json({ error: "Not Found" }, 404));
+
 // Routes
 app.route("api", apiRoute);
 
