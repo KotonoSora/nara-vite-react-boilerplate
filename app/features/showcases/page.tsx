@@ -25,13 +25,7 @@ export function ContentShowcasePage() {
     const onScroll = () => setShowScroll(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
 
-    return () => {
-      if (typeof window === "undefined") {
-        return;
-      }
-
-      window.removeEventListener("scroll", onScroll);
-    };
+    return window.removeEventListener("scroll", onScroll);
   }, []);
 
   const handleScrollToTop = () => {
