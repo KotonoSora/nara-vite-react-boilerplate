@@ -25,7 +25,7 @@ export function ContentShowcasePage() {
     const onScroll = () => setShowScroll(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
 
-    return window.removeEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const handleScrollToTop = () => {
@@ -103,16 +103,13 @@ export function ContentShowcasePage() {
       </main>
 
       <Button
-        className={clsx(
-          "z-10 fixed bottom-4 right-4 rounded-full cursor-pointer w-8 h-8",
-          {
-            visible: showScroll,
-            invisible: !showScroll,
-          },
-        )}
+        className={clsx("z-10 fixed bottom-4 right-4 rounded-full w-8 h-8", {
+          visible: showScroll,
+          invisible: !showScroll,
+        })}
         onClick={handleScrollToTop}
       >
-        <ArrowUp size={32} />
+        <ArrowUp size={20} />
       </Button>
     </>
   );
