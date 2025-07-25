@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 4.6.3 (2025-07-26)
+
+- Implement github copilot instructions
+- Enhance documents
+- Enhance landing page
+- Upgrade dependencies versions
+
+## 4.6.2 (2025-07-14)
+
+- Upgrade dependencies versions
+
+## 4.6.1 (2025-07-08)
+
+- Upgrade dependencies versions
+- Config security document
+
 ## 4.6.0 (2025-06-29)
 
 - Write documents for new License: AGPL-3.0
