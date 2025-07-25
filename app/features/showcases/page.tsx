@@ -104,7 +104,7 @@ export function ContentShowcasePage() {
 
       <Button
         className={clsx(
-          "z-1 fixed bottom-4 right-4 rounded-full cursor-pointer w-8 h-8",
+          "z-10 fixed bottom-4 right-4 rounded-full cursor-pointer w-8 h-8",
           {
             visible: showScroll,
             invisible: !showScroll,
@@ -112,7 +112,7 @@ export function ContentShowcasePage() {
         )}
         onClick={handleScrollToTop}
       >
-        <ArrowUp size={48} />
+        <ArrowUp size={32} />
       </Button>
     </>
   );
