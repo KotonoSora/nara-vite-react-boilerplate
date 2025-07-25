@@ -1,5 +1,6 @@
 import { BuiltForDevelopersSection } from "~/features/landing-page/components/built-for-developers-section";
 import { FooterSection } from "~/features/landing-page/components/footer-section";
+import { GettingStartedSection } from "~/features/landing-page/components/getting-started-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
 import { HeroSection } from "~/features/landing-page/components/hero-section";
 import { KeyFeaturesSection } from "~/features/landing-page/components/key-features-section";
@@ -10,7 +11,7 @@ import { TechStackSection } from "~/features/landing-page/components/tech-stack-
 export function ContentPage() {
   return (
     <main
-      className="min-h-screen bg-background relative"
+      className="min-h-screen bg-background"
       style={{ contentVisibility: "auto" }}
     >
       {/* Header/Navigation Section */}
@@ -18,6 +19,9 @@ export function ContentPage() {
 
       {/* Hero Section */}
       <HeroSection />
+
+      {/* Getting Started Section */}
+      <GettingStartedSection />
 
       {/* Built for Developers Section */}
       <BuiltForDevelopersSection />

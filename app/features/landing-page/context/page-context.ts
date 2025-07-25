@@ -6,6 +6,8 @@ export const PageContext = createContext<PageInformation>({
   githubRepository: "",
   commercialLink: "",
   showcases: [],
+  steps: [],
+  featuresConfig: [],
 });
 
 export const usePageContext = () => useContext(PageContext);

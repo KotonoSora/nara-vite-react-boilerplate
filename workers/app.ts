@@ -1,12 +1,11 @@
 import { drizzle } from "drizzle-orm/d1";
+import { Hono } from "hono";
 import { createRequestHandler } from "react-router";
 
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as schema from "~/database/schema";
 import apiRoute from "~/workers/api/common";
-import landingPageRoute from "~/workers/api/features/landing-page";
-import appRoute from "~/workers/api/setup";
 
 declare module "react-router" {
   export interface AppLoadContext {
@@ -23,11 +22,16 @@ const requestHandler = createRequestHandler(
   import.meta.env.MODE,
 );
 
-// Routes
-apiRoute.route("/landing-page", landingPageRoute);
-appRoute.route("/api", apiRoute);
+// Init app
+const app = new Hono<{ Bindings: Env }>();
 
-appRoute.all("*", async (c) => {
+// Not found handler
+app.notFound((c) => c.json({ error: "Not Found" }, 404));
+
+// Routes
+app.route("/api", apiRoute);
+
+app.all("*", async (c) => {
   const request = c.req.raw; // Get the raw Request object
   const env = c.env; // Cloudflare environment
   const ctx = c.executionCtx; // Cloudflare execution context
@@ -41,4 +45,4 @@ appRoute.all("*", async (c) => {
   return response;
 });
 
-export default appRoute;
+export default app;

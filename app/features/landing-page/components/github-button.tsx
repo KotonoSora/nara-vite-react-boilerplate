@@ -2,8 +2,8 @@ import { memo } from "react";
 import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
-import GitHubLogoDark from "~/features/landing-page/assets/GitHub_Invertocat_Dark.svg";
-import GitHubLogoLight from "~/features/landing-page/assets/GitHub_Invertocat_Light.svg";
+import GitHubLogoDark from "~/features/landing-page/assets/github-invertocat-dark.svg?url";
+import GitHubLogoLight from "~/features/landing-page/assets/github-invertocat-light.svg?url";
 import { usePageContext } from "~/features/landing-page/context/page-context";
 
 export const GitHubButton = memo(function GitHubButton() {
