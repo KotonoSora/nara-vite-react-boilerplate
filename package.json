@@ -24,21 +24,21 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@hookform/resolvers": "5.2.0",
+    "@hookform/resolvers": "5.2.1",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "cmdk": "1.1.1",
     "date-fns": "4.1.0",
-    "drizzle-orm": "~0.44.3",
+    "drizzle-orm": "~0.44.4",
     "embla-carousel-react": "8.6.0",
-    "hono": "4.8.9",
+    "hono": "4.8.10",
     "input-otp": "1.4.2",
-    "isbot": "5.1.28",
-    "lucide-react": "0.526.0",
+    "isbot": "5.1.29",
+    "lucide-react": "0.533.0",
     "radix-ui": "1.4.2",
-    "react": "19.1.0",
+    "react": "19.1.1",
     "react-day-picker": "9.8.1",
-    "react-dom": "19.1.0",
+    "react-dom": "19.1.1",
     "react-hook-form": "7.61.1",
     "react-resizable-panels": "3.0.3",
     "react-router": "7.7.1",
@@ -48,11 +48,11 @@
     "tailwind-merge": "3.3.1",
     "tw-animate-css": "1.3.6",
     "vaul": "1.1.2",
-    "zod": "4.0.10"
+    "zod": "4.0.13"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.10.1",
-    "@cloudflare/vitest-pool-workers": "0.8.57",
+    "@cloudflare/vite-plugin": "1.10.2",
+    "@cloudflare/vitest-pool-workers": "0.8.58",
     "@cloudflare/workers-types": "4.20250726.0",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
@@ -61,8 +61,8 @@
     "@react-router/fs-routes": "7.7.1",
     "@tailwindcss/vite": "4.1.11",
     "@types/node": "24",
-    "@types/react": "19.1.8",
-    "@types/react-dom": "19.1.6",
+    "@types/react": "19.1.9",
+    "@types/react-dom": "19.1.7",
     "@vitest/coverage-istanbul": "3.2.4",
     "@vitest/ui": "3.2.4",
     "dotenv-cli": "9.0.0",
@@ -75,7 +75,7 @@
     "vite": "7.0.6",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4",
-    "wrangler": "4.26.0"
+    "wrangler": "4.26.1"
   },
   "engines": {
     "node": "22.17.1"
