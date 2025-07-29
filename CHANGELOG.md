@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.6.4 (2025-07-31)
+
+- Upgrade dependencies versions
+
 ## 4.6.3 (2025-07-26)
 
 - Implement github copilot instructions
