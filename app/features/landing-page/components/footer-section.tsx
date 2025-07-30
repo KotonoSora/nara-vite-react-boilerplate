@@ -1,6 +1,10 @@
 import { memo } from "react";
 
+import { useI18n } from "~/lib/i18n";
+
 export const FooterSection = memo(function FooterSection() {
+  const { t } = useI18n();
+
   return (
     <footer
       className="border-t py-12 px-4 bg-background/80 backdrop-blur-sm"
@@ -23,13 +27,10 @@ export const FooterSection = memo(function FooterSection() {
             />
             <h3 className="text-2xl font-bold">NARA</h3>
           </div>
-          <p className="text-muted-foreground">
-            The Full-Stack React Boilerplate That Actually Ships
-          </p>
+          <p className="text-muted-foreground">{t("landing.footer.tagline")}</p>
         </div>
         <p className="text-sm text-muted-foreground">
-          © 2025 NARA Boilerplate. Built with ❤️ by KotonoSora — to help you
-          ship faster and with confidence.
+          {t("landing.footer.copyright")}
         </p>
       </div>
     </footer>

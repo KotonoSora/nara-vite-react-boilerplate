@@ -1,0 +1,199 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "showcase": "Muestra",
+    "features": "Características",
+    "docs": "Documentación"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "notFound": "No Encontrado",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "close": "Cerrar",
+    "open": "Abrir",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "language": "Idioma"
+  },
+  "theme": {
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema",
+    "toggle": "Cambiar tema"
+  },
+  "landing": {
+    "title": "NARA React Boilerplate",
+    "subtitle": "Un iniciador rápido y estructurado para construir aplicaciones React full-stack",
+    "description": "Construido con React Router v7, TypeScript, Cloudflare Workers y herramientas modernas. Diseñado con enfoque en seguridad de tipos, rendimiento y ergonomía del desarrollador.",
+    "getStarted": "Comenzar",
+    "viewDocs": "Ver Documentación",
+    "hero": {
+      "badge": "Boilerplate Listo para Producción",
+      "title": "NARA Boilerplate",
+      "subtitle": "El Boilerplate Full-Stack de React Que Realmente Funciona",
+      "description": "Deja de perder tiempo configurando boilerplates. Comienza con una base lista para producción construida para desarrolladores que envían rápido y a menudo.",
+      "starOnGitHub": "Dar Estrella en GitHub",
+      "quickStart": "Inicio Rápido",
+      "statusText": "De git clone a producción en 5 minutos"
+    },
+    "features": {
+      "title": "Características",
+      "badge": "¿Por Qué Elegir NARA?",
+      "sectionTitle": "Características Listas para Producción",
+      "sectionDescription": "Construido con enfoque en seguridad de tipos, rendimiento y ergonomía del desarrollador",
+      "typeSafety": {
+        "title": "Seguridad de Tipos",
+        "description": "Cobertura TypeScript de extremo a extremo con tipado de rutas apropiado y verificación estricta de tipos en toda la pila."
+      },
+      "performance": {
+        "title": "Rendimiento",
+        "description": "Herramientas modernas con Vite y Bun para compilaciones ultrarrápidas, más despliegue en el borde de Cloudflare para rendimiento global."
+      },
+      "developerErgonomics": {
+        "title": "Ergonomía del Desarrollador",
+        "description": "Configuración con opiniones que simplemente funciona. Herramientas preconfiguradas, pruebas y entorno de desarrollo para máxima productividad."
+      },
+      "versatile": {
+        "title": "Versátil",
+        "description": "Arquitectura flexible diseñada para adaptarse a la mayoría de ideas de proyectos, desde MVPs hasta aplicaciones de producción."
+      },
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "Seguridad de tipos completa con soporte de TypeScript",
+      "reactRouter": "React Router v7",
+      "reactRouterDesc": "Enrutamiento moderno con renderizado del lado del servidor",
+      "cloudflare": "Cloudflare Workers",
+      "cloudflareDesc": "Despliegue en el borde con rendimiento global",
+      "database": "Base de Datos Lista",
+      "databaseDesc": "Drizzle ORM con integración de Cloudflare D1",
+      "ui": "UI Moderna",
+      "uiDesc": "Componentes hermosos con Tailwind CSS y shadcn/ui",
+      "testing": "Configuración de Pruebas",
+      "testingDesc": "Vitest y utilidades de prueba preconfiguradas"
+    },
+    "gettingStarted": {
+      "badge": "Comienza en Minutos",
+      "title": "De Cero a Producción",
+      "description": "Sigue estos simples pasos para poner en marcha tu aplicación NARA",
+      "steps": {
+        "clone": {
+          "title": "Clonar el Repositorio",
+          "description": "Obtén la última versión del boilerplate NARA",
+          "note": "Reemplaza 'mi-app' con el nombre de tu proyecto"
+        },
+        "install": {
+          "title": "Instalar Dependencias",
+          "description": "Usa tu gestor de paquetes preferido",
+          "note": "El gestor de paquetes solo soporta Bun por ahora"
+        },
+        "database": {
+          "title": "Configurar Base de Datos",
+          "description": "Inicializa la base de datos local",
+          "note": "Crea la base de datos SQLite para desarrollo"
+        },
+        "start": {
+          "title": "Iniciar Desarrollo",
+          "description": "Lanza el servidor de desarrollo",
+          "note": "Tu aplicación estará disponible en http://localhost:5173"
+        }
+      },
+      "copyCommand": "Copiar comando",
+      "copied": "¡Copiado!",
+      "setupTime": "Tiempo estimado de configuración: ~5 minutos"
+    },
+    "footer": {
+      "tagline": "El Boilerplate Full-Stack de React Que Realmente Funciona",
+      "copyright": "© 2025 NARA Boilerplate. Construido con ❤️ por KotonoSora — para ayudarte a enviar más rápido y con confianza."
+    },
+    "builtForDevelopers": {
+      "badge": "Construido para Desarrolladores Que Envían",
+      "title": "Todo Lo Que Necesitas, Nada Que No",
+      "stats": {
+        "setupTime": {
+          "value": "5min",
+          "label": "Tiempo de configuración",
+          "description": "De clonar a despliegue"
+        },
+        "typeSafe": {
+          "value": "100%",
+          "label": "Seguro de tipos",
+          "description": "TypeScript de extremo a extremo"
+        },
+        "configHeadaches": {
+          "value": "0",
+          "label": "Dolores de cabeza de configuración",
+          "description": "Simplemente funciona desde el primer momento"
+        }
+      }
+    },
+    "license": {
+      "badge": "Código Abierto y Comercial",
+      "title": "🚀 Opciones de Licencia",
+      "openSource": {
+        "badge": "AGPL-3.0",
+        "price": "Gratis",
+        "title": "Código Abierto",
+        "description": "Perfecto para proyectos de código abierto y aprendizaje",
+        "features": {
+          "useFreely": "Usar, modificar y desplegar libremente",
+          "fullSource": "Acceso completo al código fuente",
+          "mustOpenSource": "Debe ser de código abierto si se despliega públicamente"
+        },
+        "button": "Comenzar Gratis"
+      },
+      "commercial": {
+        "badge": "Licencia Comercial",
+        "price": "Una sola vez",
+        "title": "Edición Comercial",
+        "description": "Ideal para proyectos SaaS de código cerrado y producción",
+        "features": {
+          "noOpenSource": "No necesitas abrir el código de tus cambios",
+          "oneTime": "Pago único por versión",
+          "gumroad": "Distribuido a través de Gumroad"
+        },
+        "button": "Obtener Licencia Comercial",
+        "comingSoon": "Próximamente"
+      }
+    },
+    "showcase": {
+      "title": "🌟 Escaparate",
+      "description": "Proyectos construidos orgullosamente con NARA"
+    },
+    "techStack": {
+      "badge": "Stack Moderno",
+      "title": "Stack Tecnológico Moderno",
+      "description": "Tecnologías cuidadosamente seleccionadas que funcionan perfectamente juntas"
+    },
+    "github": {
+      "seeMore": "Ver Más"
+    }
+  },
+  "showcases": {
+    "title": "Muestra",
+    "backToHome": "Volver al Inicio",
+    "scrollToTop": "Volver Arriba",
+    "viewProject": "Ver Proyecto"
+  },
+  "showcase": {
+    "title": "Muestra",
+    "description": "Ejemplos y demostraciones de las características del boilerplate",
+    "components": "Componentes",
+    "examples": "Ejemplos",
+    "demos": "Demos"
+  },
+  "errors": {
+    "pageNotFound": "La página solicitada no se pudo encontrar.",
+    "unexpectedError": "Ocurrió un error inesperado.",
+    "goHome": "Ir al Inicio",
+    "tryAgain": "Intentar de Nuevo"
+  }
+}

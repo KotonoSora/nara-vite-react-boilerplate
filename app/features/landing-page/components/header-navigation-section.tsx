@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Link } from "react-router";
 
+import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
 import { GitHubButton } from "~/features/landing-page/components/github-button";
 
@@ -30,6 +31,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
         </div>
         <div className="flex items-center space-x-2">
           <GitHubButton />
+          <LanguageSwitcher />
           <ModeSwitcher />
         </div>
       </div>
