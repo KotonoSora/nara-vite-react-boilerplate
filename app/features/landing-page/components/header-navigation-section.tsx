@@ -15,13 +15,13 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
             className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
           >
             <img
-              src="assets/logo-dark.svg"
+              src="/assets/logo-dark.svg"
               alt=""
               className="w-8 h-8 hidden [html.dark_&]:block"
               loading="lazy"
             />
             <img
-              src="assets/logo-light.svg"
+              src="/assets/logo-light.svg"
               alt=""
               className="w-8 h-8 hidden [html.light_&]:block"
               loading="lazy"

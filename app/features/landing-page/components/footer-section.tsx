@@ -14,13 +14,13 @@ export const FooterSection = memo(function FooterSection() {
         <div className="mb-6">
           <div className="flex items-center justify-center gap-2 mb-2">
             <img
-              src="assets/logo-dark.svg"
+              src="/assets/logo-dark.svg"
               alt=""
               className="w-8 h-8 hidden [html.dark_&]:block"
               loading="lazy"
             />
             <img
-              src="assets/logo-light.svg"
+              src="/assets/logo-light.svg"
               alt=""
               className="w-8 h-8 hidden [html.light_&]:block"
               loading="lazy"
