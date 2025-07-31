@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { Globe } from "lucide-react";
+import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 import { Button } from "~/components/ui/button";
@@ -28,21 +29,22 @@ export function LanguageSwitcher() {
   // RTL-aware dropdown alignment
   const dropdownAlign = isRTLLanguage(language) ? "start" : "end";
 
-  const handleLanguageChange = (
-    newLanguage: (typeof SUPPORTED_LANGUAGES)[number],
-  ) => {
-    // Update the language preference on the server
-    setLanguage(newLanguage);
+  const handleLanguageChange = useCallback(
+    (newLanguage: (typeof SUPPORTED_LANGUAGES)[number]) => {
+      // Update the language preference on the server
+      setLanguage(newLanguage);
 
-    // Only navigate if current path has a language segment
-    const existingLanguage = getLanguageFromPath(location.pathname);
-    if (existingLanguage) {
-      // Navigate to the same path with the new language
-      const newPath = addLanguageToPath(location.pathname, newLanguage);
-      navigate(newPath);
-    }
-    // If no language segment, stay on current path without navigation
-  };
+      // Only navigate if current path has a language segment
+      const existingLanguage = getLanguageFromPath(location.pathname);
+      if (existingLanguage) {
+        // Navigate to the same path with the new language
+        const newPath = addLanguageToPath(location.pathname, newLanguage);
+        navigate(newPath);
+      }
+      // If no language segment, stay on current path without navigation
+    },
+    [setLanguage, location.pathname, navigate],
+  );
 
   return (
     <DropdownMenu>

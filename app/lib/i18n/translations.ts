@@ -26,10 +26,18 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
   th: thCommon,
 };
 
-function getNestedValue(obj: any, path: string): string | undefined {
-  return path.split(".").reduce((current, key) => {
-    return current && typeof current === "object" ? current[key] : undefined;
-  }, obj);
+function getNestedValue(
+  obj: NestedTranslationObject,
+  path: string,
+): string | undefined {
+  return path.split(".").reduce<unknown>((current, key) => {
+    return current &&
+      typeof current === "object" &&
+      current !== null &&
+      key in current
+      ? (current as Record<string, unknown>)[key]
+      : undefined;
+  }, obj) as string | undefined;
 }
 
 export function getTranslation(
