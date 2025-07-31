@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { Globe } from "lucide-react";
+import { useLocation, useNavigate } from "react-router";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -9,6 +10,8 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import {
+  addLanguageToPath,
+  getLanguageFromPath,
   isRTLLanguage,
   LANGUAGE_NAMES,
   SUPPORTED_LANGUAGES,
@@ -19,9 +22,27 @@ import {
 export function LanguageSwitcher() {
   const { t } = useI18n();
   const { language, setLanguage } = useLanguage();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // RTL-aware dropdown alignment
   const dropdownAlign = isRTLLanguage(language) ? "start" : "end";
+
+  const handleLanguageChange = (
+    newLanguage: (typeof SUPPORTED_LANGUAGES)[number],
+  ) => {
+    // Update the language preference on the server
+    setLanguage(newLanguage);
+
+    // Only navigate if current path has a language segment
+    const existingLanguage = getLanguageFromPath(location.pathname);
+    if (existingLanguage) {
+      // Navigate to the same path with the new language
+      const newPath = addLanguageToPath(location.pathname, newLanguage);
+      navigate(newPath);
+    }
+    // If no language segment, stay on current path without navigation
+  };
 
   return (
     <DropdownMenu>
@@ -35,7 +56,7 @@ export function LanguageSwitcher() {
         {SUPPORTED_LANGUAGES.map((lang) => (
           <DropdownMenuItem
             key={lang}
-            onClick={() => setLanguage(lang)}
+            onClick={() => handleLanguageChange(lang)}
             className={clsx({
               "bg-accent": language === lang,
               "text-right": isRTLLanguage(lang),
