@@ -77,11 +77,11 @@ Get-Content .bun-version
 # Update Bun to latest
 bun upgrade
 
-# Or install specific version (1.2.18 as per package.json)
-irm bun.sh/install.ps1 | iex -ArgumentList "bun-v1.2.18"
+# Or install specific version (1.2.19 as per package.json)
+irm bun.sh/install.ps1 | iex -ArgumentList "bun-v1.2.19"
 
 # Verify version
-bun --version  # Should output 1.2.18
+bun --version  # Should output 1.2.19
 ```
 
 **For Unix/Linux/macOS:**
@@ -94,10 +94,10 @@ cat .bun-version
 bun upgrade
 
 # Or install specific version
-curl -fsSL https://bun.sh/install | bash -s "bun-v1.2.18"
+curl -fsSL https://bun.sh/install | bash -s "bun-v1.2.19"
 
 # Verify version
-bun --version  # Should output 1.2.18
+bun --version  # Should output 1.2.19
 ```
 
 #### **Node.js Version Issues**
@@ -1555,7 +1555,7 @@ if ($nodeVersion -ne $requiredNode) {
 # Check Bun version
 $bunVersion = bun --version
 Write-Host "Bun version: $bunVersion" -ForegroundColor Cyan
-$requiredBun = "1.2.18"
+$requiredBun = "1.2.19"
 if ($bunVersion -ne $requiredBun) {
     Write-Host "❌ Bun version mismatch. Required: $requiredBun" -ForegroundColor Red
     exit 1
@@ -1603,7 +1603,7 @@ fi
 
 # Check Bun version
 echo "Bun version: $(bun --version)"
-REQUIRED_BUN="1.2.18"
+REQUIRED_BUN="1.2.19"
 if [ "$(bun --version)" != "$REQUIRED_BUN" ]; then
   echo "❌ Bun version mismatch. Required: $REQUIRED_BUN"
   exit 1
@@ -1706,12 +1706,12 @@ Brief description of the issue
 ## Environment
 - OS: [e.g., Windows 11, macOS 14.0, Ubuntu 22.04]
 - Node.js: [e.g., v22.17.0]
-- Bun: [e.g., 1.2.18]
+- Bun: [e.g., 1.2.19]
 - Browser: [e.g., Chrome 120, Firefox 119, Safari 17]
 - Shell: [e.g., PowerShell 7.x, bash, zsh]
 
 ## NARA Stack Versions
-- React Router: [e.g., 7.7.0]
+- React Router: [e.g., 7.7.1]
 - Drizzle ORM: [e.g., 0.44.3]
 - Hono: [e.g., 4.8.5]
 - Cloudflare Workers: [e.g., compatibility date]

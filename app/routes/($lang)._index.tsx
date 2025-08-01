@@ -1,16 +1,23 @@
-import type { Route } from "./+types/_index";
+import type { Route } from "./+types/($lang)._index";
 
 import { PageContext } from "~/features/landing-page/context/page-context";
 import { ContentPage } from "~/features/landing-page/page";
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
+import { getLanguageSession } from "~/language.server";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 
-export async function loader({ context }: Route.LoaderArgs) {
+export async function loader({ context, request }: Route.LoaderArgs) {
   try {
     const {
       cloudflare: { env },
       db,
     } = context;
+
+    // Get language from session
+    const languageSession = await getLanguageSession(request);
+    const language = languageSession.getLanguage();
+    const t = createTranslationFunction(language);
 
     const { title, description, githubRepository, commercialLink } =
       await getPageInformation({ ...env } as any);
@@ -19,40 +26,39 @@ export async function loader({ context }: Route.LoaderArgs) {
     const steps: Step[] = [
       {
         number: 1,
-        title: "Clone the Repository",
-        description: "Get the latest version of NARA boilerplate",
+        title: t("landing.gettingStarted.steps.clone.title"),
+        description: t("landing.gettingStarted.steps.clone.description"),
         command: "npx degit KotonoSora/nara-vite-react-boilerplate#main my-app",
-        note: "Replace 'my-app' with your project name",
+        note: t("landing.gettingStarted.steps.clone.note"),
       },
       {
         number: 2,
-        title: "Install Dependencies",
-        description: "Use your preferred package manager",
+        title: t("landing.gettingStarted.steps.install.title"),
+        description: t("landing.gettingStarted.steps.install.description"),
         command: "cd my-app && bun install",
-        note: "Package manager only supports Bun for now",
+        note: t("landing.gettingStarted.steps.install.note"),
       },
       {
         number: 3,
-        title: "Set Up Database",
-        description: "Initialize the local database",
+        title: t("landing.gettingStarted.steps.database.title"),
+        description: t("landing.gettingStarted.steps.database.description"),
         command: "bun run db:migrate",
-        note: "Creates the SQLite database for development",
+        note: t("landing.gettingStarted.steps.database.note"),
       },
       {
         number: 4,
-        title: "Start Development",
-        description: "Launch the development server",
+        title: t("landing.gettingStarted.steps.start.title"),
+        description: t("landing.gettingStarted.steps.start.description"),
         command: "bun run dev",
-        note: "Your app will be available at http://localhost:5173",
+        note: t("landing.gettingStarted.steps.start.note"),
       },
     ];
 
     const featuresConfig: FeatureCardConfig[] = [
       {
         icon: "shield",
-        title: "Type Safety",
-        description:
-          "End-to-end TypeScript coverage with proper route typing and strict type checking throughout the entire stack.",
+        title: t("landing.features.typeSafety.title"),
+        description: t("landing.features.typeSafety.description"),
         colors: {
           primary: "blue-500",
           secondary: "blue-600",
@@ -63,9 +69,8 @@ export async function loader({ context }: Route.LoaderArgs) {
       },
       {
         icon: "zap",
-        title: "Performance",
-        description:
-          "Modern tooling with Vite and Bun for lightning-fast builds, plus Cloudflare edge deployment for global performance.",
+        title: t("landing.features.performance.title"),
+        description: t("landing.features.performance.description"),
         colors: {
           primary: "yellow-500",
           secondary: "orange-500",
@@ -76,9 +81,8 @@ export async function loader({ context }: Route.LoaderArgs) {
       },
       {
         icon: "wrench",
-        title: "Developer Ergonomics",
-        description:
-          "Opinionated setup that just works. Pre-configured tooling, testing, and development environment for maximum productivity.",
+        title: t("landing.features.developerErgonomics.title"),
+        description: t("landing.features.developerErgonomics.description"),
         colors: {
           primary: "green-500",
           secondary: "emerald-500",
@@ -89,9 +93,8 @@ export async function loader({ context }: Route.LoaderArgs) {
       },
       {
         icon: "layers",
-        title: "Versatile",
-        description:
-          "Flexible architecture designed to fit the majority of project ideas, from MVPs to production applications.",
+        title: t("landing.features.versatile.title"),
+        description: t("landing.features.versatile.description"),
         colors: {
           primary: "purple-500",
           secondary: "pink-500",

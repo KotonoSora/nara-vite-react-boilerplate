@@ -1,0 +1,75 @@
+import clsx from "clsx";
+import { Globe } from "lucide-react";
+import { useCallback } from "react";
+import { useLocation, useNavigate } from "react-router";
+
+import { Button } from "~/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
+import {
+  addLanguageToPath,
+  getLanguageFromPath,
+  isRTLLanguage,
+  LANGUAGE_NAMES,
+  SUPPORTED_LANGUAGES,
+  useI18n,
+  useLanguage,
+} from "~/lib/i18n";
+
+export function LanguageSwitcher() {
+  const { t } = useI18n();
+  const { language, setLanguage } = useLanguage();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // RTL-aware dropdown alignment
+  const dropdownAlign = isRTLLanguage(language) ? "start" : "end";
+
+  const handleLanguageChange = useCallback(
+    (newLanguage: (typeof SUPPORTED_LANGUAGES)[number]) => {
+      // Update the language preference on the server
+      setLanguage(newLanguage);
+
+      // Only navigate if current path has a language segment
+      const existingLanguage = getLanguageFromPath(location.pathname);
+      if (existingLanguage) {
+        // Navigate to the same path with the new language
+        const newPath = addLanguageToPath(location.pathname, newLanguage);
+        navigate(newPath);
+      }
+      // If no language segment, stay on current path without navigation
+    },
+    [setLanguage, location.pathname, navigate],
+  );
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon" aria-label={t("common.language")}>
+          <Globe className="h-[1.2rem] w-[1.2rem]" />
+          <span className="sr-only">{t("common.language")}</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align={dropdownAlign}>
+        {SUPPORTED_LANGUAGES.map((lang) => (
+          <DropdownMenuItem
+            key={lang}
+            onClick={() => handleLanguageChange(lang)}
+            className={clsx({
+              "bg-accent": language === lang,
+              "text-right": isRTLLanguage(lang),
+              "text-left": !isRTLLanguage(lang),
+            })}
+            dir={isRTLLanguage(lang) ? "rtl" : "ltr"}
+          >
+            {LANGUAGE_NAMES[lang]}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}

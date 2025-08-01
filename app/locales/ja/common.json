@@ -1,0 +1,199 @@
+{
+  "navigation": {
+    "home": "ホーム",
+    "about": "について",
+    "showcase": "ショーケース",
+    "features": "機能",
+    "docs": "ドキュメント"
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "notFound": "見つかりません",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "submit": "送信",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "edit": "編集",
+    "delete": "削除",
+    "close": "閉じる",
+    "open": "開く",
+    "search": "検索",
+    "filter": "フィルター",
+    "sort": "並び替え",
+    "language": "言語"
+  },
+  "theme": {
+    "light": "ライト",
+    "dark": "ダーク",
+    "system": "システム",
+    "toggle": "テーマを切り替え"
+  },
+  "landing": {
+    "title": "NARA React ボイラープレート",
+    "subtitle": "フルスタック React アプリを構築するための高速で意見のある スターター",
+    "description": "React Router v7、TypeScript、Cloudflare Workers、モダンツールで構築されています。型安全性、パフォーマンス、開発者体験に焦点を当てて設計されています。",
+    "getStarted": "始める",
+    "viewDocs": "ドキュメントを見る",
+    "hero": {
+      "badge": "プロダクション対応ボイラープレート",
+      "title": "NARA Boilerplate",
+      "subtitle": "実際に動作するフルスタック React ボイラープレート",
+      "description": "ボイラープレートのセットアップに時間を無駄にするのをやめましょう。迅速かつ頻繁に出荷する開発者向けに構築されたプロダクション対応の基盤から始めましょう。",
+      "starOnGitHub": "GitHub でスター",
+      "quickStart": "クイックスタート",
+      "statusText": "git clone から本番環境まで 5 分"
+    },
+    "features": {
+      "title": "機能",
+      "badge": "なぜ NARA を選ぶのか",
+      "sectionTitle": "プロダクション対応機能",
+      "sectionDescription": "型安全性、パフォーマンス、開発者体験に焦点を当てて構築",
+      "typeSafety": {
+        "title": "型安全性",
+        "description": "適切なルート型付けとスタック全体での厳密な型チェックを備えたエンドツーエンド TypeScript カバレッジ。"
+      },
+      "performance": {
+        "title": "パフォーマンス",
+        "description": "超高速ビルドのための Vite と Bun を使用したモダンツール、さらにグローバルパフォーマンスのための Cloudflare エッジデプロイメント。"
+      },
+      "developerErgonomics": {
+        "title": "開発者体験",
+        "description": "そのまま動作する独断的なセットアップ。最大の生産性のために事前設定されたツール、テスト、開発環境。"
+      },
+      "versatile": {
+        "title": "多用途",
+        "description": "MVP からプロダクションアプリケーションまで、プロジェクトアイデアの大部分に適合するように設計された柔軟なアーキテクチャ。"
+      },
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "TypeScript サポートによる完全な型安全性",
+      "reactRouter": "React Router v7",
+      "reactRouterDesc": "サーバーサイドレンダリングを備えたモダンルーティング",
+      "cloudflare": "Cloudflare Workers",
+      "cloudflareDesc": "グローバルパフォーマンスを持つエッジデプロイメント",
+      "database": "データベース対応",
+      "databaseDesc": "Cloudflare D1 統合を持つ Drizzle ORM",
+      "ui": "モダン UI",
+      "uiDesc": "Tailwind CSS と shadcn/ui による美しいコンポーネント",
+      "testing": "テストセットアップ",
+      "testingDesc": "事前設定された Vitest とテストユーティリティ"
+    },
+    "gettingStarted": {
+      "badge": "数分で開始",
+      "title": "ゼロからプロダクションまで",
+      "description": "これらの簡単な手順に従って NARA アプリケーションを立ち上げて実行しましょう",
+      "steps": {
+        "clone": {
+          "title": "リポジトリをクローン",
+          "description": "NARA ボイラープレートの最新バージョンを取得",
+          "note": "'my-app' をプロジェクト名に置き換えてください"
+        },
+        "install": {
+          "title": "依存関係をインストール",
+          "description": "お好みのパッケージマネージャーを使用",
+          "note": "パッケージマネージャーは現在 Bun のみサポート"
+        },
+        "database": {
+          "title": "データベースをセットアップ",
+          "description": "ローカルデータベースを初期化",
+          "note": "開発用の SQLite データベースを作成"
+        },
+        "start": {
+          "title": "開発を開始",
+          "description": "開発サーバーを起動",
+          "note": "アプリは http://localhost:5173 で利用可能になります"
+        }
+      },
+      "copyCommand": "コマンドをコピー",
+      "copied": "コピーしました！",
+      "setupTime": "推定セットアップ時間: ~5 分"
+    },
+    "footer": {
+      "tagline": "実際に動作するフルスタック React ボイラープレート",
+      "copyright": "© 2025 NARA Boilerplate。KotonoSora が ❤️ で構築 — より迅速かつ自信を持って出荷できるよう支援します。"
+    },
+    "builtForDevelopers": {
+      "badge": "出荷する開発者のために構築",
+      "title": "必要なものすべて、不要なものは何もなし",
+      "stats": {
+        "setupTime": {
+          "value": "5分",
+          "label": "セットアップ時間",
+          "description": "クローンからデプロイまで"
+        },
+        "typeSafe": {
+          "value": "100%",
+          "label": "型安全",
+          "description": "エンドツーエンド TypeScript"
+        },
+        "configHeadaches": {
+          "value": "0",
+          "label": "設定の頭痛",
+          "description": "箱から出してそのまま動作"
+        }
+      }
+    },
+    "license": {
+      "badge": "オープンソース & 商用",
+      "title": "🚀 ライセンスオプション",
+      "openSource": {
+        "badge": "AGPL-3.0",
+        "price": "無料",
+        "title": "オープンソース",
+        "description": "オープンソースプロジェクトと学習に最適",
+        "features": {
+          "useFreely": "自由に使用、変更、デプロイ",
+          "fullSource": "完全なソースコードアクセス",
+          "mustOpenSource": "公開デプロイの場合はオープンソース必須"
+        },
+        "button": "無料で開始"
+      },
+      "commercial": {
+        "badge": "商用ライセンス",
+        "price": "一回限り",
+        "title": "商用版",
+        "description": "クローズドソースおよびプロダクション SaaS プロジェクトに最適",
+        "features": {
+          "noOpenSource": "変更をオープンソース化する必要なし",
+          "oneTime": "バージョンごとの一回払い",
+          "gumroad": "Gumroad 経由で配布"
+        },
+        "button": "商用ライセンスを取得",
+        "comingSoon": "近日公開"
+      }
+    },
+    "showcase": {
+      "title": "🌟 ショーケース",
+      "description": "NARA で誇らしげに構築されたプロジェクト"
+    },
+    "techStack": {
+      "badge": "モダンスタック",
+      "title": "モダン技術スタック",
+      "description": "シームレスに連携する慎重に選択された技術"
+    },
+    "github": {
+      "seeMore": "もっと見る"
+    }
+  },
+  "showcases": {
+    "title": "ショーケース",
+    "backToHome": "ホームに戻る",
+    "scrollToTop": "トップに戻る",
+    "viewProject": "プロジェクトを見る"
+  },
+  "showcase": {
+    "title": "ショーケース",
+    "description": "ボイラープレート機能の例とデモンストレーション",
+    "components": "コンポーネント",
+    "examples": "例",
+    "demos": "デモ"
+  },
+  "errors": {
+    "pageNotFound": "リクエストされたページが見つかりませんでした。",
+    "unexpectedError": "予期しないエラーが発生しました。",
+    "goHome": "ホームに戻る",
+    "tryAgain": "再試行"
+  }
+}

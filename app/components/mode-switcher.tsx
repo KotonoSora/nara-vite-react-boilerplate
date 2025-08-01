@@ -1,38 +1,26 @@
-import { Moon, Sun } from "lucide-react";
-import { useMemo } from "react";
-import { Theme } from "remix-themes";
+import { MoonIcon, SunIcon } from "lucide-react";
+import React from "react";
+import { Theme, useTheme } from "remix-themes";
 
 import { Button } from "~/components/ui/button";
-import { useThemeMode } from "~/hooks/use-theme-mode";
 
 export function ModeSwitcher() {
-  const { theme, toggleTheme } = useThemeMode();
+  const [theme, setTheme] = useTheme();
 
-  const icon = useMemo(() => {
-    if (theme === Theme.DARK) {
-      return <Moon className="h-4 w-4" />;
-    }
-    return <Sun className="h-4 w-4" />;
-  }, [theme]);
-
-  const label = useMemo(() => {
-    if (theme === Theme.DARK) return "Dark theme";
-    return "Light theme";
-  }, [theme]);
-
-  const nextThemeLabel = useMemo(() => {
-    return theme === Theme.DARK ? "light" : "dark";
-  }, [theme]);
+  const toggleTheme = React.useCallback(() => {
+    setTheme(theme === Theme.DARK ? Theme.LIGHT : Theme.DARK);
+  }, [theme, setTheme]);
 
   return (
     <Button
       variant="ghost"
-      className="group/toggle h-8 w-8 px-0"
-      aria-label={`Current: ${label}. Click to switch to ${nextThemeLabel} theme`}
+      className="group/toggle h-8 w-8 px-0 cursor-pointer"
+      aria-label="Toggle theme"
       onClick={toggleTheme}
       style={{ contentVisibility: "auto" }}
     >
-      {icon}
+      <SunIcon className="hidden [html.dark_&]:block" />
+      <MoonIcon className="hidden [html.light_&]:block" />
     </Button>
   );
 }

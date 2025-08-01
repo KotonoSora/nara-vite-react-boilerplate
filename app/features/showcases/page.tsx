@@ -9,10 +9,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import SocialPreview from "~/features/landing-page/assets/social-preview.svg?url";
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
+import { useI18n } from "~/lib/i18n";
 
 import { usePageContext } from "./context/page-context";
 
 export function ContentShowcasePage() {
+  const { t } = useI18n();
   const { showcases } = usePageContext();
 
   const [showScroll, setShowScroll] = useState(false);
@@ -48,11 +50,11 @@ export function ContentShowcasePage() {
         <div className="flex justify-between items-center max-w-6xl mx-auto my-6">
           <div className="flex items-center gap-3">
             <Button asChild variant="ghost" size="icon">
-              <Link to="/">
+              <Link to="/" aria-label={t("showcases.backToHome")}>
                 <ArrowUp className="w-4 h-4 rotate-270" />
               </Link>
             </Button>
-            <h1 className="text-xl font-semibold">Showcases</h1>
+            <h1 className="text-xl font-semibold">{t("showcases.title")}</h1>
           </div>
         </div>
 
@@ -77,6 +79,7 @@ export function ContentShowcasePage() {
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-foreground"
                     onClick={(e) => e.stopPropagation()}
+                    aria-label={t("showcases.viewProject")}
                   >
                     <ExternalLink className="w-4 h-4" />
                   </a>
@@ -108,6 +111,7 @@ export function ContentShowcasePage() {
           invisible: !showScroll,
         })}
         onClick={handleScrollToTop}
+        aria-label={t("showcases.scrollToTop")}
       >
         <ArrowUp size={20} />
       </Button>

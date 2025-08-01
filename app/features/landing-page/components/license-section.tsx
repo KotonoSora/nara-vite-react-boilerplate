@@ -6,8 +6,10 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { usePageContext } from "~/features/landing-page/context/page-context";
+import { useI18n } from "~/lib/i18n";
 
 export const LicenseSection = memo(function LicenseSection() {
+  const { t } = useI18n();
   const { githubRepository, commercialLink } = usePageContext();
 
   return (
@@ -18,11 +20,11 @@ export const LicenseSection = memo(function LicenseSection() {
       <div className="max-w-4xl mx-auto space-y-6 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-full text-sm font-medium text-green-600 dark:text-green-400 mb-6">
           <Shield className="h-4 w-4" />
-          Open Source & Commercial
+          {t("landing.license.badge")}
         </div>
 
         <h2 className="text-3xl font-bold tracking-tight">
-          🚀 Licensing Options
+          {t("landing.license.title")}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-6 mt-8">
@@ -34,30 +36,34 @@ export const LicenseSection = memo(function LicenseSection() {
                   variant="outline"
                   className="text-sm bg-primary/10 border-primary/20"
                 >
-                  AGPL-3.0
+                  {t("landing.license.openSource.badge")}
                 </Badge>
-                <span className="text-2xl font-bold text-green-700">Free</span>
+                <span className="text-2xl font-bold text-green-700">
+                  {t("landing.license.openSource.price")}
+                </span>
               </div>
 
               <div>
-                <h3 className="font-semibold text-lg mb-2">Open Source</h3>
+                <h3 className="font-semibold text-lg mb-2">
+                  {t("landing.license.openSource.title")}
+                </h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Perfect for open source projects and learning
+                  {t("landing.license.openSource.description")}
                 </p>
               </div>
 
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                  Use, modify, and deploy freely
+                  {t("landing.license.openSource.features.useFreely")}
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                  Full source code access
+                  {t("landing.license.openSource.features.fullSource")}
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full" />
-                  Must open source if deployed publicly
+                  {t("landing.license.openSource.features.mustOpenSource")}
                 </li>
               </ul>
 
@@ -66,9 +72,9 @@ export const LicenseSection = memo(function LicenseSection() {
                   to={githubRepository}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Get Started Free"
+                  aria-label={t("landing.license.openSource.button")}
                 >
-                  Get Started Free
+                  {t("landing.license.openSource.button")}
                 </Link>
               </Button>
             </CardContent>
@@ -79,34 +85,34 @@ export const LicenseSection = memo(function LicenseSection() {
             <CardContent className="p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <Badge className="text-sm bg-gradient-to-r from-purple-500 to-pink-500 text-white border-none">
-                  Commercial License
+                  {t("landing.license.commercial.badge")}
                 </Badge>
                 <span className="text-2xl font-bold text-purple-500">
-                  One-time
+                  {t("landing.license.commercial.price")}
                 </span>
               </div>
 
               <div>
                 <h3 className="font-semibold text-lg mb-2">
-                  Commercial Edition
+                  {t("landing.license.commercial.title")}
                 </h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Great for closed-source and production SaaS projects
+                  {t("landing.license.commercial.description")}
                 </p>
               </div>
 
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 bg-purple-500 rounded-full" />
-                  No need to open source your changes
+                  {t("landing.license.commercial.features.noOpenSource")}
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 bg-purple-500 rounded-full" />
-                  One-time payment per version
+                  {t("landing.license.commercial.features.oneTime")}
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 bg-pink-500 rounded-full" />
-                  Distributed via Gumroad
+                  {t("landing.license.commercial.features.gumroad")}
                 </li>
               </ul>
 
@@ -116,9 +122,9 @@ export const LicenseSection = memo(function LicenseSection() {
                     to={commercialLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Get Commercial License"
+                    aria-label={t("landing.license.commercial.button")}
                   >
-                    Get Commercial License
+                    {t("landing.license.commercial.button")}
                   </Link>
                 </Button>
               ) : (
@@ -127,7 +133,7 @@ export const LicenseSection = memo(function LicenseSection() {
                   className="w-full opacity-80 cursor-not-allowed"
                   disabled
                 >
-                  Coming Soon
+                  {t("landing.license.commercial.comingSoon")}
                 </Button>
               )}
             </CardContent>

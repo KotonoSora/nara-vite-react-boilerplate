@@ -10,6 +10,7 @@ import {
 } from "~/components/ui/card";
 import { usePageContext } from "~/features/landing-page/context/page-context";
 import { getIconComponent } from "~/features/landing-page/utils/get-icon-component";
+import { useI18n } from "~/lib/i18n";
 
 import {
   BackgroundDecoration,
@@ -51,6 +52,7 @@ const FeatureCard = memo(function FeatureCard({ config }: FeatureCardProps) {
 });
 
 export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
+  const { t } = useI18n();
   const { featuresConfig } = usePageContext();
   return (
     <section
@@ -71,14 +73,13 @@ export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-green-500/10 border border-primary/20 rounded-full text-sm font-medium text-primary mb-6 motion-safe:animate-pulse">
             <Rocket className="h-4 w-4" />
-            Why Choose NARA
+            {t("landing.features.badge")}
           </div>
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
-            Production-Ready Features
+            {t("landing.features.sectionTitle")}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Built with focus on type safety, performance, and developer
-            ergonomics
+            {t("landing.features.sectionDescription")}
           </p>
         </div>
 
