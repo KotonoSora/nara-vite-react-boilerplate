@@ -1,13 +1,13 @@
 # Component Library Guide
 
-This comprehensive guide covers the component system used in the NARA boilerplate, including shadcn/ui components, custom components, Clean Architecture integration, React 19.1.0 patterns, TypeScript 5.8.3 best practices, and enterprise-grade development patterns.
+This comprehensive guide covers the component system used in the NARA boilerplate, including shadcn/ui components, custom components, Clean Architecture integration, React 19.1.1 patterns, TypeScript 5.9.2 best practices, and enterprise-grade development patterns.
 
 ## Table of Contents
 
 1. [🎨 Component System Overview](#-component-system-overview)
 2. [🏗️ Clean Architecture Integration](#️-clean-architecture-integration)
-3. [⚛️ React 19.1.0 Patterns](#️-react-1910-patterns)
-4. [🎯 TypeScript 5.8.3 Best Practices](#-typescript-583-best-practices)
+3. [⚛️ React 19.1.1 Patterns](#️-react-1910-patterns)
+4. [🎯 TypeScript 5.9.2 Best Practices](#-typescript-583-best-practices)
 5. [🧩 shadcn/ui Components](#-shadcnui-components)
 6. [🎨 Custom Components](#-custom-components)
 7. [📱 Responsive Design Patterns](#-responsive-design-patterns)
@@ -252,7 +252,7 @@ export const TransactionList: FC<TransactionListProps> = ({
 
 ---
 
-## ⚛️ React 19.1.0 Patterns
+## ⚛️ React 19.1.1 Patterns
 
 ### Using the `use` Hook for Data Fetching
 
@@ -454,7 +454,7 @@ export const CreateTransactionForm: FC<CreateTransactionFormProps> = ({
 
 ---
 
-## 🎯 TypeScript 5.8.3 Best Practices
+## 🎯 TypeScript 5.9.2 Best Practices
 
 ### Strict Type Definitions
 
@@ -2921,12 +2921,12 @@ export const VERSION = '1.0.0';
 /**
  * Supported React versions
  */
-export const REACT_VERSION_SUPPORT = '^19.1.0';
+export const REACT_VERSION_SUPPORT = '^19.1.1';
 
 /**
  * TypeScript version requirement
  */
-export const TYPESCRIPT_VERSION_REQUIREMENT = '^5.8.3';
+export const TYPESCRIPT_VERSION_REQUIREMENT = '^5.9.2';
 ```
 
 ### Component Usage Guidelines
@@ -2989,7 +2989,7 @@ export const TYPESCRIPT_VERSION_REQUIREMENT = '^5.8.3';
 
 ---
 
-This comprehensive component guide provides enterprise-grade patterns and best practices for building scalable, maintainable, and accessible React applications with the NARA boilerplate. It covers Clean Architecture integration, React 19.1.0 features, TypeScript 5.8.3 patterns, performance optimization, security considerations, and comprehensive testing strategies.
+This comprehensive component guide provides enterprise-grade patterns and best practices for building scalable, maintainable, and accessible React applications with the NARA boilerplate. It covers Clean Architecture integration, React 19.1.1 features, TypeScript 5.9.2 patterns, performance optimization, security considerations, and comprehensive testing strategies.
 
 ---
 

@@ -5,8 +5,10 @@ import { Button } from "~/components/ui/button";
 import GitHubLogoDark from "~/features/landing-page/assets/github-invertocat-dark.svg?url";
 import GitHubLogoLight from "~/features/landing-page/assets/github-invertocat-light.svg?url";
 import { usePageContext } from "~/features/landing-page/context/page-context";
+import { useI18n } from "~/lib/i18n";
 
 export const GitHubButton = memo(function GitHubButton() {
+  const { t } = useI18n();
   const { githubRepository } = usePageContext();
 
   return (
@@ -20,7 +22,7 @@ export const GitHubButton = memo(function GitHubButton() {
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-3"
-        aria-label="See More"
+        aria-label={t("landing.github.seeMore")}
       >
         <img
           src={GitHubLogoLight}

@@ -2,14 +2,20 @@
   {
     "action": "remove",
     "files": [
-      "README.md",
-      "LICENSE",
       "CHANGELOG.md",
       "CODE_OF_CONDUCT.md",
       "CONTRIBUTING.md",
-      "SECURITY.md",
-      ".github",
-      ".vscode"
+      "LICENSE",
+      "README.md",
+      "SECURITY.md"
     ]
+  },
+  {
+    "action": "remove",
+    "files": [".github", ".vscode", "docs", "components.json"]
+  },
+  {
+    "action": "remove",
+    "files": ["degit.json"]
   }
 ]

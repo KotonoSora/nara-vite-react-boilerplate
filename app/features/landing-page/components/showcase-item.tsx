@@ -6,12 +6,14 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import SocialPreview from "~/features/landing-page/assets/social-preview.svg?url";
+import { useI18n } from "~/lib/i18n";
 
 export const ShowcaseItem = memo(function ShowcaseItem({
   project,
 }: {
   project: ProjectInfo;
 }) {
+  const { t } = useI18n();
   return (
     <Card
       className="overflow-hidden hover:shadow-xl transition-shadow py-0 gap-0"
@@ -33,7 +35,7 @@ export const ShowcaseItem = memo(function ShowcaseItem({
               to={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="See More"
+              aria-label={t("landing.github.seeMore")}
             >
               <ExternalLink className="w-4 h-4" />
             </Link>

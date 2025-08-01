@@ -4,6 +4,7 @@ import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
 import { usePageContext } from "~/features/landing-page/context/page-context";
+import { useI18n } from "~/lib/i18n";
 
 import {
   BackgroundDecoration,
@@ -11,6 +12,7 @@ import {
 } from "./shared/background-decoration";
 
 export const HeroSection = memo(function HeroSection() {
+  const { t } = useI18n();
   const { githubRepository } = usePageContext();
 
   return (
@@ -37,25 +39,23 @@ export const HeroSection = memo(function HeroSection() {
           {/* Enhanced badge with better animation */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 rounded-full text-sm font-medium text-primary mb-6 motion-safe:animate-bounce backdrop-blur-sm">
             <Star className="h-4 w-4 fill-current motion-safe:animate-pulse" />
-            Production-Ready Boilerplate
+            {t("landing.hero.badge")}
             <Sparkles className="h-4 w-4 motion-safe:animate-pulse" />
           </div>
 
           {/* Enhanced title with better gradient */}
-          <h1 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-primary to-purple-600 bg-clip-text text-transparent motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000">
-            NARA Boilerplate
-          </h1>
+          <h2 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-primary to-purple-600 bg-clip-text text-transparent motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000">
+            {t("landing.hero.title")}
+          </h2>
 
           {/* Enhanced subtitle */}
           <p className="text-2xl font-semibold text-primary mb-4 motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000 motion-safe:delay-200">
-            The Full-Stack React Boilerplate That Actually Ships
+            {t("landing.hero.subtitle")}
           </p>
 
           {/* Enhanced description */}
           <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000 motion-safe:delay-300">
-            Stop wasting time on boilerplate setup. Start with a
-            production-ready foundation built for developers who ship fast and
-            ship often.
+            {t("landing.hero.description")}
           </p>
 
           {/* Enhanced CTA buttons */}
@@ -70,10 +70,10 @@ export const HeroSection = memo(function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3"
-                aria-label="Star on GitHub"
+                aria-label={t("landing.hero.starOnGitHub")}
               >
                 <Star className="h-5 w-5 motion-safe:animate-pulse" />
-                Star on GitHub
+                {t("landing.hero.starOnGitHub")}
                 <ExternalLink className="h-4 w-4" />
               </Link>
             </Button>
@@ -89,10 +89,10 @@ export const HeroSection = memo(function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3"
-                aria-label="Quick Start"
+                aria-label={t("landing.hero.quickStart")}
               >
                 <Rocket className="h-5 w-5" />
-                Quick Start
+                {t("landing.hero.quickStart")}
                 <ArrowRight className="h-4 w-4 motion-safe:group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -102,7 +102,7 @@ export const HeroSection = memo(function HeroSection() {
           <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000 motion-safe:delay-700">
             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
               <div className="w-2 h-2 bg-green-500 rounded-full motion-safe:animate-pulse" />
-              From git clone to production in 5 minutes
+              {t("landing.hero.statusText")}
             </div>
           </div>
 

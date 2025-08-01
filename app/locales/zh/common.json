@@ -1,0 +1,199 @@
+{
+  "navigation": {
+    "home": "首页",
+    "about": "关于",
+    "showcase": "展示",
+    "features": "功能",
+    "docs": "文档"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "notFound": "未找到",
+    "back": "返回",
+    "next": "下一页",
+    "previous": "上一页",
+    "submit": "提交",
+    "cancel": "取消",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "close": "关闭",
+    "open": "打开",
+    "search": "搜索",
+    "filter": "筛选",
+    "sort": "排序",
+    "language": "语言"
+  },
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "system": "系统",
+    "toggle": "切换主题"
+  },
+  "landing": {
+    "title": "NARA React 模板",
+    "subtitle": "用于构建全栈 React 应用的快速、强大的启动器",
+    "description": "使用 React Router v7、TypeScript、Cloudflare Workers 和现代工具构建。专注于类型安全、性能和开发者体验。",
+    "getStarted": "开始使用",
+    "viewDocs": "查看文档",
+    "hero": {
+      "badge": "生产就绪模板",
+      "title": "NARA Boilerplate",
+      "subtitle": "真正有效的全栈 React 模板",
+      "description": "不要再浪费时间设置模板。从为快速高频交付而构建的生产就绪基础开始。",
+      "starOnGitHub": "在 GitHub 上加星",
+      "quickStart": "快速开始",
+      "statusText": "从 git clone 到生产环境只需 5 分钟"
+    },
+    "features": {
+      "title": "功能特性",
+      "badge": "为什么选择 NARA",
+      "sectionTitle": "生产就绪功能",
+      "sectionDescription": "专注于类型安全、性能和开发者体验",
+      "typeSafety": {
+        "title": "类型安全",
+        "description": "端到端的 TypeScript 覆盖，具有适当的路由类型和整个技术栈的严格类型检查。"
+      },
+      "performance": {
+        "title": "性能",
+        "description": "使用 Vite 和 Bun 的现代工具实现闪电般快速的构建，加上 Cloudflare 边缘部署实现全球性能。"
+      },
+      "developerErgonomics": {
+        "title": "开发者体验",
+        "description": "开箱即用的固执己见设置。预配置的工具、测试和开发环境，实现最大生产力。"
+      },
+      "versatile": {
+        "title": "多功能",
+        "description": "灵活的架构设计，适合大多数项目想法，从 MVP 到生产应用程序。"
+      },
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "完整的 TypeScript 类型安全支持",
+      "reactRouter": "React Router v7",
+      "reactRouterDesc": "具有服务端渲染的现代路由",
+      "cloudflare": "Cloudflare Workers",
+      "cloudflareDesc": "边缘部署，全球性能",
+      "database": "数据库就绪",
+      "databaseDesc": "Drizzle ORM 与 Cloudflare D1 集成",
+      "ui": "现代 UI",
+      "uiDesc": "使用 Tailwind CSS 和 shadcn/ui 的精美组件",
+      "testing": "测试设置",
+      "testingDesc": "预配置的 Vitest 和测试工具"
+    },
+    "gettingStarted": {
+      "badge": "几分钟内开始",
+      "title": "从零到生产",
+      "description": "按照这些简单步骤启动并运行您的 NARA 应用程序",
+      "steps": {
+        "clone": {
+          "title": "克隆仓库",
+          "description": "获取 NARA 模板的最新版本",
+          "note": "将 'my-app' 替换为您的项目名称"
+        },
+        "install": {
+          "title": "安装依赖",
+          "description": "使用您喜欢的包管理器",
+          "note": "包管理器目前仅支持 Bun"
+        },
+        "database": {
+          "title": "设置数据库",
+          "description": "初始化本地数据库",
+          "note": "为开发创建 SQLite 数据库"
+        },
+        "start": {
+          "title": "开始开发",
+          "description": "启动开发服务器",
+          "note": "您的应用将在 http://localhost:5173 上可用"
+        }
+      },
+      "copyCommand": "复制命令",
+      "copied": "已复制！",
+      "setupTime": "预计设置时间：约 5 分钟"
+    },
+    "footer": {
+      "tagline": "真正有效的全栈 React 模板",
+      "copyright": "© 2025 NARA Boilerplate。由 KotonoSora 用 ❤️ 构建 — 帮助您更快更自信地交付。"
+    },
+    "builtForDevelopers": {
+      "badge": "为交付的开发者构建",
+      "title": "您需要的一切，不需要的都没有",
+      "stats": {
+        "setupTime": {
+          "value": "5分钟",
+          "label": "设置时间",
+          "description": "从克隆到部署"
+        },
+        "typeSafe": {
+          "value": "100%",
+          "label": "类型安全",
+          "description": "端到端 TypeScript"
+        },
+        "configHeadaches": {
+          "value": "0",
+          "label": "配置头痛",
+          "description": "开箱即用"
+        }
+      }
+    },
+    "license": {
+      "badge": "开源和商业",
+      "title": "🚀 许可选项",
+      "openSource": {
+        "badge": "AGPL-3.0",
+        "price": "免费",
+        "title": "开源",
+        "description": "完美适用于开源项目和学习",
+        "features": {
+          "useFreely": "自由使用、修改和部署",
+          "fullSource": "完整源代码访问",
+          "mustOpenSource": "如果公开部署必须开源"
+        },
+        "button": "免费开始"
+      },
+      "commercial": {
+        "badge": "商业许可证",
+        "price": "一次性",
+        "title": "商业版",
+        "description": "非常适合闭源和生产 SaaS 项目",
+        "features": {
+          "noOpenSource": "无需开源您的更改",
+          "oneTime": "每个版本一次性付款",
+          "gumroad": "通过 Gumroad 分发"
+        },
+        "button": "获取商业许可证",
+        "comingSoon": "即将推出"
+      }
+    },
+    "showcase": {
+      "title": "🌟 展示",
+      "description": "使用 NARA 自豪地构建的项目"
+    },
+    "techStack": {
+      "badge": "现代技术栈",
+      "title": "现代技术栈",
+      "description": "精心选择的技术，无缝协作"
+    },
+    "github": {
+      "seeMore": "查看更多"
+    }
+  },
+  "showcases": {
+    "title": "展示",
+    "backToHome": "回到首页",
+    "scrollToTop": "回到顶部",
+    "viewProject": "查看项目"
+  },
+  "showcase": {
+    "title": "展示",
+    "description": "模板功能的示例和演示",
+    "components": "组件",
+    "examples": "示例",
+    "demos": "演示"
+  },
+  "errors": {
+    "pageNotFound": "找不到请求的页面。",
+    "unexpectedError": "发生了意外错误。",
+    "goHome": "回到首页",
+    "tryAgain": "重试"
+  }
+}

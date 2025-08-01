@@ -1,8 +1,12 @@
 import { Clock, Code, Heart, Shield } from "lucide-react";
 import { memo } from "react";
 
+import { useI18n } from "~/lib/i18n";
+
 export const BuiltForDevelopersSection = memo(
   function BuiltForDevelopersSection() {
+    const { t } = useI18n();
+
     return (
       <section
         className="py-16 px-4 bg-gradient-to-br from-muted/40 to-muted/20 relative overflow-hidden"
@@ -17,10 +21,10 @@ export const BuiltForDevelopersSection = memo(
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-primary/10 border border-purple-500/20 rounded-full text-sm font-medium text-purple-600 dark:text-purple-400 mb-6 motion-safe:animate-pulse">
               <Code className="h-4 w-4" />
-              Built for Developers Who Ship
+              {t("landing.builtForDevelopers.badge")}
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
-              Everything You Need, Nothing You Don't
+              {t("landing.builtForDevelopers.title")}
             </h2>
           </div>
 
@@ -35,13 +39,15 @@ export const BuiltForDevelopersSection = memo(
                     <Clock className="w-8 h-8 text-primary" />
                   </div>
                   <div className="text-4xl font-bold text-transparent bg-gradient-to-br from-primary to-primary/80 bg-clip-text">
-                    5min
+                    {t("landing.builtForDevelopers.stats.setupTime.value")}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">
-                    Setup time
+                    {t("landing.builtForDevelopers.stats.setupTime.label")}
                   </div>
                   <div className="text-xs text-muted-foreground/80">
-                    From clone to deployment
+                    {t(
+                      "landing.builtForDevelopers.stats.setupTime.description",
+                    )}
                   </div>
                 </div>
 
@@ -50,13 +56,13 @@ export const BuiltForDevelopersSection = memo(
                     <Shield className="w-8 h-8 text-green-600" />
                   </div>
                   <div className="text-4xl font-bold text-transparent bg-gradient-to-br from-green-600 to-green-500 bg-clip-text">
-                    100%
+                    {t("landing.builtForDevelopers.stats.typeSafe.value")}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">
-                    Type-safe
+                    {t("landing.builtForDevelopers.stats.typeSafe.label")}
                   </div>
                   <div className="text-xs text-muted-foreground/80">
-                    End-to-end TypeScript
+                    {t("landing.builtForDevelopers.stats.typeSafe.description")}
                   </div>
                 </div>
 
@@ -65,13 +71,19 @@ export const BuiltForDevelopersSection = memo(
                     <Heart className="w-8 h-8 text-blue-600" />
                   </div>
                   <div className="text-4xl font-bold text-transparent bg-gradient-to-br from-blue-600 to-blue-500 bg-clip-text">
-                    0
+                    {t(
+                      "landing.builtForDevelopers.stats.configHeadaches.value",
+                    )}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">
-                    Config headaches
+                    {t(
+                      "landing.builtForDevelopers.stats.configHeadaches.label",
+                    )}
                   </div>
                   <div className="text-xs text-muted-foreground/80">
-                    Just works out of the box
+                    {t(
+                      "landing.builtForDevelopers.stats.configHeadaches.description",
+                    )}
                   </div>
                 </div>
               </div>

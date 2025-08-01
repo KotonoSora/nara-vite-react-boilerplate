@@ -2,8 +2,10 @@ import { memo } from "react";
 
 import { ShowcaseItem } from "~/features/landing-page/components/showcase-item";
 import { usePageContext } from "~/features/landing-page/context/page-context";
+import { useI18n } from "~/lib/i18n";
 
 export const ShowcaseSection = memo(function ShowcaseSection() {
+  const { t } = useI18n();
   const { showcases } = usePageContext();
 
   if (!showcases || showcases.length < 1) return null;
@@ -14,9 +16,11 @@ export const ShowcaseSection = memo(function ShowcaseSection() {
       style={{ contentVisibility: "auto" }}
     >
       <div className="max-w-5xl mx-auto text-center space-y-4">
-        <h2 className="text-3xl font-bold tracking-tight">🌟 Showcase</h2>
+        <h2 className="text-3xl font-bold tracking-tight">
+          {t("landing.showcase.title")}
+        </h2>
         <p className="text-muted-foreground text-sm">
-          Projects proudly built with{" "}
+          {t("landing.showcase.description")}{" "}
           <code className="text-foreground">NARA</code>
         </p>
       </div>

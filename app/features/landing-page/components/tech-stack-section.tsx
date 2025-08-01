@@ -2,8 +2,11 @@ import { Zap } from "lucide-react";
 import { memo } from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { useI18n } from "~/lib/i18n";
 
 export const TechStackSection = memo(function TechStackSection() {
+  const { t } = useI18n();
+
   return (
     <section
       className="py-24 px-4 bg-muted/20"
@@ -13,13 +16,13 @@ export const TechStackSection = memo(function TechStackSection() {
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full text-sm font-medium text-cyan-600 dark:text-cyan-400 mb-6">
             <Zap className="h-4 w-4" />
-            Modern Stack
+            {t("landing.techStack.badge")}
           </div>
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            Modern Tech Stack
+            {t("landing.techStack.title")}
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            Carefully selected technologies that work seamlessly together
+            {t("landing.techStack.description")}
           </p>
         </div>
 
@@ -39,19 +42,19 @@ export const TechStackSection = memo(function TechStackSection() {
                 <div className="flex items-center justify-between">
                   <span className="font-medium">React</span>
                   <span className="text-sm text-muted-foreground bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded">
-                    19.1.0
+                    19.1.1
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="font-medium">TypeScript</span>
                   <span className="text-sm text-muted-foreground bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded">
-                    5.8.3
+                    5.9.2
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="font-medium">React Router</span>
                   <span className="text-sm text-muted-foreground bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded">
-                    7.7.0
+                    7.7.1
                   </span>
                 </div>
               </div>

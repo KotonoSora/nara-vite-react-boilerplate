@@ -2,15 +2,15 @@
 applyTo: 'app/**/*.{ts,tsx}'
 ---
 
-# React 19.1.0 and TypeScript 5.8.3 Instructions - Copilot Guidelines
+# React 19.1.1 and TypeScript 5.9.2 Instructions - Copilot Guidelines
 
-This document outlines the rules and best practices for using **React 19.1.0** with **TypeScript 5.8.3** in the NARA Boilerplate project, focusing on the `app` directory. It leverages `react@19.1.0`, `react-dom@19.1.0`, `@types/react@19.1.8`, `@types/react-dom@19.1.6`, and `typescript@5.8.3`. These guidelines ensure **type safety**, **performance**, **accessibility**, and alignment with the project's motto: "quality over quantity."
+This document outlines the rules and best practices for using **React 19.1.1** with **TypeScript 5.9.2** in the NARA Boilerplate project, focusing on the `app` directory. It leverages `react@19.1.1`, `react-dom@19.1.1`, `@types/react@19.1.8`, `@types/react-dom@19.1.6`, and `typescript@5.9.2`. These guidelines ensure **type safety**, **performance**, **accessibility**, and alignment with the project's motto: "quality over quantity."
 
 ---
 
 ## 🚨 CRITICAL: Type-Safe React and TypeScript Usage - NEVER MAKE THIS MISTAKE
 
-**THE MOST IMPORTANT RULE: ALWAYS use functional components with strictly typed props and hooks in TypeScript 5.8.3, leverage React 19.1.0 features like `use` and `Suspense`, and avoid untyped props or non-strict TypeScript configurations.**
+**THE MOST IMPORTANT RULE: ALWAYS use functional components with strictly typed props and hooks in TypeScript 5.9.2, leverage React 19.1.1 features like `use` and `Suspense`, and avoid untyped props or non-strict TypeScript configurations.**
 
 ```tsx
 // ✅ CORRECT - Typed functional component with React 19 use hook:
@@ -53,12 +53,12 @@ class Component extends React.Component { // ❌ Class component
   - **Components**: Defined in `app/**/*.{ts,tsx}`.
   - **TypeScript Config**: `tsconfig.json` at project root.
 - **Dependencies**:
-  - `react` (19.1.0): Core React library with concurrent rendering and new hooks.
-  - `react-dom` (19.1.0): React DOM for rendering.
+  - `react` (19.1.1): Core React library with concurrent rendering and new hooks.
+  - `react-dom` (19.1.1): React DOM for rendering.
   - `@types/react` (19.1.8), `@types/react-dom` (19.1.6): TypeScript type definitions.
-  - `typescript` (5.8.3): Type checking and compilation.
+  - `typescript` (5.9.2): Type checking and compilation.
 - **Setup Commands**:
-  - Install dependencies: `bun add react@19.1.0 react-dom@19.1.0 @types/react@19.1.8 @types/react-dom@19.1.6 typescript@5.8.3`
+  - Install dependencies: `bun add react@19.1.1 react-dom@19.1.1 @types/react@19.1.8 @types/react-dom@19.1.6 typescript@5.9.2`
   - Initialize TypeScript: `bunx tsc --init` (if `tsconfig.json` not present).
   - Typecheck: `bun run typecheck` (e.g., `tsc --noEmit`).
   - Build and run: `bun run dev` (handled by Vite).
@@ -94,7 +94,7 @@ export default defineConfig({
 ```
 
 - **Best Practice**:
-  - Use `react-jsx` for JSX transformation in TypeScript 5.8.3.
+  - Use `react-jsx` for JSX transformation in TypeScript 5.9.2.
   - Enable `strict: true` in `tsconfig.json` for maximum type safety.
   - Use `~/*` path aliases for imports (e.g., `~/components/*`).
   - Run `bun run typecheck` regularly to catch type errors.
@@ -104,13 +104,13 @@ export default defineConfig({
 ## Critical Package Guidelines
 
 ### ✅ CORRECT Packages:
-- `react` (19.1.0): Core React library.
-- `react-dom` (19.1.0): React DOM for rendering.
+- `react` (19.1.1): Core React library.
+- `react-dom` (19.1.1): React DOM for rendering.
 - `@types/react` (19.1.8), `@types/react-dom` (19.1.6): TypeScript types.
-- `typescript` (5.8.3): Type checking and compilation.
+- `typescript` (5.9.2): Type checking and compilation.
 
 ### ❌ NEVER Use:
-- Older React versions (<19.1.0): Lack concurrent rendering and new hooks.
+- Older React versions (<19.1.1): Lack concurrent rendering and new hooks.
 - Class components or `React.createClass`: Obsolete in React 19.
 - `PropTypes`: Use TypeScript interfaces instead.
 - JavaScript files (`.js`, `.jsx`): Use `.ts` or `.tsx` for type safety.
@@ -466,7 +466,7 @@ describe("ItemCard Component", () => {
 - Use functional components with `FC` and strictly typed props.
 - Leverage React 19 hooks (`use`, `startTransition`, `Suspense`) with typed return values.
 - Define interfaces in `app/lib/types.ts` for reuse.
-- Use TypeScript 5.8.3 features like discriminated unions, mapped types, and `satisfies`.
+- Use TypeScript 5.9.2 features like discriminated unions, mapped types, and `satisfies`.
 - Ensure accessibility with `aria-*` attributes.
 - Optimize performance with `useMemo` and concurrent rendering.
 
@@ -481,11 +481,11 @@ describe("ItemCard Component", () => {
 
 ## AI Assistant Guidelines
 
-When working with React 19.1.0 and TypeScript 5.8.3 in NARA Boilerplate:
+When working with React 19.1.1 and TypeScript 5.9.2 in NARA Boilerplate:
 - **If TypeScript errors occur, suggest checking `tsconfig.json`, prop types, hook return types, and running `bun run typecheck`.**
 - **NEVER suggest class components**; use functional components with `FC`.
 - **Suggest React 19 features** like `use`, `Suspense`, and `startTransition`.
-- **Recommend TypeScript 5.8.3 patterns** like discriminated unions, mapped types, conditional types, template literals, and `satisfies`.
+- **Recommend TypeScript 5.9.2 patterns** like discriminated unions, mapped types, conditional types, template literals, and `satisfies`.
 - **After updating `tsconfig.json`, remind to run `bun run typecheck`.**
 - **Suggest accessibility** with `aria-*` attributes.
 - **Ensure compatibility** with `app/**/*.{ts,tsx}`.
