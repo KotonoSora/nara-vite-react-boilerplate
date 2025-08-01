@@ -54,7 +54,7 @@ export function ContentShowcasePage() {
                 <ArrowUp className="w-4 h-4 rotate-270" />
               </Link>
             </Button>
-            <h1 className="text-xl font-semibold">{t("showcases.title")}</h1>
+            <h2 className="text-xl font-semibold">{t("showcases.title")}</h2>
           </div>
         </div>
 

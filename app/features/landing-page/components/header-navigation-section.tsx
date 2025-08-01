@@ -26,7 +26,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
               className="w-8 h-8 hidden [html.light_&]:block"
               loading="lazy"
             />
-            <h1 className="text-xl font-bold">NARA</h1>
+            <h2 className="text-xl font-bold">NARA</h2>
           </Link>
         </div>
         <div className="flex items-center space-x-2">
