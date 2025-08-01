@@ -45,7 +45,7 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
-          bun-version: 1.2.18
+          bun-version: 1.2.19
           
       - name: Cache dependencies
         uses: actions/cache@v4
@@ -114,7 +114,7 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
-          bun-version: 1.2.18
+          bun-version: 1.2.19
           
       - name: Install dependencies
         run: bun install --frozen-lockfile

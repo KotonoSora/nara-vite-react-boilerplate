@@ -44,7 +44,7 @@ Welcome to the NARA (Non‑Abstract Reusable App) boilerplate! This guide will h
   # Or download from https://nodejs.org/
   ```
 
-- [ ] **Bun 1.2.18** (install from [bun.sh](https://bun.sh))
+- [ ] **Bun 1.2.19** (install from [bun.sh](https://bun.sh))
 
   ```bash
   # Install Bun (fast package manager)
