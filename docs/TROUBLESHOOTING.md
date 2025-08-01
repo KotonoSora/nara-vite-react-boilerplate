@@ -1711,7 +1711,7 @@ Brief description of the issue
 - Shell: [e.g., PowerShell 7.x, bash, zsh]
 
 ## NARA Stack Versions
-- React Router: [e.g., 7.7.0]
+- React Router: [e.g., 7.7.1]
 - Drizzle ORM: [e.g., 0.44.3]
 - Hono: [e.g., 4.8.5]
 - Cloudflare Workers: [e.g., compatibility date]

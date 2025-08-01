@@ -229,9 +229,9 @@ chore: update dependencies
 
 ### Frontend Stack
 
-- **React 19.1.0** - UI library with latest features
-- **React Router v7.7.0** - File-based routing with SSR
-- **TypeScript 5.8.3** - Type safety
+- **React 19.1.1** - UI library with latest features
+- **React Router v7.7.1** - File-based routing with SSR
+- **TypeScript 5.9.2** - Type safety
 - **TailwindCSS** - Utility-first styling (version in package.json)
 - **shadcn/ui** - Component system built on Radix UI
 - **Lucide React 0.525.0** - Icon library
