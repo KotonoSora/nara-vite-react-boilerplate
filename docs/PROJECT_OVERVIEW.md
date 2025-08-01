@@ -24,7 +24,7 @@ Before starting development, ensure your environment meets the following system 
 - **Bun**: `1.2.18`  
   Install from [https://bun.sh](https://bun.sh) or use your system’s package manager.
 
-- **Node.js**: `v22.17.1`  
+- **Node.js**: `v22.18.0`  
   Use [nvm](https://github.com/nvm-sh/nvm) or a similar version manager to install and manage Node versions.
 
 ### 🔒 Version Enforcement
@@ -41,7 +41,7 @@ Verify your setup:
 
 ```bash
 bun --version   # should output 1.2.18
-node --version  # should output v22.17.1
+node --version  # should output v22.18.0
 ```
 
 ---
@@ -58,7 +58,7 @@ node --version  # should output v22.17.1
 > - Production Preview: <http://localhost:4173>
 > - Drizzle Studio: <http://localhost:4983> (when running `bunx drizzle-kit studio`)
 >
-> **Quick Checks:** ✅ Node v22.17.1 ✅ Bun 1.2.18 ✅ Git installed  
+> **Quick Checks:** ✅ Node v22.18.0 ✅ Bun 1.2.18 ✅ Git installed  
 > **Time to first run:** ~5 minutes | **Difficulty:** 🟢 Beginner
 >
 > **Need Help:** [Developer Onboarding](./docs/DEVELOPER_ONBOARDING.md) | [Troubleshooting](./docs/TROUBLESHOOTING.md) | [Project Documentation](./docs/README.md)

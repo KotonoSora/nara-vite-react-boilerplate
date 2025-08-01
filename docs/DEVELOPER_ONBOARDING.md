@@ -35,12 +35,12 @@ Welcome to the NARA (Non‑Abstract Reusable App) boilerplate! This guide will h
 
 ### Prerequisites
 
-- [ ] **Node.js v22.17.1** (use `.nvmrc`: `nvm use`)
+- [ ] **Node.js v22.18.0** (use `.nvmrc`: `nvm use`)
 
   ```bash
   # Install Node.js using nvm (recommended)
-  nvm install 22.17.1
-  nvm use 22.17.1
+  nvm install 22.18.0
+  nvm use 22.18.0
   # Or download from https://nodejs.org/
   ```
 
