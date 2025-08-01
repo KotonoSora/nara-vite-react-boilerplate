@@ -3,6 +3,7 @@
 ## 4.6.4 (2025-08-03)
 
 - Upgraded Node.js LTS to v22.18.0
+- Upgraded Bun to v1.2.19
 - Upgraded dependency versions
 - Implemented internationalization and localization features
 
