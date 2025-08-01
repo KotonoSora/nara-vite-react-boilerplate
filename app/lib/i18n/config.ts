@@ -55,7 +55,7 @@ export function removeLanguageFromPath(pathname: string): string {
 
   if (firstSegment && isSupportedLanguage(firstSegment)) {
     const pathWithoutLang = "/" + segments.slice(1).join("/");
-    return pathWithoutLang === "/" ? "/" : pathWithoutLang;
+    return pathWithoutLang;
   }
 
   return pathname;

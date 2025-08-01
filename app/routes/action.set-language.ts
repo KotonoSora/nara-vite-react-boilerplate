@@ -49,7 +49,11 @@ export async function action({ request }: Route.ActionArgs) {
           // No language in current path, keep original path
           redirectTo = currentPath;
         }
-      } catch {
+      } catch (error) {
+        if (import.meta.env.DEV) {
+          // Log URL parsing error for debugging
+          console.warn("Failed to parse referer URL:", error);
+        }
         // If URL parsing fails, fallback to referer or root
         redirectTo = referer || "/";
       }

@@ -15,6 +15,7 @@ import {
   useTheme,
 } from "remix-themes";
 
+import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/root";
 
 import { Toaster } from "~/components/ui/sonner";
@@ -56,7 +57,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   );
 
   // Priority: URL > Cookie > Accept-Language > Default
-  const language =
+  const language: SupportedLanguage =
     pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
 
   return {
@@ -67,25 +68,18 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 function InnerLayout({
   ssrTheme,
-  ssrLanguage,
+  language,
   children,
 }: {
   ssrTheme: boolean;
-  ssrLanguage: string;
+  language: SupportedLanguage;
   children: React.ReactNode;
 }) {
   const [theme] = useTheme();
-  const language = isSupportedLanguage(ssrLanguage)
-    ? ssrLanguage
-    : DEFAULT_LANGUAGE;
   const direction = isRTLLanguage(language) ? "rtl" : "ltr";
 
   return (
-    <html
-      lang={ssrLanguage || DEFAULT_LANGUAGE}
-      dir={direction}
-      className={clsx("font-sans", theme)}
-    >
+    <html lang={language} dir={direction} className={clsx("font-sans", theme)}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -114,7 +108,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <I18nProvider initialLanguage={data?.language || DEFAULT_LANGUAGE}>
         <InnerLayout
           ssrTheme={Boolean(data?.theme)}
-          ssrLanguage={data?.language || DEFAULT_LANGUAGE}
+          language={data?.language || DEFAULT_LANGUAGE}
         >
           {children}
         </InnerLayout>
@@ -146,7 +140,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     } else {
       details = getTranslation("en", "errors.unexpectedError");
     }
-  } catch {
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.error("ErrorBoundary translation error:", error);
+    }
+
     // Fallback to English if translations fail
     if (isRouteErrorResponse(error)) {
       message = error.status === 404 ? "404" : "Error";
