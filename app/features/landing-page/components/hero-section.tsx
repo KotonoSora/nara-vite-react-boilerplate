@@ -49,17 +49,17 @@ export const HeroSection = memo(function HeroSection() {
           </h2>
 
           {/* Enhanced subtitle */}
-          <p className="text-2xl font-semibold text-primary mb-4 motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000 motion-safe:delay-200">
+          <p className="text-xl sm:text-2xl font-semibold text-primary mb-4 motion-reduce:animate-none motion-safe:animate-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500 motion-safe:delay-100">
             {t("landing.hero.subtitle")}
           </p>
 
           {/* Enhanced description */}
-          <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000 motion-safe:delay-300">
+          <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed motion-reduce:animate-none motion-safe:animate-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500 motion-safe:delay-150">
             {t("landing.hero.description")}
           </p>
 
           {/* Enhanced CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000 motion-safe:delay-500">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 motion-reduce:animate-none motion-safe:animate-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500 motion-safe:delay-200">
             <Button
               size="lg"
               className="text-lg px-8 h-12 bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 shadow-lg hover:shadow-xl transition-all duration-300 will-change-transform backface-hidden transform-gpu motion-safe:hover:scale-105"
@@ -99,7 +99,7 @@ export const HeroSection = memo(function HeroSection() {
           </div>
 
           {/* Enhanced status indicator */}
-          <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000 motion-safe:delay-700">
+          <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground motion-reduce:animate-none motion-safe:animate-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500 motion-safe:delay-250">
             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
               <div className="w-2 h-2 bg-green-500 rounded-full motion-safe:animate-pulse" />
               {t("landing.hero.statusText")}
