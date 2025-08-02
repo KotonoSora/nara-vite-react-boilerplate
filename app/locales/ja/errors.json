@@ -1,0 +1,6 @@
+{
+  "pageNotFound": "リクエストされたページが見つかりませんでした。",
+  "unexpectedError": "予期しないエラーが発生しました。",
+  "goHome": "ホームに戻る",
+  "tryAgain": "再試行"
+}

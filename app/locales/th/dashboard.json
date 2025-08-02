@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "title": "แดชบอร์ด",
+    "description": "แดชบอร์ดส่วนตัวของคุณ"
+  },
+  "welcome": {
+    "title": "ยินดีต้อนรับกลับมา {{name}}!",
+    "subtitle": "นี่คือสิ่งที่เกิดขึ้นกับบัญชีของคุณวันนี้"
+  },
+  "userInfo": {
+    "title": "ข้อมูลบัญชี",
+    "description": "รายละเอียดบัญชีของคุณ",
+    "fields": {
+      "name": "ชื่อ:",
+      "email": "อีเมล:",
+      "role": "บทบาท:",
+      "memberSince": "สมาชิกตั้งแต่:"
+    }
+  },
+  "quickActions": {
+    "title": "การดำเนินการด่วน",
+    "description": "งานและการดำเนินการทั่วไป",
+    "actions": {
+      "editProfile": "แก้ไขโปรไฟล์",
+      "settings": "การตั้งค่า",
+      "viewAnalytics": "ดูการวิเคราะห์",
+      "adminPanel": "แผงผู้ดูแล"
+    }
+  },
+  "stats": {
+    "daysActive": {
+      "title": "วันที่ใช้งาน",
+      "subtitle": "ตั้งแต่เข้าร่วม"
+    },
+    "totalLogins": {
+      "title": "จำนวนการเข้าสู่ระบบ",
+      "subtitle": "เดือนนี้"
+    },
+    "profileViews": {
+      "title": "การดูโปรไฟล์",
+      "subtitle": "30 วันที่ผ่านมา"
+    },
+    "lastLogin": {
+      "title": "เข้าสู่ระบบครั้งสุดท้าย",
+      "subtitle": "กิจกรรมของคุณ"
+    }
+  },
+  "recentActivity": {
+    "title": "กิจกรรมล่าสุด",
+    "description": "การดำเนินการบัญชีล่าสุดของคุณ",
+    "noActivity": "ไม่มีกิจกรรมล่าสุด",
+    "types": {
+      "login": "เข้าสู่ระบบ",
+      "profileUpdate": "อัปเดตโปรไฟล์",
+      "profileUpdated": "อัปเดตโปรไฟล์แล้ว",
+      "passwordChange": "เปลี่ยนรหัสผ่าน",
+      "settingsChange": "เปลี่ยนการตั้งค่า",
+      "settingsChanged": "เปลี่ยนการตั้งค่าแล้ว",
+      "accountCreated": "สร้างบัญชีแล้ว"
+    }
+  },
+  "systemStatus": {
+    "title": "สถานะระบบ",
+    "description": "สุขภาพระบบและเมตริกปัจจุบัน",
+    "uptime": "เวลาทำงาน",
+    "responseTime": "เวลาตอบสนอง",
+    "activeUsers": "ผู้ใช้ที่ใช้งานอยู่",
+    "status": {
+      "operational": "ปฏิบัติการปกติ",
+      "degraded": "ประสิทธิภาพลดลง",
+      "outage": "บริการขัดข้อง"
+    }
+  },
+  "authDemo": {
+    "title": "การสาธิตการยืนยันตัวตน",
+    "description": "สำรวจคุณสมบัติการยืนยันตัวตน",
+    "content": "คุณได้รับการยืนยันตัวตนเรียบร้อยแล้วและสามารถดูเนื้อหาที่มีการป้องกันนี้ได้ นี่แสดงให้เห็น:",
+    "features": {
+      "secureAuth": "การยืนยันตัวตนที่ปลอดภัย",
+      "userDatabase": "ข้อมูลผู้ใช้จากฐานข้อมูล",
+      "sessionManagement": "การจัดการเซสชัน",
+      "roleBasedAccess": "การเข้าถึงตามบทบาท",
+      "activityTracking": "การติดตามกิจกรรมแบบเรียลไทม์",
+      "statisticsCalculation": "การคำนวณสถิติแบบไดนามิก"
+    },
+    "actions": {
+      "home": "หน้าหลัก",
+      "learnMore": "เรียนรู้เพิ่มเติม"
+    }
+  }
+}

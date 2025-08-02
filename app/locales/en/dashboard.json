@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "title": "Dashboard",
+    "description": "Your personal dashboard"
+  },
+  "welcome": {
+    "title": "Welcome back, {{name}}!",
+    "subtitle": "Here's what's happening with your account today."
+  },
+  "userInfo": {
+    "title": "Account Information",
+    "description": "Your account details",
+    "fields": {
+      "name": "Name:",
+      "email": "Email:",
+      "role": "Role:",
+      "memberSince": "Member since:"
+    }
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "description": "Common tasks and actions",
+    "actions": {
+      "editProfile": "Edit Profile",
+      "settings": "Settings",
+      "viewAnalytics": "View Analytics",
+      "adminPanel": "Admin Panel"
+    }
+  },
+  "stats": {
+    "daysActive": {
+      "title": "Days Active",
+      "subtitle": "Since joining"
+    },
+    "totalLogins": {
+      "title": "Total Logins",
+      "subtitle": "This month"
+    },
+    "profileViews": {
+      "title": "Profile Views",
+      "subtitle": "Last 30 days"
+    },
+    "lastLogin": {
+      "title": "Last Login",
+      "subtitle": "Your activity"
+    }
+  },
+  "recentActivity": {
+    "title": "Recent Activity",
+    "description": "Your latest account actions",
+    "noActivity": "No recent activity",
+    "types": {
+      "login": "Login",
+      "profileUpdate": "Profile Update",
+      "profileUpdated": "Profile updated",
+      "passwordChange": "Password Change",
+      "settingsChange": "Settings Change",
+      "settingsChanged": "Settings changed",
+      "accountCreated": "Account created"
+    }
+  },
+  "systemStatus": {
+    "title": "System Status",
+    "description": "Current system health and metrics",
+    "uptime": "Uptime",
+    "responseTime": "Response Time",
+    "activeUsers": "Active Users",
+    "status": {
+      "operational": "Operational",
+      "degraded": "Degraded Performance",
+      "outage": "Service Outage"
+    }
+  },
+  "authDemo": {
+    "title": "Authentication Demo",
+    "description": "Explore authentication features",
+    "content": "You are successfully authenticated and can see this protected content. This demonstrates:",
+    "features": {
+      "secureAuth": "Secure Authentication",
+      "userDatabase": "User information from the database",
+      "sessionManagement": "Session Management",
+      "roleBasedAccess": "Role-based Access",
+      "activityTracking": "Real-time activity tracking",
+      "statisticsCalculation": "Dynamic statistics calculation"
+    },
+    "actions": {
+      "home": "Home",
+      "learnMore": "Learn More"
+    }
+  }
+}

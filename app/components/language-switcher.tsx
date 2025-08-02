@@ -49,9 +49,9 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label={t("common.language")}>
+        <Button variant="ghost" size="icon" aria-label={t("language")}>
           <Globe className="h-[1.2rem] w-[1.2rem]" />
-          <span className="sr-only">{t("common.language")}</span>
+          <span className="sr-only">{t("language")}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align={dropdownAlign}>

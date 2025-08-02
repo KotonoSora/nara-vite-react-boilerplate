@@ -1,0 +1,15 @@
+{
+  "now": "vừa xong",
+  "minutesAgo": "{{count}} phút trước",
+  "minutesAgo_other": "{{count}} phút trước",
+  "hoursAgo": "{{count}} giờ trước",
+  "hoursAgo_other": "{{count}} giờ trước",
+  "daysAgo": "{{count}} ngày trước",
+  "daysAgo_other": "{{count}} ngày trước",
+  "weeksAgo": "{{count}} tuần trước",
+  "weeksAgo_other": "{{count}} tuần trước",
+  "monthsAgo": "{{count}} tháng trước",
+  "monthsAgo_other": "{{count}} tháng trước",
+  "yearsAgo": "{{count}} năm trước",
+  "yearsAgo_other": "{{count}} năm trước"
+}

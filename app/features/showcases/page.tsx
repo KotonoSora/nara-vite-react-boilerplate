@@ -50,11 +50,11 @@ export function ContentShowcasePage() {
         <div className="flex justify-between items-center max-w-6xl mx-auto my-6">
           <div className="flex items-center gap-3">
             <Button asChild variant="ghost" size="icon">
-              <Link to="/" aria-label={t("showcases.backToHome")}>
+              <Link to="/" aria-label={t("showcase.backToHome")}>
                 <ArrowUp className="w-4 h-4 rotate-270" />
               </Link>
             </Button>
-            <h2 className="text-xl font-semibold">{t("showcases.title")}</h2>
+            <h2 className="text-xl font-semibold">{t("showcase.title")}</h2>
           </div>
         </div>
 
@@ -79,7 +79,7 @@ export function ContentShowcasePage() {
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-foreground"
                     onClick={(e) => e.stopPropagation()}
-                    aria-label={t("showcases.viewProject")}
+                    aria-label={t("showcase.viewProject")}
                   >
                     <ExternalLink className="w-4 h-4" />
                   </a>
@@ -111,7 +111,7 @@ export function ContentShowcasePage() {
           invisible: !showScroll,
         })}
         onClick={handleScrollToTop}
-        aria-label={t("showcases.scrollToTop")}
+        aria-label={t("showcase.scrollToTop")}
       >
         <ArrowUp size={20} />
       </Button>

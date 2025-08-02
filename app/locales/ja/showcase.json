@@ -1,0 +1,13 @@
+{
+  "title": "ショーケース",
+  "backToHome": "ホームに戻る",
+  "scrollToTop": "トップに戻る",
+  "viewProject": "プロジェクトを見る",
+  "showcase": {
+    "title": "ショーケース",
+    "description": "ボイラープレート機能の例とデモンストレーション",
+    "components": "コンポーネント",
+    "examples": "例",
+    "demos": "デモ"
+  }
+}

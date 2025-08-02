@@ -1,0 +1,15 @@
+{
+  "now": "เมื่อสักครู่",
+  "minutesAgo": "{{count}} นาทีที่แล้ว",
+  "minutesAgo_other": "{{count}} นาทีที่แล้ว",
+  "hoursAgo": "{{count}} ชั่วโมงที่แล้ว",
+  "hoursAgo_other": "{{count}} ชั่วโมงที่แล้ว",
+  "daysAgo": "{{count}} วันที่แล้ว",
+  "daysAgo_other": "{{count}} วันที่แล้ว",
+  "weeksAgo": "{{count}} สัปดาห์ที่แล้ว",
+  "weeksAgo_other": "{{count}} สัปดาห์ที่แล้ว",
+  "monthsAgo": "{{count}} เดือนที่แล้ว",
+  "monthsAgo_other": "{{count}} เดือนที่แล้ว",
+  "yearsAgo": "{{count}} ปีที่แล้ว",
+  "yearsAgo_other": "{{count}} ปีที่แล้ว"
+}
