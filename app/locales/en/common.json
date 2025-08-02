@@ -4,7 +4,13 @@
     "about": "About",
     "showcase": "Showcase",
     "features": "Features",
-    "docs": "Documentation"
+    "docs": "Documentation",
+    "dashboard": "Dashboard",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "signOut": "Sign out",
+    "menu": "Menu",
+    "closeMenu": "Close menu"
   },
   "common": {
     "loading": "Loading...",

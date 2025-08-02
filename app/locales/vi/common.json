@@ -4,7 +4,13 @@
     "about": "Giới thiệu",
     "showcase": "Trình diễn",
     "features": "Tính năng",
-    "docs": "Tài liệu"
+    "docs": "Tài liệu",
+    "dashboard": "Bảng điều khiển",
+    "signIn": "Đăng nhập",
+    "signUp": "Đăng ký",
+    "signOut": "Đăng xuất",
+    "menu": "Menu",
+    "closeMenu": "Đóng menu"
   },
   "common": {
     "loading": "Đang tải...",

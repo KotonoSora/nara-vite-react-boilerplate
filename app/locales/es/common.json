@@ -4,7 +4,13 @@
     "about": "Acerca de",
     "showcase": "Muestra",
     "features": "Características",
-    "docs": "Documentación"
+    "docs": "Documentación",
+    "dashboard": "Panel de control",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar sesión",
+    "menu": "Menú",
+    "closeMenu": "Cerrar menú"
   },
   "common": {
     "loading": "Cargando...",

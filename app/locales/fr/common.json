@@ -4,7 +4,13 @@
     "about": "À Propos",
     "showcase": "Vitrine",
     "features": "Fonctionnalités",
-    "docs": "Documentation"
+    "docs": "Documentation",
+    "dashboard": "Tableau de bord",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "signOut": "Se déconnecter",
+    "menu": "Menu",
+    "closeMenu": "Fermer le menu"
   },
   "common": {
     "loading": "Chargement...",
