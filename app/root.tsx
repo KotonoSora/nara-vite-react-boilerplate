@@ -20,9 +20,9 @@ import type { Route } from "./+types/root";
 
 import { getUserId } from "~/auth.server";
 import { Toaster } from "~/components/ui/sonner";
-import { AuthProvider } from "~/features/auth/hooks/use-auth";
 import { getUserById } from "~/features/auth/services/user.server";
 import { getLanguageSession } from "~/language.server";
+import { AuthProvider } from "~/lib/auth";
 import {
   DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,

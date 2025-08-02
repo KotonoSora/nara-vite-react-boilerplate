@@ -4,8 +4,8 @@ import { Form, Link } from "react-router";
 import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
-import { useOptionalAuth } from "~/features/auth/hooks/use-auth";
 import { GitHubButton } from "~/features/landing-page/components/github-button";
+import { useOptionalAuth } from "~/lib/auth";
 
 export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
   const auth = useOptionalAuth();

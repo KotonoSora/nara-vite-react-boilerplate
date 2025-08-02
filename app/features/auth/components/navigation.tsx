@@ -2,7 +2,7 @@ import { Form, Link } from "react-router";
 
 import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
-import { useOptionalAuth } from "~/features/auth/hooks/use-auth";
+import { useOptionalAuth } from "~/lib/auth";
 
 export function Navigation() {
   const auth = useOptionalAuth();
