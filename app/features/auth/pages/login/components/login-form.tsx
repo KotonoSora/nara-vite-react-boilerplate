@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router";
 import { z } from "zod";
 
+import type { TranslationKey } from "~/lib/i18n/types";
+
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -22,13 +24,19 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { useI18n } from "~/lib/i18n";
 
-const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
+const createLoginSchema = (
+  t: (key: TranslationKey, params?: Record<string, string | number>) => string,
+) =>
+  z.object({
+    email: z.email(t("dashboard.auth.login.validation.emailRequired")),
+    password: z
+      .string()
+      .min(6, t("dashboard.auth.login.validation.passwordMinLength")),
+  });
 
-type LoginFormData = z.infer<typeof loginSchema>;
+type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
 
 interface LoginFormProps {
   error?: string;
@@ -36,8 +44,10 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
+  const { t } = useI18n();
   const [showPassword, setShowPassword] = useState(false);
 
+  const loginSchema = createLoginSchema(t);
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -49,9 +59,11 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Sign in</CardTitle>
+        <CardTitle className="text-2xl font-bold">
+          {t("dashboard.auth.login.title")}
+        </CardTitle>
         <CardDescription>
-          Enter your email and password to access your account
+          {t("dashboard.auth.login.description")}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -68,11 +80,15 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>
+                    {t("dashboard.auth.login.form.email.label")}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="Enter your email"
+                      placeholder={t(
+                        "dashboard.auth.login.form.email.placeholder",
+                      )}
                       autoComplete="email"
                       {...field}
                     />
@@ -87,12 +103,16 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>
+                    {t("dashboard.auth.login.form.password.label")}
+                  </FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         type={showPassword ? "text" : "password"}
-                        placeholder="Enter your password"
+                        placeholder={t(
+                          "dashboard.auth.login.form.password.placeholder",
+                        )}
                         autoComplete="current-password"
                         {...field}
                       />
@@ -117,18 +137,20 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
             />
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Signing in..." : "Sign in"}
+              {isSubmitting
+                ? t("dashboard.auth.login.form.submitting")
+                : t("dashboard.auth.login.form.submit")}
             </Button>
 
             <div className="text-center text-sm">
               <span className="text-muted-foreground">
-                Don't have an account?{" "}
+                {t("dashboard.auth.login.noAccount")}{" "}
               </span>
               <Link
                 to="/register"
                 className="font-medium text-primary hover:underline"
               >
-                Sign up
+                {t("dashboard.auth.login.signUpLink")}
               </Link>
             </div>
           </Form>

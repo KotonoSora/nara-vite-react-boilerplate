@@ -268,6 +268,30 @@
         "outage": "服务中断"
       }
     },
+    "auth": {
+      "login": {
+        "title": "登录",
+        "description": "输入您的邮箱和密码来访问您的账户",
+        "form": {
+          "email": {
+            "label": "邮箱",
+            "placeholder": "输入您的邮箱"
+          },
+          "password": {
+            "label": "密码",
+            "placeholder": "输入您的密码"
+          },
+          "submit": "登录",
+          "submitting": "登录中..."
+        },
+        "validation": {
+          "emailRequired": "请输入有效的邮箱地址",
+          "passwordMinLength": "密码至少需要6个字符"
+        },
+        "noAccount": "还没有账户？",
+        "signUpLink": "注册"
+      }
+    },
     "authDemo": {
       "title": "认证演示",
       "description": "探索认证功能",

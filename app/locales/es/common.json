@@ -268,6 +268,30 @@
         "outage": "Interrupción del Servicio"
       }
     },
+    "auth": {
+      "login": {
+        "title": "Iniciar sesión",
+        "description": "Ingresa tu email y contraseña para acceder a tu cuenta",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Ingresa tu email"
+          },
+          "password": {
+            "label": "Contraseña",
+            "placeholder": "Ingresa tu contraseña"
+          },
+          "submit": "Iniciar sesión",
+          "submitting": "Iniciando sesión..."
+        },
+        "validation": {
+          "emailRequired": "Por favor ingresa un email válido",
+          "passwordMinLength": "La contraseña debe tener al menos 6 caracteres"
+        },
+        "noAccount": "¿No tienes una cuenta?",
+        "signUpLink": "Registrarse"
+      }
+    },
     "authDemo": {
       "title": "Demo de Autenticación",
       "description": "Explora las características de autenticación",

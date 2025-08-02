@@ -268,6 +268,30 @@
         "outage": "Service Outage"
       }
     },
+    "auth": {
+      "login": {
+        "title": "Sign in",
+        "description": "Enter your email and password to access your account",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Enter your email"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Enter your password"
+          },
+          "submit": "Sign in",
+          "submitting": "Signing in..."
+        },
+        "validation": {
+          "emailRequired": "Please enter a valid email address",
+          "passwordMinLength": "Password must be at least 6 characters"
+        },
+        "noAccount": "Don't have an account?",
+        "signUpLink": "Sign up"
+      }
+    },
     "authDemo": {
       "title": "Authentication Demo",
       "description": "Explore authentication features",

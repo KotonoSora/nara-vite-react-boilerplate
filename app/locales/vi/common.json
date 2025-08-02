@@ -268,6 +268,30 @@
         "outage": "Gián Đoạn Dịch Vụ"
       }
     },
+    "auth": {
+      "login": {
+        "title": "Đăng nhập",
+        "description": "Nhập email và mật khẩu để truy cập tài khoản của bạn",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Nhập email của bạn"
+          },
+          "password": {
+            "label": "Mật khẩu",
+            "placeholder": "Nhập mật khẩu của bạn"
+          },
+          "submit": "Đăng nhập",
+          "submitting": "Đang đăng nhập..."
+        },
+        "validation": {
+          "emailRequired": "Vui lòng nhập địa chỉ email hợp lệ",
+          "passwordMinLength": "Mật khẩu phải có ít nhất 6 ký tự"
+        },
+        "noAccount": "Chưa có tài khoản?",
+        "signUpLink": "Đăng ký"
+      }
+    },
     "authDemo": {
       "title": "Demo Xác Thực",
       "description": "Khám phá các tính năng xác thực",
