@@ -47,7 +47,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   return { user, recentActivity, stats };
 }
 
-export function meta(): ReturnType<Route.MetaFunction> {
+export function meta({}: Route.MetaArgs) {
   return [
     { title: "Dashboard - NARA" },
     { name: "description", content: "Your personal dashboard" },

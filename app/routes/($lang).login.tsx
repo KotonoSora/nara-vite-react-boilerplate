@@ -13,7 +13,7 @@ const loginSchema = z.object({
   password: z.string().min(6),
 });
 
-export async function loader({ request, context }: Route.LoaderArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   // Redirect if already logged in
   const userId = await getUserId(request);
   if (userId) {
@@ -58,7 +58,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   }
 }
 
-export function meta(): ReturnType<Route.MetaFunction> {
+export function meta({}: Route.MetaArgs) {
   return [
     { title: "Sign In - NARA" },
     { name: "description", content: "Sign in to your NARA account" },
