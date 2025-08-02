@@ -18,7 +18,10 @@ import {
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/root";
 
+import { getUserId } from "~/auth.server";
 import { Toaster } from "~/components/ui/sonner";
+import { AuthProvider } from "~/features/auth/hooks/use-auth";
+import { getUserById } from "~/features/auth/services/user.server";
 import { getLanguageSession } from "~/language.server";
 import {
   DEFAULT_LANGUAGE,
@@ -44,7 +47,7 @@ export const links: Route.LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
 ];
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   const { getTheme } = await themeSessionResolver(request);
   const url = new URL(request.url);
 
@@ -60,9 +63,23 @@ export async function loader({ request }: Route.LoaderArgs) {
   const language: SupportedLanguage =
     pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
 
+  // Get current user if logged in and context is available
+  const userId = await getUserId(request);
+  let user = null;
+
+  if (userId && context?.db) {
+    try {
+      user = await getUserById(context.db, userId);
+    } catch (error) {
+      // If user lookup fails, continue without user (they'll be logged out)
+      console.error("Error loading user:", error);
+    }
+  }
+
   return {
     theme: getTheme(),
     language,
+    user,
   };
 }
 
@@ -106,12 +123,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
       themeAction="/action/set-theme"
     >
       <I18nProvider initialLanguage={data?.language || DEFAULT_LANGUAGE}>
-        <InnerLayout
-          ssrTheme={Boolean(data?.theme)}
-          language={data?.language || DEFAULT_LANGUAGE}
-        >
-          {children}
-        </InnerLayout>
+        <AuthProvider user={data?.user || null}>
+          <InnerLayout
+            ssrTheme={Boolean(data?.theme)}
+            language={data?.language || DEFAULT_LANGUAGE}
+          >
+            {children}
+          </InnerLayout>
+        </AuthProvider>
       </I18nProvider>
     </ThemeProvider>
   );
