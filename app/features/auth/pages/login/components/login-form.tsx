@@ -30,10 +30,8 @@ const createLoginSchema = (
   t: (key: TranslationKey, params?: Record<string, string | number>) => string,
 ) =>
   z.object({
-    email: z.email(t("dashboard.auth.login.validation.emailRequired")),
-    password: z
-      .string()
-      .min(6, t("dashboard.auth.login.validation.passwordMinLength")),
+    email: z.email(t("auth.login.validation.emailRequired")),
+    password: z.string().min(6, t("auth.login.validation.passwordMinLength")),
   });
 
 type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
@@ -60,11 +58,9 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl font-bold">
-          {t("dashboard.auth.login.title")}
+          {t("auth.login.title")}
         </CardTitle>
-        <CardDescription>
-          {t("dashboard.auth.login.description")}
-        </CardDescription>
+        <CardDescription>{t("auth.login.description")}</CardDescription>
       </CardHeader>
       <CardContent>
         <FormProvider {...form}>
@@ -80,15 +76,11 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    {t("dashboard.auth.login.form.email.label")}
-                  </FormLabel>
+                  <FormLabel>{t("auth.login.form.email.label")}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder={t(
-                        "dashboard.auth.login.form.email.placeholder",
-                      )}
+                      placeholder={t("auth.login.form.email.placeholder")}
                       autoComplete="email"
                       {...field}
                     />
@@ -103,16 +95,12 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    {t("dashboard.auth.login.form.password.label")}
-                  </FormLabel>
+                  <FormLabel>{t("auth.login.form.password.label")}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         type={showPassword ? "text" : "password"}
-                        placeholder={t(
-                          "dashboard.auth.login.form.password.placeholder",
-                        )}
+                        placeholder={t("auth.login.form.password.placeholder")}
                         autoComplete="current-password"
                         {...field}
                       />
@@ -138,19 +126,19 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
               {isSubmitting
-                ? t("dashboard.auth.login.form.submitting")
-                : t("dashboard.auth.login.form.submit")}
+                ? t("auth.login.form.submitting")
+                : t("auth.login.form.submit")}
             </Button>
 
             <div className="text-center text-sm">
               <span className="text-muted-foreground">
-                {t("dashboard.auth.login.noAccount")}{" "}
+                {t("auth.login.noAccount")}{" "}
               </span>
               <Link
                 to="/register"
                 className="font-medium text-primary hover:underline"
               >
-                {t("dashboard.auth.login.signUpLink")}
+                {t("auth.login.signUpLink")}
               </Link>
             </div>
           </Form>

@@ -13,8 +13,9 @@ import { useTranslation } from "~/lib/i18n/context";
 
 interface Activity {
   id: number;
-  action: string;
+  actionKey: string;
   time: string;
+  timeValue?: number;
   icon: "User" | "Settings" | "Calendar";
 }
 
@@ -70,7 +71,7 @@ export const RecentActivityCard: FC<RecentActivityCardProps> = ({
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm sm:text-base font-medium truncate text-gray-900 dark:text-gray-100">
-                    {activity.action}
+                    {(t as any)(activity.actionKey)}
                   </p>
                   <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                     {activity.time}

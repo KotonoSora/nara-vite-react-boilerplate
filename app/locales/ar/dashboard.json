@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "title": "لوحة التحكم",
+    "description": "لوحة التحكم الشخصية الخاصة بك"
+  },
+  "welcome": {
+    "title": "أهلاً بعودتك، {{name}}!",
+    "subtitle": "هذا ما يحدث مع حسابك اليوم."
+  },
+  "userInfo": {
+    "title": "معلومات الحساب",
+    "description": "تفاصيل حسابك",
+    "fields": {
+      "name": "الاسم:",
+      "email": "البريد الإلكتروني:",
+      "role": "الدور:",
+      "memberSince": "عضو منذ:"
+    }
+  },
+  "quickActions": {
+    "title": "الإجراءات السريعة",
+    "description": "المهام والإجراءات الشائعة",
+    "actions": {
+      "editProfile": "تعديل الملف الشخصي",
+      "settings": "الإعدادات",
+      "viewAnalytics": "عرض التحليلات",
+      "adminPanel": "لوحة الإدارة"
+    }
+  },
+  "stats": {
+    "daysActive": {
+      "title": "الأيام النشطة",
+      "subtitle": "منذ الانضمام"
+    },
+    "totalLogins": {
+      "title": "إجمالي تسجيلات الدخول",
+      "subtitle": "هذا الشهر"
+    },
+    "profileViews": {
+      "title": "مشاهدات الملف الشخصي",
+      "subtitle": "آخر 30 يوماً"
+    },
+    "lastLogin": {
+      "title": "آخر تسجيل دخول",
+      "subtitle": "نشاطك"
+    }
+  },
+  "recentActivity": {
+    "title": "النشاط الأخير",
+    "description": "أحدث إجراءات حسابك",
+    "noActivity": "لا يوجد نشاط حديث",
+    "types": {
+      "login": "تسجيل الدخول",
+      "profileUpdate": "تحديث الملف الشخصي",
+      "profileUpdated": "تم تحديث الملف الشخصي",
+      "passwordChange": "تغيير كلمة المرور",
+      "settingsChange": "تغيير الإعدادات",
+      "settingsChanged": "تم تغيير الإعدادات",
+      "accountCreated": "تم إنشاء الحساب"
+    }
+  },
+  "systemStatus": {
+    "title": "حالة النظام",
+    "description": "صحة النظام والمقاييس الحالية",
+    "uptime": "وقت التشغيل",
+    "responseTime": "وقت الاستجابة",
+    "activeUsers": "المستخدمون النشطون",
+    "status": {
+      "operational": "يعمل بشكل طبيعي",
+      "degraded": "أداء منخفض",
+      "outage": "انقطاع الخدمة"
+    }
+  },
+  "authDemo": {
+    "title": "عرض المصادقة",
+    "description": "استكشف ميزات المصادقة",
+    "content": "تمت مصادقتك بنجاح ويمكنك رؤية هذا المحتوى المحمي. هذا يوضح:",
+    "features": {
+      "secureAuth": "مصادقة آمنة",
+      "userDatabase": "معلومات المستخدم من قاعدة البيانات",
+      "sessionManagement": "إدارة الجلسات",
+      "roleBasedAccess": "الوصول القائم على الأدوار",
+      "activityTracking": "تتبع النشاط في الوقت الفعلي",
+      "statisticsCalculation": "حساب الإحصائيات الديناميكي"
+    },
+    "actions": {
+      "home": "الرئيسية",
+      "learnMore": "تعلم المزيد"
+    }
+  }
+}

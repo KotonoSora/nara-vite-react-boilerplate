@@ -1,0 +1,13 @@
+{
+  "title": "Muestra",
+  "backToHome": "Volver al Inicio",
+  "scrollToTop": "Volver Arriba",
+  "viewProject": "Ver Proyecto",
+  "showcase": {
+    "title": "Muestra",
+    "description": "Ejemplos y demostraciones de las características del boilerplate",
+    "components": "Componentes",
+    "examples": "Ejemplos",
+    "demos": "Demos"
+  }
+}

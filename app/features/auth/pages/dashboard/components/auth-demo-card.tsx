@@ -28,16 +28,15 @@ export const AuthDemoCard: FC = () => {
       </CardHeader>
       <CardContent className="space-y-4 sm:space-y-5">
         <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-          You are successfully authenticated and can see this protected content.
-          This demonstrates:
+          {t("dashboard.authDemo.content")}
         </p>
         <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-gray-600 dark:text-gray-400 pl-2">
           <li>{t("dashboard.authDemo.features.secureAuth")}</li>
-          <li>User information from the database</li>
+          <li>{t("dashboard.authDemo.features.userDatabase")}</li>
           <li>{t("dashboard.authDemo.features.roleBasedAccess")}</li>
           <li>{t("dashboard.authDemo.features.sessionManagement")}</li>
-          <li>Real-time activity tracking</li>
-          <li>Dynamic statistics calculation</li>
+          <li>{t("dashboard.authDemo.features.activityTracking")}</li>
+          <li>{t("dashboard.authDemo.features.statisticsCalculation")}</li>
         </ul>
 
         <div className="flex flex-wrap gap-3 pt-2">
@@ -49,7 +48,9 @@ export const AuthDemoCard: FC = () => {
           >
             <Link to="/">
               <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-violet-600 dark:text-violet-400 group-hover:scale-110 transition-transform" />
-              <span className="text-sm sm:text-base font-medium">Home</span>
+              <span className="text-sm sm:text-base font-medium">
+                {t("dashboard.authDemo.actions.home")}
+              </span>
             </Link>
           </Button>
           <Button
@@ -61,7 +62,7 @@ export const AuthDemoCard: FC = () => {
             <Link to="/showcase">
               <Activity className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform" />
               <span className="text-sm sm:text-base font-medium">
-                {t("dashboard.authDemo.learnMore")}
+                {t("dashboard.authDemo.actions.learnMore")}
               </span>
             </Link>
           </Button>

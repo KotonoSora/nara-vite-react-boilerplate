@@ -24,7 +24,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
     } as any);
     const showcases = await getShowcases(db);
 
-    const showcaseTitle = t("showcases.title");
+    const showcaseTitle = t("showcase.title");
 
     return {
       title,

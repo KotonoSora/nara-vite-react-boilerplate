@@ -1,0 +1,13 @@
+{
+  "title": "शोकेस",
+  "backToHome": "होम पर वापस",
+  "scrollToTop": "टॉप पर स्क्रॉल करें",
+  "viewProject": "प्रोजेक्ट देखें",
+  "showcase": {
+    "title": "प्रदर्शन",
+    "description": "बॉयलरप्लेट फीचर्स के उदाहरण और प्रदर्शन",
+    "components": "कंपोनेंट्स",
+    "examples": "उदाहरण",
+    "demos": "डेमो"
+  }
+}

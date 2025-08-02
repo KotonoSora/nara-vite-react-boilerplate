@@ -7,8 +7,9 @@ interface User {
 
 interface Activity {
   id: number;
-  action: string;
+  actionKey: string;
   time: string;
+  timeValue?: number; // For relative time calculations
   icon: "User" | "Settings" | "Calendar";
 }
 

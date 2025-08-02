@@ -1,0 +1,146 @@
+{
+  "title": "NARA React Boilerplate",
+  "subtitle": "Một khởi đầu nhanh chóng và có ý kiến để xây dựng ứng dụng React full-stack",
+  "description": "Được xây dựng với React Router v7, TypeScript, Cloudflare Workers và các công cụ hiện đại. Được thiết kế tập trung vào tính an toàn kiểu, hiệu suất và trải nghiệm nhà phát triển.",
+  "getStarted": "Bắt đầu",
+  "viewDocs": "Xem tài liệu",
+  "hero": {
+    "badge": "Boilerplate Sẵn Sàng Sản Xuất",
+    "title": "NARA Boilerplate",
+    "subtitle": "Boilerplate Full-Stack React Thực Sự Hoạt Động",
+    "description": "Ngừng lãng phí thời gian cài đặt boilerplate. Bắt đầu với nền tảng sẵn sàng sản xuất được xây dựng cho các nhà phát triển ship nhanh và thường xuyên.",
+    "starOnGitHub": "Đánh Sao trên GitHub",
+    "quickStart": "Bắt Đầu Nhanh",
+    "statusText": "Từ git clone đến sản xuất trong 5 phút"
+  },
+  "features": {
+    "title": "Tính năng",
+    "badge": "Tại Sao Chọn NARA?",
+    "sectionTitle": "Tính Năng Sẵn Sàng Sản Xuất",
+    "sectionDescription": "Được xây dựng tập trung vào tính an toàn kiểu, hiệu suất và trải nghiệm nhà phát triển",
+    "typeSafety": {
+      "title": "An Toàn Kiểu",
+      "description": "Phủ sóng TypeScript từ đầu đến cuối với việc typing route phù hợp và kiểm tra kiểu nghiêm ngặt trong toàn bộ stack."
+    },
+    "performance": {
+      "title": "Hiệu Suất",
+      "description": "Công cụ hiện đại với Vite và Bun cho việc build siêu nhanh, cộng với triển khai edge Cloudflare cho hiệu suất toàn cầu."
+    },
+    "developerErgonomics": {
+      "title": "Trải Nghiệm Nhà Phát Triển",
+      "description": "Thiết lập có ý kiến hoạt động ngay. Công cụ được cấu hình sẵn, testing và môi trường phát triển cho năng suất tối đa."
+    },
+    "versatile": {
+      "title": "Linh Hoạt",
+      "description": "Kiến trúc linh hoạt được thiết kế để phù hợp với đa số ý tưởng dự án, từ MVP đến ứng dụng sản xuất."
+    },
+    "typeScript": "TypeScript",
+    "typeScriptDesc": "Tính an toàn kiểu đầy đủ với hỗ trợ TypeScript",
+    "reactRouter": "React Router v7",
+    "reactRouterDesc": "Định tuyến hiện đại với kết xuất phía máy chủ",
+    "cloudflare": "Cloudflare Workers",
+    "cloudflareDesc": "Triển khai edge với hiệu suất toàn cầu",
+    "database": "Cơ sở dữ liệu sẵn sàng",
+    "databaseDesc": "Drizzle ORM với tích hợp Cloudflare D1",
+    "ui": "Giao diện hiện đại",
+    "uiDesc": "Các component đẹp với Tailwind CSS và shadcn/ui",
+    "testing": "Thiết lập kiểm thử",
+    "testingDesc": "Vitest và các tiện ích kiểm thử được cấu hình sẵn"
+  },
+  "gettingStarted": {
+    "badge": "Bắt Đầu Trong Vài Phút",
+    "title": "Từ Số Không Đến Sản Xuất",
+    "description": "Làm theo các bước đơn giản này để chạy ứng dụng NARA của bạn",
+    "steps": {
+      "clone": {
+        "title": "Clone Repository",
+        "description": "Lấy phiên bản mới nhất của NARA boilerplate",
+        "note": "Thay thế 'my-app' bằng tên dự án của bạn"
+      },
+      "install": {
+        "title": "Cài Đặt Dependencies",
+        "description": "Sử dụng package manager ưa thích của bạn",
+        "note": "Package manager hiện tại chỉ hỗ trợ Bun"
+      },
+      "database": {
+        "title": "Thiết Lập Database",
+        "description": "Khởi tạo database local",
+        "note": "Tạo database SQLite cho development"
+      },
+      "start": {
+        "title": "Bắt Đầu Development",
+        "description": "Khởi chạy development server",
+        "note": "Ứng dụng của bạn sẽ có sẵn tại http://localhost:5173"
+      }
+    },
+    "copyCommand": "Sao chép lệnh",
+    "copied": "Đã sao chép!",
+    "setupTime": "Thời gian thiết lập ước tính: ~5 phút"
+  },
+  "footer": {
+    "tagline": "Boilerplate Full-Stack React Thực Sự Hoạt Động",
+    "copyright": "© 2025 NARA Boilerplate. Được xây dựng với ❤️ bởi KotonoSora — để giúp bạn ship nhanh hơn và tự tin hơn."
+  },
+  "builtForDevelopers": {
+    "badge": "Được Xây Dựng Cho Developers Ship",
+    "title": "Mọi Thứ Bạn Cần, Không Gì Bạn Không",
+    "stats": {
+      "setupTime": {
+        "value": "5phút",
+        "label": "Thời gian thiết lập",
+        "description": "Từ clone đến triển khai"
+      },
+      "typeSafe": {
+        "value": "100%",
+        "label": "An toàn kiểu",
+        "description": "TypeScript từ đầu đến cuối"
+      },
+      "configHeadaches": {
+        "value": "0",
+        "label": "Đau đầu cấu hình",
+        "description": "Hoạt động ngay từ đầu"
+      }
+    }
+  },
+  "license": {
+    "badge": "Mã Nguồn Mở & Thương Mại",
+    "title": "🚀 Các Lựa Chọn Giấy Phép",
+    "openSource": {
+      "badge": "AGPL-3.0",
+      "price": "Miễn phí",
+      "title": "Mã Nguồn Mở",
+      "description": "Hoàn hảo cho các dự án mã nguồn mở và học tập",
+      "features": {
+        "useFreely": "Sử dụng, chỉnh sửa và triển khai tự do",
+        "fullSource": "Truy cập đầy đủ mã nguồn",
+        "mustOpenSource": "Phải mở mã nguồn nếu triển khai công khai"
+      },
+      "button": "Bắt Đầu Miễn Phí"
+    },
+    "commercial": {
+      "badge": "Giấy Phép Thương Mại",
+      "price": "Một lần",
+      "title": "Phiên Bản Thương Mại",
+      "description": "Tuyệt vời cho các dự án SaaS mã nguồn đóng và sản xuất",
+      "features": {
+        "noOpenSource": "Không cần mở mã nguồn các thay đổi của bạn",
+        "oneTime": "Thanh toán một lần mỗi phiên bản",
+        "gumroad": "Phân phối qua Gumroad"
+      },
+      "button": "Lấy Giấy Phép Thương Mại",
+      "comingSoon": "Sắp Ra Mắt"
+    }
+  },
+  "showcase": {
+    "title": "🌟 Trưng Bày",
+    "description": "Các dự án được xây dựng tự hào với NARA"
+  },
+  "techStack": {
+    "badge": "Stack Hiện Đại",
+    "title": "Stack Công Nghệ Hiện Đại",
+    "description": "Các công nghệ được lựa chọn cẩn thận hoạt động hoàn hảo cùng nhau"
+  },
+  "github": {
+    "seeMore": "Xem Thêm"
+  }
+}

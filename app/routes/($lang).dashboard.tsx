@@ -3,11 +3,19 @@ import type { Route } from "./+types/($lang).dashboard";
 import { requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/auth/pages/dashboard/context/page-context";
 import { ContentDashboardPage } from "~/features/auth/pages/dashboard/page";
+import { getLanguageSession } from "~/language.server";
+import { formatTimeAgo } from "~/lib/i18n/time-format";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 import { getUserById } from "~/user.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   const userId = await requireUserId(request);
   const { db } = context;
+
+  // Get language from session
+  const languageSession = await getLanguageSession(request);
+  const language = languageSession.getLanguage();
+  const t = createTranslationFunction(language);
 
   const user = await getUserById(db, userId);
 
@@ -21,19 +29,35 @@ export async function loader({ request, context }: Route.LoaderArgs) {
       (1000 * 60 * 60 * 24),
   );
 
+  // Create timestamps for mock activity data
+  const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000);
+  const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  const accountCreatedDate = new Date(user.createdAt);
+
   // Mock some activity data - in real app, you'd query from your database
   const recentActivity: Array<{
     id: number;
-    action: string;
+    actionKey: string;
     time: string;
+    timeValue?: number;
     icon: "User" | "Settings" | "Calendar";
   }> = [
-    { id: 1, action: "Profile updated", time: "2 hours ago", icon: "User" },
-    { id: 2, action: "Settings changed", time: "1 day ago", icon: "Settings" },
+    {
+      id: 1,
+      actionKey: "dashboard.recentActivity.types.profileUpdated",
+      time: formatTimeAgo(t, twoHoursAgo),
+      icon: "User",
+    },
+    {
+      id: 2,
+      actionKey: "dashboard.recentActivity.types.settingsChanged",
+      time: formatTimeAgo(t, oneDayAgo),
+      icon: "Settings",
+    },
     {
       id: 3,
-      action: "Account created",
-      time: `${daysSinceJoined} days ago`,
+      actionKey: "dashboard.recentActivity.types.accountCreated",
+      time: formatTimeAgo(t, accountCreatedDate),
       icon: "Calendar",
     },
   ];
@@ -44,13 +68,26 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     profileViews: Math.floor(Math.random() * 100) + 25, // Mock data
   };
 
-  return { user, recentActivity, stats };
+  return {
+    user,
+    recentActivity,
+    stats,
+    dashboardTitle: (t as any)("dashboard.meta.title"),
+    dashboardDescription: (t as any)("dashboard.meta.description"),
+  };
 }
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ data }: Route.MetaArgs) {
+  if (!data) {
+    return [
+      { title: "Dashboard - NARA" },
+      { name: "description", content: "Your personal dashboard" },
+    ];
+  }
+
   return [
-    { title: "Dashboard - NARA" },
-    { name: "description", content: "Your personal dashboard" },
+    { title: `${(data as any).dashboardTitle} - NARA` },
+    { name: "description", content: (data as any).dashboardDescription },
   ];
 }
 

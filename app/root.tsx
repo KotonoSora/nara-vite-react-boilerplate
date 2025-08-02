@@ -146,8 +146,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
   try {
     if (isRouteErrorResponse(error)) {
-      message =
-        error.status === 404 ? "404" : getTranslation("en", "common.error");
+      message = error.status === 404 ? "404" : getTranslation("en", "error");
       details =
         error.status === 404
           ? getTranslation("en", "errors.pageNotFound")

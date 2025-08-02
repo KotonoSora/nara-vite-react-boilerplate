@@ -1,0 +1,15 @@
+{
+  "now": "たった今",
+  "minutesAgo": "{{count}} 分前",
+  "minutesAgo_other": "{{count}} 分前",
+  "hoursAgo": "{{count}} 時間前",
+  "hoursAgo_other": "{{count}} 時間前",
+  "daysAgo": "{{count}} 日前",
+  "daysAgo_other": "{{count}} 日前",
+  "weeksAgo": "{{count}} 週間前",
+  "weeksAgo_other": "{{count}} 週間前",
+  "monthsAgo": "{{count}} ヶ月前",
+  "monthsAgo_other": "{{count}} ヶ月前",
+  "yearsAgo": "{{count}} 年前",
+  "yearsAgo_other": "{{count}} 年前"
+}

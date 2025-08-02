@@ -1,0 +1,13 @@
+{
+  "title": "展示",
+  "backToHome": "回到首页",
+  "scrollToTop": "回到顶部",
+  "viewProject": "查看项目",
+  "showcase": {
+    "title": "展示",
+    "description": "样板功能的示例和演示",
+    "components": "组件",
+    "examples": "示例",
+    "demos": "演示"
+  }
+}
