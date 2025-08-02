@@ -9,7 +9,7 @@ import { usePageContext } from "~/features/auth/pages/dashboard/context/page-con
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
 
-export const ContentDashboardPage = () => {
+export function ContentDashboardPage() {
   const { user, recentActivity, stats } = usePageContext();
 
   return (
@@ -48,4 +48,4 @@ export const ContentDashboardPage = () => {
       <FooterSection />
     </main>
   );
-};
+}

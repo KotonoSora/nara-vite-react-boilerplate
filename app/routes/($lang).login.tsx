@@ -1,14 +1,15 @@
 import { data, redirect } from "react-router";
 import { z } from "zod";
 
-import type { Route } from "./+types/login";
+import type { Route } from "./+types/($lang).login";
 
 import { createUserSession, getUserId } from "~/auth.server";
-import { LoginForm } from "~/features/auth/components/login-form";
+import { PageContext } from "~/features/auth/pages/login/context/page-context";
+import { ContentLoginPage } from "~/features/auth/pages/login/page";
 import { authenticateUser } from "~/user.server";
 
 const loginSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(6),
 });
 
@@ -66,8 +67,8 @@ export function meta(): ReturnType<Route.MetaFunction> {
 
 export default function Login({ actionData }: Route.ComponentProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <LoginForm error={actionData?.error} isSubmitting={false} />
-    </div>
+    <PageContext.Provider value={{ ...actionData }}>
+      <ContentLoginPage />
+    </PageContext.Provider>
   );
 }
