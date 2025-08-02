@@ -195,5 +195,82 @@
     "unexpectedError": "予期しないエラーが発生しました。",
     "goHome": "ホームに戻る",
     "tryAgain": "再試行"
+  },
+  "dashboard": {
+    "welcome": {
+      "title": "おかえりなさい、{{name}}さん！",
+      "subtitle": "今日のアカウントの状況をお知らせします。"
+    },
+    "userInfo": {
+      "title": "アカウント情報",
+      "description": "あなたのアカウント詳細",
+      "fields": {
+        "name": "名前：",
+        "email": "メール：",
+        "role": "ロール：",
+        "memberSince": "登録日："
+      }
+    },
+    "quickActions": {
+      "title": "クイックアクション",
+      "description": "よく使うタスクとアクション",
+      "actions": {
+        "editProfile": "プロフィール編集",
+        "settings": "設定",
+        "viewAnalytics": "分析を見る",
+        "adminPanel": "管理パネル"
+      }
+    },
+    "stats": {
+      "daysActive": {
+        "title": "アクティブ日数",
+        "subtitle": "参加以来"
+      },
+      "totalLogins": {
+        "title": "総ログイン数",
+        "subtitle": "今月"
+      },
+      "profileViews": {
+        "title": "プロフィール閲覧数",
+        "subtitle": "過去30日間"
+      },
+      "lastLogin": {
+        "title": "最終ログイン",
+        "subtitle": "あなたの活動"
+      }
+    },
+    "recentActivity": {
+      "title": "最近の活動",
+      "description": "最新のアカウント操作",
+      "noActivity": "最近の活動がありません",
+      "types": {
+        "login": "ログイン",
+        "profileUpdate": "プロフィール更新",
+        "passwordChange": "パスワード変更",
+        "settingsChange": "設定変更"
+      }
+    },
+    "systemStatus": {
+      "title": "システム状態",
+      "description": "現在のシステム健全性と指標",
+      "uptime": "稼働時間",
+      "responseTime": "応答時間",
+      "activeUsers": "アクティブユーザー",
+      "status": {
+        "operational": "正常稼働中",
+        "degraded": "パフォーマンス低下",
+        "outage": "サービス停止"
+      }
+    },
+    "authDemo": {
+      "title": "認証デモ",
+      "description": "認証機能を探索",
+      "features": {
+        "secureAuth": "セキュア認証",
+        "sessionManagement": "セッション管理",
+        "roleBasedAccess": "ロールベースアクセス"
+      },
+      "learnMore": "詳しく学ぶ"
+    }
   }
 }

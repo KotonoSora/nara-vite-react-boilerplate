@@ -195,5 +195,82 @@
     "unexpectedError": "Đã xảy ra lỗi không mong muốn.",
     "goHome": "Về trang chủ",
     "tryAgain": "Thử lại"
+  },
+  "dashboard": {
+    "welcome": {
+      "title": "Chào mừng trở lại, {{name}}!",
+      "subtitle": "Đây là những gì đang diễn ra với tài khoản của bạn hôm nay."
+    },
+    "userInfo": {
+      "title": "Thông Tin Tài Khoản",
+      "description": "Chi tiết tài khoản của bạn",
+      "fields": {
+        "name": "Tên:",
+        "email": "Email:",
+        "role": "Vai trò:",
+        "memberSince": "Thành viên từ:"
+      }
+    },
+    "quickActions": {
+      "title": "Hành Động Nhanh",
+      "description": "Các tác vụ và hành động thông thường",
+      "actions": {
+        "editProfile": "Chỉnh Sửa Hồ Sơ",
+        "settings": "Cài Đặt",
+        "viewAnalytics": "Xem Phân Tích",
+        "adminPanel": "Bảng Quản Trị"
+      }
+    },
+    "stats": {
+      "daysActive": {
+        "title": "Ngày Hoạt Động",
+        "subtitle": "Kể từ khi tham gia"
+      },
+      "totalLogins": {
+        "title": "Tổng Lần Đăng Nhập",
+        "subtitle": "Tháng này"
+      },
+      "profileViews": {
+        "title": "Lượt Xem Hồ Sơ",
+        "subtitle": "30 ngày qua"
+      },
+      "lastLogin": {
+        "title": "Lần Đăng Nhập Cuối",
+        "subtitle": "Hoạt động của bạn"
+      }
+    },
+    "recentActivity": {
+      "title": "Hoạt Động Gần Đây",
+      "description": "Các hành động tài khoản mới nhất của bạn",
+      "noActivity": "Không có hoạt động gần đây",
+      "types": {
+        "login": "Đăng Nhập",
+        "profileUpdate": "Cập Nhật Hồ Sơ",
+        "passwordChange": "Đổi Mật Khẩu",
+        "settingsChange": "Thay Đổi Cài Đặt"
+      }
+    },
+    "systemStatus": {
+      "title": "Trạng Thái Hệ Thống",
+      "description": "Tình trạng hiện tại và số liệu của hệ thống",
+      "uptime": "Thời Gian Hoạt Động",
+      "responseTime": "Thời Gian Phản Hồi",
+      "activeUsers": "Người Dùng Đang Hoạt Động",
+      "status": {
+        "operational": "Hoạt Động Bình Thường",
+        "degraded": "Hiệu Suất Giảm",
+        "outage": "Gián Đoạn Dịch Vụ"
+      }
+    },
+    "authDemo": {
+      "title": "Demo Xác Thực",
+      "description": "Khám phá các tính năng xác thực",
+      "features": {
+        "secureAuth": "Xác Thực An Toàn",
+        "sessionManagement": "Quản Lý Phiên",
+        "roleBasedAccess": "Truy Cập Theo Vai Trò"
+      },
+      "learnMore": "Tìm Hiểu Thêm"
+    }
   }
 }

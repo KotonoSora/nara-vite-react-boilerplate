@@ -195,5 +195,82 @@
     "unexpectedError": "Ocurrió un error inesperado.",
     "goHome": "Ir al Inicio",
     "tryAgain": "Intentar de Nuevo"
+  },
+  "dashboard": {
+    "welcome": {
+      "title": "¡Bienvenido de vuelta, {{name}}!",
+      "subtitle": "Esto es lo que está pasando con tu cuenta hoy."
+    },
+    "userInfo": {
+      "title": "Información de la Cuenta",
+      "description": "Detalles de tu cuenta",
+      "fields": {
+        "name": "Nombre:",
+        "email": "Correo:",
+        "role": "Rol:",
+        "memberSince": "Miembro desde:"
+      }
+    },
+    "quickActions": {
+      "title": "Acciones Rápidas",
+      "description": "Tareas y acciones comunes",
+      "actions": {
+        "editProfile": "Editar Perfil",
+        "settings": "Configuración",
+        "viewAnalytics": "Ver Analíticas",
+        "adminPanel": "Panel de Admin"
+      }
+    },
+    "stats": {
+      "daysActive": {
+        "title": "Días Activo",
+        "subtitle": "Desde que te uniste"
+      },
+      "totalLogins": {
+        "title": "Inicios de Sesión",
+        "subtitle": "Este mes"
+      },
+      "profileViews": {
+        "title": "Vistas del Perfil",
+        "subtitle": "Últimos 30 días"
+      },
+      "lastLogin": {
+        "title": "Último Acceso",
+        "subtitle": "Tu actividad"
+      }
+    },
+    "recentActivity": {
+      "title": "Actividad Reciente",
+      "description": "Tus últimas acciones de cuenta",
+      "noActivity": "Sin actividad reciente",
+      "types": {
+        "login": "Inicio de Sesión",
+        "profileUpdate": "Actualización de Perfil",
+        "passwordChange": "Cambio de Contraseña",
+        "settingsChange": "Cambio de Configuración"
+      }
+    },
+    "systemStatus": {
+      "title": "Estado del Sistema",
+      "description": "Salud actual del sistema y métricas",
+      "uptime": "Tiempo Activo",
+      "responseTime": "Tiempo de Respuesta",
+      "activeUsers": "Usuarios Activos",
+      "status": {
+        "operational": "Operacional",
+        "degraded": "Rendimiento Degradado",
+        "outage": "Interrupción del Servicio"
+      }
+    },
+    "authDemo": {
+      "title": "Demo de Autenticación",
+      "description": "Explora las características de autenticación",
+      "features": {
+        "secureAuth": "Autenticación Segura",
+        "sessionManagement": "Gestión de Sesiones",
+        "roleBasedAccess": "Acceso Basado en Roles"
+      },
+      "learnMore": "Aprender Más"
+    }
   }
 }

@@ -195,5 +195,82 @@
     "unexpectedError": "发生了意外错误。",
     "goHome": "回到首页",
     "tryAgain": "重试"
+  },
+  "dashboard": {
+    "welcome": {
+      "title": "欢迎回来，{{name}}！",
+      "subtitle": "这是您账户今日的情况。"
+    },
+    "userInfo": {
+      "title": "账户信息",
+      "description": "您的账户详情",
+      "fields": {
+        "name": "姓名：",
+        "email": "邮箱：",
+        "role": "角色：",
+        "memberSince": "注册时间："
+      }
+    },
+    "quickActions": {
+      "title": "快速操作",
+      "description": "常用任务和操作",
+      "actions": {
+        "editProfile": "编辑资料",
+        "settings": "设置",
+        "viewAnalytics": "查看分析",
+        "adminPanel": "管理面板"
+      }
+    },
+    "stats": {
+      "daysActive": {
+        "title": "活跃天数",
+        "subtitle": "自加入以来"
+      },
+      "totalLogins": {
+        "title": "总登录次数",
+        "subtitle": "本月"
+      },
+      "profileViews": {
+        "title": "资料浏览次数",
+        "subtitle": "过去30天"
+      },
+      "lastLogin": {
+        "title": "最后登录",
+        "subtitle": "您的活动"
+      }
+    },
+    "recentActivity": {
+      "title": "最近活动",
+      "description": "您最新的账户操作",
+      "noActivity": "暂无最近活动",
+      "types": {
+        "login": "登录",
+        "profileUpdate": "资料更新",
+        "passwordChange": "密码更改",
+        "settingsChange": "设置更改"
+      }
+    },
+    "systemStatus": {
+      "title": "系统状态",
+      "description": "当前系统健康状况和指标",
+      "uptime": "正常运行时间",
+      "responseTime": "响应时间",
+      "activeUsers": "活跃用户",
+      "status": {
+        "operational": "正常运行",
+        "degraded": "性能降级",
+        "outage": "服务中断"
+      }
+    },
+    "authDemo": {
+      "title": "认证演示",
+      "description": "探索认证功能",
+      "features": {
+        "secureAuth": "安全认证",
+        "sessionManagement": "会话管理",
+        "roleBasedAccess": "基于角色的访问"
+      },
+      "learnMore": "了解更多"
+    }
   }
 }

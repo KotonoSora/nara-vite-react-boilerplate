@@ -195,5 +195,82 @@
     "unexpectedError": "Une erreur inattendue s'est produite.",
     "goHome": "Aller à l'Accueil",
     "tryAgain": "Réessayer"
+  },
+  "dashboard": {
+    "welcome": {
+      "title": "Bon retour, {{name}} !",
+      "subtitle": "Voici ce qui se passe avec votre compte aujourd'hui."
+    },
+    "userInfo": {
+      "title": "Informations du Compte",
+      "description": "Vos détails de compte",
+      "fields": {
+        "name": "Nom :",
+        "email": "Email :",
+        "role": "Rôle :",
+        "memberSince": "Membre depuis :"
+      }
+    },
+    "quickActions": {
+      "title": "Actions Rapides",
+      "description": "Tâches et actions courantes",
+      "actions": {
+        "editProfile": "Modifier le Profil",
+        "settings": "Paramètres",
+        "viewAnalytics": "Voir les Analyses",
+        "adminPanel": "Panneau d'Admin"
+      }
+    },
+    "stats": {
+      "daysActive": {
+        "title": "Jours Actifs",
+        "subtitle": "Depuis l'inscription"
+      },
+      "totalLogins": {
+        "title": "Connexions Totales",
+        "subtitle": "Ce mois-ci"
+      },
+      "profileViews": {
+        "title": "Vues du Profil",
+        "subtitle": "30 derniers jours"
+      },
+      "lastLogin": {
+        "title": "Dernière Connexion",
+        "subtitle": "Votre activité"
+      }
+    },
+    "recentActivity": {
+      "title": "Activité Récente",
+      "description": "Vos dernières actions de compte",
+      "noActivity": "Aucune activité récente",
+      "types": {
+        "login": "Connexion",
+        "profileUpdate": "Mise à jour du Profil",
+        "passwordChange": "Changement de Mot de Passe",
+        "settingsChange": "Changement de Paramètres"
+      }
+    },
+    "systemStatus": {
+      "title": "État du Système",
+      "description": "Santé actuelle du système et métriques",
+      "uptime": "Temps de Fonctionnement",
+      "responseTime": "Temps de Réponse",
+      "activeUsers": "Utilisateurs Actifs",
+      "status": {
+        "operational": "Opérationnel",
+        "degraded": "Performance Dégradée",
+        "outage": "Panne de Service"
+      }
+    },
+    "authDemo": {
+      "title": "Démo d'Authentification",
+      "description": "Explorez les fonctionnalités d'authentification",
+      "features": {
+        "secureAuth": "Authentification Sécurisée",
+        "sessionManagement": "Gestion des Sessions",
+        "roleBasedAccess": "Accès Basé sur les Rôles"
+      },
+      "learnMore": "En Savoir Plus"
+    }
   }
 }
