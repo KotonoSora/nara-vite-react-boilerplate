@@ -1,4 +1,4 @@
-import type { User } from "~/features/auth/services/user.server";
+import type { User } from "~/user.server";
 
 export interface AuthContextValue {
   user: User | null;

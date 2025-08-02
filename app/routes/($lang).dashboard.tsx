@@ -3,7 +3,7 @@ import type { Route } from "./+types/($lang).dashboard";
 import { requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/auth/pages/dashboard/context/page-context";
 import { ContentDashboardPage } from "~/features/auth/pages/dashboard/page";
-import { getUserById } from "~/features/auth/services/user.server";
+import { getUserById } from "~/user.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   const userId = await requireUserId(request);

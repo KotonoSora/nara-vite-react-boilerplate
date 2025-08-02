@@ -5,7 +5,7 @@ import type { Route } from "./+types/login";
 
 import { createUserSession, getUserId } from "~/auth.server";
 import { LoginForm } from "~/features/auth/components/login-form";
-import { authenticateUser } from "~/features/auth/services/user.server";
+import { authenticateUser } from "~/user.server";
 
 const loginSchema = z.object({
   email: z.string().email(),

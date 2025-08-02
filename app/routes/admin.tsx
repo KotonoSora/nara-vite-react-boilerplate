@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { getUserById } from "~/features/auth/services/user.server";
+import { getUserById } from "~/user.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   const userId = await requireUserId(request);

@@ -20,7 +20,6 @@ import type { Route } from "./+types/root";
 
 import { getUserId } from "~/auth.server";
 import { Toaster } from "~/components/ui/sonner";
-import { getUserById } from "~/features/auth/services/user.server";
 import { getLanguageSession } from "~/language.server";
 import { AuthProvider } from "~/lib/auth";
 import {
@@ -30,9 +29,9 @@ import {
   getTranslation,
   I18nProvider,
   isRTLLanguage,
-  isSupportedLanguage,
 } from "~/lib/i18n";
 import { themeSessionResolver } from "~/sessions.server";
+import { getUserById } from "~/user.server";
 
 import "~/app.css";
 

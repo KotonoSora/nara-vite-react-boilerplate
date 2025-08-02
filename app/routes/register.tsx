@@ -5,10 +5,7 @@ import type { Route } from "./+types/register";
 
 import { createUserSession, getUserId } from "~/auth.server";
 import { RegisterForm } from "~/features/auth/components/register-form";
-import {
-  createUser,
-  getUserByEmail,
-} from "~/features/auth/services/user.server";
+import { createUser, getUserByEmail } from "~/user.server";
 
 const registerSchema = z
   .object({
