@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "title": "管理面板 - NARA",
+    "description": "管理仪表板"
+  },
+  "title": "管理面板",
+  "subtitle": "管理工具和系统管理",
+  "systemStatus": {
+    "title": "系统状态",
+    "description": "当前系统健康状况",
+    "database": "数据库",
+    "authentication": "身份验证",
+    "sessions": "会话",
+    "status": {
+      "online": "在线",
+      "active": "活跃",
+      "healthy": "健康"
+    }
+  },
+  "userManagement": {
+    "title": "用户管理",
+    "description": "管理系统用户",
+    "viewAllUsers": "查看所有用户",
+    "createNewUser": "创建新用户",
+    "manageRoles": "管理角色"
+  },
+  "security": {
+    "title": "安全",
+    "description": "安全和访问控制",
+    "sessionManagement": "会话管理",
+    "accessLogs": "访问日志",
+    "securitySettings": "安全设置"
+  },
+  "roleBasedAccess": {
+    "title": "基于角色的访问控制演示",
+    "description": "此管理面板演示基于角色的授权",
+    "requirements": {
+      "title": "访问要求：",
+      "authenticated": "必须经过身份验证（已登录）",
+      "adminRole": "必须在数据库中具有\"admin\"角色",
+      "routeLevel": "在路由加载器级别强制执行",
+      "forbidden": "对非管理员用户返回403禁止"
+    },
+    "accessGranted": {
+      "title": "✅ 访问已授予",
+      "message": "您拥有管理员权限，可以访问此受保护区域。"
+    },
+    "actions": {
+      "userDashboard": "用户仪表板",
+      "returnHome": "返回首页"
+    }
+  }
+}

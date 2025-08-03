@@ -1,8 +1,8 @@
 import type { Route } from "./+types/($lang).dashboard";
 
 import { requireUserId } from "~/auth.server";
-import { PageContext } from "~/features/auth/pages/dashboard/context/page-context";
-import { ContentDashboardPage } from "~/features/auth/pages/dashboard/page";
+import { PageContext } from "~/features/dashboard/context/page-context";
+import { ContentDashboardPage } from "~/features/dashboard/page";
 import { getLanguageSession } from "~/language.server";
 import { formatTimeAgo } from "~/lib/i18n/time-format";
 import { createTranslationFunction } from "~/lib/i18n/translations";

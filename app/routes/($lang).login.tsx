@@ -4,8 +4,8 @@ import { z } from "zod";
 import type { Route } from "./+types/($lang).login";
 
 import { createUserSession, getUserId } from "~/auth.server";
-import { PageContext } from "~/features/auth/pages/login/context/page-context";
-import { ContentLoginPage } from "~/features/auth/pages/login/page";
+import { PageContext } from "~/features/login/context/page-context";
+import { ContentLoginPage } from "~/features/login/page";
 import { authenticateUser } from "~/user.server";
 
 const loginSchema = z.object({

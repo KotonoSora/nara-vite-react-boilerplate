@@ -1,11 +1,11 @@
-import { AuthDemoCard } from "~/features/auth/pages/dashboard/components/auth-demo-card";
-import { QuickActionsCard } from "~/features/auth/pages/dashboard/components/quick-actions-card";
-import { RecentActivityCard } from "~/features/auth/pages/dashboard/components/recent-activity-card";
-import { StatsOverviewSection } from "~/features/auth/pages/dashboard/components/stats-overview-section";
-import { SystemStatusCard } from "~/features/auth/pages/dashboard/components/system-status-card";
-import { UserInfoCard } from "~/features/auth/pages/dashboard/components/user-info-card";
-import { WelcomeSection } from "~/features/auth/pages/dashboard/components/welcome-section";
-import { usePageContext } from "~/features/auth/pages/dashboard/context/page-context";
+import { AuthDemoCard } from "~/features/dashboard/components/auth-demo-card";
+import { QuickActionsCard } from "~/features/dashboard/components/quick-actions-card";
+import { RecentActivityCard } from "~/features/dashboard/components/recent-activity-card";
+import { StatsOverviewSection } from "~/features/dashboard/components/stats-overview-section";
+import { SystemStatusCard } from "~/features/dashboard/components/system-status-card";
+import { UserInfoCard } from "~/features/dashboard/components/user-info-card";
+import { WelcomeSection } from "~/features/dashboard/components/welcome-section";
+import { usePageContext } from "~/features/dashboard/context/page-context";
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
 

@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "title": "管理パネル - NARA",
+    "description": "管理ダッシュボード"
+  },
+  "title": "管理パネル",
+  "subtitle": "管理ツールとシステム管理",
+  "systemStatus": {
+    "title": "システムステータス",
+    "description": "現在のシステム状態",
+    "database": "データベース",
+    "authentication": "認証",
+    "sessions": "セッション",
+    "status": {
+      "online": "オンライン",
+      "active": "アクティブ",
+      "healthy": "正常"
+    }
+  },
+  "userManagement": {
+    "title": "ユーザー管理",
+    "description": "システムユーザーの管理",
+    "viewAllUsers": "すべてのユーザーを表示",
+    "createNewUser": "新しいユーザーを作成",
+    "manageRoles": "役割を管理"
+  },
+  "security": {
+    "title": "セキュリティ",
+    "description": "セキュリティとアクセス制御",
+    "sessionManagement": "セッション管理",
+    "accessLogs": "アクセスログ",
+    "securitySettings": "セキュリティ設定"
+  },
+  "roleBasedAccess": {
+    "title": "ロールベースアクセス制御デモ",
+    "description": "この管理パネルはロールベース認証を実演します",
+    "requirements": {
+      "title": "アクセス要件：",
+      "authenticated": "認証されている必要があります（ログイン済み）",
+      "adminRole": "データベースで\"admin\"ロールを持っている必要があります",
+      "routeLevel": "ルートローダーレベルで実行",
+      "forbidden": "非管理者ユーザーには403 Forbiddenを返す"
+    },
+    "accessGranted": {
+      "title": "✅ アクセス許可",
+      "message": "管理者権限を持っており、この保護された領域にアクセスできます。"
+    },
+    "actions": {
+      "userDashboard": "ユーザーダッシュボード",
+      "returnHome": "ホームに戻る"
+    }
+  }
+}

@@ -441,7 +441,7 @@ export const validateBody = <T extends z.ZodType>(schema: T) =>
 // Usage
 const userSchema = z.object({
   name: z.string().min(1),
-  email: z.string().email(),
+  email: z.email(),
 })
 
 app.post('/users', validateBody(userSchema), (c) => {
@@ -884,8 +884,7 @@ app.get('/dashboard', async (c) => {
 ```typescript
 // Enhanced validation with custom error messages
 const userRegistrationSchema = z.object({
-  email: z.string()
-    .email('Please provide a valid email address')
+  email: z.email('Please provide a valid email address')
     .max(255, 'Email address is too long'),
   password: z.string()
     .min(8, 'Password must be at least 8 characters')
@@ -1628,8 +1627,7 @@ const formatError = (error: string, code?: string, details?: any): ErrorResponse
 // Reusable validation schemas with detailed error messages
 const commonSchemas = {
   id: z.coerce.number().int().positive('ID must be a positive integer'),
-  email: z.string()
-    .email('Please provide a valid email address')
+  email: z.email('Please provide a valid email address')
     .max(255, 'Email address is too long'),
   password: z.string()
     .min(8, 'Password must be at least 8 characters')
@@ -1937,7 +1935,7 @@ const app = new OpenAPIHono<{ Bindings: Env }>()
 const UserSchema = z.object({
   id: z.number().openapi({ example: 1 }),
   name: z.string().openapi({ example: 'John Doe' }),
-  email: z.string().email().openapi({ example: 'john@example.com' }),
+  email: z.email().openapi({ example: 'john@example.com' }),
   createdAt: z.string().datetime().openapi({ example: '2023-01-01T00:00:00Z' }),
 })
 
@@ -1946,7 +1944,7 @@ const CreateUserSchema = z.object({
     example: 'John Doe',
     description: 'Full name of the user'
   }),
-  email: z.string().email().openapi({ 
+  email: z.email().openapi({ 
     example: 'john@example.com',
     description: 'User email address'
   }),

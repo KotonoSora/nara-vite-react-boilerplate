@@ -444,7 +444,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 const userSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   name: z.string().min(1),
 })
 
@@ -614,8 +614,7 @@ export class ValidationPipeline {
 
 // Schema validation with detailed security rules
 const secureUserSchema = z.object({
-  email: z.string()
-    .email('Invalid email format')
+  email: z.email('Invalid email format')
     .max(254, 'Email too long') // RFC 5321 limit
     .refine(email => !email.includes('+'), 'Plus addressing not allowed')
     .transform(email => email.toLowerCase().trim()),

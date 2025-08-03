@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router";
 import { z } from "zod";
 
+import type { TranslationKey } from "~/lib/i18n/types";
+
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -22,20 +24,28 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { useI18n } from "~/lib/i18n";
 
-const registerSchema = z
-  .object({
-    name: z.string().min(2, "Name must be at least 2 characters"),
-    email: z.string().email("Please enter a valid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-    confirmPassword: z.string().min(6, "Please confirm your password"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  });
+const createRegisterSchema = (
+  t: (key: TranslationKey, params?: Record<string, string | number>) => string,
+) =>
+  z
+    .object({
+      name: z.string().min(2, t("auth.register.validation.nameMinLength")),
+      email: z.email(t("auth.register.validation.emailRequired")),
+      password: z
+        .string()
+        .min(6, t("auth.register.validation.passwordMinLength")),
+      confirmPassword: z
+        .string()
+        .min(6, t("auth.register.validation.confirmPasswordRequired")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t("auth.register.validation.passwordsDoNotMatch"),
+      path: ["confirmPassword"],
+    });
 
-type RegisterFormData = z.infer<typeof registerSchema>;
+type RegisterFormData = z.infer<ReturnType<typeof createRegisterSchema>>;
 
 interface RegisterFormProps {
   error?: string;
@@ -46,9 +56,11 @@ export function RegisterForm({
   error,
   isSubmitting = false,
 }: RegisterFormProps) {
+  const { t } = useI18n();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const registerSchema = createRegisterSchema(t);
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -62,10 +74,10 @@ export function RegisterForm({
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Create account</CardTitle>
-        <CardDescription>
-          Enter your details to create a new account
-        </CardDescription>
+        <CardTitle className="text-2xl font-bold">
+          {t("auth.register.title")}
+        </CardTitle>
+        <CardDescription>{t("auth.register.description")}</CardDescription>
       </CardHeader>
       <CardContent>
         <FormProvider {...form}>
@@ -81,11 +93,11 @@ export function RegisterForm({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel>{t("auth.register.form.name.label")}</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
-                      placeholder="Enter your full name"
+                      placeholder={t("auth.register.form.name.placeholder")}
                       autoComplete="name"
                       {...field}
                     />
@@ -100,11 +112,11 @@ export function RegisterForm({
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("auth.register.form.email.label")}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="Enter your email"
+                      placeholder={t("auth.register.form.email.placeholder")}
                       autoComplete="email"
                       {...field}
                     />
@@ -119,12 +131,16 @@ export function RegisterForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>
+                    {t("auth.register.form.password.label")}
+                  </FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         type={showPassword ? "text" : "password"}
-                        placeholder="Create a password"
+                        placeholder={t(
+                          "auth.register.form.password.placeholder",
+                        )}
                         autoComplete="new-password"
                         {...field}
                       />
@@ -153,12 +169,16 @@ export function RegisterForm({
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
+                  <FormLabel>
+                    {t("auth.register.form.confirmPassword.label")}
+                  </FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         type={showConfirmPassword ? "text" : "password"}
-                        placeholder="Confirm your password"
+                        placeholder={t(
+                          "auth.register.form.confirmPassword.placeholder",
+                        )}
                         autoComplete="new-password"
                         {...field}
                       />
@@ -185,18 +205,20 @@ export function RegisterForm({
             />
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Creating account..." : "Create account"}
+              {isSubmitting
+                ? t("auth.register.form.submitting")
+                : t("auth.register.form.submit")}
             </Button>
 
             <div className="text-center text-sm">
               <span className="text-muted-foreground">
-                Already have an account?{" "}
+                {t("auth.register.hasAccount")}{" "}
               </span>
               <Link
                 to="/login"
                 className="font-medium text-primary hover:underline"
               >
-                Sign in
+                {t("auth.register.signInLink")}
               </Link>
             </div>
           </Form>

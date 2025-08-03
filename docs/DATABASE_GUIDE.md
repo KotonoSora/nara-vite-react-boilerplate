@@ -731,7 +731,7 @@ import { userRepository } from '~/repositories/user-repository'
 import { z } from 'zod'
 
 const createUserSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   name: z.string().min(1).max(100),
 })
 

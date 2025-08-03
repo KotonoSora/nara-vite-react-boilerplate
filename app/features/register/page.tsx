@@ -1,13 +1,13 @@
-import { LoginForm } from "~/features/auth/pages/login/components/login-form";
+import { RegisterForm } from "~/features/register/components/register-form";
 
 import { usePageContext } from "./context/page-context";
 
-export function ContentLoginPage() {
+export function ContentRegisterPage() {
   const { error } = usePageContext();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <LoginForm error={error} isSubmitting={false} />
+      <RegisterForm error={error} isSubmitting={false} />
     </div>
   );
 }
