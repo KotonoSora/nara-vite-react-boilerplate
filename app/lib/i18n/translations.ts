@@ -3,6 +3,7 @@ import type { NestedTranslationObject, TranslationKey } from "./types";
 
 // Import translation files
 // Import namespace files for Arabic
+import arAdmin from "~/locales/ar/admin.json";
 import arAuth from "~/locales/ar/auth.json";
 import arCommon from "~/locales/ar/common.json";
 import arDashboard from "~/locales/ar/dashboard.json";
@@ -13,6 +14,7 @@ import arShowcase from "~/locales/ar/showcase.json";
 import arTheme from "~/locales/ar/theme.json";
 import arTime from "~/locales/ar/time.json";
 // Import namespace files for English
+import enAdmin from "~/locales/en/admin.json";
 import enAuth from "~/locales/en/auth.json";
 import enCommon from "~/locales/en/common.json";
 import enDashboard from "~/locales/en/dashboard.json";
@@ -23,6 +25,7 @@ import enShowcase from "~/locales/en/showcase.json";
 import enTheme from "~/locales/en/theme.json";
 import enTime from "~/locales/en/time.json";
 // Import namespace files for Spanish
+import esAdmin from "~/locales/es/admin.json";
 import esAuth from "~/locales/es/auth.json";
 import esCommon from "~/locales/es/common.json";
 import esDashboard from "~/locales/es/dashboard.json";
@@ -33,6 +36,7 @@ import esShowcase from "~/locales/es/showcase.json";
 import esTheme from "~/locales/es/theme.json";
 import esTime from "~/locales/es/time.json";
 // Import namespace files for French
+import frAdmin from "~/locales/fr/admin.json";
 import frAuth from "~/locales/fr/auth.json";
 import frCommon from "~/locales/fr/common.json";
 import frDashboard from "~/locales/fr/dashboard.json";
@@ -43,6 +47,7 @@ import frShowcase from "~/locales/fr/showcase.json";
 import frTheme from "~/locales/fr/theme.json";
 import frTime from "~/locales/fr/time.json";
 // Import namespace files for Hindi
+import hiAdmin from "~/locales/hi/admin.json";
 import hiAuth from "~/locales/hi/auth.json";
 import hiCommon from "~/locales/hi/common.json";
 import hiDashboard from "~/locales/hi/dashboard.json";
@@ -53,6 +58,7 @@ import hiShowcase from "~/locales/hi/showcase.json";
 import hiTheme from "~/locales/hi/theme.json";
 import hiTime from "~/locales/hi/time.json";
 // Import namespace files for Japanese
+import jaAdmin from "~/locales/ja/admin.json";
 import jaAuth from "~/locales/ja/auth.json";
 import jaCommon from "~/locales/ja/common.json";
 import jaDashboard from "~/locales/ja/dashboard.json";
@@ -63,6 +69,7 @@ import jaShowcase from "~/locales/ja/showcase.json";
 import jaTheme from "~/locales/ja/theme.json";
 import jaTime from "~/locales/ja/time.json";
 // Import namespace files for Thai
+import thAdmin from "~/locales/th/admin.json";
 import thAuth from "~/locales/th/auth.json";
 import thCommon from "~/locales/th/common.json";
 import thDashboard from "~/locales/th/dashboard.json";
@@ -73,6 +80,7 @@ import thShowcase from "~/locales/th/showcase.json";
 import thTheme from "~/locales/th/theme.json";
 import thTime from "~/locales/th/time.json";
 // Import namespace files for Vietnamese
+import viAdmin from "~/locales/vi/admin.json";
 import viAuth from "~/locales/vi/auth.json";
 import viCommon from "~/locales/vi/common.json";
 import viDashboard from "~/locales/vi/dashboard.json";
@@ -83,6 +91,7 @@ import viShowcase from "~/locales/vi/showcase.json";
 import viTheme from "~/locales/vi/theme.json";
 import viTime from "~/locales/vi/time.json";
 // Import namespace files for Chinese
+import zhAdmin from "~/locales/zh/admin.json";
 import zhAuth from "~/locales/zh/auth.json";
 import zhCommon from "~/locales/zh/common.json";
 import zhDashboard from "~/locales/zh/dashboard.json";
@@ -100,6 +109,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     ...enCommon,
     navigation: enNavigation,
     auth: enAuth,
+    admin: enAdmin,
     dashboard: enDashboard,
     errors: enErrors,
     showcase: enShowcase,
@@ -111,6 +121,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     ...esCommon,
     navigation: esNavigation,
     auth: esAuth,
+    admin: esAdmin,
     dashboard: esDashboard,
     errors: esErrors,
     showcase: esShowcase,
@@ -122,6 +133,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     ...frCommon,
     navigation: frNavigation,
     auth: frAuth,
+    admin: frAdmin,
     dashboard: frDashboard,
     errors: frErrors,
     showcase: frShowcase,
@@ -133,6 +145,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     ...zhCommon,
     navigation: zhNavigation,
     auth: zhAuth,
+    admin: zhAdmin,
     dashboard: zhDashboard,
     errors: zhErrors,
     showcase: zhShowcase,
@@ -144,6 +157,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     ...hiCommon,
     navigation: hiNavigation,
     auth: hiAuth,
+    admin: hiAdmin,
     dashboard: hiDashboard,
     errors: hiErrors,
     showcase: hiShowcase,
@@ -155,6 +169,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     ...arCommon,
     navigation: arNavigation,
     auth: arAuth,
+    admin: arAdmin,
     dashboard: arDashboard,
     errors: arErrors,
     showcase: arShowcase,
@@ -166,6 +181,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     ...viCommon,
     navigation: viNavigation,
     auth: viAuth,
+    admin: viAdmin,
     dashboard: viDashboard,
     errors: viErrors,
     showcase: viShowcase,
@@ -177,6 +193,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     ...jaCommon,
     navigation: jaNavigation,
     auth: jaAuth,
+    admin: jaAdmin,
     dashboard: jaDashboard,
     errors: jaErrors,
     showcase: jaShowcase,
@@ -188,6 +205,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     ...thCommon,
     navigation: thNavigation,
     auth: thAuth,
+    admin: thAdmin,
     dashboard: thDashboard,
     errors: thErrors,
     showcase: thShowcase,

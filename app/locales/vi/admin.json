@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "title": "Bảng Điều Khiển Quản Trị - NARA",
+    "description": "Bảng điều khiển quản trị"
+  },
+  "title": "Bảng Điều Khiển Quản Trị",
+  "subtitle": "Công cụ quản trị và quản lý hệ thống",
+  "systemStatus": {
+    "title": "Trạng Thái Hệ Thống",
+    "description": "Tình trạng sức khỏe hệ thống hiện tại",
+    "database": "Cơ Sở Dữ Liệu",
+    "authentication": "Xác Thực",
+    "sessions": "Phiên",
+    "status": {
+      "online": "Trực Tuyến",
+      "active": "Hoạt Động",
+      "healthy": "Khỏe Mạnh"
+    }
+  },
+  "userManagement": {
+    "title": "Quản Lý Người Dùng",
+    "description": "Quản lý người dùng hệ thống",
+    "viewAllUsers": "Xem Tất Cả Người Dùng",
+    "createNewUser": "Tạo Người Dùng Mới",
+    "manageRoles": "Quản Lý Vai Trò"
+  },
+  "security": {
+    "title": "Bảo Mật",
+    "description": "Kiểm soát bảo mật và truy cập",
+    "sessionManagement": "Quản Lý Phiên",
+    "accessLogs": "Nhật Ký Truy Cập",
+    "securitySettings": "Cài Đặt Bảo Mật"
+  },
+  "roleBasedAccess": {
+    "title": "Demo Kiểm Soát Truy Cập Dựa Trên Vai Trò",
+    "description": "Bảng điều khiển quản trị này minh họa ủy quyền dựa trên vai trò",
+    "requirements": {
+      "title": "Yêu Cầu Truy Cập:",
+      "authenticated": "Phải được xác thực (đã đăng nhập)",
+      "adminRole": "Phải có vai trò \"admin\" trong cơ sở dữ liệu",
+      "routeLevel": "Được thực thi ở cấp độ route loader",
+      "forbidden": "Trả về 403 Forbidden cho người dùng không phải admin"
+    },
+    "accessGranted": {
+      "title": "✅ Truy Cập Được Cấp",
+      "message": "Bạn có quyền quản trị và có thể truy cập khu vực được bảo vệ này."
+    },
+    "actions": {
+      "userDashboard": "Bảng Điều Khiển Người Dùng",
+      "returnHome": "Trở Về Trang Chủ"
+    }
+  }
+}

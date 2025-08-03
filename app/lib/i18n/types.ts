@@ -1,4 +1,5 @@
 // Import all translation files to generate types
+import enAdmin from "~/locales/en/admin.json";
 import enAuth from "~/locales/en/auth.json";
 import enCommon from "~/locales/en/common.json";
 import enDashboard from "~/locales/en/dashboard.json";
@@ -13,6 +14,7 @@ import enTime from "~/locales/en/time.json";
 type NamespaceTranslations = typeof enCommon & {
   navigation: typeof enNavigation;
   auth: typeof enAuth;
+  admin: typeof enAdmin;
   dashboard: typeof enDashboard;
   errors: typeof enErrors;
   showcase: typeof enShowcase;

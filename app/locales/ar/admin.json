@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "title": "لوحة الإدارة - NARA",
+    "description": "لوحة تحكم إدارية"
+  },
+  "title": "لوحة الإدارة",
+  "subtitle": "أدوات إدارية وإدارة النظام",
+  "systemStatus": {
+    "title": "حالة النظام",
+    "description": "حالة النظام الحالية",
+    "database": "قاعدة البيانات",
+    "authentication": "المصادقة",
+    "sessions": "الجلسات",
+    "status": {
+      "online": "متصل",
+      "active": "نشط",
+      "healthy": "صحي"
+    }
+  },
+  "userManagement": {
+    "title": "إدارة المستخدمين",
+    "description": "إدارة مستخدمي النظام",
+    "viewAllUsers": "عرض جميع المستخدمين",
+    "createNewUser": "إنشاء مستخدم جديد",
+    "manageRoles": "إدارة الأدوار"
+  },
+  "security": {
+    "title": "الأمان",
+    "description": "ضوابط الأمان والوصول",
+    "sessionManagement": "إدارة الجلسات",
+    "accessLogs": "سجلات الوصول",
+    "securitySettings": "إعدادات الأمان"
+  },
+  "roleBasedAccess": {
+    "title": "عرض توضيحي لتحكم الوصول القائم على الأدوار",
+    "description": "تُظهر لوحة الإدارة هذه التخويل القائم على الأدوار",
+    "requirements": {
+      "title": "متطلبات الوصول:",
+      "authenticated": "يجب أن يكون مصادق عليه (مسجل الدخول)",
+      "adminRole": "يجب أن يكون له دور \"admin\" في قاعدة البيانات",
+      "routeLevel": "مطبق على مستوى محمل المسار",
+      "forbidden": "إرجاع 403 محظور للمستخدمين غير الإداريين"
+    },
+    "accessGranted": {
+      "title": "✅ تم منح الوصول",
+      "message": "لديك امتيازات إدارية ويمكنك الوصول إلى هذه المنطقة المحمية."
+    },
+    "actions": {
+      "userDashboard": "لوحة تحكم المستخدم",
+      "returnHome": "العودة إلى الصفحة الرئيسية"
+    }
+  }
+}
