@@ -2,5 +2,9 @@
   "pageNotFound": "La página solicitada no se pudo encontrar.",
   "unexpectedError": "Ocurrió un error inesperado.",
   "goHome": "Ir al Inicio",
-  "tryAgain": "Intentar de Nuevo"
+  "tryAgain": "Intentar de Nuevo",
+  "common": {
+    "checkInput": "Por favor verifica tu entrada",
+    "somethingWentWrong": "Algo salió mal. Por favor intenta de nuevo."
+  }
 }

@@ -1,6 +1,10 @@
 {
   "pageNotFound": "La page demandée n'a pas pu être trouvée.",
   "unexpectedError": "Une erreur inattendue s'est produite.",
-  "goHome": "Aller à l'Accueil",
-  "tryAgain": "Réessayer"
+  "goHome": "Retour à l'accueil",
+  "tryAgain": "Réessayer",
+  "common": {
+    "checkInput": "Veuillez vérifier votre saisie",
+    "somethingWentWrong": "Quelque chose s'est mal passé. Veuillez réessayer."
+  }
 }

@@ -2,5 +2,9 @@
   "pageNotFound": "Không thể tìm thấy trang được yêu cầu.",
   "unexpectedError": "Đã xảy ra lỗi không mong muốn.",
   "goHome": "Về trang chủ",
-  "tryAgain": "Thử lại"
+  "tryAgain": "Thử lại",
+  "common": {
+    "checkInput": "Vui lòng kiểm tra dữ liệu nhập",
+    "somethingWentWrong": "Đã xảy ra lỗi. Vui lòng thử lại."
+  }
 }

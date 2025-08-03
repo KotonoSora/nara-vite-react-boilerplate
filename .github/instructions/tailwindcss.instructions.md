@@ -270,7 +270,7 @@ import { Input } from "~/components/ui/input";
 import { toast } from "sonner";
 
 const schema = z.object({
-  email: z.string().email(),
+  email: z.email(),
 });
 
 type FormData = z.infer<typeof schema>;
