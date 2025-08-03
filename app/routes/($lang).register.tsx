@@ -1,13 +1,19 @@
 import { data, redirect } from "react-router";
 import { z } from "zod";
 
+import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).register";
 
 import { createUserSession, getUserId } from "~/auth.server";
 import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
 import { getLanguageSession } from "~/language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import {
+  createTranslationFunction,
+  DEFAULT_LANGUAGE,
+  detectLanguageFromAcceptLanguage,
+  getLanguageFromPath,
+} from "~/lib/i18n";
 import { createUser, getUserByEmail } from "~/user.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -17,9 +23,19 @@ export async function loader({ request }: Route.LoaderArgs) {
     throw redirect("/dashboard");
   }
 
-  // Get language from session
+  const url = new URL(request.url);
+
+  // Detect language from URL, cookie, or browser preference
+  const pathLanguage = getLanguageFromPath(url.pathname);
   const languageSession = await getLanguageSession(request);
-  const language = languageSession.getLanguage();
+  const cookieLanguage = languageSession.getLanguage();
+  const acceptLanguage = detectLanguageFromAcceptLanguage(
+    request.headers.get("Accept-Language") || "",
+  );
+
+  // Priority: URL > Cookie > Accept-Language > Default
+  const language: SupportedLanguage =
+    pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
   const t = createTranslationFunction(language);
 
   return {
