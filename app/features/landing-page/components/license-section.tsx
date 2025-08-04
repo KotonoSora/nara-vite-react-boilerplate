@@ -27,7 +27,7 @@ export const LicenseSection = memo(function LicenseSection() {
           {t("landing.license.title")}
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6 mt-8">
+        <div className="grid sm:grid-cols-2 gap-6 mt-8">
           {/* Open Source Card */}
           <Card className="text-left border-2 border-primary/20 hover:border-primary/40 transition-all duration-300">
             <CardContent className="p-6 space-y-4">

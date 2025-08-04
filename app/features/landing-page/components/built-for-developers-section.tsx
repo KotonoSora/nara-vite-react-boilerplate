@@ -33,7 +33,7 @@ export const BuiltForDevelopersSection = memo(
               {/* Animated background gradient */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-purple-500/5 to-primary/5 motion-safe:animate-pulse" />
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center relative">
                 <div className="space-y-3 group">
                   <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center mb-3 motion-safe:group-hover:scale-110 transition-transform duration-300">
                     <Clock className="w-8 h-8 text-primary" />
