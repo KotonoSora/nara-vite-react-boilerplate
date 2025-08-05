@@ -6,7 +6,6 @@ import type { Route } from "./+types/($lang).register";
 import { createUserSession, getUserId } from "~/auth.server";
 import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
-import { getLanguageSession } from "~/language.server";
 import { detectLanguageAndLoadTranslations } from "~/lib/i18n/loader-utils";
 import { createUser, getUserByEmail } from "~/user.server";
 
