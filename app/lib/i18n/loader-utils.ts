@@ -1,4 +1,5 @@
 import type { SupportedLanguage } from "./config";
+import type { TranslationFunction } from "./types";
 
 import { getLanguageSession } from "~/language.server";
 import {
@@ -14,7 +15,7 @@ import {
 
 export interface LanguageDetectionResult {
   language: SupportedLanguage;
-  t: (key: string, params?: Record<string, string | number>) => string;
+  t: TranslationFunction;
 }
 
 /**
@@ -88,7 +89,7 @@ export async function detectLanguageOnly(request: Request): Promise<SupportedLan
  */
 export async function createMetaWithTranslations(
   request: Request,
-  metaGenerator: (t: (key: string, params?: Record<string, string | number>) => string) => Array<{ title?: string; name?: string; content?: string }>,
+  metaGenerator: (t: TranslationFunction) => Array<{ title?: string; name?: string; content?: string }>,
 ): Promise<Array<{ title?: string; name?: string; content?: string }>> {
   try {
     const { t } = await detectLanguageAndLoadTranslations(request);

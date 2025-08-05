@@ -6,16 +6,6 @@ import type { Route } from "./+types/($lang).login";
 import { createUserSession, getUserId } from "~/auth.server";
 import { PageContext } from "~/features/login/context/page-context";
 import { ContentLoginPage } from "~/features/login/page";
-import { authenticateUser } from "~/user.server";
-
-import { data, redirect } from "react-router";
-import { z } from "zod";
-
-import type { Route } from "./+types/($lang).login";
-
-import { createUserSession, getUserId } from "~/auth.server";
-import { PageContext } from "~/features/login/context/page-context";
-import { ContentLoginPage } from "~/features/login/page";
 import { detectLanguageAndLoadTranslations } from "~/lib/i18n/loader-utils";
 import { authenticateUser } from "~/user.server";
 
