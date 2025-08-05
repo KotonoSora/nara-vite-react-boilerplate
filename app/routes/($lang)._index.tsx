@@ -1,17 +1,10 @@
-import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { Route } from "./+types/($lang)._index";
 
 import { PageContext } from "~/features/landing-page/context/page-context";
 import { ContentPage } from "~/features/landing-page/page";
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
-import { getLanguageSession } from "~/language.server";
-import {
-  DEFAULT_LANGUAGE,
-  detectLanguageFromAcceptLanguage,
-  getLanguageFromPath,
-} from "~/lib/i18n/config";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import { detectLanguageAndLoadTranslations } from "~/lib/i18n/loader-utils";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
   try {
@@ -19,21 +12,9 @@ export async function loader({ context, request }: Route.LoaderArgs) {
       cloudflare: { env },
       db,
     } = context;
-    const url = new URL(request.url);
 
-    // Detect language from URL, cookie, or browser preference
-    const pathLanguage = getLanguageFromPath(url.pathname);
-    const languageSession = await getLanguageSession(request);
-    const cookieLanguage = languageSession.getLanguage();
-    const acceptLanguage = detectLanguageFromAcceptLanguage(
-      request.headers.get("Accept-Language") || "",
-    );
-
-    // Priority: URL > Cookie > Accept-Language > Default
-    const language: SupportedLanguage =
-      pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
-
-    const t = createTranslationFunction(language);
+    // Enhanced language detection and translation loading
+    const { language, t } = await detectLanguageAndLoadTranslations(request);
 
     const { title, description, githubRepository, commercialLink } =
       await getPageInformation({ ...env } as any);

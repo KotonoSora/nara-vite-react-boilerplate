@@ -4,8 +4,7 @@ import { getPageInformation } from "~/features/landing-page/utils/get-page-infor
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { PageContext } from "~/features/showcases/context/page-context";
 import { ContentShowcasePage } from "~/features/showcases/page";
-import { getLanguageSession } from "~/language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import { detectLanguageAndLoadTranslations } from "~/lib/i18n/loader-utils";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
   try {
@@ -14,10 +13,8 @@ export async function loader({ context, request }: Route.LoaderArgs) {
       db,
     } = context;
 
-    // Get language from session
-    const languageSession = await getLanguageSession(request);
-    const language = languageSession.getLanguage();
-    const t = createTranslationFunction(language);
+    // Enhanced language detection and translation loading
+    const { language, t } = await detectLanguageAndLoadTranslations(request);
 
     const { title, description, githubRepository } = await getPageInformation({
       ...env,

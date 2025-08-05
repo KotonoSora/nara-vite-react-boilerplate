@@ -3,19 +3,16 @@ import type { Route } from "./+types/($lang).dashboard";
 import { requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/dashboard/context/page-context";
 import { ContentDashboardPage } from "~/features/dashboard/page";
-import { getLanguageSession } from "~/language.server";
 import { formatTimeAgo } from "~/lib/i18n/time-format";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import { detectLanguageAndLoadTranslations } from "~/lib/i18n/loader-utils";
 import { getUserById } from "~/user.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   const userId = await requireUserId(request);
   const { db } = context;
 
-  // Get language from session
-  const languageSession = await getLanguageSession(request);
-  const language = languageSession.getLanguage();
-  const t = createTranslationFunction(language);
+  // Enhanced language detection and translation loading
+  const { language, t } = await detectLanguageAndLoadTranslations(request);
 
   const user = await getUserById(db, userId);
 

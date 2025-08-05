@@ -1,19 +1,13 @@
 import { data, redirect } from "react-router";
 import { z } from "zod";
 
-import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { Route } from "./+types/($lang).register";
 
 import { createUserSession, getUserId } from "~/auth.server";
 import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
 import { getLanguageSession } from "~/language.server";
-import {
-  DEFAULT_LANGUAGE,
-  detectLanguageFromAcceptLanguage,
-  getLanguageFromPath,
-} from "~/lib/i18n/config";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import { detectLanguageAndLoadTranslations } from "~/lib/i18n/loader-utils";
 import { createUser, getUserByEmail } from "~/user.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -23,20 +17,8 @@ export async function loader({ request }: Route.LoaderArgs) {
     throw redirect("/dashboard");
   }
 
-  const url = new URL(request.url);
-
-  // Detect language from URL, cookie, or browser preference
-  const pathLanguage = getLanguageFromPath(url.pathname);
-  const languageSession = await getLanguageSession(request);
-  const cookieLanguage = languageSession.getLanguage();
-  const acceptLanguage = detectLanguageFromAcceptLanguage(
-    request.headers.get("Accept-Language") || "",
-  );
-
-  // Priority: URL > Cookie > Accept-Language > Default
-  const language: SupportedLanguage =
-    pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
-  const t = createTranslationFunction(language);
+  // Enhanced language detection and translation loading
+  const { language, t } = await detectLanguageAndLoadTranslations(request);
 
   return {
     registerTitle: t("auth.register.title"),
@@ -47,10 +29,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 export async function action({ request, context }: Route.ActionArgs) {
   const formData = await request.formData();
 
-  // Get language from session for error messages
-  const languageSession = await getLanguageSession(request);
-  const language = languageSession.getLanguage();
-  const t = createTranslationFunction(language);
+  // Enhanced language detection for error messages
+  const { t } = await detectLanguageAndLoadTranslations(request);
 
   const registerSchema = z
     .object({

@@ -3,15 +3,10 @@ import type { Route } from "./+types/($lang).admin";
 import { requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/admin/context/page-context";
 import { ContentAdminPage } from "~/features/admin/page";
-import { getLanguageSession } from "~/language.server";
-import {
-  DEFAULT_LANGUAGE,
-  getLanguageFromPath,
-} from "~/lib/i18n/config";
-import { getTranslation } from "~/lib/i18n/translations";
+import { detectLanguageAndLoadTranslations } from "~/lib/i18n/loader-utils";
 import { getUserById } from "~/user.server";
 
-export async function loader({ request, context, params }: Route.LoaderArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   const userId = await requireUserId(request);
   const { db } = context;
 
@@ -26,16 +21,10 @@ export async function loader({ request, context, params }: Route.LoaderArgs) {
     throw new Response("Access denied. Admin role required.", { status: 403 });
   }
 
-  // Handle language detection
-  const url = new URL(request.url);
-  const pathLanguage = getLanguageFromPath(url.pathname);
-  const languageSession = await getLanguageSession(request);
-  const cookieLanguage = languageSession.getLanguage();
+  // Enhanced language detection and translation loading
+  const { language, t } = await detectLanguageAndLoadTranslations(request);
 
-  // Priority: URL param > Cookie > Default
-  const language = pathLanguage || cookieLanguage || DEFAULT_LANGUAGE;
-
-  return { user, language };
+  return { user, language, t };
 }
 
 export function meta({ data }: Route.MetaArgs): ReturnType<Route.MetaFunction> {
@@ -46,7 +35,7 @@ export function meta({ data }: Route.MetaArgs): ReturnType<Route.MetaFunction> {
     ];
   }
 
-  const t = (key: string) => getTranslation(data.language, key as any);
+  const { t } = data as any;
 
   return [
     { title: t("admin.meta.title") },
