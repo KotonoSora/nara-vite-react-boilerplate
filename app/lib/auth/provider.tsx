@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import type { AuthProviderProps } from "./types";
+import type { AuthProviderProps } from "~/types/auth";
 
 import { AuthContext } from "./context";
 

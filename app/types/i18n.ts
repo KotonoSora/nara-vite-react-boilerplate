@@ -1,3 +1,8 @@
+/**
+ * Internationalization-related type definitions
+ * Centralized location for all i18n types used across the application
+ */
+
 // Import all translation files to generate types
 import enAdmin from "~/locales/en/admin.json";
 import enAuth from "~/locales/en/auth.json";
@@ -9,6 +14,9 @@ import enNavigation from "~/locales/en/navigation.json";
 import enShowcase from "~/locales/en/showcase.json";
 import enTheme from "~/locales/en/theme.json";
 import enTime from "~/locales/en/time.json";
+
+// Supported languages
+export type SupportedLanguage = "en" | "ar" | "es" | "fr" | "hi" | "ja" | "th" | "vi" | "zh";
 
 // Create the complete namespace translation structure
 type NamespaceTranslations = typeof enCommon & {
@@ -43,3 +51,32 @@ export type TranslationFunction = (
 
 // Helper type to extract nested object values
 export type NestedTranslationObject = NamespaceTranslations;
+
+// i18n context value
+export interface I18nContextValue {
+  language: SupportedLanguage;
+  t: TranslationFunction;
+  isLoading: boolean;
+}
+
+// i18n provider props
+export interface I18nProviderProps {
+  children: React.ReactNode;
+  language: SupportedLanguage;
+  translations: NestedTranslationObject;
+}
+
+// Language detection result
+export interface LanguageDetectionResult {
+  language: SupportedLanguage;
+  translations: NestedTranslationObject;
+  t: TranslationFunction;
+}
+
+// Translation loading state
+export interface TranslationLoadingState {
+  isLoading: boolean;
+  language: SupportedLanguage;
+  translations: NestedTranslationObject | null;
+  error: string | null;
+}

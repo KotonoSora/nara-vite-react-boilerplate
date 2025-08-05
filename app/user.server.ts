@@ -1,22 +1,13 @@
 import { eq } from "drizzle-orm";
 
-import type { DrizzleD1Database } from "drizzle-orm/d1";
-
 import * as schema from "~/database/schema";
 import { hashPassword, verifyPassword } from "~/lib/auth/config";
+import type { Database, User, CreateUserData } from "~/types";
 
 const { user } = schema;
 
-export type User = typeof user.$inferSelect;
-export type CreateUserData = {
-  email: string;
-  password: string;
-  name: string;
-  role?: "admin" | "user";
-};
-
 export async function createUser(
-  db: DrizzleD1Database<typeof schema>,
+  db: Database,
   userData: CreateUserData,
 ): Promise<User> {
   const passwordHash = await hashPassword(userData.password);
@@ -35,7 +26,7 @@ export async function createUser(
 }
 
 export async function getUserByEmail(
-  db: DrizzleD1Database<typeof schema>,
+  db: Database,
   email: string,
 ): Promise<User | null> {
   const [foundUser] = await db
@@ -48,7 +39,7 @@ export async function getUserByEmail(
 }
 
 export async function getUserById(
-  db: DrizzleD1Database<typeof schema>,
+  db: Database,
   id: number,
 ): Promise<User | null> {
   const [foundUser] = await db
@@ -61,7 +52,7 @@ export async function getUserById(
 }
 
 export async function authenticateUser(
-  db: DrizzleD1Database<typeof schema>,
+  db: Database,
   email: string,
   password: string,
 ): Promise<User | null> {

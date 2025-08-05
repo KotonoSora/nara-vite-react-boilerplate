@@ -1,5 +1,4 @@
-import type { SupportedLanguage } from "./config";
-import type { TranslationFunction } from "./types";
+import type { SupportedLanguage, TranslationFunction, LanguageDetectionResult } from "~/types/i18n";
 
 import { getLanguageSession } from "~/language.server";
 import {
@@ -13,10 +12,7 @@ import {
   areTranslationsLoaded,
 } from "./translations";
 
-export interface LanguageDetectionResult {
-  language: SupportedLanguage;
-  t: TranslationFunction;
-}
+
 
 /**
  * Enhanced language detection and translation loading for route loaders

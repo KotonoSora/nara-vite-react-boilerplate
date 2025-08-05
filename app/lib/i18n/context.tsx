@@ -1,14 +1,6 @@
 import { createContext, useContext } from "react";
 
-import type { SupportedLanguage } from "./config";
-import type { TranslationFunction } from "./types";
-
-export interface I18nContextValue {
-  language: SupportedLanguage;
-  t: TranslationFunction;
-  setLanguage: (language: SupportedLanguage) => Promise<void>;
-  isLoading: boolean;
-}
+import type { I18nContextValue } from "~/types/i18n";
 
 export const I18nContext = createContext<I18nContextValue | null>(null);
 

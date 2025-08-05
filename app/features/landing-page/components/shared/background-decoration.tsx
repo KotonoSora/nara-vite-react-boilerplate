@@ -1,24 +1,7 @@
 import { memo } from "react";
 
 import { cn } from "~/lib/utils";
-
-interface FloatingElement {
-  id: string;
-  size: "sm" | "md" | "lg";
-  color: "primary" | "green" | "yellow" | "purple";
-  position: {
-    top?: string;
-    bottom?: string;
-    left?: string;
-    right?: string;
-  };
-  delay: number;
-}
-
-interface BackgroundDecorationProps {
-  elements: FloatingElement[];
-  className?: string;
-}
+import type { FloatingElement, BackgroundDecorationProps } from "~/types/features";
 
 const sizeClasses = {
   sm: "w-3 h-3",

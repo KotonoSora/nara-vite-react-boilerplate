@@ -1,15 +1,10 @@
 import { useCallback, useState, useEffect } from "react";
 import { useFetcher } from "react-router";
 
-import type { SupportedLanguage } from "./config";
+import type { I18nProviderProps } from "~/types/i18n";
 
 import { I18nContext } from "./context";
 import { createTranslationFunction, preloadTranslations, areTranslationsLoaded } from "./translations";
-
-interface I18nProviderProps {
-  children: React.ReactNode;
-  initialLanguage: SupportedLanguage;
-}
 
 export function I18nProvider({ children, initialLanguage }: I18nProviderProps) {
   const [language, setLanguageState] =
