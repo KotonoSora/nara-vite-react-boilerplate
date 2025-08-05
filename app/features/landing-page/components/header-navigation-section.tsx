@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { Menu, X } from "lucide-react";
 import { memo, useEffect, useState } from "react";
 import { Form, Link } from "react-router";
@@ -57,11 +58,20 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
       <div className="container flex h-14 items-center justify-between mx-auto px-4">
         {/* Logo Section */}
         <div
-          className={`flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
+          className={clsx("flex items-center", {
+            "space-x-reverse space-x-2": isRTL,
+            "space-x-2": !isRTL,
+          })}
         >
           <Link
             to="/"
-            className={`flex items-center hover:opacity-80 transition-opacity ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
+            className={clsx(
+              "flex items-center hover:opacity-80 transition-opacity",
+              {
+                "space-x-reverse space-x-2": isRTL,
+                "space-x-2": !isRTL,
+              },
+            )}
             onClick={closeMobileMenu}
           >
             <img
@@ -82,11 +92,17 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
 
         {/* Desktop Navigation */}
         <div
-          className={`hidden md:flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
+          className={clsx("hidden md:flex items-center", {
+            "space-x-reverse space-x-2": isRTL,
+            "space-x-2": !isRTL,
+          })}
         >
           {auth?.isAuthenticated ? (
             <div
-              className={`flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
+              className={clsx("flex items-center", {
+                "space-x-reverse space-x-2": isRTL,
+                "space-x-2": !isRTL,
+              })}
             >
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/dashboard">{t("navigation.dashboard")}</Link>
@@ -119,7 +135,10 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
 
         {/* Mobile Menu Button */}
         <div
-          className={`md:hidden flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
+          className={clsx("md:hidden flex items-center", {
+            "space-x-reverse space-x-2": isRTL,
+            "space-x-2": !isRTL,
+          })}
         >
           <LanguageSwitcher />
           <ModeSwitcher />
@@ -148,21 +167,29 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
       {/* Mobile Navigation Menu */}
       <div
         id="mobile-navigation"
-        className={`md:hidden border-t bg-background/95 backdrop-blur-sm transition-all duration-300 ease-in-out ${
-          isMobileMenuOpen
-            ? "max-h-96 opacity-100"
-            : "max-h-0 opacity-0 overflow-hidden"
-        }`}
+        className={clsx(
+          "md:hidden border-t bg-background/95 backdrop-blur-sm transition-all duration-300 ease-in-out",
+          {
+            "max-h-96 opacity-100": isMobileMenuOpen,
+            "max-h-0 opacity-0 overflow-hidden": !isMobileMenuOpen,
+          },
+        )}
         role="navigation"
         aria-label={t("navigation.menu")}
       >
         <div
-          className={`container mx-auto px-4 py-4 ${isRTL ? "space-y-reverse space-y-3" : "space-y-3"}`}
+          className={clsx("container mx-auto px-4 py-4", {
+            "space-y-reverse space-y-3": isRTL,
+            "space-y-3": !isRTL,
+          })}
         >
           {auth?.isAuthenticated ? (
             <>
               <div
-                className={`flex items-center pb-3 border-b ${isRTL ? "space-x-reverse space-x-3" : "space-x-3"}`}
+                className={clsx("flex items-center pb-3 border-b", {
+                  "space-x-reverse space-x-3": isRTL,
+                  "space-x-3": !isRTL,
+                })}
               >
                 <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-semibold">
                   {auth.user?.name?.charAt(0).toUpperCase()}
@@ -175,7 +202,10 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
                 variant="ghost"
                 size="sm"
                 asChild
-                className={`w-full ${isRTL ? "justify-end" : "justify-start"}`}
+                className={clsx(`w-full`, {
+                  "justify-end": isRTL,
+                  "justify-start": !isRTL,
+                })}
               >
                 <Link to="/dashboard" onClick={closeMobileMenu}>
                   {t("navigation.dashboard")}
@@ -186,7 +216,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
                   type="submit"
                   variant="outline"
                   size="sm"
-                  className={`w-full ${isRTL ? "justify-end" : "justify-start"}`}
+                  className="w-full"
                   onClick={closeMobileMenu}
                 >
                   {t("navigation.signOut")}
@@ -194,13 +224,8 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
               </Form>
             </>
           ) : (
-            <div className={isRTL ? "space-y-reverse space-y-3" : "space-y-3"}>
-              <Button
-                variant="ghost"
-                size="sm"
-                asChild
-                className={`w-full ${isRTL ? "justify-end" : "justify-start"}`}
-              >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <Button variant="outline" size="sm" asChild className="w-full">
                 <Link to="/login" onClick={closeMobileMenu}>
                   {t("navigation.signIn")}
                 </Link>
