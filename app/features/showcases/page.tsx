@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import SocialPreview from "~/features/landing-page/assets/social-preview.svg?url";
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 import { usePageContext } from "./context/page-context";
 

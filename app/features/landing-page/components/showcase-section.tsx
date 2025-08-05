@@ -2,7 +2,7 @@ import { memo } from "react";
 
 import { ShowcaseItem } from "~/features/landing-page/components/showcase-item";
 import { usePageContext } from "~/features/landing-page/context/page-context";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 export const ShowcaseSection = memo(function ShowcaseSection() {
   const { t } = useI18n();

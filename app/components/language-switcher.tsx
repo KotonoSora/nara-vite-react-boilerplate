@@ -16,9 +16,8 @@ import {
   isRTLLanguage,
   LANGUAGE_NAMES,
   SUPPORTED_LANGUAGES,
-  useI18n,
-  useLanguage,
-} from "~/lib/i18n";
+} from "~/lib/i18n/config";
+import { useI18n, useLanguage } from "~/lib/i18n/context";
 
 export function LanguageSwitcher() {
   const { t } = useI18n();

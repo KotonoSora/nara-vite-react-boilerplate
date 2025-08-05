@@ -15,21 +15,21 @@ import {
   useTheme,
 } from "remix-themes";
 
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { Route } from "./+types/root";
 
 import { getUserId } from "~/auth.server";
 import { Toaster } from "~/components/ui/sonner";
 import { getLanguageSession } from "~/language.server";
-import { AuthProvider } from "~/lib/auth";
+import { AuthProvider } from "~/lib/auth/provider";
 import {
   DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
-  getTranslation,
-  I18nProvider,
   isRTLLanguage,
-} from "~/lib/i18n";
+} from "~/lib/i18n/config";
+import { getTranslation } from "~/lib/i18n/translations";
+import { I18nProvider } from "~/lib/i18n/provider";
 import { themeSessionResolver } from "~/sessions.server";
 import { getUserById } from "~/user.server";
 

@@ -10,7 +10,7 @@ import {
 } from "~/components/ui/card";
 import { usePageContext } from "~/features/landing-page/context/page-context";
 import { getIconComponent } from "~/features/landing-page/utils/get-icon-component";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 import {
   BackgroundDecoration,

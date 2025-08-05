@@ -1,8 +1,8 @@
 import { createCookieSessionStorage } from "react-router";
 
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
 
-import { DEFAULT_LANGUAGE, isSupportedLanguage } from "~/lib/i18n";
+import { DEFAULT_LANGUAGE, isSupportedLanguage } from "~/lib/i18n/config";
 
 const { getSession, commitSession } = createCookieSessionStorage({
   cookie: {

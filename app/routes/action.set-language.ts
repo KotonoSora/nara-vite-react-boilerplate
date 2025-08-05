@@ -7,7 +7,7 @@ import {
   addLanguageToPath,
   getLanguageFromPath,
   isSupportedLanguage,
-} from "~/lib/i18n";
+} from "~/lib/i18n/config";
 
 export function loader({ request }: Route.LoaderArgs) {
   return data(

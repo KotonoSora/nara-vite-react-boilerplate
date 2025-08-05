@@ -6,8 +6,9 @@ import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
 import { GitHubButton } from "~/features/landing-page/components/github-button";
-import { useOptionalAuth } from "~/lib/auth";
-import { isRTLLanguage, useI18n } from "~/lib/i18n";
+import { useOptionalAuth } from "~/lib/auth/context";
+import { isRTLLanguage } from "~/lib/i18n/config";
+import { useI18n } from "~/lib/i18n/context";
 
 export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
   const auth = useOptionalAuth();

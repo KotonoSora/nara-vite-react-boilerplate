@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
 import { usePageContext } from "~/features/landing-page/context/page-context";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 import {
   BackgroundDecoration,

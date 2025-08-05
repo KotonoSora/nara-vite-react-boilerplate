@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { Route } from "./+types/($lang)._index";
 
 import { PageContext } from "~/features/landing-page/context/page-context";
@@ -10,7 +10,7 @@ import {
   DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
-} from "~/lib/i18n";
+} from "~/lib/i18n/config";
 import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export async function loader({ context, request }: Route.LoaderArgs) {

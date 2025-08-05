@@ -1,7 +1,7 @@
 import { data, redirect } from "react-router";
 import { z } from "zod";
 
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { Route } from "./+types/($lang).register";
 
 import { createUserSession, getUserId } from "~/auth.server";
@@ -9,11 +9,11 @@ import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
 import { getLanguageSession } from "~/language.server";
 import {
-  createTranslationFunction,
   DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
-} from "~/lib/i18n";
+} from "~/lib/i18n/config";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 import { createUser, getUserByEmail } from "~/user.server";
 
 export async function loader({ request }: Route.LoaderArgs) {

@@ -7,8 +7,8 @@ import { getLanguageSession } from "~/language.server";
 import {
   DEFAULT_LANGUAGE,
   getLanguageFromPath,
-  getTranslation,
-} from "~/lib/i18n";
+} from "~/lib/i18n/config";
+import { getTranslation } from "~/lib/i18n/translations";
 import { getUserById } from "~/user.server";
 
 export async function loader({ request, context, params }: Route.LoaderArgs) {

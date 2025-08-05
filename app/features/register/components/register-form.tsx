@@ -24,7 +24,7 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 const createRegisterSchema = (
   t: (key: TranslationKey, params?: Record<string, string | number>) => string,

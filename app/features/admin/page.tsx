@@ -11,7 +11,7 @@ import {
 } from "~/components/ui/card";
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
-import { useTranslation } from "~/lib/i18n";
+import { useTranslation } from "~/lib/i18n/context";
 
 import { usePageContext } from "./context/page-context";
 

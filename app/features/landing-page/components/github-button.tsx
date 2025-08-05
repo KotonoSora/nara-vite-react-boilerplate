@@ -5,7 +5,7 @@ import { Button } from "~/components/ui/button";
 import GitHubLogoDark from "~/features/landing-page/assets/github-invertocat-dark.svg?url";
 import GitHubLogoLight from "~/features/landing-page/assets/github-invertocat-light.svg?url";
 import { usePageContext } from "~/features/landing-page/context/page-context";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 export const GitHubButton = memo(function GitHubButton() {
   const { t } = useI18n();

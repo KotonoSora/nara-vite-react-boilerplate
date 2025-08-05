@@ -6,7 +6,7 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { usePageContext } from "~/features/landing-page/context/page-context";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 export const LicenseSection = memo(function LicenseSection() {
   const { t } = useI18n();
