@@ -62,6 +62,20 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const language: SupportedLanguage =
     pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
 
+  // Preload translations for the detected language and default language on server
+  if (typeof window === "undefined") {
+    const { preloadTranslations } = await import("~/lib/i18n/translations");
+    try {
+      await Promise.all([
+        preloadTranslations(language),
+        language !== DEFAULT_LANGUAGE ? preloadTranslations(DEFAULT_LANGUAGE) : Promise.resolve(),
+      ]);
+    } catch (error) {
+      // Non-blocking - continue if translation loading fails
+      console.warn("Failed to preload translations:", error);
+    }
+  }
+
   // Get current user if logged in and context is available
   const userId = await getUserId(request);
   let user = null;
@@ -140,49 +154,47 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+  const isDev = import.meta.env.DEV;
+
+  // Determine error type and message
+  const isRouteError = isRouteErrorResponse(error);
+  const is404 = isRouteError && error.status === 404;
+  
+  let message: string;
+  let details: string;
   let stack: string | undefined;
 
-  try {
-    if (isRouteErrorResponse(error)) {
-      message = error.status === 404 ? "404" : getTranslation("en", "error");
-      details =
-        error.status === 404
-          ? getTranslation("en", "errors.pageNotFound")
-          : error.statusText || getTranslation("en", "errors.unexpectedError");
-    } else if (import.meta.env.DEV && error && error instanceof Error) {
-      details = error.message;
-      stack = error.stack;
-    } else {
-      details = getTranslation("en", "errors.unexpectedError");
-    }
-  } catch (error) {
-    if (import.meta.env.DEV) {
-      console.error("ErrorBoundary translation error:", error);
-    }
+  if (is404) {
+    message = "404";
+    details = "The requested page could not be found.";
+  } else if (isRouteError) {
+    message = "Error";
+    details = error.statusText || "An unexpected error occurred.";
+  } else if (isDev && error instanceof Error) {
+    message = "Development Error";
+    details = error.message;
+    stack = error.stack;
+  } else {
+    message = "Oops!";
+    details = "An unexpected error occurred.";
+  }
 
-    // Fallback to English if translations fail
-    if (isRouteErrorResponse(error)) {
-      message = error.status === 404 ? "404" : "Error";
-      details =
-        error.status === 404
-          ? "The requested page could not be found."
-          : error.statusText || details;
-    } else if (import.meta.env.DEV && error && error instanceof Error) {
-      details = error.message;
-      stack = error.stack;
-    }
+  // In development, log the error
+  if (isDev) {
+    console.error("ErrorBoundary:", error);
   }
 
   return (
     <main className="pt-16 p-4 container mx-auto">
-      <h2>{message}</h2>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
+      <h2 className="text-2xl font-bold mb-4">{message}</h2>
+      <p className="text-muted-foreground mb-4">{details}</p>
+      {stack && isDev && (
+        <details className="mt-4">
+          <summary className="cursor-pointer font-semibold mb-2">Stack Trace</summary>
+          <pre className="w-full p-4 overflow-x-auto bg-muted rounded-md text-sm">
+            <code>{stack}</code>
+          </pre>
+        </details>
       )}
     </main>
   );

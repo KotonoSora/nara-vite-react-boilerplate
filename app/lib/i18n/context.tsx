@@ -6,7 +6,8 @@ import type { TranslationFunction } from "./types";
 export interface I18nContextValue {
   language: SupportedLanguage;
   t: TranslationFunction;
-  setLanguage: (language: SupportedLanguage) => void;
+  setLanguage: (language: SupportedLanguage) => Promise<void>;
+  isLoading: boolean;
 }
 
 export const I18nContext = createContext<I18nContextValue | null>(null);

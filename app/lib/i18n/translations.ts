@@ -1,219 +1,275 @@
 import type { SupportedLanguage } from "./config";
 import type { NestedTranslationObject, TranslationKey } from "./types";
 
-// Import translation files
-// Import namespace files for Arabic
-import arAdmin from "~/locales/ar/admin.json";
-import arAuth from "~/locales/ar/auth.json";
-import arCommon from "~/locales/ar/common.json";
-import arDashboard from "~/locales/ar/dashboard.json";
-import arErrors from "~/locales/ar/errors.json";
-import arLanding from "~/locales/ar/landing.json";
-import arNavigation from "~/locales/ar/navigation.json";
-import arShowcase from "~/locales/ar/showcase.json";
-import arTheme from "~/locales/ar/theme.json";
-import arTime from "~/locales/ar/time.json";
-// Import namespace files for English
-import enAdmin from "~/locales/en/admin.json";
-import enAuth from "~/locales/en/auth.json";
-import enCommon from "~/locales/en/common.json";
-import enDashboard from "~/locales/en/dashboard.json";
-import enErrors from "~/locales/en/errors.json";
-import enLanding from "~/locales/en/landing.json";
-import enNavigation from "~/locales/en/navigation.json";
-import enShowcase from "~/locales/en/showcase.json";
-import enTheme from "~/locales/en/theme.json";
-import enTime from "~/locales/en/time.json";
-// Import namespace files for Spanish
-import esAdmin from "~/locales/es/admin.json";
-import esAuth from "~/locales/es/auth.json";
-import esCommon from "~/locales/es/common.json";
-import esDashboard from "~/locales/es/dashboard.json";
-import esErrors from "~/locales/es/errors.json";
-import esLanding from "~/locales/es/landing.json";
-import esNavigation from "~/locales/es/navigation.json";
-import esShowcase from "~/locales/es/showcase.json";
-import esTheme from "~/locales/es/theme.json";
-import esTime from "~/locales/es/time.json";
-// Import namespace files for French
-import frAdmin from "~/locales/fr/admin.json";
-import frAuth from "~/locales/fr/auth.json";
-import frCommon from "~/locales/fr/common.json";
-import frDashboard from "~/locales/fr/dashboard.json";
-import frErrors from "~/locales/fr/errors.json";
-import frLanding from "~/locales/fr/landing.json";
-import frNavigation from "~/locales/fr/navigation.json";
-import frShowcase from "~/locales/fr/showcase.json";
-import frTheme from "~/locales/fr/theme.json";
-import frTime from "~/locales/fr/time.json";
-// Import namespace files for Hindi
-import hiAdmin from "~/locales/hi/admin.json";
-import hiAuth from "~/locales/hi/auth.json";
-import hiCommon from "~/locales/hi/common.json";
-import hiDashboard from "~/locales/hi/dashboard.json";
-import hiErrors from "~/locales/hi/errors.json";
-import hiLanding from "~/locales/hi/landing.json";
-import hiNavigation from "~/locales/hi/navigation.json";
-import hiShowcase from "~/locales/hi/showcase.json";
-import hiTheme from "~/locales/hi/theme.json";
-import hiTime from "~/locales/hi/time.json";
-// Import namespace files for Japanese
-import jaAdmin from "~/locales/ja/admin.json";
-import jaAuth from "~/locales/ja/auth.json";
-import jaCommon from "~/locales/ja/common.json";
-import jaDashboard from "~/locales/ja/dashboard.json";
-import jaErrors from "~/locales/ja/errors.json";
-import jaLanding from "~/locales/ja/landing.json";
-import jaNavigation from "~/locales/ja/navigation.json";
-import jaShowcase from "~/locales/ja/showcase.json";
-import jaTheme from "~/locales/ja/theme.json";
-import jaTime from "~/locales/ja/time.json";
-// Import namespace files for Thai
-import thAdmin from "~/locales/th/admin.json";
-import thAuth from "~/locales/th/auth.json";
-import thCommon from "~/locales/th/common.json";
-import thDashboard from "~/locales/th/dashboard.json";
-import thErrors from "~/locales/th/errors.json";
-import thLanding from "~/locales/th/landing.json";
-import thNavigation from "~/locales/th/navigation.json";
-import thShowcase from "~/locales/th/showcase.json";
-import thTheme from "~/locales/th/theme.json";
-import thTime from "~/locales/th/time.json";
-// Import namespace files for Vietnamese
-import viAdmin from "~/locales/vi/admin.json";
-import viAuth from "~/locales/vi/auth.json";
-import viCommon from "~/locales/vi/common.json";
-import viDashboard from "~/locales/vi/dashboard.json";
-import viErrors from "~/locales/vi/errors.json";
-import viLanding from "~/locales/vi/landing.json";
-import viNavigation from "~/locales/vi/navigation.json";
-import viShowcase from "~/locales/vi/showcase.json";
-import viTheme from "~/locales/vi/theme.json";
-import viTime from "~/locales/vi/time.json";
-// Import namespace files for Chinese
-import zhAdmin from "~/locales/zh/admin.json";
-import zhAuth from "~/locales/zh/auth.json";
-import zhCommon from "~/locales/zh/common.json";
-import zhDashboard from "~/locales/zh/dashboard.json";
-import zhErrors from "~/locales/zh/errors.json";
-import zhLanding from "~/locales/zh/landing.json";
-import zhNavigation from "~/locales/zh/navigation.json";
-import zhShowcase from "~/locales/zh/showcase.json";
-import zhTheme from "~/locales/zh/theme.json";
-import zhTime from "~/locales/zh/time.json";
-
 import { DEFAULT_LANGUAGE } from "./config";
 
-const translations: Record<SupportedLanguage, NestedTranslationObject> = {
-  en: {
-    ...enCommon,
-    navigation: enNavigation,
-    auth: enAuth,
-    admin: enAdmin,
-    dashboard: enDashboard,
-    errors: enErrors,
-    showcase: enShowcase,
-    time: enTime,
-    theme: enTheme,
-    landing: enLanding,
+// Cache for loaded translations
+const translationCache = new Map<SupportedLanguage, NestedTranslationObject>();
+const loadingPromises = new Map<SupportedLanguage, Promise<NestedTranslationObject>>();
+
+// Lazy loading functions for each language
+const translationLoaders: Record<SupportedLanguage, () => Promise<NestedTranslationObject>> = {
+  en: async () => {
+    const [common, navigation, auth, admin, dashboard, errors, showcase, time, theme, landing] = await Promise.all([
+      import("~/locales/en/common.json"),
+      import("~/locales/en/navigation.json"),
+      import("~/locales/en/auth.json"),
+      import("~/locales/en/admin.json"),
+      import("~/locales/en/dashboard.json"),
+      import("~/locales/en/errors.json"),
+      import("~/locales/en/showcase.json"),
+      import("~/locales/en/time.json"),
+      import("~/locales/en/theme.json"),
+      import("~/locales/en/landing.json"),
+    ]);
+    return {
+      ...common.default,
+      navigation: navigation.default,
+      auth: auth.default,
+      admin: admin.default,
+      dashboard: dashboard.default,
+      errors: errors.default,
+      showcase: showcase.default,
+      time: time.default,
+      theme: theme.default,
+      landing: landing.default,
+    };
   },
-  es: {
-    ...esCommon,
-    navigation: esNavigation,
-    auth: esAuth,
-    admin: esAdmin,
-    dashboard: esDashboard,
-    errors: esErrors,
-    showcase: esShowcase,
-    time: esTime,
-    theme: esTheme,
-    landing: esLanding,
+  es: async () => {
+    const [common, navigation, auth, admin, dashboard, errors, showcase, time, theme, landing] = await Promise.all([
+      import("~/locales/es/common.json"),
+      import("~/locales/es/navigation.json"),
+      import("~/locales/es/auth.json"),
+      import("~/locales/es/admin.json"),
+      import("~/locales/es/dashboard.json"),
+      import("~/locales/es/errors.json"),
+      import("~/locales/es/showcase.json"),
+      import("~/locales/es/time.json"),
+      import("~/locales/es/theme.json"),
+      import("~/locales/es/landing.json"),
+    ]);
+    return {
+      ...common.default,
+      navigation: navigation.default,
+      auth: auth.default,
+      admin: admin.default,
+      dashboard: dashboard.default,
+      errors: errors.default,
+      showcase: showcase.default,
+      time: time.default,
+      theme: theme.default,
+      landing: landing.default,
+    };
   },
-  fr: {
-    ...frCommon,
-    navigation: frNavigation,
-    auth: frAuth,
-    admin: frAdmin,
-    dashboard: frDashboard,
-    errors: frErrors,
-    showcase: frShowcase,
-    time: frTime,
-    theme: frTheme,
-    landing: frLanding,
+  fr: async () => {
+    const [common, navigation, auth, admin, dashboard, errors, showcase, time, theme, landing] = await Promise.all([
+      import("~/locales/fr/common.json"),
+      import("~/locales/fr/navigation.json"),
+      import("~/locales/fr/auth.json"),
+      import("~/locales/fr/admin.json"),
+      import("~/locales/fr/dashboard.json"),
+      import("~/locales/fr/errors.json"),
+      import("~/locales/fr/showcase.json"),
+      import("~/locales/fr/time.json"),
+      import("~/locales/fr/theme.json"),
+      import("~/locales/fr/landing.json"),
+    ]);
+    return {
+      ...common.default,
+      navigation: navigation.default,
+      auth: auth.default,
+      admin: admin.default,
+      dashboard: dashboard.default,
+      errors: errors.default,
+      showcase: showcase.default,
+      time: time.default,
+      theme: theme.default,
+      landing: landing.default,
+    };
   },
-  zh: {
-    ...zhCommon,
-    navigation: zhNavigation,
-    auth: zhAuth,
-    admin: zhAdmin,
-    dashboard: zhDashboard,
-    errors: zhErrors,
-    showcase: zhShowcase,
-    time: zhTime,
-    theme: zhTheme,
-    landing: zhLanding,
+  zh: async () => {
+    const [common, navigation, auth, admin, dashboard, errors, showcase, time, theme, landing] = await Promise.all([
+      import("~/locales/zh/common.json"),
+      import("~/locales/zh/navigation.json"),
+      import("~/locales/zh/auth.json"),
+      import("~/locales/zh/admin.json"),
+      import("~/locales/zh/dashboard.json"),
+      import("~/locales/zh/errors.json"),
+      import("~/locales/zh/showcase.json"),
+      import("~/locales/zh/time.json"),
+      import("~/locales/zh/theme.json"),
+      import("~/locales/zh/landing.json"),
+    ]);
+    return {
+      ...common.default,
+      navigation: navigation.default,
+      auth: auth.default,
+      admin: admin.default,
+      dashboard: dashboard.default,
+      errors: errors.default,
+      showcase: showcase.default,
+      time: time.default,
+      theme: theme.default,
+      landing: landing.default,
+    };
   },
-  hi: {
-    ...hiCommon,
-    navigation: hiNavigation,
-    auth: hiAuth,
-    admin: hiAdmin,
-    dashboard: hiDashboard,
-    errors: hiErrors,
-    showcase: hiShowcase,
-    time: hiTime,
-    theme: hiTheme,
-    landing: hiLanding,
+  hi: async () => {
+    const [common, navigation, auth, admin, dashboard, errors, showcase, time, theme, landing] = await Promise.all([
+      import("~/locales/hi/common.json"),
+      import("~/locales/hi/navigation.json"),
+      import("~/locales/hi/auth.json"),
+      import("~/locales/hi/admin.json"),
+      import("~/locales/hi/dashboard.json"),
+      import("~/locales/hi/errors.json"),
+      import("~/locales/hi/showcase.json"),
+      import("~/locales/hi/time.json"),
+      import("~/locales/hi/theme.json"),
+      import("~/locales/hi/landing.json"),
+    ]);
+    return {
+      ...common.default,
+      navigation: navigation.default,
+      auth: auth.default,
+      admin: admin.default,
+      dashboard: dashboard.default,
+      errors: errors.default,
+      showcase: showcase.default,
+      time: time.default,
+      theme: theme.default,
+      landing: landing.default,
+    };
   },
-  ar: {
-    ...arCommon,
-    navigation: arNavigation,
-    auth: arAuth,
-    admin: arAdmin,
-    dashboard: arDashboard,
-    errors: arErrors,
-    showcase: arShowcase,
-    time: arTime,
-    theme: arTheme,
-    landing: arLanding,
+  ar: async () => {
+    const [common, navigation, auth, admin, dashboard, errors, showcase, time, theme, landing] = await Promise.all([
+      import("~/locales/ar/common.json"),
+      import("~/locales/ar/navigation.json"),
+      import("~/locales/ar/auth.json"),
+      import("~/locales/ar/admin.json"),
+      import("~/locales/ar/dashboard.json"),
+      import("~/locales/ar/errors.json"),
+      import("~/locales/ar/showcase.json"),
+      import("~/locales/ar/time.json"),
+      import("~/locales/ar/theme.json"),
+      import("~/locales/ar/landing.json"),
+    ]);
+    return {
+      ...common.default,
+      navigation: navigation.default,
+      auth: auth.default,
+      admin: admin.default,
+      dashboard: dashboard.default,
+      errors: errors.default,
+      showcase: showcase.default,
+      time: time.default,
+      theme: theme.default,
+      landing: landing.default,
+    };
   },
-  vi: {
-    ...viCommon,
-    navigation: viNavigation,
-    auth: viAuth,
-    admin: viAdmin,
-    dashboard: viDashboard,
-    errors: viErrors,
-    showcase: viShowcase,
-    time: viTime,
-    theme: viTheme,
-    landing: viLanding,
+  vi: async () => {
+    const [common, navigation, auth, admin, dashboard, errors, showcase, time, theme, landing] = await Promise.all([
+      import("~/locales/vi/common.json"),
+      import("~/locales/vi/navigation.json"),
+      import("~/locales/vi/auth.json"),
+      import("~/locales/vi/admin.json"),
+      import("~/locales/vi/dashboard.json"),
+      import("~/locales/vi/errors.json"),
+      import("~/locales/vi/showcase.json"),
+      import("~/locales/vi/time.json"),
+      import("~/locales/vi/theme.json"),
+      import("~/locales/vi/landing.json"),
+    ]);
+    return {
+      ...common.default,
+      navigation: navigation.default,
+      auth: auth.default,
+      admin: admin.default,
+      dashboard: dashboard.default,
+      errors: errors.default,
+      showcase: showcase.default,
+      time: time.default,
+      theme: theme.default,
+      landing: landing.default,
+    };
   },
-  ja: {
-    ...jaCommon,
-    navigation: jaNavigation,
-    auth: jaAuth,
-    admin: jaAdmin,
-    dashboard: jaDashboard,
-    errors: jaErrors,
-    showcase: jaShowcase,
-    time: jaTime,
-    theme: jaTheme,
-    landing: jaLanding,
+  ja: async () => {
+    const [common, navigation, auth, admin, dashboard, errors, showcase, time, theme, landing] = await Promise.all([
+      import("~/locales/ja/common.json"),
+      import("~/locales/ja/navigation.json"),
+      import("~/locales/ja/auth.json"),
+      import("~/locales/ja/admin.json"),
+      import("~/locales/ja/dashboard.json"),
+      import("~/locales/ja/errors.json"),
+      import("~/locales/ja/showcase.json"),
+      import("~/locales/ja/time.json"),
+      import("~/locales/ja/theme.json"),
+      import("~/locales/ja/landing.json"),
+    ]);
+    return {
+      ...common.default,
+      navigation: navigation.default,
+      auth: auth.default,
+      admin: admin.default,
+      dashboard: dashboard.default,
+      errors: errors.default,
+      showcase: showcase.default,
+      time: time.default,
+      theme: theme.default,
+      landing: landing.default,
+    };
   },
-  th: {
-    ...thCommon,
-    navigation: thNavigation,
-    auth: thAuth,
-    admin: thAdmin,
-    dashboard: thDashboard,
-    errors: thErrors,
-    showcase: thShowcase,
-    time: thTime,
-    theme: thTheme,
-    landing: thLanding,
+  th: async () => {
+    const [common, navigation, auth, admin, dashboard, errors, showcase, time, theme, landing] = await Promise.all([
+      import("~/locales/th/common.json"),
+      import("~/locales/th/navigation.json"),
+      import("~/locales/th/auth.json"),
+      import("~/locales/th/admin.json"),
+      import("~/locales/th/dashboard.json"),
+      import("~/locales/th/errors.json"),
+      import("~/locales/th/showcase.json"),
+      import("~/locales/th/time.json"),
+      import("~/locales/th/theme.json"),
+      import("~/locales/th/landing.json"),
+    ]);
+    return {
+      ...common.default,
+      navigation: navigation.default,
+      auth: auth.default,
+      admin: admin.default,
+      dashboard: dashboard.default,
+      errors: errors.default,
+      showcase: showcase.default,
+      time: time.default,
+      theme: theme.default,
+      landing: landing.default,
+    };
   },
 };
+
+async function loadTranslations(language: SupportedLanguage): Promise<NestedTranslationObject> {
+  // Return cached version if available
+  if (translationCache.has(language)) {
+    return translationCache.get(language)!;
+  }
+
+  // Return existing loading promise if already in progress
+  if (loadingPromises.has(language)) {
+    return loadingPromises.get(language)!;
+  }
+
+  // Start loading
+  const loadingPromise = translationLoaders[language]();
+  loadingPromises.set(language, loadingPromise);
+
+  try {
+    const translations = await loadingPromise;
+    translationCache.set(language, translations);
+    loadingPromises.delete(language);
+    return translations;
+  } catch (error) {
+    loadingPromises.delete(language);
+    throw error;
+  }
+}
 
 function getNestedValue(
   obj: NestedTranslationObject,
@@ -229,27 +285,30 @@ function getNestedValue(
   }, obj) as string | undefined;
 }
 
+// Synchronous version for when translations are already loaded
 export function getTranslation(
   language: SupportedLanguage,
   key: TranslationKey,
   params?: Record<string, string | number>,
 ): string {
-  const languageTranslations = translations[language];
-  const fallbackTranslations = translations[DEFAULT_LANGUAGE];
+  const languageTranslations = translationCache.get(language);
+  const fallbackTranslations = translationCache.get(DEFAULT_LANGUAGE);
 
   // Try to get translation from the requested language
-  let translation = getNestedValue(languageTranslations, key);
+  let translation = languageTranslations ? getNestedValue(languageTranslations, key) : undefined;
 
   // Fallback to default language if translation not found
-  if (translation === undefined) {
+  if (translation === undefined && fallbackTranslations) {
     translation = getNestedValue(fallbackTranslations, key);
   }
 
   // Final fallback to the key itself if nothing is found
   if (translation === undefined) {
-    console.warn(
-      `Translation not found for key: ${key} in language: ${language}`,
-    );
+    if (import.meta.env.DEV) {
+      console.warn(
+        `Translation not found for key: ${key} in language: ${language}`,
+      );
+    }
     translation = key;
   }
 
@@ -266,7 +325,42 @@ export function getTranslation(
   return translation;
 }
 
+// Async version that ensures translations are loaded
+export async function getTranslationAsync(
+  language: SupportedLanguage,
+  key: TranslationKey,
+  params?: Record<string, string | number>,
+): Promise<string> {
+  // Ensure translations are loaded
+  await loadTranslations(language);
+  
+  // Also load default language as fallback if different
+  if (language !== DEFAULT_LANGUAGE) {
+    await loadTranslations(DEFAULT_LANGUAGE);
+  }
+
+  return getTranslation(language, key, params);
+}
+
 export function createTranslationFunction(language: SupportedLanguage) {
   return (key: TranslationKey, params?: Record<string, string | number>) =>
     getTranslation(language, key, params);
+}
+
+export async function createTranslationFunctionAsync(language: SupportedLanguage) {
+  await loadTranslations(language);
+  if (language !== DEFAULT_LANGUAGE) {
+    await loadTranslations(DEFAULT_LANGUAGE);
+  }
+  return createTranslationFunction(language);
+}
+
+// Pre-load translations for critical languages (e.g., default language)
+export async function preloadTranslations(language: SupportedLanguage): Promise<void> {
+  await loadTranslations(language);
+}
+
+// Check if translations are loaded
+export function areTranslationsLoaded(language: SupportedLanguage): boolean {
+  return translationCache.has(language);
 }
