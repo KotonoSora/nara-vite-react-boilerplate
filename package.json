@@ -21,7 +21,10 @@
     "prepare": "husky",
     "lint:commitlint": "commitlint --edit",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
     "@hookform/resolvers": "5.2.1",
@@ -57,6 +60,7 @@
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@ianvs/prettier-plugin-sort-imports": "4.5.1",
+    "@playwright/test": "^1.54.2",
     "@react-router/dev": "7.7.1",
     "@react-router/fs-routes": "7.7.1",
     "@tailwindcss/vite": "4.1.11",
