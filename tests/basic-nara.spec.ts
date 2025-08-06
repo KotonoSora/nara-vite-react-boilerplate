@@ -41,6 +41,15 @@ class NaraTestFramework {
     await expect(this.page.getByRole('heading', { name: 'Error' })).toBeVisible();
     await expect(this.page.getByText('Unauthorized')).toBeVisible();
   }
+
+  async verifyRegisterPageLoaded() {
+    await expect(this.page).toHaveTitle('Create account - NARA');
+    await expect(this.fullNameInput).toBeVisible();
+  }
+
+  async clickSignUpLink() {
+    await this.page.getByRole('link', { name: 'Sign up' }).click();
+  }
 }
 
 // Simplified test suite that can run with basic setup
@@ -90,8 +99,7 @@ test.describe('NARA Application - Basic Tests', () => {
     await framework.verifyLoginPageLoaded();
     
     // Go to register
-    await framework.page.getByRole('link', { name: 'Sign up' }).click();
-    await expect(framework.page).toHaveTitle('Create account - NARA');
-    await expect(framework.fullNameInput).toBeVisible();
+    await framework.clickSignUpLink();
+    await framework.verifyRegisterPageLoaded();
   });
 });
