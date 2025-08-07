@@ -6,6 +6,7 @@ import enDashboard from "~/locales/en/dashboard.json";
 import enErrors from "~/locales/en/errors.json";
 import enLanding from "~/locales/en/landing.json";
 import enNavigation from "~/locales/en/navigation.json";
+import enRoadmap from "~/locales/en/roadmap.json";
 import enShowcase from "~/locales/en/showcase.json";
 import enTheme from "~/locales/en/theme.json";
 import enTime from "~/locales/en/time.json";
@@ -18,6 +19,7 @@ type NamespaceTranslations = typeof enCommon & {
   dashboard: typeof enDashboard;
   errors: typeof enErrors;
   showcase: typeof enShowcase;
+  roadmap: typeof enRoadmap;
   time: typeof enTime;
   theme: typeof enTheme;
   landing: typeof enLanding;

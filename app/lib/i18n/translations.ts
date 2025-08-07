@@ -10,6 +10,7 @@ import arDashboard from "~/locales/ar/dashboard.json";
 import arErrors from "~/locales/ar/errors.json";
 import arLanding from "~/locales/ar/landing.json";
 import arNavigation from "~/locales/ar/navigation.json";
+import arRoadmap from "~/locales/ar/roadmap.json";
 import arShowcase from "~/locales/ar/showcase.json";
 import arTheme from "~/locales/ar/theme.json";
 import arTime from "~/locales/ar/time.json";
@@ -21,6 +22,7 @@ import enDashboard from "~/locales/en/dashboard.json";
 import enErrors from "~/locales/en/errors.json";
 import enLanding from "~/locales/en/landing.json";
 import enNavigation from "~/locales/en/navigation.json";
+import enRoadmap from "~/locales/en/roadmap.json";
 import enShowcase from "~/locales/en/showcase.json";
 import enTheme from "~/locales/en/theme.json";
 import enTime from "~/locales/en/time.json";
@@ -32,6 +34,7 @@ import esDashboard from "~/locales/es/dashboard.json";
 import esErrors from "~/locales/es/errors.json";
 import esLanding from "~/locales/es/landing.json";
 import esNavigation from "~/locales/es/navigation.json";
+import esRoadmap from "~/locales/es/roadmap.json";
 import esShowcase from "~/locales/es/showcase.json";
 import esTheme from "~/locales/es/theme.json";
 import esTime from "~/locales/es/time.json";
@@ -43,6 +46,7 @@ import frDashboard from "~/locales/fr/dashboard.json";
 import frErrors from "~/locales/fr/errors.json";
 import frLanding from "~/locales/fr/landing.json";
 import frNavigation from "~/locales/fr/navigation.json";
+import frRoadmap from "~/locales/fr/roadmap.json";
 import frShowcase from "~/locales/fr/showcase.json";
 import frTheme from "~/locales/fr/theme.json";
 import frTime from "~/locales/fr/time.json";
@@ -54,6 +58,7 @@ import hiDashboard from "~/locales/hi/dashboard.json";
 import hiErrors from "~/locales/hi/errors.json";
 import hiLanding from "~/locales/hi/landing.json";
 import hiNavigation from "~/locales/hi/navigation.json";
+import hiRoadmap from "~/locales/hi/roadmap.json";
 import hiShowcase from "~/locales/hi/showcase.json";
 import hiTheme from "~/locales/hi/theme.json";
 import hiTime from "~/locales/hi/time.json";
@@ -65,6 +70,7 @@ import jaDashboard from "~/locales/ja/dashboard.json";
 import jaErrors from "~/locales/ja/errors.json";
 import jaLanding from "~/locales/ja/landing.json";
 import jaNavigation from "~/locales/ja/navigation.json";
+import jaRoadmap from "~/locales/ja/roadmap.json";
 import jaShowcase from "~/locales/ja/showcase.json";
 import jaTheme from "~/locales/ja/theme.json";
 import jaTime from "~/locales/ja/time.json";
@@ -76,6 +82,7 @@ import thDashboard from "~/locales/th/dashboard.json";
 import thErrors from "~/locales/th/errors.json";
 import thLanding from "~/locales/th/landing.json";
 import thNavigation from "~/locales/th/navigation.json";
+import thRoadmap from "~/locales/th/roadmap.json";
 import thShowcase from "~/locales/th/showcase.json";
 import thTheme from "~/locales/th/theme.json";
 import thTime from "~/locales/th/time.json";
@@ -87,6 +94,7 @@ import viDashboard from "~/locales/vi/dashboard.json";
 import viErrors from "~/locales/vi/errors.json";
 import viLanding from "~/locales/vi/landing.json";
 import viNavigation from "~/locales/vi/navigation.json";
+import viRoadmap from "~/locales/vi/roadmap.json";
 import viShowcase from "~/locales/vi/showcase.json";
 import viTheme from "~/locales/vi/theme.json";
 import viTime from "~/locales/vi/time.json";
@@ -98,6 +106,7 @@ import zhDashboard from "~/locales/zh/dashboard.json";
 import zhErrors from "~/locales/zh/errors.json";
 import zhLanding from "~/locales/zh/landing.json";
 import zhNavigation from "~/locales/zh/navigation.json";
+import zhRoadmap from "~/locales/zh/roadmap.json";
 import zhShowcase from "~/locales/zh/showcase.json";
 import zhTheme from "~/locales/zh/theme.json";
 import zhTime from "~/locales/zh/time.json";
@@ -113,6 +122,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     dashboard: enDashboard,
     errors: enErrors,
     showcase: enShowcase,
+    roadmap: enRoadmap,
     time: enTime,
     theme: enTheme,
     landing: enLanding,
@@ -125,6 +135,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     dashboard: esDashboard,
     errors: esErrors,
     showcase: esShowcase,
+    roadmap: esRoadmap,
     time: esTime,
     theme: esTheme,
     landing: esLanding,
@@ -137,6 +148,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     dashboard: frDashboard,
     errors: frErrors,
     showcase: frShowcase,
+    roadmap: frRoadmap,
     time: frTime,
     theme: frTheme,
     landing: frLanding,
@@ -149,6 +161,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     dashboard: zhDashboard,
     errors: zhErrors,
     showcase: zhShowcase,
+    roadmap: zhRoadmap,
     time: zhTime,
     theme: zhTheme,
     landing: zhLanding,
@@ -161,6 +174,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     dashboard: hiDashboard,
     errors: hiErrors,
     showcase: hiShowcase,
+    roadmap: hiRoadmap,
     time: hiTime,
     theme: hiTheme,
     landing: hiLanding,
@@ -173,6 +187,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     dashboard: arDashboard,
     errors: arErrors,
     showcase: arShowcase,
+    roadmap: arRoadmap,
     time: arTime,
     theme: arTheme,
     landing: arLanding,
@@ -185,6 +200,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     dashboard: viDashboard,
     errors: viErrors,
     showcase: viShowcase,
+    roadmap: viRoadmap,
     time: viTime,
     theme: viTheme,
     landing: viLanding,
@@ -197,6 +213,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     dashboard: jaDashboard,
     errors: jaErrors,
     showcase: jaShowcase,
+    roadmap: jaRoadmap,
     time: jaTime,
     theme: jaTheme,
     landing: jaLanding,
@@ -209,6 +226,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     dashboard: thDashboard,
     errors: thErrors,
     showcase: thShowcase,
+    roadmap: thRoadmap,
     time: thTime,
     theme: thTheme,
     landing: thLanding,

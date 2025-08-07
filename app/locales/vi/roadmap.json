@@ -1,0 +1,194 @@
+{
+  "title": "Lộ trình dự án",
+  "subtitle": "Theo dõi tiến độ của chúng tôi và xem những gì sắp tới",
+  "description": "NARA luôn phát triển. Xem những tính năng hiện tại được hỗ trợ, những gì chúng tôi đang làm và những gì được lên kế hoạch cho tương lai.",
+  "hero": {
+    "title": "Lộ trình NARA",
+    "subtitle": "Xây dựng tương lai của React Boilerplates",
+    "description": "Xem những gì đã được triển khai, những gì đang phát triển và những gì sắp tới. Tham gia cộng đồng của chúng tôi và giúp định hình tương lai của NARA.",
+    "contributeButton": "Đóng góp trên GitHub",
+    "requestFeatureButton": "Yêu cầu tính năng"
+  },
+  "sections": {
+    "currentSupport": {
+      "title": "✅ Hỗ trợ hiện tại",
+      "subtitle": "Tính năng sẵn sàng cho sản xuất",
+      "description": "Những tính năng này đã được triển khai đầy đủ, kiểm tra và sẵn sàng sử dụng trong các dự án của bạn."
+    },
+    "inDevelopment": {
+      "title": "🚧 Đang phát triển",
+      "subtitle": "Tính năng hiện đang được xây dựng",
+      "description": "Những tính năng này đang được phát triển tích cực và sẽ có sẵn sớm."
+    },
+    "planned": {
+      "title": "📋 Đã lên kế hoạch",
+      "subtitle": "Tính năng và cải tiến tương lai",
+      "description": "Những tính năng này được lên kế hoạch cho các bản phát hành tương lai. Thời gian có thể thay đổi dựa trên phản hồi của cộng đồng và ưu tiên."
+    },
+    "requestGuide": {
+      "title": "📝 Yêu cầu tính năng mới",
+      "subtitle": "Giúp định hình tương lai của NARA",
+      "description": "Có ý tưởng cho tính năng mới? Chúng tôi muốn nghe từ bạn! Theo dõi hướng dẫn của chúng tôi để gửi yêu cầu tính năng."
+    }
+  },
+  "features": {
+    "current": {
+      "reactRouter": {
+        "title": "React Router v7",
+        "description": "Định tuyến hiện đại với SSR, định tuyến dựa trên tệp và tải dữ liệu an toàn kiểu",
+        "status": "Stable"
+      },
+      "typescript": {
+        "title": "Tích hợp TypeScript",
+        "description": "An toàn kiểu đầy đủ với cấu hình TypeScript nghiêm ngặt và gõ phù hợp",
+        "status": "Stable"
+      },
+      "cloudflareWorkers": {
+        "title": "Cloudflare Workers",
+        "description": "Triển khai Edge với hiệu suất toàn cầu và kiến trúc serverless",
+        "status": "Stable"
+      },
+      "drizzleOrm": {
+        "title": "Drizzle ORM",
+        "description": "ORM an toàn kiểu với truy vấn nhanh và hỗ trợ cơ sở dữ liệu hiện đại",
+        "status": "Stable"
+      },
+      "honoApi": {
+        "title": "Hono.js API",
+        "description": "Framework API nhanh và an toàn kiểu được tối ưu hóa cho Workers",
+        "status": "Stable"
+      },
+      "tailwindUi": {
+        "title": "Tailwind CSS + shadcn/ui",
+        "description": "Hệ thống thiết kế hiện đại với các thành phần có thể truy cập và tùy chỉnh",
+        "status": "Stable"
+      },
+      "authentication": {
+        "title": "Xác thực",
+        "description": "Xác thực an toàn với quản lý phiên và bảo vệ tuyến đường",
+        "status": "Stable"
+      },
+      "i18n": {
+        "title": "Quốc tế hóa (i18n)",
+        "description": "Hỗ trợ đa ngôn ngữ với bản dịch an toàn kiểu",
+        "status": "Stable"
+      },
+      "testing": {
+        "title": "Framework kiểm tra",
+        "description": "Kiểm tra toàn diện với Vitest và phạm vi mã đầy đủ",
+        "status": "Stable"
+      },
+      "cicd": {
+        "title": "CI/CD Pipeline",
+        "description": "Tự động hóa triển khai với GitHub Actions và triển khai liên tục",
+        "status": "Stable"
+      }
+    },
+    "development": {
+      "advancedAuth": {
+        "title": "Xác thực nâng cao",
+        "description": "Xác thực đa yếu tố, SSO và nhà cung cấp OAuth",
+        "eta": "Q2 2024",
+        "status": "In Progress"
+      },
+      "realtime": {
+        "title": "Tính năng thời gian thực",
+        "description": "Cập nhật thời gian thực với WebSockets và Server-Sent Events",
+        "eta": "Q3 2024",
+        "status": "In Progress"
+      },
+      "monitoring": {
+        "title": "Giám sát ứng dụng",
+        "description": "Giám sát hiệu suất, lỗi và phân tích với các công cụ có thể tùy chỉnh",
+        "eta": "Q3 2024",
+        "status": "In Progress"
+      }
+    },
+    "planned": {
+      "mobileApp": {
+        "title": "Mẫu ứng dụng di động",
+        "description": "Mẫu React Native với Expo để phát triển đa nền tảng",
+        "eta": "Q4 2024",
+        "status": "Planned"
+      },
+      "cms": {
+        "title": "Tích hợp CMS",
+        "description": "Quản lý nội dung với CMS headless và công cụ tác giả",
+        "eta": "Q1 2025",
+        "status": "Planned"
+      },
+      "ecommerce": {
+        "title": "E-commerce Starter",
+        "description": "Cửa hàng đầy đủ với quản lý sản phẩm và xử lý thanh toán",
+        "eta": "Q1 2025",
+        "status": "Planned"
+      },
+      "aiIntegration": {
+        "title": "Tích hợp AI/ML",
+        "description": "Trợ lý AI và xử lý machine learning với Cloudflare AI",
+        "eta": "Q2 2025",
+        "status": "Planned"
+      },
+      "microservices": {
+        "title": "Kiến trúc Microservices",
+        "description": "Hỗ trợ đa dịch vụ với kết nối API và quản lý dịch vụ",
+        "eta": "Q2 2025",
+        "status": "Planned"
+      }
+    }
+  },
+  "requestGuide": {
+    "steps": {
+      "step1": {
+        "title": "Kiểm tra yêu cầu hiện có",
+        "description": "Tìm kiếm GitHub issues để đảm bảo tính năng của bạn chưa được yêu cầu."
+      },
+      "step2": {
+        "title": "Sử dụng mẫu tính năng",
+        "description": "Tạo issue mới bằng mẫu yêu cầu tính năng."
+      },
+      "step3": {
+        "title": "Cung cấp chi tiết",
+        "description": "Giải thích trường hợp sử dụng, lợi ích và triển khai tiềm năng."
+      },
+      "step4": {
+        "title": "Tham gia với cộng đồng",
+        "description": "Tham gia thảo luận và thu thập phản hồi từ các thành viên cộng đồng khác."
+      }
+    },
+    "template": {
+      "title": "Mẫu yêu cầu tính năng",
+      "description": "Sao chép mẫu này khi tạo yêu cầu tính năng mới:",
+      "content": "**Tóm tắt tính năng**\nMô tả ngắn gọn về những gì bạn muốn đạt được.\n\n**Động lực**\nTại sao chúng ta cần tính năng này? Nó giải quyết vấn đề gì?\n\n**Mô tả chi tiết**\nGiải thích cách tính năng nên hoạt động.\n\n**Các lựa chọn được xem xét**\nBạn đã xem xét những lựa chọn nào khác?\n\n**Bối cảnh bổ sung**\nThêm bất kỳ bối cảnh hoặc ảnh chụp màn hình nào về yêu cầu tính năng tại đây."
+    },
+    "guidelines": {
+      "title": "Hướng dẫn",
+      "items": {
+        "specific": "Cụ thể về trường hợp sử dụng và lợi ích",
+        "research": "Nghiên cứu các giải pháp hiện có và lựa chọn thay thế",
+        "scope": "Giữ các yêu cầu tập trung và có phạm vi",
+        "community": "Suy nghĩ về cách cộng đồng sẽ được hưởng lợi từ tính năng",
+        "maintenance": "Xem xét tác động bảo trì dài hạn"
+      }
+    }
+  },
+  "status": {
+    "stable": "Lồng định",
+    "inProgress": "Đang tiến hành",
+    "planning": "Đang lên kế hoạch",
+    "research": "Đang nghiên cứu",
+    "planned": "Đã lên kế hoạch"
+  },
+  "badges": {
+    "new": "Mới",
+    "popular": "Phổ biến",
+    "communityRequested": "Yêu cầu từ cộng đồng",
+    "experimental": "Thử nghiệm"
+  },
+  "cta": {
+    "viewGitHub": "Xem trên GitHub",
+    "createIssue": "Tạo yêu cầu tính năng",
+    "joinDiscussion": "Tham gia thảo luận",
+    "contribute": "Đóng góp mã"
+  }
+}
