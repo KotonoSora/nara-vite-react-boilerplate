@@ -1,7 +1,8 @@
 import type { Route } from "./+types/($lang).roadmap";
 
-import { RoadmapPage } from "~/features/roadmap/components/roadmap-page";
 import { getRoadmapData, getRequestGuide } from "~/features/roadmap/utils/get-roadmap-data";
+import { RoadmapProvider } from "~/features/roadmap/context/roadmap-context";
+import { ContentRoadmapPage } from "~/features/roadmap/page";
 import { getLanguageSession } from "~/language.server";
 import { createTranslationFunction } from "~/lib/i18n/translations";
 
@@ -58,9 +59,8 @@ export default function Roadmap({ loaderData }: Route.ComponentProps) {
   }
 
   return (
-    <RoadmapPage 
-      roadmapData={loaderData.roadmapData}
-      requestGuide={loaderData.requestGuide}
-    />
+    <RoadmapProvider roadmapData={loaderData.roadmapData} requestGuide={loaderData.requestGuide}>
+      <ContentRoadmapPage />
+    </RoadmapProvider>
   );
 }
