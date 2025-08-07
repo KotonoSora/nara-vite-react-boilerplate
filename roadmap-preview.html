@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NARA Roadmap - Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-grid-white { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60' width='60' height='60'%3e%3cpath d='M0 0h60v60H0z' fill='none'/%3e%3cpath d='M0 0h1v60H0zm60 0v1H0V0z' fill='%23ffffff' opacity='0.02'/%3e%3c/svg%3e"); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <header class="border-b bg-white sticky top-0 z-50">
+        <div class="container mx-auto px-4 h-14 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-blue-600 rounded"></div>
+                <h2 class="text-xl font-bold">NARA</h2>
+            </div>
+            <nav class="hidden md:flex items-center space-x-4">
+                <a href="#" class="text-gray-600 hover:text-gray-900">Showcase</a>
+                <a href="#" class="text-blue-600 font-medium">Roadmap</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">Sign in</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-24 px-4 bg-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5"></div>
+        <div class="absolute inset-0 bg-grid-white"></div>
+        
+        <div class="max-w-4xl mx-auto text-center relative">
+            <div class="mb-6 inline-flex items-center px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-sm">
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                </svg>
+                Building the Future of React Boilerplates
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">NARA Roadmap</h1>
+            
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                See what's implemented, what's in development, and what's coming next. Join our community and help shape the future of NARA.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                <a href="#" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+                    </svg>
+                    Contribute on GitHub
+                </a>
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"></path>
+                    </svg>
+                    Request Feature
+                </a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600 mb-2">10+</div>
+                    <div class="text-sm text-gray-600">Production Features</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600 mb-2">3</div>
+                    <div class="text-sm text-gray-600">In Development</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-purple-600 mb-2">5+</div>
+                    <div class="text-sm text-gray-600">Planned Features</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Support Section -->
+    <section class="py-16 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">✅ Current Support</h2>
+                <p class="text-xl text-blue-600 font-medium mb-4">Features Ready for Production</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">These features are fully implemented, tested, and ready to use in your projects.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature Card 1 -->
+                <div class="bg-green-50 border border-green-200 rounded-xl p-6 hover:shadow-lg transition-all">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                React Router v7
+                            </h4>
+                            <div class="flex items-center gap-2">
+                                <span class="inline-flex px-2 py-1 text-xs bg-green-100 text-green-800 rounded">Stable</span>
+                            </div>
+                        </div>
+                        <span class="inline-flex px-2 py-1 text-xs bg-emerald-500 text-white rounded ml-2">New</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Modern routing with SSR, file-based routing, and type-safe data loading</p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="bg-green-50 border border-green-200 rounded-xl p-6 hover:shadow-lg transition-all">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                TypeScript Integration
+                            </h4>
+                            <div class="flex items-center gap-2">
+                                <span class="inline-flex px-2 py-1 text-xs bg-green-100 text-green-800 rounded">Stable</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600">Full type safety with strict TypeScript configuration and proper typing</p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="bg-green-50 border border-green-200 rounded-xl p-6 hover:shadow-lg transition-all">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                Cloudflare Workers
+                            </h4>
+                            <div class="flex items-center gap-2">
+                                <span class="inline-flex px-2 py-1 text-xs bg-green-100 text-green-800 rounded">Stable</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600">Edge deployment with global performance and serverless architecture</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <p class="text-sm text-gray-500">10 features</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- In Development Section -->
+    <section class="py-16 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">🚧 In Development</h2>
+                <p class="text-xl text-blue-600 font-medium mb-4">Features Currently Being Built</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">These features are actively being developed and will be available soon.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Development Feature 1 -->
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 hover:shadow-lg transition-all">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                                </svg>
+                                Advanced Authentication
+                            </h4>
+                            <div class="flex items-center gap-2">
+                                <span class="inline-flex px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">In Progress</span>
+                                <span class="text-xs text-gray-500">ETA: Q2 2025</span>
+                            </div>
+                        </div>
+                        <span class="inline-flex px-2 py-1 text-xs bg-orange-500 text-white rounded ml-2">Popular</span>
+                    </div>
+                    <p class="text-sm text-gray-600">OAuth providers, 2FA, and enterprise authentication options</p>
+                </div>
+
+                <!-- Development Feature 2 -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 hover:shadow-lg transition-all">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"></path>
+                                </svg>
+                                Real-time Features
+                            </h4>
+                            <div class="flex items-center gap-2">
+                                <span class="inline-flex px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded">Planning</span>
+                                <span class="text-xs text-gray-500">ETA: Q2 2025</span>
+                            </div>
+                        </div>
+                        <span class="inline-flex px-2 py-1 text-xs bg-purple-500 text-white rounded ml-2">Community</span>
+                    </div>
+                    <p class="text-sm text-gray-600">WebSocket support and real-time data synchronization</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <p class="text-sm text-gray-500">3 features</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 bg-white border-t">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-600">Built with ❤️ by KotonoSora — to help you ship faster and with confidence.</p>
+        </div>
+    </footer>
+</body>
+</html>
