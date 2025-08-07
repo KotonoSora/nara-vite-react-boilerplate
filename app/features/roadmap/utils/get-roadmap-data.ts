@@ -1,5 +1,5 @@
 import type { TranslationFunction } from "~/lib/i18n/translations";
-import type { RoadmapData, RequestGuide } from "../types";
+import type { RoadmapData, RequestGuide } from "../types/roadmap-types";
 
 export function getRoadmapData(t: TranslationFunction): RoadmapData {
   return {

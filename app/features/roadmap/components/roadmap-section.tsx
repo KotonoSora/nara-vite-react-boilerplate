@@ -2,14 +2,15 @@ import { type FC } from "react";
 
 import { cn } from "~/lib/utils";
 
-import type { RoadmapFeature } from "../types";
+import type { RoadmapFeature } from "../types/roadmap-types";
+import { useRoadmap } from "../context/roadmap-context";
 import { FeatureCard } from "./feature-card";
 
 interface RoadmapSectionProps {
   title: string;
   subtitle: string;
   description: string;
-  features: Record<string, RoadmapFeature>;
+  sectionKey: "current" | "development" | "planned";
   className?: string;
 }
 
@@ -17,9 +18,11 @@ export const RoadmapSection: FC<RoadmapSectionProps> = ({
   title,
   subtitle,
   description,
-  features,
+  sectionKey,
   className,
 }) => {
+  const { roadmapData } = useRoadmap();
+  const features = roadmapData[sectionKey];
   const featureEntries = Object.entries(features);
 
   return (

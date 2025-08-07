@@ -5,7 +5,7 @@ import { Badge } from "~/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { cn } from "~/lib/utils";
 
-import type { RoadmapFeature } from "../types";
+import type { RoadmapFeature } from "../types/roadmap-types";
 
 interface FeatureCardProps {
   feature: RoadmapFeature;

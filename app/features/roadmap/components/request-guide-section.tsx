@@ -15,14 +15,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
 import { useI18n } from "~/lib/i18n";
 
-import type { RequestGuide } from "../types";
+import { useRoadmap } from "../context/roadmap-context";
 
-interface RequestGuideProps {
-  guide: RequestGuide;
-}
-
-export const RequestGuideSection: FC<RequestGuideProps> = ({ guide }) => {
+export const RequestGuideSection: FC = () => {
   const { t } = useI18n();
+  const { requestGuide: guide } = useRoadmap();
 
   const stepIcons = [Search, FileText, MessageSquare, Users];
 
