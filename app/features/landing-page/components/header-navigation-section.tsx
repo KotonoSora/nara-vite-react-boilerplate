@@ -84,6 +84,16 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
         <div
           className={`hidden md:flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
         >
+          {/* Main Navigation Links */}
+          <nav className={`flex items-center ${isRTL ? "space-x-reverse space-x-4" : "space-x-4"} mr-4`}>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/showcase">{t("navigation.showcase")}</Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/roadmap">{t("navigation.roadmap")}</Link>
+            </Button>
+          </nav>
+          
           {auth?.isAuthenticated ? (
             <div
               className={`flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
@@ -159,6 +169,30 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
         <div
           className={`container mx-auto px-4 py-4 ${isRTL ? "space-y-reverse space-y-3" : "space-y-3"}`}
         >
+          {/* Main Navigation Links - Mobile */}
+          <div className={`pb-3 border-b ${isRTL ? "space-y-reverse space-y-2" : "space-y-2"}`}>
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className={`w-full ${isRTL ? "justify-end" : "justify-start"}`}
+            >
+              <Link to="/showcase" onClick={closeMobileMenu}>
+                {t("navigation.showcase")}
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className={`w-full ${isRTL ? "justify-end" : "justify-start"}`}
+            >
+              <Link to="/roadmap" onClick={closeMobileMenu}>
+                {t("navigation.roadmap")}
+              </Link>
+            </Button>
+          </div>
+          
           {auth?.isAuthenticated ? (
             <>
               <div

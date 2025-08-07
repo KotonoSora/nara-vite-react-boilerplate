@@ -1,0 +1,194 @@
+{
+  "title": "Project Roadmap",
+  "subtitle": "Track our progress and see what's coming next",
+  "description": "NARA is constantly evolving. See what features are currently supported, what we're working on, and what's planned for the future.",
+  "hero": {
+    "title": "NARA Roadmap",
+    "subtitle": "Building the Future of React Boilerplates",
+    "description": "See what's implemented, what's in development, and what's coming next. Join our community and help shape the future of NARA.",
+    "contributeButton": "Contribute on GitHub",
+    "requestFeatureButton": "Request Feature"
+  },
+  "sections": {
+    "currentSupport": {
+      "title": "✅ Current Support",
+      "subtitle": "Features Ready for Production",
+      "description": "These features are fully implemented, tested, and ready to use in your projects."
+    },
+    "inDevelopment": {
+      "title": "🚧 In Development",
+      "subtitle": "Features Currently Being Built",
+      "description": "These features are actively being developed and will be available soon."
+    },
+    "planned": {
+      "title": "📋 Planned",
+      "subtitle": "Future Features & Enhancements",
+      "description": "These features are planned for future releases. Timeline may vary based on community feedback and priorities."
+    },
+    "requestGuide": {
+      "title": "📝 Request New Features",
+      "subtitle": "Help Shape NARA's Future",
+      "description": "Have an idea for a new feature? We'd love to hear from you! Follow our guide to submit feature requests."
+    }
+  },
+  "features": {
+    "current": {
+      "reactRouter": {
+        "title": "React Router v7",
+        "description": "Modern routing with SSR, file-based routing, and type-safe data loading",
+        "status": "Stable"
+      },
+      "typescript": {
+        "title": "TypeScript Integration",
+        "description": "Full type safety with strict TypeScript configuration and proper typing",
+        "status": "Stable"
+      },
+      "cloudflareWorkers": {
+        "title": "Cloudflare Workers",
+        "description": "Edge deployment with global performance and serverless architecture",
+        "status": "Stable"
+      },
+      "drizzleOrm": {
+        "title": "Drizzle ORM + D1",
+        "description": "Type-safe database operations with Cloudflare D1 SQLite integration",
+        "status": "Stable"
+      },
+      "honoApi": {
+        "title": "Hono.js API Framework",
+        "description": "Fast, lightweight API framework optimized for Cloudflare Workers",
+        "status": "Stable"
+      },
+      "tailwindUi": {
+        "title": "Tailwind CSS + shadcn/ui",
+        "description": "Modern styling with utility-first CSS and beautiful component library",
+        "status": "Stable"
+      },
+      "authentication": {
+        "title": "Authentication System",
+        "description": "Complete auth flow with session management and protected routes",
+        "status": "Stable"
+      },
+      "i18n": {
+        "title": "Internationalization",
+        "description": "Multi-language support with route-based language switching",
+        "status": "Stable"
+      },
+      "testing": {
+        "title": "Testing Setup",
+        "description": "Vitest configuration with coverage reports and component testing",
+        "status": "Stable"
+      },
+      "cicd": {
+        "title": "CI/CD Pipeline",
+        "description": "GitHub Actions for automated testing, building, and deployment",
+        "status": "Stable"
+      }
+    },
+    "development": {
+      "advancedAuth": {
+        "title": "Advanced Authentication",
+        "description": "OAuth providers, 2FA, and enterprise authentication options",
+        "status": "In Progress",
+        "eta": "Q2 2025"
+      },
+      "realtime": {
+        "title": "Real-time Features",
+        "description": "WebSocket support and real-time data synchronization",
+        "status": "Planning",
+        "eta": "Q2 2025"
+      },
+      "monitoring": {
+        "title": "Application Monitoring",
+        "description": "Built-in error tracking, performance monitoring, and analytics",
+        "status": "Research",
+        "eta": "Q3 2025"
+      }
+    },
+    "planned": {
+      "mobileApp": {
+        "title": "Mobile App Template",
+        "description": "React Native template that shares code with the web app",
+        "status": "Planned",
+        "eta": "Q3 2025"
+      },
+      "cms": {
+        "title": "Headless CMS Integration",
+        "description": "Pre-configured content management system integration",
+        "status": "Planned",
+        "eta": "Q4 2025"
+      },
+      "ecommerce": {
+        "title": "E-commerce Starter",
+        "description": "Complete e-commerce functionality with payments and inventory",
+        "status": "Planned",
+        "eta": "Q4 2025"
+      },
+      "aiIntegration": {
+        "title": "AI/ML Integration",
+        "description": "Built-in AI tools and machine learning model integration",
+        "status": "Planned",
+        "eta": "2026"
+      },
+      "microservices": {
+        "title": "Microservices Architecture",
+        "description": "Template for splitting into multiple services and APIs",
+        "status": "Planned",
+        "eta": "2026"
+      }
+    }
+  },
+  "requestGuide": {
+    "steps": {
+      "step1": {
+        "title": "1. Check Existing Issues",
+        "description": "Search our GitHub issues to see if your feature has already been requested or is being discussed."
+      },
+      "step2": {
+        "title": "2. Use the Feature Request Template",
+        "description": "Create a new issue using our feature request template to provide all necessary details."
+      },
+      "step3": {
+        "title": "3. Provide Context",
+        "description": "Explain your use case, why this feature would be valuable, and how it fits with NARA's goals."
+      },
+      "step4": {
+        "title": "4. Engage with the Community",
+        "description": "Participate in discussions and help refine the feature requirements with other community members."
+      }
+    },
+    "template": {
+      "title": "Feature Request Template",
+      "description": "Use this template when creating a new feature request on GitHub:",
+      "content": "## Feature Request\n\n### Summary\nBrief description of the feature you'd like to see.\n\n### Motivation\nWhy is this feature important? What problem does it solve?\n\n### Detailed Description\nProvide a detailed description of how this feature should work.\n\n### Possible Implementation\nIf you have ideas on how this could be implemented, share them here.\n\n### Alternatives Considered\nWhat alternatives have you considered?\n\n### Additional Context\nAny other context, screenshots, or examples that would help."
+    },
+    "guidelines": {
+      "title": "Feature Request Guidelines",
+      "items": {
+        "specific": "Be specific about what you want and why",
+        "research": "Research if similar features exist in other tools",
+        "scope": "Consider the scope and complexity of your request",
+        "community": "Think about how it benefits the wider community",
+        "maintenance": "Consider the long-term maintenance implications"
+      }
+    }
+  },
+  "status": {
+    "stable": "Stable",
+    "inProgress": "In Progress",
+    "planning": "Planning",
+    "research": "Research",
+    "planned": "Planned"
+  },
+  "badges": {
+    "new": "New",
+    "popular": "Popular",
+    "communityRequested": "Community Requested",
+    "experimental": "Experimental"
+  },
+  "cta": {
+    "viewGitHub": "View on GitHub",
+    "createIssue": "Create Feature Request",
+    "joinDiscussion": "Join Discussion",
+    "contribute": "Contribute Code"
+  }
+}
