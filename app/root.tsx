@@ -20,8 +20,13 @@ import type { Route } from "./+types/root";
 
 import { getUserId } from "~/auth.server";
 import { Toaster } from "~/components/ui/sonner";
+import { SkipLinks } from "~/components/accessibility/skip-link";
+import { VimIndicator } from "~/components/vim/vim-indicator";
+import { SettingsToggle } from "~/components/settings/settings-panel";
 import { getLanguageSession } from "~/language.server";
 import { AuthProvider } from "~/lib/auth";
+import { AccessibilityProvider } from "~/lib/accessibility";
+import { VimProvider } from "~/lib/vim/vim-context";
 import {
   DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,
@@ -32,6 +37,7 @@ import {
 } from "~/lib/i18n";
 import { themeSessionResolver } from "~/sessions.server";
 import { getUserById } from "~/user.server";
+import { useVimNavigation } from "~/hooks/use-vim-navigation";
 
 import "~/app.css";
 
@@ -93,6 +99,9 @@ function InnerLayout({
 }) {
   const [theme] = useTheme();
   const direction = isRTLLanguage(language) ? "rtl" : "ltr";
+  
+  // Initialize vim navigation
+  useVimNavigation();
 
   return (
     <html lang={language} dir={direction} className={clsx("font-sans", theme)}>
@@ -104,7 +113,12 @@ function InnerLayout({
         <Links />
       </head>
       <body>
-        {children}
+        <SkipLinks />
+        <div id="main-content" tabIndex={-1}>
+          {children}
+        </div>
+        <VimIndicator />
+        <SettingsToggle />
         <ScrollRestoration />
         <Scripts />
         <Toaster />
@@ -123,12 +137,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
     >
       <I18nProvider initialLanguage={data?.language || DEFAULT_LANGUAGE}>
         <AuthProvider user={data?.user || null}>
-          <InnerLayout
-            ssrTheme={Boolean(data?.theme)}
-            language={data?.language || DEFAULT_LANGUAGE}
-          >
-            {children}
-          </InnerLayout>
+          <AccessibilityProvider>
+            <VimProvider>
+              <InnerLayout
+                ssrTheme={Boolean(data?.theme)}
+                language={data?.language || DEFAULT_LANGUAGE}
+              >
+                {children}
+              </InnerLayout>
+            </VimProvider>
+          </AccessibilityProvider>
         </AuthProvider>
       </I18nProvider>
     </ThemeProvider>
