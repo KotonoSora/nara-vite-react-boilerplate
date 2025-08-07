@@ -15,31 +15,52 @@ export function ContentPage() {
       style={{ contentVisibility: "auto" }}
     >
       {/* Header/Navigation Section */}
-      <HeaderNavigationSection />
+      <header role="banner" id="navigation">
+        <HeaderNavigationSection />
+      </header>
 
-      {/* Hero Section */}
-      <HeroSection />
+      {/* Main Content Area */}
+      <div id="main-content" role="main">
+        {/* Hero Section */}
+        <section aria-labelledby="hero-heading">
+          <HeroSection />
+        </section>
 
-      {/* Getting Started Section */}
-      <GettingStartedSection />
+        {/* Getting Started Section */}
+        <section aria-labelledby="getting-started-heading">
+          <GettingStartedSection />
+        </section>
 
-      {/* Built for Developers Section */}
-      <BuiltForDevelopersSection />
+        {/* Built for Developers Section */}
+        <section aria-labelledby="developers-heading">
+          <BuiltForDevelopersSection />
+        </section>
 
-      {/* Key Features Section */}
-      <KeyFeaturesSection />
+        {/* Key Features Section */}
+        <section aria-labelledby="features-heading">
+          <KeyFeaturesSection />
+        </section>
 
-      {/* Tech Stack Section */}
-      <TechStackSection />
+        {/* Tech Stack Section */}
+        <section aria-labelledby="tech-stack-heading">
+          <TechStackSection />
+        </section>
 
-      {/* License Section */}
-      <LicenseSection />
+        {/* License Section */}
+        <section aria-labelledby="license-heading">
+          <LicenseSection />
+        </section>
 
-      {/* Showcase Section */}
-      <ShowcaseSection />
+        {/* Showcase Section */}
+        <section aria-labelledby="showcase-heading">
+          <ShowcaseSection />
+        </section>
+      </div>
 
       {/* Footer Section */}
-      <FooterSection />
+      <footer role="contentinfo">
+        <FooterSection />
+      </footer>
     </main>
   );
 }

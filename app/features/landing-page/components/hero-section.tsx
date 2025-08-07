@@ -44,9 +44,12 @@ export const HeroSection = memo(function HeroSection() {
           </div>
 
           {/* Enhanced title with better gradient */}
-          <h2 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-primary to-purple-600 bg-clip-text text-transparent motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000">
+          <h1 
+            id="hero-heading"
+            className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-primary to-purple-600 bg-clip-text text-transparent motion-safe:animate-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-1000"
+          >
             {t("landing.hero.title")}
-          </h2>
+          </h1>
 
           {/* Enhanced subtitle */}
           <p className="text-xl sm:text-2xl font-semibold text-primary mb-4 motion-reduce:animate-none motion-safe:animate-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500 motion-safe:delay-100">
