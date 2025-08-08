@@ -52,7 +52,7 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {steps.map((step) => (
               <Card
                 key={step.number}
