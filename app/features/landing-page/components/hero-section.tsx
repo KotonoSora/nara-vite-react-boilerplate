@@ -16,10 +16,7 @@ export const HeroSection = memo(function HeroSection() {
   const { githubRepository } = usePageContext();
 
   return (
-    <section
-      className="py-24 px-4 bg-background relative overflow-hidden"
-      style={{ contentVisibility: "auto" }}
-    >
+    <section className="py-24 px-4 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div
         className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5"
@@ -53,8 +50,8 @@ export const HeroSection = memo(function HeroSection() {
             {t("landing.hero.subtitle")}
           </p>
 
-          {/* Enhanced description */}
-          <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
+          {/* Enhanced description - reduced size/width so H2 becomes LCP */}
+          <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             {t("landing.hero.description")}
           </p>
 
