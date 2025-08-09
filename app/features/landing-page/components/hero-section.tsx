@@ -62,19 +62,19 @@ export const HeroSection = memo(function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Button
               size="lg"
-              className="text-lg px-8 h-12 bg-gradient-to-r from-primary to-purple-600"
+              className="text-lg px-8 h-12 leading-none box-border transition-none bg-gradient-to-r from-primary to-purple-600"
               asChild
             >
               <Link
                 to={githubRepository}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3"
+                className="flex items-center gap-3 leading-none"
                 aria-label={t("landing.hero.starOnGitHub")}
               >
-                <Star className="h-5 w-5" />
+                <Star className="h-5 w-5 align-middle" />
                 {t("landing.hero.starOnGitHub")}
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink className="h-4 w-4 align-middle" />
               </Link>
             </Button>
 
