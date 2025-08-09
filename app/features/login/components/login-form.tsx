@@ -110,6 +110,9 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
                         size="icon"
                         className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                         onClick={() => setShowPassword(!showPassword)}
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
                       >
                         {showPassword ? (
                           <EyeOff className="h-4 w-4" />
@@ -134,10 +137,7 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
               <span className="text-muted-foreground">
                 {t("auth.login.noAccount")}{" "}
               </span>
-              <Link
-                to="/register"
-                className="font-medium text-primary hover:underline"
-              >
+              <Link to="/register" className="underline underline-offset-4">
                 {t("auth.login.signUpLink")}
               </Link>
             </div>
