@@ -74,13 +74,13 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
         >
           <img
             src="/assets/logo-dark.svg"
-            alt="NARA"
+            alt=""
             className="w-8 h-8 hidden [html.dark_&]:block"
             loading="lazy"
           />
           <img
             src="/assets/logo-light.svg"
-            alt="NARA"
+            alt=""
             className="w-8 h-8 hidden [html.light_&]:block"
             loading="lazy"
           />
