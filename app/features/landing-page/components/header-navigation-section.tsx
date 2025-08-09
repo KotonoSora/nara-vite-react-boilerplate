@@ -1,38 +1,44 @@
-import { Menu, X } from "lucide-react";
-import { memo, useEffect, useState } from "react";
+import { Home, LogOut, Menu, X } from "lucide-react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Form, Link } from "react-router";
 
 import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
+import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { GitHubButton } from "~/features/landing-page/components/github-button";
 import { useOptionalAuth } from "~/lib/auth";
 import { isRTLLanguage, useI18n } from "~/lib/i18n";
+import { cn } from "~/lib/utils";
 
 export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
   const auth = useOptionalAuth();
   const { t, language } = useI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isRTL = isRTLLanguage(language);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  const toggleMobileMenu = useCallback(
+    () => setIsMobileMenuOpen(!isMobileMenuOpen),
+    [isMobileMenuOpen],
+  );
+  const closeMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+    // Return focus to the menu button when closing
+    mobileMenuButtonRef.current?.focus();
+  }, []);
 
-  // Close mobile menu when pressing Escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
+  const handleEscape = useCallback(
+    (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMobileMenuOpen) {
         closeMobileMenu();
       }
-    };
+    },
+    [isMobileMenuOpen, closeMobileMenu],
+  );
 
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [isMobileMenuOpen]);
-
-  // Close mobile menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+  const handleClickOutside = useCallback(
+    (e: MouseEvent) => {
       const target = e.target as Element;
       if (
         isMobileMenuOpen &&
@@ -41,68 +47,108 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
       ) {
         closeMobileMenu();
       }
-    };
+    },
+    [isMobileMenuOpen, closeMobileMenu],
+  );
 
+  // Close mobile menu when pressing Escape key
+  useEffect(() => {
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [handleEscape]);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
     if (isMobileMenuOpen) {
       document.addEventListener("click", handleClickOutside);
       return () => document.removeEventListener("click", handleClickOutside);
     }
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, handleClickOutside]);
 
   return (
     <header
-      className="border-b bg-background/80 backdrop-blur-sm sticky top-0 z-50"
+      className="border-b bg-background sticky top-0 z-50"
       dir={isRTL ? "rtl" : "ltr"}
+      role="banner"
     >
-      <div className="container flex h-14 items-center justify-between mx-auto px-4">
-        {/* Logo Section */}
-        <div
-          className={`flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
+      <div className="container flex h-14 items-center justify-between mx-auto px-4 max-w-7xl">
+        <Link
+          to="/"
+          className={cn(
+            "flex items-center font-bold text-xl tracking-tight hover:opacity-80 transition-opacity",
+            {
+              "space-x-reverse space-x-2": isRTL,
+              "space-x-2": !isRTL,
+            },
+          )}
+          onClick={closeMobileMenu}
         >
-          <Link
-            to="/"
-            className={`flex items-center hover:opacity-80 transition-opacity ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
-            onClick={closeMobileMenu}
-          >
-            <img
-              src="/assets/logo-dark.svg"
-              alt=""
-              className="w-8 h-8 hidden [html.dark_&]:block"
-              loading="lazy"
-            />
-            <img
-              src="/assets/logo-light.svg"
-              alt=""
-              className="w-8 h-8 hidden [html.light_&]:block"
-              loading="lazy"
-            />
-            <h2 className="text-xl font-bold">NARA</h2>
-          </Link>
-        </div>
+          <img
+            src="/assets/logo-dark.svg"
+            alt="NARA"
+            className="w-8 h-8 hidden [html.dark_&]:block"
+            loading="lazy"
+          />
+          <img
+            src="/assets/logo-light.svg"
+            alt="NARA"
+            className="w-8 h-8 hidden [html.light_&]:block"
+            loading="lazy"
+          />
+          <span>NARA</span>
+        </Link>
 
-        {/* Desktop Navigation */}
-        <div
-          className={`hidden md:flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
+        <nav
+          className={cn("hidden md:flex items-center", {
+            "space-x-reverse space-x-3": isRTL,
+            "space-x-3": !isRTL,
+          })}
+          aria-label={t("navigation.menu")}
         >
           {auth?.isAuthenticated ? (
             <div
-              className={`flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
+              className={cn("flex items-center", {
+                "space-x-reverse space-x-3": isRTL,
+                "space-x-3": !isRTL,
+              })}
             >
-              <Button variant="ghost" size="sm" asChild>
-                <Link to="/dashboard">{t("navigation.dashboard")}</Link>
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/" title={t("navigation.home")}>
+                  <Home className="h-4 w-4" />
+                </Link>
               </Button>
-              <span className="text-sm text-muted-foreground hidden lg:inline truncate max-w-32">
-                {auth.user?.name}
-              </span>
+              <Link
+                to="/dashboard"
+                onClick={closeMobileMenu}
+                aria-label={t("navigation.dashboard")}
+                className="hover:opacity-80 transition-opacity"
+              >
+                <Avatar>
+                  <AvatarFallback>
+                    {auth.user?.name?.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </Link>
               <Form method="post" action="/action/logout">
-                <Button type="submit" variant="outline" size="sm">
-                  {t("navigation.signOut")}
+                <Button
+                  type="submit"
+                  variant="outline"
+                  size="sm"
+                  title={t("navigation.signOut")}
+                >
+                  <LogOut
+                    className="h-4 w-4"
+                    aria-label={t("navigation.signOut")}
+                  />
                 </Button>
               </Form>
             </div>
           ) : (
             <div
-              className={`flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
+              className={cn("flex items-center", {
+                "space-x-reverse space-x-2": isRTL,
+                "space-x-2": !isRTL,
+              })}
             >
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/login">{t("navigation.signIn")}</Link>
@@ -112,18 +158,22 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
               </Button>
             </div>
           )}
+
           <GitHubButton />
           <LanguageSwitcher />
           <ModeSwitcher />
-        </div>
+        </nav>
 
-        {/* Mobile Menu Button */}
         <div
-          className={`md:hidden flex items-center ${isRTL ? "space-x-reverse space-x-2" : "space-x-2"}`}
+          className={cn("md:hidden flex items-center", {
+            "space-x-reverse space-x-2": isRTL,
+            "space-x-2": !isRTL,
+          })}
         >
           <LanguageSwitcher />
           <ModeSwitcher />
           <Button
+            ref={mobileMenuButtonRef}
             variant="ghost"
             size="sm"
             onClick={toggleMobileMenu}
@@ -145,62 +195,74 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
       <div
         id="mobile-navigation"
-        className={`md:hidden border-t bg-background/95 backdrop-blur-sm transition-all duration-300 ease-in-out ${
-          isMobileMenuOpen
-            ? "max-h-96 opacity-100"
-            : "max-h-0 opacity-0 overflow-hidden"
-        }`}
+        className={cn(
+          "md:hidden border-t bg-background transition-all duration-300 ease-in-out transform",
+          {
+            "max-h-96 opacity-100 translate-y-0": isMobileMenuOpen,
+            "max-h-0 opacity-0 overflow-hidden -translate-y-2":
+              !isMobileMenuOpen,
+          },
+        )}
         role="navigation"
         aria-label={t("navigation.menu")}
+        aria-hidden={!isMobileMenuOpen}
       >
-        <div
-          className={`container mx-auto px-4 py-4 ${isRTL ? "space-y-reverse space-y-3" : "space-y-3"}`}
-        >
+        <div className="container mx-auto px-4 py-4 max-w-7xl space-y-3">
           {auth?.isAuthenticated ? (
-            <>
-              <div
-                className={`flex items-center pb-3 border-b ${isRTL ? "space-x-reverse space-x-3" : "space-x-3"}`}
+            <div className="flex flex-col gap-4">
+              <Link
+                to="/dashboard"
+                onClick={closeMobileMenu}
+                aria-label={t("navigation.dashboard")}
               >
-                <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-semibold">
-                  {auth.user?.name?.charAt(0).toUpperCase()}
+                <div className="flex items-center p-2 bg-muted/30 rounded-lg gap-3">
+                  <Avatar>
+                    <AvatarFallback>
+                      {auth.user?.name?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-medium line-clamp-1">
+                      {auth.user?.name}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {auth.user?.email}
+                    </div>
+                  </div>
                 </div>
-                <span className="text-sm font-medium truncate">
-                  {auth.user?.name}
-                </span>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                asChild
-                className={`w-full ${isRTL ? "justify-end" : "justify-start"}`}
-              >
-                <Link to="/dashboard" onClick={closeMobileMenu}>
-                  {t("navigation.dashboard")}
-                </Link>
-              </Button>
-              <Form method="post" action="/action/logout" className="w-full">
-                <Button
-                  type="submit"
-                  variant="outline"
-                  size="sm"
-                  className={`w-full ${isRTL ? "justify-end" : "justify-start"}`}
-                  onClick={closeMobileMenu}
-                >
-                  {t("navigation.signOut")}
+              </Link>
+
+              <div className="flex flex-row justify-start items-center gap-4">
+                <Button variant="outline" size="sm" asChild>
+                  <Link
+                    to="/"
+                    onClick={closeMobileMenu}
+                    title={t("navigation.home")}
+                  >
+                    <Home className="h-4 w-4" />
+                  </Link>
                 </Button>
-              </Form>
-            </>
+                <Form method="post" action="/action/logout">
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    size="sm"
+                    onClick={closeMobileMenu}
+                    title={t("navigation.signOut")}
+                  >
+                    <LogOut
+                      className="h-4 w-4"
+                      aria-label={t("navigation.signOut")}
+                    />
+                  </Button>
+                </Form>
+              </div>
+            </div>
           ) : (
-            <div className={isRTL ? "space-y-reverse space-y-3" : "space-y-3"}>
-              <Button
-                variant="ghost"
-                size="sm"
-                asChild
-                className={`w-full ${isRTL ? "justify-end" : "justify-start"}`}
-              >
+            <div className="grid grid-cols-2 gap-2">
+              <Button variant="outline" size="sm" asChild className="w-full">
                 <Link to="/login" onClick={closeMobileMenu}>
                   {t("navigation.signIn")}
                 </Link>
@@ -212,7 +274,8 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
               </Button>
             </div>
           )}
-          <div className="pt-3 border-t">
+
+          <div className="pt-3 border-t flex justify-end">
             <GitHubButton />
           </div>
         </div>

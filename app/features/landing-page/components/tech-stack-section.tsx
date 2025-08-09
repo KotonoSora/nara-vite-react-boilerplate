@@ -26,7 +26,7 @@ export const TechStackSection = memo(function TechStackSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <Card className="border-2 border-blue-500/20 bg-gradient-to-br from-background/60 to-blue-500/5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <CardHeader className="pb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-lg flex items-center justify-center mb-4">

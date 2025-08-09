@@ -150,6 +150,9 @@ export function RegisterForm({
                         size="icon"
                         className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                         onClick={() => setShowPassword(!showPassword)}
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
                       >
                         {showPassword ? (
                           <EyeOff className="h-4 w-4" />
@@ -190,6 +193,11 @@ export function RegisterForm({
                         onClick={() =>
                           setShowConfirmPassword(!showConfirmPassword)
                         }
+                        aria-label={
+                          showConfirmPassword
+                            ? "Hide password"
+                            : "Show password"
+                        }
                       >
                         {showConfirmPassword ? (
                           <EyeOff className="h-4 w-4" />
@@ -214,10 +222,7 @@ export function RegisterForm({
               <span className="text-muted-foreground">
                 {t("auth.register.hasAccount")}{" "}
               </span>
-              <Link
-                to="/login"
-                className="font-medium text-primary hover:underline"
-              >
+              <Link to="/login" className="underline underline-offset-4">
                 {t("auth.register.signInLink")}
               </Link>
             </div>

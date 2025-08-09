@@ -9,6 +9,7 @@ import arCommon from "~/locales/ar/common.json";
 import arDashboard from "~/locales/ar/dashboard.json";
 import arErrors from "~/locales/ar/errors.json";
 import arLanding from "~/locales/ar/landing.json";
+import arLegal from "~/locales/ar/legal.json";
 import arNavigation from "~/locales/ar/navigation.json";
 import arShowcase from "~/locales/ar/showcase.json";
 import arTheme from "~/locales/ar/theme.json";
@@ -20,6 +21,7 @@ import enCommon from "~/locales/en/common.json";
 import enDashboard from "~/locales/en/dashboard.json";
 import enErrors from "~/locales/en/errors.json";
 import enLanding from "~/locales/en/landing.json";
+import enLegal from "~/locales/en/legal.json";
 import enNavigation from "~/locales/en/navigation.json";
 import enShowcase from "~/locales/en/showcase.json";
 import enTheme from "~/locales/en/theme.json";
@@ -31,6 +33,7 @@ import esCommon from "~/locales/es/common.json";
 import esDashboard from "~/locales/es/dashboard.json";
 import esErrors from "~/locales/es/errors.json";
 import esLanding from "~/locales/es/landing.json";
+import esLegal from "~/locales/es/legal.json";
 import esNavigation from "~/locales/es/navigation.json";
 import esShowcase from "~/locales/es/showcase.json";
 import esTheme from "~/locales/es/theme.json";
@@ -42,6 +45,7 @@ import frCommon from "~/locales/fr/common.json";
 import frDashboard from "~/locales/fr/dashboard.json";
 import frErrors from "~/locales/fr/errors.json";
 import frLanding from "~/locales/fr/landing.json";
+import frLegal from "~/locales/fr/legal.json";
 import frNavigation from "~/locales/fr/navigation.json";
 import frShowcase from "~/locales/fr/showcase.json";
 import frTheme from "~/locales/fr/theme.json";
@@ -53,6 +57,7 @@ import hiCommon from "~/locales/hi/common.json";
 import hiDashboard from "~/locales/hi/dashboard.json";
 import hiErrors from "~/locales/hi/errors.json";
 import hiLanding from "~/locales/hi/landing.json";
+import hiLegal from "~/locales/hi/legal.json";
 import hiNavigation from "~/locales/hi/navigation.json";
 import hiShowcase from "~/locales/hi/showcase.json";
 import hiTheme from "~/locales/hi/theme.json";
@@ -64,6 +69,7 @@ import jaCommon from "~/locales/ja/common.json";
 import jaDashboard from "~/locales/ja/dashboard.json";
 import jaErrors from "~/locales/ja/errors.json";
 import jaLanding from "~/locales/ja/landing.json";
+import jaLegal from "~/locales/ja/legal.json";
 import jaNavigation from "~/locales/ja/navigation.json";
 import jaShowcase from "~/locales/ja/showcase.json";
 import jaTheme from "~/locales/ja/theme.json";
@@ -75,6 +81,7 @@ import thCommon from "~/locales/th/common.json";
 import thDashboard from "~/locales/th/dashboard.json";
 import thErrors from "~/locales/th/errors.json";
 import thLanding from "~/locales/th/landing.json";
+import thLegal from "~/locales/th/legal.json";
 import thNavigation from "~/locales/th/navigation.json";
 import thShowcase from "~/locales/th/showcase.json";
 import thTheme from "~/locales/th/theme.json";
@@ -86,6 +93,7 @@ import viCommon from "~/locales/vi/common.json";
 import viDashboard from "~/locales/vi/dashboard.json";
 import viErrors from "~/locales/vi/errors.json";
 import viLanding from "~/locales/vi/landing.json";
+import viLegal from "~/locales/vi/legal.json";
 import viNavigation from "~/locales/vi/navigation.json";
 import viShowcase from "~/locales/vi/showcase.json";
 import viTheme from "~/locales/vi/theme.json";
@@ -97,6 +105,7 @@ import zhCommon from "~/locales/zh/common.json";
 import zhDashboard from "~/locales/zh/dashboard.json";
 import zhErrors from "~/locales/zh/errors.json";
 import zhLanding from "~/locales/zh/landing.json";
+import zhLegal from "~/locales/zh/legal.json";
 import zhNavigation from "~/locales/zh/navigation.json";
 import zhShowcase from "~/locales/zh/showcase.json";
 import zhTheme from "~/locales/zh/theme.json";
@@ -116,6 +125,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     time: enTime,
     theme: enTheme,
     landing: enLanding,
+    legal: enLegal,
   },
   es: {
     ...esCommon,
@@ -128,6 +138,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     time: esTime,
     theme: esTheme,
     landing: esLanding,
+    legal: esLegal,
   },
   fr: {
     ...frCommon,
@@ -140,6 +151,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     time: frTime,
     theme: frTheme,
     landing: frLanding,
+    legal: frLegal,
   },
   zh: {
     ...zhCommon,
@@ -152,6 +164,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     time: zhTime,
     theme: zhTheme,
     landing: zhLanding,
+    legal: zhLegal,
   },
   hi: {
     ...hiCommon,
@@ -164,6 +177,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     time: hiTime,
     theme: hiTheme,
     landing: hiLanding,
+    legal: hiLegal,
   },
   ar: {
     ...arCommon,
@@ -176,6 +190,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     time: arTime,
     theme: arTheme,
     landing: arLanding,
+    legal: arLegal,
   },
   vi: {
     ...viCommon,
@@ -188,6 +203,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     time: viTime,
     theme: viTheme,
     landing: viLanding,
+    legal: viLegal,
   },
   ja: {
     ...jaCommon,
@@ -200,6 +216,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     time: jaTime,
     theme: jaTheme,
     landing: jaLanding,
+    legal: jaLegal,
   },
   th: {
     ...thCommon,
@@ -212,6 +229,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     time: thTime,
     theme: thTheme,
     landing: thLanding,
+    legal: thLegal,
   },
 };
 
