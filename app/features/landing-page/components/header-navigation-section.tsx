@@ -74,13 +74,10 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
       <div className="container flex h-14 items-center justify-between mx-auto px-4 max-w-7xl">
         <Link
           to="/"
-          className={cn(
-            "flex items-center font-bold text-xl tracking-tight hover:opacity-80 transition-opacity",
-            {
-              "space-x-reverse space-x-2": isRTL,
-              "space-x-2": !isRTL,
-            },
-          )}
+          className={cn("flex items-center font-bold text-xl tracking-tight", {
+            "space-x-reverse space-x-2": isRTL,
+            "space-x-2": !isRTL,
+          })}
           onClick={closeMobileMenu}
         >
           <img
@@ -121,7 +118,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
                 to="/dashboard"
                 onClick={closeMobileMenu}
                 aria-label={t("navigation.dashboard")}
-                className="hover:opacity-80 transition-opacity"
+                className=""
               >
                 <Avatar>
                   <AvatarFallback>
@@ -197,14 +194,10 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
 
       <div
         id="mobile-navigation"
-        className={cn(
-          "md:hidden border-t bg-background transition-all duration-300 ease-in-out transform",
-          {
-            "max-h-96 opacity-100 translate-y-0": isMobileMenuOpen,
-            "max-h-0 opacity-0 overflow-hidden -translate-y-2":
-              !isMobileMenuOpen,
-          },
-        )}
+        className={cn("md:hidden border-t bg-background", {
+          hidden: !isMobileMenuOpen,
+          block: isMobileMenuOpen,
+        })}
         role="navigation"
         aria-label={t("navigation.menu")}
         aria-hidden={!isMobileMenuOpen}

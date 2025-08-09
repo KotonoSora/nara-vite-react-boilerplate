@@ -56,7 +56,7 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
             {steps.map((step) => (
               <Card
                 key={step.number}
-                className="border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-gradient-to-br from-background/80 to-background/60 backdrop-blur-sm group"
+                className="border-2 border-primary/20 bg-gradient-to-br from-background/80 to-background/60 backdrop-blur-sm"
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3 mb-2">
@@ -84,7 +84,7 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
                         <Button
                           size="sm"
                           variant="ghost"
-                          className="h-8 w-8 p-0 hover:bg-primary/10 transition-colors cursor-pointer"
+                          className="h-8 w-8 p-0 cursor-pointer"
                           aria-label={
                             copiedStep === step.number
                               ? t("landing.gettingStarted.copied")
@@ -118,7 +118,7 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
           {/* Quick completion indicator */}
           <div className="mt-12 text-center">
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500/10 to-primary/10 border border-green-500/20 rounded-full text-sm font-medium text-green-600 dark:text-green-400">
-              <div className="w-2 h-2 bg-green-500 rounded-full motion-safe:animate-pulse" />
+              <div className="w-2 h-2 bg-green-500 rounded-full" />
               {t("landing.gettingStarted.setupTime")}
             </div>
           </div>

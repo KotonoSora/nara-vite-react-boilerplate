@@ -46,7 +46,7 @@ export const BackgroundDecoration = memo(function BackgroundDecoration({
         <div
           key={element.id}
           className={cn(
-            "absolute rounded-full animate-bounce",
+            "absolute rounded-full",
             sizeClasses[element.size],
             colorClasses[element.color],
           )}
@@ -55,7 +55,6 @@ export const BackgroundDecoration = memo(function BackgroundDecoration({
             bottom: element.position.bottom,
             left: element.position.left,
             right: element.position.right,
-            animationDelay: `${element.delay}ms`,
           }}
         />
       ))}

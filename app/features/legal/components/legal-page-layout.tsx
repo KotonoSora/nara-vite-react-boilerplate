@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import {
   ArrowUp,
   ChevronRight,
@@ -18,6 +17,7 @@ import { Separator } from "~/components/ui/separator";
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
 import { isRTLLanguage, useI18n } from "~/lib/i18n";
+import { cn } from "~/lib/utils";
 
 interface LegalSection {
   id: string;
@@ -174,8 +174,8 @@ export function LegalPageLayout({
                         </span>
                       </div>
                       <ChevronRight
-                        className={clsx(
-                          "w-4 h-4 text-muted-foreground transition-transform duration-200 lg:hidden",
+                        className={cn(
+                          "w-4 h-4 text-muted-foreground",
                           isTocOpen && "rotate-90",
                         )}
                       />
@@ -184,8 +184,8 @@ export function LegalPageLayout({
                     {/* Content */}
                     <div
                       id="toc-content"
-                      className={clsx(
-                        "transition-all duration-300 overflow-hidden lg:max-h-none lg:opacity-100",
+                      className={cn(
+                        "overflow-hidden lg:max-h-none lg:opacity-100",
                         isTocOpen
                           ? "max-h-[400px] opacity-100 border-t border-border/50"
                           : "max-h-0 opacity-0 lg:border-t lg:border-border/50",
@@ -204,11 +204,11 @@ export function LegalPageLayout({
                                     scrollToSection(section.id);
                                     setIsTocOpen(false);
                                   }}
-                                  className={clsx(
-                                    "w-full text-left p-1.5 rounded-md transition-colors hover:bg-muted text-sm flex items-start gap-2.5",
+                                  className={cn(
+                                    "w-full text-left p-1.5 rounded-md text-sm flex items-start gap-2.5",
                                     activeSection === section.id
                                       ? "bg-muted font-medium text-foreground"
-                                      : "text-muted-foreground hover:text-foreground",
+                                      : "text-muted-foreground",
                                   )}
                                   aria-current={
                                     activeSection === section.id
@@ -393,8 +393,8 @@ export function LegalPageLayout({
 
         {/* Scroll to Top Button */}
         <Button
-          className={clsx(
-            "fixed bottom-4 right-4 z-50 rounded-full w-10 h-10 sm:w-12 sm:h-12 transition-all duration-300 shadow-lg",
+          className={cn(
+            "fixed bottom-4 right-4 z-50 rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg",
             {
               "opacity-100 translate-y-0": showScrollTop,
               "opacity-0 translate-y-2 pointer-events-none": !showScrollTop,

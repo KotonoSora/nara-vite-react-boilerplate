@@ -39,8 +39,8 @@ export const BuiltForDevelopersSection = memo(
 
               <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 lg:gap-10 text-center relative z-10">
                 {/* Setup Time Stat */}
-                <div className="space-y-2 sm:space-y-3 lg:space-y-5 group p-1.5 sm:p-3 lg:p-6 rounded-xl sm:rounded-2xl transition-all duration-500 hover:shadow-lg hover:-translate-y-1 hover:bg-primary/8">
-                  <div className="mx-auto rounded-xl sm:rounded-2xl lg:rounded-3xl flex items-center justify-center mb-1 sm:mb-2 lg:mb-4 motion-safe:group-hover:scale-110 motion-safe:group-hover:rotate-6 transition-all duration-500 shadow-lg ring-2 w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 bg-gradient-to-br from-primary/40 to-primary/15 ring-primary/30 hover:ring-primary/50 relative overflow-hidden">
+                <div className="space-y-2 sm:space-y-3 lg:space-y-5 group p-1.5 sm:p-3 lg:p-6 rounded-xl sm:rounded-2xl">
+                  <div className="mx-auto rounded-xl sm:rounded-2xl lg:rounded-3xl flex items-center justify-center mb-1 sm:mb-2 lg:mb-4 shadow-lg ring-2 w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 bg-gradient-to-br from-primary/40 to-primary/15 ring-primary/30 relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl sm:rounded-2xl lg:rounded-3xl" />
                     <Clock className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-primary drop-shadow-lg relative z-10" />
                   </div>
@@ -58,8 +58,8 @@ export const BuiltForDevelopersSection = memo(
                 </div>
 
                 {/* Type Safe Stat */}
-                <div className="space-y-2 sm:space-y-3 lg:space-y-5 group p-1.5 sm:p-3 lg:p-6 rounded-xl sm:rounded-2xl transition-all duration-500 hover:shadow-lg hover:-translate-y-1 hover:bg-green-500/8">
-                  <div className="mx-auto rounded-xl sm:rounded-2xl lg:rounded-3xl flex items-center justify-center mb-1 sm:mb-2 lg:mb-4 motion-safe:group-hover:scale-110 motion-safe:group-hover:rotate-6 transition-all duration-500 shadow-lg ring-2 w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 bg-gradient-to-br from-green-500/40 to-green-500/15 ring-green-500/30 hover:ring-green-500/50 relative overflow-hidden">
+                <div className="space-y-2 sm:space-y-3 lg:space-y-5 group p-1.5 sm:p-3 lg:p-6 rounded-xl sm:rounded-2xl">
+                  <div className="mx-auto rounded-xl sm:rounded-2xl lg:rounded-3xl flex items-center justify-center mb-1 sm:mb-2 lg:mb-4 shadow-lg ring-2 w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 bg-gradient-to-br from-green-500/40 to-green-500/15 ring-green-500/30 relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl sm:rounded-2xl lg:rounded-3xl" />
                     <Shield className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-green-600 drop-shadow-lg relative z-10" />
                   </div>
@@ -75,8 +75,8 @@ export const BuiltForDevelopersSection = memo(
                 </div>
 
                 {/* Config Headaches Stat */}
-                <div className="space-y-2 sm:space-y-3 lg:space-y-5 group p-1.5 sm:p-3 lg:p-6 rounded-xl sm:rounded-2xl transition-all duration-500 hover:shadow-lg hover:-translate-y-1 hover:bg-blue-500/8">
-                  <div className="mx-auto rounded-xl sm:rounded-2xl lg:rounded-3xl flex items-center justify-center mb-1 sm:mb-2 lg:mb-4 motion-safe:group-hover:scale-110 motion-safe:group-hover:rotate-6 transition-all duration-500 shadow-lg ring-2 w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 bg-gradient-to-br from-blue-500/40 to-blue-500/15 ring-blue-500/30 hover:ring-blue-500/50 relative overflow-hidden">
+                <div className="space-y-2 sm:space-y-3 lg:space-y-5 group p-1.5 sm:p-3 lg:p-6 rounded-xl sm:rounded-2xl">
+                  <div className="mx-auto rounded-xl sm:rounded-2xl lg:rounded-3xl flex items-center justify-center mb-1 sm:mb-2 lg:mb-4 shadow-lg ring-2 w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 bg-gradient-to-br from-blue-500/40 to-blue-500/15 ring-blue-500/30 relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl sm:rounded-2xl lg:rounded-3xl" />
                     <Heart className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-blue-600 drop-shadow-lg relative z-10" />
                   </div>

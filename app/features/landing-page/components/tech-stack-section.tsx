@@ -27,7 +27,7 @@ export const TechStackSection = memo(function TechStackSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <Card className="border-2 border-blue-500/20 bg-gradient-to-br from-background/60 to-blue-500/5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <Card className="border-2 border-blue-500/20 bg-gradient-to-br from-background/60 to-blue-500/5">
             <CardHeader className="pb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-lg flex items-center justify-center mb-4">
                 <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-sm"></div>
@@ -61,7 +61,7 @@ export const TechStackSection = memo(function TechStackSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-purple-500/20 bg-gradient-to-br from-background/60 to-purple-500/5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <Card className="border-2 border-purple-500/20 bg-gradient-to-br from-background/60 to-purple-500/5">
             <CardHeader className="pb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-lg flex items-center justify-center mb-4">
                 <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-purple-600 rounded-sm"></div>
@@ -95,7 +95,7 @@ export const TechStackSection = memo(function TechStackSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-green-500/20 bg-gradient-to-br from-background/60 to-green-500/5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <Card className="border-2 border-green-500/20 bg-gradient-to-br from-background/60 to-green-500/5">
             <CardHeader className="pb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-lg flex items-center justify-center mb-4">
                 <div className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-sm"></div>
@@ -129,7 +129,7 @@ export const TechStackSection = memo(function TechStackSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-orange-500/20 bg-gradient-to-br from-background/60 to-orange-500/5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <Card className="border-2 border-orange-500/20 bg-gradient-to-br from-background/60 to-orange-500/5">
             <CardHeader className="pb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-lg flex items-center justify-center mb-4">
                 <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-orange-600 rounded-sm"></div>
@@ -163,7 +163,7 @@ export const TechStackSection = memo(function TechStackSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-red-500/20 bg-gradient-to-br from-background/60 to-red-500/5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <Card className="border-2 border-red-500/20 bg-gradient-to-br from-background/60 to-red-500/5">
             <CardHeader className="pb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-red-500/20 to-red-600/20 rounded-lg flex items-center justify-center mb-4">
                 <div className="w-6 h-6 bg-gradient-to-br from-red-500 to-red-600 rounded-sm"></div>
@@ -197,7 +197,7 @@ export const TechStackSection = memo(function TechStackSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-cyan-500/20 bg-gradient-to-br from-background/60 to-cyan-500/5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <Card className="border-2 border-cyan-500/20 bg-gradient-to-br from-background/60 to-cyan-500/5">
             <CardHeader className="pb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 rounded-lg flex items-center justify-center mb-4">
                 <div className="w-6 h-6 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-sm"></div>
