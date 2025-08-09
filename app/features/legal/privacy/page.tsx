@@ -112,7 +112,7 @@ export function ContentPrivacyPage() {
     <LegalPageLayout
       title={t("legal.privacy.title")}
       description={t("legal.privacy.description")}
-      lastUpdated={new Date().toLocaleDateString()}
+      lastUpdated="08/09/2025"
       sections={sections}
       estimatedReadTime={12}
       relatedPages={relatedPages}

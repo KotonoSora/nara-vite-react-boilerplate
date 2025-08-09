@@ -68,7 +68,7 @@ export function ContentTermsPage() {
     <LegalPageLayout
       title={t("legal.terms.title")}
       description={t("legal.terms.description")}
-      lastUpdated={new Date().toLocaleDateString()}
+      lastUpdated="08/09/2025"
       sections={sections}
       estimatedReadTime={8}
       relatedPages={relatedPages}
