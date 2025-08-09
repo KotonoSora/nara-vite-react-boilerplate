@@ -8,7 +8,10 @@ export const BuiltForDevelopersSection = memo(
     const { t } = useI18n();
 
     return (
-      <section className="py-12 px-4 sm:py-20 sm:px-8 lg:py-24 bg-gradient-to-br from-muted/50 via-muted/30 to-muted/40 relative overflow-hidden">
+      <section
+        className="py-12 px-4 sm:py-20 sm:px-8 lg:py-24 bg-gradient-to-br from-muted/50 via-muted/30 to-muted/40 relative overflow-hidden"
+        style={{ contentVisibility: "auto" }}
+      >
         {/* Background Elements */}
         <div className="absolute inset-0 bg-grid-white/[0.03] bg-[size:40px_40px] sm:bg-[size:60px_60px]" />
         <div className="absolute top-10 right-10 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-purple-500/8 to-primary/8 rounded-full blur-2xl" />
