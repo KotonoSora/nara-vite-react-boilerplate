@@ -27,12 +27,25 @@ export function LanguageSwitcher() {
   >(null);
   const [open, setOpen] = useState(false);
   const pendingOpenRef = useRef(false);
+  // Cache the dynamic import to avoid recreating callbacks and duplicate imports
+  const menuPromiseRef = useRef<Promise<
+    typeof import("~/components/ui/dropdown-menu")
+  > | null>(null);
 
   const loadMenu = useCallback(async () => {
-    if (!menuMod) {
-      const mod = await import("~/components/ui/dropdown-menu");
-      setMenuMod(mod);
+    // If already loaded, no work
+    if (menuMod) return;
+    // If an import is in-flight, await it
+    if (menuPromiseRef.current) {
+      const mod = await menuPromiseRef.current;
+      // set state only if not yet set
+      if (!menuMod) setMenuMod(mod);
+      return;
     }
+    // Start a single import and cache its promise
+    menuPromiseRef.current = import("~/components/ui/dropdown-menu");
+    const mod = await menuPromiseRef.current;
+    setMenuMod(mod);
   }, [menuMod]);
 
   // If user clicked intending to open, open once module is ready

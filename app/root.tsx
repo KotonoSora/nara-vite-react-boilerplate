@@ -31,6 +31,7 @@ import {
   I18nProvider,
   isRTLLanguage,
 } from "~/lib/i18n";
+import { cancelIdleCallback, scheduleIdleCallback } from "~/lib/utils";
 import { themeSessionResolver } from "~/sessions.server";
 import { getUserById } from "~/user.server";
 
@@ -111,15 +112,8 @@ function InnerLayout({
 
   useEffect(() => {
     // Defer notifications to idle to keep hydration fast
-    const id = (
-      "requestIdleCallback" in window
-        ? (window as any).requestIdleCallback
-        : (cb: () => void) => setTimeout(cb, 0)
-    )(() => setClientReady(true));
-    return () =>
-      "cancelIdleCallback" in window
-        ? (window as any).cancelIdleCallback(id)
-        : clearTimeout(id);
+    const id = scheduleIdleCallback(() => setClientReady(true));
+    return () => cancelIdleCallback(id);
   }, []);
 
   return (
