@@ -1,15 +1,9 @@
 import clsx from "clsx";
 import { Globe } from "lucide-react";
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 import { Button } from "~/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
 import {
   addLanguageToPath,
   getLanguageFromPath,
@@ -20,11 +14,34 @@ import {
   useLanguage,
 } from "~/lib/i18n";
 
+// Lazy-load dropdown primitives only when needed to trim initial JS
 export function LanguageSwitcher() {
   const { t } = useI18n();
   const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Dynamically import the dropdown menu module on demand
+  const [menuMod, setMenuMod] = useState<
+    null | typeof import("~/components/ui/dropdown-menu")
+  >(null);
+  const [open, setOpen] = useState(false);
+  const pendingOpenRef = useRef(false);
+
+  const loadMenu = useCallback(async () => {
+    if (!menuMod) {
+      const mod = await import("~/components/ui/dropdown-menu");
+      setMenuMod(mod);
+    }
+  }, [menuMod]);
+
+  // If user clicked intending to open, open once module is ready
+  useEffect(() => {
+    if (menuMod && pendingOpenRef.current) {
+      setOpen(true);
+      pendingOpenRef.current = false;
+    }
+  }, [menuMod]);
 
   // RTL-aware dropdown alignment
   const dropdownAlign = isRTLLanguage(language) ? "start" : "end";
@@ -46,8 +63,35 @@ export function LanguageSwitcher() {
     [setLanguage, location.pathname, navigate],
   );
 
+  // Lightweight trigger shown until user interacts; preloads on hover/focus
+  if (!menuMod) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        aria-label={t("language")}
+        onClick={() => {
+          pendingOpenRef.current = true;
+          void loadMenu();
+        }}
+        onMouseEnter={() => void loadMenu()}
+        onFocus={() => void loadMenu()}
+      >
+        <Globe className="h-[1.2rem] w-[1.2rem]" />
+        <span className="sr-only">{t("language")}</span>
+      </Button>
+    );
+  }
+
+  const {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+  } = menuMod;
+
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" aria-label={t("language")}>
           <Globe className="h-[1.2rem] w-[1.2rem]" />

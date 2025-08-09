@@ -1,15 +1,45 @@
 import { Home, LogOut, Menu, X } from "lucide-react";
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import {
+  lazy,
+  memo,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Form, Link } from "react-router";
 
 import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
-import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
-import { GitHubButton } from "~/features/landing-page/components/github-button";
 import { useOptionalAuth } from "~/lib/auth";
 import { useI18n } from "~/lib/i18n";
 import { cn } from "~/lib/utils";
+
+// Lazy-load GitHub button to trim initial JS
+const GitHubButtonLazy = lazy(async () => ({
+  default: (await import("~/features/landing-page/components/github-button"))
+    .GitHubButton,
+}));
+
+// Lightweight avatar to avoid pulling Radix primitives for the header
+function UserInitialAvatar({
+  initial,
+  title,
+}: {
+  initial?: string;
+  title?: string;
+}) {
+  return (
+    <div
+      className="relative inline-flex size-8 shrink-0 select-none items-center justify-center overflow-hidden rounded-full bg-muted text-sm font-medium"
+      aria-label={title}
+    >
+      {initial}
+    </div>
+  );
+}
 
 export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
   const auth = useOptionalAuth();
@@ -104,11 +134,10 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
                 aria-label={t("navigation.dashboard")}
                 className=""
               >
-                <Avatar>
-                  <AvatarFallback>
-                    {auth.user?.name?.charAt(0).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
+                <UserInitialAvatar
+                  initial={auth.user?.name?.charAt(0).toUpperCase()}
+                  title={t("navigation.dashboard")}
+                />
               </Link>
               <Form method="post" action="/action/logout">
                 <Button
@@ -135,7 +164,9 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
             </div>
           )}
 
-          <GitHubButton />
+          <Suspense fallback={null}>
+            <GitHubButtonLazy />
+          </Suspense>
           <LanguageSwitcher />
           <ModeSwitcher />
         </nav>
@@ -184,12 +215,11 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
                 onClick={closeMobileMenu}
                 aria-label={t("navigation.dashboard")}
               >
-                <div className="flex items-center p-2 bg-muted/30 rounded-lg gap-3">
-                  <Avatar>
-                    <AvatarFallback>
-                      {auth.user?.name?.charAt(0).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
+                <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-2">
+                  <UserInitialAvatar
+                    initial={auth.user?.name?.charAt(0).toUpperCase()}
+                    title={t("navigation.dashboard")}
+                  />
                   <div className="min-w-0 flex-1">
                     <div className="text-sm font-medium line-clamp-1">
                       {auth.user?.name}
@@ -243,7 +273,9 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
           )}
 
           <div className="pt-3 border-t flex justify-end">
-            <GitHubButton />
+            <Suspense fallback={null}>
+              <GitHubButtonLazy />
+            </Suspense>
           </div>
         </div>
       </div>
