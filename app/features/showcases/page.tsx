@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { ArrowUp, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
@@ -10,6 +9,7 @@ import SocialPreview from "~/features/landing-page/assets/social-preview.svg?url
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
 import { useI18n } from "~/lib/i18n";
+import { cn } from "~/lib/utils";
 
 import { usePageContext } from "./context/page-context";
 
@@ -106,7 +106,7 @@ export function ContentShowcasePage() {
       </main>
 
       <Button
-        className={clsx("z-10 fixed bottom-4 right-4 rounded-full w-8 h-8", {
+        className={cn("z-10 fixed bottom-4 right-4 rounded-full w-8 h-8", {
           visible: showScroll,
           invisible: !showScroll,
         })}

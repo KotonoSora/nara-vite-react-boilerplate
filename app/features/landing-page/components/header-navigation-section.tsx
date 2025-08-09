@@ -8,14 +8,13 @@ import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { GitHubButton } from "~/features/landing-page/components/github-button";
 import { useOptionalAuth } from "~/lib/auth";
-import { isRTLLanguage, useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n";
 import { cn } from "~/lib/utils";
 
 export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
   const auth = useOptionalAuth();
-  const { t, language } = useI18n();
+  const { t } = useI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const isRTL = isRTLLanguage(language);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
 
   const toggleMobileMenu = useCallback(
@@ -66,21 +65,11 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
   }, [isMobileMenuOpen, handleClickOutside]);
 
   return (
-    <header
-      className="border-b bg-background sticky top-0 z-50"
-      dir={isRTL ? "rtl" : "ltr"}
-      role="banner"
-    >
+    <header className="border-b bg-background sticky top-0 z-50" role="banner">
       <div className="container flex h-14 items-center justify-between mx-auto px-4 max-w-7xl">
         <Link
           to="/"
-          className={cn(
-            "flex items-center font-bold text-xl tracking-tight hover:opacity-80 transition-opacity",
-            {
-              "space-x-reverse space-x-2": isRTL,
-              "space-x-2": !isRTL,
-            },
-          )}
+          className="flex items-center font-bold text-xl tracking-tight space-x-2"
           onClick={closeMobileMenu}
         >
           <img
@@ -99,19 +88,11 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
         </Link>
 
         <nav
-          className={cn("hidden md:flex items-center", {
-            "space-x-reverse space-x-3": isRTL,
-            "space-x-3": !isRTL,
-          })}
+          className="hidden md:flex items-center space-x-3"
           aria-label={t("navigation.menu")}
         >
           {auth?.isAuthenticated ? (
-            <div
-              className={cn("flex items-center", {
-                "space-x-reverse space-x-3": isRTL,
-                "space-x-3": !isRTL,
-              })}
-            >
+            <div className="flex items-center space-x-3">
               <Button variant="outline" size="sm" asChild>
                 <Link to="/" title={t("navigation.home")}>
                   <Home className="h-4 w-4" />
@@ -121,7 +102,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
                 to="/dashboard"
                 onClick={closeMobileMenu}
                 aria-label={t("navigation.dashboard")}
-                className="hover:opacity-80 transition-opacity"
+                className=""
               >
                 <Avatar>
                   <AvatarFallback>
@@ -144,12 +125,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
               </Form>
             </div>
           ) : (
-            <div
-              className={cn("flex items-center", {
-                "space-x-reverse space-x-2": isRTL,
-                "space-x-2": !isRTL,
-              })}
-            >
+            <div className="flex items-center space-x-2">
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/login">{t("navigation.signIn")}</Link>
               </Button>
@@ -164,12 +140,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
           <ModeSwitcher />
         </nav>
 
-        <div
-          className={cn("md:hidden flex items-center", {
-            "space-x-reverse space-x-2": isRTL,
-            "space-x-2": !isRTL,
-          })}
-        >
+        <div className="md:hidden flex items-center space-x-2">
           <LanguageSwitcher />
           <ModeSwitcher />
           <Button
@@ -197,14 +168,10 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
 
       <div
         id="mobile-navigation"
-        className={cn(
-          "md:hidden border-t bg-background transition-all duration-300 ease-in-out transform",
-          {
-            "max-h-96 opacity-100 translate-y-0": isMobileMenuOpen,
-            "max-h-0 opacity-0 overflow-hidden -translate-y-2":
-              !isMobileMenuOpen,
-          },
-        )}
+        className={cn("md:hidden border-t bg-background", {
+          hidden: !isMobileMenuOpen,
+          block: isMobileMenuOpen,
+        })}
         role="navigation"
         aria-label={t("navigation.menu")}
         aria-hidden={!isMobileMenuOpen}
