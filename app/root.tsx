@@ -18,6 +18,7 @@ import {
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/root";
 
+import appCssUrl from "~/app.css?url";
 import { getUserId } from "~/auth.server";
 import { Toaster } from "~/components/ui/sonner";
 import { getLanguageSession } from "~/language.server";
@@ -33,8 +34,6 @@ import {
 import { themeSessionResolver } from "~/sessions.server";
 import { getUserById } from "~/user.server";
 
-import "~/app.css";
-
 export const links: Route.LinksFunction = () => [
   {
     rel: "preload",
@@ -43,6 +42,8 @@ export const links: Route.LinksFunction = () => [
     type: "font/woff2",
     crossOrigin: "anonymous",
   },
+  { rel: "preload", href: appCssUrl, as: "style" },
+  { rel: "stylesheet", href: appCssUrl, fetchPriority: "low" as const },
   { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
 ];
 
