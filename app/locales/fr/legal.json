@@ -1,0 +1,140 @@
+{
+  "terms": {
+    "title": "Conditions d'Utilisation",
+    "description": "Conditions d'Utilisation pour NARA - Template React Moderne",
+    "lastUpdated": "Dernière mise à jour",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptation des Conditions",
+        "content": "En accédant et en utilisant NARA (le \"Service\"), vous acceptez et vous engagez à respecter les termes et dispositions de cet accord. Si vous n'acceptez pas ce qui précède, veuillez ne pas utiliser ce service."
+      },
+      "description": {
+        "title": "Description du Service",
+        "content": "NARA est un template d'application React moderne et type-safe construit avec Vite, React Router v7 et TailwindCSS. Le service fournit aux développeurs un point de départ pour construire des applications web avec les meilleures pratiques et les outils modernes."
+      },
+      "responsibilities": {
+        "title": "Responsabilités de l'Utilisateur",
+        "content": "Les utilisateurs de ce service acceptent de :",
+        "items": [
+          "Utiliser le service uniquement à des fins légales",
+          "Ne pas tenter d'obtenir un accès non autorisé à toute partie du service",
+          "Ne pas utiliser le service pour transmettre du contenu nuisible ou malveillant",
+          "Respecter les droits de propriété intellectuelle d'autrui"
+        ]
+      },
+      "intellectual": {
+        "title": "Propriété Intellectuelle",
+        "content": "Le Service et son contenu original, ses fonctionnalités et sa fonctionnalité sont et resteront la propriété exclusive de NARA et de ses concédants de licence. Le service est protégé par les droits d'auteur, les marques de commerce et d'autres lois."
+      },
+      "privacy": {
+        "title": "Politique de Confidentialité",
+        "content": "Votre vie privée est importante pour nous. Veuillez consulter notre Politique de Confidentialité, qui régit également votre utilisation du Service, pour comprendre nos pratiques."
+      },
+      "liability": {
+        "title": "Limitation de Responsabilité",
+        "content": "En aucun cas NARA, ni ses directeurs, employés, partenaires, agents, fournisseurs ou affiliés, ne seront responsables de tout dommage indirect, accessoire, spécial, consécutif ou punitif, y compris sans limitation, la perte de profits, données, utilisation, clientèle ou autres pertes intangibles, résultant de votre utilisation du service."
+      },
+      "changes": {
+        "title": "Modifications des Conditions",
+        "content": "Nous nous réservons le droit, à notre seule discrétion, de modifier ou de remplacer ces Conditions à tout moment. Si une révision est substantielle, nous essaierons de fournir un préavis d'au moins 30 jours avant que de nouvelles conditions prennent effet."
+      },
+      "contact": {
+        "title": "Informations de Contact",
+        "content": "Si vous avez des questions concernant ces Conditions d'Utilisation, veuillez nous contacter via notre dépôt officiel ou nos canaux de support."
+      }
+    }
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "description": "Politique de Confidentialité pour NARA - Template React Moderne",
+    "lastUpdated": "Dernière mise à jour",
+    "sections": {
+      "collection": {
+        "title": "Informations que Nous Collectons",
+        "content": "Nous collectons les informations que vous nous fournissez directement, comme lorsque vous créez un compte, utilisez nos services ou nous contactez pour obtenir de l'aide.",
+        "personal": {
+          "title": "Informations Personnelles",
+          "items": [
+            "Adresse e-mail",
+            "Nom d'utilisateur",
+            "Informations de profil que vous choisissez de fournir"
+          ]
+        },
+        "usage": {
+          "title": "Informations d'Utilisation",
+          "items": [
+            "Données de journal (adresse IP, type de navigateur, système d'exploitation)",
+            "Modèles d'utilisation et préférences",
+            "Informations sur l'appareil"
+          ]
+        }
+      },
+      "usage": {
+        "title": "Comment Nous Utilisons Vos Informations",
+        "content": "Nous utilisons les informations que nous collectons pour :",
+        "items": [
+          "Fournir, maintenir et améliorer nos services",
+          "Traiter les transactions et envoyer des informations connexes",
+          "Envoyer des avis techniques et des messages de support",
+          "Répondre à vos commentaires et questions",
+          "Surveiller et analyser les tendances et l'utilisation",
+          "Détecter et prévenir les activités frauduleuses ou non autorisées"
+        ]
+      },
+      "sharing": {
+        "title": "Partage d'Informations",
+        "content": "Nous ne vendons, n'échangeons ou ne transférons pas vos informations personnelles à des tiers sans votre consentement, sauf comme décrit dans cette politique :",
+        "items": [
+          "Avec des prestataires de services qui nous aident à faire fonctionner notre service",
+          "Lorsque requis par la loi ou pour protéger nos droits",
+          "Dans le cadre d'une transaction commerciale (fusion, acquisition, etc.)",
+          "Avec votre consentement explicite"
+        ]
+      },
+      "security": {
+        "title": "Sécurité des Données",
+        "content": "Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos informations personnelles contre l'accès non autorisé, l'altération, la divulgation ou la destruction. Cependant, aucune méthode de transmission sur Internet n'est sécurisée à 100%."
+      },
+      "retention": {
+        "title": "Rétention des Données",
+        "content": "Nous conservons vos informations personnelles uniquement aussi longtemps que nécessaire pour accomplir les objectifs décrits dans cette politique de confidentialité, à moins qu'une période de rétention plus longue ne soit requise ou permise par la loi."
+      },
+      "rights": {
+        "title": "Vos Droits",
+        "content": "Vous avez le droit de :",
+        "items": [
+          "Accéder aux informations personnelles que nous détenons sur vous",
+          "Demander la correction d'informations inexactes",
+          "Demander la suppression de vos informations personnelles",
+          "Vous opposer au traitement de vos informations personnelles",
+          "Demander la portabilité des données",
+          "Retirer votre consentement à tout moment"
+        ]
+      },
+      "cookies": {
+        "title": "Cookies et Suivi",
+        "content": "Nous utilisons des cookies et des technologies de suivi similaires pour collecter et suivre des informations sur votre utilisation de notre service. Vous pouvez contrôler les cookies via les paramètres de votre navigateur, mais désactiver les cookies peut affecter la fonctionnalité de notre service."
+      },
+      "children": {
+        "title": "Confidentialité des Enfants",
+        "content": "Notre service n'est pas destiné aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d'informations personnelles auprès d'enfants de moins de 13 ans. Si vous apprenez qu'un enfant nous a fourni des informations personnelles, veuillez nous contacter."
+      },
+      "policyChanges": {
+        "title": "Modifications de Cette Politique",
+        "content": "Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. Nous vous informerons de tout changement en publiant la nouvelle politique de confidentialité sur cette page et en mettant à jour la date de \"Dernière mise à jour\"."
+      },
+      "contact": {
+        "title": "Nous Contacter",
+        "content": "Si vous avez des questions concernant cette Politique de Confidentialité, veuillez nous contacter via notre dépôt officiel ou nos canaux de support."
+      }
+    }
+  },
+  "common": {
+    "backToHome": "Retour à l'Accueil",
+    "tableOfContents": "Table des Matières",
+    "print": "Imprimer",
+    "share": "Partager",
+    "readingTime": "min de lecture",
+    "jumpToSection": "Aller à la section"
+  }
+}

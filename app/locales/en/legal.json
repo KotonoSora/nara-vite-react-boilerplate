@@ -1,0 +1,140 @@
+{
+  "terms": {
+    "title": "Terms of Service",
+    "description": "Terms of Service for NARA - Modern React Boilerplate",
+    "lastUpdated": "Last updated",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptance of Terms",
+        "content": "By accessing and using NARA (the \"Service\"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service."
+      },
+      "description": {
+        "title": "Description of Service",
+        "content": "NARA is a modern, type-safe React application boilerplate built with Vite, React Router v7, and TailwindCSS. The service provides developers with a starting point for building web applications with best practices and modern tooling."
+      },
+      "responsibilities": {
+        "title": "User Responsibilities",
+        "content": "Users of this service agree to:",
+        "items": [
+          "Use the service for lawful purposes only",
+          "Not attempt to gain unauthorized access to any part of the service",
+          "Not use the service to transmit harmful or malicious content",
+          "Respect the intellectual property rights of others"
+        ]
+      },
+      "intellectual": {
+        "title": "Intellectual Property",
+        "content": "The Service and its original content, features, and functionality are and will remain the exclusive property of NARA and its licensors. The service is protected by copyright, trademark, and other laws."
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "content": "Your privacy is important to us. Please review our Privacy Policy, which also governs your use of the Service, to understand our practices."
+      },
+      "liability": {
+        "title": "Limitation of Liability",
+        "content": "In no event shall NARA, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the service."
+      },
+      "changes": {
+        "title": "Changes to Terms",
+        "content": "We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days notice prior to any new terms taking effect."
+      },
+      "contact": {
+        "title": "Contact Information",
+        "content": "If you have any questions about these Terms of Service, please contact us through our official repository or support channels."
+      }
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "description": "Privacy Policy for NARA - Modern React Boilerplate",
+    "lastUpdated": "Last updated",
+    "sections": {
+      "collection": {
+        "title": "Information We Collect",
+        "content": "We collect information you provide directly to us, such as when you create an account, use our services, or contact us for support.",
+        "personal": {
+          "title": "Personal Information",
+          "items": [
+            "Email address",
+            "Username",
+            "Profile information you choose to provide"
+          ]
+        },
+        "usage": {
+          "title": "Usage Information",
+          "items": [
+            "Log data (IP address, browser type, operating system)",
+            "Usage patterns and preferences",
+            "Device information"
+          ]
+        }
+      },
+      "usage": {
+        "title": "How We Use Your Information",
+        "content": "We use the information we collect to:",
+        "items": [
+          "Provide, maintain, and improve our services",
+          "Process transactions and send related information",
+          "Send technical notices and support messages",
+          "Respond to your comments and questions",
+          "Monitor and analyze trends and usage",
+          "Detect and prevent fraudulent or unauthorized activity"
+        ]
+      },
+      "sharing": {
+        "title": "Information Sharing",
+        "content": "We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy:",
+        "items": [
+          "With service providers who assist us in operating our service",
+          "When required by law or to protect our rights",
+          "In connection with a business transaction (merger, acquisition, etc.)",
+          "With your explicit consent"
+        ]
+      },
+      "security": {
+        "title": "Data Security",
+        "content": "We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet is 100% secure."
+      },
+      "retention": {
+        "title": "Data Retention",
+        "content": "We retain your personal information only as long as necessary to fulfill the purposes outlined in this privacy policy, unless a longer retention period is required or permitted by law."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "content": "You have the right to:",
+        "items": [
+          "Access the personal information we hold about you",
+          "Request correction of inaccurate information",
+          "Request deletion of your personal information",
+          "Object to processing of your personal information",
+          "Request data portability",
+          "Withdraw consent at any time"
+        ]
+      },
+      "cookies": {
+        "title": "Cookies and Tracking",
+        "content": "We use cookies and similar tracking technologies to collect and track information about your use of our service. You can control cookies through your browser settings, but disabling cookies may affect the functionality of our service."
+      },
+      "children": {
+        "title": "Children's Privacy",
+        "content": "Our service is not intended for children under 13. We do not knowingly collect personal information from children under 13. If you become aware that a child has provided us with personal information, please contact us."
+      },
+      "policyChanges": {
+        "title": "Changes to This Policy",
+        "content": "We may update this privacy policy from time to time. We will notify you of any changes by posting the new privacy policy on this page and updating the \"Last updated\" date."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "content": "If you have any questions about this Privacy Policy, please contact us through our official repository or support channels."
+      }
+    }
+  },
+  "common": {
+    "backToHome": "Back to Home",
+    "tableOfContents": "Table of Contents",
+    "print": "Print",
+    "share": "Share",
+    "readingTime": "min read",
+    "jumpToSection": "Jump to section"
+  }
+}

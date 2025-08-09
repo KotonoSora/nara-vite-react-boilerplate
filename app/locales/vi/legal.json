@@ -1,0 +1,140 @@
+{
+  "terms": {
+    "title": "Điều Khoản Dịch Vụ",
+    "description": "Điều Khoản Dịch Vụ cho NARA - Template React Hiện Đại",
+    "lastUpdated": "Cập nhật lần cuối",
+    "sections": {
+      "acceptance": {
+        "title": "Chấp Nhận Điều Khoản",
+        "content": "Bằng việc truy cập và sử dụng NARA (\"Dịch vụ\"), bạn chấp nhận và đồng ý bị ràng buộc bởi các điều khoản và điều kiện của thỏa thuận này. Nếu bạn không đồng ý với những điều trên, vui lòng không sử dụng dịch vụ này."
+      },
+      "description": {
+        "title": "Mô Tả Dịch Vụ",
+        "content": "NARA là một template ứng dụng React hiện đại và an toàn về kiểu dữ liệu được xây dựng với Vite, React Router v7 và TailwindCSS. Dịch vụ cung cấp cho các nhà phát triển một điểm khởi đầu để xây dựng ứng dụng web với các thực hành tốt nhất và công cụ hiện đại."
+      },
+      "responsibilities": {
+        "title": "Trách Nhiệm Người Dùng",
+        "content": "Người dùng dịch vụ này đồng ý:",
+        "items": [
+          "Sử dụng dịch vụ chỉ cho mục đích hợp pháp",
+          "Không cố gắng truy cập trái phép vào bất kỳ phần nào của dịch vụ",
+          "Không sử dụng dịch vụ để truyền nội dung có hại hoặc độc hại",
+          "Tôn trọng quyền sở hữu trí tuệ của người khác"
+        ]
+      },
+      "intellectual": {
+        "title": "Sở Hữu Trí Tuệ",
+        "content": "Dịch vụ và nội dung gốc, tính năng và chức năng của nó là và sẽ vẫn là tài sản độc quyền của NARA và các bên cấp phép. Dịch vụ được bảo vệ bởi bản quyền, thương hiệu và các luật khác."
+      },
+      "privacy": {
+        "title": "Chính Sách Bảo Mật",
+        "content": "Quyền riêng tư của bạn quan trọng đối với chúng tôi. Vui lòng xem xét Chính sách Bảo mật của chúng tôi, điều này cũng chi phối việc sử dụng Dịch vụ của bạn, để hiểu các thực hành của chúng tôi."
+      },
+      "liability": {
+        "title": "Giới Hạn Trách Nhiệm",
+        "content": "Trong bất kỳ trường hợp nào, NARA, cũng như các giám đốc, nhân viên, đối tác, đại lý, nhà cung cấp hoặc các chi nhánh của nó, sẽ không chịu trách nhiệm về bất kỳ thiệt hại gián tiếp, ngẫu nhiên, đặc biệt, hậu quả hoặc trừng phạt nào, bao gồm không giới hạn, mất lợi nhuận, dữ liệu, sử dụng, thiện chí hoặc các tổn thất vô hình khác, do việc sử dụng dịch vụ của bạn."
+      },
+      "changes": {
+        "title": "Thay Đổi Điều Khoản",
+        "content": "Chúng tôi bảo lưu quyền, theo quyết định riêng của mình, sửa đổi hoặc thay thế các Điều khoản này bất cứ lúc nào. Nếu một sửa đổi là quan trọng, chúng tôi sẽ cố gắng cung cấp thông báo ít nhất 30 ngày trước khi các điều khoản mới có hiệu lực."
+      },
+      "contact": {
+        "title": "Thông Tin Liên Hệ",
+        "content": "Nếu bạn có bất kỳ câu hỏi nào về các Điều khoản Dịch vụ này, vui lòng liên hệ với chúng tôi thông qua kho lưu trữ chính thức hoặc các kênh hỗ trợ."
+      }
+    }
+  },
+  "privacy": {
+    "title": "Chính Sách Bảo Mật",
+    "description": "Chính Sách Bảo Mật cho NARA - Template React Hiện Đại",
+    "lastUpdated": "Cập nhật lần cuối",
+    "sections": {
+      "collection": {
+        "title": "Thông Tin Chúng Tôi Thu Thập",
+        "content": "Chúng tôi thu thập thông tin bạn cung cấp trực tiếp cho chúng tôi, chẳng hạn như khi bạn tạo tài khoản, sử dụng dịch vụ của chúng tôi hoặc liên hệ với chúng tôi để được hỗ trợ.",
+        "personal": {
+          "title": "Thông Tin Cá Nhân",
+          "items": [
+            "Địa chỉ email",
+            "Tên người dùng",
+            "Thông tin hồ sơ bạn chọn cung cấp"
+          ]
+        },
+        "usage": {
+          "title": "Thông Tin Sử Dụng",
+          "items": [
+            "Dữ liệu nhật ký (địa chỉ IP, loại trình duyệt, hệ điều hành)",
+            "Mẫu sử dụng và tùy chọn",
+            "Thông tin thiết bị"
+          ]
+        }
+      },
+      "usage": {
+        "title": "Cách Chúng Tôi Sử Dụng Thông Tin Của Bạn",
+        "content": "Chúng tôi sử dụng thông tin thu thập được để:",
+        "items": [
+          "Cung cấp, duy trì và cải thiện dịch vụ của chúng tôi",
+          "Xử lý giao dịch và gửi thông tin liên quan",
+          "Gửi thông báo kỹ thuật và tin nhắn hỗ trợ",
+          "Phản hồi nhận xét và câu hỏi của bạn",
+          "Giám sát và phân tích xu hướng và việc sử dụng",
+          "Phát hiện và ngăn chặn hoạt động gian lận hoặc trái phép"
+        ]
+      },
+      "sharing": {
+        "title": "Chia Sẻ Thông Tin",
+        "content": "Chúng tôi không bán, trao đổi hoặc chuyển giao thông tin cá nhân của bạn cho bên thứ ba mà không có sự đồng ý của bạn, trừ như được mô tả trong chính sách này:",
+        "items": [
+          "Với các nhà cung cấp dịch vụ hỗ trợ chúng tôi vận hành dịch vụ",
+          "Khi được pháp luật yêu cầu hoặc để bảo vệ quyền của chúng tôi",
+          "Liên quan đến giao dịch kinh doanh (sáp nhập, mua lại, v.v.)",
+          "Với sự đồng ý rõ ràng của bạn"
+        ]
+      },
+      "security": {
+        "title": "Bảo Mật Dữ Liệu",
+        "content": "Chúng tôi thực hiện các biện pháp bảo mật kỹ thuật và tổ chức phù hợp để bảo vệ thông tin cá nhân của bạn khỏi việc truy cập trái phép, thay đổi, tiết lộ hoặc phá hủy. Tuy nhiên, không có phương pháp truyền qua internet nào an toàn 100%."
+      },
+      "retention": {
+        "title": "Lưu Giữ Dữ Liệu",
+        "content": "Chúng tôi chỉ lưu giữ thông tin cá nhân của bạn trong thời gian cần thiết để hoàn thành các mục đích được nêu trong chính sách bảo mật này, trừ khi pháp luật yêu cầu hoặc cho phép thời gian lưu giữ dài hơn."
+      },
+      "rights": {
+        "title": "Quyền Của Bạn",
+        "content": "Bạn có quyền:",
+        "items": [
+          "Truy cập thông tin cá nhân chúng tôi lưu giữ về bạn",
+          "Yêu cầu sửa chữa thông tin không chính xác",
+          "Yêu cầu xóa thông tin cá nhân của bạn",
+          "Phản đối việc xử lý thông tin cá nhân của bạn",
+          "Yêu cầu khả năng di chuyển dữ liệu",
+          "Rút lại sự đồng ý bất cứ lúc nào"
+        ]
+      },
+      "cookies": {
+        "title": "Cookie và Theo Dõi",
+        "content": "Chúng tôi sử dụng cookie và các công nghệ theo dõi tương tự để thu thập và theo dõi thông tin về việc sử dụng dịch vụ của bạn. Bạn có thể kiểm soát cookie thông qua cài đặt trình duyệt, nhưng việc tắt cookie có thể ảnh hưởng đến chức năng của dịch vụ chúng tôi."
+      },
+      "children": {
+        "title": "Quyền Riêng Tư Trẻ Em",
+        "content": "Dịch vụ của chúng tôi không dành cho trẻ em dưới 13 tuổi. Chúng tôi không cố ý thu thập thông tin cá nhân từ trẻ em dưới 13 tuổi. Nếu bạn biết rằng một đứa trẻ đã cung cấp thông tin cá nhân cho chúng tôi, vui lòng liên hệ với chúng tôi."
+      },
+      "policyChanges": {
+        "title": "Thay Đổi Chính Sách Này",
+        "content": "Chúng tôi có thể cập nhật chính sách bảo mật này theo thời gian. Chúng tôi sẽ thông báo cho bạn về bất kỳ thay đổi nào bằng cách đăng chính sách bảo mật mới trên trang này và cập nhật ngày \"Cập nhật lần cuối\"."
+      },
+      "contact": {
+        "title": "Liên Hệ Chúng Tôi",
+        "content": "Nếu bạn có bất kỳ câu hỏi nào về Chính sách Bảo mật này, vui lòng liên hệ với chúng tôi thông qua kho lưu trữ chính thức hoặc các kênh hỗ trợ."
+      }
+    }
+  },
+  "common": {
+    "backToHome": "Quay về Trang chủ",
+    "tableOfContents": "Mục lục",
+    "print": "In",
+    "share": "Chia sẻ",
+    "readingTime": "phút đọc",
+    "jumpToSection": "Đi đến phần"
+  }
+}

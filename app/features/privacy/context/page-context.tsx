@@ -1,7 +1,9 @@
 import { createContext, useContext } from "react";
 
+import type { SupportedLanguage } from "~/lib/i18n";
+
 export interface PrivacyPageContextValue {
-  language?: string;
+  language: SupportedLanguage;
 }
 
 const PrivacyPageContext = createContext<PrivacyPageContextValue | undefined>(

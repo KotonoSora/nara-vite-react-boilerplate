@@ -9,6 +9,7 @@ import {
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
 } from "~/lib/i18n";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);

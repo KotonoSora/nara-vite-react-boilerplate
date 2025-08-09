@@ -5,6 +5,7 @@ import enCommon from "~/locales/en/common.json";
 import enDashboard from "~/locales/en/dashboard.json";
 import enErrors from "~/locales/en/errors.json";
 import enLanding from "~/locales/en/landing.json";
+import enLegal from "~/locales/en/legal.json";
 import enNavigation from "~/locales/en/navigation.json";
 import enShowcase from "~/locales/en/showcase.json";
 import enTheme from "~/locales/en/theme.json";
@@ -21,6 +22,7 @@ type NamespaceTranslations = typeof enCommon & {
   time: typeof enTime;
   theme: typeof enTheme;
   landing: typeof enLanding;
+  legal: typeof enLegal;
 };
 
 // Extract the shape of the translation object to create a recursive type

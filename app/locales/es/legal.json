@@ -1,0 +1,140 @@
+{
+  "terms": {
+    "title": "Términos de Servicio",
+    "description": "Términos de Servicio para NARA - Plantilla React Moderna",
+    "lastUpdated": "Última actualización",
+    "sections": {
+      "acceptance": {
+        "title": "Aceptación de Términos",
+        "content": "Al acceder y usar NARA (el \"Servicio\"), usted acepta y se compromete a cumplir con los términos y disposiciones de este acuerdo. Si no está de acuerdo con lo anterior, por favor no use este servicio."
+      },
+      "description": {
+        "title": "Descripción del Servicio",
+        "content": "NARA es una plantilla moderna y type-safe de aplicación React construida con Vite, React Router v7 y TailwindCSS. El servicio proporciona a los desarrolladores un punto de partida para construir aplicaciones web con mejores prácticas y herramientas modernas."
+      },
+      "responsibilities": {
+        "title": "Responsabilidades del Usuario",
+        "content": "Los usuarios de este servicio acuerdan:",
+        "items": [
+          "Usar el servicio solo para propósitos legales",
+          "No intentar obtener acceso no autorizado a ninguna parte del servicio",
+          "No usar el servicio para transmitir contenido dañino o malicioso",
+          "Respetar los derechos de propiedad intelectual de otros"
+        ]
+      },
+      "intellectual": {
+        "title": "Propiedad Intelectual",
+        "content": "El Servicio y su contenido original, características y funcionalidad son y seguirán siendo propiedad exclusiva de NARA y sus licenciantes. El servicio está protegido por derechos de autor, marcas comerciales y otras leyes."
+      },
+      "privacy": {
+        "title": "Política de Privacidad",
+        "content": "Su privacidad es importante para nosotros. Por favor revise nuestra Política de Privacidad, que también rige su uso del Servicio, para entender nuestras prácticas."
+      },
+      "liability": {
+        "title": "Limitación de Responsabilidad",
+        "content": "En ningún caso NARA, ni sus directores, empleados, socios, agentes, proveedores o afiliados, serán responsables de cualquier daño indirecto, incidental, especial, consecuente o punitivo, incluyendo sin limitación, pérdida de beneficios, datos, uso, buena voluntad u otras pérdidas intangibles, resultantes de su uso del servicio."
+      },
+      "changes": {
+        "title": "Cambios en los Términos",
+        "content": "Nos reservamos el derecho, a nuestra sola discreción, de modificar o reemplazar estos Términos en cualquier momento. Si una revisión es material, intentaremos proporcionar al menos 30 días de aviso antes de que los nuevos términos entren en vigencia."
+      },
+      "contact": {
+        "title": "Información de Contacto",
+        "content": "Si tiene alguna pregunta sobre estos Términos de Servicio, por favor contáctenos a través de nuestro repositorio oficial o canales de soporte."
+      }
+    }
+  },
+  "privacy": {
+    "title": "Política de Privacidad",
+    "description": "Política de Privacidad para NARA - Plantilla React Moderna",
+    "lastUpdated": "Última actualización",
+    "sections": {
+      "collection": {
+        "title": "Información que Recopilamos",
+        "content": "Recopilamos información que nos proporciona directamente, como cuando crea una cuenta, usa nuestros servicios o nos contacta para soporte.",
+        "personal": {
+          "title": "Información Personal",
+          "items": [
+            "Dirección de correo electrónico",
+            "Nombre de usuario",
+            "Información de perfil que elija proporcionar"
+          ]
+        },
+        "usage": {
+          "title": "Información de Uso",
+          "items": [
+            "Datos de registro (dirección IP, tipo de navegador, sistema operativo)",
+            "Patrones de uso y preferencias",
+            "Información del dispositivo"
+          ]
+        }
+      },
+      "usage": {
+        "title": "Cómo Usamos Su Información",
+        "content": "Usamos la información que recopilamos para:",
+        "items": [
+          "Proporcionar, mantener y mejorar nuestros servicios",
+          "Procesar transacciones y enviar información relacionada",
+          "Enviar avisos técnicos y mensajes de soporte",
+          "Responder a sus comentarios y preguntas",
+          "Monitorear y analizar tendencias y uso",
+          "Detectar y prevenir actividad fraudulenta o no autorizada"
+        ]
+      },
+      "sharing": {
+        "title": "Compartir Información",
+        "content": "No vendemos, comerciamos o transferimos de otra manera su información personal a terceros sin su consentimiento, excepto como se describe en esta política:",
+        "items": [
+          "Con proveedores de servicios que nos ayudan a operar nuestro servicio",
+          "Cuando lo requiera la ley o para proteger nuestros derechos",
+          "En conexión con una transacción comercial (fusión, adquisición, etc.)",
+          "Con su consentimiento explícito"
+        ]
+      },
+      "security": {
+        "title": "Seguridad de Datos",
+        "content": "Implementamos medidas de seguridad técnicas y organizativas apropiadas para proteger su información personal contra acceso no autorizado, alteración, divulgación o destrucción. Sin embargo, ningún método de transmisión por Internet es 100% seguro."
+      },
+      "retention": {
+        "title": "Retención de Datos",
+        "content": "Retenemos su información personal solo el tiempo necesario para cumplir los propósitos descritos en esta política de privacidad, a menos que un período de retención más largo sea requerido o permitido por la ley."
+      },
+      "rights": {
+        "title": "Sus Derechos",
+        "content": "Usted tiene el derecho a:",
+        "items": [
+          "Acceder a la información personal que tenemos sobre usted",
+          "Solicitar corrección de información inexacta",
+          "Solicitar eliminación de su información personal",
+          "Objetar el procesamiento de su información personal",
+          "Solicitar portabilidad de datos",
+          "Retirar el consentimiento en cualquier momento"
+        ]
+      },
+      "cookies": {
+        "title": "Cookies y Seguimiento",
+        "content": "Usamos cookies y tecnologías de seguimiento similares para recopilar y rastrear información sobre su uso de nuestro servicio. Puede controlar las cookies a través de la configuración de su navegador, pero deshabilitar las cookies puede afectar la funcionalidad de nuestro servicio."
+      },
+      "children": {
+        "title": "Privacidad de Menores",
+        "content": "Nuestro servicio no está destinado a menores de 13 años. No recopilamos conscientemente información personal de menores de 13 años. Si se da cuenta de que un menor nos ha proporcionado información personal, por favor contáctenos."
+      },
+      "policyChanges": {
+        "title": "Cambios a Esta Política",
+        "content": "Podemos actualizar esta política de privacidad de vez en cuando. Le notificaremos de cualquier cambio publicando la nueva política de privacidad en esta página y actualizando la fecha de \"Última actualización\"."
+      },
+      "contact": {
+        "title": "Contáctenos",
+        "content": "Si tiene alguna pregunta sobre esta Política de Privacidad, por favor contáctenos a través de nuestro repositorio oficial o canales de soporte."
+      }
+    }
+  },
+  "common": {
+    "backToHome": "Volver al Inicio",
+    "tableOfContents": "Tabla de Contenidos",
+    "print": "Imprimir",
+    "share": "Compartir",
+    "readingTime": "min de lectura",
+    "jumpToSection": "Ir a la sección"
+  }
+}
