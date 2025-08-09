@@ -32,21 +32,32 @@ export function LanguageSwitcher() {
     typeof import("~/components/ui/dropdown-menu")
   > | null>(null);
 
+  // Ref to hold the loaded module to avoid race conditions and stale closures
+  const menuModRef = useRef<
+    null | typeof import("~/components/ui/dropdown-menu")
+  >(null);
+
   const loadMenu = useCallback(async () => {
     // If already loaded, no work
-    if (menuMod) return;
+    if (menuModRef.current) return;
     // If an import is in-flight, await it
     if (menuPromiseRef.current) {
       const mod = await menuPromiseRef.current;
       // set state only if not yet set
-      if (!menuMod) setMenuMod(mod);
+      if (!menuModRef.current) {
+        menuModRef.current = mod;
+        setMenuMod(mod);
+      }
       return;
     }
     // Start a single import and cache its promise
     menuPromiseRef.current = import("~/components/ui/dropdown-menu");
     const mod = await menuPromiseRef.current;
-    setMenuMod(mod);
-  }, [menuMod]);
+    if (!menuModRef.current) {
+      menuModRef.current = mod;
+      setMenuMod(mod);
+    }
+  }, []);
 
   // If user clicked intending to open, open once module is ready
   useEffect(() => {

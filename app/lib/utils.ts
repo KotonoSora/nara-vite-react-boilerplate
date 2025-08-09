@@ -7,6 +7,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Polyfill configuration
+// Simulated idle time slice duration in milliseconds.
+// Used by the requestIdleCallback polyfill to approximate IdleDeadline.timeRemaining().
+const POLYFILL_TIME_SLICE = 50;
+
 // Idle callback helpers
 export type IdleCallbackHandle =
   | number
@@ -28,7 +33,11 @@ export function scheduleIdleCallback(cb: IdleCallback): IdleCallbackHandle {
   // Polyfill: execute soon and provide a best-effort timeRemaining
   return globalThis.setTimeout(() => {
     cb({
-      timeRemaining: () => Math.max(0, 50 - (performance.now() % 50)),
+      timeRemaining: () =>
+        Math.max(
+          0,
+          POLYFILL_TIME_SLICE - (performance.now() % POLYFILL_TIME_SLICE),
+        ),
       didTimeout: false,
     });
   }, 1);
