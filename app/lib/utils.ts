@@ -31,13 +31,11 @@ export function scheduleIdleCallback(cb: IdleCallback): IdleCallbackHandle {
     return w.requestIdleCallback(cb);
   }
   // Polyfill: execute soon and provide a best-effort timeRemaining
+  const scheduledTime = performance.now();
   return globalThis.setTimeout(() => {
     cb({
       timeRemaining: () =>
-        Math.max(
-          0,
-          POLYFILL_TIME_SLICE - (performance.now() % POLYFILL_TIME_SLICE),
-        ),
+        Math.max(0, POLYFILL_TIME_SLICE - (performance.now() - scheduledTime)),
       didTimeout: false,
     });
   }, 1);

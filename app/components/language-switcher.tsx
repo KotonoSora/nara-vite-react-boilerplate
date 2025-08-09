@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 import { Button } from "~/components/ui/button";
+import { useLazyImport } from "~/hooks/use-lazy-import";
 import {
   addLanguageToPath,
   getLanguageFromPath,
@@ -22,42 +23,11 @@ export function LanguageSwitcher() {
   const location = useLocation();
 
   // Dynamically import the dropdown menu module on demand
-  const [menuMod, setMenuMod] = useState<
-    null | typeof import("~/components/ui/dropdown-menu")
-  >(null);
+  const [menuMod, loadMenu] = useLazyImport(
+    () => import("~/components/ui/dropdown-menu"),
+  );
   const [open, setOpen] = useState(false);
   const pendingOpenRef = useRef(false);
-  // Cache the dynamic import to avoid recreating callbacks and duplicate imports
-  const menuPromiseRef = useRef<Promise<
-    typeof import("~/components/ui/dropdown-menu")
-  > | null>(null);
-
-  // Ref to hold the loaded module to avoid race conditions and stale closures
-  const menuModRef = useRef<
-    null | typeof import("~/components/ui/dropdown-menu")
-  >(null);
-
-  const loadMenu = useCallback(async () => {
-    // If already loaded, no work
-    if (menuModRef.current) return;
-    // If an import is in-flight, await it
-    if (menuPromiseRef.current) {
-      const mod = await menuPromiseRef.current;
-      // set state only if not yet set
-      if (!menuModRef.current) {
-        menuModRef.current = mod;
-        setMenuMod(mod);
-      }
-      return;
-    }
-    // Start a single import and cache its promise
-    menuPromiseRef.current = import("~/components/ui/dropdown-menu");
-    const mod = await menuPromiseRef.current;
-    if (!menuModRef.current) {
-      menuModRef.current = mod;
-      setMenuMod(mod);
-    }
-  }, []);
 
   // If user clicked intending to open, open once module is ready
   useEffect(() => {
