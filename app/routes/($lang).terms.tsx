@@ -1,15 +1,15 @@
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).terms";
 
-import { PageContext } from "~/features/terms/context/page-context";
-import { ContentTermsPage } from "~/features/terms/page";
+import { PageContext } from "~/features/legal/terms/context/page-context";
+import { ContentTermsPage } from "~/features/legal/terms/page";
 import { getLanguageSession } from "~/language.server";
 import {
   DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
+  getTranslation,
 } from "~/lib/i18n";
-import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
@@ -26,24 +26,35 @@ export async function loader({ request }: Route.LoaderArgs) {
   const language: SupportedLanguage =
     pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
 
+  // Get localized meta content
+  const title = getTranslation(language, "legal.terms.title");
+  const description = getTranslation(language, "legal.terms.description");
+
   return {
-    language,
+    meta: {
+      title,
+      description,
+    },
   };
 }
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ data }: Route.MetaArgs) {
+  const title = data?.meta?.title || "Terms of Service";
+  const description =
+    data?.meta?.description ||
+    "Terms of Service for NARA - Modern React Boilerplate";
+
   return [
-    { title: "Terms of Service - NARA" },
+    { title: `${title} - NARA` },
     {
       name: "description",
-      content: "Terms of Service for NARA - Modern React Boilerplate",
+      content: description,
     },
   ];
 }
-
-export default function TermsPage({ loaderData }: Route.ComponentProps) {
+export default function TermsPage({}: Route.ComponentProps) {
   return (
-    <PageContext.Provider value={loaderData}>
+    <PageContext.Provider value={{}}>
       <ContentTermsPage />
     </PageContext.Provider>
   );

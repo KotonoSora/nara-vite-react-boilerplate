@@ -1,10 +1,6 @@
 import { createContext, useContext } from "react";
 
-import type { SupportedLanguage } from "~/lib/i18n";
-
-export interface TermsPageContextValue {
-  language: SupportedLanguage;
-}
+export interface TermsPageContextValue {}
 
 const TermsPageContext = createContext<TermsPageContextValue | undefined>(
   undefined,

@@ -1,11 +1,8 @@
-import { LegalPageLayout } from "~/features/shared/legal/legal-page-layout";
-import { createTranslationFunction } from "~/lib/i18n/translations";
-
-import { usePageContext } from "./context/page-context";
+import { LegalPageLayout } from "~/features/legal/shared/legal/legal-page-layout";
+import { useI18n } from "~/lib/i18n";
 
 export function ContentPrivacyPage() {
-  const { language } = usePageContext();
-  const t = createTranslationFunction(language);
+  const { t } = useI18n();
 
   const sections = [
     {
