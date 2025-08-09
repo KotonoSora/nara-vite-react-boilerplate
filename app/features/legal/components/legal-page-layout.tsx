@@ -16,7 +16,7 @@ import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
-import { isRTLLanguage, useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n";
 import { cn } from "~/lib/utils";
 
 interface LegalSection {
@@ -53,8 +53,7 @@ export function LegalPageLayout({
   relatedPages = [],
   githubRepository,
 }: LegalPageLayoutProps) {
-  const { t, language } = useI18n();
-  const isRTL = isRTLLanguage(language);
+  const { t } = useI18n();
   const [activeSection, setActiveSection] = useState<string>("");
   const [readingProgress, setReadingProgress] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -134,7 +133,7 @@ export function LegalPageLayout({
       {/* Header Navigation */}
       <HeaderNavigationSection />
 
-      <div className="min-h-screen bg-background" dir={isRTL ? "rtl" : "ltr"}>
+      <div className="min-h-screen bg-background">
         {/* Reading Progress Bar */}
         <div className="fixed top-0 left-0 right-0 z-60">
           <div
