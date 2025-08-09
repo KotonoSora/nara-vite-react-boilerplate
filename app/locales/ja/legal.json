@@ -135,6 +135,11 @@
     "print": "印刷",
     "share": "共有",
     "readingTime": "分読了",
-    "jumpToSection": "セクションにジャンプ"
+    "jumpToSection": "セクションにジャンプ",
+    "related": "関連",
+    "scrollToTop": "トップに戻る",
+    "contactInfo": "このドキュメントに関するご質問は、",
+    "officialRepository": "公式リポジトリ",
+    "supportChannels": "またはサポートチャンネルを通じてお問い合わせください。"
   }
 }

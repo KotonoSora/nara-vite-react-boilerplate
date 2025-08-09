@@ -135,6 +135,11 @@
     "print": "Print",
     "share": "Share",
     "readingTime": "min read",
-    "jumpToSection": "Jump to section"
+    "jumpToSection": "Jump to section",
+    "related": "Related",
+    "scrollToTop": "Scroll to top",
+    "contactInfo": "For questions about this document, please contact us through our",
+    "officialRepository": "official repository",
+    "supportChannels": "or support channels."
   }
 }

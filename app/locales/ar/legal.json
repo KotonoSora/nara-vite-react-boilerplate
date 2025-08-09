@@ -135,6 +135,11 @@
     "print": "طباعة",
     "share": "مشاركة",
     "readingTime": "دقيقة قراءة",
-    "jumpToSection": "الانتقال إلى القسم"
+    "jumpToSection": "الانتقال إلى القسم",
+    "related": "ذات صلة",
+    "scrollToTop": "العودة إلى الأعلى",
+    "contactInfo": "للأسئلة حول هذا المستند، يرجى الاتصال بنا من خلال",
+    "officialRepository": "مستودعنا الرسمي",
+    "supportChannels": "أو قنوات الدعم."
   }
 }

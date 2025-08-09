@@ -131,6 +131,11 @@
     "print": "พิมพ์",
     "share": "แชร์",
     "readingTime": "นาทีในการอ่าน",
-    "jumpToSection": "ไปยังส่วน"
+    "jumpToSection": "ไปยังส่วน",
+    "related": "ที่เกี่ยวข้อง",
+    "scrollToTop": "กลับไปด้านบน",
+    "contactInfo": "สำหรับคำถามเกี่ยวกับเอกสารนี้ กรุณาติดต่อเราผ่าน",
+    "officialRepository": "ที่เก็บอย่างเป็นทางการ",
+    "supportChannels": "หรือช่องทางการสนับสนุนของเรา"
   }
 }
