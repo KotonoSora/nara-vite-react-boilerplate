@@ -41,6 +41,7 @@ interface LegalPageLayoutProps {
     href: string;
     description: string;
   }>;
+  githubRepository: string;
 }
 
 export function LegalPageLayout({
@@ -50,6 +51,7 @@ export function LegalPageLayout({
   sections,
   estimatedReadTime = 5,
   relatedPages = [],
+  githubRepository,
 }: LegalPageLayoutProps) {
   const { t, language } = useI18n();
   const isRTL = isRTLLanguage(language);
@@ -156,57 +158,74 @@ export function LegalPageLayout({
                   </Link>
                 </div>{" "}
                 {/* Table of Contents */}
-                <Card className="lg:block">
-                  <CardContent className="p-3 lg:p-4">
+                <Card className="py-0">
+                  <CardContent className="p-0">
+                    {/* Mobile collapsible header */}
                     <button
                       onClick={() => setIsTocOpen(!isTocOpen)}
-                      className="flex items-center justify-between w-full mb-3 lg:mb-4 lg:pointer-events-none"
+                      className="flex items-center justify-between w-full p-3 text-left hover:bg-muted/50 transition-colors lg:cursor-default lg:pointer-events-none"
+                      aria-expanded={isTocOpen}
+                      aria-controls="toc-content"
                     >
                       <div className="flex items-center gap-2">
-                        <FileText className="w-4 h-4" />
-                        <h3 className="font-semibold text-sm">
+                        <FileText className="w-4 h-4 text-muted-foreground" />
+                        <span className="font-medium text-sm">
                           {t("legal.common.tableOfContents")}
-                        </h3>
+                        </span>
                       </div>
                       <ChevronRight
                         className={clsx(
-                          "w-4 h-4 transition-transform lg:hidden",
+                          "w-4 h-4 text-muted-foreground transition-transform duration-200 lg:hidden",
                           isTocOpen && "rotate-90",
                         )}
                       />
                     </button>
+
+                    {/* Content */}
                     <div
+                      id="toc-content"
                       className={clsx(
-                        "transition-all duration-300 overflow-hidden",
+                        "transition-all duration-300 overflow-hidden lg:max-h-none lg:opacity-100",
                         isTocOpen
-                          ? "max-h-[400px] opacity-100"
-                          : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100",
+                          ? "max-h-[400px] opacity-100 border-t border-border/50"
+                          : "max-h-0 opacity-0 lg:border-t lg:border-border/50",
                       )}
                     >
-                      <ScrollArea className="h-[300px] lg:h-[400px]">
-                        <nav className="space-y-1 lg:space-y-2">
-                          {sections.map((section, index) => (
-                            <button
-                              key={section.id}
-                              onClick={() => {
-                                scrollToSection(section.id);
-                                setIsTocOpen(false); // Close TOC on mobile after clicking
-                              }}
-                              className={`w-full text-left text-xs lg:text-sm p-2 rounded-md transition-colors hover:bg-muted flex items-center gap-2 ${
-                                activeSection === section.id
-                                  ? "bg-muted font-medium text-foreground"
-                                  : "text-muted-foreground"
-                              }`}
-                            >
-                              <span className="text-xs text-muted-foreground min-w-[16px] lg:min-w-[20px]">
-                                {index + 1}.
-                              </span>
-                              <span className="flex-1 text-left">
-                                {section.title}
-                              </span>
-                              <ChevronRight className="w-3 h-3 opacity-50" />
-                            </button>
-                          ))}
+                      <ScrollArea className="h-[350px] lg:h-[400px]">
+                        <nav
+                          className="p-3"
+                          aria-label={t("legal.common.tableOfContents")}
+                        >
+                          <ul className="space-y-1">
+                            {sections.map((section, index) => (
+                              <li key={section.id}>
+                                <button
+                                  onClick={() => {
+                                    scrollToSection(section.id);
+                                    setIsTocOpen(false);
+                                  }}
+                                  className={clsx(
+                                    "w-full text-left p-1.5 rounded-md transition-colors hover:bg-muted text-sm flex items-start gap-2.5",
+                                    activeSection === section.id
+                                      ? "bg-muted font-medium text-foreground"
+                                      : "text-muted-foreground hover:text-foreground",
+                                  )}
+                                  aria-current={
+                                    activeSection === section.id
+                                      ? "location"
+                                      : undefined
+                                  }
+                                >
+                                  <span className="flex-shrink-0 text-xs text-muted-foreground min-w-[20px] mt-0.5">
+                                    {index + 1}.
+                                  </span>
+                                  <span className="flex-1 leading-relaxed">
+                                    {section.title}
+                                  </span>
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
                         </nav>
                       </ScrollArea>
                     </div>
@@ -214,27 +233,36 @@ export function LegalPageLayout({
                 </Card>
                 {/* Related Pages */}
                 {relatedPages.length > 0 && (
-                  <Card className="mt-4 lg:mt-6">
-                    <CardContent className="p-3 lg:p-4">
-                      <h3 className="font-semibold text-sm mb-3 lg:mb-4">
-                        {t("legal.common.related")}
-                      </h3>
-                      <div className="space-y-2 lg:space-y-3">
-                        {relatedPages.map((page) => (
-                          <Link
-                            key={page.href}
-                            to={page.href}
-                            className="block p-2 lg:p-3 rounded-lg border transition-colors hover:bg-muted"
-                          >
-                            <div className="font-medium text-xs lg:text-sm">
-                              {page.title}
-                            </div>
-                            <div className="text-xs text-muted-foreground mt-1">
-                              {page.description}
-                            </div>
-                          </Link>
-                        ))}
+                  <Card className="py-0">
+                    <CardContent className="p-3">
+                      <div className="flex items-center gap-2 mb-3">
+                        <FileText className="w-4 h-4 text-muted-foreground" />
+                        <h3 className="font-medium text-sm">
+                          {t("legal.common.related")}
+                        </h3>
                       </div>
+                      <ul className="space-y-2" role="list">
+                        {relatedPages.map((page) => (
+                          <li key={page.href}>
+                            <Link
+                              to={page.href}
+                              className="block p-2.5 rounded-lg border border-border/50 transition-all duration-200 hover:border-border hover:bg-muted/50 group"
+                            >
+                              <div className="flex items-start justify-between gap-2.5">
+                                <div className="flex-1 min-w-0">
+                                  <h4 className="font-medium text-sm text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                                    {page.title}
+                                  </h4>
+                                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2 leading-relaxed">
+                                    {page.description}
+                                  </p>
+                                </div>
+                                <ChevronRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-muted-foreground transition-colors flex-shrink-0 mt-0.5" />
+                              </div>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </CardContent>
                   </Card>
                 )}
@@ -343,14 +371,14 @@ export function LegalPageLayout({
                   <div className="text-center text-xs sm:text-sm text-muted-foreground">
                     <p>
                       {t("legal.common.contactInfo")}{" "}
-                      <a
-                        href="https://github.com/KotonoSora/nara-vite-react-boilerplate"
+                      <Link
+                        to={githubRepository}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary hover:underline"
+                        className="underline underline-offset-4 hover:text-primary"
                       >
                         {t("legal.common.officialRepository")}
-                      </a>{" "}
+                      </Link>{" "}
                       {t("legal.common.supportChannels")}
                     </p>
                   </div>

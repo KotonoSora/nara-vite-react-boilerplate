@@ -1,6 +1,7 @@
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).terms";
 
+import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { PageContext } from "~/features/legal/terms/context/page-context";
 import { ContentTermsPage } from "~/features/legal/terms/page";
 import { getLanguageSession } from "~/language.server";
@@ -11,7 +12,7 @@ import {
   getTranslation,
 } from "~/lib/i18n";
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   const url = new URL(request.url);
 
   // Detect language from URL, cookie, or browser preference
@@ -30,7 +31,14 @@ export async function loader({ request }: Route.LoaderArgs) {
   const title = getTranslation(language, "legal.terms.title");
   const description = getTranslation(language, "legal.terms.description");
 
+  const {
+    cloudflare: { env },
+  } = context;
+
+  const { githubRepository } = await getPageInformation({ ...env } as any);
+
   return {
+    githubRepository,
     meta: {
       title,
       description,
@@ -52,9 +60,9 @@ export function meta({ data }: Route.MetaArgs) {
     },
   ];
 }
-export default function TermsPage({}: Route.ComponentProps) {
+export default function TermsPage({ loaderData }: Route.ComponentProps) {
   return (
-    <PageContext.Provider value={{}}>
+    <PageContext.Provider value={loaderData}>
       <ContentTermsPage />
     </PageContext.Provider>
   );

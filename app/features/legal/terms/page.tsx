@@ -1,8 +1,11 @@
-import { LegalPageLayout } from "~/features/legal/shared/legal/legal-page-layout";
+import { LegalPageLayout } from "~/features/legal/components/legal-page-layout";
 import { useI18n } from "~/lib/i18n";
+
+import { usePageContext } from "./context/page-context";
 
 export function ContentTermsPage() {
   const { t } = useI18n();
+  const { githubRepository } = usePageContext();
 
   const sections = [
     {
@@ -69,6 +72,7 @@ export function ContentTermsPage() {
       sections={sections}
       estimatedReadTime={8}
       relatedPages={relatedPages}
+      githubRepository={githubRepository}
     />
   );
 }

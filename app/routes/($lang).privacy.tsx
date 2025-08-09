@@ -1,6 +1,7 @@
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).privacy";
 
+import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { PageContext } from "~/features/legal/privacy/context/page-context";
 import { ContentPrivacyPage } from "~/features/legal/privacy/page";
 import { getLanguageSession } from "~/language.server";
@@ -11,7 +12,7 @@ import {
   getTranslation,
 } from "~/lib/i18n";
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   const url = new URL(request.url);
 
   // Detect language from URL, cookie, or browser preference
@@ -30,7 +31,14 @@ export async function loader({ request }: Route.LoaderArgs) {
   const title = getTranslation(language, "legal.privacy.title");
   const description = getTranslation(language, "legal.privacy.description");
 
+  const {
+    cloudflare: { env },
+  } = context;
+
+  const { githubRepository } = await getPageInformation({ ...env } as any);
+
   return {
+    githubRepository,
     meta: {
       title,
       description,
@@ -52,9 +60,9 @@ export function meta({ data }: Route.MetaArgs) {
     },
   ];
 }
-export default function PrivacyPage({}: Route.ComponentProps) {
+export default function PrivacyPage({ loaderData }: Route.ComponentProps) {
   return (
-    <PageContext.Provider value={{}}>
+    <PageContext.Provider value={loaderData}>
       <ContentPrivacyPage />
     </PageContext.Provider>
   );

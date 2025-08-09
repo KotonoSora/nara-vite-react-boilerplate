@@ -1,10 +1,12 @@
 import { createContext, useContext } from "react";
 
-export interface PrivacyPageContextValue {}
+export interface PrivacyPageContextValue {
+  githubRepository: string;
+}
 
-const PrivacyPageContext = createContext<PrivacyPageContextValue | undefined>(
-  undefined,
-);
+const PrivacyPageContext = createContext<PrivacyPageContextValue | undefined>({
+  githubRepository: "",
+});
 
 export function usePageContext() {
   const context = useContext(PrivacyPageContext);

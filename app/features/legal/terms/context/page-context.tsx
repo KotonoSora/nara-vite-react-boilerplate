@@ -1,10 +1,12 @@
 import { createContext, useContext } from "react";
 
-export interface TermsPageContextValue {}
+export interface TermsPageContextValue {
+  githubRepository: string;
+}
 
-const TermsPageContext = createContext<TermsPageContextValue | undefined>(
-  undefined,
-);
+const TermsPageContext = createContext<TermsPageContextValue | undefined>({
+  githubRepository: "",
+});
 
 export function usePageContext() {
   const context = useContext(TermsPageContext);
