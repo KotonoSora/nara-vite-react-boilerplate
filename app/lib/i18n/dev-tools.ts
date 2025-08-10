@@ -475,6 +475,11 @@ export class DevelopmentHelper {
       usage: this.tracker.exportUsageReport(),
     };
   }
+
+  // Get usage report
+  getUsageReport(): string {
+    return this.tracker.exportUsageReport();
+  }
 }
 
 // Global development helper instance
@@ -513,7 +518,7 @@ if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
     usage: () => {
       const helper = getDevelopmentHelper();
       if (helper) {
-        console.log(helper.tracker.exportUsageReport());
+        console.log(helper.getUsageReport());
       } else {
         console.log("Development tools not initialized");
       }
@@ -542,7 +547,4 @@ if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
 
 export {
   missingTranslationDetector,
-  TranslationValidator,
-  AutoTranslationSuggester,
-  TranslationUsageTracker,
 };

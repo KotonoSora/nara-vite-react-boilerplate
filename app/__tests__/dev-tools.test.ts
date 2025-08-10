@@ -78,41 +78,45 @@ const mockTranslations: Record<SupportedLanguage, NestedTranslationObject> = {
             label: 'Password',
             placeholder: 'Create a password',
           },
+          confirmPassword: {
+            label: 'Confirm Password',
+            placeholder: 'Confirm your password',
+          },
           submit: 'Create account',
           submitting: 'Creating account...',
         },
         validation: {
-          nameRequired: 'Please enter your full name',
+          nameMinLength: 'Name must be at least 2 characters',
           emailRequired: 'Please enter a valid email address',
           passwordMinLength: 'Password must be at least 6 characters',
+          confirmPasswordRequired: 'Please confirm your password',
+          passwordsDoNotMatch: 'Passwords don\'t match',
+        },
+        errors: {
+          accountExists: 'An account with this email already exists',
         },
         hasAccount: 'Already have an account?',
         signInLink: 'Sign in',
       },
       password: {
-        reset: {
-          title: 'Reset password',
-          description: 'Enter your email to receive a password reset link',
+        forgot: {
+          title: 'Forgot Password',
+          description: 'Enter your email address and we\'ll send you a link to reset your password.',
           form: {
             email: {
-              label: 'Email',
+              label: 'Email Address',
               placeholder: 'Enter your email',
             },
-            submit: 'Send reset link',
-            submitting: 'Sending...',
+            submit: 'Send Reset Instructions',
           },
-          success: 'Password reset link sent to your email',
-          backToLogin: 'Back to login',
+          success: 'If an account with that email exists, we\'ve sent password reset instructions.',
+          backToLogin: 'Back to Sign In',
         },
-        change: {
-          title: 'Change password',
-          description: 'Enter your current and new password',
+        reset: {
+          title: 'Reset Password',
+          description: 'Enter a new password for your account.',
           form: {
-            currentPassword: {
-              label: 'Current Password',
-              placeholder: 'Enter current password',
-            },
-            newPassword: {
+            password: {
               label: 'New Password',
               placeholder: 'Enter new password',
             },
@@ -120,99 +124,192 @@ const mockTranslations: Record<SupportedLanguage, NestedTranslationObject> = {
               label: 'Confirm Password',
               placeholder: 'Confirm new password',
             },
-            submit: 'Change password',
-            submitting: 'Changing...',
+            submit: 'Update Password',
           },
-          success: 'Password changed successfully',
-          validation: {
-            currentPasswordRequired: 'Please enter your current password',
-            newPasswordMinLength: 'New password must be at least 6 characters',
-            passwordMismatch: 'Passwords do not match',
+          requirements: {
+            title: 'Password must contain:',
+            minLength: 'At least 8 characters',
+            uppercase: 'One uppercase letter',
+            lowercase: 'One lowercase letter',
+            number: 'One number',
+            special: 'One special character',
+          },
+          errors: {
+            invalidToken: 'Invalid or expired reset token',
+            passwordStrength: 'Password must contain at least 8 characters with uppercase, lowercase, number, and special character',
           },
         },
       },
       verification: {
         email: {
-          title: 'Verify your email',
-          description: 'We sent a verification link to your email address',
-          resend: 'Resend verification email',
-          success: 'Verification email sent',
-          verified: 'Email verified successfully',
+          title: 'Email Verification',
+          success: {
+            title: 'Email Verified Successfully!',
+            message: 'Your email has been verified. You can now sign in.',
+            action: 'Go to Sign In',
+          },
+          error: {
+            title: 'Email Verification Failed',
+            invalidToken: 'Invalid or expired verification token',
+            alreadyVerified: 'Email already verified',
+            action: 'Back to Sign In',
+          },
         },
       },
       profile: {
-        title: 'Profile',
-        description: 'Manage your account settings',
-        form: {
-          name: {
-            label: 'Full Name',
-            placeholder: 'Enter your full name',
+        title: 'User Profile',
+        description: 'Manage your account settings and preferences',
+        sections: {
+          information: {
+            title: 'Profile Information',
+            name: 'Full Name',
+            email: 'Email Address',
+            role: 'Role',
+            memberSince: 'Member Since',
+            lastLogin: 'Last Login',
+            verified: 'Verified',
+            notVerified: 'Not Verified',
           },
-          email: {
-            label: 'Email',
-            placeholder: 'Enter your email',
+          security: {
+            title: 'Security Settings',
+            password: 'Password',
+            lastUpdated: 'Last updated',
+            changePassword: 'Change Password',
+            verificationWarning: 'Your email address is not verified.',
+            resendVerification: 'Resend verification email',
           },
-          submit: 'Update profile',
-          submitting: 'Updating...',
         },
-        success: 'Profile updated successfully',
-        validation: {
-          nameRequired: 'Please enter your full name',
-          emailRequired: 'Please enter a valid email address',
+        actions: {
+          backToDashboard: 'Back to Dashboard',
+          signOut: 'Sign Out',
         },
       },
       common: {
-        or: 'or',
-        optional: 'Optional',
-        required: 'Required',
-        loading: 'Loading...',
-        error: 'An error occurred',
-        success: 'Success',
+        agreementText: 'By clicking continue, you agree to our',
+        termsOfService: 'Terms of Service',
+        privacyPolicy: 'Privacy Policy',
+        and: 'and',
       },
     },
     admin: {
-      title: 'Admin Panel',
-      description: 'Manage your application',
-      navigation: {
-        overview: 'Overview',
-        users: 'Users',
-        settings: 'Settings',
+      meta: {
+        title: 'Admin Panel - NARA',
+        description: 'Administrative dashboard',
       },
-      users: {
+      title: 'Admin Panel',
+      subtitle: 'Administrative tools and system management',
+      systemStatus: {
+        title: 'System Status',
+        description: 'Current system health',
+        database: 'Database',
+        authentication: 'Authentication',
+        sessions: 'Sessions',
+        status: {
+          online: 'Online',
+          active: 'Active',
+          healthy: 'Healthy',
+        },
+      },
+      userManagement: {
         title: 'User Management',
-        list: {
-          name: 'Name',
-          email: 'Email',
-          role: 'Role',
-          status: 'Status',
-          actions: 'Actions',
-        },
-        actions: {
-          edit: 'Edit',
-          delete: 'Delete',
-          activate: 'Activate',
-          deactivate: 'Deactivate',
-        },
+        description: 'Manage system users',
+        totalUsers: 'Total Users',
+        activeUsers: 'Active Users',
+        recentSignups: 'Recent Signups',
+      },
+      security: {
+        title: 'Security Overview',
+        description: 'System security status',
+        authAttempts: 'Login Attempts',
+        blockedIPs: 'Blocked IPs',
+        suspiciousActivity: 'Suspicious Activity',
+      },
+      roleBasedAccess: {
+        title: 'Role-Based Access Control',
+        description: 'Manage user roles and permissions',
+        createRole: 'Create Role',
+        managePermissions: 'Manage Permissions',
+        assignRoles: 'Assign Roles',
       },
     },
     dashboard: {
-      title: 'Dashboard',
-      welcome: 'Welcome back',
-      stats: {
-        users: 'Users',
-        orders: 'Orders',
-        revenue: 'Revenue',
-        growth: 'Growth',
+      meta: {
+        title: 'Dashboard',
+        description: 'Your personal dashboard',
+      },
+      welcome: {
+        title: 'Welcome back, {{name}}!',
+        subtitle: 'Here\'s what\'s happening with your account today.',
+      },
+      userInfo: {
+        title: 'Account Information',
+        description: 'Your account details',
+        fields: {
+          name: 'Name:',
+          email: 'Email:',
+          role: 'Role:',
+          memberSince: 'Member since:',
+        },
       },
       quickActions: {
         title: 'Quick Actions',
-        newUser: 'Add User',
-        newOrder: 'Create Order',
-        settings: 'Settings',
+        description: 'Common tasks and actions',
+        actions: {
+          editProfile: 'Edit Profile',
+          settings: 'Settings',
+          viewAnalytics: 'View Analytics',
+          adminPanel: 'Admin Panel',
+        },
+      },
+      stats: {
+        daysActive: {
+          title: 'Days Active',
+          subtitle: 'Since joining',
+        },
+        totalLogins: {
+          title: 'Total Logins',
+          subtitle: 'This month',
+        },
+        profileViews: {
+          title: 'Profile Views',
+          subtitle: 'Last 30 days',
+        },
+        lastLogin: {
+          title: 'Last Login',
+          subtitle: 'Your activity',
+        },
       },
       recentActivity: {
         title: 'Recent Activity',
+        description: 'Your latest account actions',
         noActivity: 'No recent activity',
+        types: {
+          login: 'Login',
+          profileUpdate: 'Profile Update',
+          profileUpdated: 'Profile updated',
+          passwordChange: 'Password Change',
+          settingsChange: 'Settings Change',
+          settingsChanged: 'Settings changed',
+          accountCreated: 'Account created',
+        },
+      },
+      systemStatus: {
+        title: 'System Status',
+        description: 'Current system health and metrics',
+        uptime: 'Uptime',
+        responseTime: 'Response Time',
+        activeUsers: 'Active Users',
+        status: {
+          operational: 'Operational',
+          degraded: 'Degraded Performance',
+          outage: 'Service Outage',
+        },
+      },
+      authDemo: {
+        title: 'Authentication Demo',
+        description: 'Explore authentication features',
+        tryOAuth: 'Try OAuth Login',
+        manageTokens: 'Manage API Tokens',
       },
     },
     errors: {
@@ -226,12 +323,16 @@ const mockTranslations: Record<SupportedLanguage, NestedTranslationObject> = {
       },
     },
     showcase: {
-      title: 'Showcase',
-      description: 'Explore our features',
-      features: {
-        responsive: 'Responsive Design',
-        accessible: 'Accessibility',
-        performance: 'Performance',
+      title: 'Showcases',
+      backToHome: 'Back to Home',
+      scrollToTop: 'Scroll to Top',
+      viewProject: 'View Project',
+      showcase: {
+        title: 'Showcase',
+        description: 'Examples and demonstrations of the boilerplate features',
+        components: 'Components',
+        examples: 'Examples',
+        demos: 'Demos',
       },
     },
     time: {

@@ -1,4 +1,5 @@
-import type { SupportedLanguage, NestedTranslationObject } from "./types";
+import type { SupportedLanguage } from "./config";
+import type { NestedTranslationObject } from "./types";
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from "./config";
 
 // Translation chunk metadata
@@ -433,9 +434,11 @@ export async function loadTranslationChunk(
 
     translations = await response.json();
     
-    // Cache the result
-    translationCache.set(language, translations, namespace);
-    await persistentCache.set(language, translations, namespace).catch(console.warn);
+    // Cache the result if valid
+    if (translations) {
+      translationCache.set(language, translations, namespace);
+      await persistentCache.set(language, translations, namespace).catch(console.warn);
+    }
 
     const loadTime = performance.now() - startTime;
     performanceMonitor.recordLoadTime(loadTime);

@@ -98,9 +98,9 @@ export default function AdvancedI18nDemo() {
       advancedTranslation.setContext(translationContext);
       
       const translations = {
-        greeting: advancedTranslation.translateWithContext("user.greeting", { name: "User" }),
-        welcome: advancedTranslation.translateWithContext("welcome"),
-        itemCount: advancedTranslation.translateWithContext("items.count", { count: 5 }),
+        greeting: advancedTranslation.translateWithContext("home.welcome", { name: "User" }),
+        welcome: advancedTranslation.translateWithContext("home.title"),
+        itemCount: advancedTranslation.translateWithContext("home.description", { count: 5 }),
       };
       
       setContextualTranslations(translations);

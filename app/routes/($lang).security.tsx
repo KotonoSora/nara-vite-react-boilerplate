@@ -23,7 +23,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   ]);
 
   // Enhance devices with parsed info
-  const processedDevices = devices.map(device => ({
+  const processedDevices = devices.map((device: any) => ({
     ...device,
     parsed: parseDeviceInfo(device.userAgent || ""),
   }));
@@ -135,7 +135,7 @@ export default function SecurityDashboard({ loaderData, actionData }: Route.Comp
                 <div className="ml-4">
                   <p className="text-sm text-gray-600">Trusted Devices</p>
                   <p className="text-lg font-semibold text-gray-900">
-                    {devices.filter(d => d.isTrusted).length}
+                    {devices.filter((d: any) => d.isTrusted).length}
                   </p>
                 </div>
               </div>
@@ -214,7 +214,7 @@ export default function SecurityDashboard({ loaderData, actionData }: Route.Comp
               </div>
               <div className="p-6">
                 <div className="space-y-4">
-                  {devices.map((device) => (
+                  {devices.map((device: any) => (
                     <div key={device.id} className="border border-gray-200 rounded-lg p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -282,7 +282,7 @@ export default function SecurityDashboard({ loaderData, actionData }: Route.Comp
               </div>
               <div className="p-6">
                 <div className="space-y-4">
-                  {securityLogs.map((log) => (
+                  {securityLogs.map((log: any) => (
                     <div key={log.id} className="flex items-start space-x-3">
                       <div className={`flex-shrink-0 w-2 h-2 mt-2 rounded-full ${
                         log.success ? 'bg-green-400' : 'bg-red-400'
