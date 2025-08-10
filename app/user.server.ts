@@ -23,6 +23,7 @@ export type CreateUserData = {
   name: string;
   avatar?: string;
   role?: "admin" | "user";
+  createdBy?: number; // Track which admin created this user
 };
 
 export async function createUser(
@@ -42,6 +43,7 @@ export async function createUser(
       name: userData.name,
       avatar: userData.avatar,
       role: userData.role || "user",
+      createdBy: userData.createdBy,
       emailVerificationToken,
       emailVerificationExpires,
       // OAuth users are considered verified
@@ -422,4 +424,109 @@ export async function unlinkOAuthAccount(
     );
 
   return (result as any)?.changes > 0 || (result as any)?.meta?.changes > 0;
+}
+
+/**
+ * User Management Functions
+ */
+
+export async function deleteUser(
+  db: DrizzleD1Database<typeof schema>,
+  userId: number,
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const foundUser = await getUserById(db, userId);
+    
+    if (!foundUser) {
+      return { success: false, error: "User not found" };
+    }
+
+    // Delete user - cascading deletes will handle related records
+    await db
+      .delete(user)
+      .where(eq(user.id, userId));
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return { success: false, error: "Failed to delete user" };
+  }
+}
+
+export async function getUsersCreatedBy(
+  db: DrizzleD1Database<typeof schema>,
+  adminId: number,
+): Promise<User[]> {
+  return await db
+    .select()
+    .from(user)
+    .where(eq(user.createdBy, adminId))
+    .orderBy(user.createdAt);
+}
+
+export async function updateUserByAdmin(
+  db: DrizzleD1Database<typeof schema>,
+  adminId: number,
+  targetUserId: number,
+  updateData: {
+    name?: string;
+    email?: string;
+    avatar?: string;
+    role?: "admin" | "user";
+  },
+): Promise<{ success: boolean; user?: User; error?: string }> {
+  try {
+    // Check if admin created this user
+    const targetUser = await getUserById(db, targetUserId);
+    
+    if (!targetUser) {
+      return { success: false, error: "User not found" };
+    }
+
+    if (targetUser.createdBy !== adminId) {
+      return { success: false, error: "You can only modify users you created" };
+    }
+
+    const [updatedUser] = await db
+      .update(user)
+      .set({
+        ...updateData,
+        updatedAt: new Date(),
+      })
+      .where(eq(user.id, targetUserId))
+      .returning();
+
+    return { success: true, user: updatedUser };
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return { success: false, error: "Failed to update user" };
+  }
+}
+
+export async function deleteUserByAdmin(
+  db: DrizzleD1Database<typeof schema>,
+  adminId: number,
+  targetUserId: number,
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    // Check if admin created this user
+    const targetUser = await getUserById(db, targetUserId);
+    
+    if (!targetUser) {
+      return { success: false, error: "User not found" };
+    }
+
+    if (targetUser.createdBy !== adminId) {
+      return { success: false, error: "You can only delete users you created" };
+    }
+
+    await db
+      .delete(user)
+      .where(eq(user.id, targetUserId));
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return { success: false, error: "Failed to delete user" };
+  }
 }

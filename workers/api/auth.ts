@@ -381,4 +381,134 @@ auth.get("/health", (c) => {
   });
 });
 
+/**
+ * Admin Registration endpoint - Creates admin account with secret
+ * POST /api/auth/admin/register
+ */
+auth.post("/admin/register", async (c) => {
+  const body = await c.req.json();
+  
+  const adminRegisterSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+    name: z.string().min(2),
+    adminSecret: z.string(),
+  });
+
+  const ADMIN_SECRET = process.env.ADMIN_REGISTRATION_SECRET || "nara-admin-secret-2024";
+
+  try {
+    const validatedData = adminRegisterSchema.parse(body);
+
+    // Verify admin secret
+    if (validatedData.adminSecret !== ADMIN_SECRET) {
+      return c.json({ 
+        error: "Invalid admin secret",
+        code: "INVALID_SECRET"
+      }, 403);
+    }
+
+    const db = drizzle(c.env.DB, { schema });
+
+    // Check if user already exists
+    const existingUser = await getUserByEmail(db, validatedData.email);
+    if (existingUser) {
+      return c.json({ 
+        error: "User already exists",
+        code: "USER_EXISTS"
+      }, 409);
+    }
+
+    // Create admin user
+    const newAdmin = await createUser(db, {
+      email: validatedData.email,
+      password: validatedData.password,
+      name: validatedData.name,
+      role: "admin",
+      // Admin accounts created via secret registration have no creator
+      createdBy: null,
+    });
+
+    return c.json({
+      success: true,
+      message: "Admin account created successfully",
+      admin: {
+        id: newAdmin.id,
+        email: newAdmin.email,
+        name: newAdmin.name,
+        role: newAdmin.role,
+      },
+    }, 201);
+
+  } catch (error) {
+    console.error("Admin registration error:", error);
+    
+    if (error instanceof z.ZodError) {
+      return c.json({ 
+        error: "Validation failed", 
+        details: error.errors,
+        code: "VALIDATION_ERROR"
+      }, 400);
+    }
+
+    return c.json({ 
+      error: "Admin registration failed",
+      code: "REGISTRATION_ERROR"
+    }, 500);
+  }
+});
+
+/**
+ * User Deletion endpoint - Self-delete account
+ * DELETE /api/auth/account
+ */
+auth.delete("/account", async (c) => {
+  try {
+    const authHeader = c.req.header("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return c.json({ 
+        error: "Authorization token required",
+        code: "AUTH_REQUIRED"
+      }, 401);
+    }
+
+    const token = authHeader.substring(7);
+    const db = drizzle(c.env.DB, { schema });
+
+    // Verify API token
+    const tokenData = await verifyAPIToken(db, token);
+    if (!tokenData) {
+      return c.json({ 
+        error: "Invalid or expired token",
+        code: "INVALID_TOKEN"
+      }, 401);
+    }
+
+    // Import deleteUser function
+    const { deleteUser } = await import("~/user.server");
+    
+    // Delete the user account
+    const result = await deleteUser(db, tokenData.userId);
+
+    if (!result.success) {
+      return c.json({ 
+        error: result.error || "Failed to delete account",
+        code: "DELETE_FAILED"
+      }, 500);
+    }
+
+    return c.json({
+      success: true,
+      message: "Account deleted successfully",
+    });
+
+  } catch (error) {
+    console.error("Account deletion error:", error);
+    return c.json({ 
+      error: "Account deletion failed",
+      code: "DELETE_ERROR"
+    }, 500);
+  }
+});
+
 export default auth;

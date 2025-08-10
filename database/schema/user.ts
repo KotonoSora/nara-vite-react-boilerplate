@@ -9,6 +9,8 @@ export const user = sqliteTable("users", {
   role: text("role", { enum: ["admin", "user"] })
     .notNull()
     .default("user"),
+  createdBy: integer("created_by")
+    .references(() => user.id, { onDelete: "set null" }), // Track which admin created this user
   emailVerified: integer("email_verified", { mode: "boolean" })
     .notNull()
     .default(false),
@@ -26,6 +28,7 @@ export const user = sqliteTable("users", {
 }, (table) => ({
   emailIdx: index("user_email_idx").on(table.email),
   roleIdx: index("user_role_idx").on(table.role),
+  createdByIdx: index("user_created_by_idx").on(table.createdBy),
 }));
 
 // OAuth accounts table for social login

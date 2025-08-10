@@ -6,6 +6,7 @@ import { prettyJSON } from "hono/pretty-json";
 
 import landingPageRoute from "~/workers/api/features/landing-page";
 import authRoute from "~/workers/api/auth";
+import adminUsersRoute from "~/workers/api/admin-users";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -43,6 +44,7 @@ app.get("/health", (c) => c.json({ status: "ok" }));
 
 app.route("/landing-page", landingPageRoute);
 app.route("/auth", authRoute);
+app.route("/admin/users", adminUsersRoute);
 
 // Example route to test error handling
 if (import.meta.env.NODE_ENV === "development") {

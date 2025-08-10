@@ -298,3 +298,25 @@ export function createPermissionChecker(
     },
   };
 }
+
+/**
+ * Standalone admin role checker
+ */
+export async function requireAdminRole(
+  db: DrizzleD1Database<typeof schema>,
+  userId: number
+): Promise<void> {
+  const foundUser = await db
+    .select()
+    .from(user)
+    .where(eq(user.id, userId))
+    .limit(1);
+
+  if (!foundUser[0]) {
+    throw new Response("User not found", { status: 404 });
+  }
+
+  if (foundUser[0].role !== "admin") {
+    throw new Response("Forbidden: Admin access required", { status: 403 });
+  }
+}

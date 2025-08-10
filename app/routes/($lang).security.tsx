@@ -492,6 +492,59 @@ export default function SecurityDashboard({ loaderData, actionData }: Route.Comp
             </div>
           </div>
 
+          {/* Dangerous Actions */}
+          <div className="bg-red-50 border border-red-200 rounded-lg shadow p-6">
+            <h2 className="text-lg font-semibold text-red-900 mb-4">Dangerous Actions</h2>
+            <div className="space-y-4">
+              <div className="bg-white border border-red-200 rounded-lg p-4">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.268 16.5C3.498 18.333 4.46 20 6 20z" />
+                    </svg>
+                  </div>
+                  <div className="ml-3 flex-1">
+                    <h3 className="text-lg font-medium text-red-900">Delete Account</h3>
+                    <p className="mt-1 text-sm text-red-700">
+                      Permanently delete your account and all associated data. This action cannot be undone.
+                    </p>
+                    <div className="mt-4">
+                      <form action="/action/delete-account" method="post">
+                        <button
+                          type="submit"
+                          className="inline-flex items-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                          onClick={(e) => {
+                            if (!confirm(
+                              `Are you absolutely sure you want to delete your account?\n\n` +
+                              `This will:\n` +
+                              `• Permanently delete all your data\n` +
+                              `• Remove all your sessions and API tokens\n` +
+                              `• Cannot be undone or recovered\n\n` +
+                              `Type "DELETE" to confirm:`
+                            )) {
+                              e.preventDefault();
+                            } else {
+                              const confirmation = prompt("Type 'DELETE' to confirm account deletion:");
+                              if (confirmation !== 'DELETE') {
+                                e.preventDefault();
+                                alert("Account deletion cancelled. You must type 'DELETE' exactly to confirm.");
+                              }
+                            }
+                          }}
+                        >
+                          <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                          Delete My Account
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Back Link */}
           <div className="text-center">
             <a

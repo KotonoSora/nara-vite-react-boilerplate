@@ -85,14 +85,20 @@ export function ContentAdminPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
-                <Button variant="outline" className="w-full justify-start">
-                  {t("admin.userManagement.viewAllUsers")}
+                <Button asChild variant="outline" className="w-full justify-start">
+                  <Link to="/admin-users">
+                    {t("admin.userManagement.viewAllUsers")}
+                  </Link>
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  {t("admin.userManagement.createNewUser")}
+                <Button asChild variant="outline" className="w-full justify-start">
+                  <Link to="/admin-users">
+                    {t("admin.userManagement.createNewUser")}
+                  </Link>
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  {t("admin.userManagement.manageRoles")}
+                <Button asChild variant="outline" className="w-full justify-start">
+                  <Link to="/security">
+                    {t("admin.userManagement.manageRoles")}
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
