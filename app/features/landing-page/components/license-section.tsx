@@ -27,9 +27,9 @@ export const LicenseSection = memo(function LicenseSection() {
           {t("landing.license.title")}
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6 mt-8">
+        <div className="grid sm:grid-cols-2 gap-6 mt-8">
           {/* Open Source Card */}
-          <Card className="text-left border-2 border-primary/20 hover:border-primary/40 transition-all duration-300">
+          <Card className="text-left border-2 border-primary/20">
             <CardContent className="p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <Badge
@@ -81,7 +81,7 @@ export const LicenseSection = memo(function LicenseSection() {
           </Card>
 
           {/* Commercial Card */}
-          <Card className="text-left border-2 border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 bg-gradient-to-br from-background to-purple-500/5">
+          <Card className="text-left border-2 border-purple-500/20 bg-gradient-to-br from-background to-purple-500/5">
             <CardContent className="p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <Badge className="text-sm bg-gradient-to-r from-purple-500 to-pink-500 text-white border-none">

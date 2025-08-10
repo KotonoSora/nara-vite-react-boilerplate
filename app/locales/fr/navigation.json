@@ -1,0 +1,14 @@
+{
+  "home": "Accueil",
+  "about": "À Propos",
+  "showcase": "Vitrine",
+  "features": "Fonctionnalités",
+  "docs": "Documentation",
+  "dashboard": "Tableau de bord",
+  "admin": "Admin",
+  "signIn": "Se connecter",
+  "signUp": "S'inscrire",
+  "signOut": "Se déconnecter",
+  "menu": "Menu",
+  "closeMenu": "Fermer le menu"
+}

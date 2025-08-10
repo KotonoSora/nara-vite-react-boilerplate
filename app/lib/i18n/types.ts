@@ -1,5 +1,29 @@
 // Import all translation files to generate types
+import enAdmin from "~/locales/en/admin.json";
+import enAuth from "~/locales/en/auth.json";
 import enCommon from "~/locales/en/common.json";
+import enDashboard from "~/locales/en/dashboard.json";
+import enErrors from "~/locales/en/errors.json";
+import enLanding from "~/locales/en/landing.json";
+import enLegal from "~/locales/en/legal.json";
+import enNavigation from "~/locales/en/navigation.json";
+import enShowcase from "~/locales/en/showcase.json";
+import enTheme from "~/locales/en/theme.json";
+import enTime from "~/locales/en/time.json";
+
+// Create the complete namespace translation structure
+type NamespaceTranslations = typeof enCommon & {
+  navigation: typeof enNavigation;
+  auth: typeof enAuth;
+  admin: typeof enAdmin;
+  dashboard: typeof enDashboard;
+  errors: typeof enErrors;
+  showcase: typeof enShowcase;
+  time: typeof enTime;
+  theme: typeof enTheme;
+  landing: typeof enLanding;
+  legal: typeof enLegal;
+};
 
 // Extract the shape of the translation object to create a recursive type
 type TranslationValue = string | { [key: string]: TranslationValue };
@@ -10,8 +34,8 @@ type NestedKeyOf<ObjectType extends object> = {
     : `${Key}`;
 }[keyof ObjectType & (string | number)];
 
-// Generate all possible translation keys from the English translation file
-export type TranslationKey = NestedKeyOf<typeof enCommon>;
+// Generate all possible translation keys from the namespace translation structure
+export type TranslationKey = NestedKeyOf<NamespaceTranslations>;
 
 // Type for translation function return (always a string)
 export type TranslationFunction = (
@@ -20,7 +44,4 @@ export type TranslationFunction = (
 ) => string;
 
 // Helper type to extract nested object values
-export type NestedTranslationObject = typeof enCommon;
-
-// Type for the entire translations object
-export type Translations = Record<string, NestedTranslationObject>;
+export type NestedTranslationObject = NamespaceTranslations;

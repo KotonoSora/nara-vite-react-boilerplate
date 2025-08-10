@@ -1,0 +1,13 @@
+{
+  "title": "Trưng Bày",
+  "backToHome": "Về Trang Chủ",
+  "scrollToTop": "Lên Đầu Trang",
+  "viewProject": "Xem Dự Án",
+  "showcase": {
+    "title": "Trình diễn",
+    "description": "Các ví dụ và minh họa về các tính năng của boilerplate",
+    "components": "Thành phần",
+    "examples": "Ví dụ",
+    "demos": "Demo"
+  }
+}

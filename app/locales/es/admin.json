@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "title": "Panel de Administración - NARA",
+    "description": "Panel de administración"
+  },
+  "title": "Panel de Administración",
+  "subtitle": "Herramientas administrativas y gestión del sistema",
+  "systemStatus": {
+    "title": "Estado del Sistema",
+    "description": "Salud actual del sistema",
+    "database": "Base de Datos",
+    "authentication": "Autenticación",
+    "sessions": "Sesiones",
+    "status": {
+      "online": "En Línea",
+      "active": "Activo",
+      "healthy": "Saludable"
+    }
+  },
+  "userManagement": {
+    "title": "Gestión de Usuarios",
+    "description": "Administrar usuarios del sistema",
+    "viewAllUsers": "Ver Todos los Usuarios",
+    "createNewUser": "Crear Nuevo Usuario",
+    "manageRoles": "Gestionar Roles"
+  },
+  "security": {
+    "title": "Seguridad",
+    "description": "Controles de seguridad y acceso",
+    "sessionManagement": "Gestión de Sesiones",
+    "accessLogs": "Registros de Acceso",
+    "securitySettings": "Configuración de Seguridad"
+  },
+  "roleBasedAccess": {
+    "title": "Demo de Control de Acceso Basado en Roles",
+    "description": "Este panel de administración demuestra la autorización basada en roles",
+    "requirements": {
+      "title": "Requisitos de Acceso:",
+      "authenticated": "Debe estar autenticado (iniciado sesión)",
+      "adminRole": "Debe tener el rol \"admin\" en la base de datos",
+      "routeLevel": "Aplicado a nivel del cargador de ruta",
+      "forbidden": "Devuelve 403 Prohibido para usuarios no administradores"
+    },
+    "accessGranted": {
+      "title": "✅ Acceso Concedido",
+      "message": "Tienes privilegios de administrador y puedes acceder a esta área protegida."
+    },
+    "actions": {
+      "userDashboard": "Panel de Usuario",
+      "returnHome": "Volver al Inicio"
+    }
+  }
+}

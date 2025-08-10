@@ -1,0 +1,3 @@
+interface LoginContentProps {
+  error?: string;
+}

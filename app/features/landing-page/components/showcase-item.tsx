@@ -16,7 +16,7 @@ export const ShowcaseItem = memo(function ShowcaseItem({
   const { t } = useI18n();
   return (
     <Card
-      className="overflow-hidden hover:shadow-xl transition-shadow py-0 gap-0"
+      className="overflow-hidden py-0 gap-0"
       style={{ contentVisibility: "auto" }}
     >
       <CardHeader className="p-0 gap-0">

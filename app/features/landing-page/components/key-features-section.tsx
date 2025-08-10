@@ -27,20 +27,18 @@ const FeatureCard = memo(function FeatureCard({ config }: FeatureCardProps) {
 
   return (
     <Card
-      className={`border-2 border-primary/20 hover:border-primary/40 transition-all duration-500 motion-safe:hover:shadow-2xl motion-safe:hover:-translate-y-2 bg-gradient-to-br from-background via-background ${colors.background} group relative overflow-hidden`}
+      className={`border-2 border-primary/20 bg-gradient-to-br from-background via-background ${colors.background} relative overflow-hidden`}
     >
       <div
-        className={`absolute inset-0 bg-gradient-to-br from-${colors.primary}/5 to-transparent opacity-0 motion-safe:group-hover:opacity-100 transition-opacity duration-500`}
+        className={`absolute inset-0 bg-gradient-to-br from-${colors.primary}/5 to-transparent`}
       />
       <CardHeader className="pb-4 relative">
         <div
-          className={`w-12 h-12 bg-gradient-to-br from-${colors.primary}/20 to-${colors.secondary}/20 rounded-lg flex items-center justify-center mb-4 motion-safe:group-hover:scale-110 transition-transform duration-300`}
+          className={`w-12 h-12 bg-gradient-to-br from-${colors.primary}/20 to-${colors.secondary}/20 rounded-lg flex items-center justify-center mb-4`}
         >
           <Icon className={`w-6 h-6 ${colors.icon}`} />
         </div>
-        <CardTitle className={`text-xl ${colors.hover} transition-colors`}>
-          {title}
-        </CardTitle>
+        <CardTitle className={`text-xl ${colors.hover}`}>{title}</CardTitle>
       </CardHeader>
       <CardContent className="relative">
         <CardDescription className="text-base leading-relaxed">
@@ -71,7 +69,7 @@ export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
 
       <div className="container mx-auto relative">
         <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-green-500/10 border border-primary/20 rounded-full text-sm font-medium text-primary mb-6 motion-safe:animate-pulse">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-green-500/10 border border-primary/20 rounded-full text-sm font-medium text-primary mb-6">
             <Rocket className="h-4 w-4" />
             {t("landing.features.badge")}
           </div>
@@ -83,7 +81,7 @@ export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {featuresConfig.map((feature) => (
             <FeatureCard key={feature.title} config={feature} />
           ))}

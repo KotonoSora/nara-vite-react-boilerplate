@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "title": "डैशबोर्ड",
+    "description": "आपका व्यक्तिगत डैशबोर्ड"
+  },
+  "welcome": {
+    "title": "वापसी पर स्वागत है, {{name}}!",
+    "subtitle": "आज आपके खाते के साथ यह हो रहा है।"
+  },
+  "userInfo": {
+    "title": "खाता जानकारी",
+    "description": "आपके खाते का विवरण",
+    "fields": {
+      "name": "नाम:",
+      "email": "ईमेल:",
+      "role": "भूमिका:",
+      "memberSince": "सदस्य बने:"
+    }
+  },
+  "quickActions": {
+    "title": "त्वरित कार्य",
+    "description": "सामान्य कार्य और क्रियाएं",
+    "actions": {
+      "editProfile": "प्रोफ़ाइल संपादित करें",
+      "settings": "सेटिंग्स",
+      "viewAnalytics": "एनालिटिक्स देखें",
+      "adminPanel": "एडमिन पैनल"
+    }
+  },
+  "stats": {
+    "daysActive": {
+      "title": "सक्रिय दिन",
+      "subtitle": "शामिल होने के बाद से"
+    },
+    "totalLogins": {
+      "title": "कुल लॉगिन",
+      "subtitle": "इस महीने"
+    },
+    "profileViews": {
+      "title": "प्रोफ़ाइल दृश्य",
+      "subtitle": "पिछले 30 दिन"
+    },
+    "lastLogin": {
+      "title": "अंतिम लॉगिन",
+      "subtitle": "आपकी गतिविधि"
+    }
+  },
+  "recentActivity": {
+    "title": "हाल की गतिविधि",
+    "description": "आपकी नवीनतम खाता कार्रवाइयां",
+    "noActivity": "कोई हाल की गतिविधि नहीं",
+    "types": {
+      "login": "लॉगिन",
+      "profileUpdate": "प्रोफ़ाइल अपडेट",
+      "profileUpdated": "प्रोफ़ाइल अपडेट किया गया",
+      "passwordChange": "पासवर्ड बदलाव",
+      "settingsChange": "सेटिंग्स बदलाव",
+      "settingsChanged": "सेटिंग्स बदली गई",
+      "accountCreated": "खाता बनाया गया"
+    }
+  },
+  "systemStatus": {
+    "title": "सिस्टम स्थिति",
+    "description": "वर्तमान सिस्टम स्वास्थ्य और मेट्रिक्स",
+    "uptime": "अपटाइम",
+    "responseTime": "प्रतिक्रिया समय",
+    "activeUsers": "सक्रिय उपयोगकर्ता",
+    "status": {
+      "operational": "संचालनरत",
+      "degraded": "कम प्रदर्शन",
+      "outage": "सेवा बंद"
+    }
+  },
+  "authDemo": {
+    "title": "प्रमाणीकरण डेमो",
+    "description": "प्रमाणीकरण सुविधाओं का अन्वेषण करें",
+    "content": "आप सफलतापूर्वक प्रमाणित हैं और इस संरक्षित सामग्री को देख सकते हैं। यह दर्शाता है:",
+    "features": {
+      "secureAuth": "सुरक्षित प्रमाणीकरण",
+      "userDatabase": "डेटाबेस से उपयोगकर्ता जानकारी",
+      "sessionManagement": "सत्र प्रबंधन",
+      "roleBasedAccess": "भूमिका आधारित पहुंच",
+      "activityTracking": "वास्तविक समय गतिविधि ट्रैकिंग",
+      "statisticsCalculation": "गतिशील सांख्यिकी गणना"
+    },
+    "actions": {
+      "home": "होम",
+      "learnMore": "और जानें"
+    }
+  }
+}

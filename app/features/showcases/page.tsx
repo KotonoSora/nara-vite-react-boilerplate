@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { ArrowUp, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
@@ -10,6 +9,7 @@ import SocialPreview from "~/features/landing-page/assets/social-preview.svg?url
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
 import { useI18n } from "~/lib/i18n";
+import { cn } from "~/lib/utils";
 
 import { usePageContext } from "./context/page-context";
 
@@ -50,11 +50,11 @@ export function ContentShowcasePage() {
         <div className="flex justify-between items-center max-w-6xl mx-auto my-6">
           <div className="flex items-center gap-3">
             <Button asChild variant="ghost" size="icon">
-              <Link to="/" aria-label={t("showcases.backToHome")}>
+              <Link to="/" aria-label={t("showcase.backToHome")}>
                 <ArrowUp className="w-4 h-4 rotate-270" />
               </Link>
             </Button>
-            <h2 className="text-xl font-semibold">{t("showcases.title")}</h2>
+            <h2 className="text-xl font-semibold">{t("showcase.title")}</h2>
           </div>
         </div>
 
@@ -79,7 +79,7 @@ export function ContentShowcasePage() {
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-foreground"
                     onClick={(e) => e.stopPropagation()}
-                    aria-label={t("showcases.viewProject")}
+                    aria-label={t("showcase.viewProject")}
                   >
                     <ExternalLink className="w-4 h-4" />
                   </a>
@@ -106,12 +106,12 @@ export function ContentShowcasePage() {
       </main>
 
       <Button
-        className={clsx("z-10 fixed bottom-4 right-4 rounded-full w-8 h-8", {
+        className={cn("z-10 fixed bottom-4 right-4 rounded-full w-8 h-8", {
           visible: showScroll,
           invisible: !showScroll,
         })}
         onClick={handleScrollToTop}
-        aria-label={t("showcases.scrollToTop")}
+        aria-label={t("showcase.scrollToTop")}
       >
         <ArrowUp size={20} />
       </Button>

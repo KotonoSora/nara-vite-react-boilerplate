@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "title": "Panneau d'Administration - NARA",
+    "description": "Tableau de bord administratif"
+  },
+  "title": "Panneau d'Administration",
+  "subtitle": "Outils administratifs et gestion du système",
+  "systemStatus": {
+    "title": "État du Système",
+    "description": "Santé actuelle du système",
+    "database": "Base de Données",
+    "authentication": "Authentification",
+    "sessions": "Sessions",
+    "status": {
+      "online": "En Ligne",
+      "active": "Actif",
+      "healthy": "Sain"
+    }
+  },
+  "userManagement": {
+    "title": "Gestion des Utilisateurs",
+    "description": "Gérer les utilisateurs du système",
+    "viewAllUsers": "Voir Tous les Utilisateurs",
+    "createNewUser": "Créer un Nouvel Utilisateur",
+    "manageRoles": "Gérer les Rôles"
+  },
+  "security": {
+    "title": "Sécurité",
+    "description": "Contrôles de sécurité et d'accès",
+    "sessionManagement": "Gestion des Sessions",
+    "accessLogs": "Journaux d'Accès",
+    "securitySettings": "Paramètres de Sécurité"
+  },
+  "roleBasedAccess": {
+    "title": "Démo de Contrôle d'Accès Basé sur les Rôles",
+    "description": "Ce panneau d'administration démontre l'autorisation basée sur les rôles",
+    "requirements": {
+      "title": "Exigences d'Accès :",
+      "authenticated": "Doit être authentifié (connecté)",
+      "adminRole": "Doit avoir le rôle \"admin\" dans la base de données",
+      "routeLevel": "Appliqué au niveau du chargeur de route",
+      "forbidden": "Retourne 403 Interdit pour les utilisateurs non-administrateurs"
+    },
+    "accessGranted": {
+      "title": "✅ Accès Accordé",
+      "message": "Vous avez des privilèges d'administrateur et pouvez accéder à cette zone protégée."
+    },
+    "actions": {
+      "userDashboard": "Tableau de Bord Utilisateur",
+      "returnHome": "Retour à l'Accueil"
+    }
+  }
+}

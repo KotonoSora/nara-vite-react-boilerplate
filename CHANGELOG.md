@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.6.5 (2025-08-10)
+
+- Implemented authentication and authorization features
+- Enhance internationalization and localization features
+
 ## 4.6.4 (2025-08-03)
 
 - Upgraded Node.js LTS to v22.18.0

@@ -1,0 +1,15 @@
+{
+  "now": "刚刚",
+  "minutesAgo": "{{count}} 分钟前",
+  "minutesAgo_other": "{{count}} 分钟前",
+  "hoursAgo": "{{count}} 小时前",
+  "hoursAgo_other": "{{count}} 小时前",
+  "daysAgo": "{{count}} 天前",
+  "daysAgo_other": "{{count}} 天前",
+  "weeksAgo": "{{count}} 周前",
+  "weeksAgo_other": "{{count}} 周前",
+  "monthsAgo": "{{count}} 个月前",
+  "monthsAgo_other": "{{count}} 个月前",
+  "yearsAgo": "{{count}} 年前",
+  "yearsAgo_other": "{{count}} 年前"
+}

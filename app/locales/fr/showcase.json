@@ -1,0 +1,13 @@
+{
+  "title": "Vitrine",
+  "backToHome": "Retour à l'Accueil",
+  "scrollToTop": "Remonter en Haut",
+  "viewProject": "Voir le Projet",
+  "showcase": {
+    "title": "Vitrine",
+    "description": "Exemples et démonstrations des fonctionnalités du boilerplate",
+    "components": "Composants",
+    "examples": "Exemples",
+    "demos": "Démos"
+  }
+}

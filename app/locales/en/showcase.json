@@ -1,0 +1,13 @@
+{
+  "title": "Showcases",
+  "backToHome": "Back to Home",
+  "scrollToTop": "Scroll to Top",
+  "viewProject": "View Project",
+  "showcase": {
+    "title": "Showcase",
+    "description": "Examples and demonstrations of the boilerplate features",
+    "components": "Components",
+    "examples": "Examples",
+    "demos": "Demos"
+  }
+}

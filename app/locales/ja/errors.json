@@ -1,0 +1,10 @@
+{
+  "pageNotFound": "リクエストされたページが見つかりませんでした。",
+  "unexpectedError": "予期しないエラーが発生しました。",
+  "goHome": "ホームに戻る",
+  "tryAgain": "再試行",
+  "common": {
+    "checkInput": "入力内容を確認してください",
+    "somethingWentWrong": "何かがうまくいきませんでした。もう一度お試しください。"
+  }
+}

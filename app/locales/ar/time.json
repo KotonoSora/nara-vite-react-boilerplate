@@ -1,0 +1,15 @@
+{
+  "now": "الآن",
+  "minutesAgo": "منذ {{count}} دقيقة",
+  "minutesAgo_other": "منذ {{count}} دقيقة",
+  "hoursAgo": "منذ {{count}} ساعة",
+  "hoursAgo_other": "منذ {{count}} ساعة",
+  "daysAgo": "منذ {{count}} يوم",
+  "daysAgo_other": "منذ {{count}} يوم",
+  "weeksAgo": "منذ {{count}} أسبوع",
+  "weeksAgo_other": "منذ {{count}} أسبوع",
+  "monthsAgo": "منذ {{count}} شهر",
+  "monthsAgo_other": "منذ {{count}} شهر",
+  "yearsAgo": "منذ {{count}} سنة",
+  "yearsAgo_other": "منذ {{count}} سنة"
+}

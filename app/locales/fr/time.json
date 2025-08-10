@@ -1,0 +1,15 @@
+{
+  "now": "à l'instant",
+  "minutesAgo": "il y a {{count}} minute",
+  "minutesAgo_other": "il y a {{count}} minutes",
+  "hoursAgo": "il y a {{count}} heure",
+  "hoursAgo_other": "il y a {{count}} heures",
+  "daysAgo": "il y a {{count}} jour",
+  "daysAgo_other": "il y a {{count}} jours",
+  "weeksAgo": "il y a {{count}} semaine",
+  "weeksAgo_other": "il y a {{count}} semaines",
+  "monthsAgo": "il y a {{count}} mois",
+  "monthsAgo_other": "il y a {{count}} mois",
+  "yearsAgo": "il y a {{count}} an",
+  "yearsAgo_other": "il y a {{count}} ans"
+}

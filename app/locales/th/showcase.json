@@ -1,0 +1,13 @@
+{
+  "title": "โชว์เคส",
+  "backToHome": "กลับสู่หน้าหลัก",
+  "scrollToTop": "เลื่อนขึ้นด้านบน",
+  "viewProject": "ดูโปรเจค",
+  "showcase": {
+    "title": "โชว์เคส",
+    "description": "ตัวอย่างและการสาธิตคุณสมบัติของ boilerplate",
+    "components": "คอมโพเนนต์",
+    "examples": "ตัวอย่าง",
+    "demos": "เดโม"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "title": "Admin Panel - NARA",
+    "description": "Administrative dashboard"
+  },
+  "title": "Admin Panel",
+  "subtitle": "Administrative tools and system management",
+  "systemStatus": {
+    "title": "System Status",
+    "description": "Current system health",
+    "database": "Database",
+    "authentication": "Authentication",
+    "sessions": "Sessions",
+    "status": {
+      "online": "Online",
+      "active": "Active",
+      "healthy": "Healthy"
+    }
+  },
+  "userManagement": {
+    "title": "User Management",
+    "description": "Manage system users",
+    "viewAllUsers": "View All Users",
+    "createNewUser": "Create New User",
+    "manageRoles": "Manage Roles"
+  },
+  "security": {
+    "title": "Security",
+    "description": "Security and access controls",
+    "sessionManagement": "Session Management",
+    "accessLogs": "Access Logs",
+    "securitySettings": "Security Settings"
+  },
+  "roleBasedAccess": {
+    "title": "Role-Based Access Control Demo",
+    "description": "This admin panel demonstrates role-based authorization",
+    "requirements": {
+      "title": "Access Requirements:",
+      "authenticated": "Must be authenticated (logged in)",
+      "adminRole": "Must have \"admin\" role in the database",
+      "routeLevel": "Enforced at the route loader level",
+      "forbidden": "Returns 403 Forbidden for non-admin users"
+    },
+    "accessGranted": {
+      "title": "✅ Access Granted",
+      "message": "You have admin privileges and can access this protected area."
+    },
+    "actions": {
+      "userDashboard": "User Dashboard",
+      "returnHome": "Return to Home"
+    }
+  }
+}

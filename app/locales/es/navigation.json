@@ -1,0 +1,14 @@
+{
+  "home": "Inicio",
+  "about": "Acerca de",
+  "showcase": "Muestra",
+  "features": "Características",
+  "docs": "Documentación",
+  "dashboard": "Panel de control",
+  "admin": "Administrador",
+  "signIn": "Iniciar sesión",
+  "signUp": "Registrarse",
+  "signOut": "Cerrar sesión",
+  "menu": "Menú",
+  "closeMenu": "Cerrar menú"
+}

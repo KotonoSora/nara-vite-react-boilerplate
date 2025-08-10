@@ -1,0 +1,10 @@
+{
+  "pageNotFound": "找不到请求的页面。",
+  "unexpectedError": "发生意外错误。",
+  "goHome": "回到首页",
+  "tryAgain": "重试",
+  "common": {
+    "checkInput": "请检查您的输入",
+    "somethingWentWrong": "出了点问题。请重试。"
+  }
+}
