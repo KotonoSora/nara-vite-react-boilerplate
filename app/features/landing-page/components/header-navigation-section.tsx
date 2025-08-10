@@ -104,15 +104,17 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
         >
           <img
             src="/assets/logo-dark.svg"
-            alt=""
+            alt="nara-logo-dark"
             className="w-8 h-8 hidden [html.dark_&]:block"
             loading="lazy"
+            aria-hidden="true"
           />
           <img
             src="/assets/logo-light.svg"
-            alt=""
+            alt="nara-logo-light"
             className="w-8 h-8 hidden [html.light_&]:block"
             loading="lazy"
+            aria-hidden="true"
           />
           <span>NARA</span>
         </Link>
