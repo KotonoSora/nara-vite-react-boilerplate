@@ -10,6 +10,7 @@ import {
   getTranslation,
 } from "~/lib/i18n";
 import { getUserById } from "~/user.server";
+import { createPermissionChecker, getUserPermissions } from "~/lib/auth/permissions.server";
 
 export async function loader({ request, context, params }: Route.LoaderArgs) {
   const userId = await requireUserId(request);
@@ -21,10 +22,16 @@ export async function loader({ request, context, params }: Route.LoaderArgs) {
     throw new Response("User not found", { status: 404 });
   }
 
-  // Check if user is admin
-  if (user.role !== "admin") {
-    throw new Response("Access denied. Admin role required.", { status: 403 });
+  // Enhanced permission check using RBAC
+  const permissionChecker = createPermissionChecker(db);
+  try {
+    await permissionChecker.requireAdmin(userId);
+  } catch (error) {
+    throw new Response("Access denied. Admin permissions required.", { status: 403 });
   }
+
+  // Get user's permissions for display
+  const permissions = await getUserPermissions(db, userId);
 
   // Handle language detection
   const url = new URL(request.url);
@@ -35,7 +42,7 @@ export async function loader({ request, context, params }: Route.LoaderArgs) {
   // Priority: URL param > Cookie > Default
   const language = pathLanguage || cookieLanguage || DEFAULT_LANGUAGE;
 
-  return { user, language };
+  return { user, language, permissions };
 }
 
 export function meta({ data }: Route.MetaArgs): ReturnType<Route.MetaFunction> {

@@ -12,14 +12,16 @@ import {
   getPasswordResetExpiry,
 } from "~/lib/auth/config";
 import { sendEmailVerification, sendPasswordReset } from "~/lib/auth/email.server";
+import type { OAuthUserInfo, OAuthProvider } from "~/lib/auth/oauth.server";
 
-const { user, loginLog } = schema;
+const { user, loginLog, oauthAccount } = schema;
 
 export type User = typeof user.$inferSelect;
 export type CreateUserData = {
   email: string;
-  password: string;
+  password?: string; // Optional for OAuth users
   name: string;
+  avatar?: string;
   role?: "admin" | "user";
 };
 
@@ -28,7 +30,7 @@ export async function createUser(
   userData: CreateUserData,
   options: { sendVerificationEmail?: boolean; baseUrl?: string } = {},
 ): Promise<User> {
-  const passwordHash = await hashPassword(userData.password);
+  const passwordHash = userData.password ? await hashPassword(userData.password) : null;
   const emailVerificationToken = generateEmailVerificationToken();
   const emailVerificationExpires = getEmailVerificationExpiry();
 
@@ -38,14 +40,17 @@ export async function createUser(
       email: userData.email,
       passwordHash,
       name: userData.name,
+      avatar: userData.avatar,
       role: userData.role || "user",
       emailVerificationToken,
       emailVerificationExpires,
+      // OAuth users are considered verified
+      emailVerified: !userData.password,
     })
     .returning();
 
-  // Send verification email if requested
-  if (options.sendVerificationEmail && options.baseUrl) {
+  // Send verification email if requested and user has password (not OAuth)
+  if (options.sendVerificationEmail && options.baseUrl && userData.password) {
     const verificationLink = `${options.baseUrl}/verify-email?token=${emailVerificationToken}`;
     await sendEmailVerification({
       name: newUser.name,
@@ -98,6 +103,11 @@ export async function authenticateUser(
       return null;
     }
 
+    // Check if user has a password (not OAuth-only user)
+    if (!foundUser.passwordHash) {
+      return null;
+    }
+
     const isValidPassword = await verifyPassword(
       password,
       foundUser.passwordHash,
@@ -122,7 +132,7 @@ export async function authenticateUser(
   } finally {
     // Log the login attempt
     if (foundUser && metadata) {
-      await logLoginAttempt(db, foundUser.id, success, metadata);
+      await logLoginAttempt(db, foundUser.id, success, { ...metadata, provider: null });
     }
   }
 }
@@ -278,13 +288,14 @@ export async function logLoginAttempt(
   db: DrizzleD1Database<typeof schema>,
   userId: number,
   success: boolean,
-  metadata: { ipAddress?: string; userAgent?: string },
+  metadata: { ipAddress?: string; userAgent?: string; provider?: string | null },
 ): Promise<void> {
   await db.insert(loginLog).values({
     userId,
     success,
     ipAddress: metadata.ipAddress,
     userAgent: metadata.userAgent,
+    provider: metadata.provider,
   });
 }
 
@@ -306,4 +317,109 @@ export async function getRecentLoginAttempts(
       )
     )
     .orderBy(loginLog.createdAt);
+}
+
+/**
+ * OAuth-specific functions
+ */
+
+export async function findOrCreateOAuthUser(
+  db: DrizzleD1Database<typeof schema>,
+  oauthUserInfo: OAuthUserInfo,
+  metadata?: { ipAddress?: string; userAgent?: string },
+): Promise<User> {
+  // First, try to find existing user by email
+  let existingUser = await getUserByEmail(db, oauthUserInfo.email);
+
+  if (!existingUser) {
+    // Create new user for OAuth
+    existingUser = await createUser(db, {
+      email: oauthUserInfo.email,
+      name: oauthUserInfo.name,
+      avatar: oauthUserInfo.avatar_url,
+      role: "user",
+    });
+  }
+
+  // Check if OAuth account already exists
+  const [existingOAuthAccount] = await db
+    .select()
+    .from(oauthAccount)
+    .where(
+      and(
+        eq(oauthAccount.provider, oauthUserInfo.provider),
+        eq(oauthAccount.providerAccountId, oauthUserInfo.id)
+      )
+    )
+    .limit(1);
+
+  if (!existingOAuthAccount) {
+    // Link OAuth account to user
+    await db
+      .insert(oauthAccount)
+      .values({
+        userId: existingUser.id,
+        provider: oauthUserInfo.provider,
+        providerAccountId: oauthUserInfo.id,
+      });
+  } else {
+    // Update existing OAuth account
+    await db
+      .update(oauthAccount)
+      .set({ updatedAt: new Date() })
+      .where(eq(oauthAccount.id, existingOAuthAccount.id));
+  }
+
+  // Update user's last login and avatar if needed
+  const updateData: any = { 
+    lastLoginAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  if (oauthUserInfo.avatar_url && !existingUser.avatar) {
+    updateData.avatar = oauthUserInfo.avatar_url;
+  }
+
+  await db
+    .update(user)
+    .set(updateData)
+    .where(eq(user.id, existingUser.id));
+
+  // Log the OAuth login
+  if (metadata) {
+    await logLoginAttempt(db, existingUser.id, true, {
+      ...metadata,
+      provider: oauthUserInfo.provider,
+    });
+  }
+
+  return { ...existingUser, ...updateData };
+}
+
+export async function getUserOAuthAccounts(
+  db: DrizzleD1Database<typeof schema>,
+  userId: number,
+): Promise<typeof oauthAccount.$inferSelect[]> {
+  return await db
+    .select()
+    .from(oauthAccount)
+    .where(eq(oauthAccount.userId, userId))
+    .orderBy(oauthAccount.createdAt);
+}
+
+export async function unlinkOAuthAccount(
+  db: DrizzleD1Database<typeof schema>,
+  userId: number,
+  provider: OAuthProvider,
+): Promise<boolean> {
+  const result = await db
+    .delete(oauthAccount)
+    .where(
+      and(
+        eq(oauthAccount.userId, userId),
+        eq(oauthAccount.provider, provider)
+      )
+    );
+
+  return (result as any)?.changes > 0 || (result as any)?.meta?.changes > 0;
 }

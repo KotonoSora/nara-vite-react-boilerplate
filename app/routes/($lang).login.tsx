@@ -41,8 +41,28 @@ export async function action({ request, context }: Route.ActionArgs) {
   const { email, password } = result.data;
   const { db } = context;
 
+  // Rate limiting
+  const { createRateLimiters } = await import("~/lib/auth/rate-limit.server");
+  const rateLimiters = createRateLimiters(db);
+  
   try {
-    const user = await authenticateUser(db, email, password);
+    await rateLimiters.login(request, "/login");
+  } catch (rateLimitResponse) {
+    // Rate limit exceeded
+    return rateLimitResponse;
+  }
+
+  try {
+    // Get client metadata for logging
+    const clientIP = request.headers.get("CF-Connecting-IP") || 
+                    request.headers.get("X-Forwarded-For") || 
+                    "unknown";
+    const userAgent = request.headers.get("User-Agent") || "unknown";
+
+    const user = await authenticateUser(db, email, password, {
+      ipAddress: clientIP,
+      userAgent,
+    });
 
     if (!user) {
       return data({ error: "Invalid email or password" }, { status: 400 });
@@ -67,7 +87,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Login({ actionData }: Route.ComponentProps) {
   return (
-    <PageContext.Provider value={{ ...actionData }}>
+    <PageContext.Provider value={{ error: (actionData as any)?.error }}>
       <ContentLoginPage />
     </PageContext.Provider>
   );
