@@ -27,13 +27,12 @@ import {
   DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
-  getTranslation,
   I18nProvider,
   isRTLLanguage,
 } from "~/lib/i18n";
-import { cancelIdleCallback, scheduleIdleCallback } from "~/lib/utils";
 import { themeSessionResolver } from "~/sessions.server";
 import { getUserById } from "~/user.server";
+import { cancelIdleCallback, scheduleIdleCallback } from "~/utils.client";
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
 const ToasterLazy = lazy(async () => ({
@@ -170,40 +169,20 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let details = "An unexpected error occurred.";
   let stack: string | undefined;
 
-  try {
-    if (isRouteErrorResponse(error)) {
-      message = error.status === 404 ? "404" : getTranslation("en", "error");
-      details =
-        error.status === 404
-          ? getTranslation("en", "errors.pageNotFound")
-          : error.statusText || getTranslation("en", "errors.unexpectedError");
-    } else if (import.meta.env.DEV && error && error instanceof Error) {
-      details = error.message;
-      stack = error.stack;
-    } else {
-      details = getTranslation("en", "errors.unexpectedError");
-    }
-  } catch (error) {
-    if (import.meta.env.DEV) {
-      console.error("ErrorBoundary translation error:", error);
-    }
-
-    // Fallback to English if translations fail
-    if (isRouteErrorResponse(error)) {
-      message = error.status === 404 ? "404" : "Error";
-      details =
-        error.status === 404
-          ? "The requested page could not be found."
-          : error.statusText || details;
-    } else if (import.meta.env.DEV && error && error instanceof Error) {
-      details = error.message;
-      stack = error.stack;
-    }
+  if (isRouteErrorResponse(error)) {
+    message = error.status === 404 ? "404" : "Error";
+    details =
+      error.status === 404
+        ? "The requested page could not be found."
+        : error.statusText || details;
+  } else if (import.meta.env.DEV && error && error instanceof Error) {
+    details = error.message;
+    stack = error.stack;
   }
 
   return (
     <main className="pt-16 p-4 container mx-auto">
-      <h2>{message}</h2>
+      <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
         <pre className="w-full p-4 overflow-x-auto">
