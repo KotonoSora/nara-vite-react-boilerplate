@@ -5,6 +5,18 @@ import type { SupportedLanguage } from "./config";
 
 import { I18nContext } from "./context";
 import { createTranslationFunction } from "./translations";
+import { 
+  formatNumber, 
+  formatCurrency, 
+  formatDate, 
+  formatTime, 
+  formatRelativeTime,
+  getRelativeTimeString,
+  formatPercentage,
+  formatList,
+  getUserTimezone
+} from "./formatting";
+import { createPluralFunction } from "./pluralization";
 
 interface I18nProviderProps {
   children: React.ReactNode;
@@ -32,11 +44,23 @@ export function I18nProvider({ children, initialLanguage }: I18nProviderProps) {
   );
 
   const t = createTranslationFunction(language);
+  const plural = createPluralFunction(language);
+  const timezone = getUserTimezone();
 
   const value = {
     language,
     t,
     setLanguage,
+    formatNumber: (value: number, options?: Intl.NumberFormatOptions) => formatNumber(value, language, options),
+    formatCurrency: (value: number, currency?: string) => formatCurrency(value, language, currency),
+    formatDate: (date: Date | string | number, options?: Intl.DateTimeFormatOptions) => formatDate(date, language, options),
+    formatTime: (date: Date | string | number, options?: Intl.DateTimeFormatOptions) => formatTime(date, language, options),
+    formatRelativeTime: (value: number, unit: Intl.RelativeTimeFormatUnit, options?: Intl.RelativeTimeFormatOptions) => formatRelativeTime(value, unit, language, options),
+    formatPercentage: (value: number, options?: Intl.NumberFormatOptions) => formatPercentage(value, language, options),
+    formatList: (items: string[], options?: Intl.ListFormatOptions) => formatList(items, language, options),
+    getRelativeTimeString: (date: Date | string | number) => getRelativeTimeString(date, language),
+    plural,
+    timezone,
   };
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

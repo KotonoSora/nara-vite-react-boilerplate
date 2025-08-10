@@ -127,6 +127,15 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
               )}
             />
 
+            <div className="text-right">
+              <Link 
+                to="/forgot-password" 
+                className="text-sm text-muted-foreground hover:text-primary underline underline-offset-4"
+              >
+                Forgot your password?
+              </Link>
+            </div>
+
             <Button type="submit" className="w-full" disabled={isSubmitting}>
               {isSubmitting
                 ? t("auth.login.form.submitting")
