@@ -167,7 +167,7 @@ export async function createAPIToken(
 export async function verifyAPIToken(
   db: DrizzleD1Database<typeof schema>,
   token: string
-): Promise<{ user: typeof user.$inferSelect; scopes: string[] } | null> {
+): Promise<{ user: typeof user.$inferSelect; tokenId: number; scopes: string[] } | null> {
   try {
     // Verify JWT
     const payload = await verifyJWT(token);
@@ -219,6 +219,7 @@ export async function verifyAPIToken(
     
     return {
       user: userRecord,
+      tokenId: tokenRecord.id,
       scopes,
     };
   } catch {

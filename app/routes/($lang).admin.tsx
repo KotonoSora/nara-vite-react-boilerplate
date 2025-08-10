@@ -1,6 +1,5 @@
 import type { Route } from "./+types/($lang).admin";
 
-import { requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/admin/context/page-context";
 import { ContentAdminPage } from "~/features/admin/page";
 import { getLanguageSession } from "~/language.server";
@@ -9,29 +8,20 @@ import {
   getLanguageFromPath,
   getTranslation,
 } from "~/lib/i18n";
-import { getUserById } from "~/user.server";
-import { createPermissionChecker, getUserPermissions } from "~/lib/auth/permissions.server";
+import { getUserPermissions } from "~/lib/auth/permissions.server";
+import { applyAdminSecurity, logSecurityAccess } from "~/lib/auth/route-security.server";
 
 export async function loader({ request, context, params }: Route.LoaderArgs) {
-  const userId = await requireUserId(request);
   const { db } = context;
 
-  const user = await getUserById(db, userId);
-
-  if (!user) {
-    throw new Response("User not found", { status: 404 });
-  }
-
-  // Enhanced permission check using RBAC
-  const permissionChecker = createPermissionChecker(db);
-  try {
-    await permissionChecker.requireAdmin(userId);
-  } catch (error) {
-    throw new Response("Access denied. Admin permissions required.", { status: 403 });
-  }
+  // Apply admin security with high-level authentication
+  const authResult = await applyAdminSecurity(request, db);
 
   // Get user's permissions for display
-  const permissions = await getUserPermissions(db, userId);
+  const permissions = await getUserPermissions(db, authResult.userId);
+
+  // Log security access
+  await logSecurityAccess(db, authResult, request, "/admin", "high");
 
   // Handle language detection
   const url = new URL(request.url);
@@ -42,7 +32,13 @@ export async function loader({ request, context, params }: Route.LoaderArgs) {
   // Priority: URL param > Cookie > Default
   const language = pathLanguage || cookieLanguage || DEFAULT_LANGUAGE;
 
-  return { user, language, permissions };
+  return { 
+    user: authResult.user, 
+    language, 
+    permissions,
+    authFlow: authResult.flow,
+    securityLevel: "high"
+  };
 }
 
 export function meta({ data }: Route.MetaArgs): ReturnType<Route.MetaFunction> {
