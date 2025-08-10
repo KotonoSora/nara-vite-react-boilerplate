@@ -1,14 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import {
-  detectLanguageEnhanced,
+  detectLanguageAdvanced,
   LANGUAGE_REGIONS,
   BROWSER_LANGUAGE_MAP,
-} from '~/lib/i18n/enhanced-detection';
+} from '~/lib/i18n/advanced-detection';
 
-describe('Enhanced Language Detection - Simple Tests', () => {
+describe('Advanced Language Detection - Simple Tests', () => {
   describe('Basic Detection', () => {
     it('should detect language from Accept-Language header', () => {
-      const result = detectLanguageEnhanced({
+      const result = detectLanguageAdvanced({
         acceptLanguageHeader: 'fr-FR,fr;q=0.9,en;q=0.8',
       });
 
@@ -18,14 +18,14 @@ describe('Enhanced Language Detection - Simple Tests', () => {
     });
 
     it('should fall back to default language', () => {
-      const result = detectLanguageEnhanced({});
+      const result = detectLanguageAdvanced({});
 
       expect(result.language).toBe('en');
       expect(result.method).toBe('default');
     });
 
     it('should include fallback chain', () => {
-      const result = detectLanguageEnhanced({
+      const result = detectLanguageAdvanced({
         acceptLanguageHeader: 'es-MX,es;q=0.9,en;q=0.8',
       });
 
@@ -50,15 +50,15 @@ describe('Enhanced Language Detection - Simple Tests', () => {
 
   describe('Geographic Detection', () => {
     it('should detect language from country codes', () => {
-      const jpResult = detectLanguageEnhanced({ region: 'JP' });
+      const jpResult = detectLanguageAdvanced({ region: 'JP' });
       expect(jpResult.language).toBe('ja');
 
-      const frResult = detectLanguageEnhanced({ region: 'FR' });
+      const frResult = detectLanguageAdvanced({ region: 'FR' });
       expect(frResult.language).toBe('fr');
     });
 
     it('should provide confidence scores', () => {
-      const result = detectLanguageEnhanced({ region: 'CN' });
+      const result = detectLanguageAdvanced({ region: 'CN' });
       expect(result.confidence).toBeGreaterThan(0);
       expect(result.confidence).toBeLessThanOrEqual(1);
     });
@@ -66,17 +66,17 @@ describe('Enhanced Language Detection - Simple Tests', () => {
 
   describe('Timezone Detection', () => {
     it('should detect language from timezone', () => {
-      const tokyoResult = detectLanguageEnhanced({ timezone: 'Asia/Tokyo' });
+      const tokyoResult = detectLanguageAdvanced({ timezone: 'Asia/Tokyo' });
       expect(tokyoResult.language).toBe('ja');
 
-      const parisResult = detectLanguageEnhanced({ timezone: 'Europe/Paris' });
+      const parisResult = detectLanguageAdvanced({ timezone: 'Europe/Paris' });
       expect(parisResult.language).toBe('fr');
     });
   });
 
   describe('Multiple Strategies', () => {
     it('should combine multiple detection methods', () => {
-      const result = detectLanguageEnhanced({
+      const result = detectLanguageAdvanced({
         acceptLanguageHeader: 'ja;q=0.8',
         timezone: 'Asia/Tokyo',
         region: 'JP',
@@ -87,7 +87,7 @@ describe('Enhanced Language Detection - Simple Tests', () => {
     });
 
     it('should handle conflicting signals gracefully', () => {
-      const result = detectLanguageEnhanced({
+      const result = detectLanguageAdvanced({
         acceptLanguageHeader: 'en-US,en;q=0.9',
         timezone: 'Asia/Tokyo', // Japanese timezone
         region: 'JP', // Japanese region

@@ -3,13 +3,13 @@ import { useI18n } from "./context";
 import type { SupportedLanguage } from "./config";
 import type { TranslationKey, TranslationContext } from "./types";
 import {
-  detectLanguageEnhanced,
+  detectLanguageAdvanced,
   suggestLanguageForUser,
   saveUserLanguagePreferences,
   loadUserLanguagePreferences,
   type LanguageDetectionResult,
   type UserLanguagePreferences,
-} from "./enhanced-detection";
+} from "./advanced-detection";
 import {
   formatAddress,
   formatPhoneNumber,
@@ -38,7 +38,7 @@ import { AdvancedTranslationManager } from "./advanced-translation";
 let advancedTranslationManager: AdvancedTranslationManager | null = null;
 
 /**
- * Enhanced language detection hook
+ * Advanced language detection hook
  */
 export function useLanguageDetection() {
   const { language, setLanguage } = useI18n();
@@ -52,7 +52,7 @@ export function useLanguageDetection() {
     // Try to get user's region (would need geolocation API)
     let region: string | undefined;
     
-    const result = detectLanguageEnhanced({
+    const result = detectLanguageAdvanced({
       acceptLanguageHeader: navigator.language,
       userAgent,
       timezone,
@@ -156,7 +156,7 @@ export function useCulturalFormatting() {
 }
 
 /**
- * Enhanced accessibility hook
+ * Advanced accessibility hook
  */
 export function useI18nAccessibility() {
   const { language, setLanguage } = useI18n();
@@ -201,7 +201,7 @@ export function useI18nAccessibility() {
     [language]
   );
 
-  const enhancedSetLanguage = useCallback(
+  const setLanguageWithAccessibility = useCallback(
     (newLanguage: SupportedLanguage, announce = true) => {
       setLanguage(newLanguage);
       if (announce) {
@@ -216,7 +216,7 @@ export function useI18nAccessibility() {
     setupKeyboardShortcuts,
     setupVoiceRecognition,
     setupDirectionManagement,
-    setLanguage: enhancedSetLanguage,
+    setLanguage: setLanguageWithAccessibility,
   };
 }
 
@@ -293,7 +293,7 @@ export function useI18nPerformance() {
 }
 
 /**
- * Enhanced user preferences hook
+ * Advanced user preferences hook
  */
 export function useUserLanguagePreferences() {
   const { language, setLanguage } = useI18n();
@@ -356,9 +356,9 @@ export function useUserLanguagePreferences() {
 }
 
 /**
- * Combined enhanced i18n hook with all features
+ * Combined advanced i18n hook with all features
  */
-export function useEnhancedI18n() {
+export function useAdvancedI18n() {
   const baseI18n = useI18n();
   const detection = useLanguageDetection();
   const cultural = useCulturalFormatting();
@@ -366,7 +366,7 @@ export function useEnhancedI18n() {
   const performance = useI18nPerformance();
   const preferences = useUserLanguagePreferences();
 
-  const enhancedFeatures = useMemo(() => ({
+  const advancedFeatures = useMemo(() => ({
     // Language detection and preferences
     detection: {
       detectOptimalLanguage: detection.detectOptimalLanguage,
@@ -412,7 +412,7 @@ export function useEnhancedI18n() {
 
   return {
     ...baseI18n,
-    enhanced: enhancedFeatures,
+    advanced: advancedFeatures,
     // Override setLanguage with accessibility-aware version
     setLanguage: accessibility.setLanguage,
   };

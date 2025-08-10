@@ -97,9 +97,9 @@ export interface LanguageDetectionResult {
 }
 
 /**
- * Enhanced language detection with multiple strategies
+ * Advanced language detection with multiple strategies
  */
-export function detectLanguageEnhanced(options: LanguageDetectionOptions = {}): LanguageDetectionResult {
+export function detectLanguageAdvanced(options: LanguageDetectionOptions = {}): LanguageDetectionResult {
   const {
     acceptLanguageHeader,
     userAgent,
@@ -416,7 +416,7 @@ export function suggestLanguageForUser(
   const suggestions: SupportedLanguage[] = [];
   
   // Get detection result for context
-  const detection = detectLanguageEnhanced({
+  const detection = detectLanguageAdvanced({
     userAgent,
     timezone,
     region,

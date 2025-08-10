@@ -6,7 +6,7 @@ import { LanguageSwitcher } from "~/components/language-switcher";
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Internationalization Demo - NARA" },
-    { name: "description", content: "Demonstration of enhanced i18n features" },
+    { name: "description", content: "Demonstration of advanced i18n features" },
   ];
 }
 
@@ -38,7 +38,7 @@ export default function I18nDemo() {
               Internationalization Demo
             </h1>
             <p className="text-lg text-gray-600 mb-6">
-              Experience enhanced i18n features with formatting and pluralization
+              Experience advanced i18n features with formatting and pluralization
             </p>
             <div className="flex justify-center">
               <LanguageSwitcher />

@@ -23,14 +23,14 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   ]);
 
   // Enhance devices with parsed info
-  const enhancedDevices = devices.map(device => ({
+  const processedDevices = devices.map(device => ({
     ...device,
     parsed: parseDeviceInfo(device.userAgent || ""),
   }));
 
   return {
     user,
-    devices: enhancedDevices,
+    devices: processedDevices,
     securityLogs,
     suspiciousActivity,
     mfaStatus,

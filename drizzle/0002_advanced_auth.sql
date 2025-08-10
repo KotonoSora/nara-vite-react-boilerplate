@@ -1,5 +1,5 @@
--- Migration to enhance authentication with OAuth, RBAC, API tokens, and rate limiting
--- Generated manually for enhanced auth features
+-- Migration to advance authentication with OAuth, RBAC, API tokens, and rate limiting
+-- Generated manually for advanced auth features
 
 -- Add avatar column to users table (for OAuth profile pictures)
 ALTER TABLE `users` ADD COLUMN `avatar` TEXT;

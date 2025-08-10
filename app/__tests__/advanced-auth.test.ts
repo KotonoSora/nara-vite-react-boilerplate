@@ -47,7 +47,7 @@ const mockDb = {
   delete: vi.fn().mockReturnValue({ where: vi.fn() }),
 } as any;
 
-describe("Enhanced Authentication System", () => {
+describe("Advanced Authentication System", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });

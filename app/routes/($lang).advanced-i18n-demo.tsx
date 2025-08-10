@@ -1,24 +1,24 @@
-import type { Route } from "./+types/($lang).enhanced-i18n-demo";
+import type { Route } from "./+types/($lang).advanced-i18n-demo";
 import { useEffect, useState, useCallback } from "react";
 import { 
-  useEnhancedI18n, 
+  useAdvancedI18n, 
   useCulturalFormatting, 
   useI18nAccessibility,
   useI18nPerformance,
   useLanguageDetection,
   useAdvancedTranslation,
-} from "~/lib/i18n/enhanced-hooks";
+} from "~/lib/i18n/advanced-hooks";
 import { LanguageSwitcher } from "~/components/language-switcher";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Enhanced Internationalization Demo - NARA" },
-    { name: "description", content: "Comprehensive demonstration of enhanced i18n features" },
+    { title: "Advanced Internationalization Demo - NARA" },
+    { name: "description", content: "Comprehensive demonstration of advanced i18n features" },
   ];
 }
 
-export default function EnhancedI18nDemo() {
-  const { t, language, enhanced } = useEnhancedI18n();
+export default function AdvancedI18nDemo() {
+  const { t, language, advanced } = useAdvancedI18n();
   const cultural = useCulturalFormatting();
   const accessibility = useI18nAccessibility();
   const performance = useI18nPerformance();
@@ -148,7 +148,7 @@ export default function EnhancedI18nDemo() {
         {/* Header */}
         <div className="text-center bg-white rounded-xl shadow-lg p-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            🌍 Enhanced Internationalization Demo
+            🌍 Advanced Internationalization Demo
           </h1>
           <p className="text-lg text-gray-600 mb-6">
             Experience the next-generation i18n features with cultural adaptation, accessibility, performance optimization, and advanced context-aware translations
@@ -332,7 +332,7 @@ export default function EnhancedI18nDemo() {
               <div>
                 <h3 className="text-lg font-medium text-gray-800 mb-2">Language Suggestions</h3>
                 <div className="flex flex-wrap gap-2">
-                  {enhanced.detection.suggestAlternativeLanguages().map((lang) => (
+                  {advanced.detection.suggestAlternativeLanguages().map((lang) => (
                     <span
                       key={lang}
                       className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
@@ -541,12 +541,12 @@ export default function EnhancedI18nDemo() {
             <div>
               <h3 className="text-lg font-medium text-gray-800 mb-3">Current Preferences</h3>
               <div className="bg-gray-50 rounded-lg p-4 space-y-2 text-sm">
-                {enhanced.preferences.current ? (
+                {advanced.preferences.current ? (
                   <>
-                    <p><strong>Primary:</strong> {enhanced.preferences.current.primaryLanguage}</p>
-                    <p><strong>Fallbacks:</strong> {enhanced.preferences.current.fallbackLanguages.join(", ")}</p>
-                    <p><strong>Method:</strong> {enhanced.preferences.current.detectionMethod}</p>
-                    <p><strong>Last Used:</strong> {new Date(enhanced.preferences.current.lastUsed).toLocaleString()}</p>
+                    <p><strong>Primary:</strong> {advanced.preferences.current.primaryLanguage}</p>
+                    <p><strong>Fallbacks:</strong> {advanced.preferences.current.fallbackLanguages.join(", ")}</p>
+                    <p><strong>Method:</strong> {advanced.preferences.current.detectionMethod}</p>
+                    <p><strong>Last Used:</strong> {new Date(advanced.preferences.current.lastUsed).toLocaleString()}</p>
                   </>
                 ) : (
                   <p className="text-gray-500">No preferences saved</p>
@@ -557,10 +557,10 @@ export default function EnhancedI18nDemo() {
             <div>
               <h3 className="text-lg font-medium text-gray-800 mb-3">Suggested Languages</h3>
               <div className="space-y-2">
-                {enhanced.preferences.suggested.map((lang) => (
+                {advanced.preferences.suggested.map((lang) => (
                   <button
                     key={lang}
-                    onClick={() => enhanced.preferences.update(lang)}
+                    onClick={() => advanced.preferences.update(lang)}
                     className="block w-full text-left px-3 py-2 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
                   >
                     Switch to {lang}
@@ -573,13 +573,13 @@ export default function EnhancedI18nDemo() {
               <h3 className="text-lg font-medium text-gray-800 mb-3">Quick Actions</h3>
               <div className="space-y-2">
                 <button
-                  onClick={() => enhanced.preferences.save({ detectionMethod: "manual" })}
+                  onClick={() => advanced.preferences.save({ detectionMethod: "manual" })}
                   className="w-full bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
                 >
                   Save Current as Preference
                 </button>
                 <button
-                  onClick={() => enhanced.detection.detectOptimalLanguage()}
+                  onClick={() => advanced.detection.detectOptimalLanguage()}
                   className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Auto-Detect Best Language

@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import {
-  detectLanguageEnhanced,
+  detectLanguageAdvanced,
   saveUserLanguagePreferences,
   loadUserLanguagePreferences,
   suggestLanguageForUser,
   type UserLanguagePreferences,
-} from '~/lib/i18n/enhanced-detection';
+} from '~/lib/i18n/advanced-detection';
 
 // Mock localStorage
 const localStorageMock = {
@@ -18,15 +18,15 @@ Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 });
 
-describe('Enhanced Language Detection', () => {
+describe('Advanced Language Detection', () => {
   beforeEach(() => {
     localStorageMock.getItem.mockClear();
     localStorageMock.setItem.mockClear();
   });
 
-  describe('detectLanguageEnhanced', () => {
+  describe('detectLanguageAdvanced', () => {
     it('should detect language from Accept-Language header', () => {
-      const result = detectLanguageEnhanced({
+      const result = detectLanguageAdvanced({
         acceptLanguageHeader: 'fr-FR,fr;q=0.9,en;q=0.8',
       });
 
@@ -36,7 +36,7 @@ describe('Enhanced Language Detection', () => {
     });
 
     it('should detect language from timezone', () => {
-      const result = detectLanguageEnhanced({
+      const result = detectLanguageAdvanced({
         timezone: 'Asia/Tokyo',
       });
 
@@ -46,7 +46,7 @@ describe('Enhanced Language Detection', () => {
     });
 
     it('should detect language from region', () => {
-      const result = detectLanguageEnhanced({
+      const result = detectLanguageAdvanced({
         region: 'FR',
       });
 
@@ -56,7 +56,7 @@ describe('Enhanced Language Detection', () => {
     });
 
     it('should provide fallback chain', () => {
-      const result = detectLanguageEnhanced({
+      const result = detectLanguageAdvanced({
         acceptLanguageHeader: 'es-MX,es;q=0.9,en;q=0.8,fr;q=0.7',
       });
 
@@ -66,7 +66,7 @@ describe('Enhanced Language Detection', () => {
     });
 
     it('should fall back to default language when no detection possible', () => {
-      const result = detectLanguageEnhanced({});
+      const result = detectLanguageAdvanced({});
 
       expect(result.language).toBe('en');
       expect(result.method).toBe('default');
@@ -74,7 +74,7 @@ describe('Enhanced Language Detection', () => {
     });
 
     it('should handle multiple detection strategies', () => {
-      const result = detectLanguageEnhanced({
+      const result = detectLanguageAdvanced({
         acceptLanguageHeader: 'zh-CN,zh;q=0.9',
         timezone: 'Asia/Shanghai',
         region: 'CN',
@@ -181,7 +181,7 @@ describe('Enhanced Language Detection', () => {
       ];
 
       testCases.forEach(({ input, expected }) => {
-        const result = detectLanguageEnhanced({
+        const result = detectLanguageAdvanced({
           acceptLanguageHeader: input,
         });
         expect(result.language).toBe(expected);
@@ -200,14 +200,14 @@ describe('Enhanced Language Detection', () => {
       ];
 
       testCases.forEach(({ region, expected }) => {
-        const result = detectLanguageEnhanced({ region });
+        const result = detectLanguageAdvanced({ region });
         expect(result.language).toBe(expected);
       });
     });
 
     it('should provide appropriate confidence scores', () => {
-      const primaryRegion = detectLanguageEnhanced({ region: 'FR' });
-      const secondaryRegion = detectLanguageEnhanced({ region: 'BE' }); // Belgium also speaks French
+      const primaryRegion = detectLanguageAdvanced({ region: 'FR' });
+      const secondaryRegion = detectLanguageAdvanced({ region: 'BE' }); // Belgium also speaks French
 
       expect(primaryRegion.confidence).toBeGreaterThan(secondaryRegion.confidence);
     });
@@ -215,11 +215,11 @@ describe('Enhanced Language Detection', () => {
 
   describe('Quality Scoring', () => {
     it('should respect Accept-Language quality values', () => {
-      const highQuality = detectLanguageEnhanced({
+      const highQuality = detectLanguageAdvanced({
         acceptLanguageHeader: 'fr;q=1.0,en;q=0.5',
       });
       
-      const lowQuality = detectLanguageEnhanced({
+      const lowQuality = detectLanguageAdvanced({
         acceptLanguageHeader: 'fr;q=0.3,en;q=0.8',
       });
 
@@ -228,11 +228,11 @@ describe('Enhanced Language Detection', () => {
     });
 
     it('should combine multiple confidence factors', () => {
-      const singleFactor = detectLanguageEnhanced({
+      const singleFactor = detectLanguageAdvanced({
         acceptLanguageHeader: 'ja;q=0.8',
       });
 
-      const multipleFactors = detectLanguageEnhanced({
+      const multipleFactors = detectLanguageAdvanced({
         acceptLanguageHeader: 'ja;q=0.8',
         timezone: 'Asia/Tokyo',
         region: 'JP',
