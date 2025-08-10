@@ -53,3 +53,20 @@ export async function logout(request: Request) {
     },
   });
 }
+
+export async function requireAuth(request: Request, db: any) {
+  const userId = await getUserId(request);
+  if (!userId) {
+    throw new Response("Unauthorized", { status: 401 });
+  }
+  
+  // Import user functions to get user data
+  const { getUserById } = await import("~/user.server");
+  const user = await getUserById(db, userId);
+  
+  if (!user) {
+    throw new Response("User not found", { status: 404 });
+  }
+  
+  return { user, userId };
+}

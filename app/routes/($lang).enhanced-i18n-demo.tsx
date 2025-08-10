@@ -6,6 +6,7 @@ import {
   useI18nAccessibility,
   useI18nPerformance,
   useLanguageDetection,
+  useAdvancedTranslation,
 } from "~/lib/i18n/enhanced-hooks";
 import { LanguageSwitcher } from "~/components/language-switcher";
 
@@ -22,11 +23,18 @@ export default function EnhancedI18nDemo() {
   const accessibility = useI18nAccessibility();
   const performance = useI18nPerformance();
   const detection = useLanguageDetection();
+  const advancedTranslation = useAdvancedTranslation();
   
   const [voiceSupported, setVoiceSupported] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [voiceResult, setVoiceResult] = useState("");
   const [performanceData, setPerformanceData] = useState(performance.metrics);
+  const [translationContext, setTranslationContext] = useState({
+    formality: "informal" as const,
+    audience: "general" as const,
+    purpose: "content" as const,
+  });
+  const [contextualTranslations, setContextualTranslations] = useState<Record<string, string>>({});
 
   // Sample data for demonstrations
   const sampleAddress = {
@@ -84,6 +92,21 @@ export default function EnhancedI18nDemo() {
     return () => clearInterval(interval);
   }, [performance]);
 
+  // Advanced translation context demo
+  useEffect(() => {
+    if (advancedTranslation.isReady) {
+      advancedTranslation.setContext(translationContext);
+      
+      const translations = {
+        greeting: advancedTranslation.translateWithContext("user.greeting", { name: "User" }),
+        welcome: advancedTranslation.translateWithContext("welcome"),
+        itemCount: advancedTranslation.translateWithContext("items.count", { count: 5 }),
+      };
+      
+      setContextualTranslations(translations);
+    }
+  }, [advancedTranslation, translationContext]);
+
   const handleVoiceToggle = useCallback(() => {
     if (isListening) {
       setIsListening(false);
@@ -112,6 +135,10 @@ export default function EnhancedI18nDemo() {
     console.log("Predicted languages preloaded");
   }, [performance]);
 
+  const handleContextChange = useCallback((newContext: Partial<typeof translationContext>) => {
+    setTranslationContext(prev => ({ ...prev, ...newContext }));
+  }, []);
+
   const colorExample = cultural.getCulturalColor("primary");
   const colorAppropriate = cultural.checkColorAppropriate("#FF0000", "celebration");
 
@@ -124,7 +151,7 @@ export default function EnhancedI18nDemo() {
             🌍 Enhanced Internationalization Demo
           </h1>
           <p className="text-lg text-gray-600 mb-6">
-            Experience the next-generation i18n features with cultural adaptation, accessibility, and performance optimization
+            Experience the next-generation i18n features with cultural adaptation, accessibility, performance optimization, and advanced context-aware translations
           </p>
           <div className="flex justify-center">
             <LanguageSwitcher />
@@ -132,6 +159,160 @@ export default function EnhancedI18nDemo() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Advanced Context-Aware Translations */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center">
+              🎯 Context-Aware Translations
+            </h2>
+            
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-lg font-medium text-gray-800 mb-2">Translation Context</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Formality</label>
+                    <select
+                      value={translationContext.formality}
+                      onChange={(e) => handleContextChange({ formality: e.target.value as any })}
+                      className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+                    >
+                      <option value="formal">Formal</option>
+                      <option value="informal">Informal</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Audience</label>
+                    <select
+                      value={translationContext.audience}
+                      onChange={(e) => handleContextChange({ audience: e.target.value as any })}
+                      className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+                    >
+                      <option value="general">General</option>
+                      <option value="technical">Technical</option>
+                      <option value="marketing">Marketing</option>
+                      <option value="legal">Legal</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Purpose</label>
+                    <select
+                      value={translationContext.purpose}
+                      onChange={(e) => handleContextChange({ purpose: e.target.value as any })}
+                      className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+                    >
+                      <option value="navigation">Navigation</option>
+                      <option value="content">Content</option>
+                      <option value="error">Error</option>
+                      <option value="confirmation">Confirmation</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-800 mb-2">Contextual Translations</h3>
+                <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+                  <div>
+                    <span className="font-medium">Greeting:</span>
+                    <span className="ml-2 text-blue-600">{contextualTranslations.greeting}</span>
+                  </div>
+                  <div>
+                    <span className="font-medium">Welcome:</span>
+                    <span className="ml-2 text-blue-600">{contextualTranslations.welcome}</span>
+                  </div>
+                  <div>
+                    <span className="font-medium">Item Count:</span>
+                    <span className="ml-2 text-blue-600">{contextualTranslations.itemCount}</span>
+                  </div>
+                </div>
+              </div>
+
+              {advancedTranslation.isReady && (
+                <div>
+                  <h3 className="text-lg font-medium text-gray-800 mb-2">Translation Analytics</h3>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="space-y-1 text-sm">
+                      {advancedTranslation.getAnalytics().slice(0, 5).map((stat) => (
+                        <div key={stat.key} className="flex justify-between">
+                          <span>{stat.key}:</span>
+                          <span>{stat.count} uses</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Translation Management Tools */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center">
+              🛠️ Translation Management
+            </h2>
+            
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-lg font-medium text-gray-800 mb-2">Validation Results</h3>
+                {advancedTranslation.isReady && (
+                  <ValidationResults 
+                    validation={advancedTranslation.validateTranslations(language)}
+                  />
+                )}
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-800 mb-2">Export Options</h3>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => {
+                      const data = advancedTranslation.exportTranslations("json");
+                      if (data) {
+                        downloadFile(data, `translations-${language}.json`, "application/json");
+                      }
+                    }}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                  >
+                    Export JSON
+                  </button>
+                  <button
+                    onClick={() => {
+                      const data = advancedTranslation.exportTranslations("csv");
+                      if (data) {
+                        downloadFile(data, `translations-${language}.csv`, "text/csv");
+                      }
+                    }}
+                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+                  >
+                    Export CSV
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-800 mb-2">Developer Tools</h3>
+                <div className="bg-gray-50 rounded-lg p-4 text-sm space-y-2">
+                  <div>
+                    <span className="font-medium">Manager Status:</span>
+                    <span className={`ml-2 ${advancedTranslation.isReady ? 'text-green-600' : 'text-red-600'}`}>
+                      {advancedTranslation.isReady ? 'Ready' : 'Initializing...'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="font-medium">Current Language:</span>
+                    <span className="ml-2 text-blue-600">{language}</span>
+                  </div>
+                  <div>
+                    <span className="font-medium">Context Stack:</span>
+                    <span className="ml-2 text-purple-600">
+                      {Object.entries(translationContext).map(([k, v]) => `${k}:${v}`).join(", ")}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Language Detection & Intelligence */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center">
@@ -422,6 +603,8 @@ export default function EnhancedI18nDemo() {
               <p>naraI18nDev.missing() - Show missing translations</p>
               <p>naraI18nDev.usage() - Show usage statistics</p>
               <p>naraI18nDev.export() - Export all reports</p>
+              <p>naraI18nDev.setContext(&#123;formality: "formal"&#125;) - Set translation context</p>
+              <p>naraI18nDev.analytics() - View translation analytics</p>
             </div>
           </div>
         )}
@@ -438,4 +621,67 @@ export default function EnhancedI18nDemo() {
       </div>
     </div>
   );
+}
+
+function ValidationResults({ validation }: { 
+  validation: { missing: string[]; incomplete: string[]; warnings: Array<{ key: string; message: string }> } 
+}) {
+  const { missing, incomplete, warnings } = validation;
+  const hasIssues = missing.length > 0 || incomplete.length > 0 || warnings.length > 0;
+
+  if (!hasIssues) {
+    return (
+      <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+        <p className="text-green-800 text-sm">✅ All translations are complete and valid</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-2">
+      {missing.length > 0 && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+          <p className="text-red-800 text-sm font-medium">Missing translations:</p>
+          <ul className="text-red-700 text-xs mt-1 ml-4 list-disc">
+            {missing.slice(0, 3).map(key => <li key={key}>{key}</li>)}
+            {missing.length > 3 && <li>...and {missing.length - 3} more</li>}
+          </ul>
+        </div>
+      )}
+
+      {incomplete.length > 0 && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+          <p className="text-yellow-800 text-sm font-medium">Incomplete contexts:</p>
+          <ul className="text-yellow-700 text-xs mt-1 ml-4 list-disc">
+            {incomplete.slice(0, 3).map(key => <li key={key}>{key}</li>)}
+            {incomplete.length > 3 && <li>...and {incomplete.length - 3} more</li>}
+          </ul>
+        </div>
+      )}
+
+      {warnings.length > 0 && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+          <p className="text-blue-800 text-sm font-medium">Warnings:</p>
+          <ul className="text-blue-700 text-xs mt-1 ml-4 list-disc">
+            {warnings.slice(0, 3).map(warning => (
+              <li key={warning.key}>{warning.key}: {warning.message}</li>
+            ))}
+            {warnings.length > 3 && <li>...and {warnings.length - 3} more</li>}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function downloadFile(content: string, filename: string, contentType: string) {
+  const blob = new Blob([content], { type: contentType });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { useI18n } from "./context";
 import type { SupportedLanguage } from "./config";
-import type { TranslationKey } from "./types";
+import type { TranslationKey, TranslationContext } from "./types";
 import {
   detectLanguageEnhanced,
   suggestLanguageForUser,
@@ -32,6 +32,10 @@ import {
   performanceMonitor,
   initializeI18nPerformance,
 } from "./performance";
+import { AdvancedTranslationManager } from "./advanced-translation";
+
+// Global instance of advanced translation manager
+let advancedTranslationManager: AdvancedTranslationManager | null = null;
 
 /**
  * Enhanced language detection hook
@@ -411,5 +415,97 @@ export function useEnhancedI18n() {
     enhanced: enhancedFeatures,
     // Override setLanguage with accessibility-aware version
     setLanguage: accessibility.setLanguage,
+  };
+}
+
+/**
+ * Advanced translation hook with context-aware features
+ */
+export function useAdvancedTranslation() {
+  const { language, t } = useI18n();
+  const [translationManager, setTranslationManager] = useState<AdvancedTranslationManager | null>(null);
+
+  // Initialize advanced translation manager
+  useEffect(() => {
+    if (!advancedTranslationManager) {
+      advancedTranslationManager = new AdvancedTranslationManager(language, ["en"]);
+      
+      // Load basic translations (in production, load from translation files)
+      // This is a placeholder - actual implementation would load from translation files
+      advancedTranslationManager.loadTranslations("en", {
+        "welcome": {
+          default: "Welcome",
+          contexts: {
+            "formality:formal": "Welcome to our platform",
+            "formality:informal": "Hey there!",
+            "audience:technical": "System initialized",
+          },
+        },
+        "user.greeting": {
+          default: "Hello {{name}}",
+          contexts: {
+            "formality:formal": "Good day, {{name}}",
+            "formality:informal": "Hi {{name}}!",
+            "tense:morning": "Good morning, {{name}}",
+            "tense:evening": "Good evening, {{name}}",
+          },
+        },
+        "items.count": {
+          default: "{{count}} item{{count|s}}",
+          contexts: {
+            "purpose:navigation": "{{count}} result{{count|s}}",
+            "purpose:content": "{{count}} item{{count|s}} available",
+          },
+        },
+      });
+    }
+    
+    setTranslationManager(advancedTranslationManager);
+  }, [language]);
+
+  const translateWithContext = useCallback((
+    key: TranslationKey,
+    variables?: Record<string, any>,
+    context?: TranslationContext
+  ): string => {
+    if (!translationManager) {
+      return t(key, variables); // Fallback to basic translation
+    }
+    
+    return translationManager.translate(key, variables, context);
+  }, [translationManager, t]);
+
+  const setContext = useCallback((context: TranslationContext) => {
+    translationManager?.setContext(context);
+  }, [translationManager]);
+
+  const clearContext = useCallback(() => {
+    translationManager?.clearContext();
+  }, [translationManager]);
+
+  const getAnalytics = useCallback(() => {
+    return translationManager?.getAnalytics() || [];
+  }, [translationManager]);
+
+  const validateTranslations = useCallback((language: string) => {
+    return translationManager?.validateTranslations(language) || {
+      missing: [],
+      incomplete: [],
+      warnings: [],
+    };
+  }, [translationManager]);
+
+  const exportTranslations = useCallback((format: "json" | "csv" = "json") => {
+    return translationManager?.exportTranslations(language, format) || null;
+  }, [translationManager, language]);
+
+  return {
+    translateWithContext,
+    setContext,
+    clearContext,
+    getAnalytics,
+    validateTranslations,
+    exportTranslations,
+    isReady: !!translationManager,
   };
 }

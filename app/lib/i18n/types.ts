@@ -45,3 +45,13 @@ export type TranslationFunction = (
 
 // Helper type to extract nested object values
 export type NestedTranslationObject = NamespaceTranslations;
+
+// Translation context types for advanced translation features
+export interface TranslationContext {
+  formality?: "formal" | "informal";
+  audience?: "general" | "technical" | "marketing" | "legal";
+  purpose?: "navigation" | "content" | "error" | "confirmation";
+  gender?: "neutral" | "masculine" | "feminine";
+  number?: "singular" | "plural";
+  tense?: "present" | "past" | "future";
+}

@@ -154,3 +154,88 @@ export const rateLimitLog = sqliteTable("rate_limit_logs", {
   identifierEndpointIdx: index("rate_limit_identifier_endpoint_idx").on(table.identifier, table.endpoint),
   windowIdx: index("rate_limit_window_idx").on(table.windowStart),
 }));
+
+// Multi-Factor Authentication (MFA) table for enhanced security
+export const mfaSecret = sqliteTable("mfa_secrets", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  secret: text("secret").notNull(), // Base32 encoded TOTP secret
+  backupCodes: text("backup_codes"), // JSON array of backup codes
+  isEnabled: integer("is_enabled", { mode: "boolean" }).notNull().default(false),
+  lastUsedAt: integer("last_used_at", { mode: "timestamp" }),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+}, (table) => ({
+  userIdx: index("mfa_secret_user_idx").on(table.userId),
+}));
+
+// Device tracking for security and session management
+export const trustedDevice = sqliteTable("trusted_devices", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  deviceFingerprint: text("device_fingerprint").notNull(),
+  deviceName: text("device_name"), // User-friendly device name
+  userAgent: text("user_agent"),
+  ipAddress: text("ip_address"),
+  lastSeenAt: integer("last_seen_at", { mode: "timestamp" }).notNull(),
+  isTrusted: integer("is_trusted", { mode: "boolean" }).notNull().default(false),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+}, (table) => ({
+  userDeviceIdx: index("trusted_device_user_device_idx").on(table.userId, table.deviceFingerprint),
+  lastSeenIdx: index("trusted_device_last_seen_idx").on(table.lastSeenAt),
+}));
+
+// Security audit logs for compliance and monitoring
+export const securityAuditLog = sqliteTable("security_audit_logs", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  userId: integer("user_id")
+    .references(() => user.id, { onDelete: "set null" }),
+  action: text("action").notNull(), // login, logout, password_change, mfa_enable, etc.
+  resource: text("resource"), // What was accessed or modified
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  deviceFingerprint: text("device_fingerprint"),
+  details: text("details"), // JSON object with additional context
+  success: integer("success", { mode: "boolean" }).notNull().default(true),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+}, (table) => ({
+  userIdx: index("security_audit_user_idx").on(table.userId),
+  actionIdx: index("security_audit_action_idx").on(table.action),
+  createdAtIdx: index("security_audit_created_at_idx").on(table.createdAt),
+}));
+
+// User preferences for i18n and other settings
+export const userPreference = sqliteTable("user_preferences", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  preferredLanguage: text("preferred_language").notNull().default("en"),
+  fallbackLanguages: text("fallback_languages"), // JSON array
+  timezone: text("timezone").notNull().default("UTC"),
+  dateFormat: text("date_format").notNull().default("MM/dd/yyyy"),
+  timeFormat: text("time_format", { enum: ["12h", "24h"] }).notNull().default("12h"),
+  currency: text("currency").notNull().default("USD"),
+  theme: text("theme", { enum: ["light", "dark", "auto"] }).notNull().default("auto"),
+  notifications: text("notifications"), // JSON object with notification preferences
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+}, (table) => ({
+  userIdx: index("user_preference_user_idx").on(table.userId),
+}));
