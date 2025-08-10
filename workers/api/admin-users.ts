@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { z } from "zod";
 import { drizzle } from "drizzle-orm/d1";
+import type { Context } from "hono";
 
 import * as schema from "~/database/schema";
 import { verifyAPIToken } from "~/lib/auth/api-tokens.server";
@@ -15,7 +16,15 @@ type Bindings = {
   DB: D1Database;
 };
 
-const adminUsers = new Hono<{ Bindings: Bindings }>();
+type AdminContext = {
+  Bindings: Bindings;
+  Variables: {
+    adminId: number;
+    db: ReturnType<typeof drizzle<typeof schema>>;
+  };
+};
+
+const adminUsers = new Hono<AdminContext>();
 
 // Schemas for validation
 const createUserSchema = z.object({
@@ -36,7 +45,7 @@ const deleteUserSchema = z.object({
 });
 
 // Middleware to verify admin access
-const verifyAdminAccess = async (c: any, next: any) => {
+const verifyAdminAccess = async (c: Context<AdminContext>, next: () => Promise<void>) => {
   const authHeader = c.req.header("Authorization");
   if (!authHeader?.startsWith("Bearer ")) {
     return c.json({ 
@@ -66,7 +75,7 @@ const verifyAdminAccess = async (c: any, next: any) => {
   }
 
   // Store admin info for use in routes
-  c.set("adminId", tokenData.userId);
+  c.set("adminId", tokenData.user.id);
   c.set("db", db);
   
   await next();
@@ -144,7 +153,7 @@ adminUsers.post("/", verifyAdminAccess, async (c) => {
     if (error instanceof z.ZodError) {
       return c.json({ 
         error: "Validation failed", 
-        details: error.errors,
+        details: error.issues,
         code: "VALIDATION_ERROR"
       }, 400);
     }
@@ -211,7 +220,7 @@ adminUsers.put("/:id", verifyAdminAccess, async (c) => {
     if (error instanceof z.ZodError) {
       return c.json({ 
         error: "Validation failed", 
-        details: error.errors,
+        details: error.issues,
         code: "VALIDATION_ERROR"
       }, 400);
     }

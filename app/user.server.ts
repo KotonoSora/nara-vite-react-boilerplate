@@ -23,7 +23,7 @@ export type CreateUserData = {
   name: string;
   avatar?: string;
   role?: "admin" | "user";
-  createdBy?: number; // Track which admin created this user
+  createdBy?: number | null; // Track which admin created this user
 };
 
 export async function createUser(

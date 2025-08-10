@@ -1,4 +1,5 @@
 import { integer, sqliteTable, text, index } from "drizzle-orm/sqlite-core";
+import type { InferSelectModel, InferInsertModel } from "drizzle-orm";
 
 export const user = sqliteTable("users", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -9,8 +10,7 @@ export const user = sqliteTable("users", {
   role: text("role", { enum: ["admin", "user"] })
     .notNull()
     .default("user"),
-  createdBy: integer("created_by")
-    .references(() => user.id, { onDelete: "set null" }), // Track which admin created this user
+  createdBy: integer("created_by"), // Will be set after table is defined
   emailVerified: integer("email_verified", { mode: "boolean" })
     .notNull()
     .default(false),
@@ -30,6 +30,9 @@ export const user = sqliteTable("users", {
   roleIdx: index("user_role_idx").on(table.role),
   createdByIdx: index("user_created_by_idx").on(table.createdBy),
 }));
+
+export type User = InferSelectModel<typeof user>;
+export type NewUser = InferInsertModel<typeof user>;
 
 // OAuth accounts table for social login
 export const oauthAccount = sqliteTable("oauth_accounts", {
@@ -242,3 +245,8 @@ export const userPreference = sqliteTable("user_preferences", {
 }, (table) => ({
   userIdx: index("user_preference_user_idx").on(table.userId),
 }));
+
+// Define relations after table definitions to avoid circular references
+export const userRelations = {
+  createdBy: user.id, // Reference for the createdBy field
+};

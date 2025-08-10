@@ -45,7 +45,7 @@ const tokenVerifySchema = z.object({
  * API Login endpoint - Returns JWT token
  * POST /api/auth/login
  */
-auth.post("/login", async (c) => {
+auth.post("/login", async (c): Promise<Response> => {
   const body = await c.req.json();
   
   const result = apiLoginSchema.safeParse(body);
@@ -62,7 +62,7 @@ auth.post("/login", async (c) => {
   try {
     await rateLimiters.login(c.req.raw, "/api/auth/login");
   } catch (rateLimitResponse) {
-    return rateLimitResponse;
+    return rateLimitResponse as Response;
   }
 
   try {
@@ -124,7 +124,7 @@ auth.post("/login", async (c) => {
  * API Register endpoint - Creates user and returns JWT token
  * POST /api/auth/register
  */
-auth.post("/register", async (c) => {
+auth.post("/register", async (c): Promise<Response> => {
   const body = await c.req.json();
   
   const result = apiRegisterSchema.safeParse(body);
@@ -141,7 +141,7 @@ auth.post("/register", async (c) => {
   try {
     await rateLimiters.register(c.req.raw, "/api/auth/register");
   } catch (rateLimitResponse) {
-    return rateLimitResponse;
+    return rateLimitResponse as Response;
   }
 
   try {
@@ -202,7 +202,7 @@ auth.post("/register", async (c) => {
  * Token verification endpoint
  * POST /api/auth/verify
  */
-auth.post("/verify", async (c) => {
+auth.post("/verify", async (c): Promise<Response> => {
   const body = await c.req.json();
   
   const result = tokenVerifySchema.safeParse(body);
@@ -256,7 +256,7 @@ auth.post("/verify", async (c) => {
  * Get current user info (requires authentication)
  * GET /api/auth/me
  */
-auth.get("/me", async (c) => {
+auth.get("/me", async (c): Promise<Response> => {
   const authHeader = c.req.header("Authorization");
   
   if (!authHeader?.startsWith("Bearer ")) {
@@ -314,7 +314,7 @@ auth.get("/me", async (c) => {
  * Refresh token endpoint (creates new token)
  * POST /api/auth/refresh
  */
-auth.post("/refresh", async (c) => {
+auth.post("/refresh", async (c): Promise<Response> => {
   const authHeader = c.req.header("Authorization");
   
   if (!authHeader?.startsWith("Bearer ")) {
@@ -385,7 +385,7 @@ auth.get("/health", (c) => {
  * Admin Registration endpoint - Creates admin account with secret
  * POST /api/auth/admin/register
  */
-auth.post("/admin/register", async (c) => {
+auth.post("/admin/register", async (c): Promise<Response> => {
   const body = await c.req.json();
   
   const adminRegisterSchema = z.object({
@@ -446,7 +446,7 @@ auth.post("/admin/register", async (c) => {
     if (error instanceof z.ZodError) {
       return c.json({ 
         error: "Validation failed", 
-        details: error.errors,
+        details: error.issues,
         code: "VALIDATION_ERROR"
       }, 400);
     }
@@ -462,7 +462,7 @@ auth.post("/admin/register", async (c) => {
  * User Deletion endpoint - Self-delete account
  * DELETE /api/auth/account
  */
-auth.delete("/account", async (c) => {
+auth.delete("/account", async (c): Promise<Response> => {
   try {
     const authHeader = c.req.header("Authorization");
     if (!authHeader?.startsWith("Bearer ")) {
@@ -488,7 +488,7 @@ auth.delete("/account", async (c) => {
     const { deleteUser } = await import("~/user.server");
     
     // Delete the user account
-    const result = await deleteUser(db, tokenData.userId);
+    const result = await deleteUser(db, tokenData.user.id);
 
     if (!result.success) {
       return c.json({ 
