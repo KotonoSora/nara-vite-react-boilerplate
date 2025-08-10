@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { lazy, Suspense, useEffect, useState } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -18,33 +19,46 @@ import {
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/root";
 
+import appCssUrl from "~/app.css?url";
 import { getUserId } from "~/auth.server";
-import { Toaster } from "~/components/ui/sonner";
 import { getLanguageSession } from "~/language.server";
 import { AuthProvider } from "~/lib/auth";
 import {
   DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
-  getTranslation,
   I18nProvider,
   isRTLLanguage,
 } from "~/lib/i18n";
 import { themeSessionResolver } from "~/sessions.server";
 import { getUserById } from "~/user.server";
+import { cancelIdleCallback, scheduleIdleCallback } from "~/utils.client";
 
-import "~/app.css";
+// Lazy-load notifications to avoid pulling them into the initial bundle
+const ToasterLazy = lazy(async () => ({
+  default: (await import("~/components/ui/sonner")).Toaster,
+}));
 
-export const links: Route.LinksFunction = () => [
-  {
-    rel: "preload",
-    href: "/fonts/Inter.woff2",
-    as: "font",
-    type: "font/woff2",
-    crossOrigin: "anonymous",
-  },
-  { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-];
+export const links: Route.LinksFunction = () => {
+  const links: ReturnType<Route.LinksFunction> = [
+    { rel: "preload", href: appCssUrl, as: "style" },
+    { rel: "stylesheet", href: appCssUrl },
+    { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+  ];
+
+  // Preload Inter only in production to avoid dev warnings and keep fast paint in prod
+  if (import.meta.env.PROD) {
+    links.unshift({
+      rel: "preload",
+      href: "/fonts/Inter.woff2",
+      as: "font",
+      type: "font/woff2",
+      crossOrigin: "anonymous",
+    });
+  }
+
+  return links;
+};
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   const { getTheme } = await themeSessionResolver(request);
@@ -93,6 +107,13 @@ function InnerLayout({
 }) {
   const [theme] = useTheme();
   const direction = isRTLLanguage(language) ? "rtl" : "ltr";
+  const [clientReady, setClientReady] = useState(false);
+
+  useEffect(() => {
+    // Defer notifications to idle to keep hydration fast
+    const id = scheduleIdleCallback(() => setClientReady(true));
+    return () => cancelIdleCallback(id);
+  }, []);
 
   return (
     <html lang={language} dir={direction} className={clsx("font-sans", theme)}>
@@ -107,7 +128,11 @@ function InnerLayout({
         {children}
         <ScrollRestoration />
         <Scripts />
-        <Toaster />
+        {clientReady ? (
+          <Suspense fallback={null}>
+            <ToasterLazy />
+          </Suspense>
+        ) : null}
       </body>
     </html>
   );
@@ -144,35 +169,15 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let details = "An unexpected error occurred.";
   let stack: string | undefined;
 
-  try {
-    if (isRouteErrorResponse(error)) {
-      message = error.status === 404 ? "404" : getTranslation("en", "error");
-      details =
-        error.status === 404
-          ? getTranslation("en", "errors.pageNotFound")
-          : error.statusText || getTranslation("en", "errors.unexpectedError");
-    } else if (import.meta.env.DEV && error && error instanceof Error) {
-      details = error.message;
-      stack = error.stack;
-    } else {
-      details = getTranslation("en", "errors.unexpectedError");
-    }
-  } catch (error) {
-    if (import.meta.env.DEV) {
-      console.error("ErrorBoundary translation error:", error);
-    }
-
-    // Fallback to English if translations fail
-    if (isRouteErrorResponse(error)) {
-      message = error.status === 404 ? "404" : "Error";
-      details =
-        error.status === 404
-          ? "The requested page could not be found."
-          : error.statusText || details;
-    } else if (import.meta.env.DEV && error && error instanceof Error) {
-      details = error.message;
-      stack = error.stack;
-    }
+  if (isRouteErrorResponse(error)) {
+    message = error.status === 404 ? "404" : "Error";
+    details =
+      error.status === 404
+        ? "The requested page could not be found."
+        : error.statusText || details;
+  } else if (import.meta.env.DEV && error && error instanceof Error) {
+    details = error.message;
+    stack = error.stack;
   }
 
   return (
