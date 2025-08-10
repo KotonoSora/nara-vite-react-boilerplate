@@ -10,6 +10,7 @@ import {
   type OAuthProvider,
 } from "~/lib/auth/oauth.server";
 import { findOrCreateOAuthUser } from "~/user.server";
+import { getClientIPAddress } from "~/lib/utils";
 
 export async function loader({ request, params, context }: Route.LoaderArgs) {
   const { provider } = params;
@@ -61,9 +62,7 @@ export async function loader({ request, params, context }: Route.LoaderArgs) {
     }
 
     // Get client metadata
-    const clientIP = request.headers.get("CF-Connecting-IP") || 
-                    request.headers.get("X-Forwarded-For") || 
-                    "unknown";
+    const clientIP = getClientIPAddress(request) || "unknown";
     const userAgent = request.headers.get("User-Agent") || "unknown";
 
     // Find or create user
@@ -76,7 +75,12 @@ export async function loader({ request, params, context }: Route.LoaderArgs) {
     const clearStateResponse = clearOAuthState();
     const sessionResponse = await createUserSession(
       user.id, 
-      storedState.redirectTo || "/dashboard"
+      storedState.redirectTo || "/dashboard",
+      db,
+      {
+        ipAddress: clientIP,
+        userAgent,
+      }
     );
 
     // Combine headers

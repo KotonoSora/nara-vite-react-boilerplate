@@ -11,15 +11,18 @@ import {
   parseDeviceInfo,
 } from "~/lib/auth/device-tracking.server";
 import { getUserMFAStatus } from "~/lib/auth/mfa.server";
+import { getUserActiveSessions, getUserSessionStats } from "~/lib/auth/session-manager.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   const { user } = await requireAuth(request, context.db);
   
-  const [devices, securityLogs, suspiciousActivity, mfaStatus] = await Promise.all([
+  const [devices, securityLogs, suspiciousActivity, mfaStatus, activeSessions, sessionStats] = await Promise.all([
     getUserDevices(context.db, user.id),
     getUserSecurityLogs(context.db, user.id, 20),
     detectSuspiciousActivity(context.db, user.id),
     getUserMFAStatus(context.db, user.id),
+    getUserActiveSessions(context.db, user.id),
+    getUserSessionStats(context.db, user.id),
   ]);
 
   // Enhance devices with parsed info
@@ -34,6 +37,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     securityLogs,
     suspiciousActivity,
     mfaStatus,
+    activeSessions,
+    sessionStats,
   };
 }
 
@@ -76,7 +81,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function SecurityDashboard({ loaderData, actionData }: Route.ComponentProps) {
-  const { user, devices, securityLogs, suspiciousActivity, mfaStatus } = loaderData;
+  const { user, devices, securityLogs, suspiciousActivity, mfaStatus, activeSessions, sessionStats } = loaderData;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -100,7 +105,7 @@ export default function SecurityDashboard({ loaderData, actionData }: Route.Comp
           </div>
 
           {/* Security Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center">
                 <div className={`flex-shrink-0 p-3 rounded-lg ${mfaStatus.isEnabled ? 'bg-green-100' : 'bg-red-100'}`}>
@@ -136,6 +141,22 @@ export default function SecurityDashboard({ loaderData, actionData }: Route.Comp
                   <p className="text-sm text-gray-600">Trusted Devices</p>
                   <p className="text-lg font-semibold text-gray-900">
                     {devices.filter((d: any) => d.isTrusted).length}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center">
+                <div className="flex-shrink-0 p-3 bg-indigo-100 rounded-lg">
+                  <svg className="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="ml-4">
+                  <p className="text-sm text-gray-600">Active Sessions</p>
+                  <p className="text-lg font-semibold text-gray-900">
+                    {sessionStats.activeSessions}
                   </p>
                 </div>
               </div>
@@ -204,6 +225,101 @@ export default function SecurityDashboard({ loaderData, actionData }: Route.Comp
               </div>
             </div>
           )}
+
+          {/* Active Sessions Management */}
+          <div className="bg-white rounded-lg shadow">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900">Active Sessions</h2>
+                  <p className="text-sm text-gray-600">
+                    You have {sessionStats.activeSessions} active session{sessionStats.activeSessions !== 1 ? 's' : ''} across devices
+                  </p>
+                </div>
+                {sessionStats.activeSessions > 1 && (
+                  <div className="flex space-x-3">
+                    <button
+                      onClick={() => {
+                        if (confirm(
+                          `Are you sure you want to sign out from all active sessions?\n\n` +
+                          `This will:\n` +
+                          `• Sign you out from all ${sessionStats.activeSessions} active sessions\n` +
+                          `• Log you out from this session immediately\n` +
+                          `• Require you to sign in again on all devices\n\n` +
+                          `This action cannot be undone.`
+                        )) {
+                          window.location.href = '/action/logout-all';
+                        }
+                      }}
+                      className="inline-flex items-center px-4 py-2 border border-red-300 rounded-md text-sm font-medium text-red-700 bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    >
+                      <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                      Sign Out From All Sessions
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="p-6">
+              {activeSessions.length === 0 ? (
+                <div className="text-center py-8">
+                  <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <h3 className="mt-2 text-sm font-medium text-gray-900">No active sessions</h3>
+                  <p className="mt-1 text-sm text-gray-500">
+                    You don't have any tracked sessions. This may be because you're using the legacy session system.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {activeSessions.map((session: any) => (
+                    <div key={session.id} className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-2">
+                            <h3 className="font-medium text-gray-900">Session</h3>
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                              Active
+                            </span>
+                          </div>
+                          <div className="mt-1 space-y-1 text-sm text-gray-600">
+                            <p>Created: {new Date(session.createdAt).toLocaleString()}</p>
+                            <p>Expires: {new Date(session.expiresAt).toLocaleString()}</p>
+                            <p>Session ID: {session.id.substring(0, 16)}...</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              {sessionStats.activeSessions > 0 && (
+                <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="text-sm font-medium text-blue-800">Session Security</h3>
+                      <div className="mt-1 text-sm text-blue-700">
+                        <p>
+                          If you notice any suspicious sessions or believe your account has been compromised, 
+                          use the "Sign Out From All Sessions" button above. This will immediately invalidate 
+                          all active sessions and require re-authentication on all devices.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Device Management */}

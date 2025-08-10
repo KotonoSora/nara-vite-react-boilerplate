@@ -7,6 +7,7 @@ import { createUserSession, getUserId } from "~/auth.server";
 import { PageContext } from "~/features/login/context/page-context";
 import { ContentLoginPage } from "~/features/login/page";
 import { authenticateUser } from "~/user.server";
+import { getClientIPAddress } from "~/lib/utils";
 
 const loginSchema = z.object({
   email: z.email(),
@@ -54,9 +55,7 @@ export async function action({ request, context }: Route.ActionArgs) {
 
   try {
     // Get client metadata for logging
-    const clientIP = request.headers.get("CF-Connecting-IP") || 
-                    request.headers.get("X-Forwarded-For") || 
-                    "unknown";
+    const clientIP = getClientIPAddress(request) || "unknown";
     const userAgent = request.headers.get("User-Agent") || "unknown";
 
     const user = await authenticateUser(db, email, password, {
@@ -68,7 +67,10 @@ export async function action({ request, context }: Route.ActionArgs) {
       return data({ error: "Invalid email or password" }, { status: 400 });
     }
 
-    return createUserSession(user.id, "/dashboard");
+    return createUserSession(user.id, "/dashboard", db, {
+      ipAddress: clientIP,
+      userAgent,
+    });
   } catch (error) {
     console.error("Login error:", error);
     return data(

@@ -1,4 +1,10 @@
 import { createCookieSessionStorage } from "react-router";
+import { 
+  createDatabaseSession, 
+  validateSession, 
+  invalidateSession,
+  invalidateAllUserSessions,
+} from "~/lib/auth/session-manager.server";
 
 const authSessionStorage = createCookieSessionStorage({
   cookie: {
@@ -12,8 +18,25 @@ const authSessionStorage = createCookieSessionStorage({
   },
 });
 
-export async function createUserSession(userId: number, redirectTo: string) {
+export async function createUserSession(
+  userId: number, 
+  redirectTo: string,
+  db?: any,
+  metadata?: {
+    ipAddress?: string;
+    userAgent?: string;
+    deviceFingerprint?: string;
+  }
+) {
   const session = await authSessionStorage.getSession();
+  
+  // Create database session if db is provided
+  let dbSession = null;
+  if (db) {
+    dbSession = await createDatabaseSession(db, userId, metadata);
+    session.set("sessionId", dbSession.id);
+  }
+  
   session.set("userId", userId);
   return new Response(null, {
     status: 302,
@@ -43,8 +66,51 @@ export async function requireUserId(request: Request) {
   return userId;
 }
 
-export async function logout(request: Request) {
+export async function logout(
+  request: Request,
+  db?: any,
+  metadata?: {
+    ipAddress?: string;
+    userAgent?: string;
+    deviceFingerprint?: string;
+  }
+) {
   const session = await getUserSession(request);
+  const sessionId = session.get("sessionId");
+  
+  // Invalidate database session if it exists
+  if (sessionId && db) {
+    await invalidateSession(db, sessionId, metadata);
+  }
+  
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: "/",
+      "Set-Cookie": await authSessionStorage.destroySession(session),
+    },
+  });
+}
+
+export async function logoutFromAllSessions(
+  request: Request,
+  db: any,
+  metadata?: {
+    ipAddress?: string;
+    userAgent?: string;
+    deviceFingerprint?: string;
+  }
+) {
+  const session = await getUserSession(request);
+  const userId = session.get("userId");
+  
+  if (!userId) {
+    throw new Response("Unauthorized", { status: 401 });
+  }
+  
+  // Invalidate all database sessions for the user
+  await invalidateAllUserSessions(db, userId, metadata);
+  
   return new Response(null, {
     status: 302,
     headers: {
@@ -55,12 +121,30 @@ export async function logout(request: Request) {
 }
 
 export async function requireAuth(request: Request, db: any) {
-  const userId = await getUserId(request);
+  const session = await getUserSession(request);
+  const userId = session.get("userId");
+  const sessionId = session.get("sessionId");
+  
   if (!userId) {
     throw new Response("Unauthorized", { status: 401 });
   }
   
-  // Import user functions to get user data
+  // If we have a sessionId, validate it in the database
+  if (sessionId && db) {
+    const sessionValidation = await validateSession(db, sessionId);
+    if (!sessionValidation.valid) {
+      // Session is invalid, force logout
+      throw await logout(request, db);
+    }
+    
+    return { 
+      user: sessionValidation.user!, 
+      userId,
+      sessionId,
+    };
+  }
+  
+  // Fallback to legacy session validation
   const { getUserById } = await import("~/user.server");
   const user = await getUserById(db, userId);
   
@@ -68,5 +152,5 @@ export async function requireAuth(request: Request, db: any) {
     throw new Response("User not found", { status: 404 });
   }
   
-  return { user, userId };
+  return { user, userId, sessionId: null };
 }
