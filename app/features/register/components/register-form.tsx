@@ -1,11 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router";
-import { z } from "zod";
 
-import type { TranslationKey } from "~/lib/i18n/types";
+import type { RegisterFormData } from "~/features/auth/validation";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -24,28 +21,10 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { PasswordInput } from "~/components/ui/password-input";
+import { createRegisterSchema } from "~/features/auth/validation";
+import { ErrorAlert } from "~/features/shared/components/error-alert";
 import { useI18n } from "~/lib/i18n";
-
-const createRegisterSchema = (
-  t: (key: TranslationKey, params?: Record<string, string | number>) => string,
-) =>
-  z
-    .object({
-      name: z.string().min(2, t("auth.register.validation.nameMinLength")),
-      email: z.email(t("auth.register.validation.emailRequired")),
-      password: z
-        .string()
-        .min(6, t("auth.register.validation.passwordMinLength")),
-      confirmPassword: z
-        .string()
-        .min(6, t("auth.register.validation.confirmPasswordRequired")),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-      message: t("auth.register.validation.passwordsDoNotMatch"),
-      path: ["confirmPassword"],
-    });
-
-type RegisterFormData = z.infer<ReturnType<typeof createRegisterSchema>>;
 
 interface RegisterFormProps {
   error?: string;
@@ -57,8 +36,6 @@ export function RegisterForm({
   isSubmitting = false,
 }: RegisterFormProps) {
   const { t } = useI18n();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const registerSchema = createRegisterSchema(t);
   const form = useForm<RegisterFormData>({
@@ -82,11 +59,7 @@ export function RegisterForm({
       <CardContent>
         <FormProvider {...form}>
           <Form method="post" className="space-y-4">
-            {error && (
-              <div className="p-3 text-sm text-red-600 bg-red-50 rounded-md border border-red-200">
-                {error}
-              </div>
-            )}
+            <ErrorAlert message={error} />
 
             <FormField
               control={form.control}
@@ -135,32 +108,11 @@ export function RegisterForm({
                     {t("auth.register.form.password.label")}
                   </FormLabel>
                   <FormControl>
-                    <div className="relative">
-                      <Input
-                        type={showPassword ? "text" : "password"}
-                        placeholder={t(
-                          "auth.register.form.password.placeholder",
-                        )}
-                        autoComplete="new-password"
-                        {...field}
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                        onClick={() => setShowPassword(!showPassword)}
-                        aria-label={
-                          showPassword ? "Hide password" : "Show password"
-                        }
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
+                    <PasswordInput
+                      placeholder={t("auth.register.form.password.placeholder")}
+                      autoComplete="new-password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -176,36 +128,13 @@ export function RegisterForm({
                     {t("auth.register.form.confirmPassword.label")}
                   </FormLabel>
                   <FormControl>
-                    <div className="relative">
-                      <Input
-                        type={showConfirmPassword ? "text" : "password"}
-                        placeholder={t(
-                          "auth.register.form.confirmPassword.placeholder",
-                        )}
-                        autoComplete="new-password"
-                        {...field}
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                        onClick={() =>
-                          setShowConfirmPassword(!showConfirmPassword)
-                        }
-                        aria-label={
-                          showConfirmPassword
-                            ? "Hide password"
-                            : "Show password"
-                        }
-                      >
-                        {showConfirmPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
+                    <PasswordInput
+                      placeholder={t(
+                        "auth.register.form.confirmPassword.placeholder",
+                      )}
+                      autoComplete="new-password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

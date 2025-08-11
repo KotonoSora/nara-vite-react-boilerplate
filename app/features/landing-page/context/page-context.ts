@@ -1,13 +1,5 @@
-import { createContext, useContext } from "react";
+import { createTypedContext } from "~/features/shared/context/create-typed-context";
+import { defaultPageInformation } from "~/features/shared/context/default-page-information";
 
-export const PageContext = createContext<PageInformation>({
-  title: "",
-  description: "",
-  githubRepository: "",
-  commercialLink: "",
-  showcases: [],
-  steps: [],
-  featuresConfig: [],
-});
-
-export const usePageContext = () => useContext(PageContext);
+export const [PageContext, usePageContext] =
+  createTypedContext<PageInformation>(defaultPageInformation);

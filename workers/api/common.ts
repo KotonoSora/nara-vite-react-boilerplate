@@ -4,6 +4,9 @@ import { HTTPException } from "hono/http-exception";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 
+import adminRoute from "~/workers/api/admin";
+import adminUsersRoute from "~/workers/api/admin-users";
+import authRoute from "~/workers/api/auth";
 import landingPageRoute from "~/workers/api/features/landing-page";
 
 const app = new Hono<{ Bindings: Env }>();
@@ -41,6 +44,9 @@ app.get("/hello-world", (c) => c.json({ message: "Hello, World!" }));
 app.get("/health", (c) => c.json({ status: "ok" }));
 
 app.route("/landing-page", landingPageRoute);
+app.route("/auth", authRoute);
+app.route("/admin/users", adminUsersRoute);
+app.route("/admin", adminRoute);
 
 // Example route to test error handling
 if (import.meta.env.NODE_ENV === "development") {

@@ -4,14 +4,15 @@ import { z } from "zod";
 import type { Route } from "./+types/($lang).login";
 
 import { createUserSession, getUserId } from "~/auth.server";
+import { createLoginSchema } from "~/features/auth/validation";
 import { PageContext } from "~/features/login/context/page-context";
 import { ContentLoginPage } from "~/features/login/page";
+import { createTranslationFunction } from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
+import { getClientIPAddress } from "~/lib/utils";
 import { authenticateUser } from "~/user.server";
 
-const loginSchema = z.object({
-  email: z.email(),
-  password: z.string().min(6),
-});
+// Schema now created per-request to leverage i18n messages
 
 export async function loader({ request }: Route.LoaderArgs) {
   // Redirect if already logged in
@@ -25,6 +26,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export async function action({ request, context }: Route.ActionArgs) {
   const formData = await request.formData();
+  const language = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+  const loginSchema = createLoginSchema(t);
 
   const result = loginSchema.safeParse({
     email: formData.get("email"),
@@ -41,14 +45,35 @@ export async function action({ request, context }: Route.ActionArgs) {
   const { email, password } = result.data;
   const { db } = context;
 
+  // Rate limiting
+  const { createRateLimiters } = await import("~/lib/auth/rate-limit.server");
+  const rateLimiters = createRateLimiters(db);
+
   try {
-    const user = await authenticateUser(db, email, password);
+    await rateLimiters.login(request, "/login");
+  } catch (rateLimitResponse) {
+    // Rate limit exceeded
+    return rateLimitResponse;
+  }
+
+  try {
+    // Get client metadata for logging
+    const clientIP = getClientIPAddress(request) || "unknown";
+    const userAgent = request.headers.get("User-Agent") || "unknown";
+
+    const user = await authenticateUser(db, email, password, {
+      ipAddress: clientIP,
+      userAgent,
+    });
 
     if (!user) {
       return data({ error: "Invalid email or password" }, { status: 400 });
     }
 
-    return createUserSession(user.id, "/dashboard");
+    return createUserSession(user.id, "/dashboard", db, {
+      ipAddress: clientIP,
+      userAgent,
+    });
   } catch (error) {
     console.error("Login error:", error);
     return data(
@@ -67,7 +92,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Login({ actionData }: Route.ComponentProps) {
   return (
-    <PageContext.Provider value={{ ...actionData }}>
+    <PageContext.Provider value={{ error: (actionData as any)?.error }}>
       <ContentLoginPage />
     </PageContext.Provider>
   );

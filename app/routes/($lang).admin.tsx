@@ -1,41 +1,38 @@
 import type { Route } from "./+types/($lang).admin";
 
-import { requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/admin/context/page-context";
 import { ContentAdminPage } from "~/features/admin/page";
 import { getLanguageSession } from "~/language.server";
+import { getUserPermissions } from "~/lib/auth/permissions.server";
 import {
-  DEFAULT_LANGUAGE,
-  getLanguageFromPath,
-  getTranslation,
-} from "~/lib/i18n";
-import { getUserById } from "~/user.server";
+  applyAdminSecurity,
+  logSecurityAccess,
+} from "~/lib/auth/route-security.server";
+import { DEFAULT_LANGUAGE, getTranslation } from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
 export async function loader({ request, context, params }: Route.LoaderArgs) {
-  const userId = await requireUserId(request);
   const { db } = context;
 
-  const user = await getUserById(db, userId);
+  // Apply admin security with high-level authentication
+  const authResult = await applyAdminSecurity(request, db);
 
-  if (!user) {
-    throw new Response("User not found", { status: 404 });
-  }
+  // Get user's permissions for display
+  const permissions = await getUserPermissions(db, authResult.userId);
 
-  // Check if user is admin
-  if (user.role !== "admin") {
-    throw new Response("Access denied. Admin role required.", { status: 403 });
-  }
+  // Log security access
+  await logSecurityAccess(db, authResult, request, "/admin", "high");
 
-  // Handle language detection
-  const url = new URL(request.url);
-  const pathLanguage = getLanguageFromPath(url.pathname);
-  const languageSession = await getLanguageSession(request);
-  const cookieLanguage = languageSession.getLanguage();
+  // Handle language detection (URL > Cookie > Accept-Language > Default)
+  const language = await resolveRequestLanguage(request);
 
-  // Priority: URL param > Cookie > Default
-  const language = pathLanguage || cookieLanguage || DEFAULT_LANGUAGE;
-
-  return { user, language };
+  return {
+    user: authResult.user,
+    language,
+    permissions,
+    authFlow: authResult.flow,
+    securityLevel: "high",
+  };
 }
 
 export function meta({ data }: Route.MetaArgs): ReturnType<Route.MetaFunction> {

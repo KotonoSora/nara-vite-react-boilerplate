@@ -1,7 +1,6 @@
-import { createContext, useContext } from "react";
+import { createTypedContext } from "~/features/shared/context/create-typed-context";
 
-export const PageContext = createContext<AdminContentProps>({
-  user: undefined,
-});
-
-export const usePageContext = () => useContext(PageContext);
+export const [PageContext, usePageContext] =
+  createTypedContext<AdminContentProps>({
+    user: undefined,
+  });

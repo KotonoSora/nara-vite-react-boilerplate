@@ -113,7 +113,13 @@ import zhTime from "~/locales/zh/time.json";
 
 import { DEFAULT_LANGUAGE } from "./config";
 
-const translations: Record<SupportedLanguage, NestedTranslationObject> = {
+// Allow non-English locales to be partial and loosely typed; we fallback to English
+type LooseTranslations = {
+  [K in keyof NestedTranslationObject]?: any;
+} & Record<string, any>;
+
+// Allow non-English locales to be partial; we fall back to English at runtime
+const translations: Record<SupportedLanguage, LooseTranslations> = {
   en: {
     ...enCommon,
     navigation: enNavigation,
@@ -234,7 +240,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
 };
 
 function getNestedValue(
-  obj: NestedTranslationObject,
+  obj: LooseTranslations,
   path: string,
 ): string | undefined {
   return path.split(".").reduce<unknown>((current, key) => {

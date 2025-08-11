@@ -3,18 +3,11 @@ import { createThemeAction } from "remix-themes";
 
 import type { Route } from "./+types/action.set-theme";
 
+import { redirectBack } from "~/lib/http/redirect";
 import { themeSessionResolver } from "~/sessions.server";
 
 export function loader({ request }: Route.LoaderArgs) {
-  return data(
-    {},
-    {
-      status: 302,
-      headers: {
-        Location: request.headers.get("referer") || "/",
-      },
-    },
-  );
+  return redirectBack(request);
 }
 
 export const action = createThemeAction(themeSessionResolver);

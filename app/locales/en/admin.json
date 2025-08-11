@@ -22,7 +22,18 @@
     "description": "Manage system users",
     "viewAllUsers": "View All Users",
     "createNewUser": "Create New User",
-    "manageRoles": "Manage Roles"
+    "manageRoles": "Manage Roles",
+    "userManagement": "User Management",
+    "createUser": "Create User",
+    "addUser": "Add User",
+    "managedUsers": "Managed Users",
+    "noUsers": "No users created yet",
+    "user": "User",
+    "email": "Email",
+    "created": "Created",
+    "lastLogin": "Last Login",
+    "actions": "Actions",
+    "confirmDelete": "Are you sure you want to delete this user?"
   },
   "security": {
     "title": "Security",
@@ -49,5 +60,10 @@
       "userDashboard": "User Dashboard",
       "returnHome": "Return to Home"
     }
-  }
+  },
+  "registerTitle": "Admin Registration",
+  "registerSubtitle": "Create a new administrator account",
+  "secret": "Admin Secret Key",
+  "secretPlaceholder": "Enter admin secret key",
+  "registerButton": "Register Admin Account"
 }

@@ -1,19 +1,10 @@
-import { createContext, useContext } from "react";
+import { createTypedContext } from "~/features/shared/context/create-typed-context";
 
 export interface TermsPageContextValue {
   githubRepository: string;
 }
 
-const TermsPageContext = createContext<TermsPageContextValue | undefined>({
-  githubRepository: "",
-});
-
-export function usePageContext() {
-  const context = useContext(TermsPageContext);
-  if (context === undefined) {
-    throw new Error("usePageContext must be used within a TermsPageProvider");
-  }
-  return context;
-}
-
-export const PageContext = TermsPageContext;
+export const [PageContext, usePageContext] =
+  createTypedContext<TermsPageContextValue>({
+    githubRepository: "",
+  });

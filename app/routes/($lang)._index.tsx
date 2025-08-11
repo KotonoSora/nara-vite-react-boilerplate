@@ -5,13 +5,9 @@ import { PageContext } from "~/features/landing-page/context/page-context";
 import { ContentPage } from "~/features/landing-page/page";
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
-import { getLanguageSession } from "~/language.server";
-import {
-  DEFAULT_LANGUAGE,
-  detectLanguageFromAcceptLanguage,
-  getLanguageFromPath,
-} from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { createTranslationFunction } from "~/lib/i18n/translations";
+import { metaFromLoaderData } from "~/lib/routes/meta-helpers";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
   try {
@@ -19,19 +15,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
       cloudflare: { env },
       db,
     } = context;
-    const url = new URL(request.url);
-
-    // Detect language from URL, cookie, or browser preference
-    const pathLanguage = getLanguageFromPath(url.pathname);
-    const languageSession = await getLanguageSession(request);
-    const cookieLanguage = languageSession.getLanguage();
-    const acceptLanguage = detectLanguageFromAcceptLanguage(
-      request.headers.get("Accept-Language") || "",
-    );
-
-    // Priority: URL > Cookie > Accept-Language > Default
-    const language: SupportedLanguage =
-      pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
+    const language: SupportedLanguage = await resolveRequestLanguage(request);
 
     const t = createTranslationFunction(language);
 
@@ -137,12 +121,11 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 }
 
 export function meta({ data }: Route.MetaArgs) {
-  if (!data) return null;
-
-  return [
-    { title: data.title },
-    { name: "description", content: data.description },
-  ];
+  return metaFromLoaderData(
+    data
+      ? { meta: { title: data.title, description: data.description } }
+      : null,
+  );
 }
 
 export default function Page({ loaderData }: Route.ComponentProps) {

@@ -1,9 +1,8 @@
-import { createContext, useContext } from "react";
+import { createTypedContext } from "~/features/shared/context/create-typed-context";
 
-export const PageContext = createContext<DashboardContentProps>({
-  user: {} as User,
-  recentActivity: [],
-  stats: {} as Stats,
-});
-
-export const usePageContext = () => useContext(PageContext);
+export const [PageContext, usePageContext] =
+  createTypedContext<DashboardContentProps>({
+    user: {} as User,
+    recentActivity: [],
+    stats: {} as Stats,
+  });

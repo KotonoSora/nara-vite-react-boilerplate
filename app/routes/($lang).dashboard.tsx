@@ -4,6 +4,7 @@ import { requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/dashboard/context/page-context";
 import { ContentDashboardPage } from "~/features/dashboard/page";
 import { getLanguageSession } from "~/language.server";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { formatTimeAgo } from "~/lib/i18n/time-format";
 import { createTranslationFunction } from "~/lib/i18n/translations";
 import { getUserById } from "~/user.server";
@@ -12,9 +13,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const userId = await requireUserId(request);
   const { db } = context;
 
-  // Get language from session
-  const languageSession = await getLanguageSession(request);
-  const language = languageSession.getLanguage();
+  // Get language using shared resolver
+  const language = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
   const user = await getUserById(db, userId);

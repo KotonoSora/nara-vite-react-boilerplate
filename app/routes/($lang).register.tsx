@@ -5,15 +5,12 @@ import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).register";
 
 import { createUserSession, getUserId } from "~/auth.server";
+import { createRegisterSchema } from "~/features/auth/validation";
 import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
 import { getLanguageSession } from "~/language.server";
-import {
-  createTranslationFunction,
-  DEFAULT_LANGUAGE,
-  detectLanguageFromAcceptLanguage,
-  getLanguageFromPath,
-} from "~/lib/i18n";
+import { createTranslationFunction, DEFAULT_LANGUAGE } from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { createUser, getUserByEmail } from "~/user.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -22,20 +19,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   if (userId) {
     throw redirect("/dashboard");
   }
-
-  const url = new URL(request.url);
-
-  // Detect language from URL, cookie, or browser preference
-  const pathLanguage = getLanguageFromPath(url.pathname);
-  const languageSession = await getLanguageSession(request);
-  const cookieLanguage = languageSession.getLanguage();
-  const acceptLanguage = detectLanguageFromAcceptLanguage(
-    request.headers.get("Accept-Language") || "",
-  );
-
-  // Priority: URL > Cookie > Accept-Language > Default
-  const language: SupportedLanguage =
-    pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
   return {
@@ -47,26 +31,11 @@ export async function loader({ request }: Route.LoaderArgs) {
 export async function action({ request, context }: Route.ActionArgs) {
   const formData = await request.formData();
 
-  // Get language from session for error messages
-  const languageSession = await getLanguageSession(request);
-  const language = languageSession.getLanguage();
+  // Get language from request for error messages
+  const language = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
-  const registerSchema = z
-    .object({
-      name: z.string().min(2, t("auth.register.validation.nameMinLength")),
-      email: z.email(t("auth.register.validation.emailRequired")),
-      password: z
-        .string()
-        .min(6, t("auth.register.validation.passwordMinLength")),
-      confirmPassword: z
-        .string()
-        .min(6, t("auth.register.validation.confirmPasswordRequired")),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-      message: t("auth.register.validation.passwordsDoNotMatch"),
-      path: ["confirmPassword"],
-    });
+  const registerSchema = createRegisterSchema(t);
 
   const result = registerSchema.safeParse({
     name: formData.get("name"),
