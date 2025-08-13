@@ -124,7 +124,7 @@
       "description": "非常适合闭源和生产 SaaS 项目",
       "features": {
         "noOpenSource": "无需开源您的更改",
-        "oneTime": "每个版本一次性付款",
+        "oneTime": "一次性付款，终身访问",
         "gumroad": "通过 Gumroad 分发"
       },
       "button": "获取商业许可证",

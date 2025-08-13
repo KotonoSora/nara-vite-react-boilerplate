@@ -124,7 +124,7 @@
       "description": "Great for closed-source and production SaaS projects",
       "features": {
         "noOpenSource": "No need to open source your changes",
-        "oneTime": "One-time payment per version",
+        "oneTime": "One-time payment for lifetime access",
         "gumroad": "Distributed via Gumroad"
       },
       "button": "Get Commercial License",
