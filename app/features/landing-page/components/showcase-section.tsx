@@ -8,8 +8,6 @@ export const ShowcaseSection = memo(function ShowcaseSection() {
   const { t } = useI18n();
   const { showcases } = usePageContext();
 
-  if (!showcases || showcases.length < 1) return null;
-
   return (
     <section
       className="py-16 px-6 lg:px-24 bg-background"
@@ -20,8 +18,7 @@ export const ShowcaseSection = memo(function ShowcaseSection() {
           {t("landing.showcase.title")}
         </h2>
         <p className="text-muted-foreground text-sm">
-          {t("landing.showcase.description")}{" "}
-          <code className="text-foreground">NARA</code>
+          {t("landing.showcase.description")}
         </p>
       </div>
 
