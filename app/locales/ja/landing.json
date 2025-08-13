@@ -124,7 +124,7 @@
       "description": "クローズドソースおよびプロダクション SaaS プロジェクトに最適",
       "features": {
         "noOpenSource": "変更をオープンソース化する必要なし",
-        "oneTime": "バージョンごとの一回払い",
+        "oneTime": "生涯アクセスの一括払い",
         "gumroad": "Gumroad 経由で配布"
       },
       "button": "商用ライセンスを取得",

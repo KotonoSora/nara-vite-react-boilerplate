@@ -1,8 +1,9 @@
 const DEFAULT = {
-  title: "NARA Boilerplate - Production-Ready React Starter",
+  title: "NARA Website Starter Kit — Modern, Flexible, Type-Safe Boilerplate",
   description:
-    "Fast, opinionated starter template for building full-stack React apps with modern tooling and Cloudflare Workers deployment.",
+    "A fast, opinionated starter template for building full-stack React apps powered by React Router v7, Cloudflare Workers, and modern tooling. Built with a focus on type safety, performance, and developer ergonomics.",
   githubRepository: "https://github.com/KotonoSora/nara-vite-react-boilerplate",
+  commercialLink: "https://kotonosora.gumroad.com/l/nara-website-starter-kit",
 };
 
 export async function getPageInformation({
@@ -15,6 +16,6 @@ export async function getPageInformation({
     title: LANDING_PAGE_TITLE ?? DEFAULT.title,
     description: LANDING_PAGE_DESCRIPTION ?? DEFAULT.description,
     githubRepository: LANDING_PAGE_REPOSITORY ?? DEFAULT.githubRepository,
-    commercialLink: LANDING_PAGE_COMMERCIAL_LINK,
+    commercialLink: LANDING_PAGE_COMMERCIAL_LINK ?? DEFAULT.commercialLink,
   };
 }
