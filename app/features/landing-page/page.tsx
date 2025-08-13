@@ -1,4 +1,5 @@
 import { BuiltForDevelopersSection } from "~/features/landing-page/components/built-for-developers-section";
+import { DonateSection } from "~/features/landing-page/components/donate-section";
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { GettingStartedSection } from "~/features/landing-page/components/getting-started-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
@@ -40,6 +41,9 @@ export function ContentPage() {
 
       {/* Footer Section */}
       <FooterSection />
+
+      {/* Donate Section */}
+      <DonateSection />
     </main>
   );
 }
