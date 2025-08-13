@@ -483,7 +483,7 @@ bun run dev
 **Solution**:
 
 ```typescript
-// Make sure to import correct types from drizzle-orm ~0.44.3
+// Make sure to import correct types from drizzle-orm ~0.44.4
 import { eq, and, or, desc, count } from 'drizzle-orm'
 import { users } from '~/database/schema'
 import { db } from '~/database'
@@ -1705,15 +1705,15 @@ Brief description of the issue
 
 ## Environment
 - OS: [e.g., Windows 11, macOS 14.0, Ubuntu 22.04]
-- Node.js: [e.g., v22.17.0]
-- Bun: [e.g., 1.2.19]
+- Node.js: [e.g., v22.18.0]
+- Bun: [e.g., 1.2.20]
 - Browser: [e.g., Chrome 120, Firefox 119, Safari 17]
 - Shell: [e.g., PowerShell 7.x, bash, zsh]
 
 ## NARA Stack Versions
-- React Router: [e.g., 7.7.1]
-- Drizzle ORM: [e.g., 0.44.3]
-- Hono: [e.g., 4.8.5]
+- React Router: [e.g., 7.8.0]
+- Drizzle ORM: [e.g., 0.44.4]
+- Hono: [e.g., 4.9.1]
 - Cloudflare Workers: [e.g., compatibility date]
 
 ## Steps to Reproduce

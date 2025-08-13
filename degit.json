@@ -5,6 +5,7 @@
       "CHANGELOG.md",
       "CODE_OF_CONDUCT.md",
       "CONTRIBUTING.md",
+      "FUNDING.yml",
       "LICENSE",
       "README.md",
       "SECURITY.md"
@@ -12,7 +13,11 @@
   },
   {
     "action": "remove",
-    "files": [".github", ".vscode", "docs", "components.json"]
+    "files": [".github", ".vscode", "docs", "drizzle"]
+  },
+  {
+    "action": "remove",
+    "files": [".nvmrc", ".bun-version", "bun.lock"]
   },
   {
     "action": "remove",
