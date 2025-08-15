@@ -3,7 +3,7 @@ const DEFAULT = {
   description:
     "A fast, opinionated starter template for building full-stack React apps powered by React Router v7, Cloudflare Workers, and modern tooling. Built with a focus on type safety, performance, and developer ergonomics.",
   githubRepository: "https://github.com/KotonoSora/nara-vite-react-boilerplate",
-  commercialLink: "https://kotonosora.gumroad.com/l/nara-website-starter-kit",
+  commercialLink: "https://gum.co/u/otmfo1j8",
 };
 
 export async function getPageInformation({
