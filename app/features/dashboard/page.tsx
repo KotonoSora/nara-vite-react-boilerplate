@@ -36,7 +36,7 @@ export function ContentDashboardPage() {
             <QuickActionsCard user={user} />
           </div>
 
-          {/* Enhanced Demo Content */}
+          {/* Additional Cards */}
           <div className="grid gap-6 lg:gap-8 grid-cols-1 lg:grid-cols-2">
             <SystemStatusCard />
             <AuthDemoCard />
