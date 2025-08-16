@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 
+import { BrandLogo } from "~/features/landing-page/components/brand-logo";
 import { LoginForm } from "~/features/login/components/login-form";
 import { useI18n } from "~/lib/i18n";
 
@@ -12,24 +13,8 @@ export function ContentLoginPage() {
   return (
     <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <Link
-          to="/"
-          className="flex items-center gap-2 self-center text-xl font-bold"
-        >
-          <img
-            src="/assets/logo-dark.svg"
-            alt=""
-            className="w-8 h-8 hidden [html.dark_&]:block"
-            loading="lazy"
-          />
-          <img
-            src="/assets/logo-light.svg"
-            alt=""
-            className="w-8 h-8 hidden [html.light_&]:block"
-            loading="lazy"
-          />
-          NARA
-        </Link>
+        <BrandLogo url="/" className="self-center" />
+
         <div className="flex flex-col gap-6">
           <LoginForm error={error} isSubmitting={false} />
           <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
