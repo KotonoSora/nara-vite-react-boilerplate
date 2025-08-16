@@ -4,7 +4,7 @@ import { getPageInformation } from "~/features/landing-page/utils/get-page-infor
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { PageContext } from "~/features/showcases/context/page-context";
 import { ContentShowcasePage } from "~/features/showcases/page";
-import { getLanguageSession } from "~/language.server";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
@@ -14,9 +14,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
       db,
     } = context;
 
-    // Get language from session
-    const languageSession = await getLanguageSession(request);
-    const language = languageSession.getLanguage();
+    const language = await resolveRequestLanguage(request);
     const t = createTranslationFunction(language);
 
     const { title, description, githubRepository } = await getPageInformation({
@@ -42,12 +40,14 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   }
 }
 
-export function meta({ data }: Route.MetaArgs) {
-  if (!data) return null;
+export function meta({ loaderData }: Route.MetaArgs) {
+  if (!loaderData) return null;
 
   return [
-    { title: `${(data as any).showcaseTitle || "Showcases"} - ${data.title}` },
-    { name: "description", content: data.description },
+    {
+      title: `${(loaderData as any).showcaseTitle || "Showcases"} - ${loaderData.title}`,
+    },
+    { name: "description", content: loaderData.description },
   ];
 }
 
