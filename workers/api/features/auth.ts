@@ -32,10 +32,6 @@ app.post("/admin/register", async (c): Promise<Response> => {
   const db = getDbOrFail(c);
   if (db instanceof Response) return db;
 
-  if (c.req.method !== "POST") {
-    return c.json({ error: "Method not allowed" }, 405);
-  }
-
   try {
     const body = await c.req.json();
     const validatedData = adminRegisterSchema.parse(body);
