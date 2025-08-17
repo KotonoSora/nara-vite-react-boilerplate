@@ -6,6 +6,8 @@ import type { Route } from "./+types/($lang).login";
 import { createUserSession, getUserId } from "~/auth.server";
 import { PageContext } from "~/features/login/context/page-context";
 import { ContentLoginPage } from "~/features/login/page";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 import { authenticateUser } from "~/user.server";
 
 const loginSchema = z.object({
@@ -20,7 +22,14 @@ export async function loader({ request }: Route.LoaderArgs) {
     throw redirect("/dashboard");
   }
 
-  return {};
+  const language = await resolveRequestLanguage(request);
+
+  const t = createTranslationFunction(language);
+
+  return {
+    loginTitle: t("auth.login.title"),
+    loginDescription: t("auth.login.description"),
+  };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
@@ -58,10 +67,13 @@ export async function action({ request, context }: Route.ActionArgs) {
   }
 }
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ loaderData }: Route.MetaArgs) {
   return [
-    { title: "Sign In - NARA" },
-    { name: "description", content: "Sign in to your NARA account" },
+    { title: `${loaderData?.loginTitle || "Sign In"} - NARA` },
+    {
+      name: "description",
+      content: loaderData?.loginDescription || "Sign in to your NARA account",
+    },
   ];
 }
 

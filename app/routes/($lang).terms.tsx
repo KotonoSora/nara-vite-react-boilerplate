@@ -4,28 +4,11 @@ import type { Route } from "./+types/($lang).terms";
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { PageContext } from "~/features/legal/terms/context/page-context";
 import { ContentTermsPage } from "~/features/legal/terms/page";
-import { getLanguageSession } from "~/language.server";
-import {
-  DEFAULT_LANGUAGE,
-  detectLanguageFromAcceptLanguage,
-  getLanguageFromPath,
-  getTranslation,
-} from "~/lib/i18n";
+import { getTranslation } from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
-  const url = new URL(request.url);
-
-  // Detect language from URL, cookie, or browser preference
-  const pathLanguage = getLanguageFromPath(url.pathname);
-  const languageSession = await getLanguageSession(request);
-  const cookieLanguage = languageSession.getLanguage();
-  const acceptLanguage = detectLanguageFromAcceptLanguage(
-    request.headers.get("Accept-Language") || "",
-  );
-
-  // Priority: URL > Cookie > Accept-Language > Default
-  const language: SupportedLanguage =
-    pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
 
   // Get localized meta content
   const title = getTranslation(language, "legal.terms.title");
@@ -46,10 +29,10 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   };
 }
 
-export function meta({ data }: Route.MetaArgs) {
-  const title = data?.meta?.title || "Terms of Service";
+export function meta({ loaderData }: Route.MetaArgs) {
+  const title = loaderData?.meta?.title || "Terms of Service";
   const description =
-    data?.meta?.description ||
+    loaderData?.meta?.description ||
     "Terms of Service for NARA - Modern React Boilerplate";
 
   return [
@@ -60,6 +43,7 @@ export function meta({ data }: Route.MetaArgs) {
     },
   ];
 }
+
 export default function TermsPage({ loaderData }: Route.ComponentProps) {
   return (
     <PageContext.Provider value={loaderData}>

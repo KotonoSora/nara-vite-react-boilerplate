@@ -79,7 +79,7 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
                       </div>
                       <div className="flex items-center justify-between">
                         <code
-                          className="text-foreground break-all pr-2 whitespace-pre-line"
+                          className="text-foreground break-word pr-2 whitespace-pre-line"
                           dangerouslySetInnerHTML={{
                             __html: step.command,
                           }}

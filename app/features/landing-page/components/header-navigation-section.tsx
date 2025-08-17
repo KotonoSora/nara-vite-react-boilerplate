@@ -13,6 +13,7 @@ import { Form, Link } from "react-router";
 import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
+import { BrandLogo } from "~/features/landing-page/components/brand-logo";
 import { useOptionalAuth } from "~/lib/auth";
 import { useI18n } from "~/lib/i18n";
 import { cn } from "~/lib/utils";
@@ -97,27 +98,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
   return (
     <header className="border-b bg-background sticky top-0 z-50" role="banner">
       <div className="container flex h-14 items-center justify-between mx-auto px-4 max-w-7xl">
-        <Link
-          to="/"
-          className="flex items-center font-bold text-xl tracking-tight space-x-2"
-          onClick={closeMobileMenu}
-        >
-          <img
-            src="/assets/logo-dark.svg"
-            alt="nara-logo-dark"
-            className="w-8 h-8 hidden [html.dark_&]:block"
-            loading="lazy"
-            aria-hidden="true"
-          />
-          <img
-            src="/assets/logo-light.svg"
-            alt="nara-logo-light"
-            className="w-8 h-8 hidden [html.light_&]:block"
-            loading="lazy"
-            aria-hidden="true"
-          />
-          <span>NARA</span>
-        </Link>
+        <BrandLogo url="/" onClick={closeMobileMenu} />
 
         <nav
           className="hidden md:flex items-center space-x-3"

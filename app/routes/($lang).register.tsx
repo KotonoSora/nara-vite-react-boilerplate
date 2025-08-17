@@ -8,12 +8,8 @@ import { createUserSession, getUserId } from "~/auth.server";
 import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
 import { getLanguageSession } from "~/language.server";
-import {
-  createTranslationFunction,
-  DEFAULT_LANGUAGE,
-  detectLanguageFromAcceptLanguage,
-  getLanguageFromPath,
-} from "~/lib/i18n";
+import { createTranslationFunction } from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { createUser, getUserByEmail } from "~/user.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -23,19 +19,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     throw redirect("/dashboard");
   }
 
-  const url = new URL(request.url);
-
-  // Detect language from URL, cookie, or browser preference
-  const pathLanguage = getLanguageFromPath(url.pathname);
-  const languageSession = await getLanguageSession(request);
-  const cookieLanguage = languageSession.getLanguage();
-  const acceptLanguage = detectLanguageFromAcceptLanguage(
-    request.headers.get("Accept-Language") || "",
-  );
-
-  // Priority: URL > Cookie > Accept-Language > Default
-  const language: SupportedLanguage =
-    pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
   return {
@@ -114,8 +98,8 @@ export async function action({ request, context }: Route.ActionArgs) {
   }
 }
 
-export function meta({ data }: Route.MetaArgs): ReturnType<Route.MetaFunction> {
-  if (!data) {
+export function meta({ loaderData }: Route.MetaArgs) {
+  if (!loaderData) {
     return [
       { title: "Sign Up - NARA" },
       { name: "description", content: "Create a new NARA account" },
@@ -123,8 +107,8 @@ export function meta({ data }: Route.MetaArgs): ReturnType<Route.MetaFunction> {
   }
 
   return [
-    { title: `${(data as any).registerTitle} - NARA` },
-    { name: "description", content: (data as any).registerDescription },
+    { title: `${(loaderData as any).registerTitle} - NARA` },
+    { name: "description", content: (loaderData as any).registerDescription },
   ];
 }
 

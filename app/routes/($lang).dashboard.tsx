@@ -1,9 +1,11 @@
+import { redirect } from "react-router";
+
 import type { Route } from "./+types/($lang).dashboard";
 
-import { requireUserId } from "~/auth.server";
+import { logout, requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/dashboard/context/page-context";
 import { ContentDashboardPage } from "~/features/dashboard/page";
-import { getLanguageSession } from "~/language.server";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { formatTimeAgo } from "~/lib/i18n/time-format";
 import { createTranslationFunction } from "~/lib/i18n/translations";
 import { getUserById } from "~/user.server";
@@ -12,15 +14,13 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const userId = await requireUserId(request);
   const { db } = context;
 
-  // Get language from session
-  const languageSession = await getLanguageSession(request);
-  const language = languageSession.getLanguage();
+  const language = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
   const user = await getUserById(db, userId);
 
   if (!user) {
-    throw new Response("User not found", { status: 404 });
+    return logout(request);
   }
 
   // Calculate some basic stats
@@ -77,8 +77,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   };
 }
 
-export function meta({ data }: Route.MetaArgs) {
-  if (!data) {
+export function meta({ loaderData }: Route.MetaArgs) {
+  if (!loaderData) {
     return [
       { title: "Dashboard - NARA" },
       { name: "description", content: "Your personal dashboard" },
@@ -86,8 +86,8 @@ export function meta({ data }: Route.MetaArgs) {
   }
 
   return [
-    { title: `${(data as any).dashboardTitle} - NARA` },
-    { name: "description", content: (data as any).dashboardDescription },
+    { title: `${(loaderData as any).dashboardTitle} - NARA` },
+    { name: "description", content: (loaderData as any).dashboardDescription },
   ];
 }
 
