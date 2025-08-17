@@ -230,7 +230,7 @@ chore: update dependencies
 ### Frontend Stack
 
 - **React 19.1.1** - UI library with latest features
-- **React Router v7.7.1** - File-based routing with SSR
+- **React Router v7.8.1** - File-based routing with SSR
 - **TypeScript 5.9.2** - Type safety
 - **TailwindCSS** - Utility-first styling (version in package.json)
 - **shadcn/ui** - Component system built on Radix UI
@@ -239,10 +239,10 @@ chore: update dependencies
 
 ### Backend Stack
 
-- **Hono 4.8.5** - Lightweight web framework for Cloudflare Workers
+- **Hono 4.9.2** - Lightweight web framework for Cloudflare Workers
 - **Cloudflare Workers** - Edge runtime environment
 - **Cloudflare D1** - SQLite database at the edge
-- **Drizzle ORM ~0.44.3** - Type-safe database operations
+- **Drizzle ORM ~0.44.4** - Type-safe database operations
 
 ### Development Tools
 

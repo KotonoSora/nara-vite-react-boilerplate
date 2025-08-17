@@ -1,17 +1,13 @@
 import type { Route } from "./+types/($lang).admin";
 
-import { requireUserId } from "~/auth.server";
+import { logout, requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/admin/context/page-context";
 import { ContentAdminPage } from "~/features/admin/page";
-import { getLanguageSession } from "~/language.server";
-import {
-  DEFAULT_LANGUAGE,
-  getLanguageFromPath,
-  getTranslation,
-} from "~/lib/i18n";
+import { createTranslationFunction } from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { getUserById } from "~/user.server";
 
-export async function loader({ request, context, params }: Route.LoaderArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   const userId = await requireUserId(request);
   const { db } = context;
 
@@ -23,30 +19,23 @@ export async function loader({ request, context, params }: Route.LoaderArgs) {
 
   // Check if user is admin
   if (user.role !== "admin") {
-    throw new Response("Access denied. Admin role required.", { status: 403 });
+    return logout(request);
   }
 
-  // Handle language detection
-  const url = new URL(request.url);
-  const pathLanguage = getLanguageFromPath(url.pathname);
-  const languageSession = await getLanguageSession(request);
-  const cookieLanguage = languageSession.getLanguage();
-
-  // Priority: URL param > Cookie > Default
-  const language = pathLanguage || cookieLanguage || DEFAULT_LANGUAGE;
+  const language = await resolveRequestLanguage(request);
 
   return { user, language };
 }
 
-export function meta({ data }: Route.MetaArgs): ReturnType<Route.MetaFunction> {
-  if (!data) {
+export function meta({ loaderData }: Route.MetaArgs) {
+  if (!loaderData) {
     return [
       { title: "Admin Panel - NARA" },
       { name: "description", content: "Administrative dashboard" },
     ];
   }
 
-  const t = (key: string) => getTranslation(data.language, key as any);
+  const t = createTranslationFunction(loaderData.language);
 
   return [
     { title: t("admin.meta.title") },

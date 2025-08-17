@@ -78,9 +78,12 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
                         <span className="text-xs">Terminal</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <code className="text-foreground break-all pr-2">
-                          {step.command}
-                        </code>
+                        <code
+                          className="text-foreground break-word pr-2 whitespace-pre-line"
+                          dangerouslySetInnerHTML={{
+                            __html: step.command,
+                          }}
+                        />
                         <Button
                           size="sm"
                           variant="ghost"

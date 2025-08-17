@@ -21,15 +21,9 @@ import type { Route } from "./+types/root";
 
 import appCssUrl from "~/app.css?url";
 import { getUserId } from "~/auth.server";
-import { getLanguageSession } from "~/language.server";
 import { AuthProvider } from "~/lib/auth";
-import {
-  DEFAULT_LANGUAGE,
-  detectLanguageFromAcceptLanguage,
-  getLanguageFromPath,
-  I18nProvider,
-  isRTLLanguage,
-} from "~/lib/i18n";
+import { DEFAULT_LANGUAGE, I18nProvider, isRTLLanguage } from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { themeSessionResolver } from "~/sessions.server";
 import { getUserById } from "~/user.server";
 import { cancelIdleCallback, scheduleIdleCallback } from "~/utils.client";
@@ -61,20 +55,9 @@ export const links: Route.LinksFunction = () => {
 };
 
 export async function loader({ request, context }: Route.LoaderArgs) {
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
+
   const { getTheme } = await themeSessionResolver(request);
-  const url = new URL(request.url);
-
-  // Detect language from URL, cookie, or browser preference
-  const pathLanguage = getLanguageFromPath(url.pathname);
-  const languageSession = await getLanguageSession(request);
-  const cookieLanguage = languageSession.getLanguage();
-  const acceptLanguage = detectLanguageFromAcceptLanguage(
-    request.headers.get("Accept-Language") || "",
-  );
-
-  // Priority: URL > Cookie > Accept-Language > Default
-  const language: SupportedLanguage =
-    pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
 
   // Get current user if logged in and context is available
   const userId = await getUserId(request);

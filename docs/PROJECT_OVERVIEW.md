@@ -6,8 +6,8 @@ A fast, opinionated starter template for building full-stack React apps powered 
 
 ## 🧱 Tech Stack
 
-- **Frontend**: React 19.1.1, React Router 7.7.1, TypeScript 5.9.2
-- **Styling**: TailwindCSS 4.1.11, shadcn/ui (Radix UI + Lucide icons)
+- **Frontend**: React 19.1.1, React Router 7.8.1, TypeScript 5.9.2
+- **Styling**: TailwindCSS 4.1.12, shadcn/ui (Radix UI + Lucide icons)
 - **Backend**: Hono framework on Cloudflare Workers
 - **Database**: Cloudflare D1 (SQLite) + Drizzle ORM
 - **Tooling**: Bun, Vite, Vitest
@@ -253,29 +253,13 @@ You may use, modify, and deploy this project freely, **but**:
 
 ---
 
-## 💼 Planned Commercial Edition
-
-We are working on a commercial version of this project with extended features and a license that allows:
-
-- ✅ Use in closed-source projects
-- ✅ One-time payment per version
-- ✅ No requirement to release your modifications
-
-It will be distributed as a `.zip` file with a commercial license via Gumroad.
-
-Follow this repository to get notified when it’s available
-
-<!-- ---
-
 ## 💼 Commercial Edition
 
 A commercial version with extended features and a non-AGPL license is available at:
 
-👉 [https://gumroad.com/kotonsora/nara-boilerplate](https://gumroad.com/kotonsora/nara-boilerplate)
-
-- ✅ Use in closed-source projects
-- ✅ One-time payment per version
-- ✅ No requirement to release your modifications -->
+- No need to open source your changes
+- One-time payment for lifetime access
+- [Distributed via Gumroad](https://gum.co/u/otmfo1j8)
 
 ---
 

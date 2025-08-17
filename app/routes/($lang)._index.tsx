@@ -5,12 +5,7 @@ import { PageContext } from "~/features/landing-page/context/page-context";
 import { ContentPage } from "~/features/landing-page/page";
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
-import { getLanguageSession } from "~/language.server";
-import {
-  DEFAULT_LANGUAGE,
-  detectLanguageFromAcceptLanguage,
-  getLanguageFromPath,
-} from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
@@ -19,19 +14,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
       cloudflare: { env },
       db,
     } = context;
-    const url = new URL(request.url);
-
-    // Detect language from URL, cookie, or browser preference
-    const pathLanguage = getLanguageFromPath(url.pathname);
-    const languageSession = await getLanguageSession(request);
-    const cookieLanguage = languageSession.getLanguage();
-    const acceptLanguage = detectLanguageFromAcceptLanguage(
-      request.headers.get("Accept-Language") || "",
-    );
-
-    // Priority: URL > Cookie > Accept-Language > Default
-    const language: SupportedLanguage =
-      pathLanguage || cookieLanguage || acceptLanguage || DEFAULT_LANGUAGE;
+    const language: SupportedLanguage = await resolveRequestLanguage(request);
 
     const t = createTranslationFunction(language);
 
@@ -44,21 +27,21 @@ export async function loader({ context, request }: Route.LoaderArgs) {
         number: 1,
         title: t("landing.gettingStarted.steps.clone.title"),
         description: t("landing.gettingStarted.steps.clone.description"),
-        command: "npx degit KotonoSora/nara-vite-react-boilerplate#main my-app",
+        command: "npx degit KotonoSora/nara-vite-react-boilerplate my-app",
         note: t("landing.gettingStarted.steps.clone.note"),
       },
       {
         number: 2,
         title: t("landing.gettingStarted.steps.install.title"),
         description: t("landing.gettingStarted.steps.install.description"),
-        command: "cd my-app && bun install",
+        command: "cd my-app \n bun install",
         note: t("landing.gettingStarted.steps.install.note"),
       },
       {
         number: 3,
         title: t("landing.gettingStarted.steps.database.title"),
         description: t("landing.gettingStarted.steps.database.description"),
-        command: "bun run db:migrate",
+        command: "bun run db:generate \n bun run db:migrate",
         note: t("landing.gettingStarted.steps.database.note"),
       },
       {
@@ -136,12 +119,12 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   }
 }
 
-export function meta({ data }: Route.MetaArgs) {
-  if (!data) return null;
+export function meta({ loaderData }: Route.MetaArgs) {
+  if (!loaderData) return null;
 
   return [
-    { title: data.title },
-    { name: "description", content: data.description },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 

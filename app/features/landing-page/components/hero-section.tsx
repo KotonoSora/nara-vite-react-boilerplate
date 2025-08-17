@@ -33,29 +33,29 @@ export const HeroSection = memo(function HeroSection() {
 
       <div className="container mx-auto text-center relative">
         <div className="mx-auto max-w-5xl">
-          {/* Enhanced badge with better animation */}
+          {/* Badge with better animation */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 rounded-full text-sm font-medium text-primary mb-6 backdrop-blur-sm">
             <Star className="h-4 w-4 fill-current" />
             {t("landing.hero.badge")}
             <Sparkles className="h-4 w-4" />
           </div>
 
-          {/* Enhanced title with better gradient */}
+          {/* Title with better gradient */}
           <h2 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-primary to-purple-600 bg-clip-text text-transparent">
             {t("landing.hero.title")}
           </h2>
 
-          {/* Enhanced subtitle */}
+          {/* Subtitle */}
           <p className="text-xl sm:text-2xl font-semibold text-primary mb-4">
             {t("landing.hero.subtitle")}
           </p>
 
-          {/* Enhanced description - reduced size/width so H2 becomes LCP */}
+          {/* Description - reduced size/width so H2 becomes LCP */}
           <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             {t("landing.hero.description")}
           </p>
 
-          {/* Enhanced CTA buttons */}
+          {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Button
               size="lg"
@@ -95,7 +95,7 @@ export const HeroSection = memo(function HeroSection() {
             </Button>
           </div>
 
-          {/* Enhanced status indicator */}
+          {/* Status indicator */}
           <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
               <div className="w-2 h-2 bg-green-500 rounded-full" />

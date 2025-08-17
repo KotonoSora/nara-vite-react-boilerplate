@@ -54,7 +54,7 @@ export const TechStackSection = memo(function TechStackSection() {
                 <div className="flex items-center justify-between">
                   <span className="font-medium">React Router</span>
                   <span className="text-sm text-muted-foreground bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded">
-                    7.7.1
+                    7.8.1
                   </span>
                 </div>
               </div>
@@ -76,7 +76,7 @@ export const TechStackSection = memo(function TechStackSection() {
                 <div className="flex items-center justify-between">
                   <span className="font-medium">TailwindCSS</span>
                   <span className="text-sm text-muted-foreground bg-purple-500/10 border border-purple-500/20 px-2 py-1 rounded">
-                    4.1.11
+                    4.1.12
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
