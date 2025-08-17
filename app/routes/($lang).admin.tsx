@@ -1,6 +1,6 @@
 import type { Route } from "./+types/($lang).admin";
 
-import { requireUserId } from "~/auth.server";
+import { logout, requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/admin/context/page-context";
 import { ContentAdminPage } from "~/features/admin/page";
 import { createTranslationFunction } from "~/lib/i18n";
@@ -19,7 +19,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 
   // Check if user is admin
   if (user.role !== "admin") {
-    throw new Response("Access denied. Admin role required.", { status: 403 });
+    return logout(request);
   }
 
   const language = await resolveRequestLanguage(request);

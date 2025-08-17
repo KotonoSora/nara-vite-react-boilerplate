@@ -1,6 +1,8 @@
+import { redirect } from "react-router";
+
 import type { Route } from "./+types/($lang).dashboard";
 
-import { requireUserId } from "~/auth.server";
+import { logout, requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/dashboard/context/page-context";
 import { ContentDashboardPage } from "~/features/dashboard/page";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
@@ -18,7 +20,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const user = await getUserById(db, userId);
 
   if (!user) {
-    throw new Response("User not found", { status: 404 });
+    return logout(request);
   }
 
   // Calculate some basic stats
