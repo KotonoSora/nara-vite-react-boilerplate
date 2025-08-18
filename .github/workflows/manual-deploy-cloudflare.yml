@@ -60,6 +60,11 @@ jobs:
           sed -i "s|your-database-id|${{ secrets.D1_DATABASE_ID }}|g" wrangler.jsonc
           sed -i "s|your-database-id|${{ secrets.D1_DATABASE_ID }}|g" drizzle.config.ts
 
+      - name: Inject domain config
+        run: |
+          sed -i "s|your-prod-domain.com|${{ secrets.PROD_DOMAIN }}|g" wrangler.jsonc
+          sed -i "s|your-dev-domain.com|${{ secrets.DEV_DOMAIN }}|g" wrangler.jsonc
+
       - name: Generate Wrangler types
         run: bun run wrangler types
 
@@ -67,7 +72,12 @@ jobs:
         run: bun run db:migrate-production
 
       - name: Deploy to Cloudflare Pages
-        run: bun run deploy
+        run: |
+          if [ "${GITHUB_REF##*/}" = "main" ]; then
+            bun run deploy --env production
+          else [ "${GITHUB_REF##*/}" = "develop" ]; then
+            bun run deploy --env development
+          fi
 
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
