@@ -75,7 +75,7 @@ jobs:
         run: |
           if [ "${GITHUB_REF##*/}" = "main" ]; then
             bun run deploy --env production
-          else [ "${GITHUB_REF##*/}" = "develop" ]; then
+          else
             bun run deploy --env development
           fi
 
