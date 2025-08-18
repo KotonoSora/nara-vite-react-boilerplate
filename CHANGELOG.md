@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.6.6 (2025-08-17)
+
+- Upgraded dependency versions
+- Enhance authentication and authorization features
+- Enhance internationalization and localization features
+
 ## 4.6.5 (2025-08-10)
 
 - Implemented authentication and authorization features

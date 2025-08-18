@@ -8,6 +8,11 @@ export const user = sqliteTable("users", {
   role: text("role", { enum: ["admin", "user"] })
     .notNull()
     .default("user"),
+  emailVerified: integer("email_verified", { mode: "boolean" }).default(false),
+  emailVerificationToken: text("email_verification_token"),
+  emailVerificationExpires: integer("email_verification_expires", {
+    mode: "timestamp",
+  }),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .$defaultFn(() => new Date()),

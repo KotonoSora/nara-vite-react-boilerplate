@@ -24,3 +24,14 @@ export function getSessionExpiry(): Date {
   now.setDate(now.getDate() + 30);
   return now;
 }
+
+export function generateEmailVerificationToken(): string {
+  return crypto.randomUUID() + "-" + Date.now().toString(36);
+}
+
+export function getEmailVerificationExpiry(): Date {
+  const now = new Date();
+  // Token expires in 24 hours
+  now.setHours(now.getHours() + 24);
+  return now;
+}

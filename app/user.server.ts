@@ -1,9 +1,14 @@
-import { eq } from "drizzle-orm";
+import { and, eq, gt } from "drizzle-orm";
 
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as schema from "~/database/schema";
-import { hashPassword, verifyPassword } from "~/lib/auth/config";
+import {
+  generateEmailVerificationToken,
+  getEmailVerificationExpiry,
+  hashPassword,
+  verifyPassword,
+} from "~/lib/auth/config";
 
 const { user } = schema;
 
@@ -20,6 +25,8 @@ export async function createUser(
   userData: CreateUserData,
 ): Promise<User> {
   const passwordHash = await hashPassword(userData.password);
+  const emailVerificationToken = generateEmailVerificationToken();
+  const emailVerificationExpires = getEmailVerificationExpiry();
 
   const [newUser] = await db
     .insert(user)
@@ -28,8 +35,16 @@ export async function createUser(
       passwordHash,
       name: userData.name,
       role: userData.role || "user",
+      emailVerificationToken,
+      emailVerificationExpires,
     })
     .returning();
+
+  // Send email verification with token
+  if (import.meta.env.DEV) {
+    const verificationLink = `/verify-email?token=${emailVerificationToken}`;
+    console.log({ verificationLink });
+  }
 
   return newUser;
 }
@@ -81,4 +96,92 @@ export async function authenticateUser(
   }
 
   return foundUser;
+}
+
+export type EmailVerificationResult =
+  | { success: true; user: User }
+  | {
+      success: false;
+      error: string;
+      errorCode:
+        | "INVALID_TOKEN"
+        | "EXPIRED_TOKEN"
+        | "ALREADY_VERIFIED"
+        | "TOKEN_NOT_FOUND"
+        | "DATABASE_ERROR";
+    };
+
+export async function verifyEmailWithToken(
+  db: DrizzleD1Database<typeof schema>,
+  token: string,
+): Promise<EmailVerificationResult> {
+  try {
+    // Check if token is provided
+    if (!token || token.trim() === "") {
+      return {
+        success: false,
+        error: "Verification token is required",
+        errorCode: "INVALID_TOKEN",
+      };
+    }
+
+    // Find user with the token
+    const [foundUser] = await db
+      .select()
+      .from(user)
+      .where(eq(user.emailVerificationToken, token))
+      .limit(1);
+
+    if (!foundUser) {
+      return {
+        success: false,
+        error: "Invalid verification token",
+        errorCode: "TOKEN_NOT_FOUND",
+      };
+    }
+
+    // Check if email is already verified
+    if (foundUser.emailVerified) {
+      return {
+        success: false,
+        error: "Email address has already been verified",
+        errorCode: "ALREADY_VERIFIED",
+      };
+    }
+
+    // Check if token has expired
+    if (
+      !foundUser.emailVerificationExpires ||
+      foundUser.emailVerificationExpires <= new Date()
+    ) {
+      return {
+        success: false,
+        error:
+          "Verification token has expired. Please request a new verification email",
+        errorCode: "EXPIRED_TOKEN",
+      };
+    }
+
+    // Mark email as verified and clear token
+    const [updatedUser] = await db
+      .update(user)
+      .set({
+        emailVerified: true,
+        emailVerificationToken: null,
+        emailVerificationExpires: null,
+        updatedAt: new Date(),
+      })
+      .where(eq(user.id, foundUser.id))
+      .returning();
+
+    return { success: true, user: updatedUser };
+  } catch (error) {
+    console.error("Database error during email verification:", error);
+    return {
+      success: false,
+      error:
+        "A database error occurred while verifying your email. Please try again later",
+      errorCode: "DATABASE_ERROR",
+    };
+  }
 }
