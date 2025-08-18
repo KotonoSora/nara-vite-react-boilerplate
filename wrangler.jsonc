@@ -4,14 +4,6 @@
   "compatibility_date": "2025-04-09",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./workers/app.ts",
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "your-database-name",
-      "database_id": "your-database-id",
-      "migrations_dir": "drizzle",
-    },
-  ],
   "env": {
     "production": {
       "workers_dev": false,
@@ -22,6 +14,14 @@
           "custom_domain": true,
         },
       ],
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "your-database-name",
+          "database_id": "your-database-id",
+          "migrations_dir": "drizzle",
+        },
+      ],
     },
     "development": {
       "workers_dev": false,
@@ -30,6 +30,14 @@
         {
           "pattern": "your-dev-domain.com",
           "custom_domain": true,
+        },
+      ],
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "your-database-name",
+          "database_id": "your-database-id",
+          "migrations_dir": "drizzle",
         },
       ],
     },
