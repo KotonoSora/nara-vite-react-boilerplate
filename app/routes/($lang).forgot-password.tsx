@@ -7,10 +7,6 @@ import { createTranslationFunction, useI18n } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { requestPasswordReset } from "~/user.server";
 
-const forgotPasswordSchema = z.object({
-  email: z.email("Please enter a valid email address"),
-});
-
 export const loader = async ({ request }: Route.LoaderArgs) => {
   try {
     const language = await resolveRequestLanguage(request);
@@ -30,6 +26,10 @@ export async function action({ request, context }: Route.ActionArgs) {
   const t = createTranslationFunction(language);
 
   const formData = await request.formData();
+
+  const forgotPasswordSchema = z.object({
+    email: z.email(t("auth.forgotPassword.errorInvalidEmail")),
+  });
 
   const result = forgotPasswordSchema.safeParse({
     email: formData.get("email"),
