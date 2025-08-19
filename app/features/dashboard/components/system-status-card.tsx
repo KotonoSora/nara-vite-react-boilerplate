@@ -1,7 +1,5 @@
 import { Activity } from "lucide-react";
 
-import type { FC } from "react";
-
 import { Badge } from "~/components/ui/badge";
 import {
   Card,
@@ -11,10 +9,10 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
-import { useTranslation } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n";
 
-export const SystemStatusCard: FC = () => {
-  const t = useTranslation();
+export const SystemStatusCard = () => {
+  const { t } = useI18n();
 
   return (
     <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50">

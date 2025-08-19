@@ -11,13 +11,13 @@ import {
 } from "~/components/ui/card";
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
-import { useTranslation } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n";
 
 import { usePageContext } from "./context/page-context";
 
 export function ContentAdminPage() {
   const { user } = usePageContext();
-  const t = useTranslation();
+  const { t } = useI18n();
 
   if (!user) return null;
 

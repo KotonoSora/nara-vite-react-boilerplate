@@ -1,24 +1,12 @@
 import { Activity, Calendar, TrendingUp, Users } from "lucide-react";
 
-import type { FC } from "react";
+import type { Stats } from "~/features/dashboard/types/types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n";
 
-interface Stats {
-  daysActive: number;
-  totalLogins: number;
-  profileViews: number;
-}
-
-interface StatsOverviewSectionProps {
-  stats: Stats;
-}
-
-export const StatsOverviewSection: FC<StatsOverviewSectionProps> = ({
-  stats,
-}) => {
-  const t = useTranslation();
+export const StatsOverviewSection = ({ stats }: { stats: Stats }) => {
+  const { t } = useI18n();
 
   return (
     <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
