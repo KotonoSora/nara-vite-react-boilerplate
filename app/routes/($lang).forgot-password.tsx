@@ -3,13 +3,32 @@ import { z } from "zod";
 
 import type { Route } from "./+types/($lang).forgot-password";
 
+import { createTranslationFunction, useI18n } from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { requestPasswordReset } from "~/user.server";
 
 const forgotPasswordSchema = z.object({
   email: z.email("Please enter a valid email address"),
 });
 
+export const loader = async ({ request }: Route.LoaderArgs) => {
+  try {
+    const language = await resolveRequestLanguage(request);
+    const t = createTranslationFunction(language);
+
+    return {
+      pageTitle: t("auth.forgotPassword.title"),
+      pageDescription: t("auth.forgotPassword.description"),
+    };
+  } catch (error) {
+    return {};
+  }
+};
+
 export async function action({ request, context }: Route.ActionArgs) {
+  const language = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+
   const formData = await request.formData();
 
   const result = forgotPasswordSchema.safeParse({
@@ -18,7 +37,7 @@ export async function action({ request, context }: Route.ActionArgs) {
 
   if (!result.success) {
     return data(
-      { error: "Please enter a valid email address" },
+      { error: t("auth.forgotPassword.errorInvalidEmail") },
       { status: 400 },
     );
   }
@@ -34,22 +53,28 @@ export async function action({ request, context }: Route.ActionArgs) {
 
     return data({
       success: true,
-      message:
-        "If an account with that email exists, we've sent password reset instructions.",
+      message: t("auth.forgotPassword.successMessage"),
     });
   } catch (error) {
     console.error("Password reset request error:", error);
     return data(
-      { error: "Something went wrong. Please try again." },
+      { error: t("auth.forgotPassword.errorGeneral") },
       { status: 500 },
     );
   }
 }
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ loaderData }: Route.MetaArgs) {
+  if (!loaderData) {
+    return [
+      { title: "Forgot Password - NARA" },
+      { name: "description", content: "Reset your password" },
+    ];
+  }
+
   return [
-    { title: "Forgot Password - NARA" },
-    { name: "description", content: "Reset your password" },
+    { title: loaderData.pageTitle },
+    { name: "description", content: loaderData.pageDescription },
   ];
 }
 
@@ -59,13 +84,15 @@ export default function ForgotPassword({ actionData }: Route.ComponentProps) {
   const message =
     actionData && "message" in actionData ? actionData.message : null;
 
+  const { t } = useI18n();
+
   if (isSuccess) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="max-w-md w-full space-y-8">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Check Your Email
+              {t("auth.forgotPassword.successHeading")}
             </h2>
           </div>
           <div className="mt-8 space-y-6">
@@ -86,7 +113,7 @@ export default function ForgotPassword({ actionData }: Route.ComponentProps) {
                 </div>
                 <div className="ml-3">
                   <h3 className="text-sm font-medium text-green-800">
-                    Reset Instructions Sent
+                    {t("auth.forgotPassword.successSubheading")}
                   </h3>
                   <div className="mt-2 text-sm text-green-700">
                     <p>{message}</p>
@@ -96,7 +123,7 @@ export default function ForgotPassword({ actionData }: Route.ComponentProps) {
                       href="/login"
                       className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                     >
-                      Back to Sign In
+                      {t("auth.forgotPassword.backToSignIn")}
                     </a>
                   </div>
                 </div>
@@ -113,17 +140,16 @@ export default function ForgotPassword({ actionData }: Route.ComponentProps) {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Forgot your password?
+            {t("auth.forgotPassword.heading")}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Enter your email address and we'll send you a link to reset your
-            password.
+            {t("auth.forgotPassword.subheading")}
           </p>
         </div>
         <form className="mt-8 space-y-6" method="post">
           <div>
             <label htmlFor="email" className="sr-only">
-              Email address
+              {t("auth.forgotPassword.emailLabel")}
             </label>
             <input
               id="email"
@@ -132,7 +158,7 @@ export default function ForgotPassword({ actionData }: Route.ComponentProps) {
               autoComplete="email"
               required
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Email address"
+              placeholder={t("auth.forgotPassword.emailPlaceholder")}
             />
           </div>
 
@@ -164,7 +190,7 @@ export default function ForgotPassword({ actionData }: Route.ComponentProps) {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Send Reset Instructions
+              {t("auth.forgotPassword.submitButton")}
             </button>
           </div>
 
@@ -173,7 +199,7 @@ export default function ForgotPassword({ actionData }: Route.ComponentProps) {
               href="/login"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
-              Back to Sign In
+              {t("auth.forgotPassword.backToSignIn")}
             </a>
           </div>
         </form>
