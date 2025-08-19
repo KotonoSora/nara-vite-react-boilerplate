@@ -4,32 +4,52 @@ import { z } from "zod";
 import type { Route } from "./+types/($lang).reset-password";
 
 import { isStrongPassword } from "~/lib/auth/config";
+import { createTranslationFunction, useI18n } from "~/lib/i18n";
+import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { resetPasswordWithToken } from "~/user.server";
 
-const resetPasswordSchema = z
-  .object({
-    token: z.string().min(1, "Reset token is required"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
-    confirmPassword: z.string().min(1, "Please confirm your password"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  });
-
 export async function loader({ request }: Route.LoaderArgs) {
-  const url = new URL(request.url);
-  const token = url.searchParams.get("token");
+  try {
+    const language = await resolveRequestLanguage(request);
+    const t = createTranslationFunction(language);
 
-  if (!token) {
-    return redirect("/forgot-password");
+    const url = new URL(request.url);
+    const token = url.searchParams.get("token");
+
+    if (!token) {
+      return redirect("/forgot-password");
+    }
+
+    return {
+      token,
+      pageTitle: t("auth.resetPassword.title"),
+      pageDescription: t("auth.resetPassword.description"),
+    };
+  } catch (error) {
+    return null;
   }
-
-  return { token };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
+  const language = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+
   const formData = await request.formData();
+
+  const resetPasswordSchema = z
+    .object({
+      token: z.string().min(1, t("auth.resetPassword.errorMissingToken")),
+      password: z
+        .string()
+        .min(8, t("auth.resetPassword.errorPasswordTooShort")),
+      confirmPassword: z
+        .string()
+        .min(1, t("auth.resetPassword.errorConfirmPasswordMissing")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t("auth.resetPassword.errorPasswordsDoNotMatch"),
+      path: ["confirmPassword"],
+    });
 
   const result = resetPasswordSchema.safeParse({
     token: formData.get("token"),
@@ -38,7 +58,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   });
 
   if (!result.success) {
-    const errors = result.error.flatten().fieldErrors;
+    const errors = z.flattenError(result.error).fieldErrors;
     return data({ errors }, { status: 400 });
   }
 
@@ -50,9 +70,7 @@ export async function action({ request, context }: Route.ActionArgs) {
     return data(
       {
         errors: {
-          password: [
-            "Password must contain at least 8 characters with uppercase, lowercase, number, and special character",
-          ],
+          password: [t("auth.resetPassword.errorWeakPassword")],
         },
       },
       { status: 400 },
@@ -72,16 +90,23 @@ export async function action({ request, context }: Route.ActionArgs) {
   } catch (error) {
     console.error("Password reset error:", error);
     return data(
-      { error: "Something went wrong. Please try again." },
+      { error: t("auth.resetPassword.errorGeneral") },
       { status: 500 },
     );
   }
 }
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ loaderData }: Route.MetaArgs) {
+  if (!loaderData) {
+    return [
+      { title: "Reset Password - NARA" },
+      { name: "description", content: "Set a new password for your account" },
+    ];
+  }
+
   return [
-    { title: "Reset Password - NARA" },
-    { name: "description", content: "Set a new password for your account" },
+    { title: loaderData.pageTitle },
+    { name: "description", content: loaderData.pageDescription },
   ];
 }
 
@@ -89,7 +114,10 @@ export default function ResetPassword({
   loaderData,
   actionData,
 }: Route.ComponentProps) {
+  if (!loaderData) return null;
   const { token } = loaderData;
+
+  const { t } = useI18n();
 
   // Handle different action data types
   let errors: Record<string, string[]> | undefined;
@@ -108,10 +136,10 @@ export default function ResetPassword({
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Set New Password
+            {t("auth.resetPassword.heading")}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Enter a strong password for your account
+            {t("auth.resetPassword.subheading")}
           </p>
         </div>
         <form className="mt-8 space-y-6" method="post">
@@ -120,7 +148,7 @@ export default function ResetPassword({
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="password" className="sr-only">
-                New Password
+                {t("auth.resetPassword.passwordLabel")}
               </label>
               <input
                 id="password"
@@ -129,7 +157,7 @@ export default function ResetPassword({
                 autoComplete="new-password"
                 required
                 className="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="New password"
+                placeholder={t("auth.resetPassword.passwordPlaceholder")}
               />
               {errors?.password && (
                 <p className="mt-1 text-sm text-red-600">
@@ -139,7 +167,7 @@ export default function ResetPassword({
             </div>
             <div>
               <label htmlFor="confirmPassword" className="sr-only">
-                Confirm Password
+                {t("auth.resetPassword.confirmPasswordLabel")}
               </label>
               <input
                 id="confirmPassword"
@@ -148,24 +176,26 @@ export default function ResetPassword({
                 autoComplete="new-password"
                 required
                 className="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Confirm new password"
+                placeholder={t("auth.resetPassword.confirmPasswordPlaceholder")}
               />
               {errors?.confirmPassword && (
                 <p className="mt-1 text-sm text-red-600">
-                  {errors.confirmPassword[0]}
+                  {t("auth.resetPassword.errorPasswordsDoNotMatch")}
                 </p>
               )}
             </div>
           </div>
 
           <div className="text-sm">
-            <p className="text-gray-600">Password must contain:</p>
+            <p className="text-gray-600">
+              {t("auth.resetPassword.passwordRequirements")}
+            </p>
             <ul className="mt-1 text-xs text-gray-500 list-disc list-inside">
-              <li>At least 8 characters</li>
-              <li>One uppercase letter</li>
-              <li>One lowercase letter</li>
-              <li>One number</li>
-              <li>One special character</li>
+              <li>{t("auth.resetPassword.requirementLength")}</li>
+              <li>{t("auth.resetPassword.requirementUppercase")}</li>
+              <li>{t("auth.resetPassword.requirementLowercase")}</li>
+              <li>{t("auth.resetPassword.requirementNumber")}</li>
+              <li>{t("auth.resetPassword.requirementSpecial")}</li>
             </ul>
           </div>
 
@@ -197,7 +227,7 @@ export default function ResetPassword({
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Update Password
+              {t("auth.resetPassword.submitButton")}
             </button>
           </div>
 
@@ -206,7 +236,7 @@ export default function ResetPassword({
               href="/login"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
-              Back to Sign In
+              {t("auth.resetPassword.backToSignIn")}
             </a>
           </div>
         </form>
