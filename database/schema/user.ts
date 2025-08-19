@@ -13,6 +13,10 @@ export const user = sqliteTable("users", {
   emailVerificationExpires: integer("email_verification_expires", {
     mode: "timestamp",
   }),
+  passwordResetToken: text("password_reset_token"),
+  passwordResetExpires: integer("password_reset_expires", {
+    mode: "timestamp",
+  }),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .$defaultFn(() => new Date()),

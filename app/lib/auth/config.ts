@@ -35,3 +35,37 @@ export function getEmailVerificationExpiry(): Date {
   now.setHours(now.getHours() + 24);
   return now;
 }
+
+export function isStrongPassword(password: string): {
+  isValid: boolean;
+  requirements: {
+    minLength: boolean;
+    hasUppercase: boolean;
+    hasLowercase: boolean;
+    hasNumber: boolean;
+    hasSpecialChar: boolean;
+  };
+} {
+  const requirements = {
+    minLength: password.length >= 8,
+    hasUppercase: /[A-Z]/.test(password),
+    hasLowercase: /[a-z]/.test(password),
+    hasNumber: /\d/.test(password),
+    hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+  };
+
+  const isValid = Object.values(requirements).every(Boolean);
+
+  return { isValid, requirements };
+}
+
+export function generatePasswordResetToken(): string {
+  return crypto.randomUUID() + "-" + Date.now().toString(36);
+}
+
+export function getPasswordResetExpiry(): Date {
+  const now = new Date();
+  // Token expires in 1 hour
+  now.setHours(now.getHours() + 1);
+  return now;
+}

@@ -5,7 +5,9 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import * as schema from "~/database/schema";
 import {
   generateEmailVerificationToken,
+  generatePasswordResetToken,
   getEmailVerificationExpiry,
+  getPasswordResetExpiry,
   hashPassword,
   verifyPassword,
 } from "~/lib/auth/config";
@@ -184,4 +186,73 @@ export async function verifyEmailWithToken(
       errorCode: "DATABASE_ERROR",
     };
   }
+}
+
+export async function requestPasswordReset(
+  db: DrizzleD1Database<typeof schema>,
+  email: string,
+  baseUrl: string,
+): Promise<{ success: boolean; error?: string }> {
+  const foundUser = await getUserByEmail(db, email);
+
+  if (!foundUser) {
+    // Don't reveal if user exists or not for security
+    return { success: true };
+  }
+
+  const resetToken = generatePasswordResetToken();
+  const resetExpires = getPasswordResetExpiry();
+
+  await db
+    .update(user)
+    .set({
+      passwordResetToken: resetToken,
+      passwordResetExpires: resetExpires,
+      updatedAt: new Date(),
+    })
+    .where(eq(user.id, foundUser.id));
+
+  // Send email confirm reset password with token
+  if (import.meta.env.DEV) {
+    const resetLink = `${baseUrl}/reset-password?token=${resetToken}`;
+    console.log({ resetLink });
+  }
+
+  return { success: true };
+}
+
+export async function resetPasswordWithToken(
+  db: DrizzleD1Database<typeof schema>,
+  token: string,
+  newPassword: string,
+): Promise<{ success: boolean; user?: User; error?: string }> {
+  const [foundUser] = await db
+    .select()
+    .from(user)
+    .where(
+      and(
+        eq(user.passwordResetToken, token),
+        gt(user.passwordResetExpires!, new Date()),
+      ),
+    )
+    .limit(1);
+
+  if (!foundUser) {
+    return { success: false, error: "Invalid or expired reset token" };
+  }
+
+  const passwordHash = await hashPassword(newPassword);
+
+  const [updatedUser] = await db
+    .update(user)
+    .set({
+      passwordHash,
+      passwordResetToken: null,
+      passwordResetExpires: null,
+      updatedAt: new Date(),
+    })
+    .where(eq(user.id, foundUser.id))
+    .returning();
+
+  return { success: true, user: updatedUser };
 }
