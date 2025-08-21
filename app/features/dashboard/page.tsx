@@ -10,7 +10,12 @@ import { FooterSection } from "~/features/landing-page/components/footer-section
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
 
 export function ContentDashboardPage() {
-  const { user, recentActivity, stats } = usePageContext();
+  const context = usePageContext();
+  if (!context) {
+    return null;
+  }
+
+  const { user, recentActivity, stats } = context;
 
   return (
     <main

@@ -1,5 +1,6 @@
 import { Calendar, Clock, Settings, User } from "lucide-react";
 
+import type { RecentActivity } from "~/features/dashboard/types/types";
 import type { FC } from "react";
 
 import {
@@ -9,24 +10,14 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n";
 
-interface Activity {
-  id: number;
-  actionKey: string;
-  time: string;
-  timeValue?: number;
-  icon: "User" | "Settings" | "Calendar";
-}
-
-interface RecentActivityCardProps {
-  activities: Activity[];
-}
-
-export const RecentActivityCard: FC<RecentActivityCardProps> = ({
+export const RecentActivityCard = ({
   activities,
+}: {
+  activities: readonly RecentActivity[];
 }) => {
-  const t = useTranslation();
+  const { t } = useI18n();
 
   return (
     <Card className="lg:col-span-1 transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/50 dark:to-amber-950/50">

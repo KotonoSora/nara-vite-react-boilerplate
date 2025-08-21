@@ -1,4 +1,4 @@
-import { Form, Link } from "react-router";
+import { Link } from "react-router";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -11,15 +11,10 @@ import {
 } from "~/components/ui/card";
 import { FooterSection } from "~/features/landing-page/components/footer-section";
 import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
-import { useTranslation } from "~/lib/i18n";
-
-import { usePageContext } from "./context/page-context";
+import { useI18n } from "~/lib/i18n";
 
 export function ContentAdminPage() {
-  const { user } = usePageContext();
-  const t = useTranslation();
-
-  if (!user) return null;
+  const { t } = useI18n();
 
   return (
     <main

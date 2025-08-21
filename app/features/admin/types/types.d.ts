@@ -1,3 +1,0 @@
-interface AdminContentProps {
-  user?: User;
-}

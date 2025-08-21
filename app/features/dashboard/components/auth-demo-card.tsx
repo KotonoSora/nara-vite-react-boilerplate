@@ -1,8 +1,6 @@
 import { Activity, TrendingUp } from "lucide-react";
 import { Link } from "react-router";
 
-import type { FC } from "react";
-
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -11,10 +9,10 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n";
 
-export const AuthDemoCard: FC = () => {
-  const t = useTranslation();
+export const AuthDemoCard = () => {
+  const { t } = useI18n();
 
   return (
     <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/50 dark:to-purple-950/50">
