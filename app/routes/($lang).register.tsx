@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import { data, redirect } from "react-router";
 import { z } from "zod";
 
@@ -5,6 +6,8 @@ import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).register";
 
 import { createUserSession, getUserId } from "~/auth.server";
+import * as schema from "~/database/schema";
+import { MAX_USERS } from "~/features/auth/constants/limit";
 import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
 import { getLanguageSession } from "~/language.server";
@@ -69,6 +72,16 @@ export async function action({ request, context }: Route.ActionArgs) {
 
   const { name, email, password } = result.data;
   const { db } = context;
+  const { user } = schema;
+
+  const userCount = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(user)
+    .get();
+
+  if ((userCount?.count ?? 0) >= MAX_USERS) {
+    return data({ error: "Registration limit reached" }, { status: 403 });
+  }
 
   try {
     // Check if user already exists

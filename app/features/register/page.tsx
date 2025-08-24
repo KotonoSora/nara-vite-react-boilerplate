@@ -9,12 +9,10 @@ export function ContentRegisterPage() {
 
   return (
     <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-      <div className="flex w-full max-w-sm flex-col gap-6">
+      <div className="flex flex-col gap-6 w-full justify-between items-stretch">
         <BrandLogo url="/" className="self-center" />
-        <div className="flex flex-col gap-6">
-          <RegisterForm error={error} isSubmitting={false} />
-          <AgreementsFooter />
-        </div>
+        <RegisterForm error={error} isSubmitting={false} />
+        <AgreementsFooter />
       </div>
     </div>
   );

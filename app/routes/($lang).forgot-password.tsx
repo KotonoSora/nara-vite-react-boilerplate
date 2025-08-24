@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import type { Route } from "./+types/($lang).forgot-password";
 
+import { PageContext } from "~/features/forgot-password/context/page-context";
 import { ForgotPasswordPage } from "~/features/forgot-password/page";
 import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
@@ -86,6 +87,8 @@ export default function ForgotPassword({ actionData }: Route.ComponentProps) {
     actionData && "message" in actionData ? actionData.message : null;
 
   return (
-    <ForgotPasswordPage isSuccess={isSuccess} error={error} message={message} />
+    <PageContext.Provider value={{ isSuccess, error, message }}>
+      <ForgotPasswordPage />
+    </PageContext.Provider>
   );
 }

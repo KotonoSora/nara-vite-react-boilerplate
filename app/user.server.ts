@@ -51,6 +51,13 @@ export async function createUser(
   return newUser;
 }
 
+/**
+ * Gets a user by email address.
+ *
+ * @param db - The database instance
+ * @param email - The email address of the user
+ * @returns The user object if found, or null if not found
+ */
 export async function getUserByEmail(
   db: DrizzleD1Database<typeof schema>,
   email: string,
@@ -188,6 +195,14 @@ export async function verifyEmailWithToken(
   }
 }
 
+/**
+ * Sends a password reset email with a token to the user if the email exists.
+ *
+ * @param db - The database instance
+ * @param email - The email address of the user
+ * @param baseUrl - The base URL of the application
+ * @returns A promise that resolves to an object indicating the success or failure of the operation
+ */
 export async function requestPasswordReset(
   db: DrizzleD1Database<typeof schema>,
   email: string,
@@ -221,6 +236,14 @@ export async function requestPasswordReset(
   return { success: true };
 }
 
+/**
+ * Resets the user's password using a password reset token.
+ *
+ * @param db - The database instance
+ * @param token - The password reset token
+ * @param newPassword - The new password to set
+ * @returns An object indicating the success or failure of the operation
+ */
 export async function resetPasswordWithToken(
   db: DrizzleD1Database<typeof schema>,
   token: string,

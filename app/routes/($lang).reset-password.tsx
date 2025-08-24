@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import type { Route } from "./+types/($lang).reset-password";
 
+import { PageContext } from "~/features/reset-password/context/page-context";
 import { ResetPasswordPage } from "~/features/reset-password/page";
 import { isStrongPassword } from "~/lib/auth/config";
 import { createTranslationFunction } from "~/lib/i18n";
@@ -130,5 +131,9 @@ export default function ResetPassword({
     }
   }
 
-  return <ResetPasswordPage token={token} errors={errors} error={error} />;
+  return (
+    <PageContext.Provider value={{ token, errors, error }}>
+      <ResetPasswordPage />
+    </PageContext.Provider>
+  );
 }
