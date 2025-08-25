@@ -79,7 +79,7 @@ export async function action({ request, context }: Route.ActionArgs) {
     .from(user)
     .get();
 
-  if ((userCount?.count ?? 0) >= MAX_USERS) {
+  if (typeof MAX_USERS === "number" && (userCount?.count ?? 0) >= MAX_USERS) {
     return data({ error: "Registration limit reached" }, { status: 403 });
   }
 

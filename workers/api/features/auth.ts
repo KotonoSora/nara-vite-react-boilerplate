@@ -60,7 +60,7 @@ app.post("/admin/register", async (c): Promise<Response> => {
     .from(user)
     .get();
 
-  if ((userCount?.count ?? 0) >= MAX_USERS) {
+  if (typeof MAX_USERS === "number" && (userCount?.count ?? 0) >= MAX_USERS) {
     return c.json({ error: "Registration limit reached" }, 403);
   }
 
@@ -137,7 +137,7 @@ app.post("member/register", async (c) => {
     .from(user)
     .get();
 
-  if ((userCount?.count ?? 0) >= MAX_USERS) {
+  if (typeof MAX_USERS === "number" && (userCount?.count ?? 0) >= MAX_USERS) {
     return c.json({ error: "Registration limit reached" }, 403);
   }
 
