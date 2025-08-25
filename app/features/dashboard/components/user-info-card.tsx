@@ -13,19 +13,13 @@ import {
 import { Separator } from "~/components/ui/separator";
 import { useTranslation } from "~/lib/i18n/context";
 
-interface User {
-  name: string;
-  email: string;
-  role: "admin" | "user";
-  createdAt: string | Date;
-}
+import { usePageContext } from "../context/page-context";
 
-interface UserInfoCardProps {
-  user: User;
-}
-
-export const UserInfoCard: FC<UserInfoCardProps> = ({ user }) => {
+export function UserInfoCard() {
+  const { user } = usePageContext() || {};
   const t = useTranslation();
+
+  if (!user) return null;
 
   return (
     <Card className="lg:col-span-1 transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-950/50 dark:to-gray-950/50">
@@ -80,4 +74,4 @@ export const UserInfoCard: FC<UserInfoCardProps> = ({ user }) => {
       </CardContent>
     </Card>
   );
-};
+}

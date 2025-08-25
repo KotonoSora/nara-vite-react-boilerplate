@@ -27,6 +27,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     if (user.role !== "admin") {
       return redirect("/");
     }
+
     return {
       title: t("admin.meta.title"),
       description: t("admin.meta.description"),
@@ -34,12 +35,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     };
   } catch (error) {
     console.error("Admin page error:", error);
-    return data(
-      {
-        error: "Failed to admin page data",
-      },
-      { status: 500 },
-    );
+
+    return data({ error: "Failed to admin page data" }, { status: 500 });
   }
 }
 

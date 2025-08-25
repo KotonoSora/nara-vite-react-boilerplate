@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
 
-export const PageContext = createContext<DashboardContentProps>({
-  user: {} as User,
-  recentActivity: [],
-  stats: {} as Stats,
-});
+import type { DashboardContentProps } from "../types/type";
+
+export const PageContext = createContext<DashboardContentProps | undefined>(
+  undefined,
+);
 
 export const usePageContext = () => useContext(PageContext);

@@ -5,20 +5,13 @@ import type { FC } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useTranslation } from "~/lib/i18n/context";
 
-interface Stats {
-  daysActive: number;
-  totalLogins: number;
-  profileViews: number;
-}
+import { usePageContext } from "../context/page-context";
 
-interface StatsOverviewSectionProps {
-  stats: Stats;
-}
-
-export const StatsOverviewSection: FC<StatsOverviewSectionProps> = ({
-  stats,
-}) => {
+export function StatsOverviewSection() {
+  const { stats } = usePageContext() || {};
   const t = useTranslation();
+
+  if (!stats) return null;
 
   return (
     <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -91,4 +84,4 @@ export const StatsOverviewSection: FC<StatsOverviewSectionProps> = ({
       </Card>
     </div>
   );
-};
+}

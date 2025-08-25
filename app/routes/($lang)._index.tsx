@@ -41,12 +41,8 @@ export async function loader({ context, request }: Route.LoaderArgs) {
     });
   } catch (error) {
     console.error("Landing page error:", error);
-    return data(
-      {
-        error: "Failed to load page data",
-      },
-      { status: 500 },
-    );
+
+    return data({ error: "Failed to load page data" }, { status: 500 });
   }
 }
 
