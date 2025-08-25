@@ -31,11 +31,11 @@ export type FeatureCardConfig = {
 };
 
 export type PageInformation = {
-  title: string;
-  description: string;
-  githubRepository: string;
+  title?: string;
+  description?: string;
+  githubRepository?: string;
   commercialLink?: string;
-  showcases: ProjectInfo[];
+  showcases?: ProjectInfo[];
   steps: Step[];
   featuresConfig: FeatureCardConfig[];
 };

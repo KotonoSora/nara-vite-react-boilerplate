@@ -1,6 +1,8 @@
 import { CheckCircle, Mail, XCircle } from "lucide-react";
 import { Link } from "react-router";
 
+import type { VerifyEmailPageProps } from "./types/type";
+
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 import {
@@ -16,11 +18,7 @@ export function VerifyEmailPage({
   isSuccess,
   error,
   message,
-}: {
-  isSuccess: boolean;
-  error: string | null;
-  message: string | null;
-}) {
+}: VerifyEmailPageProps) {
   const { t } = useI18n();
 
   return (

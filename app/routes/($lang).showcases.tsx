@@ -1,4 +1,5 @@
-import type { PageInformation } from "~/features/landing-page/types/type";
+import { data } from "react-router";
+
 import type { Route } from "./+types/($lang).showcases";
 
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
@@ -14,41 +15,30 @@ export async function loader({ context, request }: Route.LoaderArgs) {
       cloudflare: { env },
       db,
     } = context;
-
     const language = await resolveRequestLanguage(request);
     const t = createTranslationFunction(language);
-
     const { title, description, githubRepository } =
       (await getPageInformation(env as any)) || {};
     const showcases = await getShowcases(db);
-
     const showcaseTitle = t("showcase.title");
-
-    return {
+    return data({
       title,
       description,
       githubRepository,
       commercialLink: "",
       showcases,
-      steps: [],
-      featuresConfig: [],
       showcaseTitle,
-    } as PageInformation;
+    });
   } catch (error) {
     console.error(error);
-    return null;
+    return data({ error: "Failed to load page data" }, { status: 500 });
   }
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (
-    !loaderData ||
-    (loaderData && (!loaderData.title || !loaderData.description))
-  ) {
+  if (!("title" in loaderData) || !("description" in loaderData)) {
     return [
-      {
-        title: "Showcase",
-      },
+      { title: "Showcase" },
       {
         name: "description",
         content: "Showcase page for displaying featured projects",
@@ -65,10 +55,18 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function Page({ loaderData }: Route.ComponentProps) {
-  if (!loaderData) return null;
+  if (!loaderData || "error" in loaderData) return null;
+
+  const { githubRepository, commercialLink, showcases } = loaderData;
 
   return (
-    <PageContext.Provider value={loaderData}>
+    <PageContext.Provider
+      value={{
+        githubRepository,
+        commercialLink,
+        showcases,
+      }}
+    >
       <ContentShowcasePage />
     </PageContext.Provider>
   );
