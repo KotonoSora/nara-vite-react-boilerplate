@@ -62,8 +62,8 @@ jobs:
 
       - name: Inject domain config
         run: |
-          sed -i "s|your-prod-domain.com|${{ vars.PROD_DOMAIN }}|g" wrangler.jsonc
-          sed -i "s|your-dev-domain.com|${{ vars.DEV_DOMAIN }}|g" wrangler.jsonc
+          sed -i "s|your-prod-domain.com|${{ vars.VITE_PROD_DOMAIN }}|g" wrangler.jsonc
+          sed -i "s|your-dev-domain.com|${{ vars.VITE_DEV_DOMAIN }}|g" wrangler.jsonc
 
       - name: Generate Wrangler types
         run: bun run wrangler types
@@ -86,8 +86,8 @@ jobs:
       D1_DATABASE_NAME: ${{ secrets.D1_DATABASE_NAME }}
       NODE_ENV: production
       ADMIN_REGISTRATION_SECRET: ${{ secrets.ADMIN_REGISTRATION_SECRET }}
-      MAX_USERS: ${{ vars.MAX_USERS }}
-      LANDING_PAGE_TITLE: ${{ vars.LANDING_PAGE_TITLE }}
-      LANDING_PAGE_DESCRIPTION: ${{ vars.LANDING_PAGE_DESCRIPTION }}
-      LANDING_PAGE_REPOSITORY: ${{ vars.LANDING_PAGE_REPOSITORY }}
-      LANDING_PAGE_COMMERCIAL_LINK: ${{ vars.LANDING_PAGE_COMMERCIAL_LINK }}
+      VITE_MAX_USERS: ${{ vars.VITE_MAX_USERS }}
+      VITE_LANDING_PAGE_TITLE: ${{ vars.VITE_LANDING_PAGE_TITLE }}
+      VITE_LANDING_PAGE_DESCRIPTION: ${{ vars.VITE_LANDING_PAGE_DESCRIPTION }}
+      VITE_LANDING_PAGE_REPOSITORY: ${{ vars.VITE_LANDING_PAGE_REPOSITORY }}
+      VITE_LANDING_PAGE_COMMERCIAL_LINK: ${{ vars.VITE_LANDING_PAGE_COMMERCIAL_LINK }}
