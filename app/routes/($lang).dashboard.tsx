@@ -13,33 +13,27 @@ import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
-  try {
-    const { db } = context;
-    const language = await resolveRequestLanguage(request);
-    const t = createTranslationFunction(language);
-    const userId = await getUserId(request);
-    if (!userId) {
-      return redirect("/");
-    }
-    const user = await getUserById(db, userId);
-    if (!user) {
-      return redirect("/");
-    }
-    const recentActivity: Activity[] = getRecentActivity(t, user.createdAt);
-    const stats: Stats = getStats(user.createdAt);
-
-    return {
-      title: t("dashboard.meta.title"),
-      description: t("dashboard.meta.description"),
-      user,
-      recentActivity,
-      stats,
-    };
-  } catch (error) {
-    console.error("Dashboard page error:", error);
-
-    return data({ error: "Failed to load dashboard data" }, { status: 500 });
+  const { db } = context;
+  const language = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+  const userId = await getUserId(request);
+  if (!userId) {
+    return redirect("/");
   }
+  const user = await getUserById(db, userId);
+  if (!user) {
+    return redirect("/");
+  }
+  const recentActivity: Activity[] = getRecentActivity(t, user.createdAt);
+  const stats: Stats = getStats(user.createdAt);
+
+  return {
+    title: t("dashboard.meta.title"),
+    description: t("dashboard.meta.description"),
+    user,
+    recentActivity,
+    stats,
+  };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
