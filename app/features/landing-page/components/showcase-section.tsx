@@ -35,7 +35,7 @@ export const ShowcaseSection = memo(function ShowcaseSection() {
           ))}
       </div>
 
-      <div className="max-w-5xl mx-auto text-center space-y-4">
+      <div className="max-w-5xl mx-auto text-center space-y-4 mt-10">
         <Button asChild variant="ghost">
           <Link to="/showcases">
             <span>{t("landing.github.seeMore")}</span>

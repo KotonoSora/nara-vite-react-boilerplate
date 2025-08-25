@@ -1,3 +1,5 @@
+import { eq } from "drizzle-orm";
+
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { ProjectInfoWithoutID } from "../types/type";
 
@@ -16,6 +18,9 @@ export async function seedShowcases(
   showcases: ProjectInfoWithoutID[],
 ) {
   try {
+    await db.delete(showcase).execute();
+    await db.delete(showcaseTag).execute();
+
     const existingShowcase = await db
       .select({ id: showcase.id })
       .from(showcase)
@@ -23,30 +28,24 @@ export async function seedShowcases(
 
     if (!existingShowcase.length && showcases) {
       await db.insert(showcase).values(showcases);
-    }
 
-    const existingShowcaseTags = await db
-      .select({ id: showcaseTag.id })
-      .from(showcaseTag)
-      .limit(1);
+      const insertedShowcases = await db
+        .select({ id: showcase.id })
+        .from(showcase)
+        .execute();
 
-    if (!existingShowcaseTags.length) {
-      const showcaseRows = await db.select({ id: showcase.id }).from(showcase);
-
-      const tagRows = [
-        { showcaseId: showcaseRows[0].id, tag: "finance" },
-        { showcaseId: showcaseRows[0].id, tag: "tools" },
-        { showcaseId: showcaseRows[1].id, tag: "pomodoro" },
-        { showcaseId: showcaseRows[1].id, tag: "forest" },
-        { showcaseId: showcaseRows[2].id, tag: "family tree" },
-        { showcaseId: showcaseRows[2].id, tag: "visualizer" },
-        { showcaseId: showcaseRows[3].id, tag: "UI library" },
-        { showcaseId: showcaseRows[3].id, tag: "tools" },
-      ];
-
-      await db.insert(showcaseTag).values(tagRows);
+      for (const [index, showcase] of insertedShowcases.entries()) {
+        if (showcases[index].tags) {
+          await db.insert(showcaseTag).values(
+            showcases[index].tags.map((tag) => ({
+              showcaseId: showcase.id,
+              tag,
+            })),
+          );
+        }
+      }
     }
   } catch (error) {
-    console.error(error);
+    console.error("Error seeding showcases:", error);
   }
 }
