@@ -1,3 +1,8 @@
+import type {
+  FeatureCardConfig,
+  PageInformation,
+  Step,
+} from "~/features/landing-page/types/type";
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang)._index";
 

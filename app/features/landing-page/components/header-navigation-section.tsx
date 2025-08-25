@@ -13,15 +13,15 @@ import { Form, Link } from "react-router";
 import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
-import { BrandLogo } from "~/features/landing-page/components/brand-logo";
 import { useOptionalAuth } from "~/lib/auth";
 import { useI18n } from "~/lib/i18n";
 import { cn } from "~/lib/utils";
 
+import { BrandLogo } from "./brand-logo";
+
 // Lazy-load GitHub button to trim initial JS
 const GitHubButtonLazy = lazy(async () => ({
-  default: (await import("~/features/landing-page/components/github-button"))
-    .GitHubButton,
+  default: (await import("./github-button")).GitHubButton,
 }));
 
 // Lightweight avatar to avoid pulling Radix primitives for the header

@@ -3,9 +3,9 @@ import { memo } from "react";
 import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
-import { usePageContext } from "~/features/landing-page/context/page-context";
 import { useI18n } from "~/lib/i18n";
 
+import { usePageContext } from "../context/page-context";
 import {
   BackgroundDecoration,
   heroDecorationConfig,
@@ -13,7 +13,7 @@ import {
 
 export const HeroSection = memo(function HeroSection() {
   const { t } = useI18n();
-  const { githubRepository } = usePageContext();
+  const { githubRepository } = usePageContext() || {};
 
   return (
     <section className="py-24 px-4 bg-background relative overflow-hidden">
@@ -63,7 +63,7 @@ export const HeroSection = memo(function HeroSection() {
               asChild
             >
               <Link
-                to={githubRepository}
+                to={githubRepository || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 leading-none"

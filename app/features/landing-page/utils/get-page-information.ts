@@ -1,3 +1,5 @@
+import type { LandingPageEnv } from "../types/type";
+
 /**
  * Get the page information from the environment variables.
  *

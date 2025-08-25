@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 
 import type { DrizzleD1Database } from "drizzle-orm/d1";
+import type { ProjectInfo } from "../types/type";
 
 import * as schema from "~/database/schema/showcase";
 

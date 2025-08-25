@@ -15,7 +15,7 @@ import { usePageContext } from "./context/page-context";
 
 export function ContentShowcasePage() {
   const { t } = useI18n();
-  const { showcases } = usePageContext();
+  const { showcases } = usePageContext() || {};
 
   const [showScroll, setShowScroll] = useState(false);
 
@@ -59,46 +59,48 @@ export function ContentShowcasePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto my-6 px-3">
-          {showcases.map((project) => (
-            <Card
-              key={project.id}
-              className="flex flex-col pt-0 hover:shadow-lg transition-shadow cursor-pointer"
-            >
-              <img
-                src={project.image ?? SocialPreview}
-                alt={project.name}
-                className="rounded-t-xl w-full h-48 object-cover"
-                loading="lazy"
-              />
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between gap-2">
-                  <span>{project.name}</span>
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground"
-                    onClick={(e) => e.stopPropagation()}
-                    aria-label={t("showcase.viewProject")}
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-3 grow">
-                <p className="text-sm text-muted-foreground">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+          {Array.isArray(showcases) &&
+            showcases.map((project) => (
+              <Card
+                key={project.id}
+                className="flex flex-col pt-0 hover:shadow-lg transition-shadow cursor-pointer"
+              >
+                <img
+                  src={project.image ?? SocialPreview}
+                  alt={project.name}
+                  className="rounded-t-xl w-full h-48 object-cover"
+                  loading="lazy"
+                />
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between gap-2">
+                    <span>{project.name}</span>
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-foreground"
+                      onClick={(e) => e.stopPropagation()}
+                      aria-label={t("showcase.viewProject")}
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col gap-3 grow">
+                  <p className="text-sm text-muted-foreground">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {Array.isArray(project.tags) &&
+                      project.tags.map((tag) => (
+                        <Badge key={tag} variant="secondary">
+                          {tag}
+                        </Badge>
+                      ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
         </div>
 
         {/* Footer Section */}

@@ -1,13 +1,9 @@
 import { createContext, useContext } from "react";
 
-export const PageContext = createContext<PageInformation>({
-  title: "",
-  description: "",
-  githubRepository: "",
-  commercialLink: "",
-  showcases: [],
-  steps: [],
-  featuresConfig: [],
-});
+import type { PageInformation } from "~/features/landing-page/types/type";
+
+export const PageContext = createContext<PageInformation | undefined>(
+  undefined,
+);
 
 export const usePageContext = () => useContext(PageContext);

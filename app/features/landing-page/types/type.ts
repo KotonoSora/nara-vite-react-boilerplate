@@ -1,4 +1,4 @@
-type ProjectInfo = {
+export type ProjectInfo = {
   id: number;
   name: string;
   description: string;
@@ -7,9 +7,9 @@ type ProjectInfo = {
   tags: string[];
 };
 
-type ProjectInfoWithoutID = Omit<ProjectInfo, "id">;
+export type ProjectInfoWithoutID = Omit<ProjectInfo, "id">;
 
-type Step = {
+export type Step = {
   number: number;
   title: string;
   description: string;
@@ -17,7 +17,7 @@ type Step = {
   note?: string;
 };
 
-type FeatureCardConfig = {
+export type FeatureCardConfig = {
   icon: string;
   title: string;
   description: string;
@@ -30,7 +30,7 @@ type FeatureCardConfig = {
   };
 };
 
-type PageInformation = {
+export type PageInformation = {
   title: string;
   description: string;
   githubRepository: string;
@@ -40,7 +40,7 @@ type PageInformation = {
   featuresConfig: FeatureCardConfig[];
 };
 
-type LandingPageEnv = {
+export type LandingPageEnv = {
   LANDING_PAGE_TITLE?: string;
   LANDING_PAGE_DESCRIPTION?: string;
   LANDING_PAGE_REPOSITORY?: string;

@@ -3,6 +3,7 @@ import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import { z } from "zod";
 
+import type { ProjectInfoWithoutID } from "~/features/landing-page/types/type";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { Context } from "hono";
 

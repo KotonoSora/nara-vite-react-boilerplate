@@ -1,4 +1,5 @@
 import type { DrizzleD1Database } from "drizzle-orm/d1";
+import type { ProjectInfoWithoutID } from "../types/type";
 
 import * as schema from "~/database/schema/showcase";
 

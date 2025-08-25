@@ -1,12 +1,15 @@
 import { memo } from "react";
 
-import { ShowcaseItem } from "~/features/landing-page/components/showcase-item";
-import { usePageContext } from "~/features/landing-page/context/page-context";
+import type { ProjectInfo } from "../types/type";
+
 import { useI18n } from "~/lib/i18n";
+
+import { ShowcaseItem } from "../components/showcase-item";
+import { usePageContext } from "../context/page-context";
 
 export const ShowcaseSection = memo(function ShowcaseSection() {
   const { t } = useI18n();
-  const { showcases } = usePageContext();
+  const { showcases } = usePageContext() || {};
 
   return (
     <section

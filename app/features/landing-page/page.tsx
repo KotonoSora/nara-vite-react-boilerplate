@@ -1,13 +1,13 @@
-import { BuiltForDevelopersSection } from "~/features/landing-page/components/built-for-developers-section";
-import { DonateSection } from "~/features/landing-page/components/donate-section";
-import { FooterSection } from "~/features/landing-page/components/footer-section";
-import { GettingStartedSection } from "~/features/landing-page/components/getting-started-section";
-import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
-import { HeroSection } from "~/features/landing-page/components/hero-section";
-import { KeyFeaturesSection } from "~/features/landing-page/components/key-features-section";
-import { LicenseSection } from "~/features/landing-page/components/license-section";
-import { ShowcaseSection } from "~/features/landing-page/components/showcase-section";
-import { TechStackSection } from "~/features/landing-page/components/tech-stack-section";
+import { BuiltForDevelopersSection } from "./components/built-for-developers-section";
+import { DonateSection } from "./components/donate-section";
+import { FooterSection } from "./components/footer-section";
+import { GettingStartedSection } from "./components/getting-started-section";
+import { HeaderNavigationSection } from "./components/header-navigation-section";
+import { HeroSection } from "./components/hero-section";
+import { KeyFeaturesSection } from "./components/key-features-section";
+import { LicenseSection } from "./components/license-section";
+import { ShowcaseSection } from "./components/showcase-section";
+import { TechStackSection } from "./components/tech-stack-section";
 
 export function ContentPage() {
   return (

@@ -1,3 +1,4 @@
+import type { PageInformation } from "~/features/landing-page/types/type";
 import type { Route } from "./+types/($lang).showcase";
 
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
@@ -41,11 +42,24 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (!loaderData) return null;
+  if (
+    !loaderData ||
+    (loaderData && (!loaderData.title || !loaderData.description))
+  ) {
+    return [
+      {
+        title: "Showcase",
+      },
+      {
+        name: "description",
+        content: "Showcase page for displaying featured projects",
+      },
+    ];
+  }
 
   return [
     {
-      title: `${(loaderData as any).showcaseTitle || "Showcases"} - ${loaderData.title}`,
+      title: loaderData.title,
     },
     { name: "description", content: loaderData.description },
   ];

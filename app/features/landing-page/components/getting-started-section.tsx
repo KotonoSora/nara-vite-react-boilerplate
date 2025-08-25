@@ -1,6 +1,8 @@
 import { Check, Copy, Play, Terminal } from "lucide-react";
 import { memo, useCallback, useState } from "react";
 
+import type { Step } from "../types/type";
+
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n";
@@ -9,7 +11,7 @@ import { usePageContext } from "../context/page-context";
 
 export const GettingStartedSection = memo(function GettingStartedSection() {
   const { t } = useI18n();
-  const { steps } = usePageContext();
+  const { steps } = usePageContext() || {};
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
 
   const copyToClipboard = async (step: Step) => {
@@ -53,69 +55,70 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
 
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {steps.map((step) => (
-              <Card
-                key={step.number}
-                className="border-2 border-primary/20 bg-gradient-to-br from-background/80 to-background/60 backdrop-blur-sm"
-              >
-                <CardHeader className="pb-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm">
-                      {step.number}
-                    </div>
-                    <CardTitle className="text-lg">{step.title}</CardTitle>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    {step.description}
-                  </p>
-                </CardHeader>
-
-                <CardContent className="pt-0">
-                  <div className="relative">
-                    <div className="bg-muted/50 border border-border rounded-lg p-4 font-mono text-sm">
-                      <div className="flex items-center gap-2 mb-2 text-muted-foreground">
-                        <Terminal className="h-4 w-4" />
-                        <span className="text-xs">Terminal</span>
+            {Array.isArray(steps) &&
+              steps.map((step) => (
+                <Card
+                  key={step.number}
+                  className="border-2 border-primary/20 bg-gradient-to-br from-background/80 to-background/60 backdrop-blur-sm"
+                >
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm">
+                        {step.number}
                       </div>
-                      <div className="flex items-center justify-between">
-                        <code
-                          className="text-foreground break-word pr-2 whitespace-pre-line"
-                          dangerouslySetInnerHTML={{
-                            __html: step.command,
-                          }}
-                        />
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="h-8 w-8 p-0 cursor-pointer"
-                          aria-label={
-                            copiedStep === step.number
-                              ? t("landing.gettingStarted.copied")
-                              : t("landing.gettingStarted.copyCommand")
-                          }
-                          onClick={handleCopyClick(step)}
-                        >
-                          {copiedStep === step.number ? (
-                            <Check className="h-4 w-4 text-green-500" />
-                          ) : (
-                            <Copy className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
+                      <CardTitle className="text-lg">{step.title}</CardTitle>
                     </div>
+                    <p className="text-sm text-muted-foreground">
+                      {step.description}
+                    </p>
+                  </CardHeader>
 
-                    {step.note && (
-                      <p className="text-xs text-muted-foreground mt-2 italic">
-                        <span role="img" aria-label="Tip">
-                          💡
-                        </span>{" "}
-                        {step.note}
-                      </p>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  <CardContent className="pt-0">
+                    <div className="relative">
+                      <div className="bg-muted/50 border border-border rounded-lg p-4 font-mono text-sm">
+                        <div className="flex items-center gap-2 mb-2 text-muted-foreground">
+                          <Terminal className="h-4 w-4" />
+                          <span className="text-xs">Terminal</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <code
+                            className="text-foreground break-word pr-2 whitespace-pre-line"
+                            dangerouslySetInnerHTML={{
+                              __html: step.command,
+                            }}
+                          />
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="h-8 w-8 p-0 cursor-pointer"
+                            aria-label={
+                              copiedStep === step.number
+                                ? t("landing.gettingStarted.copied")
+                                : t("landing.gettingStarted.copyCommand")
+                            }
+                            onClick={handleCopyClick(step)}
+                          >
+                            {copiedStep === step.number ? (
+                              <Check className="h-4 w-4 text-green-500" />
+                            ) : (
+                              <Copy className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+
+                      {step.note && (
+                        <p className="text-xs text-muted-foreground mt-2 italic">
+                          <span role="img" aria-label="Tip">
+                            💡
+                          </span>{" "}
+                          {step.note}
+                        </p>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
           </div>
 
           {/* Quick completion indicator */}
