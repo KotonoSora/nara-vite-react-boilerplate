@@ -1,4 +1,5 @@
 // Import all translation files to generate types
+import enAbout from "~/locales/en/about.json";
 import enAdmin from "~/locales/en/admin.json";
 import enAuth from "~/locales/en/auth.json";
 import enCommon from "~/locales/en/common.json";
@@ -23,6 +24,7 @@ type NamespaceTranslations = typeof enCommon & {
   theme: typeof enTheme;
   landing: typeof enLanding;
   legal: typeof enLegal;
+  about: typeof enAbout;
 };
 
 // Extract the shape of the translation object to create a recursive type
