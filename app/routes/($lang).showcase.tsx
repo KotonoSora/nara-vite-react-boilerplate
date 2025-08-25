@@ -18,9 +18,8 @@ export async function loader({ context, request }: Route.LoaderArgs) {
     const language = await resolveRequestLanguage(request);
     const t = createTranslationFunction(language);
 
-    const { title, description, githubRepository } = await getPageInformation({
-      ...env,
-    } as any);
+    const { title, description, githubRepository } =
+      (await getPageInformation(env as any)) || {};
     const showcases = await getShowcases(db);
 
     const showcaseTitle = t("showcase.title");

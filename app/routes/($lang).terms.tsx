@@ -18,7 +18,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     cloudflare: { env },
   } = context;
 
-  const { githubRepository } = await getPageInformation({ ...env } as any);
+  const { githubRepository } = (await getPageInformation(env as any)) || {};
 
   return {
     githubRepository,
