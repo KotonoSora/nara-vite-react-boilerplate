@@ -49,5 +49,8 @@
       "userDashboard": "ユーザーダッシュボード",
       "returnHome": "ホームに戻る"
     }
+  },
+  "errors": {
+    "userNotFound": "ユーザーが見つかりません"
   }
 }

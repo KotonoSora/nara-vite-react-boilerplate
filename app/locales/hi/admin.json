@@ -49,5 +49,8 @@
       "userDashboard": "उपयोगकर्ता डैशबोर्ड",
       "returnHome": "होम पर वापस जाएं"
     }
+  },
+  "errors": {
+    "userNotFound": "उपयोगकर्ता नहीं मिला"
   }
 }

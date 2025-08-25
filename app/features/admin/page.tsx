@@ -1,4 +1,4 @@
-import { Form, Link } from "react-router";
+import { Link } from "react-router";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -16,7 +16,7 @@ import { useTranslation } from "~/lib/i18n";
 import { usePageContext } from "./context/page-context";
 
 export function ContentAdminPage() {
-  const { user } = usePageContext();
+  const { user } = usePageContext() || {};
   const t = useTranslation();
 
   if (!user) return null;

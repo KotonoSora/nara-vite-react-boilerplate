@@ -49,5 +49,8 @@
       "userDashboard": "User Dashboard",
       "returnHome": "Return to Home"
     }
+  },
+  "errors": {
+    "userNotFound": "User not found"
   }
 }

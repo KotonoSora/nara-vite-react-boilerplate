@@ -49,5 +49,8 @@
       "userDashboard": "แดชบอร์ดผู้ใช้",
       "returnHome": "กลับไปหน้าแรก"
     }
+  },
+  "errors": {
+    "userNotFound": "ไม่พบผู้ใช้"
   }
 }
