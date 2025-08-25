@@ -120,7 +120,22 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (!loaderData) return null;
+  if (
+    !loaderData ||
+    (loaderData && (!loaderData.title || !loaderData.description))
+  ) {
+    return [
+      {
+        title:
+          "NARA Website Starter Kit — Modern, Flexible, Type-Safe Boilerplate",
+      },
+      {
+        name: "description",
+        content:
+          "A fast, opinionated starter template for building full-stack React apps powered by React Router v7, Cloudflare Workers, and modern tooling. Built with a focus on type safety, performance, and developer ergonomics.",
+      },
+    ];
+  }
 
   return [
     { title: loaderData.title },

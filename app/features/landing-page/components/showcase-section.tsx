@@ -23,9 +23,10 @@ export const ShowcaseSection = memo(function ShowcaseSection() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 max-w-5xl mx-auto">
-        {showcases.map((project: ProjectInfo) => (
-          <ShowcaseItem key={project.id} project={project} />
-        ))}
+        {Array.isArray(showcases) &&
+          showcases.map((project: ProjectInfo) => (
+            <ShowcaseItem key={project.id} project={project} />
+          ))}
       </div>
     </section>
   );

@@ -11,6 +11,8 @@ export const GitHubButton = memo(function GitHubButton() {
   const { t } = useI18n();
   const { githubRepository } = usePageContext();
 
+  if (!githubRepository) return null;
+
   return (
     <Button
       variant="ghost"
