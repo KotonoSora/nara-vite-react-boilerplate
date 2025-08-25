@@ -21,7 +21,8 @@ import { BrandLogo } from "./brand-logo";
 
 // Lazy-load GitHub button to trim initial JS
 const GitHubButtonLazy = lazy(async () => ({
-  default: (await import("./github-button")).GitHubButton,
+  default: (await import("../../landing-page/components/github-button"))
+    .GitHubButton,
 }));
 
 // Lightweight avatar to avoid pulling Radix primitives for the header

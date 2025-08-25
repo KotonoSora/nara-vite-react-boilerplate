@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-import type { BrandLogoProps } from "../types/type";
+import type { BrandLogoProps } from "../../landing-page/types/type";
 
 import { cn } from "~/lib/utils";
 

@@ -1,8 +1,8 @@
+import { FooterSection } from "../shared/components/footer-section";
+import { HeaderNavigationSection } from "../shared/components/header-navigation-section";
 import { BuiltForDevelopersSection } from "./components/built-for-developers-section";
 import { DonateSection } from "./components/donate-section";
-import { FooterSection } from "./components/footer-section";
 import { GettingStartedSection } from "./components/getting-started-section";
-import { HeaderNavigationSection } from "./components/header-navigation-section";
 import { HeroSection } from "./components/hero-section";
 import { KeyFeaturesSection } from "./components/key-features-section";
 import { LicenseSection } from "./components/license-section";

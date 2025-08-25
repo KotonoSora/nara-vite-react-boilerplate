@@ -1,7 +1,10 @@
+import { CircleChevronRight } from "lucide-react";
 import { memo } from "react";
+import { Link } from "react-router";
 
 import type { ProjectInfo } from "../types/type";
 
+import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n";
 
 import { ShowcaseItem } from "../components/showcase-item";
@@ -30,6 +33,15 @@ export const ShowcaseSection = memo(function ShowcaseSection() {
           showcases.map((project: ProjectInfo) => (
             <ShowcaseItem key={project.id} project={project} />
           ))}
+      </div>
+
+      <div className="max-w-5xl mx-auto text-center space-y-4">
+        <Button asChild variant="ghost">
+          <Link to="/showcases">
+            <span>{t("landing.github.seeMore")}</span>
+            <CircleChevronRight />
+          </Link>
+        </Button>
       </div>
     </section>
   );

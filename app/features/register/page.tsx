@@ -1,6 +1,6 @@
 import { AgreementsFooter } from "~/features/auth/components/agreements-footer";
-import { BrandLogo } from "~/features/landing-page/components/brand-logo";
 import { RegisterForm } from "~/features/register/components/register-form";
+import { BrandLogo } from "~/features/shared/components/brand-logo";
 
 import { usePageContext } from "./context/page-context";
 

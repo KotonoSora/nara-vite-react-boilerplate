@@ -1,5 +1,5 @@
 import type { PageInformation } from "~/features/landing-page/types/type";
-import type { Route } from "./+types/($lang).showcase";
+import type { Route } from "./+types/($lang).showcases";
 
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";

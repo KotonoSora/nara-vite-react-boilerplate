@@ -1,4 +1,4 @@
-import { BrandLogo } from "~/features/landing-page/components/brand-logo";
+import { BrandLogo } from "~/features/shared/components/brand-logo";
 
 import { AgreementsFooter } from "../auth/components/agreements-footer";
 import { RequestEmailForm } from "./components/request-email-form";

@@ -1,5 +1,5 @@
 import { AgreementsFooter } from "../auth/components/agreements-footer";
-import { BrandLogo } from "../landing-page/components/brand-logo";
+import { BrandLogo } from "../shared/components/brand-logo";
 import { ResetPasswordForm } from "./components/reset-password-form";
 
 export function ResetPasswordPage() {

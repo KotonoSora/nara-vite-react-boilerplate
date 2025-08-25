@@ -14,8 +14,8 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
-import { FooterSection } from "~/features/landing-page/components/footer-section";
-import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
+import { FooterSection } from "~/features/shared/components/footer-section";
+import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
 import { useI18n } from "~/lib/i18n";
 import { cn } from "~/lib/utils";
 

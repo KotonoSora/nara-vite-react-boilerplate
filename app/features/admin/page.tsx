@@ -9,8 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { FooterSection } from "~/features/landing-page/components/footer-section";
-import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
+import { FooterSection } from "~/features/shared/components/footer-section";
+import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
 import { useTranslation } from "~/lib/i18n";
 
 import { usePageContext } from "./context/page-context";

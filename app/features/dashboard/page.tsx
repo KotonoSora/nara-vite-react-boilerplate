@@ -6,8 +6,8 @@ import { SystemStatusCard } from "~/features/dashboard/components/system-status-
 import { UserInfoCard } from "~/features/dashboard/components/user-info-card";
 import { WelcomeSection } from "~/features/dashboard/components/welcome-section";
 import { usePageContext } from "~/features/dashboard/context/page-context";
-import { FooterSection } from "~/features/landing-page/components/footer-section";
-import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
+import { FooterSection } from "~/features/shared/components/footer-section";
+import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
 
 export function ContentDashboardPage() {
   const { user, recentActivity, stats } = usePageContext();
