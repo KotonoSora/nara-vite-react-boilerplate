@@ -7,9 +7,9 @@ import type { Route } from "./+types/($lang).register";
 
 import { createUserSession, getUserId } from "~/auth.server";
 import * as schema from "~/database/schema";
-import { MAX_USERS } from "~/features/auth/constants/limit";
 import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
+import { MAX_USERS } from "~/features/shared/constants/limit";
 import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { createUser, getUserByEmail } from "~/user.server";
@@ -30,56 +30,56 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const formData = await request.formData();
-
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
-  const registerSchema = z
-    .object({
-      name: z.string().min(2, t("auth.register.validation.nameMinLength")),
-      email: z.email(t("auth.register.validation.emailRequired")),
-      password: z
-        .string()
-        .min(8, t("auth.register.validation.passwordMinLength")),
-      confirmPassword: z
-        .string()
-        .min(8, t("auth.register.validation.confirmPasswordRequired")),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-      message: t("auth.register.validation.passwordsDoNotMatch"),
-      path: ["confirmPassword"],
+  try {
+    const formData = await request.formData();
+
+    const registerSchema = z
+      .object({
+        name: z.string().min(2, t("auth.register.validation.nameMinLength")),
+        email: z.email(t("auth.register.validation.emailRequired")),
+        password: z
+          .string()
+          .min(8, t("auth.register.validation.passwordMinLength")),
+        confirmPassword: z
+          .string()
+          .min(8, t("auth.register.validation.confirmPasswordRequired")),
+      })
+      .refine((data) => data.password === data.confirmPassword, {
+        message: t("auth.register.validation.passwordsDoNotMatch"),
+        path: ["confirmPassword"],
+      });
+
+    const result = registerSchema.safeParse({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+      confirmPassword: formData.get("confirmPassword"),
     });
 
-  const result = registerSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-    confirmPassword: formData.get("confirmPassword"),
-  });
+    if (!result.success) {
+      const firstError = result.error.issues[0];
+      return data(
+        { error: firstError?.message || t("errors.common.checkInput") },
+        { status: 400 },
+      );
+    }
 
-  if (!result.success) {
-    const firstError = result.error.issues[0];
-    return data(
-      { error: firstError?.message || t("errors.common.checkInput") },
-      { status: 400 },
-    );
-  }
+    const { name, email, password } = result.data;
+    const { db } = context;
+    const { user } = schema;
 
-  const { name, email, password } = result.data;
-  const { db } = context;
-  const { user } = schema;
+    const userCount = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(user)
+      .get();
 
-  const userCount = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(user)
-    .get();
+    if (typeof MAX_USERS === "number" && (userCount?.count ?? 0) >= MAX_USERS) {
+      return data({ error: "Registration limit reached" }, { status: 403 });
+    }
 
-  if (typeof MAX_USERS === "number" && (userCount?.count ?? 0) >= MAX_USERS) {
-    return data({ error: "Registration limit reached" }, { status: 403 });
-  }
-
-  try {
     // Check if user already exists
     const existingUser = await getUserByEmail(db, email);
     if (existingUser) {
@@ -100,6 +100,7 @@ export async function action({ request, context }: Route.ActionArgs) {
     return createUserSession(newUser.id, "/dashboard");
   } catch (error) {
     console.error("Registration error:", error);
+
     return data(
       { error: t("errors.common.somethingWentWrong") },
       { status: 500 },
@@ -128,7 +129,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
 
 export default function Register({ actionData }: Route.ComponentProps) {
   return (
-    <PageContext.Provider value={{ ...actionData }}>
+    <PageContext.Provider value={{ error: actionData?.error }}>
       <ContentRegisterPage />
     </PageContext.Provider>
   );

@@ -74,6 +74,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     });
   } catch (error) {
     console.error("Email verification error:", error);
+
     return data({ error: "Failed to load page data" }, { status: 500 });
   }
 }

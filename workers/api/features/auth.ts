@@ -7,7 +7,7 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { Context } from "hono";
 
 import * as schema from "~/database/schema";
-import { MAX_USERS } from "~/features/auth/constants/limit";
+import { MAX_USERS } from "~/features/shared/constants/limit";
 import { createUser, getUserByEmail } from "~/user.server";
 
 const { user } = schema;

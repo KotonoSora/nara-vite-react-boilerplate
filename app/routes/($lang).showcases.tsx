@@ -10,17 +10,19 @@ import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
+  const language = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+
   try {
     const {
       cloudflare: { env },
       db,
     } = context;
-    const language = await resolveRequestLanguage(request);
-    const t = createTranslationFunction(language);
     const { title, description, githubRepository } =
       (await getPageInformation(env as any)) || {};
     const showcases = await getShowcases(db);
     const showcaseTitle = t("showcase.title");
+
     return data({
       title,
       description,
@@ -31,12 +33,21 @@ export async function loader({ context, request }: Route.LoaderArgs) {
     });
   } catch (error) {
     console.error(error);
-    return data({ error: "Failed to load page data" }, { status: 500 });
+
+    return data(
+      { error: t("errors.common.somethingWentWrong") },
+      { status: 500 },
+    );
   }
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (!("title" in loaderData) || !("description" in loaderData)) {
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
     return [
       { title: "Showcase" },
       {
@@ -47,9 +58,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
   }
 
   return [
-    {
-      title: loaderData.title,
-    },
+    { title: loaderData.title },
     { name: "description", content: loaderData.description },
   ];
 }

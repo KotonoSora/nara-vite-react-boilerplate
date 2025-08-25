@@ -27,10 +27,11 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+
   try {
     const formData = await request.formData();
-    const language: SupportedLanguage = await resolveRequestLanguage(request);
-    const t = createTranslationFunction(language);
 
     const loginSchema = z.object({
       email: z.email(),
@@ -61,8 +62,9 @@ export async function action({ request, context }: Route.ActionArgs) {
     return createUserSession(user.id, "/dashboard");
   } catch (error) {
     console.error("Login error:", error);
+
     return data(
-      { error: "Something went wrong. Please try again." },
+      { error: t("errors.common.somethingWentWrong") },
       { status: 500 },
     );
   }
