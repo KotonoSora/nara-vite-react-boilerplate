@@ -47,7 +47,12 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (!("title" in loaderData) || !("description" in loaderData)) {
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
     return [
       {
         title:

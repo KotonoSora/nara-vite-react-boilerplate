@@ -26,22 +26,20 @@ import {
 import { Input } from "~/components/ui/input";
 import { useI18n } from "~/lib/i18n";
 
+import { usePageContext } from "../context/page-context";
+
 const createLoginSchema = (
   t: (key: TranslationKey, params?: Record<string, string | number>) => string,
 ) =>
   z.object({
     email: z.email(t("auth.login.validation.emailRequired")),
-    password: z.string().min(6, t("auth.login.validation.passwordMinLength")),
+    password: z.string().min(8, t("auth.login.validation.passwordMinLength")),
   });
 
 type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
 
-interface LoginFormProps {
-  error?: string;
-  isSubmitting?: boolean;
-}
-
-export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
+export function LoginForm() {
+  const { error } = usePageContext();
   const { t } = useI18n();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -52,6 +50,7 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
       email: "",
       password: "",
     },
+    mode: "onChange",
   });
 
   return (
@@ -135,8 +134,12 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
               )}
             />
 
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting
                 ? t("auth.login.form.submitting")
                 : t("auth.login.form.submit")}
             </Button>

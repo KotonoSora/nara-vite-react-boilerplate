@@ -59,7 +59,12 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (!loaderData) {
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
     return [
       { title: "Forgot Password - NARA" },
       { name: "description", content: "Reset your password" },
@@ -67,8 +72,8 @@ export function meta({ loaderData }: Route.MetaArgs) {
   }
 
   return [
-    { title: loaderData.pageTitle },
-    { name: "description", content: loaderData.pageDescription },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 

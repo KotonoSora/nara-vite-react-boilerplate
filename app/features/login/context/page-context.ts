@@ -1,7 +1,15 @@
 import { createContext, useContext } from "react";
 
-export const PageContext = createContext<LoginContentProps>({
-  error: undefined,
-});
+import type { LoginContentProps } from "../types/type";
 
-export const usePageContext = () => useContext(PageContext);
+const PageContext = createContext<LoginContentProps | undefined>(undefined);
+
+function usePageContext() {
+  const context = useContext(PageContext);
+  if (context === undefined) {
+    throw new Error("usePageContext must be used within a login PageContext");
+  }
+  return context;
+}
+
+export { usePageContext, PageContext };

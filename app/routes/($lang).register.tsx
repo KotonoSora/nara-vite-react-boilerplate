@@ -10,7 +10,6 @@ import * as schema from "~/database/schema";
 import { MAX_USERS } from "~/features/auth/constants/limit";
 import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
-import { getLanguageSession } from "~/language.server";
 import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { createUser, getUserByEmail } from "~/user.server";
@@ -34,9 +33,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 export async function action({ request, context }: Route.ActionArgs) {
   const formData = await request.formData();
 
-  // Get language from session for error messages
-  const languageSession = await getLanguageSession(request);
-  const language = languageSession.getLanguage();
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
   const registerSchema = z
@@ -45,10 +42,10 @@ export async function action({ request, context }: Route.ActionArgs) {
       email: z.email(t("auth.register.validation.emailRequired")),
       password: z
         .string()
-        .min(6, t("auth.register.validation.passwordMinLength")),
+        .min(8, t("auth.register.validation.passwordMinLength")),
       confirmPassword: z
         .string()
-        .min(6, t("auth.register.validation.confirmPasswordRequired")),
+        .min(8, t("auth.register.validation.confirmPasswordRequired")),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: t("auth.register.validation.passwordsDoNotMatch"),
