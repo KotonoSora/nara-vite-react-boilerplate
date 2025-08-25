@@ -1,11 +1,4 @@
-import {
-  ArrowUp,
-  ChevronRight,
-  Clock,
-  FileText,
-  Printer,
-  Share2,
-} from "lucide-react";
+import { ChevronRight, Clock, FileText, Printer, Share2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
@@ -14,10 +7,12 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
-import { FooterSection } from "~/features/shared/components/footer-section";
-import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
 import { useI18n } from "~/lib/i18n";
 import { cn } from "~/lib/utils";
+
+import { ButtonScrollToTop } from "./button-scroll-to-top";
+import { FooterSection } from "./footer-section";
+import { HeaderNavigationSection } from "./header-navigation-section";
 
 interface LegalSection {
   id: string;
@@ -41,7 +36,7 @@ interface LegalPageLayoutProps {
     href: string;
     description: string;
   }>;
-  githubRepository?: string;
+  githubRepository?: string | null;
 }
 
 export function LegalPageLayout({
@@ -56,7 +51,6 @@ export function LegalPageLayout({
   const { t } = useI18n();
   const [activeSection, setActiveSection] = useState<string>("");
   const [readingProgress, setReadingProgress] = useState(0);
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const [isTocOpen, setIsTocOpen] = useState(false);
 
   useEffect(() => {
@@ -65,9 +59,6 @@ export function LegalPageLayout({
         document.documentElement.scrollHeight - window.innerHeight;
       const progress = (window.scrollY / totalHeight) * 100;
       setReadingProgress(Math.min(progress, 100));
-
-      // Show/hide scroll to top button
-      setShowScrollTop(window.scrollY > 300);
 
       // Update active section based on scroll position
       const sectionElements = sections
@@ -122,10 +113,6 @@ export function LegalPageLayout({
         behavior: "smooth",
       });
     }
-  };
-
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -391,20 +378,7 @@ export function LegalPageLayout({
         <FooterSection />
 
         {/* Scroll to Top Button */}
-        <Button
-          className={cn(
-            "fixed bottom-4 right-4 z-50 rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg",
-            {
-              "opacity-100 translate-y-0": showScrollTop,
-              "opacity-0 translate-y-2 pointer-events-none": !showScrollTop,
-            },
-          )}
-          onClick={handleScrollToTop}
-          aria-label={t("legal.common.scrollToTop")}
-          size="sm"
-        >
-          <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5" />
-        </Button>
+        <ButtonScrollToTop />
       </div>
     </>
   );

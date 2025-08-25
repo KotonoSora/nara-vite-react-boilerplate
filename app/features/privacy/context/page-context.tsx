@@ -1,17 +1,17 @@
 import { createContext, useContext } from "react";
 
-export interface PrivacyPageContextValue {
-  githubRepository?: string;
-}
+import type { PrivacyPageProps } from "../types/type";
 
-const PrivacyPageContext = createContext<PrivacyPageContextValue | undefined>(
+const PrivacyPageContext = createContext<PrivacyPageProps | undefined>(
   undefined,
 );
 
 export function usePageContext() {
   const context = useContext(PrivacyPageContext);
   if (context === undefined) {
-    throw new Error("usePageContext must be used within a PrivacyPageProvider");
+    throw new Error(
+      "usePageContext must be used within a privacy PageProvider",
+    );
   }
   return context;
 }

@@ -19,6 +19,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   }
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
+
   return {
     title: t("auth.login.title"),
     description: t("auth.login.description"),

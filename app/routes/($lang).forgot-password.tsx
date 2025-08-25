@@ -10,16 +10,13 @@ import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { requestPasswordReset } from "~/user.server";
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
-  try {
-    const language = await resolveRequestLanguage(request);
-    const t = createTranslationFunction(language);
-    return {
-      pageTitle: t("auth.forgotPassword.title"),
-      pageDescription: t("auth.forgotPassword.description"),
-    };
-  } catch (error) {
-    return {};
-  }
+  const language = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+
+  return {
+    title: t("auth.forgotPassword.title"),
+    description: t("auth.forgotPassword.description"),
+  };
 };
 
 export async function action({ request, context }: Route.ActionArgs) {
@@ -66,7 +63,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
     !loaderData.description
   ) {
     return [
-      { title: "Forgot Password - NARA" },
+      { title: "Forgot Password" },
       { name: "description", content: "Reset your password" },
     ];
   }
