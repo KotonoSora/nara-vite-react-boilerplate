@@ -44,8 +44,11 @@ export function meta({ loaderData }: Route.MetaArgs) {
   ];
 }
 export default function PrivacyPage({ loaderData }: Route.ComponentProps) {
+  if (!loaderData) return null;
+  const { githubRepository } = loaderData;
+
   return (
-    <PageContext.Provider value={loaderData}>
+    <PageContext.Provider value={{ githubRepository }}>
       <ContentPrivacyPage />
     </PageContext.Provider>
   );

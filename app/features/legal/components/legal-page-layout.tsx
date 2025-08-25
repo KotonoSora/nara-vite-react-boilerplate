@@ -41,7 +41,7 @@ interface LegalPageLayoutProps {
     href: string;
     description: string;
   }>;
-  githubRepository: string;
+  githubRepository?: string;
 }
 
 export function LegalPageLayout({
@@ -371,7 +371,7 @@ export function LegalPageLayout({
                     <p>
                       {t("legal.common.contactInfo")}{" "}
                       <Link
-                        to={githubRepository}
+                        to={githubRepository || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="underline underline-offset-4 hover:text-primary"

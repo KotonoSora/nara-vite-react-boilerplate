@@ -4,42 +4,24 @@ import * as schema from "~/database/schema/showcase";
 
 const { showcase, showcaseTag } = schema;
 
-const DEFAULT_SHOWCASES = [
-  {
-    name: "nara-finance-react-ts",
-    description:
-      "A set of modular finance utilities and components built with React and TypeScript, designed for flexibility and reuse.",
-    url: "https://github.com/KotonoSora/nara-finance-react-ts",
-  },
-  {
-    name: "nara-forest",
-    description:
-      "A clean and minimal Pomodoro timer web app for focused productivity, built with the NARA boilerplate.",
-    url: "https://github.com/KotonoSora/nara-forest",
-  },
-  {
-    name: "nara-familytree-react-ts",
-    description:
-      "A flexible family tree visualizer and editor built with React and TypeScript, designed for clarity and extensibility.",
-    url: "https://github.com/KotonoSora/nara-familytree-react-ts",
-  },
-  {
-    name: "nara-ui-library",
-    description:
-      "A modern UI library for finance-related tools, built with React and TypeScript for modularity and developer experience.",
-    url: "https://github.com/KotonoSora/nara-ui-library",
-  },
-];
-
-export async function seedShowcases(db: DrizzleD1Database<typeof schema>) {
+/**
+ * Seeds the database with showcase information.
+ *
+ * @param db - The database instance.
+ * @param showcases - The showcase information to seed.
+ */
+export async function seedShowcases(
+  db: DrizzleD1Database<typeof schema>,
+  showcases: ProjectInfoWithoutID[],
+) {
   try {
     const existingShowcase = await db
       .select({ id: showcase.id })
       .from(showcase)
       .limit(1);
 
-    if (!existingShowcase.length) {
-      await db.insert(showcase).values(DEFAULT_SHOWCASES);
+    if (!existingShowcase.length && showcases) {
+      await db.insert(showcase).values(showcases);
     }
 
     const existingShowcaseTags = await db

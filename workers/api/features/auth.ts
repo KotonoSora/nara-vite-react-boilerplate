@@ -28,8 +28,7 @@ const adminRegisterSchema = z.object({
   adminSecret: z.string(),
 });
 
-const ADMIN_SECRET =
-  process.env.ADMIN_REGISTRATION_SECRET || "nara-admin-secret-2025-08";
+const ADMIN_SECRET = process.env.ADMIN_REGISTRATION_SECRET;
 
 /**
  * POST /auth/admin/register

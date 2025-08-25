@@ -1,11 +1,13 @@
-const DEFAULT = {
-  title: "NARA Website Starter Kit — Modern, Flexible, Type-Safe Boilerplate",
-  description:
-    "A fast, opinionated starter template for building full-stack React apps powered by React Router v7, Cloudflare Workers, and modern tooling. Built with a focus on type safety, performance, and developer ergonomics.",
-  githubRepository: "https://github.com/KotonoSora/nara-vite-react-boilerplate",
-  commercialLink: "https://gum.co/u/otmfo1j8",
-};
-
+/**
+ * Get the page information from the environment variables.
+ *
+ * @param params The environment variables.
+ * @param params.LANDING_PAGE_TITLE The title of the landing page.
+ * @param params.LANDING_PAGE_DESCRIPTION The description of the landing page.
+ * @param params.LANDING_PAGE_REPOSITORY The GitHub repository link.
+ * @param params.LANDING_PAGE_COMMERCIAL_LINK The commercial link.
+ * @returns The page information.
+ */
 export async function getPageInformation({
   LANDING_PAGE_TITLE,
   LANDING_PAGE_DESCRIPTION,
@@ -13,9 +15,9 @@ export async function getPageInformation({
   LANDING_PAGE_COMMERCIAL_LINK,
 }: LandingPageEnv) {
   return {
-    title: LANDING_PAGE_TITLE ?? DEFAULT.title,
-    description: LANDING_PAGE_DESCRIPTION ?? DEFAULT.description,
-    githubRepository: LANDING_PAGE_REPOSITORY ?? DEFAULT.githubRepository,
-    commercialLink: LANDING_PAGE_COMMERCIAL_LINK ?? DEFAULT.commercialLink,
+    title: LANDING_PAGE_TITLE,
+    description: LANDING_PAGE_DESCRIPTION,
+    githubRepository: LANDING_PAGE_REPOSITORY,
+    commercialLink: LANDING_PAGE_COMMERCIAL_LINK,
   };
 }

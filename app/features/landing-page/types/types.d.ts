@@ -7,6 +7,8 @@ type ProjectInfo = {
   tags: string[];
 };
 
+type ProjectInfoWithoutID = Omit<ProjectInfo, "id">;
+
 type Step = {
   number: number;
   title: string;

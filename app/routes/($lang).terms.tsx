@@ -45,8 +45,11 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function TermsPage({ loaderData }: Route.ComponentProps) {
+  if (!loaderData) return null;
+  const { githubRepository } = loaderData;
+
   return (
-    <PageContext.Provider value={loaderData}>
+    <PageContext.Provider value={{ githubRepository }}>
       <ContentTermsPage />
     </PageContext.Provider>
   );
