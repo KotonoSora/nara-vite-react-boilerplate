@@ -7,6 +7,7 @@ import type { ProjectInfo } from "../types/type";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
+import SocialPreview from "~/features/shared/assets/social-preview.svg?url";
 import { useI18n } from "~/lib/i18n";
 
 export const ShowcaseItem = memo(function ShowcaseItem({
@@ -22,7 +23,7 @@ export const ShowcaseItem = memo(function ShowcaseItem({
     >
       <CardHeader className="p-0 gap-0">
         <img
-          src={project.image}
+          src={project.image ?? SocialPreview}
           alt={project.name}
           className="w-full h-48 object-cover border-b block"
           loading="lazy"

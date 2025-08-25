@@ -59,9 +59,17 @@ app.post("/showcase/seed", async (c) => {
     if (db instanceof Response) return db;
 
     const body = await c.req.json();
-    const parsed = z.array(projectInfoSchema).safeParse(body);
+    const parsed = z.array(projectInfoSchema).safeParse(body.seeds);
+
     if (!parsed.success) {
-      return c.json({ error: z.flattenError(parsed.error).fieldErrors }, 400);
+      return c.json(
+        {
+          error: Object.values(z.flattenError(parsed.error).formErrors)
+            .flat()
+            .join(", "),
+        },
+        400,
+      );
     }
 
     await seedShowcases(db, parsed.data as ProjectInfoWithoutID[]);

@@ -21,7 +21,7 @@ export function ContentShowcasePage() {
 
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col">
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-3 lg:gap-4 p-2 sm:p-3 lg:p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-3 lg:gap-4 p-2 sm:p-3 lg:p-4">
             {Array.isArray(showcases) &&
               showcases.map((project) => (
                 <ShowcaseItem key={project.id} project={project} />
