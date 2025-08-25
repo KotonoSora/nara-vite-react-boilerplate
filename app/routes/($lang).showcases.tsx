@@ -13,32 +13,23 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   const language = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
-  try {
-    const {
-      cloudflare: { env },
-      db,
-    } = context;
-    const { title, description, githubRepository } =
-      (await getPageInformation(env as any)) || {};
-    const showcases = await getShowcases(db);
-    const showcaseTitle = t("showcase.title");
+  const {
+    cloudflare: { env },
+    db,
+  } = context;
+  const { title, description, githubRepository } =
+    (await getPageInformation(env as any)) || {};
+  const showcases = await getShowcases(db);
+  const showcaseTitle = t("showcase.title");
 
-    return data({
-      title,
-      description,
-      githubRepository,
-      commercialLink: "",
-      showcases,
-      showcaseTitle,
-    });
-  } catch (error) {
-    console.error(error);
-
-    return data(
-      { error: t("errors.common.somethingWentWrong") },
-      { status: 500 },
-    );
-  }
+  return data({
+    title,
+    description,
+    githubRepository,
+    commercialLink: "",
+    showcases,
+    showcaseTitle,
+  });
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

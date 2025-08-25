@@ -11,33 +11,27 @@ import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
-  try {
-    const { db } = context;
-    const language: SupportedLanguage = await resolveRequestLanguage(request);
-    const t = createTranslationFunction(language);
-    const userId = await getUserId(request);
-    if (!userId) {
-      return redirect("/");
-    }
-    const user = await getUserById(db, userId);
-    if (!user) {
-      return redirect("/");
-    }
-    // Check if user is admin
-    if (user.role !== "admin") {
-      return redirect("/");
-    }
-
-    return {
-      title: t("admin.meta.title"),
-      description: t("admin.meta.description"),
-      user,
-    };
-  } catch (error) {
-    console.error("Admin page error:", error);
-
-    return data({ error: "Failed to admin page data" }, { status: 500 });
+  const { db } = context;
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+  const userId = await getUserId(request);
+  if (!userId) {
+    return redirect("/");
   }
+  const user = await getUserById(db, userId);
+  if (!user) {
+    return redirect("/");
+  }
+  // Check if user is admin
+  if (user.role !== "admin") {
+    return redirect("/");
+  }
+
+  return {
+    title: t("admin.meta.title"),
+    description: t("admin.meta.description"),
+    user,
+  };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

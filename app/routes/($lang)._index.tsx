@@ -17,33 +17,27 @@ import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
-  try {
-    const {
-      cloudflare: { env },
-      db,
-    } = context;
-    const language: SupportedLanguage = await resolveRequestLanguage(request);
-    const t = createTranslationFunction(language);
-    const { title, description, githubRepository, commercialLink } =
-      (await getPageInformation(env as any)) || {};
-    const showcases = await getShowcases(db);
-    const steps: Step[] = getSteps(t);
-    const featuresConfig: FeatureCardConfig[] = getFeaturesConfigs(t);
+  const {
+    cloudflare: { env },
+    db,
+  } = context;
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+  const { title, description, githubRepository, commercialLink } =
+    (await getPageInformation(env as any)) || {};
+  const showcases = await getShowcases(db);
+  const steps: Step[] = getSteps(t);
+  const featuresConfig: FeatureCardConfig[] = getFeaturesConfigs(t);
 
-    return data({
-      title,
-      description,
-      githubRepository,
-      commercialLink,
-      showcases,
-      steps,
-      featuresConfig,
-    });
-  } catch (error) {
-    console.error("Landing page error:", error);
-
-    return data({ error: "Failed to load page data" }, { status: 500 });
-  }
+  return data({
+    title,
+    description,
+    githubRepository,
+    commercialLink,
+    showcases,
+    steps,
+    featuresConfig,
+  });
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

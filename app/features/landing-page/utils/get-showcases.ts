@@ -14,40 +14,36 @@ const { showcase, showcaseTag } = schema;
  * @returns The list of showcases.
  */
 export async function getShowcases(db: DrizzleD1Database<typeof schema>) {
-  try {
-    const rows = await db
-      .select({
-        id: showcase.id,
-        name: showcase.name,
-        description: showcase.description,
-        url: showcase.url,
-        image: showcase.image,
-        tag: showcaseTag.tag,
-      })
-      .from(showcase)
-      .leftJoin(showcaseTag, eq(showcase.id, showcaseTag.showcaseId));
+  const rows = await db
+    .select({
+      id: showcase.id,
+      name: showcase.name,
+      description: showcase.description,
+      url: showcase.url,
+      image: showcase.image,
+      tag: showcaseTag.tag,
+    })
+    .from(showcase)
+    .leftJoin(showcaseTag, eq(showcase.id, showcaseTag.showcaseId));
 
-    const map = new Map<number, ProjectInfo>();
+  const map = new Map<number, ProjectInfo>();
 
-    for (const row of rows) {
-      if (!map.has(row.id)) {
-        map.set(row.id, {
-          id: row.id,
-          name: row.name,
-          description: row.description,
-          url: row.url,
-          image: row.image ?? undefined,
-          tags: [],
-        });
-      }
-
-      if (row.tag) {
-        map.get(row.id)!.tags.push(row.tag);
-      }
+  for (const row of rows) {
+    if (!map.has(row.id)) {
+      map.set(row.id, {
+        id: row.id,
+        name: row.name,
+        description: row.description,
+        url: row.url,
+        image: row.image ?? undefined,
+        tags: [],
+      });
     }
 
-    return Array.from(map.values());
-  } catch (error) {
-    console.error(error);
+    if (row.tag) {
+      map.get(row.id)!.tags.push(row.tag);
+    }
   }
+
+  return Array.from(map.values());
 }
