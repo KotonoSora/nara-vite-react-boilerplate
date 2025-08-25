@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, Eye, EyeOff, Lock, X } from "lucide-react";
+import { AlertCircle, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router";
@@ -101,9 +101,6 @@ export function ResetPasswordForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="space-y-1">
-        <div className="flex items-center justify-center mb-2">
-          <Lock className="h-6 w-6 text-primary" />
-        </div>
         <CardTitle className="text-2xl font-bold text-center">
           {t("auth.resetPassword.heading")}
         </CardTitle>
