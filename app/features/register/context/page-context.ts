@@ -1,7 +1,17 @@
 import { createContext, useContext } from "react";
 
-export const PageContext = createContext<RegisterContentProps>({
-  error: undefined,
-});
+import type { RegisterContentProps } from "../types/type";
 
-export const usePageContext = () => useContext(PageContext);
+const PageContext = createContext<RegisterContentProps | undefined>(undefined);
+
+function usePageContext() {
+  const context = useContext(PageContext);
+  if (context === undefined) {
+    throw new Error(
+      "usePageContext must be used within a register PageContext",
+    );
+  }
+  return context;
+}
+
+export { usePageContext, PageContext };

@@ -20,7 +20,6 @@ export async function loader({ request }: Route.LoaderArgs) {
   if (userId) {
     throw redirect("/dashboard");
   }
-
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
@@ -109,23 +108,25 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (!loaderData) {
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
     return [
-      { title: "Sign Up - NARA" },
-      { name: "description", content: "Create a new NARA account" },
+      { title: "Sign Up" },
+      { name: "description", content: "Create a new account" },
     ];
   }
 
   return [
-    { title: `${(loaderData as any).registerTitle} - NARA` },
-    { name: "description", content: (loaderData as any).registerDescription },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 
-export default function Register({
-  actionData,
-  loaderData,
-}: Route.ComponentProps) {
+export default function Register({ actionData }: Route.ComponentProps) {
   return (
     <PageContext.Provider value={{ ...actionData }}>
       <ContentRegisterPage />

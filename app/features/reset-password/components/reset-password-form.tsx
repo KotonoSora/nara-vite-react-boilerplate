@@ -242,7 +242,7 @@ export function ResetPasswordForm() {
               disabled={form.formState.isSubmitting}
             >
               {form.formState.isSubmitting
-                ? "Submitting..."
+                ? t("auth.resetPassword.submitting")
                 : t("auth.resetPassword.submitButton")}
             </Button>
           </Form>

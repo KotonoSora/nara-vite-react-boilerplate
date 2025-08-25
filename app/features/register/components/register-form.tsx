@@ -26,6 +26,8 @@ import {
 import { Input } from "~/components/ui/input";
 import { useI18n } from "~/lib/i18n";
 
+import { usePageContext } from "../context/page-context";
+
 const createRegisterSchema = (
   t: (key: TranslationKey, params?: Record<string, string | number>) => string,
 ) =>
@@ -47,15 +49,8 @@ const createRegisterSchema = (
 
 type RegisterFormData = z.infer<ReturnType<typeof createRegisterSchema>>;
 
-interface RegisterFormProps {
-  error?: string;
-  isSubmitting?: boolean;
-}
-
-export function RegisterForm({
-  error,
-  isSubmitting = false,
-}: RegisterFormProps) {
+export function RegisterForm() {
+  const { error } = usePageContext();
   const { t } = useI18n();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -69,6 +64,7 @@ export function RegisterForm({
       password: "",
       confirmPassword: "",
     },
+    mode: "onChange",
   });
 
   return (
@@ -210,8 +206,12 @@ export function RegisterForm({
               )}
             />
 
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting
                 ? t("auth.register.form.submitting")
                 : t("auth.register.form.submit")}
             </Button>
