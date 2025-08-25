@@ -1,12 +1,8 @@
 import { Link } from "react-router";
 
-import { cn } from "~/lib/utils";
+import type { BrandLogoProps } from "../types/type";
 
-type BrandLogoProps = {
-  url: string;
-  onClick?: () => void;
-  className?: string;
-};
+import { cn } from "~/lib/utils";
 
 export function BrandLogo(props: BrandLogoProps) {
   const { url, onClick, className } = props;

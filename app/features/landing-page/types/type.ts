@@ -46,3 +46,13 @@ export type LandingPageEnv = {
   LANDING_PAGE_REPOSITORY?: string;
   LANDING_PAGE_COMMERCIAL_LINK?: string;
 };
+
+export type BrandLogoProps = {
+  url: string;
+  onClick?: () => void;
+  className?: string;
+};
+
+export type FeatureCardProps = {
+  config: FeatureCardConfig;
+};

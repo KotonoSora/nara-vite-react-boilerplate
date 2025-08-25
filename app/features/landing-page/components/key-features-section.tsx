@@ -1,7 +1,7 @@
 import { Rocket } from "lucide-react";
 import { memo } from "react";
 
-import type { FeatureCardConfig } from "../types/type";
+import type { FeatureCardProps } from "../types/type";
 
 import {
   Card,
@@ -19,11 +19,7 @@ import {
   keyFeaturesDecorationConfig,
 } from "./shared/background-decoration";
 
-const FeatureCard = memo(function FeatureCard({
-  config,
-}: {
-  config: FeatureCardConfig;
-}) {
+const FeatureCard = memo(function FeatureCard({ config }: FeatureCardProps) {
   const { icon: iconName, title, description, colors } = config;
   const Icon = getIconComponent(iconName);
 
