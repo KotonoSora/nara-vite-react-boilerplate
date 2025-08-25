@@ -9,5 +9,6 @@
     "components": "组件",
     "examples": "示例",
     "demos": "演示"
-  }
+  },
+  "emptyMessage": "展示即将上线，敬请期待！"
 }

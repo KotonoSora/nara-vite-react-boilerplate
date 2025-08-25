@@ -1,11 +1,13 @@
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
+import { useI18n } from "~/lib/i18n";
 
 import { ButtonScrollToTop } from "./components/button-scroll-to-top";
 import { ShowcaseItem } from "./components/showcase-item";
 import { usePageContext } from "./context/page-context";
 
 export function ContentShowcasePage() {
+  const { t } = useI18n();
   const { showcases } = usePageContext() || {};
 
   return (
@@ -29,9 +31,7 @@ export function ContentShowcasePage() {
               <div className="col-span-full flex items-center justify-center min-h-[50vh]">
                 <div className="border border-dashed border-muted-foreground rounded-md p-6 max-w-md w-full mx-4">
                   <p className="text-center text-muted-foreground">
-                    We don't have any showcases yet.
-                    <br />
-                    Please check back later.
+                    {t("showcase.emptyMessage")}
                   </p>
                 </div>
               </div>
