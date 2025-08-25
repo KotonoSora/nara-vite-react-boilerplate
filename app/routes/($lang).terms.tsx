@@ -1,18 +1,17 @@
-import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).terms";
 
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
-import { PageContext } from "~/features/legal/terms/context/page-context";
-import { ContentTermsPage } from "~/features/legal/terms/page";
-import { getTranslation } from "~/lib/i18n";
+import { PageContext } from "~/features/terms/context/page-context";
+import { ContentTermsPage } from "~/features/terms/page";
+import { createTranslationFunction, getTranslation } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
+  const language = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
 
-  // Get localized meta content
-  const title = getTranslation(language, "legal.terms.title");
-  const description = getTranslation(language, "legal.terms.description");
+  const title = t("legal.terms.title");
+  const description = t("legal.terms.description");
 
   const {
     cloudflare: { env },
@@ -21,31 +20,35 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const { githubRepository } = (await getPageInformation(env as any)) || {};
 
   return {
+    title,
+    description,
     githubRepository,
-    meta: {
-      title,
-      description,
-    },
   };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const title = loaderData?.meta?.title || "Terms of Service";
-  const description =
-    loaderData?.meta?.description ||
-    "Terms of Service for NARA - Modern React Boilerplate";
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
+    return [
+      { title: "Terms of Service" },
+      {
+        name: "description",
+        content: "Terms of Service",
+      },
+    ];
+  }
 
   return [
-    { title: `${title} - NARA` },
-    {
-      name: "description",
-      content: description,
-    },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 
 export default function TermsPage({ loaderData }: Route.ComponentProps) {
-  if (!loaderData) return null;
   const { githubRepository } = loaderData;
 
   return (

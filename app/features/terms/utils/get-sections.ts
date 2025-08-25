@@ -1,13 +1,9 @@
-import { LegalPageLayout } from "~/features/shared/components/legal-page-layout";
-import { useI18n } from "~/lib/i18n";
+import type { TranslationKey } from "~/lib/i18n";
 
-import { usePageContext } from "./context/page-context";
-
-export function ContentTermsPage() {
-  const { t } = useI18n();
-  const { githubRepository } = usePageContext();
-
-  const sections = [
+export function getSections(
+  t: (key: TranslationKey, params?: Record<string, string | number>) => string,
+) {
+  return [
     {
       id: "acceptance",
       title: t("legal.terms.sections.acceptance.title"),
@@ -55,24 +51,4 @@ export function ContentTermsPage() {
       content: t("legal.terms.sections.contact.content"),
     },
   ];
-
-  const relatedPages = [
-    {
-      title: t("legal.privacy.title"),
-      href: "/privacy",
-      description: t("legal.privacy.description"),
-    },
-  ];
-
-  return (
-    <LegalPageLayout
-      title={t("legal.terms.title")}
-      description={t("legal.terms.description")}
-      lastUpdated="08/09/2025"
-      sections={sections}
-      estimatedReadTime={8}
-      relatedPages={relatedPages}
-      githubRepository={githubRepository}
-    />
-  );
 }
