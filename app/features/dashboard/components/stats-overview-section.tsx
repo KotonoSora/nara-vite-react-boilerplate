@@ -3,7 +3,7 @@ import { Activity, Calendar, TrendingUp, Users } from "lucide-react";
 import type { FC } from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n";
 
 import { usePageContext } from "../context/page-context";
 

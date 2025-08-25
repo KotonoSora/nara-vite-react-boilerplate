@@ -13,8 +13,8 @@ import { getFeaturesConfigs } from "~/features/landing-page/utils/get-features-c
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { getSteps } from "~/features/landing-page/utils/get-steps";
+import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
   try {

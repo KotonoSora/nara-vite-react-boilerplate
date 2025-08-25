@@ -6,9 +6,9 @@ import type { Route } from "./+types/($lang).reset-password";
 import { PageContext } from "~/features/reset-password/context/page-context";
 import { ResetPasswordPage } from "~/features/reset-password/page";
 import { isStrongPassword } from "~/lib/auth/config";
+import { resetPasswordWithToken } from "~/lib/auth/user.server";
 import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { resetPasswordWithToken } from "~/user.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const language = await resolveRequestLanguage(request);

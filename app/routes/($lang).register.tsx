@@ -5,14 +5,14 @@ import { z } from "zod";
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).register";
 
-import { createUserSession, getUserId } from "~/auth.server";
 import * as schema from "~/database/schema";
 import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
 import { MAX_USERS } from "~/features/shared/constants/limit";
+import { createUserSession, getUserId } from "~/lib/auth/auth.server";
+import { createUser, getUserByEmail } from "~/lib/auth/user.server";
 import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createUser, getUserByEmail } from "~/user.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
   // Redirect if already logged in

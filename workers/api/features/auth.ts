@@ -8,7 +8,7 @@ import type { Context } from "hono";
 
 import * as schema from "~/database/schema";
 import { MAX_USERS } from "~/features/shared/constants/limit";
-import { createUser, getUserByEmail } from "~/user.server";
+import { createUser, getUserByEmail } from "~/lib/auth/user.server";
 
 const { user } = schema;
 

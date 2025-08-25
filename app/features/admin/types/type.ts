@@ -1,4 +1,4 @@
-import type { User } from "~/user.server";
+import type { User } from "~/lib/auth/user.server";
 
 export type AdminContentProps = {
   user?: User;

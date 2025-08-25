@@ -7,7 +7,6 @@ import { getSections } from "./utils/get-sections";
 
 export function ContentTermsPage() {
   const { t } = useI18n();
-  const { githubRepository } = usePageContext();
   const sections = getSections(t);
   const relatedPages = getRelatedPages(t);
 
@@ -19,7 +18,6 @@ export function ContentTermsPage() {
       sections={sections}
       estimatedReadTime={8}
       relatedPages={relatedPages}
-      githubRepository={githubRepository}
       usePageContext={usePageContext}
     />
   );

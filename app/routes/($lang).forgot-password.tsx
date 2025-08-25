@@ -5,9 +5,9 @@ import type { Route } from "./+types/($lang).forgot-password";
 
 import { PageContext } from "~/features/forgot-password/context/page-context";
 import { ForgotPasswordPage } from "~/features/forgot-password/page";
+import { requestPasswordReset } from "~/lib/auth/user.server";
 import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { requestPasswordReset } from "~/user.server";
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
   const language = await resolveRequestLanguage(request);

@@ -6,8 +6,8 @@ import { getPageInformation } from "~/features/landing-page/utils/get-page-infor
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { PageContext } from "~/features/showcases/context/page-context";
 import { ContentShowcasePage } from "~/features/showcases/page";
+import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
   const language = await resolveRequestLanguage(request);

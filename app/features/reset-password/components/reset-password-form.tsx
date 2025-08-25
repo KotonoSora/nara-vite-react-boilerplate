@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router";
 import { z } from "zod";
 
-import type { TranslationKey } from "~/lib/i18n/types";
+import type { TranslationKey } from "~/lib/i18n";
 
 import { Alert, AlertDescription } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";

@@ -3,12 +3,12 @@ import { data, redirect } from "react-router";
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).admin";
 
-import { getUserId } from "~/auth.server";
 import { PageContext } from "~/features/admin/context/page-context";
 import { ContentAdminPage } from "~/features/admin/page";
+import { getUserId } from "~/lib/auth/auth.server";
+import { getUserById } from "~/lib/auth/user.server";
 import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { getUserById } from "~/user.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   try {

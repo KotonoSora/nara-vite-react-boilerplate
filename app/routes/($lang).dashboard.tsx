@@ -3,14 +3,14 @@ import { data, redirect } from "react-router";
 import type { Activity, Stats } from "~/features/dashboard/types/type";
 import type { Route } from "./+types/($lang).dashboard";
 
-import { getUserId } from "~/auth.server";
 import { PageContext } from "~/features/dashboard/context/page-context";
 import { ContentDashboardPage } from "~/features/dashboard/page";
 import { getRecentActivity } from "~/features/dashboard/utils/get-recent-activity";
 import { getStats } from "~/features/dashboard/utils/get-stats";
+import { getUserId } from "~/lib/auth/auth.server";
+import { getUserById } from "~/lib/auth/user.server";
+import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
-import { getUserById } from "~/user.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   try {

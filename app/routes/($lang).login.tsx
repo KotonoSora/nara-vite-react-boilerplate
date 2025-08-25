@@ -4,12 +4,12 @@ import { z } from "zod";
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).login";
 
-import { createUserSession, getUserId } from "~/auth.server";
 import { PageContext } from "~/features/login/context/page-context";
 import { ContentLoginPage } from "~/features/login/page";
+import { createUserSession, getUserId } from "~/lib/auth/auth.server";
+import { authenticateUser } from "~/lib/auth/user.server";
+import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
-import { authenticateUser } from "~/user.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
   // Redirect if already logged in

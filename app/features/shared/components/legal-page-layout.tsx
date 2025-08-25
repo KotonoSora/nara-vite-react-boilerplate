@@ -36,7 +36,6 @@ interface LegalPageLayoutProps {
     href: string;
     description: string;
   }>;
-  githubRepository?: string | null;
   usePageContext?: any;
 }
 
@@ -47,10 +46,10 @@ export function LegalPageLayout({
   sections,
   estimatedReadTime = 5,
   relatedPages = [],
-  githubRepository,
   usePageContext,
 }: LegalPageLayoutProps) {
   const { t } = useI18n();
+  const { githubRepository } = usePageContext();
   const [activeSection, setActiveSection] = useState<string>("");
   const [readingProgress, setReadingProgress] = useState(0);
   const [isTocOpen, setIsTocOpen] = useState(false);

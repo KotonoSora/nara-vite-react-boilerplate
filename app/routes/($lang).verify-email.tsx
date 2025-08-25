@@ -5,9 +5,9 @@ import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).verify-email";
 
 import { VerifyEmailPage } from "~/features/verify-email/page";
+import { verifyEmailWithToken } from "~/lib/auth/user.server";
+import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
-import { verifyEmailWithToken } from "~/user.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   try {

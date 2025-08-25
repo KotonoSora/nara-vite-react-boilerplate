@@ -3,7 +3,7 @@ import type { Route } from "./+types/($lang).terms";
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { PageContext } from "~/features/terms/context/page-context";
 import { ContentTermsPage } from "~/features/terms/page";
-import { createTranslationFunction, getTranslation } from "~/lib/i18n";
+import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
