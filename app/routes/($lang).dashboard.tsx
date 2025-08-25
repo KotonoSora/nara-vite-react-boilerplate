@@ -1,72 +1,68 @@
+import { data, redirect } from "react-router";
+
+import type { Activity, Stats } from "~/features/dashboard/types/type";
 import type { Route } from "./+types/($lang).dashboard";
 
-import { getUserId, logout } from "~/auth.server";
 import { PageContext } from "~/features/dashboard/context/page-context";
 import { ContentDashboardPage } from "~/features/dashboard/page";
-import {
-  calculateDaysSinceJoined,
-  createMockActivity,
-  generateMockStats,
-  hasMetaFields,
-  isDashboardLoaderData,
-} from "~/features/dashboard/utils/helper";
+import { getRecentActivity } from "~/features/dashboard/utils/get-recent-activity";
+import { getStats } from "~/features/dashboard/utils/get-stats";
+import { getUserId } from "~/lib/auth/auth.server";
+import { getUserById } from "~/lib/auth/user.server";
+import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
-import { getUserById } from "~/user.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   try {
+    const { db } = context;
     const language = await resolveRequestLanguage(request);
     const t = createTranslationFunction(language);
     const userId = await getUserId(request);
-
     if (!userId) {
-      return logout(request);
+      return redirect("/");
     }
-
-    const { db } = context;
     const user = await getUserById(db, userId);
-
     if (!user) {
-      return logout(request);
+      return redirect("/");
     }
-
-    const daysSinceJoined = calculateDaysSinceJoined(user.createdAt);
-    const recentActivity = createMockActivity(t, user.createdAt);
-    const stats = generateMockStats(daysSinceJoined);
+    const recentActivity: Activity[] = getRecentActivity(t, user.createdAt);
+    const stats: Stats = getStats(user.createdAt);
 
     return {
+      title: t("dashboard.meta.title"),
+      description: t("dashboard.meta.description"),
       user,
       recentActivity,
       stats,
-      dashboardTitle: t("dashboard.meta.title"),
-      dashboardDescription: t("dashboard.meta.description"),
     };
   } catch (error) {
-    console.error("Dashboard loader error:", error);
-    return null;
+    console.error("Dashboard page error:", error);
+
+    return data({ error: "Failed to load dashboard data" }, { status: 500 });
   }
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (hasMetaFields(loaderData)) {
-    const { dashboardTitle, dashboardDescription } = loaderData;
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
     return [
-      { title: `${dashboardTitle} - NARA` },
-      { name: "description", content: dashboardDescription },
+      { title: "Dashboard" },
+      { name: "description", content: "Your personal dashboard" },
     ];
   }
 
   return [
-    { title: "Dashboard - NARA" },
-    { name: "description", content: "Your personal dashboard" },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
-  if (!isDashboardLoaderData(loaderData)) {
-    return null;
-  }
+  if (!loaderData || "error" in loaderData) return null;
 
   const { user, recentActivity, stats } = loaderData;
 

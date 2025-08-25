@@ -1,11 +1,18 @@
 import { eq } from "drizzle-orm";
 
 import type { DrizzleD1Database } from "drizzle-orm/d1";
+import type { ProjectInfo } from "../types/type";
 
 import * as schema from "~/database/schema/showcase";
 
 const { showcase, showcaseTag } = schema;
 
+/**
+ * Get the showcases from the database.
+ *
+ * @param db The database instance.
+ * @returns The list of showcases.
+ */
 export async function getShowcases(db: DrizzleD1Database<typeof schema>) {
   try {
     const rows = await db

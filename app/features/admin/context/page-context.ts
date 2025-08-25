@@ -1,16 +1,9 @@
-import { createContext, useContext } from "react";
+import type { AdminContentProps } from "../types/type";
 
-import type { AdminContentProps } from "../types/types";
+import { createTypedContext } from "~/features/shared/context/create-type-context";
 
-/**
- * Context for the admin page.
- */
-export const PageContext = createContext<AdminContentProps | undefined>(
-  undefined,
-);
-
-/**
- * Custom hook to access the admin page context.
- * @returns The admin content props from the context
- */
-export const usePageContext = () => useContext(PageContext);
+export const {
+  Context: PageContext,
+  useContext: usePageContext,
+  Provider: PageProvider,
+} = createTypedContext<AdminContentProps>("AdminPage");

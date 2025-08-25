@@ -49,5 +49,8 @@
       "userDashboard": "Bảng Điều Khiển Người Dùng",
       "returnHome": "Trở Về Trang Chủ"
     }
+  },
+  "errors": {
+    "userNotFound": "Không tìm thấy người dùng"
   }
 }

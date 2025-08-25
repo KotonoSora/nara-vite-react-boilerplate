@@ -1,16 +1,9 @@
-import { createContext, useContext } from "react";
+import type { DashboardContentProps } from "../types/type";
 
-import type { DashboardContentProps } from "~/features/dashboard/types/types";
+import { createTypedContext } from "~/features/shared/context/create-type-context";
 
-/**
- * Page context for the dashboard
- */
-export const PageContext = createContext<DashboardContentProps | undefined>(
-  undefined,
-);
-
-/**
- * Custom hook to access the page context
- * @returns The dashboard content props from the context
- */
-export const usePageContext = () => useContext(PageContext);
+export const {
+  Context: PageContext,
+  useContext: usePageContext,
+  Provider: PageProvider,
+} = createTypedContext<DashboardContentProps>("DashboardPage");

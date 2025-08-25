@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router";
 import { z } from "zod";
 
-import type { TranslationKey } from "~/lib/i18n/types";
+import type { TranslationKey } from "~/lib/i18n";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -26,22 +26,20 @@ import {
 import { Input } from "~/components/ui/input";
 import { useI18n } from "~/lib/i18n";
 
+import { usePageContext } from "../context/page-context";
+
 const createLoginSchema = (
   t: (key: TranslationKey, params?: Record<string, string | number>) => string,
 ) =>
   z.object({
     email: z.email(t("auth.login.validation.emailRequired")),
-    password: z.string().min(6, t("auth.login.validation.passwordMinLength")),
+    password: z.string().min(8, t("auth.login.validation.passwordMinLength")),
   });
 
 type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
 
-interface LoginFormProps {
-  error?: string;
-  isSubmitting?: boolean;
-}
-
-export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
+export function LoginForm() {
+  const { error } = usePageContext();
   const { t } = useI18n();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -52,6 +50,7 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
       email: "",
       password: "",
     },
+    mode: "onChange",
   });
 
   return (
@@ -95,40 +94,52 @@ export function LoginForm({ error, isSubmitting = false }: LoginFormProps) {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("auth.login.form.password.label")}</FormLabel>
-                  <FormControl>
-                    <div className="relative">
+                  <div className="flex items-center">
+                    <FormLabel>{t("auth.login.form.password.label")}</FormLabel>
+                    <Link
+                      to="/forgot-password"
+                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    >
+                      Forgot your password?
+                    </Link>
+                  </div>
+                  <div className="relative">
+                    <FormControl>
                       <Input
                         type={showPassword ? "text" : "password"}
                         placeholder={t("auth.login.form.password.placeholder")}
                         autoComplete="current-password"
                         {...field}
                       />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                        onClick={() => setShowPassword(!showPassword)}
-                        aria-label={
-                          showPassword ? "Hide password" : "Show password"
-                        }
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                  </FormControl>
+                    </FormControl>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                      onClick={() => setShowPassword(!showPassword)}
+                      aria-label={
+                        showPassword ? "Hide password" : "Show password"
+                      }
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
+                    </Button>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting
                 ? t("auth.login.form.submitting")
                 : t("auth.login.form.submit")}
             </Button>

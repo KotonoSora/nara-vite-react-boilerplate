@@ -1,7 +1,5 @@
-import { Settings, Shield, TrendingUp, User as UserIcon } from "lucide-react";
+import { Settings, Shield, TrendingUp, User } from "lucide-react";
 import { Link } from "react-router";
-
-import type { User } from "~/user.server";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -11,10 +9,15 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useI18n } from "~/lib/i18n";
+import { useTranslation } from "~/lib/i18n";
 
-export const QuickActionsCard = ({ user }: { user: User }) => {
-  const { t } = useI18n();
+import { usePageContext } from "../context/page-context";
+
+export function QuickActionsCard() {
+  const { user } = usePageContext() || {};
+  const t = useTranslation();
+
+  if (!user) return null;
 
   return (
     <Card className="lg:col-span-1 transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-950/50 dark:to-blue-950/50">
@@ -33,7 +36,7 @@ export const QuickActionsCard = ({ user }: { user: User }) => {
           asChild
         >
           <Link to="/profile">
-            <UserIcon className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+            <User className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform" />
             <span className="text-sm sm:text-base font-medium">
               {t("dashboard.quickActions.actions.editProfile")}
             </span>
@@ -80,4 +83,4 @@ export const QuickActionsCard = ({ user }: { user: User }) => {
       </CardContent>
     </Card>
   );
-};
+}

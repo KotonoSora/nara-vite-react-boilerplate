@@ -1,3 +1,0 @@
-interface RegisterContentProps {
-  error?: string;
-}

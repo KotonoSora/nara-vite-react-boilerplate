@@ -2,12 +2,12 @@ import { data, redirect } from "react-router";
 
 import type { Route } from "./+types/action.set-language";
 
-import { getLanguageSession } from "~/language.server";
 import {
   addLanguageToPath,
   getLanguageFromPath,
   isSupportedLanguage,
 } from "~/lib/i18n";
+import { getLanguageSession } from "~/lib/i18n/language.server";
 
 export function loader({ request }: Route.LoaderArgs) {
   return data(

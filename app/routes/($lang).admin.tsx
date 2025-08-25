@@ -1,60 +1,66 @@
+import { data, redirect } from "react-router";
+
+import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).admin";
 
-import { getUserId, logout } from "~/auth.server";
 import { PageContext } from "~/features/admin/context/page-context";
 import { ContentAdminPage } from "~/features/admin/page";
-import { isAdminLoaderData, isAdminUser } from "~/features/admin/utils/helper";
-import { hasMetaFields } from "~/features/dashboard/utils/helper";
+import { getUserId } from "~/lib/auth/auth.server";
+import { getUserById } from "~/lib/auth/user.server";
 import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { getUserById } from "~/user.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   try {
-    const language = await resolveRequestLanguage(request);
+    const { db } = context;
+    const language: SupportedLanguage = await resolveRequestLanguage(request);
     const t = createTranslationFunction(language);
     const userId = await getUserId(request);
-
     if (!userId) {
-      return logout(request);
+      return redirect("/");
     }
-    const { db } = context;
     const user = await getUserById(db, userId);
-
-    if (!user || !isAdminUser(user)) {
-      return logout(request);
+    if (!user) {
+      return redirect("/");
+    }
+    // Check if user is admin
+    if (user.role !== "admin") {
+      return redirect("/");
     }
 
     return {
+      title: t("admin.meta.title"),
+      description: t("admin.meta.description"),
       user,
-      pageTitle: t("admin.meta.title"),
-      pageDescription: t("admin.meta.description"),
     };
   } catch (error) {
-    console.error(error);
-    return null;
+    console.error("Admin page error:", error);
+
+    return data({ error: "Failed to admin page data" }, { status: 500 });
   }
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (hasMetaFields(loaderData)) {
-    const { pageTitle, pageDescription } = loaderData;
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
     return [
-      { title: pageTitle },
-      { name: "description", content: pageDescription },
+      { title: "Admin Panel" },
+      { name: "description", content: "Administrative dashboard" },
     ];
   }
 
   return [
-    { title: "Admin Panel - NARA" },
-    { name: "description", content: "Administrative dashboard" },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 
 export default function Admin({ loaderData }: Route.ComponentProps) {
-  if (!isAdminLoaderData(loaderData)) {
-    return null;
-  }
+  if (!loaderData || "error" in loaderData) return null;
 
   const { user } = loaderData;
 

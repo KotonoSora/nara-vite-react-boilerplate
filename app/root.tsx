@@ -20,12 +20,12 @@ import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/root";
 
 import appCssUrl from "~/app.css?url";
-import { getUserId } from "~/auth.server";
 import { AuthProvider } from "~/lib/auth";
+import { getUserId } from "~/lib/auth/auth.server";
+import { getUserById } from "~/lib/auth/user.server";
 import { DEFAULT_LANGUAGE, I18nProvider, isRTLLanguage } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { themeSessionResolver } from "~/sessions.server";
-import { getUserById } from "~/user.server";
+import { themeSessionResolver } from "~/lib/theme/sessions.server";
 import { cancelIdleCallback, scheduleIdleCallback } from "~/utils.client";
 
 // Lazy-load notifications to avoid pulling them into the initial bundle

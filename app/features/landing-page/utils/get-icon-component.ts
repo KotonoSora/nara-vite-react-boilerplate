@@ -9,6 +9,12 @@ const icons: Record<string, LucideIcon> = {
   layers: Layers,
 };
 
+/**
+ * Get the Lucide icon component by name.
+ *
+ * @param iconName The name of the icon.
+ * @returns The Lucide icon component.
+ */
 export const getIconComponent = (iconName: string): LucideIcon => {
   return icons[iconName] || Shield; // fallback to Shield if icon not found
 };

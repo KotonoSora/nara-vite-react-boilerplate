@@ -9,12 +9,15 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { FooterSection } from "~/features/landing-page/components/footer-section";
-import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
-import { useI18n } from "~/lib/i18n";
+import { FooterSection } from "~/features/shared/components/footer-section";
+import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
+import { useTranslation } from "~/lib/i18n";
+
+import { usePageContext } from "./context/page-context";
 
 export function ContentAdminPage() {
-  const { t } = useI18n();
+  const { user } = usePageContext();
+  const t = useTranslation();
 
   return (
     <main
@@ -22,7 +25,7 @@ export function ContentAdminPage() {
       style={{ contentVisibility: "auto" }}
     >
       {/* Header */}
-      <HeaderNavigationSection />
+      <HeaderNavigationSection usePageContext={usePageContext} />
 
       {/* Main content */}
       <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12">

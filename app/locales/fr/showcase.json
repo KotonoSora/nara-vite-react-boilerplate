@@ -9,5 +9,6 @@
     "components": "Composants",
     "examples": "Exemples",
     "demos": "Démos"
-  }
+  },
+  "emptyMessage": "Les vitrines arrivent bientôt. Revenez plus tard pour explorer !"
 }

@@ -49,5 +49,8 @@
       "userDashboard": "Tableau de Bord Utilisateur",
       "returnHome": "Retour à l'Accueil"
     }
+  },
+  "errors": {
+    "userNotFound": "Utilisateur non trouvé"
   }
 }

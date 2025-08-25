@@ -45,7 +45,7 @@ app.route("/landing-page", landingPageRoute);
 app.route("/auth", auth);
 
 // Example route to test error handling
-if (import.meta.env.NODE_ENV === "development") {
+if (import.meta.env.DEV) {
   app.get("/error", () => {
     throw new HTTPException(400, { message: "This is a test error" });
   });

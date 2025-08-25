@@ -9,10 +9,10 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useI18n } from "~/lib/i18n";
+import { useTranslation } from "~/lib/i18n";
 
-export const AuthDemoCard = () => {
-  const { t } = useI18n();
+export function AuthDemoCard() {
+  const t = useTranslation();
 
   return (
     <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/50 dark:to-purple-950/50">
@@ -68,4 +68,4 @@ export const AuthDemoCard = () => {
       </CardContent>
     </Card>
   );
-};
+}

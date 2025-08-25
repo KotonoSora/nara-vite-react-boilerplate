@@ -49,5 +49,8 @@
       "userDashboard": "用户仪表板",
       "returnHome": "返回首页"
     }
+  },
+  "errors": {
+    "userNotFound": "用户未找到"
   }
 }

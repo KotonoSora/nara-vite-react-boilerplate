@@ -1,13 +1,16 @@
 import { Shield } from "lucide-react";
 
-import type { User } from "~/user.server";
-
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
-import { useI18n } from "~/lib/i18n";
+import { useTranslation } from "~/lib/i18n";
 
-export const WelcomeSection = ({ user }: { user: User }) => {
-  const { t } = useI18n();
+import { usePageContext } from "../context/page-context";
+
+export function WelcomeSection() {
+  const { user } = usePageContext() || {};
+  const t = useTranslation();
+
+  if (!user) return null;
 
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 sm:p-8 bg-gradient-to-br from-blue-50/50 to-indigo-50/50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-2xl border border-blue-100/50 dark:border-blue-800/30">
@@ -43,4 +46,4 @@ export const WelcomeSection = ({ user }: { user: User }) => {
       </div>
     </div>
   );
-};
+}

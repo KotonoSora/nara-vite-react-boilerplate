@@ -5,43 +5,36 @@ import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).verify-email";
 
 import { VerifyEmailPage } from "~/features/verify-email/page";
-import { useI18n } from "~/lib/i18n";
+import { verifyEmailWithToken } from "~/lib/auth/user.server";
+import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
-import { verifyEmailWithToken } from "~/user.server";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
-
-  const pageMeta = {
-    pageTitle: t("auth.verifyEmail.title"),
-    pageDescription: t("auth.verifyEmail.description"),
-  };
-
-  const url = new URL(request.url);
-  const token = url.searchParams.get("token");
-
-  // Create schema with localized error message
-  const verifyEmailSchema = z.object({
-    token: z.string().min(1, t("auth.verifyEmail.validation.tokenRequired")),
-  });
-
-  // Validate the token using the schema
-  const validationResult = verifyEmailSchema.safeParse({ token });
-
-  if (!validationResult.success) {
-    const errors = validationResult.error.issues
-      .map((issue) => issue.message)
-      .join(", ");
-    return data({ error: errors, pageMeta }, { status: 400 });
-  }
-
-  const { db } = context;
-
   try {
+    const { db } = context;
+    const language: SupportedLanguage = await resolveRequestLanguage(request);
+    const t = createTranslationFunction(language);
+    const url = new URL(request.url);
+    const token = url.searchParams.get("token");
+    // Create schema with localized error message
+    const verifyEmailSchema = z.object({
+      token: z.string().min(1, t("auth.verifyEmail.validation.tokenRequired")),
+    });
+    // Validate the token using the schema
+    const validationResult = verifyEmailSchema.safeParse({ token });
+    if (!validationResult.success) {
+      return data(
+        {
+          title: t("auth.verifyEmail.title"),
+          description: t("auth.verifyEmail.description"),
+          error: t("auth.verifyEmail.validation.tokenRequired"),
+          errorCode: "REQUIRED_TOKEN",
+        },
+        { status: 400 },
+      );
+    }
+    // Verify the email with the token
     const result = await verifyEmailWithToken(db, validationResult.data.token);
-
     if (!result.success) {
       // Map error codes to localized messages
       let errorMessage: string;
@@ -62,35 +55,46 @@ export async function loader({ request, context }: Route.LoaderArgs) {
         default:
           errorMessage = result.error; // Fallback to original error message
       }
-
       return data(
-        { error: errorMessage, errorCode: result.errorCode, pageMeta },
+        {
+          title: t("auth.verifyEmail.title"),
+          description: t("auth.verifyEmail.description"),
+          error: errorMessage,
+          errorCode: result.errorCode,
+        },
         { status: 400 },
       );
     }
 
     return data({
+      title: t("auth.verifyEmail.title"),
+      description: t("auth.verifyEmail.description"),
       success: true,
       message: t("auth.verifyEmail.success.message"),
-      pageMeta,
     });
   } catch (error) {
     console.error("Email verification error:", error);
-    return data(
-      { error: t("auth.verifyEmail.errors.somethingWentWrong"), pageMeta },
-      { status: 500 },
-    );
+
+    return data({ error: "Failed to load page data" }, { status: 500 });
   }
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const title = loaderData?.pageMeta?.pageTitle ?? "Email Verification";
-  const description =
-    loaderData?.pageMeta?.pageDescription ?? "Verify your email address";
+  if (!("title" in loaderData) || !("description" in loaderData)) {
+    return [
+      {
+        title: "Email Verification",
+      },
+      {
+        name: "description",
+        content: "Verify your email address",
+      },
+    ];
+  }
 
   return [
-    { title: `${title} - NARA` },
-    { name: "description", content: description },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 

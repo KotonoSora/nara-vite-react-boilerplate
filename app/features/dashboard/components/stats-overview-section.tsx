@@ -1,12 +1,17 @@
 import { Activity, Calendar, TrendingUp, Users } from "lucide-react";
 
-import type { Stats } from "~/features/dashboard/types/types";
+import type { FC } from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { useI18n } from "~/lib/i18n";
+import { useTranslation } from "~/lib/i18n";
 
-export const StatsOverviewSection = ({ stats }: { stats: Stats }) => {
-  const { t } = useI18n();
+import { usePageContext } from "../context/page-context";
+
+export function StatsOverviewSection() {
+  const { stats } = usePageContext() || {};
+  const t = useTranslation();
+
+  if (!stats) return null;
 
   return (
     <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -79,4 +84,4 @@ export const StatsOverviewSection = ({ stats }: { stats: Stats }) => {
       </Card>
     </div>
   );
-};
+}

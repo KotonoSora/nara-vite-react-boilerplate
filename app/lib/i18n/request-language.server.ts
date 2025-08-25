@@ -1,11 +1,11 @@
-import type { SupportedLanguage } from "~/lib/i18n/config";
+import type { SupportedLanguage } from "./config";
 
-import { getLanguageSession } from "~/language.server";
 import {
   DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
-} from "~/lib/i18n/config";
+} from "./config";
+import { getLanguageSession } from "./language.server";
 
 /**
  * Resolve the preferred language for a request using:

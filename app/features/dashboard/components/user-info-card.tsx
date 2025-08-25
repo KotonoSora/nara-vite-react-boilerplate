@@ -1,6 +1,6 @@
-import { User as UserIcon } from "lucide-react";
+import { User } from "lucide-react";
 
-import type { User } from "~/user.server";
+import type { FC } from "react";
 
 import { Badge } from "~/components/ui/badge";
 import {
@@ -11,16 +11,21 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
-import { useI18n } from "~/lib/i18n";
+import { useTranslation } from "~/lib/i18n";
 
-export const UserInfoCard = ({ user }: { user: User }) => {
-  const { t } = useI18n();
+import { usePageContext } from "../context/page-context";
+
+export function UserInfoCard() {
+  const { user } = usePageContext() || {};
+  const t = useTranslation();
+
+  if (!user) return null;
 
   return (
     <Card className="lg:col-span-1 transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-950/50 dark:to-gray-950/50">
       <CardHeader className="pb-4 sm:pb-6">
         <CardTitle className="flex items-center gap-2 text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100">
-          <UserIcon className="h-5 w-5 sm:h-6 sm:w-6 text-slate-600 dark:text-slate-400" />
+          <User className="h-5 w-5 sm:h-6 sm:w-6 text-slate-600 dark:text-slate-400" />
           {t("dashboard.userInfo.title")}
         </CardTitle>
         <CardDescription className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
@@ -69,4 +74,4 @@ export const UserInfoCard = ({ user }: { user: User }) => {
       </CardContent>
     </Card>
   );
-};
+}

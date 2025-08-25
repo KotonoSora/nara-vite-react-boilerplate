@@ -1,3 +1,11 @@
+import { z } from "zod";
+
+/**
+ * Hashes a password using a secure hashing algorithm.
+ *
+ * @param password - The password to hash.
+ * @returns The hashed password.
+ */
 export async function hashPassword(password: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(password);
@@ -36,6 +44,19 @@ export function getEmailVerificationExpiry(): Date {
   return now;
 }
 
+// Define individual validation schemas for each requirement
+const minLengthSchema = z.string().min(8);
+const uppercaseSchema = z.string().regex(/[A-Z]/);
+const lowercaseSchema = z.string().regex(/[a-z]/);
+const numberSchema = z.string().regex(/\d/);
+const specialCharSchema = z.string().regex(/[!@#$%^&*(),.?":{}|<>]/);
+
+/**
+ * Checks if a password is strong based on defined criteria.
+ *
+ * @param password - The password to check.
+ * @returns An object containing the validation result and requirements.
+ */
 export function isStrongPassword(password: string): {
   isValid: boolean;
   requirements: {
@@ -47,11 +68,11 @@ export function isStrongPassword(password: string): {
   };
 } {
   const requirements = {
-    minLength: password.length >= 8,
-    hasUppercase: /[A-Z]/.test(password),
-    hasLowercase: /[a-z]/.test(password),
-    hasNumber: /\d/.test(password),
-    hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    minLength: minLengthSchema.safeParse(password).success,
+    hasUppercase: uppercaseSchema.safeParse(password).success,
+    hasLowercase: lowercaseSchema.safeParse(password).success,
+    hasNumber: numberSchema.safeParse(password).success,
+    hasSpecialChar: specialCharSchema.safeParse(password).success,
   };
 
   const isValid = Object.values(requirements).every(Boolean);
@@ -59,10 +80,20 @@ export function isStrongPassword(password: string): {
   return { isValid, requirements };
 }
 
+/**
+ * Generates a password reset token.
+ *
+ * @returns A unique password reset token.
+ */
 export function generatePasswordResetToken(): string {
   return crypto.randomUUID() + "-" + Date.now().toString(36);
 }
 
+/**
+ * Gets the expiration date for the password reset token.
+ *
+ * @returns The expiration date for the password reset token.
+ */
 export function getPasswordResetExpiry(): Date {
   const now = new Date();
   // Token expires in 1 hour

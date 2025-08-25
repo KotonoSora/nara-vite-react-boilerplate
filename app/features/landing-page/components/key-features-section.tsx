@@ -1,6 +1,8 @@
 import { Rocket } from "lucide-react";
 import { memo } from "react";
 
+import type { FeatureCardProps } from "../types/type";
+
 import {
   Card,
   CardContent,
@@ -8,18 +10,14 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { usePageContext } from "~/features/landing-page/context/page-context";
-import { getIconComponent } from "~/features/landing-page/utils/get-icon-component";
 import { useI18n } from "~/lib/i18n";
 
+import { usePageContext } from "../context/page-context";
+import { getIconComponent } from "../utils/get-icon-component";
 import {
   BackgroundDecoration,
   keyFeaturesDecorationConfig,
 } from "./shared/background-decoration";
-
-interface FeatureCardProps {
-  config: FeatureCardConfig;
-}
 
 const FeatureCard = memo(function FeatureCard({ config }: FeatureCardProps) {
   const { icon: iconName, title, description, colors } = config;
@@ -51,7 +49,10 @@ const FeatureCard = memo(function FeatureCard({ config }: FeatureCardProps) {
 
 export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
   const { t } = useI18n();
-  const { featuresConfig } = usePageContext();
+  const { featuresConfig } = usePageContext() || {};
+
+  if (!featuresConfig) return null;
+
   return (
     <section
       className="py-24 px-4 bg-background relative overflow-hidden"
@@ -82,9 +83,10 @@ export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {featuresConfig.map((feature) => (
-            <FeatureCard key={feature.title} config={feature} />
-          ))}
+          {Array.isArray(featuresConfig) &&
+            featuresConfig.map((feature) => (
+              <FeatureCard key={feature.title} config={feature} />
+            ))}
         </div>
 
         {/* Floating background elements */}
