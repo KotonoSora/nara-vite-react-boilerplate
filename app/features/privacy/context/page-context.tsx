@@ -1,19 +1,9 @@
-import { createContext, useContext } from "react";
-
 import type { PrivacyPageProps } from "../types/type";
 
-const PrivacyPageContext = createContext<PrivacyPageProps | undefined>(
-  undefined,
-);
+import { createTypedContext } from "~/features/shared/context/create-type-context";
 
-export function usePageContext() {
-  const context = useContext(PrivacyPageContext);
-  if (context === undefined) {
-    throw new Error(
-      "usePageContext must be used within a privacy PageProvider",
-    );
-  }
-  return context;
-}
-
-export const PageContext = PrivacyPageContext;
+export const {
+  Context: PageContext,
+  useContext: usePageContext,
+  Provider: PageProvider,
+} = createTypedContext<PrivacyPageProps>("PrivacyPage");

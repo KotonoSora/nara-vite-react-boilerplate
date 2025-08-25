@@ -6,11 +6,12 @@ import { useI18n } from "~/lib/i18n";
 
 import GitHubLogoDark from "../assets/github-invertocat-dark.svg?url";
 import GitHubLogoLight from "../assets/github-invertocat-light.svg?url";
-import { usePageContext } from "../context/page-context";
 
-export const GitHubButton = memo(function GitHubButton() {
+export const GitHubButton = memo(function GitHubButton({
+  usePageContext,
+}: any) {
   const { t } = useI18n();
-  const { githubRepository } = usePageContext() || {};
+  const { githubRepository } = usePageContext();
 
   if (!githubRepository) return null;
 

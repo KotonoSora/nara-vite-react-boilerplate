@@ -20,6 +20,7 @@ export function ContentPrivacyPage() {
       estimatedReadTime={12}
       relatedPages={relatedPages}
       githubRepository={githubRepository}
+      usePageContext={usePageContext}
     />
   );
 }

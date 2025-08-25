@@ -1,15 +1,9 @@
-import { createContext, useContext } from "react";
-
 import type { TermsPageProps } from "../types/type";
 
-const TermsPageContext = createContext<TermsPageProps | undefined>(undefined);
+import { createTypedContext } from "~/features/shared/context/create-type-context";
 
-export function usePageContext() {
-  const context = useContext(TermsPageContext);
-  if (context === undefined) {
-    throw new Error("usePageContext must be used within a terms PageProvider");
-  }
-  return context;
-}
-
-export const PageContext = TermsPageContext;
+export const {
+  Context: PageContext,
+  useContext: usePageContext,
+  Provider: PageProvider,
+} = createTypedContext<TermsPageProps>("TermsPage");

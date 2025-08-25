@@ -17,7 +17,7 @@ export function ContentShowcasePage() {
         style={{ contentVisibility: "auto" }}
       >
         {/* Header/Navigation Section */}
-        <HeaderNavigationSection />
+        <HeaderNavigationSection usePageContext={usePageContext} />
 
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col">

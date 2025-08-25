@@ -4,7 +4,6 @@ import type { ProjectInfo } from "../types/type";
 
 import { Badge } from "~/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import SocialPreview from "~/features/landing-page/assets/social-preview.svg?url";
 import { useI18n } from "~/lib/i18n";
 
 export function ShowcaseItem({ project }: { project: ProjectInfo }) {
@@ -13,7 +12,7 @@ export function ShowcaseItem({ project }: { project: ProjectInfo }) {
   return (
     <Card className="flex flex-col pt-0 hover:shadow-lg transition-shadow cursor-pointer">
       <img
-        src={project.image ?? SocialPreview}
+        src={project.image}
         alt={project.name}
         className="rounded-t-xl w-full h-48 object-cover"
         loading="lazy"

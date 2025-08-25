@@ -20,6 +20,7 @@ export function ContentTermsPage() {
       estimatedReadTime={8}
       relatedPages={relatedPages}
       githubRepository={githubRepository}
+      usePageContext={usePageContext}
     />
   );
 }

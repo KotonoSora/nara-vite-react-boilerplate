@@ -37,6 +37,7 @@ interface LegalPageLayoutProps {
     description: string;
   }>;
   githubRepository?: string | null;
+  usePageContext?: any;
 }
 
 export function LegalPageLayout({
@@ -47,6 +48,7 @@ export function LegalPageLayout({
   estimatedReadTime = 5,
   relatedPages = [],
   githubRepository,
+  usePageContext,
 }: LegalPageLayoutProps) {
   const { t } = useI18n();
   const [activeSection, setActiveSection] = useState<string>("");
@@ -118,7 +120,7 @@ export function LegalPageLayout({
   return (
     <>
       {/* Header Navigation */}
-      <HeaderNavigationSection />
+      <HeaderNavigationSection usePageContext={usePageContext} />
 
       <div className="min-h-screen bg-background">
         {/* Reading Progress Bar */}

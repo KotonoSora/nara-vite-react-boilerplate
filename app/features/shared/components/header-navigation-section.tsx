@@ -21,8 +21,7 @@ import { BrandLogo } from "./brand-logo";
 
 // Lazy-load GitHub button to trim initial JS
 const GitHubButtonLazy = lazy(async () => ({
-  default: (await import("../../landing-page/components/github-button"))
-    .GitHubButton,
+  default: (await import("./github-button")).GitHubButton,
 }));
 
 // Lightweight avatar to avoid pulling Radix primitives for the header
@@ -43,7 +42,9 @@ function UserInitialAvatar({
   );
 }
 
-export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
+export const HeaderNavigationSection = memo(function HeaderNavigationSection({
+  usePageContext,
+}: any) {
   const auth = useOptionalAuth();
   const { t } = useI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -149,7 +150,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
           )}
 
           <Suspense fallback={null}>
-            <GitHubButtonLazy />
+            <GitHubButtonLazy usePageContext={usePageContext} />
           </Suspense>
           <LanguageSwitcher />
           <ModeSwitcher />
@@ -258,7 +259,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
 
           <div className="pt-3 border-t flex justify-end">
             <Suspense fallback={null}>
-              <GitHubButtonLazy />
+              <GitHubButtonLazy usePageContext={usePageContext} />
             </Suspense>
           </div>
         </div>

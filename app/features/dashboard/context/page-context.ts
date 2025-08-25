@@ -1,9 +1,9 @@
-import { createContext, useContext } from "react";
-
 import type { DashboardContentProps } from "../types/type";
 
-export const PageContext = createContext<DashboardContentProps | undefined>(
-  undefined,
-);
+import { createTypedContext } from "~/features/shared/context/create-type-context";
 
-export const usePageContext = () => useContext(PageContext);
+export const {
+  Context: PageContext,
+  useContext: usePageContext,
+  Provider: PageProvider,
+} = createTypedContext<DashboardContentProps>("DashboardPage");

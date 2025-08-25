@@ -8,6 +8,8 @@ import { WelcomeSection } from "~/features/dashboard/components/welcome-section"
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
 
+import { usePageContext } from "./context/page-context";
+
 export function ContentDashboardPage() {
   return (
     <main
@@ -15,7 +17,7 @@ export function ContentDashboardPage() {
       style={{ contentVisibility: "auto" }}
     >
       {/* Header */}
-      <HeaderNavigationSection />
+      <HeaderNavigationSection usePageContext={usePageContext} />
 
       {/* Main content */}
       <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12">

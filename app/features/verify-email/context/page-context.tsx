@@ -1,4 +1,4 @@
-import type { LoginContentProps } from "../types/type";
+import type { VerifyEmailPageProps } from "../types/type";
 
 import { createTypedContext } from "~/features/shared/context/create-type-context";
 
@@ -6,4 +6,4 @@ export const {
   Context: PageContext,
   useContext: usePageContext,
   Provider: PageProvider,
-} = createTypedContext<LoginContentProps>("LoginPage");
+} = createTypedContext<VerifyEmailPageProps>("VerifyEmailPage");
