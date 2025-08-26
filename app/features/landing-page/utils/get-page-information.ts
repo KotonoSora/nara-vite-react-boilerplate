@@ -10,7 +10,7 @@ import type { LandingPageEnv } from "../types/type";
  * @param params.VITE_LANDING_PAGE_COMMERCIAL_LINK The commercial link.
  * @returns The page information.
  */
-export async function getPageInformation({
+export function getPageInformation({
   VITE_LANDING_PAGE_TITLE,
   VITE_LANDING_PAGE_DESCRIPTION,
   VITE_LANDING_PAGE_REPOSITORY,
@@ -23,3 +23,5 @@ export async function getPageInformation({
     commercialLink: VITE_LANDING_PAGE_COMMERCIAL_LINK,
   };
 }
+
+export type GetPageInformation = ReturnType<typeof getPageInformation>;
