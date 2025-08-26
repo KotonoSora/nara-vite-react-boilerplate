@@ -1,23 +1,31 @@
-import { data, redirect } from "react-router";
+import { redirect } from "react-router";
 
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).admin";
 
 import { PageContext } from "~/features/admin/context/page-context";
 import { ContentAdminPage } from "~/features/admin/page";
-import { getUserId } from "~/lib/auth/auth.server";
-import { getUserById } from "~/lib/auth/user.server";
 import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
-export async function loader({ request, context }: Route.LoaderArgs) {
+export async function loader({ context, request }: Route.LoaderArgs) {
   const { db } = context;
+
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
+
+  const { getUserId } = await import("~/lib/auth/auth.server");
+
   const userId = await getUserId(request);
   if (!userId) {
     return redirect("/");
   }
+
+  const { getUserById } = await import("~/lib/auth/user.server");
+
   const user = await getUserById(db, userId);
   if (!user) {
     return redirect("/");

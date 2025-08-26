@@ -3,8 +3,6 @@ import { createThemeAction } from "remix-themes";
 
 import type { Route } from "./+types/action.set-theme";
 
-import { themeSessionResolver } from "~/lib/theme/sessions.server";
-
 export function loader({ request }: Route.LoaderArgs) {
   return data(
     {},
@@ -17,4 +15,8 @@ export function loader({ request }: Route.LoaderArgs) {
   );
 }
 
-export const action = createThemeAction(themeSessionResolver);
+export async function action(args: Route.ActionArgs) {
+  const { themeSessionResolver } = await import("~/lib/theme/sessions.server");
+
+  return createThemeAction(themeSessionResolver)(args);
+}

@@ -1,4 +1,4 @@
-import { data, redirect } from "react-router";
+import { redirect } from "react-router";
 import { z } from "zod";
 
 import type { SupportedLanguage } from "~/lib/i18n";
@@ -6,17 +6,21 @@ import type { Route } from "./+types/($lang).login";
 
 import { PageContext } from "~/features/login/context/page-context";
 import { ContentLoginPage } from "~/features/login/page";
-import { createUserSession, getUserId } from "~/lib/auth/auth.server";
-import { authenticateUser } from "~/lib/auth/user.server";
 import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ context, request }: Route.LoaderArgs) {
+  const { getUserId } = await import("~/lib/auth/auth.server");
+
   // Redirect if already logged in
   const userId = await getUserId(request);
   if (userId) {
     throw redirect("/dashboard");
   }
+
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
@@ -27,47 +31,42 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
-  try {
-    const formData = await request.formData();
+  const formData = await request.formData();
 
-    const loginSchema = z.object({
-      email: z.email(),
-      password: z.string().min(8, t("auth.login.validation.passwordMinLength")),
-    });
+  const loginSchema = z.object({
+    email: z.email(),
+    password: z.string().min(8, t("auth.login.validation.passwordMinLength")),
+  });
 
-    const result = loginSchema.safeParse({
-      email: formData.get("email"),
-      password: formData.get("password"),
-    });
+  const result = loginSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
 
-    if (!result.success) {
-      const firstError = result.error.issues[0];
-      return data(
-        { error: firstError?.message || t("errors.common.checkInput") },
-        { status: 400 },
-      );
-    }
-
-    const { email, password } = result.data;
-    const { db } = context;
-
-    const user = await authenticateUser(db, email, password);
-    if (!user) {
-      return data({ error: t("errors.common.checkInput") }, { status: 400 });
-    }
-
-    return createUserSession(user.id, "/dashboard");
-  } catch (error) {
-    console.error("Login error:", error);
-
-    return data(
-      { error: t("errors.common.somethingWentWrong") },
-      { status: 500 },
-    );
+  if (!result.success) {
+    const firstError = result.error.issues[0];
+    return { error: firstError?.message || t("errors.common.checkInput") };
   }
+
+  const { email, password } = result.data;
+  const { db } = context;
+
+  const { authenticateUser } = await import("~/lib/auth/user.server");
+
+  const user = await authenticateUser(db, email, password);
+  if (!user) {
+    return { error: t("errors.common.checkInput") };
+  }
+
+  const { createUserSession } = await import("~/lib/auth/auth.server");
+
+  return createUserSession(user.id, "/dashboard");
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

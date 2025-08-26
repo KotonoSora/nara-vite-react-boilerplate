@@ -7,7 +7,6 @@ import {
   getLanguageFromPath,
   isSupportedLanguage,
 } from "~/lib/i18n";
-import { getLanguageSession } from "~/lib/i18n/language.server";
 
 export function loader({ request }: Route.LoaderArgs) {
   return data(
@@ -26,6 +25,8 @@ export async function action({ request }: Route.ActionArgs) {
   const language = formData.get("language");
 
   if (typeof language === "string" && isSupportedLanguage(language)) {
+    const { getLanguageSession } = await import("~/lib/i18n/language.server");
+
     const languageSession = await getLanguageSession(request);
     languageSession.setLanguage(language);
 

@@ -4,9 +4,12 @@ import { getPageInformation } from "~/features/landing-page/utils/get-page-infor
 import { PageContext } from "~/features/terms/context/page-context";
 import { ContentTermsPage } from "~/features/terms/page";
 import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
-export async function loader({ request, context }: Route.LoaderArgs) {
+export async function loader({ context, request }: Route.LoaderArgs) {
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+
   const language = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
