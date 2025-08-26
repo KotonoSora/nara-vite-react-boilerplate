@@ -13,12 +13,9 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   const language = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
-  const {
-    cloudflare: { env },
-    db,
-  } = context;
+  const { db } = context;
   const { title, description, githubRepository } =
-    (await getPageInformation(env as any)) || {};
+    (await getPageInformation(import.meta.env as any)) || {};
   const showcases = await getShowcases(db);
   const showcaseTitle = t("showcase.title");
 
