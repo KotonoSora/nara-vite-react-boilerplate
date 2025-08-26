@@ -1,4 +1,4 @@
-import { Form, Link } from "react-router";
+import { Link } from "react-router";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -9,8 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { FooterSection } from "~/features/landing-page/components/footer-section";
-import { HeaderNavigationSection } from "~/features/landing-page/components/header-navigation-section";
+import { FooterSection } from "~/features/shared/components/footer-section";
+import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
 import { useTranslation } from "~/lib/i18n";
 
 import { usePageContext } from "./context/page-context";
@@ -19,15 +19,13 @@ export function ContentAdminPage() {
   const { user } = usePageContext();
   const t = useTranslation();
 
-  if (!user) return null;
-
   return (
     <main
       className="min-h-screen bg-background"
       style={{ contentVisibility: "auto" }}
     >
       {/* Header */}
-      <HeaderNavigationSection />
+      <HeaderNavigationSection usePageContext={usePageContext} />
 
       {/* Main content */}
       <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12">

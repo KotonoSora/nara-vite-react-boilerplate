@@ -1,8 +1,6 @@
 import { Activity, TrendingUp } from "lucide-react";
 import { Link } from "react-router";
 
-import type { FC } from "react";
-
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -11,9 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n";
 
-export const AuthDemoCard: FC = () => {
+export function AuthDemoCard() {
   const t = useTranslation();
 
   return (
@@ -70,4 +68,4 @@ export const AuthDemoCard: FC = () => {
       </CardContent>
     </Card>
   );
-};
+}

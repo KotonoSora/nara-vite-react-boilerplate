@@ -1,11 +1,10 @@
-import type { SupportedLanguage } from "~/lib/i18n/config";
+import type { SupportedLanguage } from "./config";
 
-import { getLanguageSession } from "~/language.server";
 import {
   DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
-} from "~/lib/i18n/config";
+} from "./config";
 
 /**
  * Resolve the preferred language for a request using:
@@ -19,6 +18,8 @@ export async function resolveRequestLanguage(
   // 1) Check URL segment
   const pathLanguage = getLanguageFromPath(url.pathname);
   if (pathLanguage) return pathLanguage;
+
+  const { getLanguageSession } = await import("~/lib/i18n/language.server");
 
   // 2) Check cookie session
   const languageSession = await getLanguageSession(request);

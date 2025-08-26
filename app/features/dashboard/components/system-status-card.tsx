@@ -1,7 +1,5 @@
 import { Activity } from "lucide-react";
 
-import type { FC } from "react";
-
 import { Badge } from "~/components/ui/badge";
 import {
   Card,
@@ -11,9 +9,9 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
-import { useTranslation } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n";
 
-export const SystemStatusCard: FC = () => {
+export function SystemStatusCard() {
   const t = useTranslation();
 
   return (
@@ -66,4 +64,4 @@ export const SystemStatusCard: FC = () => {
       </CardContent>
     </Card>
   );
-};
+}

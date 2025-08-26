@@ -1,51 +1,73 @@
+import { redirect } from "react-router";
+
+import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).admin";
 
-import { logout, requireUserId } from "~/auth.server";
 import { PageContext } from "~/features/admin/context/page-context";
 import { ContentAdminPage } from "~/features/admin/page";
 import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { getUserById } from "~/user.server";
 
-export async function loader({ request, context }: Route.LoaderArgs) {
-  const userId = await requireUserId(request);
+export async function loader({ context, request }: Route.LoaderArgs) {
   const { db } = context;
 
-  const user = await getUserById(db, userId);
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
 
-  if (!user) {
-    throw new Response("User not found", { status: 404 });
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+
+  const { getUserId } = await import("~/lib/auth/auth.server");
+
+  const userId = await getUserId(request);
+  if (!userId) {
+    return redirect("/");
   }
 
+  const { getUserById } = await import("~/lib/auth/user.server");
+
+  const user = await getUserById(db, userId);
+  if (!user) {
+    return redirect("/");
+  }
   // Check if user is admin
   if (user.role !== "admin") {
-    return logout(request);
+    return redirect("/");
   }
 
-  const language = await resolveRequestLanguage(request);
-
-  return { user, language };
+  return {
+    title: t("admin.meta.title"),
+    description: t("admin.meta.description"),
+    user,
+  };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (!loaderData) {
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
     return [
-      { title: "Admin Panel - NARA" },
+      { title: "Admin Panel" },
       { name: "description", content: "Administrative dashboard" },
     ];
   }
 
-  const t = createTranslationFunction(loaderData.language);
-
   return [
-    { title: t("admin.meta.title") },
-    { name: "description", content: t("admin.meta.description") },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 
 export default function Admin({ loaderData }: Route.ComponentProps) {
+  if (!loaderData || "error" in loaderData) return null;
+
+  const { user } = loaderData;
+
   return (
-    <PageContext.Provider value={loaderData}>
+    <PageContext.Provider value={{ user }}>
       <ContentAdminPage />
     </PageContext.Provider>
   );

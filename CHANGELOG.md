@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 4.6.7 (2025-08-26)
+
+- Upgraded dependency versions
+- Enhance authentication and authorization features
+- Enhance internationalization and localization features
+- Enhance theme features
+- Refactor source code
+- Implement about page and demo tag
+
 ## 4.6.6 (2025-08-17)
 
 - Upgraded dependency versions

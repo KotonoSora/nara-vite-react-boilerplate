@@ -2,50 +2,54 @@ import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).privacy";
 
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
-import { PageContext } from "~/features/legal/privacy/context/page-context";
-import { ContentPrivacyPage } from "~/features/legal/privacy/page";
-import { getTranslation } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
+import { PageContext } from "~/features/privacy/context/page-context";
+import { ContentPrivacyPage } from "~/features/privacy/page";
+import { createTranslationFunction } from "~/lib/i18n";
 
-export async function loader({ request, context }: Route.LoaderArgs) {
+export async function loader({ context, request }: Route.LoaderArgs) {
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+
   const language: SupportedLanguage = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
 
-  // Get localized meta content
-  const title = getTranslation(language, "legal.privacy.title");
-  const description = getTranslation(language, "legal.privacy.description");
+  const title = t("legal.privacy.title");
+  const description = t("legal.privacy.description");
 
-  const {
-    cloudflare: { env },
-  } = context;
-
-  const { githubRepository } = await getPageInformation({ ...env } as any);
+  const { githubRepository } =
+    (await getPageInformation(import.meta.env as any)) || {};
 
   return {
+    title,
+    description,
     githubRepository,
-    meta: {
-      title,
-      description,
-    },
   };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const title = loaderData?.meta?.title || "Privacy Policy";
-  const description =
-    loaderData?.meta?.description ||
-    "Privacy Policy for NARA - Modern React Boilerplate";
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
+    return [
+      { title: "Privacy Policy" },
+      { name: "description", content: "Privacy Policy" },
+    ];
+  }
 
   return [
-    { title: `${title} - NARA` },
-    {
-      name: "description",
-      content: description,
-    },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 export default function PrivacyPage({ loaderData }: Route.ComponentProps) {
+  const { githubRepository } = loaderData;
+
   return (
-    <PageContext.Provider value={loaderData}>
+    <PageContext.Provider value={{ githubRepository }}>
       <ContentPrivacyPage />
     </PageContext.Provider>
   );

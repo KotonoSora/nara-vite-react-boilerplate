@@ -1,6 +1,7 @@
 import type { SupportedLanguage } from "./config";
 import type { NestedTranslationObject, TranslationKey } from "./types";
 
+import arAbout from "~/locales/ar/about.json";
 // Import translation files
 // Import namespace files for Arabic
 import arAdmin from "~/locales/ar/admin.json";
@@ -14,6 +15,7 @@ import arNavigation from "~/locales/ar/navigation.json";
 import arShowcase from "~/locales/ar/showcase.json";
 import arTheme from "~/locales/ar/theme.json";
 import arTime from "~/locales/ar/time.json";
+import enAbout from "~/locales/en/about.json";
 // Import namespace files for English
 import enAdmin from "~/locales/en/admin.json";
 import enAuth from "~/locales/en/auth.json";
@@ -26,6 +28,7 @@ import enNavigation from "~/locales/en/navigation.json";
 import enShowcase from "~/locales/en/showcase.json";
 import enTheme from "~/locales/en/theme.json";
 import enTime from "~/locales/en/time.json";
+import esAbout from "~/locales/es/about.json";
 // Import namespace files for Spanish
 import esAdmin from "~/locales/es/admin.json";
 import esAuth from "~/locales/es/auth.json";
@@ -38,6 +41,7 @@ import esNavigation from "~/locales/es/navigation.json";
 import esShowcase from "~/locales/es/showcase.json";
 import esTheme from "~/locales/es/theme.json";
 import esTime from "~/locales/es/time.json";
+import frAbout from "~/locales/fr/about.json";
 // Import namespace files for French
 import frAdmin from "~/locales/fr/admin.json";
 import frAuth from "~/locales/fr/auth.json";
@@ -50,6 +54,7 @@ import frNavigation from "~/locales/fr/navigation.json";
 import frShowcase from "~/locales/fr/showcase.json";
 import frTheme from "~/locales/fr/theme.json";
 import frTime from "~/locales/fr/time.json";
+import hiAbout from "~/locales/hi/about.json";
 // Import namespace files for Hindi
 import hiAdmin from "~/locales/hi/admin.json";
 import hiAuth from "~/locales/hi/auth.json";
@@ -62,6 +67,7 @@ import hiNavigation from "~/locales/hi/navigation.json";
 import hiShowcase from "~/locales/hi/showcase.json";
 import hiTheme from "~/locales/hi/theme.json";
 import hiTime from "~/locales/hi/time.json";
+import jaAbout from "~/locales/ja/about.json";
 // Import namespace files for Japanese
 import jaAdmin from "~/locales/ja/admin.json";
 import jaAuth from "~/locales/ja/auth.json";
@@ -74,6 +80,7 @@ import jaNavigation from "~/locales/ja/navigation.json";
 import jaShowcase from "~/locales/ja/showcase.json";
 import jaTheme from "~/locales/ja/theme.json";
 import jaTime from "~/locales/ja/time.json";
+import thAbout from "~/locales/th/about.json";
 // Import namespace files for Thai
 import thAdmin from "~/locales/th/admin.json";
 import thAuth from "~/locales/th/auth.json";
@@ -86,6 +93,7 @@ import thNavigation from "~/locales/th/navigation.json";
 import thShowcase from "~/locales/th/showcase.json";
 import thTheme from "~/locales/th/theme.json";
 import thTime from "~/locales/th/time.json";
+import viAbout from "~/locales/vi/about.json";
 // Import namespace files for Vietnamese
 import viAdmin from "~/locales/vi/admin.json";
 import viAuth from "~/locales/vi/auth.json";
@@ -98,6 +106,7 @@ import viNavigation from "~/locales/vi/navigation.json";
 import viShowcase from "~/locales/vi/showcase.json";
 import viTheme from "~/locales/vi/theme.json";
 import viTime from "~/locales/vi/time.json";
+import zhAbout from "~/locales/zh/about.json";
 // Import namespace files for Chinese
 import zhAdmin from "~/locales/zh/admin.json";
 import zhAuth from "~/locales/zh/auth.json";
@@ -126,6 +135,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     theme: enTheme,
     landing: enLanding,
     legal: enLegal,
+    about: enAbout,
   },
   es: {
     ...esCommon,
@@ -139,6 +149,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     theme: esTheme,
     landing: esLanding,
     legal: esLegal,
+    about: esAbout,
   },
   fr: {
     ...frCommon,
@@ -152,6 +163,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     theme: frTheme,
     landing: frLanding,
     legal: frLegal,
+    about: frAbout,
   },
   zh: {
     ...zhCommon,
@@ -165,6 +177,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     theme: zhTheme,
     landing: zhLanding,
     legal: zhLegal,
+    about: zhAbout,
   },
   hi: {
     ...hiCommon,
@@ -178,6 +191,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     theme: hiTheme,
     landing: hiLanding,
     legal: hiLegal,
+    about: hiAbout,
   },
   ar: {
     ...arCommon,
@@ -191,6 +205,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     theme: arTheme,
     landing: arLanding,
     legal: arLegal,
+    about: arAbout,
   },
   vi: {
     ...viCommon,
@@ -204,6 +219,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     theme: viTheme,
     landing: viLanding,
     legal: viLegal,
+    about: viAbout,
   },
   ja: {
     ...jaCommon,
@@ -217,6 +233,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     theme: jaTheme,
     landing: jaLanding,
     legal: jaLegal,
+    about: jaAbout,
   },
   th: {
     ...thCommon,
@@ -230,6 +247,7 @@ const translations: Record<SupportedLanguage, NestedTranslationObject> = {
     theme: thTheme,
     landing: thLanding,
     legal: thLegal,
+    about: thAbout,
   },
 };
 

@@ -1,12 +1,18 @@
+import { CircleChevronRight } from "lucide-react";
 import { memo } from "react";
+import { Link } from "react-router";
 
-import { ShowcaseItem } from "~/features/landing-page/components/showcase-item";
-import { usePageContext } from "~/features/landing-page/context/page-context";
+import type { ProjectInfo } from "../types/type";
+
+import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n";
+
+import { ShowcaseItem } from "../components/showcase-item";
+import { usePageContext } from "../context/page-context";
 
 export const ShowcaseSection = memo(function ShowcaseSection() {
   const { t } = useI18n();
-  const { showcases } = usePageContext();
+  const { showcases } = usePageContext() || {};
 
   return (
     <section
@@ -23,9 +29,19 @@ export const ShowcaseSection = memo(function ShowcaseSection() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 max-w-5xl mx-auto">
-        {showcases.map((project: ProjectInfo) => (
-          <ShowcaseItem key={project.id} project={project} />
-        ))}
+        {Array.isArray(showcases) &&
+          showcases.map((project: ProjectInfo) => (
+            <ShowcaseItem key={project.id} project={project} />
+          ))}
+      </div>
+
+      <div className="max-w-5xl mx-auto text-center space-y-4 mt-10">
+        <Button asChild variant="ghost">
+          <Link to="/showcases">
+            <span>{t("landing.github.seeMore")}</span>
+            <CircleChevronRight />
+          </Link>
+        </Button>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import { z } from "zod";
 
+import type { ProjectInfoWithoutID } from "~/features/landing-page/types/type";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { Context } from "hono";
 
@@ -44,12 +45,34 @@ app.get("/", async (c) => {
   }
 });
 
+const projectInfoSchema = z.object({
+  name: z.string().min(2).max(100),
+  description: z.string().min(10).max(500),
+  url: z.url(),
+  image: z.url().optional(),
+  tags: z.array(z.string().min(2).max(100)).optional(),
+});
+
 app.post("/showcase/seed", async (c) => {
   try {
     const db = getDbOrFail(c);
     if (db instanceof Response) return db;
 
-    await seedShowcases(db);
+    const body = await c.req.json();
+    const parsed = z.array(projectInfoSchema).safeParse(body.seeds);
+
+    if (!parsed.success) {
+      return c.json(
+        {
+          error: Object.values(z.flattenError(parsed.error).formErrors)
+            .flat()
+            .join(", "),
+        },
+        400,
+      );
+    }
+
+    await seedShowcases(db, parsed.data as ProjectInfoWithoutID[]);
     return c.json({ success: true });
   } catch (error) {
     console.error("Error seeding showcases:", error);

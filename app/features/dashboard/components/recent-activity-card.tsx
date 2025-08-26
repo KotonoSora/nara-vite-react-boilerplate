@@ -1,7 +1,5 @@
 import { Calendar, Clock, Settings, User } from "lucide-react";
 
-import type { FC } from "react";
-
 import {
   Card,
   CardContent,
@@ -9,24 +7,15 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n";
 
-interface Activity {
-  id: number;
-  actionKey: string;
-  time: string;
-  timeValue?: number;
-  icon: "User" | "Settings" | "Calendar";
-}
+import { usePageContext } from "../context/page-context";
 
-interface RecentActivityCardProps {
-  activities: Activity[];
-}
-
-export const RecentActivityCard: FC<RecentActivityCardProps> = ({
-  activities,
-}) => {
+export function RecentActivityCard() {
+  const { recentActivity } = usePageContext() || {};
   const t = useTranslation();
+
+  if (!recentActivity) return null;
 
   return (
     <Card className="lg:col-span-1 transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/50 dark:to-amber-950/50">
@@ -40,12 +29,12 @@ export const RecentActivityCard: FC<RecentActivityCardProps> = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4 sm:space-y-5">
-        {activities.length === 0 ? (
+        {recentActivity.length === 0 ? (
           <div className="text-center text-gray-500 dark:text-gray-400 py-4">
             {t("dashboard.recentActivity.noActivity")}
           </div>
         ) : (
-          activities.map((activity) => {
+          recentActivity.map((activity) => {
             const IconComponent =
               activity.icon === "User"
                 ? User
@@ -84,4 +73,4 @@ export const RecentActivityCard: FC<RecentActivityCardProps> = ({
       </CardContent>
     </Card>
   );
-};
+}

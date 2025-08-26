@@ -2,10 +2,12 @@ import { ExternalLink } from "lucide-react";
 import { memo } from "react";
 import { Link } from "react-router";
 
+import type { ProjectInfo } from "../types/type";
+
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
-import SocialPreview from "~/features/landing-page/assets/social-preview.svg?url";
+import SocialPreview from "~/features/shared/assets/social-preview.svg?url";
 import { useI18n } from "~/lib/i18n";
 
 export const ShowcaseItem = memo(function ShowcaseItem({

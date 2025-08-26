@@ -20,12 +20,9 @@ import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/root";
 
 import appCssUrl from "~/app.css?url";
-import { getUserId } from "~/auth.server";
+import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/auth";
 import { DEFAULT_LANGUAGE, I18nProvider, isRTLLanguage } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { themeSessionResolver } from "~/sessions.server";
-import { getUserById } from "~/user.server";
 import { cancelIdleCallback, scheduleIdleCallback } from "~/utils.client";
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
@@ -55,9 +52,17 @@ export const links: Route.LinksFunction = () => {
 };
 
 export async function loader({ request, context }: Route.LoaderArgs) {
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+
   const language: SupportedLanguage = await resolveRequestLanguage(request);
 
+  const { themeSessionResolver } = await import("~/lib/theme/sessions.server");
+
   const { getTheme } = await themeSessionResolver(request);
+
+  const { getUserId } = await import("~/lib/auth/auth.server");
 
   // Get current user if logged in and context is available
   const userId = await getUserId(request);
@@ -65,6 +70,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 
   if (userId && context?.db) {
     try {
+      const { getUserById } = await import("~/lib/auth/user.server");
+
       user = await getUserById(context.db, userId);
     } catch (error) {
       // If user lookup fails, continue without user (they'll be logged out)
@@ -116,6 +123,7 @@ function InnerLayout({
             <ToasterLazy />
           </Suspense>
         ) : null}
+        {import.meta.env.DEV && <DemoTag />}
       </body>
     </html>
   );

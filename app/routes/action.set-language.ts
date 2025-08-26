@@ -2,7 +2,6 @@ import { data, redirect } from "react-router";
 
 import type { Route } from "./+types/action.set-language";
 
-import { getLanguageSession } from "~/language.server";
 import {
   addLanguageToPath,
   getLanguageFromPath,
@@ -26,6 +25,8 @@ export async function action({ request }: Route.ActionArgs) {
   const language = formData.get("language");
 
   if (typeof language === "string" && isSupportedLanguage(language)) {
+    const { getLanguageSession } = await import("~/lib/i18n/language.server");
+
     const languageSession = await getLanguageSession(request);
     languageSession.setLanguage(language);
 

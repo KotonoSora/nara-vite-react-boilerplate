@@ -1,39 +1,48 @@
-import { data, redirect } from "react-router";
+import { redirect } from "react-router";
 import { z } from "zod";
 
+import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).login";
 
-import { createUserSession, getUserId } from "~/auth.server";
 import { PageContext } from "~/features/login/context/page-context";
 import { ContentLoginPage } from "~/features/login/page";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
-import { authenticateUser } from "~/user.server";
+import { createTranslationFunction } from "~/lib/i18n";
 
-const loginSchema = z.object({
-  email: z.email(),
-  password: z.string().min(6),
-});
+export async function loader({ context, request }: Route.LoaderArgs) {
+  const { getUserId } = await import("~/lib/auth/auth.server");
 
-export async function loader({ request }: Route.LoaderArgs) {
   // Redirect if already logged in
   const userId = await getUserId(request);
   if (userId) {
     throw redirect("/dashboard");
   }
 
-  const language = await resolveRequestLanguage(request);
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
 
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
   return {
-    loginTitle: t("auth.login.title"),
-    loginDescription: t("auth.login.description"),
+    title: t("auth.login.title"),
+    description: t("auth.login.description"),
   };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
+  const t = createTranslationFunction(language);
+
   const formData = await request.formData();
+
+  const loginSchema = z.object({
+    email: z.email(),
+    password: z.string().min(8, t("auth.login.validation.passwordMinLength")),
+  });
 
   const result = loginSchema.safeParse({
     email: formData.get("email"),
@@ -41,45 +50,50 @@ export async function action({ request, context }: Route.ActionArgs) {
   });
 
   if (!result.success) {
-    return data(
-      { error: "Please check your email and password" },
-      { status: 400 },
-    );
+    const firstError = result.error.issues[0];
+    return { error: firstError?.message || t("errors.common.checkInput") };
   }
 
   const { email, password } = result.data;
   const { db } = context;
 
-  try {
-    const user = await authenticateUser(db, email, password);
+  const { authenticateUser } = await import("~/lib/auth/user.server");
 
-    if (!user) {
-      return data({ error: "Invalid email or password" }, { status: 400 });
-    }
-
-    return createUserSession(user.id, "/dashboard");
-  } catch (error) {
-    console.error("Login error:", error);
-    return data(
-      { error: "Something went wrong. Please try again." },
-      { status: 500 },
-    );
+  const user = await authenticateUser(db, email, password);
+  if (!user) {
+    return { error: t("errors.common.checkInput") };
   }
+
+  const { createUserSession } = await import("~/lib/auth/auth.server");
+
+  return createUserSession(user.id, "/dashboard");
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
+    return [
+      { title: "Sign In" },
+      {
+        name: "description",
+        content: "Sign in to your account",
+      },
+    ];
+  }
+
   return [
-    { title: `${loaderData?.loginTitle || "Sign In"} - NARA` },
-    {
-      name: "description",
-      content: loaderData?.loginDescription || "Sign in to your NARA account",
-    },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 
 export default function Login({ actionData }: Route.ComponentProps) {
   return (
-    <PageContext.Provider value={{ ...actionData }}>
+    <PageContext.Provider value={{ error: actionData?.error }}>
       <ContentLoginPage />
     </PageContext.Provider>
   );

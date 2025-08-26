@@ -49,5 +49,8 @@
       "userDashboard": "Panel de Usuario",
       "returnHome": "Volver al Inicio"
     }
+  },
+  "errors": {
+    "userNotFound": "Usuario no encontrado"
   }
 }

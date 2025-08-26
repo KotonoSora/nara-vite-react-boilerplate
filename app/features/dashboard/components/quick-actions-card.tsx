@@ -1,8 +1,6 @@
 import { Settings, Shield, TrendingUp, User } from "lucide-react";
 import { Link } from "react-router";
 
-import type { FC } from "react";
-
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -11,18 +9,15 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n";
 
-interface User {
-  role: "admin" | "user";
-}
+import { usePageContext } from "../context/page-context";
 
-interface QuickActionsCardProps {
-  user: User;
-}
-
-export const QuickActionsCard: FC<QuickActionsCardProps> = ({ user }) => {
+export function QuickActionsCard() {
+  const { user } = usePageContext() || {};
   const t = useTranslation();
+
+  if (!user) return null;
 
   return (
     <Card className="lg:col-span-1 transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-950/50 dark:to-blue-950/50">
@@ -88,4 +83,4 @@ export const QuickActionsCard: FC<QuickActionsCardProps> = ({ user }) => {
       </CardContent>
     </Card>
   );
-};
+}

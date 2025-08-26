@@ -1,23 +1,28 @@
-import { data, redirect } from "react-router";
+import { sql } from "drizzle-orm";
+import { redirect } from "react-router";
 import { z } from "zod";
 
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).register";
 
-import { createUserSession, getUserId } from "~/auth.server";
+import * as schema from "~/database/schema";
 import { PageContext } from "~/features/register/context/page-context";
 import { ContentRegisterPage } from "~/features/register/page";
-import { getLanguageSession } from "~/language.server";
+import { MAX_USERS } from "~/features/shared/constants/limit";
 import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createUser, getUserByEmail } from "~/user.server";
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ context, request }: Route.LoaderArgs) {
+  const { getUserId } = await import("~/lib/auth/auth.server");
+
   // Redirect if already logged in
   const userId = await getUserId(request);
   if (userId) {
     throw redirect("/dashboard");
   }
+
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
 
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
@@ -29,12 +34,14 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const formData = await request.formData();
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
 
-  // Get language from session for error messages
-  const languageSession = await getLanguageSession(request);
-  const language = languageSession.getLanguage();
+  const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
+
+  const formData = await request.formData();
 
   const registerSchema = z
     .object({
@@ -42,10 +49,10 @@ export async function action({ request, context }: Route.ActionArgs) {
       email: z.email(t("auth.register.validation.emailRequired")),
       password: z
         .string()
-        .min(6, t("auth.register.validation.passwordMinLength")),
+        .min(8, t("auth.register.validation.passwordMinLength")),
       confirmPassword: z
         .string()
-        .min(6, t("auth.register.validation.confirmPasswordRequired")),
+        .min(8, t("auth.register.validation.confirmPasswordRequired")),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: t("auth.register.validation.passwordsDoNotMatch"),
@@ -61,63 +68,67 @@ export async function action({ request, context }: Route.ActionArgs) {
 
   if (!result.success) {
     const firstError = result.error.issues[0];
-    return data(
-      { error: firstError?.message || t("errors.common.checkInput") },
-      { status: 400 },
-    );
+    return { error: firstError?.message || t("errors.common.checkInput") };
   }
 
   const { name, email, password } = result.data;
   const { db } = context;
+  const { user } = schema;
 
-  try {
-    // Check if user already exists
-    const existingUser = await getUserByEmail(db, email);
-    if (existingUser) {
-      return data(
-        { error: t("auth.register.errors.accountExists") },
-        { status: 400 },
-      );
-    }
+  const userCount = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(user)
+    .get();
 
-    // Create new user
-    const newUser = await createUser(db, {
-      name,
-      email,
-      password,
-      role: "user",
-    });
-
-    return createUserSession(newUser.id, "/dashboard");
-  } catch (error) {
-    console.error("Registration error:", error);
-    return data(
-      { error: t("errors.common.somethingWentWrong") },
-      { status: 500 },
-    );
+  if (typeof MAX_USERS === "number" && (userCount?.count ?? 0) >= MAX_USERS) {
+    return { error: "Registration limit reached" };
   }
+
+  const { getUserByEmail } = await import("~/lib/auth/user.server");
+
+  // Check if user already exists
+  const existingUser = await getUserByEmail(db, email);
+  if (existingUser) {
+    return { error: t("auth.register.errors.accountExists") };
+  }
+
+  const { createUser } = await import("~/lib/auth/user.server");
+
+  // Create new user
+  const newUser = await createUser(db, {
+    name,
+    email,
+    password,
+    role: "user",
+  });
+
+  const { createUserSession } = await import("~/lib/auth/auth.server");
+
+  return createUserSession(newUser.id, "/dashboard");
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (!loaderData) {
+  if (
+    !("title" in loaderData) ||
+    !("description" in loaderData) ||
+    !loaderData.title ||
+    !loaderData.description
+  ) {
     return [
-      { title: "Sign Up - NARA" },
-      { name: "description", content: "Create a new NARA account" },
+      { title: "Sign Up" },
+      { name: "description", content: "Create a new account" },
     ];
   }
 
   return [
-    { title: `${(loaderData as any).registerTitle} - NARA` },
-    { name: "description", content: (loaderData as any).registerDescription },
+    { title: loaderData.title },
+    { name: "description", content: loaderData.description },
   ];
 }
 
-export default function Register({
-  actionData,
-  loaderData,
-}: Route.ComponentProps) {
+export default function Register({ actionData }: Route.ComponentProps) {
   return (
-    <PageContext.Provider value={{ ...actionData }}>
+    <PageContext.Provider value={{ error: actionData?.error }}>
       <ContentRegisterPage />
     </PageContext.Provider>
   );
