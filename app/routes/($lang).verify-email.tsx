@@ -1,16 +1,18 @@
-import { data } from "react-router";
 import { z } from "zod";
 
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang).verify-email";
 
 import { VerifyEmailPage } from "~/features/verify-email/page";
-import { verifyEmailWithToken } from "~/lib/auth/user.server";
 import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
-export async function loader({ request, context }: Route.LoaderArgs) {
+export async function loader({ context, request }: Route.LoaderArgs) {
   const { db } = context;
+
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
   const url = new URL(request.url);
@@ -22,16 +24,16 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   // Validate the token using the schema
   const validationResult = verifyEmailSchema.safeParse({ token });
   if (!validationResult.success) {
-    return data(
-      {
-        title: t("auth.verifyEmail.title"),
-        description: t("auth.verifyEmail.description"),
-        error: t("auth.verifyEmail.validation.tokenRequired"),
-        errorCode: "REQUIRED_TOKEN",
-      },
-      { status: 400 },
-    );
+    return {
+      title: t("auth.verifyEmail.title"),
+      description: t("auth.verifyEmail.description"),
+      error: t("auth.verifyEmail.validation.tokenRequired"),
+      errorCode: "REQUIRED_TOKEN",
+    };
   }
+
+  const { verifyEmailWithToken } = await import("~/lib/auth/user.server");
+
   // Verify the email with the token
   const result = await verifyEmailWithToken(db, validationResult.data.token);
   if (!result.success) {
@@ -54,23 +56,20 @@ export async function loader({ request, context }: Route.LoaderArgs) {
       default:
         errorMessage = result.error; // Fallback to original error message
     }
-    return data(
-      {
-        title: t("auth.verifyEmail.title"),
-        description: t("auth.verifyEmail.description"),
-        error: errorMessage,
-        errorCode: result.errorCode,
-      },
-      { status: 400 },
-    );
+    return {
+      title: t("auth.verifyEmail.title"),
+      description: t("auth.verifyEmail.description"),
+      error: errorMessage,
+      errorCode: result.errorCode,
+    };
   }
 
-  return data({
+  return {
     title: t("auth.verifyEmail.title"),
     description: t("auth.verifyEmail.description"),
     success: true,
     message: t("auth.verifyEmail.success.message"),
-  });
+  };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

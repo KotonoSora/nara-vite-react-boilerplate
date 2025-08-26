@@ -1,9 +1,9 @@
-import { data } from "react-router";
-
 import type {
   FeatureCardConfig,
+  LandingPageEnv,
   Step,
 } from "~/features/landing-page/types/type";
+import type { GetPageInformation } from "~/features/landing-page/utils/get-page-information";
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/($lang)._index";
 
@@ -14,19 +14,34 @@ import { getPageInformation } from "~/features/landing-page/utils/get-page-infor
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { getSteps } from "~/features/landing-page/utils/get-steps";
 import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
   const { db } = context;
+
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
+
+  let pageInformation: GetPageInformation;
+
+  if (import.meta.env) {
+    pageInformation = getPageInformation(import.meta.env as LandingPageEnv);
+  } else {
+    pageInformation = {} as GetPageInformation;
+  }
+
   const { title, description, githubRepository, commercialLink } =
-    (await getPageInformation(import.meta.env as any)) || {};
-  const showcases = await getShowcases(db);
+    pageInformation;
+
   const steps: Step[] = getSteps(t);
   const featuresConfig: FeatureCardConfig[] = getFeaturesConfigs(t);
 
-  return data({
+  const showcases = await getShowcases(db);
+
+  return {
     title,
     description,
     githubRepository,
@@ -34,7 +49,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
     showcases,
     steps,
     featuresConfig,
-  });
+  };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

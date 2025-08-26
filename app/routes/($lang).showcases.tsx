@@ -1,5 +1,3 @@
-import { data } from "react-router";
-
 import type { Route } from "./+types/($lang).showcases";
 
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
@@ -7,9 +5,12 @@ import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { PageContext } from "~/features/showcases/context/page-context";
 import { ContentShowcasePage } from "~/features/showcases/page";
 import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+
   const language = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
@@ -19,14 +20,14 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   const showcases = await getShowcases(db);
   const showcaseTitle = t("showcase.title");
 
-  return data({
+  return {
     title,
     description,
     githubRepository,
     commercialLink: "",
     showcases,
     showcaseTitle,
-  });
+  };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

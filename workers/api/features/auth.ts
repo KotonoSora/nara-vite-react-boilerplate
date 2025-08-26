@@ -8,7 +8,6 @@ import type { Context } from "hono";
 
 import * as schema from "~/database/schema";
 import { MAX_USERS } from "~/features/shared/constants/limit";
-import { createUser, getUserByEmail } from "~/lib/auth/user.server";
 
 const { user } = schema;
 
@@ -72,6 +71,10 @@ app.post("/admin/register", async (c): Promise<Response> => {
     if (validatedData.adminSecret !== ADMIN_SECRET) {
       return c.json({ error: "Invalid admin secret" }, 403);
     }
+
+    const { getUserByEmail, createUser } = await import(
+      "~/lib/auth/user.server"
+    );
 
     // Check if user already exists
     const existingUser = await getUserByEmail(db, validatedData.email);
@@ -149,6 +152,10 @@ app.post("member/register", async (c) => {
     if (validatedData.adminSecret !== ADMIN_SECRET) {
       return c.json({ error: "Invalid admin secret" }, 403);
     }
+
+    const { getUserByEmail, createUser } = await import(
+      "~/lib/auth/user.server"
+    );
 
     // Check if user already exists
     const existingUser = await getUserByEmail(db, validatedData.email);

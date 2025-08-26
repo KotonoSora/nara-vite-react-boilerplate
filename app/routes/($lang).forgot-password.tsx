@@ -1,15 +1,16 @@
-import { data } from "react-router";
 import { z } from "zod";
 
 import type { Route } from "./+types/($lang).forgot-password";
 
 import { PageContext } from "~/features/forgot-password/context/page-context";
 import { ForgotPasswordPage } from "~/features/forgot-password/page";
-import { requestPasswordReset } from "~/lib/auth/user.server";
 import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
-export const loader = async ({ request }: Route.LoaderArgs) => {
+export async function loader({ context, request }: Route.LoaderArgs) {
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+
   const language = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
@@ -17,9 +18,13 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
     title: t("auth.forgotPassword.title"),
     description: t("auth.forgotPassword.description"),
   };
-};
+}
 
 export async function action({ request, context }: Route.ActionArgs) {
+  const { resolveRequestLanguage } = await import(
+    "~/lib/i18n/request-language.server"
+  );
+
   const language = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
   const formData = await request.formData();
@@ -30,29 +35,22 @@ export async function action({ request, context }: Route.ActionArgs) {
     email: formData.get("email"),
   });
   if (!result.success) {
-    return data(
-      { error: t("auth.forgotPassword.errorInvalidEmail") },
-      { status: 400 },
-    );
+    return { error: t("auth.forgotPassword.errorInvalidEmail") };
   }
   const { email } = result.data;
   const { db } = context;
-  try {
-    const url = new URL(request.url);
-    const baseUrl = `${url.protocol}//${url.host}`;
-    await requestPasswordReset(db, email, baseUrl);
 
-    return data({
-      success: true,
-      message: t("auth.forgotPassword.successMessage"),
-    });
-  } catch (error) {
-    console.error("Password reset request error:", error);
-    return data(
-      { error: t("auth.forgotPassword.errorGeneral") },
-      { status: 500 },
-    );
-  }
+  const url = new URL(request.url);
+  const baseUrl = `${url.protocol}//${url.host}`;
+
+  const { requestPasswordReset } = await import("~/lib/auth/user.server");
+
+  await requestPasswordReset(db, email, baseUrl);
+
+  return {
+    success: true,
+    message: t("auth.forgotPassword.successMessage"),
+  };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -75,13 +73,18 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function ForgotPassword({ actionData }: Route.ComponentProps) {
-  const isSuccess = actionData && "success" in actionData && actionData.success;
-  const error = actionData && "error" in actionData ? actionData.error : null;
-  const message =
-    actionData && "message" in actionData ? actionData.message : null;
+  const {
+    success = false,
+    error = null,
+    message = null,
+  } = (actionData ?? {}) as Partial<{
+    success: boolean;
+    error: string;
+    message: string;
+  }>;
 
   return (
-    <PageContext.Provider value={{ isSuccess, error, message }}>
+    <PageContext.Provider value={{ isSuccess: success, error, message }}>
       <ForgotPasswordPage />
     </PageContext.Provider>
   );
