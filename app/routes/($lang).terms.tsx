@@ -13,11 +13,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const title = t("legal.terms.title");
   const description = t("legal.terms.description");
 
-  const {
-    cloudflare: { env },
-  } = context;
-
-  const { githubRepository } = (await getPageInformation(env as any)) || {};
+  const { githubRepository } =
+    (await getPageInformation(import.meta.env as any)) || {};
 
   return {
     title,

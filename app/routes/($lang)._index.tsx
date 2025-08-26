@@ -17,14 +17,11 @@ import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
-  const {
-    cloudflare: { env },
-    db,
-  } = context;
+  const { db } = context;
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
   const { title, description, githubRepository, commercialLink } =
-    (await getPageInformation(env as any)) || {};
+    (await getPageInformation(import.meta.env as any)) || {};
   const showcases = await getShowcases(db);
   const steps: Step[] = getSteps(t);
   const featuresConfig: FeatureCardConfig[] = getFeaturesConfigs(t);

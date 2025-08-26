@@ -7,18 +7,15 @@ import { ContentPrivacyPage } from "~/features/privacy/page";
 import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
-export async function loader({ request, context }: Route.LoaderArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
 
   const title = t("legal.privacy.title");
   const description = t("legal.privacy.description");
 
-  const {
-    cloudflare: { env },
-  } = context;
-
-  const { githubRepository } = (await getPageInformation(env as any)) || {};
+  const { githubRepository } =
+    (await getPageInformation(import.meta.env as any)) || {};
 
   return {
     title,
