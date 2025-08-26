@@ -20,6 +20,7 @@ import type { SupportedLanguage } from "~/lib/i18n";
 import type { Route } from "./+types/root";
 
 import appCssUrl from "~/app.css?url";
+import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/auth";
 import { getUserId } from "~/lib/auth/auth.server";
 import { getUserById } from "~/lib/auth/user.server";
@@ -116,6 +117,7 @@ function InnerLayout({
             <ToasterLazy />
           </Suspense>
         ) : null}
+        <DemoTag />
       </body>
     </html>
   );
