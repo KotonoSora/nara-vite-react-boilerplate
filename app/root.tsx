@@ -123,7 +123,7 @@ function InnerLayout({
             <ToasterLazy />
           </Suspense>
         ) : null}
-        <DemoTag />
+        {import.meta.env.DEV && <DemoTag />}
       </body>
     </html>
   );
