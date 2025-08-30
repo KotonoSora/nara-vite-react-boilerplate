@@ -10,6 +10,6 @@
       "  );",
       "}",
     ],
-    "description": "Creates a simple React Router v7 route page with meta and default component",
+    "description": "Create a simple React page",
   },
 }
