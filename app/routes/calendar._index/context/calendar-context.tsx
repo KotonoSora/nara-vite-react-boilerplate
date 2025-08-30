@@ -1,22 +1,6 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { createContext, useContext } from "react";
 
-import type {
-  CalendarContextValue,
-  CalendarEvent,
-  CalendarProviderProps,
-  DayCellProps,
-  EventsMap,
-  InfiniteScrollProps,
-  WeekRowProps,
-} from "../types/type";
+import type { CalendarContextValue } from "../types/type";
 
 export const CalendarContext = createContext<CalendarContextValue | null>(null);
 

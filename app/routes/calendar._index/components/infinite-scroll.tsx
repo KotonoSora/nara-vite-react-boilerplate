@@ -134,7 +134,7 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
   return (
     <div
       ref={containerRef}
-      className="relative border border-gray-400 overflow-y-scroll bg-white scrollbar-y"
+      className="relative overflow-y-scroll border-l border-foreground"
       style={{ height: viewportHeight }}
     >
       <div style={{ position: "relative", height: totalWeeks * rowHeight }}>

@@ -30,7 +30,7 @@ export function DayCell({ day, isToday }: DayCellProps) {
         month: "2-digit",
         ...(needsYear ? { year: "numeric" } : {}),
       } as Intl.DateTimeFormatOptions);
-      return <div className="text-sm">{fmt.format(d)}</div>;
+      return <div className="text-md font-bold underline">{fmt.format(d)}</div>;
     }
     return <div className="text-sm">{d.getDate()}</div>;
   }, []);
@@ -38,8 +38,8 @@ export function DayCell({ day, isToday }: DayCellProps) {
   return (
     <div
       className={cn(
-        "border-r border-gray-100 p-2 box-border",
-        isToday ? "ring-1 ring-inset ring-indigo-200" : "",
+        "border-r border-t border-b border-foreground p-2 box-border",
+        isToday ? "bg-muted font-bold" : "",
       )}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
