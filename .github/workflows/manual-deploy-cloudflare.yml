@@ -54,6 +54,9 @@ jobs:
       - name: Install project dependencies
         run: bun install --frozen-lockfile
 
+      - name: Disable wrangler telemetry
+        run: bun wrangler telemetry disable
+
       - name: Inject D1 config
         run: |
           sed -i "s|your-database-name|${{ secrets.D1_DATABASE_NAME }}|g" wrangler.jsonc
