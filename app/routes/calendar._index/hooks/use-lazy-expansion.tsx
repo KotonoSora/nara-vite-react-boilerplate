@@ -12,8 +12,10 @@ export function useLazyExpansion(
   setMinWeekIndex: Dispatch<SetStateAction<number>>,
   setMaxWeekIndex: Dispatch<SetStateAction<number>>,
   containerRef: RefObject<HTMLDivElement | null>,
+  didInitialScroll: boolean,
 ) {
   useEffect(() => {
+    if (!didInitialScroll) return;
     if (rowHeight <= 0 || viewportHeight <= 0) return;
 
     const BUFFER_WEEKS = Math.max(weeksPerScreen, 1);
@@ -36,7 +38,7 @@ export function useLazyExpansion(
     if (topGap < BUFFER_WEEKS) {
       const needUp = BUFFER_WEEKS - topGap;
       newMin = minWeekIndex - needUp;
-      scrollAdjust = needUp * rowHeight; // shift scroll so content doesn't jump
+      scrollAdjust = needUp * rowHeight;
     }
 
     if (bottomGap < BUFFER_WEEKS) {
@@ -44,7 +46,6 @@ export function useLazyExpansion(
       newMax = maxWeekIndex + needDown;
     }
 
-    // ✅ Only update once
     if (newMin !== minWeekIndex || newMax !== maxWeekIndex) {
       setMinWeekIndex(newMin);
       setMaxWeekIndex(newMax);
@@ -67,5 +68,6 @@ export function useLazyExpansion(
     setMinWeekIndex,
     setMaxWeekIndex,
     containerRef,
+    didInitialScroll,
   ]);
 }

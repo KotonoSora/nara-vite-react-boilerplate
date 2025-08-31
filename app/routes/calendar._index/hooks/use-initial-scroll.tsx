@@ -8,6 +8,8 @@ export function useInitialScroll(
   todayWeekIndex: number,
   minWeekIndex: number,
   setScrollTop: Dispatch<SetStateAction<number>>,
+  weeksPerScreen: number,
+  onDidInitialScroll?: () => void,
 ) {
   const ranOnce = useRef(false);
 
@@ -19,10 +21,23 @@ export function useInitialScroll(
     if (!node) return;
 
     requestAnimationFrame(() => {
-      const initialOffsetWeeks = todayWeekIndex - minWeekIndex + 1;
+      const centerOffset = Math.round(weeksPerScreen / 2);
+      let initialOffsetWeeks = todayWeekIndex - minWeekIndex + centerOffset;
+      if (initialOffsetWeeks < 0) initialOffsetWeeks = 0;
+
       const initialTop = initialOffsetWeeks * rowHeight;
       node.scrollTop = initialTop;
       setScrollTop(initialTop);
+
+      if (onDidInitialScroll) onDidInitialScroll();
     });
-  }, [containerRef, rowHeight, todayWeekIndex, minWeekIndex, setScrollTop]);
+  }, [
+    containerRef,
+    rowHeight,
+    todayWeekIndex,
+    minWeekIndex,
+    setScrollTop,
+    onDidInitialScroll,
+    weeksPerScreen,
+  ]);
 }

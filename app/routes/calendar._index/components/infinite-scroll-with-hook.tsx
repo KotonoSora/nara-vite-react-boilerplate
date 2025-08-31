@@ -13,6 +13,7 @@ import { WrapperWeekRow } from "./wrapper-week-row";
 export function InfiniteScroll({ children }: InfiniteScrollProps) {
   const { rowHeight, weeksPerScreen, overScan } = useCalendar();
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [didInitialScroll, setDidInitialScroll] = useState(false);
 
   const today = new Date();
   const todayWeekIndex = weekToIndex(today);
@@ -36,6 +37,17 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
     setScrollTop(currentScrollTop);
   }, [currentScrollTop]);
 
+  // Initial scroll to today
+  useInitialScroll(
+    containerRef,
+    rowHeight,
+    todayWeekIndex,
+    minWeekIndex,
+    setScrollTop,
+    weeksPerScreen,
+    () => setDidInitialScroll(true),
+  );
+
   // Lazy expansion
   useLazyExpansion(
     scrollTop,
@@ -47,15 +59,7 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
     setMinWeekIndex,
     setMaxWeekIndex,
     containerRef,
-  );
-
-  // Initial scroll to today
-  useInitialScroll(
-    containerRef,
-    rowHeight,
-    todayWeekIndex,
-    minWeekIndex,
-    setScrollTop,
+    didInitialScroll,
   );
 
   // Render visible rows
