@@ -30,7 +30,7 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
   const [scrollTop, setScrollTop] = useState(0);
 
   // Hook up scroll handler
-  const currentScrollTop = useScrollHandler(containerRef);
+  const currentScrollTop = useScrollHandler({ containerRef });
 
   // Sync into local state for useInitialScroll
   useEffect(() => {
@@ -38,18 +38,18 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
   }, [currentScrollTop]);
 
   // Initial scroll to today
-  useInitialScroll(
+  useInitialScroll({
     containerRef,
     rowHeight,
     todayWeekIndex,
     minWeekIndex,
     setScrollTop,
     weeksPerScreen,
-    () => setDidInitialScroll(true),
-  );
+    onDidInitialScroll: () => setDidInitialScroll(true),
+  });
 
   // Lazy expansion
-  useLazyExpansion(
+  useLazyExpansion({
     scrollTop,
     rowHeight,
     viewportHeight,
@@ -60,7 +60,7 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
     setMaxWeekIndex,
     containerRef,
     didInitialScroll,
-  );
+  });
 
   // Render visible rows
   const totalWeeks = maxWeekIndex - minWeekIndex + 1;

@@ -1,8 +1,15 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-export function useScrollHandler(
-  containerRef: React.RefObject<HTMLDivElement | null>,
-) {
+import type { ScrollHandlerParams } from "../types/type";
+
+/**
+ * A hook that handles scroll events for a container.
+ *
+ * @param params - The parameters for the scroll handler.
+ * @param params.containerRef - A reference to the scrollable container element.
+ * @returns The current scroll position.
+ */
+export function useScrollHandler({ containerRef }: ScrollHandlerParams) {
   const [scrollTop, setScrollTop] = useState(0);
   const ticking = useRef(false);
 

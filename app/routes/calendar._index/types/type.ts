@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
 
 export type CalendarEvent = { id: string; label: string };
 export type EventsMap = Record<string, CalendarEvent[]>;
@@ -36,4 +36,31 @@ export type WrapperWeekRowProps = {
   offset: number;
   rowHeight: number;
   children: ReactNode;
+};
+
+export type InitialScrollParams = {
+  containerRef: RefObject<HTMLDivElement | null>;
+  rowHeight: number;
+  todayWeekIndex: number;
+  minWeekIndex: number;
+  setScrollTop: Dispatch<SetStateAction<number>>;
+  weeksPerScreen: number;
+  onDidInitialScroll?: () => void;
+};
+
+export type LazyExpansionParams = {
+  scrollTop: number;
+  rowHeight: number;
+  viewportHeight: number;
+  weeksPerScreen: number;
+  minWeekIndex: number;
+  maxWeekIndex: number;
+  setMinWeekIndex: Dispatch<SetStateAction<number>>;
+  setMaxWeekIndex: Dispatch<SetStateAction<number>>;
+  containerRef: RefObject<HTMLDivElement | null>;
+  didInitialScroll: boolean;
+};
+
+export type ScrollHandlerParams = {
+  containerRef: RefObject<HTMLDivElement | null>;
 };

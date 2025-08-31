@@ -1,16 +1,28 @@
 import { useEffect, useRef } from "react";
 
-import type { Dispatch, RefObject, SetStateAction } from "react";
+import type { InitialScrollParams } from "../types/type";
 
-export function useInitialScroll(
-  containerRef: RefObject<HTMLDivElement | null>,
-  rowHeight: number,
-  todayWeekIndex: number,
-  minWeekIndex: number,
-  setScrollTop: Dispatch<SetStateAction<number>>,
-  weeksPerScreen: number,
-  onDidInitialScroll?: () => void,
-) {
+/**
+ * Scrolls the container to the initial position based on the current week.
+ *
+ * @param params - The parameters for the initial scroll.
+ * @param params.containerRef - The reference to the scrollable container.
+ * @param params.rowHeight - The height of each row in pixels.
+ * @param params.todayWeekIndex - The week index of today.
+ * @param params.minWeekIndex - The minimum week index to display.
+ * @param params.setScrollTop - A function to set the scroll position.
+ * @param params.weeksPerScreen - The number of weeks to display on the screen.
+ * @param params.onDidInitialScroll - A callback function to call when the initial scroll is done.
+ */
+export function useInitialScroll({
+  containerRef,
+  rowHeight,
+  todayWeekIndex,
+  minWeekIndex,
+  setScrollTop,
+  weeksPerScreen,
+  onDidInitialScroll,
+}: InitialScrollParams) {
   const ranOnce = useRef(false);
 
   useEffect(() => {

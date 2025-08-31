@@ -1,19 +1,34 @@
 import { useEffect } from "react";
 
-import type { Dispatch, RefObject, SetStateAction } from "react";
+import type { LazyExpansionParams } from "../types/type";
 
-export function useLazyExpansion(
-  scrollTop: number,
-  rowHeight: number,
-  viewportHeight: number,
-  weeksPerScreen: number,
-  minWeekIndex: number,
-  maxWeekIndex: number,
-  setMinWeekIndex: Dispatch<SetStateAction<number>>,
-  setMaxWeekIndex: Dispatch<SetStateAction<number>>,
-  containerRef: RefObject<HTMLDivElement | null>,
-  didInitialScroll: boolean,
-) {
+/**
+ * A hook that handles lazy expansion of the calendar view.
+ *
+ * @param params - The parameters for the lazy expansion.
+ * @param params.scrollTop - The current scroll position.
+ * @param params.rowHeight - The height of each row in pixels.
+ * @param params.viewportHeight - The height of the visible area in pixels.
+ * @param params.weeksPerScreen - The number of weeks to display on the screen.
+ * @param params.minWeekIndex - The minimum week index to display.
+ * @param params.maxWeekIndex - The maximum week index to display.
+ * @param params.setMinWeekIndex - A function to set the minimum week index.
+ * @param params.setMaxWeekIndex - A function to set the maximum week index.
+ * @param params.containerRef - A reference to the scrollable container element.
+ * @param params.didInitialScroll - A flag indicating if the initial scroll has occurred.
+ */
+export function useLazyExpansion({
+  scrollTop,
+  rowHeight,
+  viewportHeight,
+  weeksPerScreen,
+  minWeekIndex,
+  maxWeekIndex,
+  setMinWeekIndex,
+  setMaxWeekIndex,
+  containerRef,
+  didInitialScroll,
+}: LazyExpansionParams) {
   useEffect(() => {
     if (!didInitialScroll) return;
     if (rowHeight <= 0 || viewportHeight <= 0) return;
