@@ -14,7 +14,7 @@ export function ContentCalendarInfinityPage() {
   const [weeksPerScreen, setWeeksPerScreen] = useState(2);
 
   return (
-    <div className="h-screen flex flex-col gap-2 p-4">
+    <div className="h-screen min-h-0 flex flex-col gap-2 p-4">
       <div>
         <h1 className="text-2xl font-bold">
           Vertical Scrolling Calendar Infinity

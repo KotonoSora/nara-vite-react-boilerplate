@@ -13,7 +13,7 @@ export function DemoApp({
   const parentRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={parentRef} className="flex flex-col flex-1">
+    <div ref={parentRef} className="flex flex-col flex-1 min-h-0">
       <CalendarProvider
         key={weeksPerScreen}
         weeksPerScreen={weeksPerScreen}
