@@ -5,6 +5,12 @@ import type { CalendarProviderProps } from "../types/type";
 import { CalendarContext } from "../context/calendar-context";
 import { dayToIndex } from "../utils/helper-date";
 
+/**
+ * Calendar provider component.
+ *
+ * @param params - The parameters for the calendar provider.
+ * @returns The calendar provider component.
+ */
 export function CalendarProvider({
   children,
   rowHeight: rowHeightProp,
@@ -16,8 +22,6 @@ export function CalendarProvider({
 }: CalendarProviderProps) {
   const [rowHeight, setRowHeight] = useState<number>(0);
 
-  // Measure parentRef height on client and update rowHeight.
-  // Use useEffect (not useLayoutEffect) so we don't block SSR; provider will render children only after measurement.
   useEffect(() => {
     if (!parentRef?.current) return;
 
@@ -39,13 +43,11 @@ export function CalendarProvider({
 
     measure();
 
-    // observe changes
     const ro = new ResizeObserver(measure);
     ro.observe(parentRef.current);
     return () => ro.disconnect();
   }, [parentRef, weeksPerScreen, rowHeightProp]);
 
-  // If explicit prop provided, ensure it's used (in case it's set after mount)
   useEffect(() => {
     if (typeof rowHeightProp === "number" && rowHeightProp > 0) {
       setRowHeight(rowHeightProp);
@@ -76,7 +78,6 @@ export function CalendarProvider({
     ],
   );
 
-  // Render children only when rowHeight is known to avoid layout jump / hydration mismatch
   return (
     <CalendarContext.Provider value={value}>
       {rowHeight > 0 ? children : null}

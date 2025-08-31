@@ -16,9 +16,11 @@ export function ContentCalendarInfinityPage() {
   return (
     <div className="h-screen flex flex-col gap-2 p-4">
       <div>
-        <h1 className="text-2xl font-bold">Calendar Infinity</h1>
+        <h1 className="text-2xl font-bold">
+          Vertical Scrolling Calendar Infinity
+        </h1>
         <p className="text-sm text-muted-foreground">
-          A demo calendar app using infinite scrolling.
+          A demo calendar app using infinite scrolling on vertical.
         </p>
       </div>
 
