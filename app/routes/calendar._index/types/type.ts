@@ -30,3 +30,10 @@ export type InfiniteScrollProps = {
 export type WeekRowProps = { weekIndex: number };
 
 export type DayCellProps = { day: Date; isToday: boolean };
+
+export type WrapperWeekRowProps = {
+  weekIndex: number;
+  offset: number;
+  rowHeight: number;
+  children: ReactNode;
+};

@@ -38,7 +38,7 @@ export function ContentCalendarInfinityPage() {
         </Select>
       </div>
 
-      <DemoApp weeksPerScreen={weeksPerScreen} overScan={1} />
+      <DemoApp weeksPerScreen={weeksPerScreen} overScan={weeksPerScreen + 1} />
     </div>
   );
 }

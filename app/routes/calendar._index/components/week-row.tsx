@@ -22,7 +22,7 @@ export function WeekRow({ weekIndex }: WeekRowProps) {
   );
 
   return (
-    <div style={{ height: rowHeight }} className="grid grid-cols-7">
+    <div style={{ height: rowHeight }} className="grid grid-cols-7 gap-2 pb-2">
       {days.map((d) => {
         const globalDayIdx = dayToIndex(d);
         const isToday = globalDayIdx === todayDayIndex;

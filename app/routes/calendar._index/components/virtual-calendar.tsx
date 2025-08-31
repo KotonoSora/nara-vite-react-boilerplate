@@ -1,4 +1,4 @@
-import { InfiniteScroll } from "./infinite-scroll";
+import { InfiniteScroll } from "./infinite-scroll-with-hook";
 import { WeekRow } from "./week-row";
 
 export function VirtualCalendar() {
