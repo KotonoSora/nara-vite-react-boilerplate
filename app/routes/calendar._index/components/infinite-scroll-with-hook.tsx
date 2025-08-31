@@ -46,6 +46,7 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
     maxWeekIndex,
     setMinWeekIndex,
     setMaxWeekIndex,
+    containerRef,
   );
 
   // Initial scroll to today

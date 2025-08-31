@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, RefObject, SetStateAction } from "react";
 
 export function useLazyExpansion(
   scrollTop: number,
@@ -11,31 +11,51 @@ export function useLazyExpansion(
   maxWeekIndex: number,
   setMinWeekIndex: Dispatch<SetStateAction<number>>,
   setMaxWeekIndex: Dispatch<SetStateAction<number>>,
+  containerRef: RefObject<HTMLDivElement | null>,
 ) {
   useEffect(() => {
-    const BUFFER_WEEKS = Math.max(weeksPerScreen, 1);
-    const totalWeeks = maxWeekIndex - minWeekIndex + 1;
-    const totalHeight = totalWeeks * rowHeight;
-    const topThreshold = BUFFER_WEEKS * rowHeight;
-    const bottomThreshold =
-      totalHeight - viewportHeight - BUFFER_WEEKS * rowHeight;
+    if (rowHeight <= 0 || viewportHeight <= 0) return;
 
-    if (scrollTop < topThreshold) {
-      setMinWeekIndex((prev) => {
-        const next = prev - BUFFER_WEEKS;
+    const BUFFER_WEEKS = Math.max(weeksPerScreen, 1);
+
+    const visibleStartOffset = Math.floor(scrollTop / rowHeight);
+    const visibleEndOffset = Math.floor(
+      (scrollTop + viewportHeight - 1) / rowHeight,
+    );
+
+    const visibleStartIndex = minWeekIndex + visibleStartOffset;
+    const visibleEndIndex = minWeekIndex + visibleEndOffset;
+
+    const topGap = visibleStartIndex - minWeekIndex;
+    const bottomGap = maxWeekIndex - visibleEndIndex;
+
+    let newMin = minWeekIndex;
+    let newMax = maxWeekIndex;
+    let scrollAdjust = 0;
+
+    if (topGap < BUFFER_WEEKS) {
+      const needUp = BUFFER_WEEKS - topGap;
+      newMin = minWeekIndex - needUp;
+      scrollAdjust = needUp * rowHeight; // shift scroll so content doesn't jump
+    }
+
+    if (bottomGap < BUFFER_WEEKS) {
+      const needDown = BUFFER_WEEKS - bottomGap;
+      newMax = maxWeekIndex + needDown;
+    }
+
+    // ✅ Only update once
+    if (newMin !== minWeekIndex || newMax !== maxWeekIndex) {
+      setMinWeekIndex(newMin);
+      setMaxWeekIndex(newMax);
+
+      if (scrollAdjust > 0 && containerRef.current) {
         requestAnimationFrame(() => {
-          const container = document.querySelector<HTMLDivElement>(
-            "[data-infinite-scroll-container]",
-          );
-          if (container) {
-            container.scrollTop =
-              container.scrollTop + BUFFER_WEEKS * rowHeight;
+          if (containerRef.current) {
+            containerRef.current.scrollTop += scrollAdjust;
           }
         });
-        return next;
-      });
-    } else if (scrollTop > bottomThreshold) {
-      setMaxWeekIndex((prev) => prev + BUFFER_WEEKS);
+      }
     }
   }, [
     scrollTop,
@@ -46,5 +66,6 @@ export function useLazyExpansion(
     maxWeekIndex,
     setMinWeekIndex,
     setMaxWeekIndex,
+    containerRef,
   ]);
 }
