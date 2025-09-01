@@ -163,10 +163,24 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
     children,
   ]);
 
+  const WEEKDAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
   return (
     <>
+      {/* Weekdays label */}
+      <div className="grid grid-cols-7 gap-2" aria-label="calendar-weekdays">
+        {WEEKDAY_NAMES.map((name) => (
+          <div key={name} className="text-center">
+            {name}
+          </div>
+        ))}
+      </div>
+
       {/* Visible weeks label */}
-      <div className="absolute left-1/2 top-2 -translate-x-1/2 z-10 pointer-events-none">
+      <div
+        className="absolute left-1/2 top-[18px] -translate-x-1/2 z-10 pointer-events-none"
+        aria-labe="visible-weeks-label"
+      >
         <div className="bg-card text-card-foreground px-3 py-1 rounded-md text-sm shadow">
           {visibleLabel}
         </div>
