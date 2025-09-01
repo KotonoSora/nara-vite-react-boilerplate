@@ -84,3 +84,10 @@ export type InfiniteScrollContainerProps = {
   contentHeight: number;
   children: ReactNode;
 };
+
+export type PageContextValue = {
+  weeksPerScreen: number;
+  setWeeksPerScreen: (v: number) => void;
+  mode: CalendarEngineMode;
+  setMode: (m: CalendarEngineMode) => void;
+};
