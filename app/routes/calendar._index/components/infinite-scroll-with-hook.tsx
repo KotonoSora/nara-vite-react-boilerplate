@@ -7,6 +7,9 @@ import { useCalendar } from "../context/calendar-context";
 import { useModeEffects } from "../hooks/use-mode-effects";
 import { useScrollHandler } from "../hooks/use-scroll-handler";
 import { indexToWeek, weekToIndex } from "../utils/helper-date";
+import { InfiniteScrollContainer } from "./infinite-scroll-container";
+import { VisibleWeeksLabel } from "./visible-weeks-label";
+import { WeekdayHeader } from "./weekday-header";
 import { WrapperWeekRow } from "./wrapper-week-row";
 
 export function InfiniteScroll({ children }: InfiniteScrollProps) {
@@ -32,7 +35,21 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
       : 52,
   );
 
-  const viewportHeight = rowHeight * weeksPerScreen;
+  // If mode or todayWeekIndex changes, reset min/max boundaries safely.
+  useEffect(() => {
+    if (mode === "date" && typeof todayWeekIndex === "number") {
+      setMinWeekIndex(todayWeekIndex - BUFFER_WEEKS);
+      setMaxWeekIndex(todayWeekIndex + BUFFER_WEEKS);
+    } else {
+      setMinWeekIndex(0);
+      setMaxWeekIndex(52);
+    }
+  }, [mode, todayWeekIndex]);
+
+  const viewportHeight = useMemo(
+    () => rowHeight * Math.max(1, weeksPerScreen),
+    [rowHeight, weeksPerScreen],
+  );
   const [scrollTop, setScrollTop] = useState(0);
 
   // Hook up scroll handler
@@ -71,7 +88,7 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
 
   // Memoize the visible range calculations so they only run when inputs change.
   const visibleRange = useMemo(() => {
-    const totalWeeks = maxWeekIndex - minWeekIndex + 1;
+    const totalWeeks = Math.max(0, maxWeekIndex - minWeekIndex + 1);
     const firstVisibleOffset = Math.max(0, Math.floor(scrollTop / rowHeight));
     const startOffset = Math.max(0, firstVisibleOffset - overScan);
     const visibleCount = Math.ceil(viewportHeight / rowHeight) + overScan * 2;
@@ -137,11 +154,9 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
   // visible window hasn't changed.
   const items = useMemo<ReactNode[]>(() => {
     const list: ReactNode[] = [];
-    for (
-      let offset = visibleRange.startOffset;
-      offset <= visibleRange.endOffset;
-      offset++
-    ) {
+    const startOffset = visibleRange.startOffset;
+    const endOffset = visibleRange.endOffset;
+    for (let offset = startOffset; offset <= endOffset; offset++) {
       const weekIndex = minWeekIndex + offset;
       list.push(
         <WrapperWeekRow
@@ -163,47 +178,22 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
     children,
   ]);
 
-  const WEEKDAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const totalContentHeight = useMemo(
+    () => visibleRange.totalWeeks * rowHeight,
+    [visibleRange.totalWeeks, rowHeight],
+  );
 
   return (
     <>
-      {/* Weekdays label */}
-      <div className="grid grid-cols-7 gap-2" aria-label="calendar-weekdays">
-        {WEEKDAY_NAMES.map((name) => (
-          <div key={name} className="text-center">
-            {name}
-          </div>
-        ))}
-      </div>
-
-      {/* Visible weeks label */}
-      <div
-        className="absolute left-1/2 top-[18px] -translate-x-1/2 z-10 pointer-events-none"
-        aria-labe="visible-weeks-label"
+      <WeekdayHeader />
+      <VisibleWeeksLabel label={visibleLabel} />
+      <InfiniteScrollContainer
+        containerRef={containerRef}
+        viewportHeight={viewportHeight}
+        contentHeight={totalContentHeight}
       >
-        <div className="bg-card text-card-foreground px-3 py-1 rounded-md text-sm shadow">
-          {visibleLabel}
-        </div>
-      </div>
-
-      {/* Infinite scroll container */}
-      <div
-        ref={containerRef}
-        data-infinite-scroll-container
-        className="relative overflow-y-scroll"
-        style={{ height: viewportHeight }}
-        aria-label="infinity-scroll-scrollable"
-      >
-        <div
-          className="relative"
-          style={{
-            height: visibleRange.totalWeeks * rowHeight,
-          }}
-          aria-label="infinity-scroll-content-wrapper"
-        >
-          {items}
-        </div>
-      </div>
+        {items}
+      </InfiniteScrollContainer>
     </>
   );
 }

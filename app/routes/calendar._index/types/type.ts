@@ -73,3 +73,14 @@ export type ScrollHandlerParams = {
 };
 
 export type CalendarEngineMode = "date" | "sequence";
+
+export type VisibleWeeksLabelProps = {
+  label: string;
+};
+
+export type InfiniteScrollContainerProps = {
+  containerRef: RefObject<HTMLDivElement | null>;
+  viewportHeight: number;
+  contentHeight: number;
+  children: ReactNode;
+};
