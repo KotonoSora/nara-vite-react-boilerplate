@@ -19,6 +19,7 @@ export function CalendarProvider({
   timezone,
   renderDay,
   parentRef,
+  mode,
 }: CalendarProviderProps) {
   const [rowHeight, setRowHeight] = useState<number>(0);
 
@@ -66,6 +67,7 @@ export function CalendarProvider({
       renderDay,
       today,
       todayDayIndex,
+      mode,
     }),
     [
       rowHeight,
@@ -75,6 +77,7 @@ export function CalendarProvider({
       renderDay,
       today,
       todayDayIndex,
+      mode,
     ],
   );
 

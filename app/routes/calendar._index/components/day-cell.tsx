@@ -1,60 +1,73 @@
 import { useCallback } from "react";
 
-import type { DragEvent } from "react";
 import type { DayCellProps } from "../types/type";
 
 import { cn } from "~/lib/utils";
 
 import { useCalendar } from "../context/calendar-context";
 
-export function DayCell({ day, isToday }: DayCellProps) {
-  const { renderDay } = useCalendar();
+export function DayCell({ day, isToday, dayGlobalIndex }: DayCellProps) {
+  const { mode } = useCalendar();
 
-  const handleDragOver = useCallback((e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  }, []);
+  /**
+   * Render the date name label based on mode sequence
+   */
+  const renderDateNameLabel = useCallback(() => {
+    // Render the date name label based on mode sequence
+    if (mode === "sequence" && typeof dayGlobalIndex === "number") {
+      return (
+        <div className="bg-secondary rounded-md p-2" data-date={dayGlobalIndex}>
+          <div className="text-sm">{dayGlobalIndex + 1}</div>
+        </div>
+      );
+    }
 
-  const handleDrop = useCallback(
-    (e: DragEvent<HTMLDivElement>) => {
-      const data = e.dataTransfer.getData("text/plain");
-      alert(`Dropped ${data} vào ngày ${day.toDateString()}`);
-    },
-    [day],
-  );
+    // Render the date format name based on mode date
+    if (mode === "date" && day) {
+      const isFirstDay = day.getDate() === 1;
 
-  const defaultRender = useCallback((d: Date, isToday: boolean) => {
-    const isFirstDay = d.getDate() === 1;
+      const needsYear = day.getFullYear() !== new Date().getFullYear();
+      const fmt = new Intl.DateTimeFormat(undefined, {
+        day: "2-digit",
+        ...(isFirstDay ? { month: "2-digit" } : {}),
+        ...(isFirstDay && needsYear ? { year: "numeric" } : {}),
+      } as Intl.DateTimeFormatOptions);
 
-    const needsYear = d.getFullYear() !== new Date().getFullYear();
-    const fmt = new Intl.DateTimeFormat(undefined, {
-      day: "2-digit",
-      ...(isFirstDay ? { month: "2-digit" } : {}),
-      ...(isFirstDay && needsYear ? { year: "numeric" } : {}),
-    } as Intl.DateTimeFormatOptions);
+      const dateString = fmt.format(day);
 
-    const dateString = fmt.format(d);
+      return (
+        <div
+          className={cn("text-sm px-1", {
+            "rounded-xl text-center flex flex-col items-center justify-start font-bold bg-primary text-primary-foreground":
+              isToday,
+            "font-bold": isFirstDay,
+          })}
+        >
+          {dateString}
+        </div>
+      );
+    }
 
-    return (
-      <div
-        className={cn("text-sm", {
-          "w-[24px] h-[24px] rounded-xl text-center flex flex-col items-center justify-center font-bold bg-primary text-primary-foreground":
-            isToday,
-          "font-bold underline": isFirstDay,
-        })}
-      >
-        {dateString}
-      </div>
-    );
-  }, []);
+    // Default to empty
+    return null;
+  }, [day, isToday, dayGlobalIndex, mode]);
 
   return (
     <div
-      className={cn("bg-secondary rounded-md p-2", { "bg-muted": isToday })}
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
-      data-date={day.toDateString()}
+      className={cn(
+        "relative bg-secondary rounded-md flex flex-col h-full min-h-0 ",
+      )}
+      aria-label="date-wrapper"
     >
-      {renderDay ? renderDay(day, isToday) : defaultRender(day, isToday)}
+      <div className="flex flex-row min-w-0 p-2" aria-label="date-title">
+        {renderDateNameLabel()}
+      </div>
+      <div
+        className="flex flex-col flex-1 min-h-0 h-full bg-1"
+        aria-label="date-content"
+      >
+        {/* Render children date content */}
+      </div>
     </div>
   );
 }

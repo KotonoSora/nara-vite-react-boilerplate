@@ -11,6 +11,7 @@ export type CalendarContextValue = {
   renderDay?: (day: Date, isToday: boolean) => ReactNode;
   today: Date;
   todayDayIndex: number; // day index (days since epoch)
+  mode: CalendarEngineMode;
 };
 
 export type CalendarProviderProps = {
@@ -20,6 +21,7 @@ export type CalendarProviderProps = {
   overScan: number;
   timezone?: string;
   parentRef: React.RefObject<HTMLDivElement | null>;
+  mode: CalendarEngineMode;
   renderDay?: (day: Date, isToday: boolean) => ReactNode;
 };
 
@@ -29,7 +31,11 @@ export type InfiniteScrollProps = {
 
 export type WeekRowProps = { weekIndex: number };
 
-export type DayCellProps = { day: Date; isToday: boolean };
+export type DayCellProps = {
+  day?: Date;
+  isToday?: boolean;
+  dayGlobalIndex?: number;
+};
 
 export type WrapperWeekRowProps = {
   weekIndex: number;
@@ -46,6 +52,7 @@ export type InitialScrollParams = {
   setScrollTop: Dispatch<SetStateAction<number>>;
   weeksPerScreen: number;
   onDidInitialScroll?: () => void;
+  enabled?: boolean;
 };
 
 export type LazyExpansionParams = {
@@ -64,3 +71,5 @@ export type LazyExpansionParams = {
 export type ScrollHandlerParams = {
   containerRef: RefObject<HTMLDivElement | null>;
 };
+
+export type CalendarEngineMode = "date" | "sequence";

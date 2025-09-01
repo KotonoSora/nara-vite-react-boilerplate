@@ -4,14 +4,13 @@ import type { ReactNode } from "react";
 import type { InfiniteScrollProps } from "../types/type";
 
 import { useCalendar } from "../context/calendar-context";
-import { useInitialScroll } from "../hooks/use-initial-scroll";
-import { useLazyExpansion } from "../hooks/use-lazy-expansion";
+import { useModeEffects } from "../hooks/use-mode-effects";
 import { useScrollHandler } from "../hooks/use-scroll-handler";
 import { weekToIndex } from "../utils/helper-date";
 import { WrapperWeekRow } from "./wrapper-week-row";
 
 export function InfiniteScroll({ children }: InfiniteScrollProps) {
-  const { rowHeight, weeksPerScreen, overScan } = useCalendar();
+  const { rowHeight, weeksPerScreen, overScan, mode } = useCalendar();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [didInitialScroll, setDidInitialScroll] = useState(false);
 
@@ -19,11 +18,11 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
   const todayWeekIndex = weekToIndex(today);
 
   const BUFFER_WEEKS = Math.max(weeksPerScreen, 1);
-  const [minWeekIndex, setMinWeekIndex] = useState(
-    todayWeekIndex - BUFFER_WEEKS,
+  const [minWeekIndex, setMinWeekIndex] = useState(() =>
+    mode === "date" ? todayWeekIndex - BUFFER_WEEKS : 0,
   );
-  const [maxWeekIndex, setMaxWeekIndex] = useState(
-    todayWeekIndex + BUFFER_WEEKS,
+  const [maxWeekIndex, setMaxWeekIndex] = useState(() =>
+    mode === "date" ? todayWeekIndex + BUFFER_WEEKS : 52,
   );
 
   const viewportHeight = rowHeight * weeksPerScreen;
@@ -37,30 +36,31 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
     setScrollTop(currentScrollTop);
   }, [currentScrollTop]);
 
-  // Initial scroll to today
-  useInitialScroll({
-    containerRef,
-    rowHeight,
-    todayWeekIndex,
-    minWeekIndex,
-    setScrollTop,
-    weeksPerScreen,
-    onDidInitialScroll: () => setDidInitialScroll(true),
-  });
-
-  // Lazy expansion
-  useLazyExpansion({
-    scrollTop,
-    rowHeight,
-    viewportHeight,
-    weeksPerScreen,
-    minWeekIndex,
-    maxWeekIndex,
-    setMinWeekIndex,
-    setMaxWeekIndex,
-    containerRef,
-    didInitialScroll,
-  });
+  // Use a mode-safe hook to call effects without conditional hooks.
+  useModeEffects(
+    {
+      containerRef,
+      rowHeight,
+      todayWeekIndex,
+      minWeekIndex,
+      setScrollTop,
+      weeksPerScreen,
+      onDidInitialScroll: () => setDidInitialScroll(true),
+    },
+    {
+      scrollTop,
+      rowHeight,
+      viewportHeight,
+      weeksPerScreen,
+      minWeekIndex,
+      maxWeekIndex,
+      setMinWeekIndex,
+      setMaxWeekIndex,
+      containerRef,
+      didInitialScroll,
+    },
+    mode === "date",
+  );
 
   // Render visible rows
   const totalWeeks = maxWeekIndex - minWeekIndex + 1;

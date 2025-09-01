@@ -22,10 +22,12 @@ export function useInitialScroll({
   setScrollTop,
   weeksPerScreen,
   onDidInitialScroll,
+  enabled = true,
 }: InitialScrollParams) {
   const ranOnce = useRef(false);
 
   useEffect(() => {
+    if (!enabled) return;
     if (ranOnce.current) return;
     ranOnce.current = true;
 
