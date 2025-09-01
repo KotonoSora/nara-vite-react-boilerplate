@@ -33,7 +33,7 @@
       "devDependencies": {
         "@cloudflare/vite-plugin": "1.12.1",
         "@cloudflare/vitest-pool-workers": "0.8.68",
-        "@cloudflare/workers-types": "4.20250830.0",
+        "@cloudflare/workers-types": "4.20250831.0",
         "@commitlint/cli": "19.8.1",
         "@commitlint/config-conventional": "19.8.1",
         "@ianvs/prettier-plugin-sort-imports": "4.7.0",
@@ -138,7 +138,7 @@
 
     "@cloudflare/workerd-windows-64": ["@cloudflare/workerd-windows-64@1.20250823.0", "", { "os": "win32", "cpu": "x64" }, "sha512-WaNqUOXUnrcEI+i2NI4+okA9CrJMI9n2XTfVtDg/pLvcA/ZPTz23MEFMZU1splr4SslS1th1NBO38RMPnDB4rA=="],
 
-    "@cloudflare/workers-types": ["@cloudflare/workers-types@4.20250830.0", "", {}, "sha512-uAGZFqEBFnCiwIokxMnrrtjIkT8qyGT1LACSScEUyW7nKmtD0Viykp9QZWrIlssyEp/MDB6XsdALF8y6upxpcg=="],
+    "@cloudflare/workers-types": ["@cloudflare/workers-types@4.20250831.0", "", {}, "sha512-68ExGPHQaNix9yhg3L+xkHjlHieigW59Ujad+y8ZtR3lcUoZ+4jzCLciUrVHfSD/zfQg02urBYqj+oshnmfcMg=="],
 
     "@commitlint/cli": ["@commitlint/cli@19.8.1", "", { "dependencies": { "@commitlint/format": "^19.8.1", "@commitlint/lint": "^19.8.1", "@commitlint/load": "^19.8.1", "@commitlint/read": "^19.8.1", "@commitlint/types": "^19.8.1", "tinyexec": "^1.0.0", "yargs": "^17.0.0" }, "bin": { "commitlint": "./cli.js" } }, "sha512-LXUdNIkspyxrlV6VDHWBmCZRtkEVRpBKxi2Gtw3J54cGWhLCTouVD/Q6ZSaSvd2YaDObWK8mDjrz3TIKtaQMAA=="],
 
