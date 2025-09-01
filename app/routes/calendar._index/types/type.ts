@@ -47,7 +47,7 @@ export type WrapperWeekRowProps = {
 export type InitialScrollParams = {
   containerRef: RefObject<HTMLDivElement | null>;
   rowHeight: number;
-  todayWeekIndex: number;
+  todayWeekIndex?: number;
   minWeekIndex: number;
   setScrollTop: Dispatch<SetStateAction<number>>;
   weeksPerScreen: number;

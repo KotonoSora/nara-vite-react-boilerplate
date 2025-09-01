@@ -33,7 +33,7 @@ export function useInitialScroll({
 
     const node = containerRef.current;
     if (!node) return;
-
+    if (todayWeekIndex === undefined || todayWeekIndex === null) return;
     requestAnimationFrame(() => {
       const centerOffset = Math.round(weeksPerScreen / 2);
       let initialOffsetWeeks = todayWeekIndex - minWeekIndex + centerOffset;

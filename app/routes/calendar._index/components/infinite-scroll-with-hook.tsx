@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { ReactNode } from "react";
 import type { InfiniteScrollProps } from "../types/type";
@@ -14,15 +14,22 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [didInitialScroll, setDidInitialScroll] = useState(false);
 
-  const today = new Date();
-  const todayWeekIndex = weekToIndex(today);
+  // Only compute today/week index when in date mode to reduce allocations
+  const todayWeekIndex = useMemo<number | undefined>(() => {
+    if (mode !== "date") return undefined;
+    return weekToIndex(new Date());
+  }, [mode]);
 
   const BUFFER_WEEKS = Math.max(weeksPerScreen, 1);
   const [minWeekIndex, setMinWeekIndex] = useState(() =>
-    mode === "date" ? todayWeekIndex - BUFFER_WEEKS : 0,
+    mode === "date" && typeof todayWeekIndex === "number"
+      ? todayWeekIndex - BUFFER_WEEKS
+      : 0,
   );
   const [maxWeekIndex, setMaxWeekIndex] = useState(() =>
-    mode === "date" ? todayWeekIndex + BUFFER_WEEKS : 52,
+    mode === "date" && typeof todayWeekIndex === "number"
+      ? todayWeekIndex + BUFFER_WEEKS
+      : 52,
   );
 
   const viewportHeight = rowHeight * weeksPerScreen;
@@ -62,27 +69,52 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
     mode === "date",
   );
 
-  // Render visible rows
-  const totalWeeks = maxWeekIndex - minWeekIndex + 1;
-  const firstVisibleOffset = Math.max(0, Math.floor(scrollTop / rowHeight));
-  const startOffset = Math.max(0, firstVisibleOffset - overScan);
-  const visibleCount = Math.ceil(viewportHeight / rowHeight) + overScan * 2;
-  const endOffset = Math.min(totalWeeks - 1, startOffset + visibleCount - 1);
+  // Memoize the visible range calculations so they only run when inputs change.
+  const visibleRange = useMemo(() => {
+    const totalWeeks = maxWeekIndex - minWeekIndex + 1;
+    const firstVisibleOffset = Math.max(0, Math.floor(scrollTop / rowHeight));
+    const startOffset = Math.max(0, firstVisibleOffset - overScan);
+    const visibleCount = Math.ceil(viewportHeight / rowHeight) + overScan * 2;
+    const endOffset = Math.min(totalWeeks - 1, startOffset + visibleCount - 1);
+    return { totalWeeks, startOffset, endOffset };
+  }, [
+    minWeekIndex,
+    maxWeekIndex,
+    scrollTop,
+    rowHeight,
+    viewportHeight,
+    overScan,
+  ]);
 
-  const items: ReactNode[] = [];
-  for (let offset = startOffset; offset <= endOffset; offset++) {
-    const weekIndex = minWeekIndex + offset;
-    items.push(
-      <WrapperWeekRow
-        key={`week-${weekIndex}`}
-        weekIndex={weekIndex}
-        offset={offset}
-        rowHeight={rowHeight}
-      >
-        {children(weekIndex)}
-      </WrapperWeekRow>,
-    );
-  }
+  // Memoize items array to avoid reallocating on every render when the
+  // visible window hasn't changed.
+  const items = useMemo<ReactNode[]>(() => {
+    const list: ReactNode[] = [];
+    for (
+      let offset = visibleRange.startOffset;
+      offset <= visibleRange.endOffset;
+      offset++
+    ) {
+      const weekIndex = minWeekIndex + offset;
+      list.push(
+        <WrapperWeekRow
+          key={`week-${weekIndex}`}
+          weekIndex={weekIndex}
+          offset={offset}
+          rowHeight={rowHeight}
+        >
+          {children(weekIndex)}
+        </WrapperWeekRow>,
+      );
+    }
+    return list;
+  }, [
+    visibleRange.startOffset,
+    visibleRange.endOffset,
+    minWeekIndex,
+    rowHeight,
+    children,
+  ]);
 
   return (
     <div
@@ -90,12 +122,14 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
       data-infinite-scroll-container
       className="relative overflow-y-scroll"
       style={{ height: viewportHeight }}
+      aria-label="infinity-scroll-scrollable"
     >
       <div
+        className="relative"
         style={{
-          position: "relative",
-          height: totalWeeks * rowHeight,
+          height: visibleRange.totalWeeks * rowHeight,
         }}
+        aria-label="infinity-scroll-content-wrapper"
       >
         {items}
       </div>
