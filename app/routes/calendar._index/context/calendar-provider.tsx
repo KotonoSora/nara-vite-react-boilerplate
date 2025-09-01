@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { CalendarProviderProps } from "../types/type";
 
@@ -12,10 +12,8 @@ import { usePageContext } from "./page-context";
  * @param params - The parameters for the calendar provider.
  * @returns The calendar provider component.
  */
-export function CalendarProvider({
-  children,
-  parentRef,
-}: CalendarProviderProps) {
+export function CalendarProvider({ children }: CalendarProviderProps) {
+  const parentRef = useRef<HTMLDivElement>(null);
   const { weeksPerScreen, mode } = usePageContext();
   const [rowHeight, setRowHeight] = useState<number>(0);
 
@@ -23,7 +21,7 @@ export function CalendarProvider({
   const todayDayIndex = useMemo(() => dayToIndex(today), [today]);
   const overScan = Math.max(1, weeksPerScreen + 1);
 
-  const value = useMemo(
+  const calendarContextValue = useMemo(
     () => ({
       rowHeight,
       weeksPerScreen,
@@ -56,8 +54,10 @@ export function CalendarProvider({
   }, [parentRef, weeksPerScreen]);
 
   return (
-    <CalendarContext.Provider value={value}>
-      {rowHeight > 0 ? children : null}
-    </CalendarContext.Provider>
+    <div ref={parentRef} className="relative flex flex-col flex-1 min-h-0">
+      <CalendarContext.Provider value={calendarContextValue}>
+        {rowHeight > 0 ? children : null}
+      </CalendarContext.Provider>
+    </div>
   );
 }

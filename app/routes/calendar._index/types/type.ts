@@ -14,7 +14,6 @@ export type CalendarContextValue = {
 
 export type CalendarProviderProps = {
   children: ReactNode;
-  parentRef: React.RefObject<HTMLDivElement | null>;
 };
 
 export type PageProviderProps = {
@@ -80,4 +79,50 @@ export type PageContextValue = {
   setWeeksPerScreen: (v: number) => void;
   mode: CalendarEngineMode;
   setMode: (m: CalendarEngineMode) => void;
+};
+
+export type ModeEffectsParams = {
+  initialParams: InitialScrollParams;
+  lazyParams: LazyExpansionParams;
+  enabled: boolean;
+};
+
+export type TodayWeekIndexParams = {
+  mode: CalendarEngineMode;
+};
+
+export type ViewportHeightParams = {
+  rowHeight: number;
+  weeksPerScreen: number;
+};
+
+export type VisibleItemsParams = {
+  visibleRange: { startOffset: number; endOffset: number };
+  minWeekIndex: number;
+};
+
+export type VisibleWindow = { firstWeekIndex: number; lastWeekIndex: number };
+
+export type VisibleLabelParams = {
+  visibleWindow: VisibleWindow;
+  totalWeeks: number;
+  minWeekIndex: number;
+  mode: string;
+};
+
+export type VisibleRangeParams = {
+  minWeekIndex: number;
+  maxWeekIndex: number;
+  scrollTop: number;
+  rowHeight: number;
+  viewportHeight: number;
+  overScan: number;
+};
+
+export type VisibleWindowParams = {
+  minWeekIndex: number;
+  maxWeekIndex: number;
+  scrollTop: number;
+  rowHeight: number;
+  viewportHeight: number;
 };

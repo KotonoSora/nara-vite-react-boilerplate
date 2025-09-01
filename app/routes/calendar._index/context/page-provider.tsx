@@ -11,11 +11,13 @@ export function PageProvider({ children }: PageProviderProps) {
   );
   const [mode, setMode] = useState<CalendarEngineMode>(DEFAULT_MODE);
 
-  const contextValue = useMemo(() => {
+  const pageContextValue = useMemo(() => {
     return { weeksPerScreen, setWeeksPerScreen, mode, setMode };
   }, [weeksPerScreen, setWeeksPerScreen, mode, setMode]);
 
   return (
-    <PageContext.Provider value={contextValue}>{children}</PageContext.Provider>
+    <PageContext.Provider value={pageContextValue}>
+      {children}
+    </PageContext.Provider>
   );
 }
