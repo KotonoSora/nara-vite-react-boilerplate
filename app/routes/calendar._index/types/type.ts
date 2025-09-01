@@ -55,6 +55,8 @@ export type LazyExpansionParams = {
   setMaxWeekIndex: Dispatch<SetStateAction<number>>;
   containerRef: RefObject<HTMLDivElement | null>;
   didInitialScroll: boolean;
+  bufferWeeks: number;
+  mode: CalendarEngineMode;
 };
 
 export type ScrollHandlerParams = {

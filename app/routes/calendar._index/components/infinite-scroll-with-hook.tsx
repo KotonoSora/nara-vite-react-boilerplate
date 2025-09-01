@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { JSX, ReactNode } from "react";
 import type { InfiniteScrollProps } from "../types/type";
 
+import { DEFAULT_MAX_WEEK_MODE_SEQUENCE } from "../constants/common";
 import { useCalendar } from "../context/calendar-context";
 import { useModeEffects } from "../hooks/use-mode-effects";
 import { useScrollHandler } from "../hooks/use-scroll-handler";
@@ -64,7 +65,7 @@ export function InfiniteScroll({ children }: InfiniteScrollProps): JSX.Element {
   // Track whether we've performed the initial programmatic scroll.
   // The initial scroll centers the content around "today" for date mode and
   // should only run once — this flag guards that behavior.
-  const [didInitialScroll, setDidInitialScroll] = useState(false);
+  const [didInitialScroll, setDidInitialScroll] = useState(mode === "sequence");
 
   // Local copy of the scrollTop in pixels. We keep this in state so that
   // dependent hooks (visible window/range calculations) can run in React's
@@ -78,7 +79,7 @@ export function InfiniteScroll({ children }: InfiniteScrollProps): JSX.Element {
   const [maxWeekIndex, setMaxWeekIndex] = useState(() =>
     mode === "date" && typeof todayWeekIndex === "number"
       ? todayWeekIndex + bufferWeeks
-      : 52,
+      : Math.min(bufferWeeks, DEFAULT_MAX_WEEK_MODE_SEQUENCE),
   );
 
   // Compute the visible range (with over-scan). This hook returns:
@@ -159,10 +160,6 @@ export function InfiniteScroll({ children }: InfiniteScrollProps): JSX.Element {
       // Center around "today": the user expects the calendar to focus here.
       setMinWeekIndex(todayWeekIndex - bufferWeeks);
       setMaxWeekIndex(todayWeekIndex + bufferWeeks);
-    } else {
-      // Default: expose the whole-year range (safe fallback).
-      setMinWeekIndex(0);
-      setMaxWeekIndex(52);
     }
   }, [mode, todayWeekIndex]);
 
@@ -200,6 +197,8 @@ export function InfiniteScroll({ children }: InfiniteScrollProps): JSX.Element {
       setMaxWeekIndex,
       containerRef,
       didInitialScroll,
+      bufferWeeks,
+      mode,
     },
     enabled: mode === "date",
   });

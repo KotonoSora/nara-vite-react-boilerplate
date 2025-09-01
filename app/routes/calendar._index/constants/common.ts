@@ -15,5 +15,6 @@ export const WEEKDAY_NAMES = [
   "Sun",
 ] as const;
 
-export const DEFAULT_MODE: CalendarEngineMode = "date";
+export const DEFAULT_MODE: CalendarEngineMode = "sequence";
 export const DEFAULT_WEEKS_PER_SCREEN: number = 2;
+export const DEFAULT_MAX_WEEK_MODE_SEQUENCE: number = 52;
