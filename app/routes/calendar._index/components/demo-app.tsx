@@ -15,7 +15,7 @@ export function DemoApp({ weeksPerScreen, overScan, mode }: DemoAppProps) {
   const parentRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={parentRef} className="flex flex-col flex-1 min-h-0">
+    <div ref={parentRef} className="relative flex flex-col flex-1 min-h-0">
       <CalendarProvider
         key={`calendar-mode-${mode}-weeksPerScreen-${weeksPerScreen}`}
         weeksPerScreen={weeksPerScreen}

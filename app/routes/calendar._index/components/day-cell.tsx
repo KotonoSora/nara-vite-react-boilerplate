@@ -37,8 +37,8 @@ export function DayCell({ day, isToday, dayGlobalIndex }: DayCellProps) {
 
       return (
         <div
-          className={cn("text-sm px-1", {
-            "rounded-xl text-center flex flex-col items-center justify-start font-bold bg-primary text-primary-foreground":
+          className={cn("text-sm", {
+            "rounded-xl text-center flex flex-col items-center justify-start font-bold bg-primary text-primary-foreground px-1":
               isToday,
             "font-bold": isFirstDay,
           })}

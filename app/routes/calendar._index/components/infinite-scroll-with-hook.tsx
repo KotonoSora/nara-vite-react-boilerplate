@@ -6,7 +6,7 @@ import type { InfiniteScrollProps } from "../types/type";
 import { useCalendar } from "../context/calendar-context";
 import { useModeEffects } from "../hooks/use-mode-effects";
 import { useScrollHandler } from "../hooks/use-scroll-handler";
-import { weekToIndex } from "../utils/helper-date";
+import { indexToWeek, weekToIndex } from "../utils/helper-date";
 import { WrapperWeekRow } from "./wrapper-week-row";
 
 export function InfiniteScroll({ children }: InfiniteScrollProps) {
@@ -86,6 +86,53 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
     overScan,
   ]);
 
+  // Calculate the visible window for the label display.
+  const visibleWindow = useMemo(() => {
+    const firstVisibleOffset = Math.max(0, Math.floor(scrollTop / rowHeight));
+    const visibleCount = Math.ceil(viewportHeight / rowHeight);
+    const firstWeekIndex = minWeekIndex + firstVisibleOffset;
+    const lastWeekIndex = Math.min(
+      maxWeekIndex,
+      firstWeekIndex + visibleCount - 1,
+    );
+    return { firstWeekIndex, lastWeekIndex };
+  }, [scrollTop, rowHeight, viewportHeight, minWeekIndex, maxWeekIndex]);
+
+  // Calculate the visible label for the currently-viewed range.
+  const visibleLabel = useMemo(() => {
+    const { firstWeekIndex, lastWeekIndex } = visibleWindow;
+
+    // Sequence mode shows week numbers instead of date ranges.
+    if (mode === "sequence") {
+      const totalWeeks = visibleRange.totalWeeks;
+      const firstNumber = firstWeekIndex - minWeekIndex + 1;
+      const lastNumber = lastWeekIndex - minWeekIndex + 1;
+      return `Week ${firstNumber} - ${lastNumber} of ${totalWeeks}`;
+    }
+
+    const start = indexToWeek(firstWeekIndex);
+    const endWeekStart = indexToWeek(lastWeekIndex);
+    const end = new Date(endWeekStart);
+    end.setDate(end.getDate() + 6);
+
+    const startYear = start.getFullYear();
+    const endYear = end.getFullYear();
+
+    const startStr = start.toLocaleString(undefined, {
+      month: "short",
+      day: "2-digit",
+    });
+    const endStr = end.toLocaleString(undefined, {
+      month: "short",
+      day: "2-digit",
+    });
+
+    if (startYear !== endYear) {
+      return `${startStr}, ${startYear} - ${endStr}, ${endYear}`;
+    }
+    return `${startStr} - ${endStr}, ${endYear}`;
+  }, [visibleWindow, mode, visibleRange.totalWeeks, minWeekIndex]);
+
   // Memoize items array to avoid reallocating on every render when the
   // visible window hasn't changed.
   const items = useMemo<ReactNode[]>(() => {
@@ -117,22 +164,32 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
   ]);
 
   return (
-    <div
-      ref={containerRef}
-      data-infinite-scroll-container
-      className="relative overflow-y-scroll"
-      style={{ height: viewportHeight }}
-      aria-label="infinity-scroll-scrollable"
-    >
-      <div
-        className="relative"
-        style={{
-          height: visibleRange.totalWeeks * rowHeight,
-        }}
-        aria-label="infinity-scroll-content-wrapper"
-      >
-        {items}
+    <>
+      {/* Visible weeks label */}
+      <div className="absolute left-1/2 top-2 -translate-x-1/2 z-10 pointer-events-none">
+        <div className="bg-card text-card-foreground px-3 py-1 rounded-md text-sm shadow">
+          {visibleLabel}
+        </div>
       </div>
-    </div>
+
+      {/* Infinite scroll container */}
+      <div
+        ref={containerRef}
+        data-infinite-scroll-container
+        className="relative overflow-y-scroll"
+        style={{ height: viewportHeight }}
+        aria-label="infinity-scroll-scrollable"
+      >
+        <div
+          className="relative"
+          style={{
+            height: visibleRange.totalWeeks * rowHeight,
+          }}
+          aria-label="infinity-scroll-content-wrapper"
+        >
+          {items}
+        </div>
+      </div>
+    </>
   );
 }
