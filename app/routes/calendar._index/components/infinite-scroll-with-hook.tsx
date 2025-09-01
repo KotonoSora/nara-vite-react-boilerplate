@@ -64,18 +64,14 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
   useModeEffects(
     {
       containerRef,
-      rowHeight,
       todayWeekIndex,
       minWeekIndex,
       setScrollTop,
-      weeksPerScreen,
       onDidInitialScroll: () => setDidInitialScroll(true),
     },
     {
       scrollTop,
-      rowHeight,
       viewportHeight,
-      weeksPerScreen,
       minWeekIndex,
       maxWeekIndex,
       setMinWeekIndex,
@@ -163,7 +159,6 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
           key={`week-${weekIndex}`}
           weekIndex={weekIndex}
           offset={offset}
-          rowHeight={rowHeight}
         >
           {children(weekIndex)}
         </WrapperWeekRow>,
@@ -174,7 +169,6 @@ export function InfiniteScroll({ children }: InfiniteScrollProps) {
     visibleRange.startOffset,
     visibleRange.endOffset,
     minWeekIndex,
-    rowHeight,
     children,
   ]);
 

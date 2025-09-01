@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 
 import type { InitialScrollParams } from "../types/type";
 
+import { useCalendar } from "../context/calendar-context";
+
 /**
  * Scrolls the container to the initial position based on the current week.
  *
@@ -16,15 +18,14 @@ import type { InitialScrollParams } from "../types/type";
  */
 export function useInitialScroll({
   containerRef,
-  rowHeight,
   todayWeekIndex,
   minWeekIndex,
   setScrollTop,
-  weeksPerScreen,
   onDidInitialScroll,
   enabled = true,
 }: InitialScrollParams) {
   const ranOnce = useRef(false);
+  const { rowHeight, weeksPerScreen } = useCalendar();
 
   useEffect(() => {
     if (!enabled) return;
@@ -47,11 +48,12 @@ export function useInitialScroll({
     });
   }, [
     containerRef,
-    rowHeight,
     todayWeekIndex,
     minWeekIndex,
     setScrollTop,
     onDidInitialScroll,
+    enabled,
+    rowHeight,
     weeksPerScreen,
   ]);
 }

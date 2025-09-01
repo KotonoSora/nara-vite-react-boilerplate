@@ -1,32 +1,48 @@
-import { useCallback } from "react";
+import { memo, useMemo } from "react";
 
 import type { DayCellProps } from "../types/type";
 
 import { cn } from "~/lib/utils";
 
 import { useCalendar } from "../context/calendar-context";
+import { dayToIndex } from "../utils/helper-date";
 
-export function DayCell({ day, isToday, dayGlobalIndex }: DayCellProps) {
-  const { mode } = useCalendar();
+const DayCellComponent = ({ day, dayGlobalIndex }: DayCellProps) => {
+  const { mode, todayDayIndex } = useCalendar();
 
-  /**
-   * Render the date name label based on mode sequence
-   */
-  const renderDateNameLabel = useCallback(() => {
-    // Render the date name label based on mode sequence
-    if (mode === "sequence" && typeof dayGlobalIndex === "number") {
+  // Compute a stable global day index: prefer explicit prop, otherwise derive from `day`.
+  const computedGlobalDayIndex = useMemo(() => {
+    if (typeof dayGlobalIndex === "number") return dayGlobalIndex;
+    if (day) return dayToIndex(day);
+    return undefined;
+  }, [dayGlobalIndex, day]);
+
+  const isToday = useMemo(
+    () =>
+      typeof computedGlobalDayIndex === "number" &&
+      computedGlobalDayIndex === todayDayIndex,
+    [computedGlobalDayIndex, todayDayIndex],
+  );
+
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
+
+  // Memoize the label to avoid re-creating elements and formatters each render
+  const dateNameLabel = useMemo(() => {
+    if (mode === "sequence" && typeof computedGlobalDayIndex === "number") {
       return (
-        <div className="bg-secondary rounded-md p-2" data-date={dayGlobalIndex}>
-          <div className="text-sm">{dayGlobalIndex + 1}</div>
+        <div
+          className="bg-secondary rounded-md p-2"
+          data-date={computedGlobalDayIndex}
+        >
+          <div className="text-sm">{computedGlobalDayIndex + 1}</div>
         </div>
       );
     }
 
-    // Render the date format name based on mode date
     if (mode === "date" && day) {
       const isFirstDay = day.getDate() === 1;
+      const needsYear = day.getFullYear() !== currentYear;
 
-      const needsYear = day.getFullYear() !== new Date().getFullYear();
       const fmt = new Intl.DateTimeFormat(undefined, {
         day: "2-digit",
         ...(isFirstDay ? { month: "2-digit" } : {}),
@@ -48,9 +64,8 @@ export function DayCell({ day, isToday, dayGlobalIndex }: DayCellProps) {
       );
     }
 
-    // Default to empty
     return null;
-  }, [day, isToday, dayGlobalIndex, mode]);
+  }, [mode, day, computedGlobalDayIndex, isToday, currentYear]);
 
   return (
     <div
@@ -60,7 +75,7 @@ export function DayCell({ day, isToday, dayGlobalIndex }: DayCellProps) {
       aria-label="date-wrapper"
     >
       <div className="flex flex-row min-w-0 p-2" aria-label="date-title">
-        {renderDateNameLabel()}
+        {dateNameLabel}
       </div>
       <div
         className="flex flex-col flex-1 min-h-0 h-full bg-1"
@@ -70,4 +85,6 @@ export function DayCell({ day, isToday, dayGlobalIndex }: DayCellProps) {
       </div>
     </div>
   );
-}
+};
+
+export const DayCell = memo(DayCellComponent);

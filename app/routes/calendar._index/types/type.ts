@@ -33,33 +33,27 @@ export type WeekRowProps = { weekIndex: number };
 
 export type DayCellProps = {
   day?: Date;
-  isToday?: boolean;
   dayGlobalIndex?: number;
 };
 
 export type WrapperWeekRowProps = {
   weekIndex: number;
   offset: number;
-  rowHeight: number;
   children: ReactNode;
 };
 
 export type InitialScrollParams = {
   containerRef: RefObject<HTMLDivElement | null>;
-  rowHeight: number;
   todayWeekIndex?: number;
   minWeekIndex: number;
   setScrollTop: Dispatch<SetStateAction<number>>;
-  weeksPerScreen: number;
   onDidInitialScroll?: () => void;
   enabled?: boolean;
 };
 
 export type LazyExpansionParams = {
   scrollTop: number;
-  rowHeight: number;
   viewportHeight: number;
-  weeksPerScreen: number;
   minWeekIndex: number;
   maxWeekIndex: number;
   setMinWeekIndex: Dispatch<SetStateAction<number>>;

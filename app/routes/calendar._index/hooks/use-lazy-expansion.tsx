@@ -2,6 +2,8 @@ import { useEffect } from "react";
 
 import type { LazyExpansionParams } from "../types/type";
 
+import { useCalendar } from "../context/calendar-context";
+
 /**
  * A hook that handles lazy expansion of the calendar view.
  *
@@ -19,9 +21,7 @@ import type { LazyExpansionParams } from "../types/type";
  */
 export function useLazyExpansion({
   scrollTop,
-  rowHeight,
   viewportHeight,
-  weeksPerScreen,
   minWeekIndex,
   maxWeekIndex,
   setMinWeekIndex,
@@ -29,6 +29,8 @@ export function useLazyExpansion({
   containerRef,
   didInitialScroll,
 }: LazyExpansionParams) {
+  const { rowHeight, weeksPerScreen } = useCalendar();
+
   useEffect(() => {
     if (!didInitialScroll) return;
     if (rowHeight <= 0 || viewportHeight <= 0) return;
@@ -75,14 +77,14 @@ export function useLazyExpansion({
     }
   }, [
     scrollTop,
-    rowHeight,
     viewportHeight,
-    weeksPerScreen,
     minWeekIndex,
     maxWeekIndex,
     setMinWeekIndex,
     setMaxWeekIndex,
     containerRef,
     didInitialScroll,
+    rowHeight,
+    weeksPerScreen,
   ]);
 }
