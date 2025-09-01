@@ -4,6 +4,7 @@ import type { CalendarProviderProps } from "../types/type";
 
 import { CalendarContext } from "../context/calendar-context";
 import { dayToIndex } from "../utils/helper-date";
+import { usePageContext } from "./page-context";
 
 /**
  * Calendar provider component.
@@ -13,15 +14,26 @@ import { dayToIndex } from "../utils/helper-date";
  */
 export function CalendarProvider({
   children,
-  rowHeight: rowHeightProp,
-  weeksPerScreen,
-  overScan,
-  timezone,
-  renderDay,
   parentRef,
-  mode,
 }: CalendarProviderProps) {
+  const { weeksPerScreen, mode } = usePageContext();
   const [rowHeight, setRowHeight] = useState<number>(0);
+
+  const today = useMemo(() => new Date(), []);
+  const todayDayIndex = useMemo(() => dayToIndex(today), [today]);
+  const overScan = Math.max(1, weeksPerScreen + 1);
+
+  const value = useMemo(
+    () => ({
+      rowHeight,
+      weeksPerScreen,
+      overScan,
+      today,
+      todayDayIndex,
+      mode,
+    }),
+    [rowHeight, weeksPerScreen, overScan, today, todayDayIndex, mode],
+  );
 
   useEffect(() => {
     if (!parentRef?.current) return;
@@ -30,13 +42,7 @@ export function CalendarProvider({
       const h = parentRef.current ? parentRef.current.clientHeight : 0;
 
       if (h > 0) {
-        const computed =
-          weeksPerScreen &&
-          rowHeightProp &&
-          rowHeightProp > 0 &&
-          weeksPerScreen !== 0
-            ? rowHeightProp
-            : Math.floor(h / weeksPerScreen);
+        const computed = Math.floor(h / weeksPerScreen);
 
         setRowHeight((prev) => (prev !== computed ? computed : prev));
       }
@@ -47,39 +53,7 @@ export function CalendarProvider({
     const ro = new ResizeObserver(measure);
     ro.observe(parentRef.current);
     return () => ro.disconnect();
-  }, [parentRef, weeksPerScreen, rowHeightProp]);
-
-  useEffect(() => {
-    if (typeof rowHeightProp === "number" && rowHeightProp > 0) {
-      setRowHeight(rowHeightProp);
-    }
-  }, [rowHeightProp]);
-
-  const today = useMemo(() => new Date(), []);
-  const todayDayIndex = useMemo(() => dayToIndex(today), [today]);
-
-  const value = useMemo(
-    () => ({
-      rowHeight,
-      weeksPerScreen,
-      overScan,
-      timezone,
-      renderDay,
-      today,
-      todayDayIndex,
-      mode,
-    }),
-    [
-      rowHeight,
-      weeksPerScreen,
-      overScan,
-      timezone,
-      renderDay,
-      today,
-      todayDayIndex,
-      mode,
-    ],
-  );
+  }, [parentRef, weeksPerScreen]);
 
   return (
     <CalendarContext.Provider value={value}>

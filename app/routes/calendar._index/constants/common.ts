@@ -1,3 +1,5 @@
+import type { CalendarEngineMode } from "../types/type";
+
 export const MS_PER_DAY = 24 * 60 * 60 * 1000;
 export const MS_PER_WEEK = MS_PER_DAY * 7;
 export const WEEK_EPOCH = new Date("1970-01-05");
@@ -12,3 +14,6 @@ export const WEEKDAY_NAMES = [
   "Sat",
   "Sun",
 ] as const;
+
+export const DEFAULT_MODE: CalendarEngineMode = "date";
+export const DEFAULT_WEEKS_PER_SCREEN: number = 2;

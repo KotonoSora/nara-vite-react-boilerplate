@@ -1,19 +1,21 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
-import type { ReactNode } from "react";
-import type { CalendarEngineMode } from "../types/type";
+import type { CalendarEngineMode, PageProviderProps } from "../types/type";
 
+import { DEFAULT_MODE, DEFAULT_WEEKS_PER_SCREEN } from "../constants/common";
 import { PageContext } from "./page-context";
 
-export function PageProvider({ children }: { children: ReactNode }) {
-  const [weeksPerScreen, setWeeksPerScreen] = useState<number>(2);
-  const [mode, setMode] = useState<CalendarEngineMode>("sequence");
+export function PageProvider({ children }: PageProviderProps) {
+  const [weeksPerScreen, setWeeksPerScreen] = useState<number>(
+    DEFAULT_WEEKS_PER_SCREEN,
+  );
+  const [mode, setMode] = useState<CalendarEngineMode>(DEFAULT_MODE);
+
+  const contextValue = useMemo(() => {
+    return { weeksPerScreen, setWeeksPerScreen, mode, setMode };
+  }, [weeksPerScreen, setWeeksPerScreen, mode, setMode]);
 
   return (
-    <PageContext.Provider
-      value={{ weeksPerScreen, setWeeksPerScreen, mode, setMode }}
-    >
-      {children}
-    </PageContext.Provider>
+    <PageContext.Provider value={contextValue}>{children}</PageContext.Provider>
   );
 }

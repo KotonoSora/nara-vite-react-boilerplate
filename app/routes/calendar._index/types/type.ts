@@ -7,22 +7,18 @@ export type CalendarContextValue = {
   rowHeight: number;
   weeksPerScreen: number;
   overScan: number;
-  timezone?: string;
-  renderDay?: (day: Date, isToday: boolean) => ReactNode;
   today: Date;
-  todayDayIndex: number; // day index (days since epoch)
+  todayDayIndex: number;
   mode: CalendarEngineMode;
 };
 
 export type CalendarProviderProps = {
   children: ReactNode;
-  rowHeight?: number | undefined; // if provided, use it; otherwise compute from parentRef
-  weeksPerScreen: number;
-  overScan: number;
-  timezone?: string;
   parentRef: React.RefObject<HTMLDivElement | null>;
-  mode: CalendarEngineMode;
-  renderDay?: (day: Date, isToday: boolean) => ReactNode;
+};
+
+export type PageProviderProps = {
+  children: ReactNode;
 };
 
 export type InfiniteScrollProps = {
