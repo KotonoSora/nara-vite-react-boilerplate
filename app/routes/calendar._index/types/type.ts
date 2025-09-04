@@ -24,9 +24,28 @@ export type InfiniteScrollProps = {
   children: (weekIndex: number) => ReactNode;
 };
 
-export type WeekRowProps = { weekIndex: number };
+export type RenderDayParams = {
+  day?: Date;
+  dayGlobalIndex?: number;
+  isToday?: boolean;
+};
+
+export type RenderDayFn = (params: RenderDayParams) => ReactNode;
+
+export type CalendarAppProps = {
+  renderDay?: RenderDayFn;
+};
+
+export type VirtualCalendarProps = {
+  renderDay?: RenderDayFn;
+};
+
+export type DayContentProps = RenderDayParams;
+
+export type WeekRowProps = { weekIndex: number; renderDay?: RenderDayFn };
 
 export type DayCellProps = {
+  renderDay?: RenderDayFn;
   day?: Date;
   dayGlobalIndex?: number;
 };

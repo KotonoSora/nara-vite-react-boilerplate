@@ -5,10 +5,10 @@ import type { DayCellProps } from "../types/type";
 import { cn } from "~/lib/utils";
 
 import { useCalendar } from "../context/calendar-context";
-import { dayToIndex } from "../utils/helper-date";
+import { dayToIndex, startOfDay } from "../utils/helper-date";
 
-const DayCellComponent = ({ day, dayGlobalIndex }: DayCellProps) => {
-  const { mode, todayDayIndex } = useCalendar();
+const DayCellComponent = ({ day, dayGlobalIndex, renderDay }: DayCellProps) => {
+  const { mode, todayDayIndex, today } = useCalendar();
 
   // Compute a stable global day index: prefer explicit prop, otherwise derive from `day`.
   const computedGlobalDayIndex = useMemo(() => {
@@ -17,12 +17,16 @@ const DayCellComponent = ({ day, dayGlobalIndex }: DayCellProps) => {
     return undefined;
   }, [dayGlobalIndex, day]);
 
-  const isToday = useMemo(
-    () =>
+  const isToday = useMemo(() => {
+    const todayStart = startOfDay(today).getTime();
+    if (day) {
+      return startOfDay(day).getTime() === todayStart;
+    }
+    return (
       typeof computedGlobalDayIndex === "number" &&
-      computedGlobalDayIndex === todayDayIndex,
-    [computedGlobalDayIndex, todayDayIndex],
-  );
+      computedGlobalDayIndex === todayDayIndex
+    );
+  }, [day, computedGlobalDayIndex, todayDayIndex, today]);
 
   const currentYear = useMemo(() => new Date().getFullYear(), []);
 
@@ -81,7 +85,11 @@ const DayCellComponent = ({ day, dayGlobalIndex }: DayCellProps) => {
         className="flex flex-col flex-1 min-h-0 h-full bg-1"
         aria-label="date-content"
       >
-        {/* Render children date content */}
+        {/* Render custom day content when provided */}
+        {typeof renderDay === "function"
+          ? renderDay({ day, dayGlobalIndex, isToday })
+          : // default content area (empty for now)
+            null}
       </div>
     </div>
   );
