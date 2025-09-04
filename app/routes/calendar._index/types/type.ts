@@ -1,4 +1,10 @@
-import type { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
+import type {
+  Dispatch,
+  MouseEventHandler,
+  ReactNode,
+  RefObject,
+  SetStateAction,
+} from "react";
 
 export type CalendarEvent = { id: string; label: string };
 export type EventsMap = Record<string, CalendarEvent[]>;
@@ -22,6 +28,7 @@ export type PageProviderProps = {
 
 export type InfiniteScrollProps = {
   children: (weekIndex: number) => ReactNode;
+  onRegisterActions?: RegisterActionsFn;
 };
 
 export type RenderDayParams = {
@@ -34,10 +41,12 @@ export type RenderDayFn = (params: RenderDayParams) => ReactNode;
 
 export type CalendarAppProps = {
   renderDay?: RenderDayFn;
+  onRegisterActions?: RegisterActionsFn;
 };
 
 export type VirtualCalendarProps = {
   renderDay?: RenderDayFn;
+  onRegisterActions?: RegisterActionsFn;
 };
 
 export type DayContentProps = RenderDayParams;
@@ -49,6 +58,12 @@ export type DayCellProps = {
   day?: Date;
   dayGlobalIndex?: number;
 };
+
+export type CalendarActionHandle = {
+  scrollToToday: () => void;
+};
+
+export type RegisterActionsFn = (h: CalendarActionHandle | null) => void;
 
 export type WrapperWeekRowProps = {
   weekIndex: number;
@@ -101,6 +116,11 @@ export type PageContextValue = {
   setWeeksPerScreen: (v: number) => void;
   mode: CalendarEngineMode;
   setMode: (m: CalendarEngineMode) => void;
+};
+
+export type TodayButtonProps = {
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 };
 
 export type ModeEffectsParams = {

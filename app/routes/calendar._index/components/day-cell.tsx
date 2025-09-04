@@ -28,7 +28,7 @@ const DayCellComponent = ({ day, dayGlobalIndex, renderDay }: DayCellProps) => {
     );
   }, [day, computedGlobalDayIndex, todayDayIndex, today]);
 
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
+  const currentYear = useMemo(() => today.getFullYear(), [today]);
 
   // Memoize the label to avoid re-creating elements and formatters each render
   const dateNameLabel = useMemo(() => {
@@ -86,10 +86,7 @@ const DayCellComponent = ({ day, dayGlobalIndex, renderDay }: DayCellProps) => {
         aria-label="date-content"
       >
         {/* Render custom day content when provided */}
-        {typeof renderDay === "function"
-          ? renderDay({ day, dayGlobalIndex, isToday })
-          : // default content area (empty for now)
-            null}
+        {renderDay ? renderDay({ day, dayGlobalIndex, isToday }) : null}
       </div>
     </div>
   );

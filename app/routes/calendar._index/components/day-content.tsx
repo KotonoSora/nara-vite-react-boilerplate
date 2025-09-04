@@ -1,11 +1,6 @@
-import type { FC } from "react";
 import type { DayContentProps } from "../types/type";
 
-export const DayContent: FC<DayContentProps> = ({
-  day,
-  dayGlobalIndex,
-  isToday,
-}) => {
+export function DayContent({ day, dayGlobalIndex, isToday }: DayContentProps) {
   const label = day
     ? `${day.getDate()}`
     : dayGlobalIndex != null
@@ -27,6 +22,4 @@ export const DayContent: FC<DayContentProps> = ({
       <div className="mt-1 text-xs text-gray-400">Events</div>
     </div>
   );
-};
-
-export default DayContent;
+}

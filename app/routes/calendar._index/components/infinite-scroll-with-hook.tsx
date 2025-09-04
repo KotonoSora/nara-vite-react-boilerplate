@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import type { JSX, ReactNode } from "react";
-import type { InfiniteScrollProps } from "../types/type";
+import type { ReactNode } from "react";
+import type { CalendarActionHandle, InfiniteScrollProps } from "../types/type";
 
 import { DEFAULT_MAX_WEEK_MODE_SEQUENCE } from "../constants/common";
 import { useCalendar } from "../context/calendar-context";
@@ -35,7 +35,10 @@ import { WrapperWeekRow } from "./wrapper-week-row";
  * @param {(weekIndex: number) => ReactNode} props.children - Render prop for a week row
  * @returns {JSX.Element} The infinite scroll container with visible week rows
  */
-export function InfiniteScroll({ children }: InfiniteScrollProps): JSX.Element {
+export function InfiniteScroll({
+  children,
+  onRegisterActions,
+}: InfiniteScrollProps) {
   /**
    * CONTRACT (inputs/outputs):
    * - inputs: calendar context (rowHeight, weeksPerScreen, overScan, mode)
@@ -165,6 +168,58 @@ export function InfiniteScroll({ children }: InfiniteScrollProps): JSX.Element {
       setMaxWeekIndex(todayWeekIndex + bufferWeeks);
     }
   }, [mode, todayWeekIndex]);
+
+  // Keep latest values in refs so a single registered handle can read
+  // up-to-date values without being re-created on every render.
+  const todayWeekRef = useRef<number | undefined>(todayWeekIndex);
+  const minWeekRef = useRef<number>(minWeekIndex);
+  const weeksPerScreenRef = useRef<number>(weeksPerScreen);
+  const rowHeightRef = useRef<number>(rowHeight);
+
+  useEffect(() => {
+    todayWeekRef.current = todayWeekIndex;
+  }, [todayWeekIndex]);
+
+  useEffect(() => {
+    minWeekRef.current = minWeekIndex;
+  }, [minWeekIndex]);
+
+  useEffect(() => {
+    weeksPerScreenRef.current = weeksPerScreen;
+  }, [weeksPerScreen]);
+
+  useEffect(() => {
+    rowHeightRef.current = rowHeight;
+  }, [rowHeight]);
+
+  // Prepare a stable handle that uses refs to read current values when invoked.
+  const handle = useMemo<CalendarActionHandle>(
+    () => ({
+      scrollToToday: () => {
+        const tw = todayWeekRef.current;
+        const minW = minWeekRef.current;
+        const wps = weeksPerScreenRef.current;
+        const rh = rowHeightRef.current;
+        if (!containerRef.current || typeof tw !== "number") return;
+        const centerOffset = Math.round(wps / 2);
+        let offsetWeeks = tw - minW + centerOffset;
+        if (offsetWeeks < 0) offsetWeeks = 0;
+        const top = offsetWeeks * rh;
+        containerRef.current.scrollTop = top;
+        setScrollTop(top);
+      },
+    }),
+    [],
+  );
+
+  // Register the actions once (and deregister on unmount or when callback changes).
+  useEffect(() => {
+    if (typeof onRegisterActions === "function") {
+      onRegisterActions(handle);
+      return () => onRegisterActions(null);
+    }
+    return;
+  }, [onRegisterActions]);
 
   // Observe the container's scrollTop via a custom scroll handler hook.
   // This hook attaches a listener and provides a stable, rAF-throttled
