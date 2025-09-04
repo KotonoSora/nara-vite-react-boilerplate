@@ -13,6 +13,7 @@ import { PageHeader } from "./components/page-header";
 import { TodayButton } from "./components/today-button";
 import { VisibleWeeksLabel } from "./components/visible-weeks-label";
 import { WeekdayHeader } from "./components/weekday-header";
+import { usePageContext } from "./context/page-context";
 import { PageProvider } from "./context/page-provider";
 
 export function ContentCalendarInfinityPage() {
@@ -31,12 +32,19 @@ export function ContentCalendarInfinityPage() {
     setVisibleLabel(l);
   }, []);
 
+  function TodayButtonWrapper() {
+    const { mode } = usePageContext();
+    return mode === "date" ? (
+      <TodayButton onClick={() => calendarRef.current?.scrollToToday()} />
+    ) : null;
+  }
+
   return (
     <PageProvider>
       <div className="h-screen min-h-0 flex flex-col gap-2 p-4">
         <PageHeader />
         <Controls />
-        <TodayButton onClick={() => calendarRef.current?.scrollToToday()} />
+        <TodayButtonWrapper />
         <VisibleWeeksLabel label={visibleLabel} />
         <WeekdayHeader />
         <CalendarApp
