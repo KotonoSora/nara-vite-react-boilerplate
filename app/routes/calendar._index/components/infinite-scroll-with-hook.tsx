@@ -113,7 +113,10 @@ export function InfiniteScroll({ children }: InfiniteScrollProps): JSX.Element {
   // swapped out if localization or formatting rules change.
   const visibleLabel = useVisibleLabel({
     visibleWindow,
-    totalWeeks: visibleRange.totalWeeks,
+    totalWeeks:
+      mode === "sequence"
+        ? DEFAULT_MAX_WEEK_MODE_SEQUENCE + 1
+        : visibleRange.totalWeeks,
     minWeekIndex,
     mode,
   });
@@ -185,6 +188,7 @@ export function InfiniteScroll({ children }: InfiniteScrollProps): JSX.Element {
       containerRef,
       todayWeekIndex,
       minWeekIndex,
+      mode,
       setScrollTop,
       onDidInitialScroll: () => setDidInitialScroll(true),
     },
@@ -200,7 +204,6 @@ export function InfiniteScroll({ children }: InfiniteScrollProps): JSX.Element {
       bufferWeeks,
       mode,
     },
-    enabled: mode === "date",
   });
 
   return (

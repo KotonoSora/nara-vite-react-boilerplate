@@ -32,12 +32,11 @@ import { useLazyExpansion } from "./use-lazy-expansion";
 export function useModeEffects({
   initialParams,
   lazyParams,
-  enabled,
 }: ModeEffectsParams) {
   // Pass `enabled` into useInitialScroll so it can decide whether to run.
   // This prevents conditional hook usage in components while still allowing
   // the initial scroll behavior to be toggled by the caller.
-  useInitialScroll({ ...initialParams, enabled });
+  useInitialScroll(initialParams);
 
   // Call lazy expansion hook. It will check its own `didInitialScroll`
   // flag (provided via its params) and return early until the initial

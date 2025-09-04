@@ -30,9 +30,9 @@ export function useInitialScroll({
   containerRef,
   todayWeekIndex,
   minWeekIndex,
+  mode,
   setScrollTop,
   onDidInitialScroll,
-  enabled = true,
 }: InitialScrollParams) {
   // ranOnce: ensure the initial scroll logic only runs a single time per mount
   // (useRef is stable across renders and does not cause re-renders).
@@ -45,7 +45,7 @@ export function useInitialScroll({
 
   useEffect(() => {
     // Step 1: Respect the `enabled` flag from the caller.
-    if (!enabled) return;
+    if (mode !== "date") return;
 
     // Step 2: Only run once. If we've already run, bail out early.
     if (ranOnce.current) return;
@@ -101,7 +101,7 @@ export function useInitialScroll({
     minWeekIndex,
     setScrollTop,
     onDidInitialScroll,
-    enabled,
+    mode,
     rowHeight,
     weeksPerScreen,
   ]);

@@ -41,6 +41,7 @@ export type InitialScrollParams = {
   containerRef: RefObject<HTMLDivElement | null>;
   todayWeekIndex?: number;
   minWeekIndex: number;
+  mode: CalendarEngineMode;
   setScrollTop: Dispatch<SetStateAction<number>>;
   onDidInitialScroll?: () => void;
   enabled?: boolean;
@@ -86,7 +87,6 @@ export type PageContextValue = {
 export type ModeEffectsParams = {
   initialParams: InitialScrollParams;
   lazyParams: LazyExpansionParams;
-  enabled: boolean;
 };
 
 export type TodayWeekIndexParams = {
