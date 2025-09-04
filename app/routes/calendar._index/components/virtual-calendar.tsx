@@ -8,6 +8,7 @@ import { WeekRow } from "./week-row";
 export function VirtualCalendar({
   renderDay,
   onRegisterActions,
+  onVisibleLabelChange,
 }: VirtualCalendarProps) {
   const renderWeek = useCallback(
     (weekIndex: number) => (
@@ -17,7 +18,10 @@ export function VirtualCalendar({
   );
 
   return (
-    <InfiniteScroll onRegisterActions={onRegisterActions}>
+    <InfiniteScroll
+      onRegisterActions={onRegisterActions}
+      onVisibleLabelChange={onVisibleLabelChange}
+    >
       {renderWeek}
     </InfiniteScroll>
   );

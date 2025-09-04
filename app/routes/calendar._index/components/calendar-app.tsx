@@ -7,6 +7,7 @@ import { VirtualCalendar } from "./virtual-calendar";
 export function CalendarApp({
   renderDay,
   onRegisterActions,
+  onVisibleLabelChange,
 }: CalendarAppProps) {
   const { weeksPerScreen, mode } = usePageContext();
 
@@ -16,6 +17,7 @@ export function CalendarApp({
     >
       <VirtualCalendar
         onRegisterActions={onRegisterActions}
+        onVisibleLabelChange={onVisibleLabelChange}
         renderDay={renderDay}
       />
     </CalendarProvider>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import type { LazyExpansionParams } from "../types/type";
 
@@ -43,9 +43,18 @@ export function useLazyExpansion({
   // Read shared layout values from calendar context
   const { rowHeight, weeksPerScreen } = useCalendar();
 
+  // Guard to avoid re-entrant expansions while a previous expansion
+  // is still pending its scroll adjustment. Using a stable ref prevents
+  // the guard from resetting on every render.
+  const expandingRef = useRef(false);
+
   useEffect(() => {
     // Guard 1: don't run until initial programmatic scroll has happened.
     if (!didInitialScroll) return;
+
+    // If an expansion is already in-flight, skip running again until it
+    // completes and the scrollTop has been adjusted.
+    if (expandingRef.current) return;
 
     // Guard 2: ensure we have valid geometry to compute with.
     if (rowHeight <= 0 || viewportHeight <= 0) return;
@@ -106,17 +115,26 @@ export function useLazyExpansion({
 
     // If bounds changed, apply them and optionally adjust scrollTop
     if (newMin !== minWeekIndex || newMax !== maxWeekIndex) {
+      // Mark expansion in-flight so we don't re-enter until DOM scroll is adjusted.
+      expandingRef.current = true;
+
       setMinWeekIndex(newMin);
       setMaxWeekIndex(newMax);
 
       // If we added weeks above, adjust the DOM scrollTop inside a
-      // requestAnimationFrame to avoid layout thrashing.
+      // requestAnimationFrame to avoid layout thrashing. We clear the
+      // expanding flag after the adjustment so the effect may run again
+      // normally.
       if (scrollAdjust > 0 && containerRef.current) {
         requestAnimationFrame(() => {
           if (containerRef.current) {
             containerRef.current.scrollTop += scrollAdjust;
           }
+          expandingRef.current = false;
         });
+      } else {
+        // No scroll adjustment required; clear the expanding flag immediately.
+        expandingRef.current = false;
       }
     }
     // Dependency explanation:

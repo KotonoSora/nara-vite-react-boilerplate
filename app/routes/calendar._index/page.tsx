@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import type {
   CalendarActionHandle,
@@ -11,6 +11,7 @@ import { Controls } from "./components/controls";
 import { DayContent } from "./components/day-content";
 import { PageHeader } from "./components/page-header";
 import { TodayButton } from "./components/today-button";
+import { VisibleWeeksLabel } from "./components/visible-weeks-label";
 import { WeekdayHeader } from "./components/weekday-header";
 import { PageProvider } from "./context/page-provider";
 
@@ -25,6 +26,10 @@ export function ContentCalendarInfinityPage() {
   const onRegisterActions = useCallback<RegisterActionsFn>((h) => {
     calendarRef.current = h;
   }, []);
+  const [visibleLabel, setVisibleLabel] = useState<string>("");
+  const handleVisibleLabelChange = useCallback((l: string) => {
+    setVisibleLabel(l);
+  }, []);
 
   return (
     <PageProvider>
@@ -32,9 +37,11 @@ export function ContentCalendarInfinityPage() {
         <PageHeader />
         <Controls />
         <TodayButton onClick={() => calendarRef.current?.scrollToToday()} />
+        <VisibleWeeksLabel label={visibleLabel} />
         <WeekdayHeader />
         <CalendarApp
           onRegisterActions={onRegisterActions}
+          onVisibleLabelChange={handleVisibleLabelChange}
           renderDay={renderDay}
         />
       </div>

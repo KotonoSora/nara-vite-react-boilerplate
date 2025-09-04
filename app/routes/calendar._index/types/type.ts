@@ -29,6 +29,7 @@ export type PageProviderProps = {
 export type InfiniteScrollProps = {
   children: (weekIndex: number) => ReactNode;
   onRegisterActions?: RegisterActionsFn;
+  onVisibleLabelChange?: (label: string) => void;
 };
 
 export type RenderDayParams = {
@@ -42,11 +43,13 @@ export type RenderDayFn = (params: RenderDayParams) => ReactNode;
 export type CalendarAppProps = {
   renderDay?: RenderDayFn;
   onRegisterActions?: RegisterActionsFn;
+  onVisibleLabelChange?: (label: string) => void;
 };
 
 export type VirtualCalendarProps = {
   renderDay?: RenderDayFn;
   onRegisterActions?: RegisterActionsFn;
+  onVisibleLabelChange?: (label: string) => void;
 };
 
 export type DayContentProps = RenderDayParams;

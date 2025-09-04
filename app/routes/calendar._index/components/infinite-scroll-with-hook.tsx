@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import type { ReactNode } from "react";
 import type { CalendarActionHandle, InfiniteScrollProps } from "../types/type";
@@ -14,7 +14,6 @@ import { useVisibleLabel } from "../hooks/use-visible-label";
 import { useVisibleRange } from "../hooks/use-visible-range";
 import { useVisibleWindow } from "../hooks/use-visible-window";
 import { InfiniteScrollContainer } from "./infinite-scroll-container";
-import { VisibleWeeksLabel } from "./visible-weeks-label";
 import { WrapperWeekRow } from "./wrapper-week-row";
 
 /**
@@ -38,6 +37,7 @@ import { WrapperWeekRow } from "./wrapper-week-row";
 export function InfiniteScroll({
   children,
   onRegisterActions,
+  onVisibleLabelChange,
 }: InfiniteScrollProps) {
   /**
    * CONTRACT (inputs/outputs):
@@ -228,26 +228,41 @@ export function InfiniteScroll({
   const currentScrollTop = useScrollHandler({ containerRef });
 
   // Mirror the `currentScrollTop` from the scroll hook into local state.
-  // We do this so effects that depend on `scrollTop` can be expressed
-  // declaratively and participate in React's lifecycle.
+  // Only update state when the value actually changes to avoid unnecessary
+  // re-renders (React will bail out on identical primitive values, but
+  // avoiding the setter call reduces work in some renderers).
   useEffect(() => {
-    setScrollTop(currentScrollTop);
+    setScrollTop((prev) =>
+      prev === currentScrollTop ? prev : currentScrollTop,
+    );
   }, [currentScrollTop]);
 
-  // Run mode-specific side effects (initial scroll + lazy expansion) while
-  // preserving hook call order. Passing `enabled` as the third argument
-  // lets the hook decide internally whether to run logic for the current
-  // mode without us conditionally calling hooks here.
-  useModeEffects({
-    initialParams: {
+  // Prepare memoized params for mode-specific hooks so their identity
+  // doesn't change every render. This reduces needless effect runs in the
+  // underlying hooks and keeps render churn low when geometry updates.
+  const onDidInitialScroll = useCallback(() => setDidInitialScroll(true), []);
+
+  const initialModeParams = useMemo(
+    () => ({
       containerRef,
       todayWeekIndex,
       minWeekIndex,
       mode,
       setScrollTop,
-      onDidInitialScroll: () => setDidInitialScroll(true),
-    },
-    lazyParams: {
+      onDidInitialScroll,
+    }),
+    [
+      containerRef,
+      todayWeekIndex,
+      minWeekIndex,
+      mode,
+      setScrollTop,
+      onDidInitialScroll,
+    ],
+  );
+
+  const lazyModeParams = useMemo(
+    () => ({
       scrollTop,
       viewportHeight,
       minWeekIndex,
@@ -258,19 +273,46 @@ export function InfiniteScroll({
       didInitialScroll,
       bufferWeeks,
       mode,
-    },
+    }),
+    [
+      scrollTop,
+      viewportHeight,
+      minWeekIndex,
+      maxWeekIndex,
+      setMinWeekIndex,
+      setMaxWeekIndex,
+      containerRef,
+      didInitialScroll,
+      bufferWeeks,
+      mode,
+    ],
+  );
+
+  useModeEffects({
+    initialParams: initialModeParams,
+    lazyParams: lazyModeParams,
   });
 
+  // Notify parent of visible label updates (if requested).
+  // Avoid emitting the same label repeatedly which can cause parent state
+  // updates to bounce and produce an update loop. Track the last emitted
+  // label in a ref and only call the callback when the value actually
+  // changes.
+  const lastEmittedVisibleLabelRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (typeof onVisibleLabelChange !== "function") return;
+    if (lastEmittedVisibleLabelRef.current === visibleLabel) return;
+    lastEmittedVisibleLabelRef.current = visibleLabel;
+    onVisibleLabelChange(visibleLabel);
+  }, [onVisibleLabelChange, visibleLabel]);
+
   return (
-    <>
-      <VisibleWeeksLabel label={visibleLabel} />
-      <InfiniteScrollContainer
-        containerRef={containerRef}
-        viewportHeight={viewportHeight}
-        contentHeight={totalContentHeight}
-      >
-        {items}
-      </InfiniteScrollContainer>
-    </>
+    <InfiniteScrollContainer
+      containerRef={containerRef}
+      viewportHeight={viewportHeight}
+      contentHeight={totalContentHeight}
+    >
+      {items}
+    </InfiniteScrollContainer>
   );
 }
