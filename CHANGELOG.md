@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.6.8 (2025-09-05)
+
+- Upgraded dependency versions
+- Enhance code snippets
+- Implemented a vertically infinite-scrolling calendar that supports navigation by exact date or by sequence.
+
 ## 4.6.7 (2025-08-26)
 
 - Upgraded dependency versions
