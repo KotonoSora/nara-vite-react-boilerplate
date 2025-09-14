@@ -5,6 +5,10 @@ export default {
   // Server-side render by default, to enable SPA mode set this to `false`
   ssr: true,
   future: {
+    v8_middleware: false,
+    unstable_optimizeDeps: true,
+    unstable_splitRouteModules: true,
+    unstable_subResourceIntegrity: true,
     unstable_viteEnvironmentApi: true,
   },
 } satisfies Config;
