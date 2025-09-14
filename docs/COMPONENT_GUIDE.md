@@ -40,7 +40,7 @@ The NARA boilerplate uses a **hybrid component architecture** based on Clean Arc
 ├── /components/              # Shared UI components (presentation layer)
 │   ├── /ui/                 # shadcn/ui components (Radix + Tailwind)
 │   │   ├── button.tsx       # Primitive components
-│   │   ├── card.tsx         # Layout components  
+│   │   ├── card.tsx         # Layout components
 │   │   ├── dialog.tsx       # Overlay components
 │   │   └── ...
 │   ├── mode-switcher.tsx    # Custom shared components
@@ -162,7 +162,7 @@ export function useTransactions() {
   });
 
   const createMutation = useMutation({
-    mutationFn: (command: CreateTransactionCommand) => 
+    mutationFn: (command: CreateTransactionCommand) =>
       repository.create(command.execute()),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
@@ -200,9 +200,9 @@ interface TransactionListProps {
   onTransactionSelect?: (transaction: Transaction) => void;
 }
 
-export const TransactionList: FC<TransactionListProps> = ({ 
-  className, 
-  onTransactionSelect 
+export const TransactionList: FC<TransactionListProps> = ({
+  className,
+  onTransactionSelect
 }) => {
   const { transactions, isLoading, error } = useTransactions();
 
@@ -226,9 +226,9 @@ export const TransactionList: FC<TransactionListProps> = ({
               {transaction.createdAt.toLocaleDateString()}
             </p>
             {onTransactionSelect && (
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 className="mt-2"
                 onClick={() => onTransactionSelect(transaction)}
               >
@@ -268,7 +268,7 @@ interface UserProfileProps {
 
 export const UserProfile: FC<UserProfileProps> = ({ userPromise }) => {
   const user = use(userPromise); // Suspends until promise resolves
-  
+
   return (
     <Card>
       <CardHeader>
@@ -282,7 +282,7 @@ export const UserProfile: FC<UserProfileProps> = ({ userPromise }) => {
 // Usage with Suspense boundary
 export const UserPage: FC = () => {
   const userPromise = fetchUser(userId);
-  
+
   return (
     <Suspense fallback={<UserProfileSkeleton />}>
       <UserProfile userPromise={userPromise} />
@@ -331,7 +331,7 @@ export const DashboardPage: FC = () => {
     <ErrorBoundary fallback={<DashboardError />}>
       <div className="space-y-6">
         <Suspense fallback={<SummaryCardSkeleton />}>
-          <Dashboard 
+          <Dashboard
             transactionsPromise={transactionsPromise}
             accountsPromise={accountsPromise}
             summaryPromise={summaryPromise}
@@ -378,8 +378,8 @@ async function createTransactionAction(
   }
 }
 
-export const CreateTransactionForm: FC<CreateTransactionFormProps> = ({ 
-  onSuccess 
+export const CreateTransactionForm: FC<CreateTransactionFormProps> = ({
+  onSuccess
 }) => {
   const [state, formAction, isPending] = useActionState(
     createTransactionAction,
@@ -399,12 +399,12 @@ export const CreateTransactionForm: FC<CreateTransactionFormProps> = ({
       description: String(formData.get("description")),
       type: formData.get("type") as TransactionType,
     });
-    
+
     addOptimisticTransaction(optimisticTransaction);
-    
+
     // Submit form
     await formAction(formData);
-    
+
     if (state.success && onSuccess) {
       onSuccess(state.transaction);
     }
@@ -671,7 +671,7 @@ bunx --bun shadcn@latest add [component-name]
 
 # Examples:
 bunx --bun shadcn@latest add button
-bunx --bun shadcn@latest add card  
+bunx --bun shadcn@latest add card
 bunx --bun shadcn@latest add dialog
 bunx --bun shadcn@latest add form
 
@@ -710,17 +710,17 @@ interface LoadingButtonProps {
   readonly onClick?: () => Promise<void> | void;
 }
 
-export const LoadingButton: FC<LoadingButtonProps> = ({ 
-  loading = false, 
-  children, 
+export const LoadingButton: FC<LoadingButtonProps> = ({
+  loading = false,
+  children,
   onClick,
-  ...props 
+  ...props
 }) => {
   const [isLoading, setIsLoading] = useState(loading);
 
   const handleClick = async () => {
     if (!onClick) return;
-    
+
     setIsLoading(true);
     try {
       await onClick();
@@ -738,8 +738,8 @@ export const LoadingButton: FC<LoadingButtonProps> = ({
 };
 
 // Usage
-<LoadingButton 
-  onClick={async () => await saveData()} 
+<LoadingButton
+  onClick={async () => await saveData()}
   variant="default"
   loading={isSaving}
 >
@@ -877,11 +877,11 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter,
-} from "~/components/ui/dialog"
+} from "~/components/ui/dialog";
 
 <Dialog>
   <DialogTrigger asChild>
@@ -897,7 +897,7 @@ import {
       <Button>Save</Button>
     </DialogFooter>
   </DialogContent>
-</Dialog>
+</Dialog>;
 ```
 
 #### **Form Components**
@@ -1002,7 +1002,14 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 #### **Data Table**
 
 ```tsx
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "~/components/ui/table";
 
 <Table>
   <TableHeader>
@@ -1025,13 +1032,20 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~
       </TableRow>
     ))}
   </TableBody>
-</Table>
+</Table>;
 ```
 
 #### **Command Menu**
 
 ```tsx
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "~/components/ui/command"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "~/components/ui/command";
 
 <Command>
   <CommandInput placeholder="Search..." />
@@ -1043,7 +1057,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
       <CommandItem>Profile</CommandItem>
     </CommandGroup>
   </CommandList>
-</Command>
+</Command>;
 ```
 
 ---
@@ -1055,23 +1069,29 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 The boilerplate includes a custom mode switcher component:
 
 ```tsx
-import { ModeSwitcher } from "~/components/mode-switcher"
+import { ModeSwitcher } from "~/components/mode-switcher";
 
 // Usage
-<ModeSwitcher />
+<ModeSwitcher />;
 ```
 
 **Implementation:**
 
 ```tsx
 // app/components/mode-switcher.tsx
-import { Theme, useTheme } from "remix-themes"
-import { Button } from "~/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "~/components/ui/dropdown-menu"
-import { Moon, Sun } from "lucide-react"
+import { Moon, Sun } from "lucide-react";
+import { Theme, useTheme } from "remix-themes";
+
+import { Button } from "~/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 
 export function ModeSwitcher() {
-  const [theme, setTheme] = useTheme()
+  const [theme, setTheme] = useTheme();
 
   return (
     <DropdownMenu>
@@ -1094,7 +1114,7 @@ export function ModeSwitcher() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }
 ```
 
@@ -1108,14 +1128,18 @@ TailwindCSS provides a mobile-first breakpoint system:
 
 ```tsx
 // Mobile-first responsive design
-<div className="
+<div
+  className="
   grid 
   grid-cols-1      // 1 column on mobile
   md:grid-cols-2   // 2 columns on tablet
   lg:grid-cols-3   // 3 columns on desktop
   gap-4
-">
-  {items.map(item => <Card key={item.id} />)}
+"
+>
+  {items.map((item) => (
+    <Card key={item.id} />
+  ))}
 </div>
 ```
 
@@ -1123,20 +1147,12 @@ TailwindCSS provides a mobile-first breakpoint system:
 
 ```tsx
 // Use mobile hook for conditional rendering
-import { useMobile } from "~/hooks/use-mobile"
+import { useMobile } from "~/hooks/use-mobile";
 
 export function ResponsiveLayout() {
-  const isMobile = useMobile()
-  
-  return (
-    <div>
-      {isMobile ? (
-        <MobileNavigation />
-      ) : (
-        <DesktopNavigation />
-      )}
-    </div>
-  )
+  const isMobile = useMobile();
+
+  return <div>{isMobile ? <MobileNavigation /> : <DesktopNavigation />}</div>;
 }
 ```
 
@@ -1328,7 +1344,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({
             <FormItem>
               <FormLabel>Bio</FormLabel>
               <FormControl>
-                <Textarea 
+                <Textarea
                   placeholder="Tell us about yourself"
                   className="min-h-[100px]"
                   {...field}
@@ -1364,8 +1380,8 @@ export const ProfileForm: FC<ProfileFormProps> = ({
           )}
         />
 
-        <Button 
-          type="submit" 
+        <Button
+          type="submit"
           disabled={loading || form.formState.isSubmitting}
           className="w-full"
         >
@@ -1591,7 +1607,7 @@ export const ExpensiveComponent = memo<ExpensiveComponentProps>(
   (prevProps, nextProps) => {
     return (
       prevProps.data.length === nextProps.data.length &&
-      prevProps.data.every((item, index) => 
+      prevProps.data.every((item, index) =>
         item.id === nextProps.data[index]?.id &&
         item.version === nextProps.data[index]?.version
       )
@@ -1607,7 +1623,7 @@ export const SearchableList: FC<SearchableListProps> = ({ items, onSelect }) => 
   // Expensive filtering is deferred
   const filteredItems = useMemo(() => {
     if (!deferredSearchTerm) return items;
-    
+
     return items.filter(item =>
       item.name.toLowerCase().includes(deferredSearchTerm.toLowerCase()) ||
       item.description.toLowerCase().includes(deferredSearchTerm.toLowerCase())
@@ -1653,10 +1669,10 @@ export const VirtualizedList: FC<VirtualizedListProps> = ({
   const Row = useCallback(
     ({ index, style }: { index: number; style: React.CSSProperties }) => {
       const item = items[index];
-      
+
       return (
         <div style={style} className="px-4">
-          <Card 
+          <Card
             className="h-full cursor-pointer hover:shadow-md"
             onClick={() => onItemClick(item)}
           >
@@ -1779,8 +1795,8 @@ export const AccessibleButton: FC<AccessibleButtonProps> = ({
       variant={variant}
     >
       {loading && (
-        <Loader2 
-          className="mr-2 h-4 w-4 animate-spin" 
+        <Loader2
+          className="mr-2 h-4 w-4 animate-spin"
           aria-hidden="true"
         />
       )}
@@ -1800,7 +1816,7 @@ export const AccessibleForm: FC<FormProps> = ({ onSubmit, schema }) => {
     <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
       <fieldset disabled={form.formState.isSubmitting}>
         <legend className="sr-only">User Registration Form</legend>
-        
+
         <FormField
           control={form.control}
           name="email"
@@ -1862,7 +1878,7 @@ export const SecureTextDisplay: FC<SecureTextDisplayProps> = ({
   const sanitizedContent = useMemo(() => {
     // Truncate content to prevent DoS
     const truncated = content.substring(0, maxLength);
-    
+
     if (allowHtml) {
       // Sanitize HTML content
       return DOMPurify.sanitize(truncated, {
@@ -1870,7 +1886,7 @@ export const SecureTextDisplay: FC<SecureTextDisplayProps> = ({
         ALLOWED_ATTR: ['href'],
       });
     }
-    
+
     // Escape plain text
     return truncated
       .replace(/&/g, '&amp;')
@@ -1903,30 +1919,30 @@ export const SecureFileUpload: FC<SecureFileUploadProps> = ({
 }) => {
   const validateFiles = (files: FileList) => {
     const fileArray = Array.from(files);
-    
+
     // Check file count
     if (fileArray.length > maxFiles) {
       throw new Error(`Maximum ${maxFiles} files allowed`);
     }
-    
+
     // Validate each file
     fileArray.forEach((file) => {
       // Check file size
       if (file.size > maxSize) {
         throw new Error(`File ${file.name} is too large. Maximum size is ${maxSize / 1024 / 1024}MB`);
       }
-      
+
       // Check file type
       if (!allowedTypes.includes(file.type)) {
         throw new Error(`File type ${file.type} is not allowed`);
       }
-      
+
       // Check file name for security
       if (!/^[a-zA-Z0-9._-]+$/.test(file.name)) {
         throw new Error(`File name ${file.name} contains invalid characters`);
       }
     });
-    
+
     return fileArray;
   };
 
@@ -1934,7 +1950,7 @@ export const SecureFileUpload: FC<SecureFileUploadProps> = ({
     try {
       const files = event.target.files;
       if (!files || files.length === 0) return;
-      
+
       const validatedFiles = validateFiles(files);
       await onUpload(validatedFiles);
     } catch (error) {
@@ -2004,11 +2020,11 @@ function TransactionList() {
 // ✅ Clean separation with application layer
 function TransactionList() {
   // Use application layer hook
-  const { 
-    transactions, 
-    isLoading, 
+  const {
+    transactions,
+    isLoading,
     deleteTransaction,
-    error 
+    error
   } = useTransactions();
 
   if (isLoading) return <TransactionListSkeleton />;
@@ -2066,7 +2082,7 @@ function UserAvatar({ user, size = 'md' }: { user: User; size?: 'sm' | 'md' | 'l
     <Avatar className={cn(
       "flex-shrink-0",
       size === 'sm' && "h-8 w-8",
-      size === 'md' && "h-12 w-12", 
+      size === 'md' && "h-12 w-12",
       size === 'lg' && "h-16 w-16"
     )}>
       <AvatarImage src={user.avatar} alt={user.name} />
@@ -2142,7 +2158,7 @@ interface TransactionCardProps {
 }
 
 // Use discriminated unions for variant types
-type AlertVariant = 
+type AlertVariant =
   | { type: 'success'; message: string }
   | { type: 'error'; message: string; details?: string }
   | { type: 'warning'; message: string; action?: () => void }
@@ -2215,7 +2231,7 @@ export class ComponentErrorBoundary extends React.Component<
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     this.props.onError?.(error, errorInfo);
-    
+
     // Log to monitoring service
     console.error('Component error:', error, errorInfo);
   }
@@ -2369,13 +2385,13 @@ export const AccessibleModal: FC<AccessibleModalProps> = ({
             <X className="h-4 w-4" />
           </Button>
         </div>
-        
+
         {description && (
           <p id={descriptionId} className="text-muted-foreground mb-4">
             {description}
           </p>
         )}
-        
+
         {children}
       </div>
     </div>
@@ -2422,9 +2438,7 @@ Use CSS variables for theming:
 
 ```tsx
 // Use in components
-<div className="bg-[hsl(var(--brand-primary))]">
-  Custom themed background
-</div>
+<div className="bg-[hsl(var(--brand-primary))]">Custom themed background</div>
 ```
 
 ### 3. **Component Variants with CVA**
@@ -2432,39 +2446,37 @@ Use CSS variables for theming:
 Use `class-variance-authority` for component variants:
 
 ```tsx
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "~/lib/utils"
+import { cva } from "class-variance-authority";
 
-const alertVariants = cva(
-  "relative w-full rounded-lg border p-4",
-  {
-    variants: {
-      variant: {
-        default: "bg-background text-foreground",
-        destructive: "border-destructive/50 text-destructive dark:border-destructive",
-        warning: "border-yellow-500/50 text-yellow-600 dark:border-yellow-500",
-      }
+import type { VariantProps } from "class-variance-authority";
+
+import { cn } from "~/lib/utils";
+
+const alertVariants = cva("relative w-full rounded-lg border p-4", {
+  variants: {
+    variant: {
+      default: "bg-background text-foreground",
+      destructive:
+        "border-destructive/50 text-destructive dark:border-destructive",
+      warning: "border-yellow-500/50 text-yellow-600 dark:border-yellow-500",
     },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-)
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 interface AlertProps extends VariantProps<typeof alertVariants> {
-  className?: string
-  children: React.ReactNode
+  className?: string;
+  children: React.ReactNode;
 }
 
 export function Alert({ className, variant, children, ...props }: AlertProps) {
   return (
-    <div
-      className={cn(alertVariants({ variant }), className)}
-      {...props}
-    >
+    <div className={cn(alertVariants({ variant }), className)} {...props}>
       {children}
     </div>
-  )
+  );
 }
 ```
 
@@ -2475,32 +2487,33 @@ export function Alert({ className, variant, children, ...props }: AlertProps) {
 ### Component Testing with React Testing Library
 
 ```tsx
-import { render, screen, fireEvent } from '@testing-library/react'
-import { UserCard } from './user-card'
+import { fireEvent, render, screen } from "@testing-library/react";
+
+import { UserCard } from "./user-card";
 
 const mockUser = {
-  id: '1',
-  name: 'John Doe',
-  email: 'john@example.com',
-  role: 'user' as const
-}
+  id: "1",
+  name: "John Doe",
+  email: "john@example.com",
+  role: "user" as const,
+};
 
-describe('UserCard', () => {
-  it('renders user information', () => {
-    render(<UserCard user={mockUser} />)
-    
-    expect(screen.getByText('John Doe')).toBeInTheDocument()
-    expect(screen.getByText('john@example.com')).toBeInTheDocument()
-  })
-  
-  it('calls onEdit when edit button is clicked', () => {
-    const onEdit = vi.fn()
-    render(<UserCard user={mockUser} onEdit={onEdit} showActions />)
-    
-    fireEvent.click(screen.getByRole('button', { name: /edit/i }))
-    expect(onEdit).toHaveBeenCalledWith('1')
-  })
-})
+describe("UserCard", () => {
+  it("renders user information", () => {
+    render(<UserCard user={mockUser} />);
+
+    expect(screen.getByText("John Doe")).toBeInTheDocument();
+    expect(screen.getByText("john@example.com")).toBeInTheDocument();
+  });
+
+  it("calls onEdit when edit button is clicked", () => {
+    const onEdit = vi.fn();
+    render(<UserCard user={mockUser} onEdit={onEdit} showActions />);
+
+    fireEvent.click(screen.getByRole("button", { name: /edit/i }));
+    expect(onEdit).toHaveBeenCalledWith("1");
+  });
+});
 ```
 
 ### Visual Testing
@@ -2519,29 +2532,35 @@ For visual regression testing, consider tools like:
 
 Create clear documentation for custom components:
 
-```tsx
+````tsx
 /**
  * UserCard displays user information in a card format
- * 
+ *
  * @param user - User object containing id, name, email, and role
  * @param onEdit - Callback function called when edit button is clicked
  * @param onDelete - Callback function called when delete button is clicked
  * @param showActions - Whether to show edit/delete action buttons
  * @param className - Additional CSS classes to apply
- * 
+ *
  * @example
  * ```tsx
- * <UserCard 
- *   user={user} 
+ * <UserCard
+ *   user={user}
  *   onEdit={handleEdit}
  *   showActions={true}
  * />
  * ```
  */
-export function UserCard({ user, onEdit, onDelete, showActions, className }: UserCardProps) {
+export function UserCard({
+  user,
+  onEdit,
+  onDelete,
+  showActions,
+  className,
+}: UserCardProps) {
   // Implementation
 }
-```
+````
 
 ---
 
@@ -2585,7 +2604,7 @@ describe('TransactionForm', () => {
 
   it('renders form fields correctly', () => {
     renderWithProviders(<TransactionForm onSubmit={mockOnSubmit} />);
-    
+
     expect(screen.getByLabelText(/amount/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/description/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/type/i)).toBeInTheDocument();
@@ -2594,7 +2613,7 @@ describe('TransactionForm', () => {
 
   it('validates required fields', async () => {
     renderWithProviders(<TransactionForm onSubmit={mockOnSubmit} />);
-    
+
     const submitButton = screen.getByRole('button', { name: /create transaction/i });
     await user.click(submitButton);
 
@@ -2605,11 +2624,11 @@ describe('TransactionForm', () => {
 
   it('submits form with valid data', async () => {
     renderWithProviders(<TransactionForm onSubmit={mockOnSubmit} />);
-    
+
     await user.type(screen.getByLabelText(/amount/i), '100.50');
     await user.type(screen.getByLabelText(/description/i), 'Test transaction');
     await user.selectOptions(screen.getByLabelText(/type/i), 'expense');
-    
+
     await user.click(screen.getByRole('button', { name: /create transaction/i }));
 
     await waitFor(() => {
@@ -2623,7 +2642,7 @@ describe('TransactionForm', () => {
 
   it('handles loading state', () => {
     renderWithProviders(<TransactionForm onSubmit={mockOnSubmit} loading />);
-    
+
     const submitButton = screen.getByRole('button', { name: /creating/i });
     expect(submitButton).toBeDisabled();
   });
@@ -2637,7 +2656,7 @@ describe('TransactionForm', () => {
     );
 
     renderWithProviders(<TransactionForm onSubmit={mockOnSubmitWithError} />);
-    
+
     await user.type(screen.getByLabelText(/amount/i), '-100');
     await user.type(screen.getByLabelText(/description/i), 'Valid description');
     await user.click(screen.getByRole('button', { name: /create transaction/i }));
@@ -2710,9 +2729,9 @@ export const Loading: Story = {
 
 export const Error: Story = {
   render: () => (
-    <ErrorCard 
-      error={new Error('Failed to load transaction')} 
-      onRetry={() => console.log('Retry clicked')} 
+    <ErrorCard
+      error={new Error('Failed to load transaction')}
+      onRetry={() => console.log('Retry clicked')}
     />
   ),
 };
@@ -2774,7 +2793,7 @@ describe('TransactionList Integration', () => {
 
   it('handles transaction deletion', async () => {
     const user = userEvent.setup();
-    
+
     render(<TransactionListPage />, { wrapper: createTestProviders() });
 
     await waitFor(() => {
@@ -2799,69 +2818,69 @@ describe('TransactionList Integration', () => {
 
 Document components using JSDoc with TypeScript integration:
 
-```typescript
+````typescript
 /**
  * TransactionCard displays transaction information in a card format.
- * 
+ *
  * This component follows Clean Architecture principles and handles
  * transaction display with proper accessibility and type safety.
- * 
+ *
  * @example
  * ```tsx
- * <TransactionCard 
+ * <TransactionCard
  *   transaction={transaction}
  *   variant="detailed"
  *   onEdit={handleEdit}
  *   onDelete={handleDelete}
  * />
  * ```
- * 
+ *
  * @param transaction - Transaction domain entity
  * @param variant - Visual variant of the card ('default' | 'compact' | 'detailed')
  * @param onEdit - Callback fired when edit action is triggered
  * @param onDelete - Callback fired when delete action is triggered
  * @param className - Additional CSS classes
  * @param data-testid - Test identifier for testing
- * 
+ *
  * @since 1.0.0
  * @category Components
  */
 export const TransactionCard: FC<TransactionCardProps> = ({
   transaction,
-  variant = 'default',
+  variant = "default",
   onEdit,
   onDelete,
   className,
-  'data-testid': testId,
+  "data-testid": testId,
 }) => {
   // Implementation
 };
 
 /**
  * Props for the TransactionCard component.
- * 
+ *
  * @interface TransactionCardProps
  */
 export interface TransactionCardProps {
   /** Transaction domain entity containing all transaction data */
   readonly transaction: Transaction;
-  
+
   /** Visual variant that controls the card's appearance and information density */
-  readonly variant?: 'default' | 'compact' | 'detailed';
-  
+  readonly variant?: "default" | "compact" | "detailed";
+
   /** Callback function invoked when the user clicks the edit button */
   readonly onEdit?: (transactionId: TransactionId) => void;
-  
+
   /** Callback function invoked when the user clicks the delete button */
   readonly onDelete?: (transactionId: TransactionId) => void;
-  
+
   /** Additional CSS classes to apply to the card container */
   readonly className?: string;
-  
+
   /** Test identifier for automated testing and debugging */
-  readonly 'data-testid'?: string;
+  readonly "data-testid"?: string;
 }
-```
+````
 
 ### Component API Documentation
 
@@ -2871,62 +2890,83 @@ Create comprehensive API documentation for component libraries:
 // components/api/index.ts
 /**
  * NARA Component Library API
- * 
+ *
  * This module exports all public components and their types
  * for use in applications built with the NARA boilerplate.
- * 
+ *
  * @packageDocumentation
  */
 
 // Core Components
-export { Button, type ButtonProps } from '../ui/button';
-export { Card, CardHeader, CardContent, CardFooter, type CardProps } from '../ui/card';
-export { Input, type InputProps } from '../ui/input';
-export { Label, type LabelProps } from '../ui/label';
+export { Button, type ButtonProps } from "../ui/button";
+export {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+  type CardProps,
+} from "../ui/card";
+export { Input, type InputProps } from "../ui/input";
+export { Label, type LabelProps } from "../ui/label";
 
 // Form Components
-export { 
-  Form, 
-  FormField, 
-  FormItem, 
-  FormLabel, 
-  FormControl, 
+export {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
   FormMessage,
-  type FormProps 
-} from '../ui/form';
+  type FormProps,
+} from "../ui/form";
 
-// Custom Components  
-export { ModeSwitcher } from '../mode-switcher';
-export { LoadingButton, type LoadingButtonProps } from '../loading-button';
-export { AccessibleModal, type AccessibleModalProps } from '../accessible-modal';
+// Custom Components
+export { ModeSwitcher } from "../mode-switcher";
+export { LoadingButton, type LoadingButtonProps } from "../loading-button";
+export {
+  AccessibleModal,
+  type AccessibleModalProps,
+} from "../accessible-modal";
 
 // Feature Components
-export { TransactionCard, type TransactionCardProps } from '../features/finance/TransactionCard';
-export { TransactionForm, type TransactionFormProps } from '../features/finance/TransactionForm';
-export { TransactionList, type TransactionListProps } from '../features/finance/TransactionList';
+export {
+  TransactionCard,
+  type TransactionCardProps,
+} from "../features/finance/TransactionCard";
+export {
+  TransactionForm,
+  type TransactionFormProps,
+} from "../features/finance/TransactionForm";
+export {
+  TransactionList,
+  type TransactionListProps,
+} from "../features/finance/TransactionList";
 
 // Layout Components
-export { ErrorBoundary, type ErrorBoundaryProps } from '../error-boundary';
-export { ComponentErrorBoundary } from '../component-error-boundary';
+export { ErrorBoundary, type ErrorBoundaryProps } from "../error-boundary";
+export { ComponentErrorBoundary } from "../component-error-boundary";
 
 // Utility Components
-export { VirtualizedList, type VirtualizedListProps } from '../virtualized-list';
-export { LazyComponentWrapper } from '../lazy-component-wrapper';
+export {
+  VirtualizedList,
+  type VirtualizedListProps,
+} from "../virtualized-list";
+export { LazyComponentWrapper } from "../lazy-component-wrapper";
 
 /**
  * Component library version information
  */
-export const VERSION = '1.0.0';
+export const VERSION = "1.0.0";
 
 /**
  * Supported React versions
  */
-export const REACT_VERSION_SUPPORT = '^19.1.1';
+export const REACT_VERSION_SUPPORT = "^19.1.1";
 
 /**
  * TypeScript version requirement
  */
-export const TYPESCRIPT_VERSION_REQUIREMENT = '^5.9.2';
+export const TYPESCRIPT_VERSION_REQUIREMENT = "^5.9.2";
 ```
 
 ### Component Usage Guidelines
@@ -2945,17 +2985,20 @@ export const TYPESCRIPT_VERSION_REQUIREMENT = '^5.9.2';
 ## Component Categories
 
 ### UI Components (`~/components/ui/`)
+
 - Primitive components from shadcn/ui
 - Highly reusable across features
 - Minimal business logic
 - Focus on presentation and interaction
 
 ### Custom Components (`~/components/`)
+
 - Project-specific shared components
 - Cross-feature functionality
 - Enhanced versions of UI components
 
 ### Feature Components (`~/features/[feature]/components/`)
+
 - Domain-specific components
 - Business logic integration
 - Feature-specific user interfaces
@@ -2963,24 +3006,28 @@ export const TYPESCRIPT_VERSION_REQUIREMENT = '^5.9.2';
 ## Best Practices
 
 ### Component Design
+
 - Single Responsibility Principle
 - Composition over inheritance
 - Props should be readonly interfaces
 - Use branded types for IDs
 
 ### Performance
+
 - Memoize expensive calculations
 - Use React 19's `use` hook for data fetching
 - Implement proper loading states
 - Virtual scrolling for large lists
 
 ### Accessibility
+
 - Semantic HTML elements
 - Proper ARIA attributes
 - Keyboard navigation support
 - Screen reader compatibility
 
 ### Testing
+
 - Unit tests for business logic
 - Component tests for user interactions
 - Integration tests for feature workflows

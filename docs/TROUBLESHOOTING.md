@@ -209,11 +209,11 @@ Get-Content app/routes.ts  # PowerShell
 
 ```typescript
 // ✅ CORRECT - Always use relative imports for route types
-import type { LoaderFunctionArgs } from './+types/dashboard'
-import type { ActionFunctionArgs } from './+types/settings'
 
 // ❌ WRONG - Don't use absolute imports for route types
-import type { LoaderFunctionArgs } from '@react-router/node'
+import type { LoaderFunctionArgs } from "@react-router/node";
+import type { LoaderFunctionArgs } from "./+types/dashboard";
+import type { ActionFunctionArgs } from "./+types/settings";
 ```
 
 #### **File-Based Routing Issues**
@@ -242,12 +242,12 @@ import type { LoaderFunctionArgs } from '@react-router/node'
    export default function BlogPost() {
      return <div>Blog Post</div>
    }
-   
+
    // Optional: loader and action exports
    export async function loader({ params }: LoaderFunctionArgs) {
      return { slug: params.slug }
    }
-   
+
    export async function action({ request }: ActionFunctionArgs) {
      const formData = await request.formData()
      return { success: true }
@@ -295,18 +295,18 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const user = await db.query.users.findFirst({
     where: eq(users.id, parseInt(params.id))
   })
-  
+
   if (!user) {
     throw new Response('User not found', { status: 404 })
   }
-  
+
   return { user }
 }
 
 export default function UserProfile() {
   // Type is automatically inferred from loader
   const { user } = useLoaderData<typeof loader>()
-  
+
   return <div>User: {user.name}</div>
 }
 ```
@@ -323,23 +323,23 @@ import { Form, useActionData } from 'react-router'
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData()
   const email = formData.get('email') as string
-  
+
   // Validate and process form
   if (!email) {
     return { error: 'Email is required' }
   }
-  
+
   return { success: true, message: 'Email sent!' }
 }
 
 export default function Contact() {
   const actionData = useActionData<typeof action>()
-  
+
   return (
     <Form method="post">
       <input name="email" type="email" required />
       <button type="submit">Submit</button>
-      
+
       {actionData?.error && <p className="error">{actionData.error}</p>}
       {actionData?.success && <p className="success">{actionData.message}</p>}
     </Form>
@@ -484,30 +484,31 @@ bun run dev
 
 ```typescript
 // Make sure to import correct types from drizzle-orm ~0.44.4
-import { eq, and, or, desc, count } from 'drizzle-orm'
-import { users } from '~/database/schema'
-import { db } from '~/database'
+import { and, count, desc, eq, or } from "drizzle-orm";
+
+import { db } from "~/database";
+import { users } from "~/database/schema";
 
 // ✅ CORRECT - Use proper typing for single result
 const user: typeof users.$inferSelect | undefined = await db
   .select()
   .from(users)
   .where(eq(users.id, 1))
-  .get() // Use .get() for single result
+  .get(); // Use .get() for single result
 
 // ✅ CORRECT - Use proper typing for multiple results
 const userList: (typeof users.$inferSelect)[] = await db
   .select()
   .from(users)
   .where(eq(users.active, true))
-  .all() // Use .all() for multiple results
+  .all(); // Use .all() for multiple results
 
 // ✅ CORRECT - Insert with proper typing
 const newUser: typeof users.$inferInsert = {
-  email: 'user@example.com',
-  name: 'John Doe'
-}
-const result = await db.insert(users).values(newUser).returning()
+  email: "user@example.com",
+  name: "John Doe",
+};
+const result = await db.insert(users).values(newUser).returning();
 ```
 
 **Problem**: Relation queries not working
@@ -516,32 +517,32 @@ const result = await db.insert(users).values(newUser).returning()
 
 ```typescript
 // Make sure relations are properly defined in schema
-import { relations } from 'drizzle-orm'
+import { relations } from "drizzle-orm";
 
 export const usersRelations = relations(users, ({ many, one }) => ({
   posts: many(posts),
   profile: one(profiles, {
     fields: [users.id],
-    references: [profiles.userId]
-  })
-}))
+    references: [profiles.userId],
+  }),
+}));
 
 export const postsRelations = relations(posts, ({ one }) => ({
   author: one(users, {
     fields: [posts.authorId],
-    references: [users.id]
-  })
-}))
+    references: [users.id],
+  }),
+}));
 
 // ✅ CORRECT - Use query API for relations (Drizzle v0.44+)
 const usersWithPosts = await db.query.users.findMany({
-  with: { 
+  with: {
     posts: {
       limit: 5,
-      orderBy: desc(posts.createdAt)
-    }
-  }
-})
+      orderBy: desc(posts.createdAt),
+    },
+  },
+});
 
 // ✅ CORRECT - Nested relations
 const userWithFullData = await db.query.users.findFirst({
@@ -549,12 +550,12 @@ const userWithFullData = await db.query.users.findFirst({
   with: {
     posts: {
       with: {
-        comments: true
-      }
+        comments: true,
+      },
     },
-    profile: true
-  }
-})
+    profile: true,
+  },
+});
 ```
 
 **Problem**: `Cannot read properties of undefined` with D1 database
@@ -564,34 +565,35 @@ const userWithFullData = await db.query.users.findFirst({
 ```typescript
 // Make sure database connection is properly initialized
 // database/index.ts
-import { drizzle } from 'drizzle-orm/d1'
-import * as schema from './schema'
-
-export function createDbConnection(db: D1Database) {
-  return drizzle(db, { schema })
-}
+import { drizzle } from "drizzle-orm/d1";
 
 // In your API route (workers/api/users.ts)
-import { createDbConnection } from '~/database'
+import { createDbConnection } from "~/database";
+
+import * as schema from "./schema";
+
+export function createDbConnection(db: D1Database) {
+  return drizzle(db, { schema });
+}
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const db = createDbConnection(env.DB) // Make sure env.DB is defined
-    
+    const db = createDbConnection(env.DB); // Make sure env.DB is defined
+
     // Check if database is available
     if (!env.DB) {
-      return new Response('Database not available', { status: 500 })
+      return new Response("Database not available", { status: 500 });
     }
-    
+
     try {
-      const users = await db.query.users.findMany()
-      return Response.json({ users })
+      const users = await db.query.users.findMany();
+      return Response.json({ users });
     } catch (error) {
-      console.error('Database error:', error)
-      return new Response('Database error', { status: 500 })
+      console.error("Database error:", error);
+      return new Response("Database error", { status: 500 });
     }
-  }
-}
+  },
+};
 ```
 
 **Problem**: Migration generation issues
@@ -608,19 +610,19 @@ Get-Content drizzle.config.ts  # PowerShell
 
 ```typescript
 // drizzle.config.ts
-import { defineConfig } from 'drizzle-kit'
+import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
-  schema: './database/schema.ts',
-  out: './drizzle',
-  dialect: 'sqlite',
-  driver: 'd1-http',
+  schema: "./database/schema.ts",
+  out: "./drizzle",
+  dialect: "sqlite",
+  driver: "d1-http",
   dbCredentials: {
     accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
     databaseId: process.env.D1_DATABASE_ID!,
     token: process.env.CLOUDFLARE_API_TOKEN!,
   },
-})
+});
 ```
 
 ```bash
@@ -644,36 +646,39 @@ bun run typecheck
 ```typescript
 // ✅ CORRECT - Proper Hono setup for Cloudflare Workers
 // workers/api/index.ts
-import { Hono } from 'hono'
-import { cors } from 'hono/cors'
-import { logger } from 'hono/logger'
+import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { logger } from "hono/logger";
 
 type Bindings = {
-  DB: D1Database
-}
+  DB: D1Database;
+};
 
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono<{ Bindings: Bindings }>();
 
 // Middleware
-app.use('*', logger())
-app.use('*', cors({
-  origin: ['http://localhost:5173', 'https://your-domain.com'],
-  allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowHeaders: ['Content-Type', 'Authorization'],
-}))
+app.use("*", logger());
+app.use(
+  "*",
+  cors({
+    origin: ["http://localhost:5173", "https://your-domain.com"],
+    allowMethods: ["GET", "POST", "PUT", "DELETE"],
+    allowHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 // Routes
-app.get('/api/health', (c) => {
-  return c.json({ status: 'ok', timestamp: new Date().toISOString() })
-})
+app.get("/api/health", (c) => {
+  return c.json({ status: "ok", timestamp: new Date().toISOString() });
+});
 
-app.get('/api/users', async (c) => {
-  const db = drizzle(c.env.DB, { schema })
-  const users = await db.query.users.findMany()
-  return c.json({ users })
-})
+app.get("/api/users", async (c) => {
+  const db = drizzle(c.env.DB, { schema });
+  const users = await db.query.users.findMany();
+  return c.json({ users });
+});
 
-export default app
+export default app;
 ```
 
 **Problem**: `Context type errors` or `c.env` is undefined
@@ -682,24 +687,24 @@ export default app
 
 ```typescript
 // Make sure to properly type your Hono app with Bindings
-import { Hono } from 'hono'
+import { Hono } from "hono";
 
 // Define your environment bindings
 interface Env {
-  DB: D1Database
-  API_SECRET: string
+  DB: D1Database;
+  API_SECRET: string;
   // Add other environment variables
 }
 
-const app = new Hono<{ Bindings: Env }>()
+const app = new Hono<{ Bindings: Env }>();
 
-app.get('/api/users', async (c) => {
+app.get("/api/users", async (c) => {
   // Now c.env is properly typed
-  const db = drizzle(c.env.DB, { schema })
-  const secret = c.env.API_SECRET
-  
+  const db = drizzle(c.env.DB, { schema });
+  const secret = c.env.API_SECRET;
+
   // Rest of your code
-})
+});
 ```
 
 **Problem**: CORS issues with Hono
@@ -707,25 +712,28 @@ app.get('/api/users', async (c) => {
 **Solution**:
 
 ```typescript
-import { cors } from 'hono/cors'
+import { cors } from "hono/cors";
 
 // ✅ CORRECT - Configure CORS properly
-app.use('*', cors({
-  origin: (origin) => {
-    // Allow localhost in development
-    if (origin?.includes('localhost') || origin?.includes('127.0.0.1')) {
-      return origin
-    }
-    // Add your production domains
-    return 'https://your-domain.com'
-  },
-  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  credentials: true,
-}))
+app.use(
+  "*",
+  cors({
+    origin: (origin) => {
+      // Allow localhost in development
+      if (origin?.includes("localhost") || origin?.includes("127.0.0.1")) {
+        return origin;
+      }
+      // Add your production domains
+      return "https://your-domain.com";
+    },
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    credentials: true,
+  }),
+);
 
 // Handle preflight requests
-app.options('*', (c) => c.text('OK'))
+app.options("*", (c) => c.text("OK"));
 ```
 
 #### **Middleware Issues**
@@ -736,26 +744,31 @@ app.options('*', (c) => c.text('OK'))
 
 ```typescript
 // ✅ CORRECT - Middleware order matters
-const app = new Hono<{ Bindings: Env }>()
+const app = new Hono<{ Bindings: Env }>();
 
 // 1. CORS should be first (for preflight requests)
-app.use('*', cors({ /* config */ }))
+app.use(
+  "*",
+  cors({
+    /* config */
+  }),
+);
 
 // 2. Logger for all requests
-app.use('*', logger())
+app.use("*", logger());
 
 // 3. Authentication middleware for protected routes
-app.use('/api/protected/*', async (c, next) => {
-  const token = c.req.header('Authorization')
+app.use("/api/protected/*", async (c, next) => {
+  const token = c.req.header("Authorization");
   if (!token) {
-    return c.json({ error: 'Unauthorized' }, 401)
+    return c.json({ error: "Unauthorized" }, 401);
   }
   // Validate token
-  await next()
-})
+  await next();
+});
 
 // 4. Routes
-app.get('/api/users', handler)
+app.get("/api/users", handler);
 ```
 
 **Problem**: Custom middleware not working
@@ -766,23 +779,23 @@ app.get('/api/users', handler)
 // ✅ CORRECT - Custom middleware pattern
 const authMiddleware = async (c: Context<{ Bindings: Env }>, next: Next) => {
   try {
-    const token = c.req.header('Authorization')?.replace('Bearer ', '')
-    
+    const token = c.req.header("Authorization")?.replace("Bearer ", "");
+
     if (!token) {
-      return c.json({ error: 'Token required' }, 401)
+      return c.json({ error: "Token required" }, 401);
     }
-    
+
     // Validate token logic here
     // c.set('user', user) // Store user in context
-    
-    await next()
+
+    await next();
   } catch (error) {
-    return c.json({ error: 'Invalid token' }, 401)
+    return c.json({ error: "Invalid token" }, 401);
   }
-}
+};
 
 // Use the middleware
-app.use('/api/protected/*', authMiddleware)
+app.use("/api/protected/*", authMiddleware);
 ```
 
 #### **Request/Response Handling**
@@ -792,33 +805,33 @@ app.use('/api/protected/*', authMiddleware)
 **Solution**:
 
 ```typescript
-app.post('/api/users', async (c) => {
+app.post("/api/users", async (c) => {
   try {
     // ✅ CORRECT - Parse JSON body
-    const body = await c.req.json()
-    
+    const body = await c.req.json();
+
     // ✅ CORRECT - Parse form data
     // const formData = await c.req.formData()
     // const name = formData.get('name') as string
-    
+
     // ✅ CORRECT - Parse query parameters
-    const page = c.req.query('page') || '1'
-    const limit = c.req.query('limit') || '10'
-    
+    const page = c.req.query("page") || "1";
+    const limit = c.req.query("limit") || "10";
+
     // Validate request body
     if (!body.email) {
-      return c.json({ error: 'Email is required' }, 400)
+      return c.json({ error: "Email is required" }, 400);
     }
-    
+
     // Process request
-    const result = await createUser(body)
-    
-    return c.json({ success: true, data: result }, 201)
+    const result = await createUser(body);
+
+    return c.json({ success: true, data: result }, 201);
   } catch (error) {
-    console.error('Request parsing error:', error)
-    return c.json({ error: 'Invalid request body' }, 400)
+    console.error("Request parsing error:", error);
+    return c.json({ error: "Invalid request body" }, 400);
   }
-})
+});
 ```
 
 **Problem**: File upload handling
@@ -826,33 +839,33 @@ app.post('/api/users', async (c) => {
 **Solution**:
 
 ```typescript
-app.post('/api/upload', async (c) => {
+app.post("/api/upload", async (c) => {
   try {
-    const formData = await c.req.formData()
-    const file = formData.get('file') as File
-    
+    const formData = await c.req.formData();
+    const file = formData.get("file") as File;
+
     if (!file) {
-      return c.json({ error: 'No file uploaded' }, 400)
+      return c.json({ error: "No file uploaded" }, 400);
     }
-    
+
     // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
     if (!allowedTypes.includes(file.type)) {
-      return c.json({ error: 'Invalid file type' }, 400)
+      return c.json({ error: "Invalid file type" }, 400);
     }
-    
+
     // Process file (save to R2, etc.)
-    const arrayBuffer = await file.arrayBuffer()
-    
-    return c.json({ 
-      success: true, 
+    const arrayBuffer = await file.arrayBuffer();
+
+    return c.json({
+      success: true,
       filename: file.name,
-      size: file.size 
-    })
+      size: file.size,
+    });
   } catch (error) {
-    return c.json({ error: 'Upload failed' }, 500)
+    return c.json({ error: "Upload failed" }, 500);
   }
-})
+});
 ```
 
 ---
@@ -881,11 +894,11 @@ app.post('/api/upload', async (c) => {
 
    ```typescript
    // vite.config.ts
-   import tsconfigPaths from 'vite-tsconfig-paths'
-   
+   import tsconfigPaths from "vite-tsconfig-paths";
+
    export default defineConfig({
-     plugins: [tsconfigPaths()]
-   })
+     plugins: [tsconfigPaths()],
+   });
    ```
 
 3. Regenerate route types:
@@ -964,15 +977,15 @@ npx wrangler preview
    // Avoid date/time in initial render
    export default function Component() {
      const [mounted, setMounted] = useState(false)
-     
+
      useEffect(() => {
        setMounted(true)
      }, [])
-     
+
      if (!mounted) {
        return <div>Loading...</div>
      }
-     
+
      return <div>{new Date().toLocaleDateString()}</div>
    }
    ```
@@ -984,7 +997,7 @@ npx wrangler preview
    export async function loader() {
      return { timestamp: Date.now() }
    }
-   
+
    export default function Component() {
      const { timestamp } = useLoaderData<typeof loader>()
      return <div>{new Date(timestamp).toLocaleDateString()}</div>
@@ -1013,7 +1026,7 @@ npx wrangler preview
    export default function UsersPage() {
      return <div>Users</div>
    }
-   
+
    // Optional loader/action exports
    export async function loader() {}
    export async function action() {}
@@ -1031,17 +1044,17 @@ const users = await db.query.users.findMany({
   limit: 100, // Add pagination
   with: {
     posts: {
-      limit: 5 // Limit relations
-    }
-  }
-})
+      limit: 5, // Limit relations
+    },
+  },
+});
 
 // Use indexes for better performance
 const posts = await db
   .select()
   .from(posts)
   .where(eq(posts.authorId, userId)) // Make sure authorId has index
-  .orderBy(desc(posts.createdAt))
+  .orderBy(desc(posts.createdAt));
 ```
 
 **Problem**: Worker memory limits exceeded
@@ -1050,37 +1063,33 @@ const posts = await db
 
 ```typescript
 // Stream large responses
-app.get('/export', async (c) => {
+app.get("/export", async (c) => {
   const stream = new ReadableStream({
     async start(controller) {
-      const data = await db.select().from(largeTable)
-      
+      const data = await db.select().from(largeTable);
+
       for (const row of data) {
-        controller.enqueue(JSON.stringify(row) + '\n')
+        controller.enqueue(JSON.stringify(row) + "\n");
       }
-      
-      controller.close()
-    }
-  })
-  
-  return new Response(stream)
-})
+
+      controller.close();
+    },
+  });
+
+  return new Response(stream);
+});
 
 // Process data in batches
-const batchSize = 1000
-let offset = 0
+const batchSize = 1000;
+let offset = 0;
 
 while (true) {
-  const batch = await db
-    .select()
-    .from(users)
-    .limit(batchSize)
-    .offset(offset)
-  
-  if (batch.length === 0) break
-  
-  await processBatch(batch)
-  offset += batchSize
+  const batch = await db.select().from(users).limit(batchSize).offset(offset);
+
+  if (batch.length === 0) break;
+
+  await processBatch(batch);
+  offset += batchSize;
 }
 ```
 
@@ -1096,34 +1105,38 @@ while (true) {
 
 ```typescript
 // Add query timing
-const start = Date.now()
-const result = await db.select().from(users)
-console.log(`Query took ${Date.now() - start}ms`)
+const start = Date.now();
+const result = await db.select().from(users);
+console.log(`Query took ${Date.now() - start}ms`);
 ```
 
 **Solution**:
 
 ```typescript
 // Add indexes
-export const users = sqliteTable('users', {
-  id: integer('id').primaryKey(),
-  email: text('email').notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }),
-}, (table) => ({
-  emailIdx: uniqueIndex('email_idx').on(table.email),
-  createdAtIdx: index('created_at_idx').on(table.createdAt),
-}))
+export const users = sqliteTable(
+  "users",
+  {
+    id: integer("id").primaryKey(),
+    email: text("email").notNull(),
+    createdAt: integer("created_at", { mode: "timestamp" }),
+  },
+  (table) => ({
+    emailIdx: uniqueIndex("email_idx").on(table.email),
+    createdAtIdx: index("created_at_idx").on(table.createdAt),
+  }),
+);
 
 // Optimize query structure
 const usersWithPostCount = await db
   .select({
     user: users,
-    postCount: count(posts.id)
+    postCount: count(posts.id),
   })
   .from(users)
   .leftJoin(posts, eq(users.id, posts.authorId))
   .groupBy(users.id)
-  .limit(10)
+  .limit(10);
 ```
 
 #### **Large Bundle Sizes**
@@ -1172,7 +1185,7 @@ export async function loader() {
     db.select().from(users).limit(10),
     db.select().from(posts).limit(5)
   ])
-  
+
   return { users, posts }
 }
 
@@ -1180,8 +1193,8 @@ export async function loader() {
 <Link to="/users" prefetch="intent">Users</Link>
 
 // Optimize images
-<img 
-  src="/image.jpg" 
+<img
+  src="/image.jpg"
   loading="lazy"
   width={300}
   height={200}
@@ -1201,24 +1214,24 @@ export async function loader() {
 ```typescript
 // Use proper test isolation
 beforeEach(async () => {
-  await db.delete(users)
-  await db.delete(posts)
-})
+  await db.delete(users);
+  await db.delete(posts);
+});
 
 // Avoid race conditions
-test('concurrent operations', async () => {
+test("concurrent operations", async () => {
   const promises = [
-    createUser({ email: 'user1@example.com' }),
-    createUser({ email: 'user2@example.com' }),
-  ]
-  
-  const users = await Promise.all(promises)
-  expect(users).toHaveLength(2)
-})
+    createUser({ email: "user1@example.com" }),
+    createUser({ email: "user2@example.com" }),
+  ];
+
+  const users = await Promise.all(promises);
+  expect(users).toHaveLength(2);
+});
 
 // Mock time-dependent code
-vi.useFakeTimers()
-vi.setSystemTime(new Date('2024-01-01'))
+vi.useFakeTimers();
+vi.setSystemTime(new Date("2024-01-01"));
 ```
 
 **Problem**: Cloudflare Workers tests not running
@@ -1227,25 +1240,24 @@ vi.setSystemTime(new Date('2024-01-01'))
 
 ```typescript
 // Check vitest.config.ts
-import { defineWorkersConfig } from '@cloudflare/vitest-pool-workers/config'
+import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config";
+// Ensure test files use SELF
+import { SELF } from "cloudflare:test";
 
 export default defineWorkersConfig({
   test: {
     poolOptions: {
       workers: {
-        wrangler: { configPath: './wrangler.jsonc' },
+        wrangler: { configPath: "./wrangler.jsonc" },
       },
     },
   },
-})
+});
 
-// Ensure test files use SELF
-import { SELF } from 'cloudflare:test'
-
-test('API endpoint', async () => {
-  const response = await SELF.fetch('/api/health')
-  expect(response.status).toBe(200)
-})
+test("API endpoint", async () => {
+  const response = await SELF.fetch("/api/health");
+  expect(response.status).toBe(200);
+});
 ```
 
 ---
@@ -1281,10 +1293,10 @@ test('API endpoint', async () => {
    // In worker context
    export default {
      async fetch(request: Request, env: Env) {
-       console.log(env.API_SECRET)
-       return new Response('OK')
-     }
-   }
+       console.log(env.API_SECRET);
+       return new Response("OK");
+     },
+   };
    ```
 
 #### **CORS Issues**
@@ -1295,19 +1307,19 @@ test('API endpoint', async () => {
 
 ```typescript
 // Configure CORS properly
-import { cors } from 'hono/cors'
+import { cors } from "hono/cors";
 
-app.use('*', cors({
-  origin: [
-    'http://localhost:5173',
-    'https://your-domain.com'
-  ],
-  allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowHeaders: ['Content-Type', 'Authorization'],
-}))
+app.use(
+  "*",
+  cors({
+    origin: ["http://localhost:5173", "https://your-domain.com"],
+    allowMethods: ["GET", "POST", "PUT", "DELETE"],
+    allowHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 // Handle preflight requests
-app.options('*', (c) => c.text('OK'))
+app.options("*", (c) => c.text("OK"));
 ```
 
 ---
@@ -1320,36 +1332,40 @@ app.options('*', (c) => c.text('OK'))
 // Structured logging
 const logger = {
   info: (message: string, data?: any) => {
-    console.log(JSON.stringify({
-      level: 'info',
-      message,
-      data,
-      timestamp: new Date().toISOString()
-    }))
+    console.log(
+      JSON.stringify({
+        level: "info",
+        message,
+        data,
+        timestamp: new Date().toISOString(),
+      }),
+    );
   },
   error: (message: string, error?: Error) => {
-    console.error(JSON.stringify({
-      level: 'error',
-      message,
-      error: error?.message,
-      stack: error?.stack,
-      timestamp: new Date().toISOString()
-    }))
-  }
-}
+    console.error(
+      JSON.stringify({
+        level: "error",
+        message,
+        error: error?.message,
+        stack: error?.stack,
+        timestamp: new Date().toISOString(),
+      }),
+    );
+  },
+};
 
 // Use in API handlers
-app.get('/api/users', async (c) => {
+app.get("/api/users", async (c) => {
   try {
-    logger.info('Fetching users', { query: c.req.query() })
-    const users = await db.select().from(users)
-    logger.info('Users fetched successfully', { count: users.length })
-    return c.json({ data: users })
+    logger.info("Fetching users", { query: c.req.query() });
+    const users = await db.select().from(users);
+    logger.info("Users fetched successfully", { count: users.length });
+    return c.json({ data: users });
   } catch (error) {
-    logger.error('Failed to fetch users', error)
-    return c.json({ error: 'Internal server error' }, 500)
+    logger.error("Failed to fetch users", error);
+    return c.json({ error: "Internal server error" }, 500);
   }
-})
+});
 ```
 
 ### Development Tools
@@ -1378,25 +1394,25 @@ curl -X GET http://localhost:5173/api/users \
 ```typescript
 // Profile database queries
 const profileQuery = async (name: string, queryFn: () => Promise<any>) => {
-  const start = performance.now()
-  const result = await queryFn()
-  const duration = performance.now() - start
-  console.log(`Query ${name} took ${duration.toFixed(2)}ms`)
-  return result
-}
+  const start = performance.now();
+  const result = await queryFn();
+  const duration = performance.now() - start;
+  console.log(`Query ${name} took ${duration.toFixed(2)}ms`);
+  return result;
+};
 
 // Usage
-const users = await profileQuery('get-users', () =>
-  db.select().from(users).limit(10)
-)
+const users = await profileQuery("get-users", () =>
+  db.select().from(users).limit(10),
+);
 
 // Profile API responses
-app.use('*', async (c, next) => {
-  const start = Date.now()
-  await next()
-  const duration = Date.now() - start
-  c.header('X-Response-Time', `${duration}ms`)
-})
+app.use("*", async (c, next) => {
+  const start = Date.now();
+  await next();
+  const duration = Date.now() - start;
+  c.header("X-Response-Time", `${duration}ms`);
+});
 ```
 
 ---
@@ -1411,14 +1427,14 @@ app.use('*', async (c, next) => {
 
 ```typescript
 // Use ISO format for dates
-const date = new Date('2024-01-15T10:30:00.000Z') // ✅ ISO format
-const date = new Date('2024-01-15 10:30:00') // ❌ Non-standard format
+const date = new Date("2024-01-15T10:30:00.000Z"); // ✅ ISO format
+const date = new Date("2024-01-15 10:30:00"); // ❌ Non-standard format
 
 // Parse dates safely
 const parseDate = (dateString: string) => {
-  const date = new Date(dateString)
-  return isNaN(date.getTime()) ? null : date
-}
+  const date = new Date(dateString);
+  return isNaN(date.getTime()) ? null : date;
+};
 ```
 
 ### Chrome DevTools
@@ -1433,7 +1449,7 @@ export default defineConfig({
   build: {
     sourcemap: true, // Enable source maps
   },
-})
+});
 ```
 
 ---
@@ -1463,7 +1479,7 @@ npx kill-port 5173
 # Find and kill process using port 5173
 lsof -ti:5173 | xargs kill -9
 
-# Or use npx to find and kill  
+# Or use npx to find and kill
 npx kill-port 5173
 ```
 
@@ -1699,11 +1715,13 @@ bun run dev
 
 ### Bug Report Template
 
-```markdown
+````markdown
 ## Bug Description
+
 Brief description of the issue
 
 ## Environment
+
 - OS: [e.g., Windows 11, macOS 14.0, Ubuntu 22.04]
 - Node.js: [e.g., v22.18.0]
 - Bun: [e.g., 1.2.20]
@@ -1711,20 +1729,24 @@ Brief description of the issue
 - Shell: [e.g., PowerShell 7.x, bash, zsh]
 
 ## NARA Stack Versions
+
 - React Router: [e.g., 7.8.1]
 - Drizzle ORM: [e.g., 0.44.4]
 - Hono: [e.g., 4.9.2]
 - Cloudflare Workers: [e.g., compatibility date]
 
 ## Steps to Reproduce
+
 1. Step one
 2. Step two
 3. Step three
 
 ## Expected Behavior
+
 What should happen
 
 ## Actual Behavior
+
 What actually happens
 
 ## Error Messages
@@ -1742,6 +1764,7 @@ Paste any error messages here, including:
 // Include relevant code snippets
 // that might be causing the issue
 ```
+````
 
 ## Additional Context
 

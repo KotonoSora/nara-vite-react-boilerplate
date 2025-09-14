@@ -272,7 +272,7 @@ chore: update dependencies
    CLOUDFLARE_ACCOUNT_ID=your_account_id_here
    D1_DATABASE_ID=your_database_id_here
    CLOUDFLARE_API_TOKEN=your_api_token_here
-   
+
    # Optional: Additional environment variables
    NODE_ENV=development
    LOG_LEVEL=debug
@@ -312,12 +312,12 @@ chore: update dependencies
 
 ### Environment Variables Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `CLOUDFLARE_ACCOUNT_ID` | Production | Your Cloudflare account ID |
-| `D1_DATABASE_ID` | Production | D1 database identifier |
-| `CLOUDFLARE_API_TOKEN` | Production | API token with D1 permissions |
-| `NODE_ENV` | Optional | Environment mode (development/production) |
+| Variable                | Required   | Description                               |
+| ----------------------- | ---------- | ----------------------------------------- |
+| `CLOUDFLARE_ACCOUNT_ID` | Production | Your Cloudflare account ID                |
+| `D1_DATABASE_ID`        | Production | D1 database identifier                    |
+| `CLOUDFLARE_API_TOKEN`  | Production | API token with D1 permissions             |
+| `NODE_ENV`              | Optional   | Environment mode (development/production) |
 
 ---
 
@@ -350,14 +350,14 @@ chore: update dependencies
    ```typescript
    // app/features/my-feature/page.tsx
    import type { MetaFunction } from 'react-router'
-   
+
    export const meta: MetaFunction = () => {
      return [
        { title: 'My Feature - NARA' },
        { name: 'description', content: 'My feature description' },
      ]
    }
-   
+
    export default function MyFeaturePage() {
      return (
        <div className="container mx-auto py-8">
@@ -372,17 +372,17 @@ chore: update dependencies
 
    ```typescript
    // app/features/my-feature/index.ts
-   export { default as MyFeaturePage } from './page'
-   export * from './components'
-   export * from './types'
-   export * from './utils'
+   export { default as MyFeaturePage } from "./page";
+   export * from "./components";
+   export * from "./types";
+   export * from "./utils";
    ```
 
 4. **Add route:**
 
    ```typescript
    // app/routes/my-feature._index.tsx
-   export { default, meta } from '~/features/my-feature/page'
+   export { default, meta } from "~/features/my-feature/page";
    ```
 
 5. **Add to navigation (if needed):**
@@ -398,85 +398,89 @@ chore: update dependencies
 
    ```typescript
    // workers/api/my-endpoint.ts
-   import { Hono } from 'hono'
-   import { z } from 'zod'
-   import { zValidator } from '@hono/zod-validator'
-   import { getDatabase } from '~/lib/db'
-   
-   const app = new Hono<{ Bindings: Env }>()
-   
+   import { zValidator } from "@hono/zod-validator";
+   import { Hono } from "hono";
+   import { z } from "zod";
+
+   import { getDatabase } from "~/lib/db";
+
+   const app = new Hono<{ Bindings: Env }>();
+
    // Define request/response schemas
    const createItemSchema = z.object({
      name: z.string().min(1).max(100),
      description: z.string().optional(),
-   })
-   
+   });
+
    // GET endpoint
-   app.get('/', async (c) => {
-     const db = getDatabase(c.env)
-     const items = await db.select().from(myTable).all()
-     
+   app.get("/", async (c) => {
+     const db = getDatabase(c.env);
+     const items = await db.select().from(myTable).all();
+
      return c.json({
        success: true,
        data: items,
-     })
-   })
-   
+     });
+   });
+
    // POST endpoint with validation
-   app.post('/', zValidator('json', createItemSchema), async (c) => {
-     const db = getDatabase(c.env)
-     const data = c.req.valid('json')
-     
-     const [item] = await db
-       .insert(myTable)
-       .values(data)
-       .returning()
-     
-     return c.json({
-       success: true,
-       data: item,
-     }, 201)
-   })
-   
-   export default app
+   app.post("/", zValidator("json", createItemSchema), async (c) => {
+     const db = getDatabase(c.env);
+     const data = c.req.valid("json");
+
+     const [item] = await db.insert(myTable).values(data).returning();
+
+     return c.json(
+       {
+         success: true,
+         data: item,
+       },
+       201,
+     );
+   });
+
+   export default app;
    ```
 
 2. **Register in main worker:**
 
    ```typescript
    // workers/app.ts
-   import { Hono } from 'hono'
-   import myEndpoint from './api/my-endpoint'
-   
-   const app = new Hono<{ Bindings: Env }>()
-   
+   import { Hono } from "hono";
+
+   import myEndpoint from "./api/my-endpoint";
+
+   const app = new Hono<{ Bindings: Env }>();
+
    // Register API routes
-   app.route('/api/my-endpoint', myEndpoint)
-   
-   export default app
+   app.route("/api/my-endpoint", myEndpoint);
+
+   export default app;
    ```
 
 3. **Create frontend API client:**
 
    ```typescript
    // app/lib/api/my-endpoint.ts
-   import type { InferResponseType } from 'hono'
-   import type myEndpointApp from '~/workers/api/my-endpoint'
-   
-   type MyEndpointResponse = InferResponseType<typeof myEndpointApp>
-   
+   import type myEndpointApp from "~/workers/api/my-endpoint";
+   import type { InferResponseType } from "hono";
+
+   type MyEndpointResponse = InferResponseType<typeof myEndpointApp>;
+
    export async function getItems(): Promise<MyEndpointResponse> {
-     const response = await fetch('/api/my-endpoint')
-     return response.json()
+     const response = await fetch("/api/my-endpoint");
+     return response.json();
    }
-   
-   export async function createItem(data: CreateItemData): Promise<MyEndpointResponse> {
-     const response = await fetch('/api/my-endpoint', {
-       method: 'POST',
-       headers: { 'Content-Type': 'application/json' },
+
+   export async function createItem(
+     data: CreateItemData,
+   ): Promise<MyEndpointResponse> {
+     const response = await fetch("/api/my-endpoint", {
+       method: "POST",
+       headers: { "Content-Type": "application/json" },
        body: JSON.stringify(data),
-     })
-     return response.json()
+     });
+     return response.json();
    }
    ```
 
@@ -486,24 +490,26 @@ chore: update dependencies
 
    ```typescript
    // database/schema.ts (or database/schema/my-table.ts)
-   import { sql } from 'drizzle-orm'
-   import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
-   
-   export const myTable = sqliteTable('my_table', {
-     id: integer('id').primaryKey({ autoIncrement: true }),
-     name: text('name').notNull(),
-     description: text('description'),
-     status: text('status', { enum: ['active', 'inactive'] }).default('active'),
-     createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-     updatedAt: integer('updated_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-   })
-   
    // Add relations if needed
-   import { relations } from 'drizzle-orm'
-   
+   import { relations, sql } from "drizzle-orm";
+   import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+
+   export const myTable = sqliteTable("my_table", {
+     id: integer("id").primaryKey({ autoIncrement: true }),
+     name: text("name").notNull(),
+     description: text("description"),
+     status: text("status", { enum: ["active", "inactive"] }).default("active"),
+     createdAt: integer("created_at", { mode: "timestamp" }).default(
+       sql`CURRENT_TIMESTAMP`,
+     ),
+     updatedAt: integer("updated_at", { mode: "timestamp" }).default(
+       sql`CURRENT_TIMESTAMP`,
+     ),
+   });
+
    export const myTableRelations = relations(myTable, ({ many, one }) => ({
      // Define relationships here
-   }))
+   }));
    ```
 
 2. **Generate and apply migration:**
@@ -511,13 +517,13 @@ chore: update dependencies
    ```bash
    # Generate migration from schema changes
    bun run db:generate
-   
+
    # Review the generated migration file in drizzle/
    # Example: drizzle/0001_add_my_table.sql
-   
+
    # Apply migration to local database
    bun run db:migrate
-   
+
    # Verify migration worked
    bun run typecheck
    ```
@@ -526,11 +532,11 @@ chore: update dependencies
 
    ```typescript
    // database/schema.ts (update exports)
-   export * from './schema/my-table'
-   
+   export * from "./schema/my-table";
+
    // Create type definitions
-   export type MyTable = typeof myTable.$inferSelect
-   export type InsertMyTable = typeof myTable.$inferInsert
+   export type MyTable = typeof myTable.$inferSelect;
+   export type InsertMyTable = typeof myTable.$inferInsert;
    ```
 
 4. **Production deployment:**
@@ -546,39 +552,44 @@ chore: update dependencies
 
    ```typescript
    // app/lib/repositories/my-table-repository.ts
-   import { eq } from 'drizzle-orm'
-   import { db } from '~/lib/db'
-   import { myTable, type MyTable, type InsertMyTable } from '~/database/schema'
-   
+   import { eq } from "drizzle-orm";
+
+   import type { InsertMyTable, MyTable } from "~/database/schema";
+
+   import { myTable } from "~/database/schema";
+   import { db } from "~/lib/db";
+
    export class MyTableRepository {
      async findAll(): Promise<MyTable[]> {
-       return db.select().from(myTable).all()
+       return db.select().from(myTable).all();
      }
-   
+
      async findById(id: number): Promise<MyTable | undefined> {
-       return db.select().from(myTable).where(eq(myTable.id, id)).get()
+       return db.select().from(myTable).where(eq(myTable.id, id)).get();
      }
-   
-     async create(data: Omit<InsertMyTable, 'id' | 'createdAt' | 'updatedAt'>): Promise<MyTable> {
-       const [item] = await db.insert(myTable).values(data).returning()
-       return item
+
+     async create(
+       data: Omit<InsertMyTable, "id" | "createdAt" | "updatedAt">,
+     ): Promise<MyTable> {
+       const [item] = await db.insert(myTable).values(data).returning();
+       return item;
      }
-   
+
      async update(id: number, data: Partial<InsertMyTable>): Promise<MyTable> {
        const [item] = await db
          .update(myTable)
          .set({ ...data, updatedAt: new Date() })
          .where(eq(myTable.id, id))
-         .returning()
-       return item
+         .returning();
+       return item;
      }
-   
+
      async delete(id: number): Promise<void> {
-       await db.delete(myTable).where(eq(myTable.id, id))
+       await db.delete(myTable).where(eq(myTable.id, id));
      }
    }
-   
-   export const myTableRepository = new MyTableRepository()
+
+   export const myTableRepository = new MyTableRepository();
    ```
 
 ---
@@ -697,29 +708,29 @@ test('renders button with text', () => {
 
 ```typescript
 // Example: API endpoint test
-import { describe, it, expect } from 'vitest'
-import { SELF } from 'cloudflare:test'
+import { SELF } from "cloudflare:test";
+import { describe, expect, it } from "vitest";
 
-describe('/api/showcases', () => {
-  it('returns showcases list', async () => {
-    const response = await SELF.fetch('/api/showcases')
-    expect(response.status).toBe(200)
-    
-    const data = await response.json()
-    expect(Array.isArray(data)).toBe(true)
-  })
-})
+describe("/api/showcases", () => {
+  it("returns showcases list", async () => {
+    const response = await SELF.fetch("/api/showcases");
+    expect(response.status).toBe(200);
+
+    const data = await response.json();
+    expect(Array.isArray(data)).toBe(true);
+  });
+});
 ```
 
 ### Test Commands
 
-| Command | Description |
-|---------|-------------|
-| `bun test` | Run all tests once |
-| `bun test --watch` | Run tests in watch mode |
-| `bun test --ui` | Open Vitest UI |
-| `bun run coverage` | Generate coverage report |
-| `bun test <pattern>` | Run specific tests |
+| Command              | Description              |
+| -------------------- | ------------------------ |
+| `bun test`           | Run all tests once       |
+| `bun test --watch`   | Run tests in watch mode  |
+| `bun test --ui`      | Open Vitest UI           |
+| `bun run coverage`   | Generate coverage report |
+| `bun test <pattern>` | Run specific tests       |
 
 ---
 
@@ -788,12 +799,12 @@ describe('/api/showcases', () => {
 
 #### **Setup Issues:**
 
-| Issue | Solution |
-|-------|----------|
-| `bun install` fails | Clear `node_modules`, delete `bun.lock`, retry |
-| Database migration fails | Check `.dev.vars` file, verify D1 setup |
-| TypeScript errors | Run `bun run typecheck` and `bun run wrangler:types` |
-| VS Code extensions not working | Reload window, check extension installation |
+| Issue                          | Solution                                             |
+| ------------------------------ | ---------------------------------------------------- |
+| `bun install` fails            | Clear `node_modules`, delete `bun.lock`, retry       |
+| Database migration fails       | Check `.dev.vars` file, verify D1 setup              |
+| TypeScript errors              | Run `bun run typecheck` and `bun run wrangler:types` |
+| VS Code extensions not working | Reload window, check extension installation          |
 
 #### **Development Issues:**
 
@@ -833,7 +844,7 @@ wrangler auth login     # Re-authenticate if needed
 # "Type errors" in database queries
 # → Run bun run db:generate to update schema types
 
-# "Cannot find module '~/...'" 
+# "Cannot find module '~/...'"
 # → Check tsconfig.json path mapping configuration
 
 # Cloudflare Workers deployment fails
@@ -847,7 +858,7 @@ wrangler auth login     # Re-authenticate if needed
 #### **Before Asking for Help:**
 
 1. **Check existing documentation** - Review project docs and external resources
-2. **Search GitHub Issues** - Look for similar problems and solutions  
+2. **Search GitHub Issues** - Look for similar problems and solutions
 3. **Try troubleshooting steps** - Follow the [Common Issues section](./TROUBLESHOOTING.md#common-issues-and-solutions)
 4. **Run health check** - Use the [health check script](./TROUBLESHOOTING.md#health-check-script)
 5. **Reproduce the issue** - Create a minimal example if possible
@@ -890,24 +901,24 @@ Once you've completed the setup:
 
 #### **Week 1: Foundation** ⏱️ 8-10 hours
 
-- [ ] Understand React Router v7 file-based routing *(2 hours)*
-- [ ] Learn Drizzle ORM basics with the [database guide](./DATABASE_GUIDE.md#getting-started) *(3 hours)*
-- [ ] Explore the existing features (landing-page, showcases) *(2 hours)*
-- [ ] Set up your development environment completely *(1 hour)*
+- [ ] Understand React Router v7 file-based routing _(2 hours)_
+- [ ] Learn Drizzle ORM basics with the [database guide](./DATABASE_GUIDE.md#getting-started) _(3 hours)_
+- [ ] Explore the existing features (landing-page, showcases) _(2 hours)_
+- [ ] Set up your development environment completely _(1 hour)_
 
 #### **Week 2: Building** ⏱️ 10-12 hours
 
-- [ ] Create your first feature following the patterns *(4 hours)*
-- [ ] Add a new API endpoint with proper validation *(3 hours)*
-- [ ] Write tests for your new functionality *(3 hours)*
-- [ ] Practice database schema changes *(2 hours)*
+- [ ] Create your first feature following the patterns _(4 hours)_
+- [ ] Add a new API endpoint with proper validation _(3 hours)_
+- [ ] Write tests for your new functionality _(3 hours)_
+- [ ] Practice database schema changes _(2 hours)_
 
 #### **Week 3: Advanced** ⏱️ 8-10 hours
 
-- [ ] Implement complex database relationships *(3 hours)*
-- [ ] Add authentication/authorization (if needed) *(4 hours)*
-- [ ] Optimize performance with caching strategies *(2 hours)*
-- [ ] Deploy your changes to production *(1 hour)*
+- [ ] Implement complex database relationships _(3 hours)_
+- [ ] Add authentication/authorization (if needed) _(4 hours)_
+- [ ] Optimize performance with caching strategies _(2 hours)_
+- [ ] Deploy your changes to production _(1 hour)_
 
 ### **Development Checklist:**
 

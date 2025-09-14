@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 4.6.8 (2025-09-14)
+
+- Upgraded Node.js v24.8.0
+- Upgraded Bun to v1.2.21
+- Upgraded dependency versions
+- Enhance content documents guide
+
 ## 4.6.7 (2025-08-26)
 
 - Upgraded dependency versions
