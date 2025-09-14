@@ -99,7 +99,7 @@ The NARA boilerplate documentation is strategically organized into focused guide
 > **Learning Path (Confidence: Step by step guidance)**
 
 1. [Developer Onboarding Guide](./DEVELOPER_ONBOARDING.md) - **Start here!** Complete setup and first steps
-2. [Project Overview](./PROJECT_OVERVIEW.md) - Understand the architecture and tech stack  
+2. [Project Overview](./PROJECT_OVERVIEW.md) - Understand the architecture and tech stack
 3. [Architecture Deep Dive](./ARCHITECTURE.md) - Deep technical understanding
 
 **Success Criteria:** Can run `bun run dev` and access the app at localhost:5173
@@ -157,27 +157,27 @@ The NARA boilerplate documentation is strategically organized into focused guide
 
 ### Common Tasks
 
-| Task | Guide | Section | Difficulty | Est. Time |
-|------|-------|---------|------------|-----------|
-| Setup development environment | [Developer Onboarding](./DEVELOPER_ONBOARDING.md) | Quick Setup Checklist | 🟢 Beginner | 30 min |
-| Add new component | [Component Guide](./COMPONENT_GUIDE.md) | Component Best Practices | 🟡 Intermediate | 20 min |
-| Create API endpoint | [API Development Guide](./API_GUIDE.md) | RESTful API Design | 🟡 Intermediate | 45 min |
-| Design database schema | [Database Guide](./DATABASE_GUIDE.md) | Schema Design | 🟠 Advanced | 60 min |
-| Add new route | [React Router Guide](./REACT_ROUTER_GUIDE.md) | File-based Routing | 🟢 Beginner | 15 min |
-| Write tests | [Testing Guide](./TESTING_GUIDE.md) | Unit Testing | 🟡 Intermediate | 45 min |
-| Deploy to production | [CI Deploy Guide](./CI_DEPLOY_GUIDE.md) | Manual Deployment | 🟠 Advanced | 90 min |
-| Debug issues | [Troubleshooting Guide](./TROUBLESHOOTING.md) | Common Issues | 🟡 Intermediate | Variable |
+| Task                          | Guide                                             | Section                  | Difficulty      | Est. Time |
+| ----------------------------- | ------------------------------------------------- | ------------------------ | --------------- | --------- |
+| Setup development environment | [Developer Onboarding](./DEVELOPER_ONBOARDING.md) | Quick Setup Checklist    | 🟢 Beginner     | 30 min    |
+| Add new component             | [Component Guide](./COMPONENT_GUIDE.md)           | Component Best Practices | 🟡 Intermediate | 20 min    |
+| Create API endpoint           | [API Development Guide](./API_GUIDE.md)           | RESTful API Design       | 🟡 Intermediate | 45 min    |
+| Design database schema        | [Database Guide](./DATABASE_GUIDE.md)             | Schema Design            | 🟠 Advanced     | 60 min    |
+| Add new route                 | [React Router Guide](./REACT_ROUTER_GUIDE.md)     | File-based Routing       | 🟢 Beginner     | 15 min    |
+| Write tests                   | [Testing Guide](./TESTING_GUIDE.md)               | Unit Testing             | 🟡 Intermediate | 45 min    |
+| Deploy to production          | [CI Deploy Guide](./CI_DEPLOY_GUIDE.md)           | Manual Deployment        | 🟠 Advanced     | 90 min    |
+| Debug issues                  | [Troubleshooting Guide](./TROUBLESHOOTING.md)     | Common Issues            | 🟡 Intermediate | Variable  |
 
 ### Technology References
 
-| Technology | Primary Guide | Difficulty | Prerequisites | Additional Resources |
-|------------|---------------|------------|---------------|---------------------|
-| React Router v7 | [React Router Guide](./REACT_ROUTER_GUIDE.md) | 🟡 Intermediate | React basics | [Architecture](./ARCHITECTURE.md) |
-| shadcn/ui | [Component Guide](./COMPONENT_GUIDE.md) | 🟢 Beginner | CSS knowledge | [Developer Onboarding](./DEVELOPER_ONBOARDING.md) |
-| Drizzle ORM | [Database Guide](./DATABASE_GUIDE.md) | 🟠 Advanced | SQL knowledge | [API Guide](./API_GUIDE.md) |
-| Hono Framework | [API Development Guide](./API_GUIDE.md) | 🟡 Intermediate | HTTP/REST concepts | [Architecture](./ARCHITECTURE.md) |
-| Cloudflare Workers | [CI Deploy Guide](./CI_DEPLOY_GUIDE.md) | 🟠 Advanced | Cloud platforms | [API Guide](./API_GUIDE.md) |
-| Vitest | [Testing Guide](./TESTING_GUIDE.md) | 🟡 Intermediate | Testing concepts | [Troubleshooting](./TROUBLESHOOTING.md) |
+| Technology         | Primary Guide                                 | Difficulty      | Prerequisites      | Additional Resources                              |
+| ------------------ | --------------------------------------------- | --------------- | ------------------ | ------------------------------------------------- |
+| React Router v7    | [React Router Guide](./REACT_ROUTER_GUIDE.md) | 🟡 Intermediate | React basics       | [Architecture](./ARCHITECTURE.md)                 |
+| shadcn/ui          | [Component Guide](./COMPONENT_GUIDE.md)       | 🟢 Beginner     | CSS knowledge      | [Developer Onboarding](./DEVELOPER_ONBOARDING.md) |
+| Drizzle ORM        | [Database Guide](./DATABASE_GUIDE.md)         | 🟠 Advanced     | SQL knowledge      | [API Guide](./API_GUIDE.md)                       |
+| Hono Framework     | [API Development Guide](./API_GUIDE.md)       | 🟡 Intermediate | HTTP/REST concepts | [Architecture](./ARCHITECTURE.md)                 |
+| Cloudflare Workers | [CI Deploy Guide](./CI_DEPLOY_GUIDE.md)       | 🟠 Advanced     | Cloud platforms    | [API Guide](./API_GUIDE.md)                       |
+| Vitest             | [Testing Guide](./TESTING_GUIDE.md)           | 🟡 Intermediate | Testing concepts   | [Troubleshooting](./TROUBLESHOOTING.md)           |
 
 ---
 

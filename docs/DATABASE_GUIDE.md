@@ -30,13 +30,13 @@ The NARA boilerplate uses:
 
 ```typescript
 // drizzle.config.ts
-import type { Config } from 'drizzle-kit'
+import type { Config } from "drizzle-kit";
 
 export default {
-  schema: './database/schema.ts',
-  out: './drizzle',
-  dialect: 'sqlite',
-  driver: 'd1-http',
+  schema: "./database/schema.ts",
+  out: "./drizzle",
+  dialect: "sqlite",
+  driver: "d1-http",
   dbCredentials: {
     accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
     databaseId: process.env.D1_DATABASE_ID!,
@@ -44,7 +44,7 @@ export default {
   },
   verbose: true,
   strict: true,
-} satisfies Config
+} satisfies Config;
 ```
 
 ### Environment Variables
@@ -67,23 +67,24 @@ NODE_ENV=development
 
 ```typescript
 // lib/db.ts
-import { drizzle } from 'drizzle-orm/d1'
-import * as schema from '~/database/schema'
+import { drizzle } from "drizzle-orm/d1";
+
+import * as schema from "~/database/schema";
 
 export function createDatabase(D1: D1Database) {
-  return drizzle(D1, { 
+  return drizzle(D1, {
     schema,
-    logger: process.env.NODE_ENV === 'development'
-  })
+    logger: process.env.NODE_ENV === "development",
+  });
 }
 
 // In Cloudflare Worker context
 export function getDatabase(env: Env): ReturnType<typeof createDatabase> {
-  return createDatabase(env.DB)
+  return createDatabase(env.DB);
 }
 
 // Type-safe database instance
-export type Database = ReturnType<typeof createDatabase>
+export type Database = ReturnType<typeof createDatabase>;
 ```
 
 ---
@@ -94,47 +95,61 @@ export type Database = ReturnType<typeof createDatabase>
 
 ```typescript
 // database/schema.ts
-import { sql } from 'drizzle-orm'
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
+import { sql } from "drizzle-orm";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 // Example from actual project structure
-export const showcase = sqliteTable('showcases', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  name: text('name').notNull(),
-  description: text('description').notNull(),
-  url: text('url').notNull(),
-  image: text('image'),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-})
+export const showcase = sqliteTable("showcases", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  url: text("url").notNull(),
+  image: text("image"),
+  createdAt: integer("created_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+});
 
-export const showcaseTag = sqliteTable('showcase_tags', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  showcaseId: integer('showcase_id')
+export const showcaseTag = sqliteTable("showcase_tags", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  showcaseId: integer("showcase_id")
     .notNull()
-    .references(() => showcase.id, { onDelete: 'cascade' }),
-  tag: text('tag').notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-})
+    .references(() => showcase.id, { onDelete: "cascade" }),
+  tag: text("tag").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+});
 
 // Additional example: User management
-export const users = sqliteTable('users', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  email: text('email').notNull().unique(),
-  name: text('name').notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-})
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  email: text("email").notNull().unique(),
+  name: text("name").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+});
 
-export const posts = sqliteTable('posts', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  title: text('title').notNull(),
-  content: text('content'),
-  published: integer('published', { mode: 'boolean' }).default(false),
-  authorId: integer('author_id').references(() => users.id),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-})
+export const posts = sqliteTable("posts", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  title: text("title").notNull(),
+  content: text("content"),
+  published: integer("published", { mode: "boolean" }).default(false),
+  authorId: integer("author_id").references(() => users.id),
+  createdAt: integer("created_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+});
 ```
 
 ### Advanced Schema Features
@@ -142,13 +157,13 @@ export const posts = sqliteTable('posts', {
 #### **Relationships**
 
 ```typescript
-import { relations } from 'drizzle-orm'
+import { relations } from "drizzle-orm";
 
 // Define relationships
 export const usersRelations = relations(users, ({ many }) => ({
   posts: many(posts),
   comments: many(comments),
-}))
+}));
 
 export const postsRelations = relations(posts, ({ one, many }) => ({
   author: one(users, {
@@ -157,15 +172,17 @@ export const postsRelations = relations(posts, ({ one, many }) => ({
   }),
   comments: many(comments),
   tags: many(postTags),
-}))
+}));
 
-export const comments = sqliteTable('comments', {
-  id: integer('id').primaryKey(),
-  content: text('content').notNull(),
-  postId: integer('post_id').references(() => posts.id),
-  authorId: integer('author_id').references(() => users.id),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-})
+export const comments = sqliteTable("comments", {
+  id: integer("id").primaryKey(),
+  content: text("content").notNull(),
+  postId: integer("post_id").references(() => posts.id),
+  authorId: integer("author_id").references(() => users.id),
+  createdAt: integer("created_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+});
 
 export const commentsRelations = relations(comments, ({ one }) => ({
   post: one(posts, {
@@ -176,24 +193,28 @@ export const commentsRelations = relations(comments, ({ one }) => ({
     fields: [comments.authorId],
     references: [users.id],
   }),
-}))
+}));
 ```
 
 #### **Many-to-Many Relationships**
 
 ```typescript
-export const tags = sqliteTable('tags', {
-  id: integer('id').primaryKey(),
-  name: text('name').notNull().unique(),
-  slug: text('slug').notNull().unique(),
-})
+export const tags = sqliteTable("tags", {
+  id: integer("id").primaryKey(),
+  name: text("name").notNull().unique(),
+  slug: text("slug").notNull().unique(),
+});
 
-export const postTags = sqliteTable('post_tags', {
-  postId: integer('post_id').references(() => posts.id),
-  tagId: integer('tag_id').references(() => tags.id),
-}, (table) => ({
-  pk: primaryKey({ columns: [table.postId, table.tagId] }),
-}))
+export const postTags = sqliteTable(
+  "post_tags",
+  {
+    postId: integer("post_id").references(() => posts.id),
+    tagId: integer("tag_id").references(() => tags.id),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.postId, table.tagId] }),
+  }),
+);
 
 export const postTagsRelations = relations(postTags, ({ one }) => ({
   post: one(posts, {
@@ -204,52 +225,58 @@ export const postTagsRelations = relations(postTags, ({ one }) => ({
     fields: [postTags.tagId],
     references: [tags.id],
   }),
-}))
+}));
 ```
 
 #### **Indexes and Constraints**
 
 ```typescript
-import { index, uniqueIndex } from 'drizzle-orm/sqlite-core'
+import { index, uniqueIndex } from "drizzle-orm/sqlite-core";
 
-export const users = sqliteTable('users', {
-  id: integer('id').primaryKey(),
-  email: text('email').notNull(),
-  username: text('username').notNull(),
-  firstName: text('first_name'),
-  lastName: text('last_name'),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-}, (table) => ({
-  // Unique indexes
-  emailIdx: uniqueIndex('email_idx').on(table.email),
-  usernameIdx: uniqueIndex('username_idx').on(table.username),
-  
-  // Regular indexes
-  nameIdx: index('name_idx').on(table.firstName, table.lastName),
-  createdAtIdx: index('created_at_idx').on(table.createdAt),
-}))
+export const users = sqliteTable(
+  "users",
+  {
+    id: integer("id").primaryKey(),
+    email: text("email").notNull(),
+    username: text("username").notNull(),
+    firstName: text("first_name"),
+    lastName: text("last_name"),
+    createdAt: integer("created_at", { mode: "timestamp" }).default(
+      sql`CURRENT_TIMESTAMP`,
+    ),
+  },
+  (table) => ({
+    // Unique indexes
+    emailIdx: uniqueIndex("email_idx").on(table.email),
+    usernameIdx: uniqueIndex("username_idx").on(table.username),
+
+    // Regular indexes
+    nameIdx: index("name_idx").on(table.firstName, table.lastName),
+    createdAtIdx: index("created_at_idx").on(table.createdAt),
+  }),
+);
 ```
 
 #### **Enums and JSON**
 
 ```typescript
-export const userRoles = ['admin', 'moderator', 'user'] as const
-export type UserRole = typeof userRoles[number]
+export const userRoles = ["admin", "moderator", "user"] as const;
+export type UserRole = (typeof userRoles)[number];
 
-export const users = sqliteTable('users', {
-  id: integer('id').primaryKey(),
-  email: text('email').notNull(),
-  role: text('role', { enum: userRoles }).default('user'),
-  
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey(),
+  email: text("email").notNull(),
+  role: text("role", { enum: userRoles }).default("user"),
+
   // JSON fields
-  preferences: text('preferences', { mode: 'json' }).$type<{
-    theme: 'light' | 'dark' | 'system'
-    notifications: boolean
-    language: string
+  preferences: text("preferences", { mode: "json" }).$type<{
+    theme: "light" | "dark" | "system";
+    notifications: boolean;
+    language: string;
   }>(),
-  
-  metadata: text('metadata', { mode: 'json' }).$type<Record<string, any>>(),
-})
+
+  metadata: text("metadata", { mode: "json" }).$type<Record<string, any>>(),
+});
 ```
 
 ---
@@ -262,13 +289,15 @@ export const users = sqliteTable('users', {
 
    ```typescript
    // Add new column to existing table
-   export const users = sqliteTable('users', {
-     id: integer('id').primaryKey({ autoIncrement: true }),
-     email: text('email').notNull(),
-     name: text('name').notNull(),
-     avatar: text('avatar'), // New column
-     createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-   })
+   export const users = sqliteTable("users", {
+     id: integer("id").primaryKey({ autoIncrement: true }),
+     email: text("email").notNull(),
+     name: text("name").notNull(),
+     avatar: text("avatar"), // New column
+     createdAt: integer("created_at", { mode: "timestamp" }).default(
+       sql`CURRENT_TIMESTAMP`,
+     ),
+   });
    ```
 
 2. **Generate Migration**
@@ -290,7 +319,7 @@ export const users = sqliteTable('users', {
    ```bash
    # Local development (uses wrangler local D1)
    bun run db:migrate
-   
+
    # Production (uses remote D1 via Drizzle Kit)
    bun run db:migrate-production
    ```
@@ -352,19 +381,17 @@ ALTER TABLE comments_new RENAME TO comments;
 ### Basic Queries
 
 ```typescript
-import { db } from '~/lib/db'
-import { users, posts, comments } from '~/database/schema'
-import { eq, and, or, gt, lt, like, desc, asc } from 'drizzle-orm'
+import { and, asc, desc, eq, gt, like, lt, or } from "drizzle-orm";
+
+import { comments, posts, users } from "~/database/schema";
+import { db } from "~/lib/db";
 
 // ✅ Type-safe simple select
-const allUsers = await db.select().from(users)
+const allUsers = await db.select().from(users);
 // Type: Array<{ id: number; email: string; name: string; ... }>
 
 // ✅ Type-safe select with conditions
-const activeUsers = await db
-  .select()
-  .from(users)
-  .where(eq(users.active, true))
+const activeUsers = await db.select().from(users).where(eq(users.active, true));
 
 // ✅ Type-safe select specific fields
 const userEmails = await db
@@ -373,7 +400,7 @@ const userEmails = await db
     email: users.email,
     name: users.name,
   })
-  .from(users)
+  .from(users);
 // Type: Array<{ id: number; email: string; name: string }>
 
 // ✅ Complex type-safe conditions
@@ -383,33 +410,24 @@ const recentPosts = await db
   .where(
     and(
       eq(posts.published, true),
-      gt(posts.createdAt, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)) // Last 7 days
-    )
+      gt(posts.createdAt, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)), // Last 7 days
+    ),
   )
   .orderBy(desc(posts.createdAt))
-  .limit(10)
+  .limit(10);
 
 // ❌ NEVER bypass type safety
 // const rawQuery = await env.DB.prepare("SELECT * FROM users").all() // No types!
 
 // ✅ Use .get() for single results
-const singleUser = await db
-  .select()
-  .from(users)
-  .where(eq(users.id, 1))
-  .get() // Returns single record or undefined
+const singleUser = await db.select().from(users).where(eq(users.id, 1)).get(); // Returns single record or undefined
 
 // ✅ Type-safe search operations
 const searchUsers = await db
   .select()
   .from(users)
-  .where(
-    or(
-      like(users.name, '%john%'),
-      like(users.email, '%john%')
-    )
-  )
-  .orderBy(asc(users.name))
+  .where(or(like(users.name, "%john%"), like(users.email, "%john%")))
+  .orderBy(asc(users.name));
 ```
 
 ### Joins and Relationships
@@ -426,14 +444,14 @@ const postsWithAuthors = await db
     },
   })
   .from(posts)
-  .leftJoin(users, eq(posts.authorId, users.id))
+  .leftJoin(users, eq(posts.authorId, users.id));
 
 // Using relations (query API)
 const usersWithPosts = await db.query.users.findMany({
   with: {
     posts: true,
   },
-})
+});
 
 // Nested relations
 const postsWithAuthorsAndComments = await db.query.posts.findMany({
@@ -445,7 +463,7 @@ const postsWithAuthorsAndComments = await db.query.posts.findMany({
       },
     },
   },
-})
+});
 
 // Filtering with relations
 const usersWithPublishedPosts = await db.query.users.findMany({
@@ -456,19 +474,16 @@ const usersWithPublishedPosts = await db.query.users.findMany({
       limit: 5,
     },
   },
-})
+});
 ```
 
 ### Aggregations
 
 ```typescript
-import { count, sum, avg, min, max, sql } from 'drizzle-orm'
-import { length } from 'drizzle-orm'
+import { avg, count, length, max, min, sql, sum } from "drizzle-orm";
 
 // Count queries
-const userCount = await db
-  .select({ count: count() })
-  .from(users)
+const userCount = await db.select({ count: count() }).from(users);
 
 const postCountsByUser = await db
   .select({
@@ -479,7 +494,7 @@ const postCountsByUser = await db
   .from(posts)
   .leftJoin(users, eq(posts.authorId, users.id))
   .groupBy(posts.authorId, users.name)
-  .orderBy(desc(count(posts.id)))
+  .orderBy(desc(count(posts.id)));
 
 // Statistics with proper SQL functions
 const postStats = await db
@@ -490,7 +505,7 @@ const postStats = await db
     oldestPost: min(posts.createdAt),
   })
   .from(posts)
-  .where(eq(posts.published, true))
+  .where(eq(posts.published, true));
 
 // Advanced aggregation: Monthly post counts
 const monthlyPostCounts = await db
@@ -501,7 +516,9 @@ const monthlyPostCounts = await db
   .from(posts)
   .where(eq(posts.published, true))
   .groupBy(sql`strftime('%Y-%m', datetime(${posts.createdAt}, 'unixepoch'))`)
-  .orderBy(sql`strftime('%Y-%m', datetime(${posts.createdAt}, 'unixepoch')) DESC`)
+  .orderBy(
+    sql`strftime('%Y-%m', datetime(${posts.createdAt}, 'unixepoch')) DESC`,
+  );
 ```
 
 ### Pagination
@@ -509,8 +526,8 @@ const monthlyPostCounts = await db
 ```typescript
 // Offset-based pagination
 async function getPaginatedPosts(page: number, limit: number = 10) {
-  const offset = (page - 1) * limit
-  
+  const offset = (page - 1) * limit;
+
   const [posts, [{ count }]] = await Promise.all([
     db
       .select()
@@ -518,12 +535,10 @@ async function getPaginatedPosts(page: number, limit: number = 10) {
       .orderBy(desc(posts.createdAt))
       .limit(limit)
       .offset(offset),
-    
-    db
-      .select({ count: count() })
-      .from(posts)
-  ])
-  
+
+    db.select({ count: count() }).from(posts),
+  ]);
+
   return {
     posts,
     pagination: {
@@ -532,7 +547,7 @@ async function getPaginatedPosts(page: number, limit: number = 10) {
       total: count,
       pages: Math.ceil(count / limit),
     },
-  }
+  };
 }
 
 // Cursor-based pagination (more efficient)
@@ -542,15 +557,15 @@ async function getPostsCursor(cursor?: number, limit: number = 10) {
     .from(posts)
     .where(cursor ? lt(posts.id, cursor) : undefined)
     .orderBy(desc(posts.id))
-    .limit(limit + 1) // Fetch one extra to check if there's a next page
-  
-  const hasNextPage = posts.length > limit
-  if (hasNextPage) posts.pop() // Remove the extra item
-  
+    .limit(limit + 1); // Fetch one extra to check if there's a next page
+
+  const hasNextPage = posts.length > limit;
+  if (hasNextPage) posts.pop(); // Remove the extra item
+
   return {
     posts,
     nextCursor: hasNextPage ? posts[posts.length - 1]?.id : null,
-  }
+  };
 }
 ```
 
@@ -565,29 +580,29 @@ async function getPostsCursor(cursor?: number, limit: number = 10) {
 const newUser = await db
   .insert(users)
   .values({
-    email: 'john@example.com',
-    name: 'John Doe',
+    email: "john@example.com",
+    name: "John Doe",
   })
-  .returning()
+  .returning();
 
 // Multiple inserts
 const newUsers = await db
   .insert(users)
   .values([
-    { email: 'user1@example.com', name: 'User 1' },
-    { email: 'user2@example.com', name: 'User 2' },
+    { email: "user1@example.com", name: "User 1" },
+    { email: "user2@example.com", name: "User 2" },
   ])
-  .returning()
+  .returning();
 
 // Insert with conflict resolution
 const user = await db
   .insert(users)
-  .values({ email: 'john@example.com', name: 'John Doe' })
+  .values({ email: "john@example.com", name: "John Doe" })
   .onConflictDoUpdate({
     target: users.email,
-    set: { name: 'John Doe Updated' }
+    set: { name: "John Doe Updated" },
   })
-  .returning()
+  .returning();
 ```
 
 ### Update Operations
@@ -596,68 +611,59 @@ const user = await db
 // Update single record
 const updatedUser = await db
   .update(users)
-  .set({ name: 'John Smith' })
+  .set({ name: "John Smith" })
   .where(eq(users.id, 1))
-  .returning()
+  .returning();
 
 // Conditional updates
 await db
   .update(posts)
   .set({ published: true, publishedAt: new Date() })
-  .where(
-    and(
-      eq(posts.authorId, userId),
-      eq(posts.published, false)
-    )
-  )
+  .where(and(eq(posts.authorId, userId), eq(posts.published, false)));
 
 // Update with SQL expressions
 await db
   .update(posts)
-  .set({ 
+  .set({
     viewCount: sql`${posts.viewCount} + 1`,
-    updatedAt: new Date()
+    updatedAt: new Date(),
   })
-  .where(eq(posts.id, postId))
+  .where(eq(posts.id, postId));
 ```
 
 ### Delete Operations
 
 ```typescript
 // Delete single record
-await db
-  .delete(users)
-  .where(eq(users.id, 1))
+await db.delete(users).where(eq(users.id, 1));
 
 // Conditional deletes
-await db
-  .delete(posts)
-  .where(
-    and(
-      eq(posts.authorId, userId),
-      lt(posts.createdAt, new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)) // Older than 30 days
-    )
-  )
+await db.delete(posts).where(
+  and(
+    eq(posts.authorId, userId),
+    lt(posts.createdAt, new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)), // Older than 30 days
+  ),
+);
 
 // Soft deletes (recommended)
-export const users = sqliteTable('users', {
-  id: integer('id').primaryKey(),
-  email: text('email').notNull(),
-  name: text('name').notNull(),
-  deletedAt: integer('deleted_at', { mode: 'timestamp' }),
-})
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey(),
+  email: text("email").notNull(),
+  name: text("name").notNull(),
+  deletedAt: integer("deleted_at", { mode: "timestamp" }),
+});
 
 // Soft delete implementation
 await db
   .update(users)
   .set({ deletedAt: new Date() })
-  .where(eq(users.id, userId))
+  .where(eq(users.id, userId));
 
 // Query non-deleted users
 const activeUsers = await db
   .select()
   .from(users)
-  .where(isNull(users.deletedAt))
+  .where(isNull(users.deletedAt));
 ```
 
 ---
@@ -668,9 +674,10 @@ const activeUsers = await db
 
 ```typescript
 // repositories/user-repository.ts
-import { db } from '~/lib/db'
-import { users } from '~/database/schema'
-import { eq, and, isNull } from 'drizzle-orm'
+import { and, eq, isNull } from "drizzle-orm";
+
+import { users } from "~/database/schema";
+import { db } from "~/lib/db";
 
 export class UserRepository {
   async findById(id: number) {
@@ -678,89 +685,89 @@ export class UserRepository {
       .select()
       .from(users)
       .where(and(eq(users.id, id), isNull(users.deletedAt)))
-      .limit(1)
-    
-    return user
+      .limit(1);
+
+    return user;
   }
-  
+
   async findByEmail(email: string) {
     const [user] = await db
       .select()
       .from(users)
       .where(and(eq(users.email, email), isNull(users.deletedAt)))
-      .limit(1)
-    
-    return user
+      .limit(1);
+
+    return user;
   }
-  
-  async create(userData: Omit<typeof users.$inferInsert, 'id' | 'createdAt' | 'updatedAt'>) {
-    const [user] = await db
-      .insert(users)
-      .values(userData)
-      .returning()
-    
-    return user
+
+  async create(
+    userData: Omit<typeof users.$inferInsert, "id" | "createdAt" | "updatedAt">,
+  ) {
+    const [user] = await db.insert(users).values(userData).returning();
+
+    return user;
   }
-  
+
   async update(id: number, userData: Partial<typeof users.$inferInsert>) {
     const [user] = await db
       .update(users)
       .set({ ...userData, updatedAt: new Date() })
       .where(eq(users.id, id))
-      .returning()
-    
-    return user
+      .returning();
+
+    return user;
   }
-  
+
   async softDelete(id: number) {
     await db
       .update(users)
       .set({ deletedAt: new Date() })
-      .where(eq(users.id, id))
+      .where(eq(users.id, id));
   }
 }
 
-export const userRepository = new UserRepository()
+export const userRepository = new UserRepository();
 ```
 
 ### Service Layer
 
 ```typescript
 // services/user-service.ts
-import { userRepository } from '~/repositories/user-repository'
-import { z } from 'zod'
+import { z } from "zod";
+
+import { userRepository } from "~/repositories/user-repository";
 
 const createUserSchema = z.object({
   email: z.email(),
   name: z.string().min(1).max(100),
-})
+});
 
-const updateUserSchema = createUserSchema.partial()
+const updateUserSchema = createUserSchema.partial();
 
 export class UserService {
   async createUser(data: z.infer<typeof createUserSchema>) {
-    const validatedData = createUserSchema.parse(data)
-    
+    const validatedData = createUserSchema.parse(data);
+
     // Check if user already exists
-    const existingUser = await userRepository.findByEmail(validatedData.email)
+    const existingUser = await userRepository.findByEmail(validatedData.email);
     if (existingUser) {
-      throw new Error('User with this email already exists')
+      throw new Error("User with this email already exists");
     }
-    
-    return userRepository.create(validatedData)
+
+    return userRepository.create(validatedData);
   }
-  
+
   async updateUser(id: number, data: z.infer<typeof updateUserSchema>) {
-    const validatedData = updateUserSchema.parse(data)
-    
-    const user = await userRepository.findById(id)
+    const validatedData = updateUserSchema.parse(data);
+
+    const user = await userRepository.findById(id);
     if (!user) {
-      throw new Error('User not found')
+      throw new Error("User not found");
     }
-    
-    return userRepository.update(id, validatedData)
+
+    return userRepository.update(id, validatedData);
   }
-  
+
   async getUserWithPosts(id: number) {
     return db.query.users.findFirst({
       where: eq(users.id, id),
@@ -770,65 +777,70 @@ export class UserService {
           orderBy: desc(posts.createdAt),
         },
       },
-    })
+    });
   }
 }
 
-export const userService = new UserService()
+export const userService = new UserService();
 ```
 
 ### Error Handling and Validation
 
 ```typescript
 // services/user-service-with-error-handling.ts
-import { userRepository } from '~/repositories/user-repository'
-import { z } from 'zod'
-import { DrizzleError } from 'drizzle-orm'
+import { DrizzleError } from "drizzle-orm";
+import { z } from "zod";
+
+import { userRepository } from "~/repositories/user-repository";
 
 const createUserSchema = z.object({
-  email: z.string().email('Invalid email format'),
-  name: z.string().min(1, 'Name is required').max(100, 'Name too long'),
-})
+  email: z.string().email("Invalid email format"),
+  name: z.string().min(1, "Name is required").max(100, "Name too long"),
+});
 
 export class UserService {
   async createUser(data: unknown) {
     try {
       // Validate input data
-      const validatedData = createUserSchema.parse(data)
-      
+      const validatedData = createUserSchema.parse(data);
+
       // Check if user already exists
-      const existingUser = await userRepository.findByEmail(validatedData.email)
+      const existingUser = await userRepository.findByEmail(
+        validatedData.email,
+      );
       if (existingUser) {
-        throw new Error('User with this email already exists')
+        throw new Error("User with this email already exists");
       }
-      
-      return await userRepository.create(validatedData)
+
+      return await userRepository.create(validatedData);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        throw new Error(`Validation error: ${error.errors.map(e => e.message).join(', ')}`)
+        throw new Error(
+          `Validation error: ${error.errors.map((e) => e.message).join(", ")}`,
+        );
       }
-      
+
       if (error instanceof DrizzleError) {
-        console.error('Database error:', error)
-        throw new Error('Database operation failed')
+        console.error("Database error:", error);
+        throw new Error("Database operation failed");
       }
-      
+
       // Re-throw unknown errors
-      throw error
+      throw error;
     }
   }
-  
+
   async safeGetUser(id: number) {
     try {
-      const user = await userRepository.findById(id)
-      return { success: true, data: user, error: null }
+      const user = await userRepository.findById(id);
+      return { success: true, data: user, error: null };
     } catch (error) {
-      console.error('Failed to get user:', error)
-      return { 
-        success: false, 
-        data: null, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
-      }
+      console.error("Failed to get user:", error);
+      return {
+        success: false,
+        data: null,
+        error: error instanceof Error ? error.message : "Unknown error",
+      };
     }
   }
 }
@@ -838,17 +850,17 @@ export class UserService {
 
 ```typescript
 // Advanced transaction patterns
-import { db } from '~/lib/db'
+import { db } from "~/lib/db";
 
 export class TransactionService {
-  async createUserWithProfile(userData: CreateUserData, profileData: CreateProfileData) {
+  async createUserWithProfile(
+    userData: CreateUserData,
+    profileData: CreateProfileData,
+  ) {
     return await db.transaction(async (tx) => {
       // Create user first
-      const [user] = await tx
-        .insert(users)
-        .values(userData)
-        .returning()
-      
+      const [user] = await tx.insert(users).values(userData).returning();
+
       // Create profile with user reference
       const [profile] = await tx
         .insert(profiles)
@@ -856,13 +868,13 @@ export class TransactionService {
           ...profileData,
           userId: user.id,
         })
-        .returning()
-      
+        .returning();
+
       // If any operation fails, the entire transaction is rolled back
-      return { user, profile }
-    })
+      return { user, profile };
+    });
   }
-  
+
   async transferCredits(fromUserId: number, toUserId: number, amount: number) {
     return await db.transaction(async (tx) => {
       // Check sender balance
@@ -870,34 +882,32 @@ export class TransactionService {
         .select({ credits: users.credits })
         .from(users)
         .where(eq(users.id, fromUserId))
-        .get()
-      
+        .get();
+
       if (!sender || sender.credits < amount) {
-        throw new Error('Insufficient credits')
+        throw new Error("Insufficient credits");
       }
-      
+
       // Deduct from sender
       await tx
         .update(users)
         .set({ credits: sql`${users.credits} - ${amount}` })
-        .where(eq(users.id, fromUserId))
-      
+        .where(eq(users.id, fromUserId));
+
       // Add to receiver
       await tx
         .update(users)
         .set({ credits: sql`${users.credits} + ${amount}` })
-        .where(eq(users.id, toUserId))
-      
+        .where(eq(users.id, toUserId));
+
       // Log transaction
-      await tx
-        .insert(creditTransactions)
-        .values({
-          fromUserId,
-          toUserId,
-          amount,
-          type: 'transfer',
-        })
-    })
+      await tx.insert(creditTransactions).values({
+        fromUserId,
+        toUserId,
+        amount,
+        type: "transfer",
+      });
+    });
   }
 }
 ```
@@ -909,41 +919,42 @@ export class TransactionService {
 ### Query Optimization
 
 ```typescript
-import { inArray } from 'drizzle-orm'
+import { inArray } from "drizzle-orm";
 
 // ❌ N+1 Query Problem
-const posts = await db.select().from(posts)
+const posts = await db.select().from(posts);
 for (const post of posts) {
-  const author = await db.select().from(users).where(eq(users.id, post.authorId))
-  console.log(post.title, author.name)
+  const author = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, post.authorId));
+  console.log(post.title, author.name);
 }
 
 // ✅ Join or Relation Query
 const postsWithAuthors = await db.query.posts.findMany({
-  with: { author: true }
-})
+  with: { author: true },
+});
 
 // ✅ Batch queries
-const postIds = posts.map(p => p.id)
+const postIds = posts.map((p) => p.id);
 const comments = await db
   .select()
   .from(comments)
-  .where(inArray(comments.postId, postIds))
+  .where(inArray(comments.postId, postIds));
 
 // ✅ Using CTE for complex queries
-const popularPosts = db
-  .$with('popular_posts')
-  .as(
-    db
-      .select({
-        postId: posts.id,
-        commentCount: count(comments.id),
-      })
-      .from(posts)
-      .leftJoin(comments, eq(posts.id, comments.postId))
-      .groupBy(posts.id)
-      .having(gt(count(comments.id), 5))
-  )
+const popularPosts = db.$with("popular_posts").as(
+  db
+    .select({
+      postId: posts.id,
+      commentCount: count(comments.id),
+    })
+    .from(posts)
+    .leftJoin(comments, eq(posts.id, comments.postId))
+    .groupBy(posts.id)
+    .having(gt(count(comments.id), 5)),
+);
 
 const result = await db
   .with(popularPosts)
@@ -954,49 +965,62 @@ const result = await db
   })
   .from(popularPosts)
   .leftJoin(posts, eq(popularPosts.postId, posts.id))
-  .leftJoin(users, eq(posts.authorId, users.id))
+  .leftJoin(users, eq(posts.authorId, users.id));
 ```
 
 ### Indexing Strategy
 
 ```typescript
 // Create indexes for common query patterns
-export const posts = sqliteTable('posts', {
-  id: integer('id').primaryKey(),
-  title: text('title').notNull(),
-  content: text('content'),
-  authorId: integer('author_id').references(() => users.id),
-  published: integer('published', { mode: 'boolean' }).default(false),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-}, (table) => ({
-  // For filtering by author and published status
-  authorPublishedIdx: index('posts_author_published_idx').on(table.authorId, table.published),
-  
-  // For ordering by creation date
-  createdAtIdx: index('posts_created_at_idx').on(table.createdAt),
-  
-  // For full-text search on title
-  titleIdx: index('posts_title_idx').on(table.title),
-  
-  // Composite index for common filter combinations
-  publishedCreatedAtIdx: index('posts_published_created_at_idx').on(table.published, table.createdAt),
-}))
+export const posts = sqliteTable(
+  "posts",
+  {
+    id: integer("id").primaryKey(),
+    title: text("title").notNull(),
+    content: text("content"),
+    authorId: integer("author_id").references(() => users.id),
+    published: integer("published", { mode: "boolean" }).default(false),
+    createdAt: integer("created_at", { mode: "timestamp" }).default(
+      sql`CURRENT_TIMESTAMP`,
+    ),
+  },
+  (table) => ({
+    // For filtering by author and published status
+    authorPublishedIdx: index("posts_author_published_idx").on(
+      table.authorId,
+      table.published,
+    ),
+
+    // For ordering by creation date
+    createdAtIdx: index("posts_created_at_idx").on(table.createdAt),
+
+    // For full-text search on title
+    titleIdx: index("posts_title_idx").on(table.title),
+
+    // Composite index for common filter combinations
+    publishedCreatedAtIdx: index("posts_published_created_at_idx").on(
+      table.published,
+      table.createdAt,
+    ),
+  }),
+);
 ```
 
 ### Connection Pooling
 
 ```typescript
 // lib/db.ts
-import { drizzle } from 'drizzle-orm/d1'
-import * as schema from '~/database/schema'
+import { drizzle } from "drizzle-orm/d1";
+
+import * as schema from "~/database/schema";
 
 export function createDatabase(D1: D1Database) {
-  return drizzle(D1, { schema })
+  return drizzle(D1, { schema });
 }
 
 // In Cloudflare Worker context
 export function getDatabase(env: Env) {
-  return createDatabase(env.DB)
+  return createDatabase(env.DB);
 }
 ```
 
@@ -1008,70 +1032,71 @@ export function getDatabase(env: Env) {
 
 ```typescript
 // tests/repositories/user-repository.test.ts
-import { describe, it, expect, beforeEach } from 'vitest'
-import { userRepository } from '~/repositories/user-repository'
+import { beforeEach, describe, expect, it } from "vitest";
 
-describe('UserRepository', () => {
+import { userRepository } from "~/repositories/user-repository";
+
+describe("UserRepository", () => {
   beforeEach(async () => {
     // Clear test database
-    await db.delete(users)
-  })
-  
-  it('creates a new user', async () => {
+    await db.delete(users);
+  });
+
+  it("creates a new user", async () => {
     const userData = {
-      email: 'test@example.com',
-      name: 'Test User'
-    }
-    
-    const user = await userRepository.create(userData)
-    
-    expect(user.email).toBe(userData.email)
-    expect(user.name).toBe(userData.name)
-    expect(user.id).toBeDefined()
-  })
-  
-  it('finds user by email', async () => {
+      email: "test@example.com",
+      name: "Test User",
+    };
+
+    const user = await userRepository.create(userData);
+
+    expect(user.email).toBe(userData.email);
+    expect(user.name).toBe(userData.name);
+    expect(user.id).toBeDefined();
+  });
+
+  it("finds user by email", async () => {
     const userData = {
-      email: 'test@example.com',
-      name: 'Test User'
-    }
-    
-    await userRepository.create(userData)
-    const user = await userRepository.findByEmail(userData.email)
-    
-    expect(user).toBeDefined()
-    expect(user?.email).toBe(userData.email)
-  })
-})
+      email: "test@example.com",
+      name: "Test User",
+    };
+
+    await userRepository.create(userData);
+    const user = await userRepository.findByEmail(userData.email);
+
+    expect(user).toBeDefined();
+    expect(user?.email).toBe(userData.email);
+  });
+});
 ```
 
 ### Integration Testing
 
 ```typescript
 // tests/api/users.test.ts
-import { describe, it, expect } from 'vitest'
-import { SELF } from 'cloudflare:test'
+import { SELF } from "cloudflare:test";
+import { describe, expect, it } from "vitest";
 
-describe('/api/users', () => {
-  it('creates a new user', async () => {
+describe("/api/users", () => {
+  it("creates a new user", async () => {
     const userData = {
-      email: 'test@example.com',
-      name: 'Test User'
-    }
-    
-    const response = await SELF.fetch('/api/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData)
-    })
-    
-    expect(response.status).toBe(201)
-    
-    const user = await response.json()
-    expect(user.email).toBe(userData.email)
-    expect(user.name).toBe(userData.name)
-  })
-})
+      email: "test@example.com",
+      name: "Test User",
+    };
+
+    const response = await SELF.fetch("/api/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData),
+    });
+
+    expect(response.status).toBe(201);
+
+    const user = await response.json();
+    expect(user.email).toBe(userData.email);
+    expect(user.name).toBe(userData.name);
+  });
+});
 ```
 
 ---
@@ -1089,9 +1114,9 @@ describe('/api/users', () => {
 
    ```typescript
    // Add new table to database/schema.ts
-   export const newTable = sqliteTable('new_table', {
+   export const newTable = sqliteTable("new_table", {
      // Define columns
-   })
+   });
    ```
 
 3. **Generate Migration**
@@ -1119,18 +1144,18 @@ describe('/api/users', () => {
 
    ```typescript
    const result = await db.query.users.findMany({
-     with: { posts: true }
-   })
+     with: { posts: true },
+   });
    ```
 
 2. **Test Query**
 
    ```typescript
    // Add test case
-   it('fetches users with posts', async () => {
-     const result = await userService.getUsersWithPosts()
-     expect(result).toBeDefined()
-   })
+   it("fetches users with posts", async () => {
+     const result = await userService.getUsersWithPosts();
+     expect(result).toBeDefined();
+   });
    ```
 
 3. **Optimize if Needed**
@@ -1168,11 +1193,11 @@ bun run db:migrate   # Apply to local
 ```typescript
 // Error: D1 database connection fails
 // Check environment variables in .env file
-console.log('DB Config:', {
-  accountId: process.env.CLOUDFLARE_ACCOUNT_ID?.slice(0, 8) + '...',
-  databaseId: process.env.D1_DATABASE_ID?.slice(0, 8) + '...',
-  hasToken: !!process.env.CLOUDFLARE_API_TOKEN
-})
+console.log("DB Config:", {
+  accountId: process.env.CLOUDFLARE_ACCOUNT_ID?.slice(0, 8) + "...",
+  databaseId: process.env.D1_DATABASE_ID?.slice(0, 8) + "...",
+  hasToken: !!process.env.CLOUDFLARE_API_TOKEN,
+});
 ```
 
 #### **TypeScript Compilation Errors**
@@ -1180,12 +1205,7 @@ console.log('DB Config:', {
 ```json
 // Ensure tsconfig.json includes database files
 {
-  "include": [
-    "app/**/*",
-    "database/**/*",
-    "workers/**/*",
-    "*.ts"
-  ]
+  "include": ["app/**/*", "database/**/*", "workers/**/*", "*.ts"]
 }
 ```
 
@@ -1205,12 +1225,12 @@ CREATE INDEX posts_author_id_idx ON posts(author_id);
 
 ```typescript
 // Use pagination for large datasets
-const pageSize = 100
+const pageSize = 100;
 const posts = await db
   .select()
   .from(posts)
   .limit(pageSize)
-  .offset(page * pageSize)
+  .offset(page * pageSize);
 ```
 
 ### Development vs Production

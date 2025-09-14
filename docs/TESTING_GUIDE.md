@@ -47,8 +47,9 @@ The NARA boilerplate uses **Vitest** as the primary testing framework with Cloud
 
 ```typescript
 // vitest.config.ts
-import path from "node:path"
-import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config"
+import path from "node:path";
+
+import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config";
 
 export default defineWorkersConfig({
   resolve: {
@@ -67,13 +68,13 @@ export default defineWorkersConfig({
     coverage: {
       provider: "istanbul",
       include: ["app/routes/**", "workers/api/**"],
-      reporter: ['text', 'html', 'json'],
+      reporter: ["text", "html", "json"],
       exclude: [
-        'node_modules/**',
-        'drizzle/**',
-        '**/*.test.ts',
-        '**/*.spec.ts',
-        '**/test-utils.ts',
+        "node_modules/**",
+        "drizzle/**",
+        "**/*.test.ts",
+        "**/*.spec.ts",
+        "**/test-utils.ts",
       ],
       thresholds: {
         global: {
@@ -85,7 +86,7 @@ export default defineWorkersConfig({
       },
     },
   },
-})
+});
 ```
 
 ### Test Dependencies
@@ -110,7 +111,7 @@ The project includes these testing dependencies:
    /  \    E2E Tests (Few)
   /    \   - Critical user journeys
  /______\  - Browser automation
-/        \ 
+/        \
 |        | Integration Tests (Some)
 |        | - API endpoints
 |        | - Database operations
@@ -162,15 +163,15 @@ const createTestRouter = (initialEntries = ['/']) => {
   )
 }
 
-const AllTheProviders = ({ 
-  children, 
-  initialEntries = ['/'] 
-}: { 
+const AllTheProviders = ({
+  children,
+  initialEntries = ['/']
+}: {
   children: React.ReactNode
   initialEntries?: string[]
 }) => {
   const router = createTestRouter(initialEntries)
-  
+
   return (
     <RouterProvider router={router}>
       {children}
@@ -183,14 +184,14 @@ const customRender = (
   options?: CustomRenderOptions
 ) => {
   const { initialEntries, ...renderOptions } = options || {}
-  
-  return render(ui, { 
+
+  return render(ui, {
     wrapper: ({ children }) => (
       <AllTheProviders initialEntries={initialEntries}>
         {children}
       </AllTheProviders>
     ),
-    ...renderOptions 
+    ...renderOptions
   })
 }
 
@@ -213,7 +214,7 @@ export const createMockFetch = (responses: Record<string, any>) => {
     if (!response) {
       return Promise.reject(new Error(`No mock response for ${url}`))
     }
-    
+
     return Promise.resolve({
       ok: true,
       status: 200,
@@ -230,59 +231,61 @@ export { customRender as render }
 
 ```typescript
 // lib/utils.test.ts
-import { describe, it, expect } from 'vitest'
-import { cn, formatDate, validateEmail } from './utils'
+import { describe, expect, it } from "vitest";
 
-describe('Utils', () => {
-  describe('cn (className merge)', () => {
-    it('merges class names correctly', () => {
-      expect(cn('base', 'extra')).toBe('base extra')
-      expect(cn('base', undefined, 'extra')).toBe('base extra')
-      expect(cn('px-4', 'px-2')).toBe('px-2') // Tailwind merge
-    })
-  })
+import { cn, formatDate, validateEmail } from "./utils";
 
-  describe('formatDate', () => {
-    it('formats dates correctly', () => {
-      const date = new Date('2024-01-15T10:30:00Z')
-      expect(formatDate(date)).toBe('January 15, 2024')
-      expect(formatDate(date, 'short')).toBe('Jan 15, 2024')
-    })
+describe("Utils", () => {
+  describe("cn (className merge)", () => {
+    it("merges class names correctly", () => {
+      expect(cn("base", "extra")).toBe("base extra");
+      expect(cn("base", undefined, "extra")).toBe("base extra");
+      expect(cn("px-4", "px-2")).toBe("px-2"); // Tailwind merge
+    });
+  });
 
-    it('handles invalid dates', () => {
-      expect(formatDate(null)).toBe('Invalid Date')
-      expect(formatDate(undefined)).toBe('Invalid Date')
-    })
-  })
+  describe("formatDate", () => {
+    it("formats dates correctly", () => {
+      const date = new Date("2024-01-15T10:30:00Z");
+      expect(formatDate(date)).toBe("January 15, 2024");
+      expect(formatDate(date, "short")).toBe("Jan 15, 2024");
+    });
 
-  describe('validateEmail', () => {
-    it('validates correct emails', () => {
-      expect(validateEmail('test@example.com')).toBe(true)
-      expect(validateEmail('user.name+tag@domain.co.uk')).toBe(true)
-    })
+    it("handles invalid dates", () => {
+      expect(formatDate(null)).toBe("Invalid Date");
+      expect(formatDate(undefined)).toBe("Invalid Date");
+    });
+  });
 
-    it('rejects invalid emails', () => {
-      expect(validateEmail('invalid')).toBe(false)
-      expect(validateEmail('test@')).toBe(false)
-      expect(validateEmail('@domain.com')).toBe(false)
-    })
-  })
-})
+  describe("validateEmail", () => {
+    it("validates correct emails", () => {
+      expect(validateEmail("test@example.com")).toBe(true);
+      expect(validateEmail("user.name+tag@domain.co.uk")).toBe(true);
+    });
+
+    it("rejects invalid emails", () => {
+      expect(validateEmail("invalid")).toBe(false);
+      expect(validateEmail("test@")).toBe(false);
+      expect(validateEmail("@domain.com")).toBe(false);
+    });
+  });
+});
 ```
 
 ### Testing React Hooks
 
 ```typescript
 // hooks/use-mobile.test.ts
-import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { renderHook } from '@testing-library/react'
-import { useMobile } from './use-mobile'
+import { renderHook } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+
+import { useMobile } from "./use-mobile";
 
 // Mock matchMedia
 const mockMatchMedia = (matches: boolean) => {
-  Object.defineProperty(window, 'matchMedia', {
+  Object.defineProperty(window, "matchMedia", {
     writable: true,
-    value: vi.fn().mockImplementation(query => ({
+    value: vi.fn().mockImplementation((query) => ({
       matches,
       media: query,
       onchange: null,
@@ -292,26 +295,26 @@ const mockMatchMedia = (matches: boolean) => {
       removeEventListener: vi.fn(),
       dispatchEvent: vi.fn(),
     })),
-  })
-}
+  });
+};
 
-describe('useMobile', () => {
+describe("useMobile", () => {
   afterEach(() => {
-    vi.restoreAllMocks()
-  })
+    vi.restoreAllMocks();
+  });
 
-  it('returns true for mobile viewport', () => {
-    mockMatchMedia(true)
-    const { result } = renderHook(() => useMobile())
-    expect(result.current).toBe(true)
-  })
+  it("returns true for mobile viewport", () => {
+    mockMatchMedia(true);
+    const { result } = renderHook(() => useMobile());
+    expect(result.current).toBe(true);
+  });
 
-  it('returns false for desktop viewport', () => {
-    mockMatchMedia(false)
-    const { result } = renderHook(() => useMobile())
-    expect(result.current).toBe(false)
-  })
-})
+  it("returns false for desktop viewport", () => {
+    mockMatchMedia(false);
+    const { result } = renderHook(() => useMobile());
+    expect(result.current).toBe(false);
+  });
+});
 ```
 
 ---
@@ -335,7 +338,7 @@ describe('Button', () => {
   it('handles click events', () => {
     const handleClick = vi.fn()
     render(<Button onClick={handleClick}>Click me</Button>)
-    
+
     fireEvent.click(screen.getByRole('button'))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
@@ -380,7 +383,7 @@ const mockUser = {
 describe('UserCard', () => {
   it('displays user information', () => {
     render(<UserCard user={mockUser} />)
-    
+
     expect(screen.getByText('John Doe')).toBeInTheDocument()
     expect(screen.getByText('john@example.com')).toBeInTheDocument()
     expect(screen.getByText('user')).toBeInTheDocument()
@@ -389,41 +392,41 @@ describe('UserCard', () => {
   it('shows actions when showActions is true', () => {
     const onEdit = vi.fn()
     const onDelete = vi.fn()
-    
+
     render(
-      <UserCard 
-        user={mockUser} 
-        showActions 
+      <UserCard
+        user={mockUser}
+        showActions
         onEdit={onEdit}
         onDelete={onDelete}
       />
     )
-    
+
     expect(screen.getByRole('button', { name: /edit/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /delete/i })).toBeInTheDocument()
   })
 
   it('calls onEdit when edit button is clicked', () => {
     const onEdit = vi.fn()
-    
+
     render(<UserCard user={mockUser} showActions onEdit={onEdit} />)
-    
+
     fireEvent.click(screen.getByRole('button', { name: /edit/i }))
     expect(onEdit).toHaveBeenCalledWith(mockUser.id)
   })
 
   it('shows confirmation dialog before delete', async () => {
     const onDelete = vi.fn()
-    
+
     render(<UserCard user={mockUser} showActions onDelete={onDelete} />)
-    
+
     fireEvent.click(screen.getByRole('button', { name: /delete/i }))
-    
+
     expect(screen.getByRole('dialog')).toBeInTheDocument()
     expect(screen.getByText(/are you sure/i)).toBeInTheDocument()
-    
+
     fireEvent.click(screen.getByRole('button', { name: /confirm/i }))
-    
+
     await waitFor(() => {
       expect(onDelete).toHaveBeenCalledWith(mockUser.id)
     })
@@ -431,7 +434,7 @@ describe('UserCard', () => {
 
   it('renders loading state', () => {
     render(<UserCard user={mockUser} loading />)
-    
+
     expect(screen.getByTestId('user-card-skeleton')).toBeInTheDocument()
     expect(screen.queryByText('John Doe')).not.toBeInTheDocument()
   })
@@ -458,7 +461,7 @@ describe('UserForm', () => {
 
   it('renders form fields', () => {
     render(<UserForm {...defaultProps} />)
-    
+
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /save/i })).toBeInTheDocument()
@@ -467,26 +470,26 @@ describe('UserForm', () => {
 
   it('validates required fields', async () => {
     render(<UserForm {...defaultProps} />)
-    
+
     fireEvent.click(screen.getByRole('button', { name: /save/i }))
-    
+
     await waitFor(() => {
       expect(screen.getByText(/name is required/i)).toBeInTheDocument()
       expect(screen.getByText(/email is required/i)).toBeInTheDocument()
     })
-    
+
     expect(defaultProps.onSubmit).not.toHaveBeenCalled()
   })
 
   it('validates email format', async () => {
     render(<UserForm {...defaultProps} />)
-    
+
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { value: 'invalid-email' }
     })
-    
+
     fireEvent.click(screen.getByRole('button', { name: /save/i }))
-    
+
     await waitFor(() => {
       expect(screen.getByText(/invalid email format/i)).toBeInTheDocument()
     })
@@ -494,17 +497,17 @@ describe('UserForm', () => {
 
   it('submits valid form data', async () => {
     render(<UserForm {...defaultProps} />)
-    
+
     fireEvent.change(screen.getByLabelText(/name/i), {
       target: { value: 'John Doe' }
     })
-    
+
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { value: 'john@example.com' }
     })
-    
+
     fireEvent.click(screen.getByRole('button', { name: /save/i }))
-    
+
     await waitFor(() => {
       expect(defaultProps.onSubmit).toHaveBeenCalledWith({
         name: 'John Doe',
@@ -518,9 +521,9 @@ describe('UserForm', () => {
       name: 'Jane Doe',
       email: 'jane@example.com'
     }
-    
+
     render(<UserForm {...defaultProps} initialData={initialData} />)
-    
+
     expect(screen.getByDisplayValue('Jane Doe')).toBeInTheDocument()
     expect(screen.getByDisplayValue('jane@example.com')).toBeInTheDocument()
   })
@@ -535,91 +538,92 @@ describe('UserForm', () => {
 
 ```typescript
 // workers/tests/api.test.ts
-import { afterAll, beforeAll, describe, expect, test, vi } from "vitest"
-import { default as appRoute } from "~/workers/app"
+import { afterAll, beforeAll, describe, expect, test, vi } from "vitest";
+
+import { default as appRoute } from "~/workers/app";
 
 describe("API Routes", () => {
   beforeAll(() => {
-    vi.stubEnv("NODE_ENV", "test")
-  })
+    vi.stubEnv("NODE_ENV", "test");
+  });
 
   afterAll(() => {
-    vi.unstubAllEnvs()
-  })
+    vi.unstubAllEnvs();
+  });
 
   describe("/api", () => {
     test("GET /api returns welcome message", async () => {
-      const res = await appRoute.request("/api")
-      
-      expect(res.status).toBe(200)
-      
-      const data = await res.json()
+      const res = await appRoute.request("/api");
+
+      expect(res.status).toBe(200);
+
+      const data = await res.json();
       expect(data).toEqual({
         message: "Hello from Hono! Running in API",
         env: expect.any(Object),
-      })
-    })
-  })
+      });
+    });
+  });
 
   describe("/api/hello-world", () => {
     test("GET /api/hello-world returns hello message", async () => {
-      const res = await appRoute.request("/api/hello-world")
-      
-      expect(res.status).toBe(200)
-      expect(await res.json()).toEqual({ 
-        message: "Hello, World!" 
-      })
-    })
-  })
+      const res = await appRoute.request("/api/hello-world");
+
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({
+        message: "Hello, World!",
+      });
+    });
+  });
 
   describe("/api/health", () => {
     test("GET /api/health returns health status", async () => {
-      const res = await appRoute.request("/api/health")
-      
-      expect(res.status).toBe(200)
-      
-      const data = await res.json()
-      expect(data).toHaveProperty('status')
-      expect(data).toHaveProperty('timestamp')
-      expect(data.status).toBe('ok')
-    })
-  })
+      const res = await appRoute.request("/api/health");
+
+      expect(res.status).toBe(200);
+
+      const data = await res.json();
+      expect(data).toHaveProperty("status");
+      expect(data).toHaveProperty("timestamp");
+      expect(data.status).toBe("ok");
+    });
+  });
 
   describe("Error Handling", () => {
     test("handles 404 for non-existent routes", async () => {
-      const res = await appRoute.request("/api/non-existent")
-      
-      expect(res.status).toBe(404)
-    })
+      const res = await appRoute.request("/api/non-existent");
+
+      expect(res.status).toBe(404);
+    });
 
     test("handles invalid request methods", async () => {
       const res = await appRoute.request("/api/hello-world", {
-        method: "DELETE"
-      })
-      
-      expect(res.status).toBe(405) // Method Not Allowed
-    })
-  })
-})
+        method: "DELETE",
+      });
+
+      expect(res.status).toBe(405); // Method Not Allowed
+    });
+  });
+});
 ```
 
 ### Testing API Endpoints with Database
 
 ```typescript
 // workers/tests/showcases-api.test.ts
-import { afterEach, beforeEach, describe, expect, test } from "vitest"
-import { SELF } from 'cloudflare:test'
+import { SELF } from "cloudflare:test";
+import { afterEach, beforeEach, describe, expect, test } from "vitest";
 
 describe("/api/showcases", () => {
   beforeEach(async () => {
     // Setup test data
-    await setupTestDatabase()
-  })
+    await setupTestDatabase();
+  });
 
   afterEach(async () => {
     // Cleanup test data
-    await cleanupTestDatabase()
-  })
+    await cleanupTestDatabase();
+  });
 
   test("GET /api/showcases returns showcases list", async () => {
     // Create test showcase
@@ -627,83 +631,83 @@ describe("/api/showcases", () => {
       name: "Test Showcase",
       description: "Test Description",
       url: "https://example.com",
-      image: "https://example.com/image.jpg"
-    })
+      image: "https://example.com/image.jpg",
+    });
 
-    const response = await SELF.fetch("/api/showcases")
-    
-    expect(response.status).toBe(200)
-    
-    const data = await response.json()
-    expect(data.data).toBeInstanceOf(Array)
-    expect(data.data).toHaveLength(1)
+    const response = await SELF.fetch("/api/showcases");
+
+    expect(response.status).toBe(200);
+
+    const data = await response.json();
+    expect(data.data).toBeInstanceOf(Array);
+    expect(data.data).toHaveLength(1);
     expect(data.data[0]).toMatchObject({
       name: "Test Showcase",
       description: "Test Description",
-      url: "https://example.com"
-    })
-  })
+      url: "https://example.com",
+    });
+  });
 
   test("POST /api/showcases creates new showcase", async () => {
     const showcaseData = {
       name: "New Showcase",
       description: "New Description",
       url: "https://new-example.com",
-      image: "https://new-example.com/image.jpg"
-    }
+      image: "https://new-example.com/image.jpg",
+    };
 
     const response = await SELF.fetch("/api/showcases", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(showcaseData)
-    })
+      body: JSON.stringify(showcaseData),
+    });
 
-    expect(response.status).toBe(201)
-    
-    const data = await response.json()
-    expect(data.data).toMatchObject(showcaseData)
-    expect(data.data.id).toBeDefined()
-    expect(data.data.createdAt).toBeDefined()
-  })
+    expect(response.status).toBe(201);
+
+    const data = await response.json();
+    expect(data.data).toMatchObject(showcaseData);
+    expect(data.data.id).toBeDefined();
+    expect(data.data.createdAt).toBeDefined();
+  });
 
   test("validates showcase data", async () => {
     const invalidData = {
       name: "", // Invalid: empty name
       description: "Valid description",
       url: "not-a-url", // Invalid: bad URL format
-    }
+    };
 
     const response = await SELF.fetch("/api/showcases", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(invalidData)
-    })
+      body: JSON.stringify(invalidData),
+    });
 
-    expect(response.status).toBe(400)
-    
-    const data = await response.json()
-    expect(data.error).toBe("Validation failed")
-    expect(data.details).toHaveProperty("fieldErrors")
-  })
-})
+    expect(response.status).toBe(400);
+
+    const data = await response.json();
+    expect(data.error).toBe("Validation failed");
+    expect(data.details).toHaveProperty("fieldErrors");
+  });
+});
 
 // Test helpers
 async function setupTestDatabase() {
   // Initialize test database state
-  await SELF.fetch("/test/setup-db", { method: "POST" })
+  await SELF.fetch("/test/setup-db", { method: "POST" });
 }
 
 async function cleanupTestDatabase() {
   // Clean up test database
-  await SELF.fetch("/test/cleanup-db", { method: "POST" })
+  await SELF.fetch("/test/cleanup-db", { method: "POST" });
 }
 
 async function createTestShowcase(data: any) {
   return await SELF.fetch("/api/showcases", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  })
+    body: JSON.stringify(data),
+  });
 }
 ```
 
@@ -711,54 +715,56 @@ async function createTestShowcase(data: any) {
 
 ```typescript
 // lib/mocks/handlers.ts
-import { http, HttpResponse } from 'msw'
+import { http, HttpResponse } from "msw";
+// lib/mocks/server.ts
+import { setupServer } from "msw/node";
+// vitest.setup.ts
+import { afterAll, afterEach, beforeAll } from "vitest";
+
+import { handlers } from "./handlers";
+import { server } from "./lib/mocks/server";
 
 export const handlers = [
   // GET /api/users
-  http.get('/api/users', () => {
+  http.get("/api/users", () => {
     return HttpResponse.json({
       data: [
-        { id: 1, name: 'John Doe', email: 'john@example.com' },
-        { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
+        { id: 1, name: "John Doe", email: "john@example.com" },
+        { id: 2, name: "Jane Smith", email: "jane@example.com" },
       ],
-      pagination: { page: 1, limit: 10, total: 2, pages: 1 }
-    })
+      pagination: { page: 1, limit: 10, total: 2, pages: 1 },
+    });
   }),
 
   // POST /api/users
-  http.post('/api/users', async ({ request }) => {
-    const userData = await request.json()
-    return HttpResponse.json({
-      data: {
-        id: 3,
-        ...userData,
-        createdAt: new Date().toISOString()
-      }
-    }, { status: 201 })
+  http.post("/api/users", async ({ request }) => {
+    const userData = await request.json();
+    return HttpResponse.json(
+      {
+        data: {
+          id: 3,
+          ...userData,
+          createdAt: new Date().toISOString(),
+        },
+      },
+      { status: 201 },
+    );
   }),
 
   // Error scenario
-  http.get('/api/users/error', () => {
+  http.get("/api/users/error", () => {
     return HttpResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }),
-]
+];
 
-// lib/mocks/server.ts
-import { setupServer } from 'msw/node'
-import { handlers } from './handlers'
+export const server = setupServer(...handlers);
 
-export const server = setupServer(...handlers)
-
-// vitest.setup.ts
-import { beforeAll, afterEach, afterAll } from 'vitest'
-import { server } from './lib/mocks/server'
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 ```
 
 ---
@@ -769,122 +775,125 @@ afterAll(() => server.close())
 
 ```typescript
 // repositories/user-repository.test.ts
-import { describe, it, expect, beforeEach } from 'vitest'
-import { userRepository } from './user-repository'
-import { db } from '~/lib/db'
-import { users } from '~/database/schema'
+import { beforeEach, describe, expect, it } from "vitest";
 
-describe('UserRepository', () => {
+import { users } from "~/database/schema";
+import { db } from "~/lib/db";
+
+import { userRepository } from "./user-repository";
+
+describe("UserRepository", () => {
   beforeEach(async () => {
     // Clean database before each test
-    await db.delete(users)
-  })
+    await db.delete(users);
+  });
 
-  it('creates a user', async () => {
+  it("creates a user", async () => {
     const userData = {
-      name: 'John Doe',
-      email: 'john@example.com'
-    }
-    
-    const user = await userRepository.create(userData)
-    
-    expect(user.id).toBeDefined()
-    expect(user.name).toBe(userData.name)
-    expect(user.email).toBe(userData.email)
-    expect(user.createdAt).toBeInstanceOf(Date)
-  })
+      name: "John Doe",
+      email: "john@example.com",
+    };
 
-  it('finds user by email', async () => {
+    const user = await userRepository.create(userData);
+
+    expect(user.id).toBeDefined();
+    expect(user.name).toBe(userData.name);
+    expect(user.email).toBe(userData.email);
+    expect(user.createdAt).toBeInstanceOf(Date);
+  });
+
+  it("finds user by email", async () => {
     const userData = {
-      name: 'John Doe',
-      email: 'john@example.com'
-    }
-    
-    const createdUser = await userRepository.create(userData)
-    const foundUser = await userRepository.findByEmail(userData.email)
-    
-    expect(foundUser).toEqual(createdUser)
-  })
+      name: "John Doe",
+      email: "john@example.com",
+    };
 
-  it('returns null for non-existent user', async () => {
-    const user = await userRepository.findByEmail('notfound@example.com')
-    expect(user).toBeNull()
-  })
+    const createdUser = await userRepository.create(userData);
+    const foundUser = await userRepository.findByEmail(userData.email);
 
-  it('updates user', async () => {
+    expect(foundUser).toEqual(createdUser);
+  });
+
+  it("returns null for non-existent user", async () => {
+    const user = await userRepository.findByEmail("notfound@example.com");
+    expect(user).toBeNull();
+  });
+
+  it("updates user", async () => {
     const user = await userRepository.create({
-      name: 'John Doe',
-      email: 'john@example.com'
-    })
-    
+      name: "John Doe",
+      email: "john@example.com",
+    });
+
     const updatedUser = await userRepository.update(user.id, {
-      name: 'Jane Doe'
-    })
-    
-    expect(updatedUser.name).toBe('Jane Doe')
-    expect(updatedUser.email).toBe('john@example.com')
-    expect(updatedUser.updatedAt).not.toEqual(user.updatedAt)
-  })
+      name: "Jane Doe",
+    });
 
-  it('soft deletes user', async () => {
+    expect(updatedUser.name).toBe("Jane Doe");
+    expect(updatedUser.email).toBe("john@example.com");
+    expect(updatedUser.updatedAt).not.toEqual(user.updatedAt);
+  });
+
+  it("soft deletes user", async () => {
     const user = await userRepository.create({
-      name: 'John Doe',
-      email: 'john@example.com'
-    })
-    
-    await userRepository.softDelete(user.id)
-    
-    const deletedUser = await userRepository.findById(user.id)
-    expect(deletedUser).toBeNull()
-  })
-})
+      name: "John Doe",
+      email: "john@example.com",
+    });
+
+    await userRepository.softDelete(user.id);
+
+    const deletedUser = await userRepository.findById(user.id);
+    expect(deletedUser).toBeNull();
+  });
+});
 ```
 
 ### Testing Database Migrations
 
 ```typescript
 // tests/migrations.test.ts
-import { describe, it, expect } from 'vitest'
-import { db } from '~/lib/db'
-import { sql } from 'drizzle-orm'
+import { sql } from "drizzle-orm";
+import { describe, expect, it } from "vitest";
 
-describe('Database Migrations', () => {
-  it('creates users table with correct schema', async () => {
+import { db } from "~/lib/db";
+
+describe("Database Migrations", () => {
+  it("creates users table with correct schema", async () => {
     const result = await db.all(sql`
       SELECT name, type FROM sqlite_master 
       WHERE type='table' AND name='users'
-    `)
-    
-    expect(result).toHaveLength(1)
-    expect(result[0].name).toBe('users')
-  })
+    `);
 
-  it('creates indexes correctly', async () => {
+    expect(result).toHaveLength(1);
+    expect(result[0].name).toBe("users");
+  });
+
+  it("creates indexes correctly", async () => {
     const indexes = await db.all(sql`
       SELECT name FROM sqlite_master 
       WHERE type='index' AND tbl_name='users'
-    `)
-    
-    const indexNames = indexes.map(idx => idx.name)
-    expect(indexNames).toContain('users_email_unique')
-    expect(indexNames).toContain('users_created_at_idx')
-  })
+    `);
 
-  it('enforces unique constraints', async () => {
+    const indexNames = indexes.map((idx) => idx.name);
+    expect(indexNames).toContain("users_email_unique");
+    expect(indexNames).toContain("users_created_at_idx");
+  });
+
+  it("enforces unique constraints", async () => {
     const userData = {
-      name: 'John Doe',
-      email: 'john@example.com'
-    }
-    
+      name: "John Doe",
+      email: "john@example.com",
+    };
+
     // First insert should succeed
-    await db.insert(users).values(userData)
-    
+    await db.insert(users).values(userData);
+
     // Second insert should fail
-    await expect(
-      db.insert(users).values(userData)
-    ).rejects.toThrow(/UNIQUE constraint failed/)
-  })
-})
+    await expect(db.insert(users).values(userData)).rejects.toThrow(
+      /UNIQUE constraint failed/,
+    );
+  });
+});
 ```
 
 ---
@@ -895,152 +904,161 @@ describe('Database Migrations', () => {
 
 ```typescript
 // playwright.config.ts
-import { defineConfig } from '@playwright/test'
+import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
-  testDir: './e2e',
+  testDir: "./e2e",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  reporter: "html",
   use: {
-    baseURL: 'http://localhost:5173',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
+    baseURL: "http://localhost:5173",
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
     },
     {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
+      name: "Mobile Chrome",
+      use: { ...devices["Pixel 5"] },
     },
   ],
   webServer: {
-    command: 'bun run dev',
-    url: 'http://localhost:5173',
+    command: "bun run dev",
+    url: "http://localhost:5173",
     reuseExistingServer: !process.env.CI,
   },
-})
+});
 ```
 
 ### E2E Test Examples
 
 ```typescript
 // e2e/user-management.spec.ts
-import { test, expect } from '@playwright/test'
-
-test.describe('User Management', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-  })
-
-  test('displays users list', async ({ page }) => {
-    await page.getByRole('link', { name: 'Users' }).click()
-    
-    await expect(page).toHaveURL('/users')
-    await expect(page.getByRole('heading', { name: 'Users' })).toBeVisible()
-    
-    // Check if users are displayed
-    const userCards = page.getByTestId('user-card')
-    await expect(userCards).toHaveCount(2) // Assuming test data
-  })
-
-  test('creates a new user', async ({ page }) => {
-    await page.getByRole('link', { name: 'Users' }).click()
-    await page.getByRole('button', { name: 'Add User' }).click()
-    
-    // Fill form
-    await page.getByLabel('Name').fill('John Doe')
-    await page.getByLabel('Email').fill('john@example.com')
-    
-    // Submit form
-    await page.getByRole('button', { name: 'Save' }).click()
-    
-    // Verify success
-    await expect(page.getByText('User created successfully')).toBeVisible()
-    await expect(page.getByText('John Doe')).toBeVisible()
-  })
-
-  test('validates form fields', async ({ page }) => {
-    await page.getByRole('link', { name: 'Users' }).click()
-    await page.getByRole('button', { name: 'Add User' }).click()
-    
-    // Try to submit empty form
-    await page.getByRole('button', { name: 'Save' }).click()
-    
-    // Check validation errors
-    await expect(page.getByText('Name is required')).toBeVisible()
-    await expect(page.getByText('Email is required')).toBeVisible()
-  })
-
-  test('edits existing user', async ({ page }) => {
-    await page.getByRole('link', { name: 'Users' }).click()
-    
-    // Click edit on first user
-    await page.getByTestId('user-card').first().getByRole('button', { name: 'Edit' }).click()
-    
-    // Update name
-    await page.getByLabel('Name').clear()
-    await page.getByLabel('Name').fill('Jane Doe')
-    
-    await page.getByRole('button', { name: 'Save' }).click()
-    
-    await expect(page.getByText('User updated successfully')).toBeVisible()
-    await expect(page.getByText('Jane Doe')).toBeVisible()
-  })
-
-  test('deletes user with confirmation', async ({ page }) => {
-    await page.getByRole('link', { name: 'Users' }).click()
-    
-    // Click delete on first user
-    await page.getByTestId('user-card').first().getByRole('button', { name: 'Delete' }).click()
-    
-    // Confirm deletion
-    await page.getByRole('dialog').getByRole('button', { name: 'Delete' }).click()
-    
-    await expect(page.getByText('User deleted successfully')).toBeVisible()
-  })
-})
-
 // e2e/responsive.spec.ts
-import { test, expect, devices } from '@playwright/test'
+import { devices, expect, expect, test, test } from "@playwright/test";
 
-test.describe('Responsive Design', () => {
-  test('mobile navigation works correctly', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 667 }) // iPhone SE
-    await page.goto('/')
-    
+test.describe("User Management", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
+  test("displays users list", async ({ page }) => {
+    await page.getByRole("link", { name: "Users" }).click();
+
+    await expect(page).toHaveURL("/users");
+    await expect(page.getByRole("heading", { name: "Users" })).toBeVisible();
+
+    // Check if users are displayed
+    const userCards = page.getByTestId("user-card");
+    await expect(userCards).toHaveCount(2); // Assuming test data
+  });
+
+  test("creates a new user", async ({ page }) => {
+    await page.getByRole("link", { name: "Users" }).click();
+    await page.getByRole("button", { name: "Add User" }).click();
+
+    // Fill form
+    await page.getByLabel("Name").fill("John Doe");
+    await page.getByLabel("Email").fill("john@example.com");
+
+    // Submit form
+    await page.getByRole("button", { name: "Save" }).click();
+
+    // Verify success
+    await expect(page.getByText("User created successfully")).toBeVisible();
+    await expect(page.getByText("John Doe")).toBeVisible();
+  });
+
+  test("validates form fields", async ({ page }) => {
+    await page.getByRole("link", { name: "Users" }).click();
+    await page.getByRole("button", { name: "Add User" }).click();
+
+    // Try to submit empty form
+    await page.getByRole("button", { name: "Save" }).click();
+
+    // Check validation errors
+    await expect(page.getByText("Name is required")).toBeVisible();
+    await expect(page.getByText("Email is required")).toBeVisible();
+  });
+
+  test("edits existing user", async ({ page }) => {
+    await page.getByRole("link", { name: "Users" }).click();
+
+    // Click edit on first user
+    await page
+      .getByTestId("user-card")
+      .first()
+      .getByRole("button", { name: "Edit" })
+      .click();
+
+    // Update name
+    await page.getByLabel("Name").clear();
+    await page.getByLabel("Name").fill("Jane Doe");
+
+    await page.getByRole("button", { name: "Save" }).click();
+
+    await expect(page.getByText("User updated successfully")).toBeVisible();
+    await expect(page.getByText("Jane Doe")).toBeVisible();
+  });
+
+  test("deletes user with confirmation", async ({ page }) => {
+    await page.getByRole("link", { name: "Users" }).click();
+
+    // Click delete on first user
+    await page
+      .getByTestId("user-card")
+      .first()
+      .getByRole("button", { name: "Delete" })
+      .click();
+
+    // Confirm deletion
+    await page
+      .getByRole("dialog")
+      .getByRole("button", { name: "Delete" })
+      .click();
+
+    await expect(page.getByText("User deleted successfully")).toBeVisible();
+  });
+});
+
+test.describe("Responsive Design", () => {
+  test("mobile navigation works correctly", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 }); // iPhone SE
+    await page.goto("/");
+
     // Mobile menu should be hidden initially
-    await expect(page.getByRole('navigation')).not.toBeVisible()
-    
-    // Open mobile menu
-    await page.getByRole('button', { name: 'Menu' }).click()
-    await expect(page.getByRole('navigation')).toBeVisible()
-    
-    // Navigate using mobile menu
-    await page.getByRole('link', { name: 'Users' }).click()
-    await expect(page).toHaveURL('/users')
-  })
+    await expect(page.getByRole("navigation")).not.toBeVisible();
 
-  test('desktop layout displays correctly', async ({ page }) => {
-    await page.setViewportSize({ width: 1920, height: 1080 })
-    await page.goto('/')
-    
+    // Open mobile menu
+    await page.getByRole("button", { name: "Menu" }).click();
+    await expect(page.getByRole("navigation")).toBeVisible();
+
+    // Navigate using mobile menu
+    await page.getByRole("link", { name: "Users" }).click();
+    await expect(page).toHaveURL("/users");
+  });
+
+  test("desktop layout displays correctly", async ({ page }) => {
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    await page.goto("/");
+
     // Desktop navigation should be visible
-    await expect(page.getByRole('navigation')).toBeVisible()
-    
+    await expect(page.getByRole("navigation")).toBeVisible();
+
     // Sidebar should be visible
-    await expect(page.getByTestId('sidebar')).toBeVisible()
-  })
-})
+    await expect(page.getByTestId("sidebar")).toBeVisible();
+  });
+});
 ```
 
 ---
@@ -1054,17 +1072,17 @@ test.describe('Responsive Design', () => {
 export default defineWorkersConfig({
   test: {
     coverage: {
-      provider: 'istanbul',
-      reporter: ['text', 'html', 'json'],
-      reportsDirectory: './coverage',
+      provider: "istanbul",
+      reporter: ["text", "html", "json"],
+      reportsDirectory: "./coverage",
       exclude: [
-        'node_modules/**',
-        'drizzle/**',
-        'public/**',
-        '**/*.test.ts',
-        '**/*.spec.ts',
-        '**/*.config.ts',
-        '**/test-utils.ts',
+        "node_modules/**",
+        "drizzle/**",
+        "public/**",
+        "**/*.test.ts",
+        "**/*.spec.ts",
+        "**/*.config.ts",
+        "**/test-utils.ts",
       ],
       thresholds: {
         global: {
@@ -1076,7 +1094,7 @@ export default defineWorkersConfig({
       },
     },
   },
-})
+});
 ```
 
 ### Running Tests
@@ -1115,18 +1133,18 @@ bunx playwright test --ui
 
 ```typescript
 // Good test structure
-describe('UserService', () => {
-  describe('createUser', () => {
-    it('creates user with valid data', () => {})
-    it('throws error for invalid email', () => {})
-    it('throws error for duplicate email', () => {})
-  })
-  
-  describe('updateUser', () => {
-    it('updates existing user', () => {})
-    it('throws error for non-existent user', () => {})
-  })
-})
+describe("UserService", () => {
+  describe("createUser", () => {
+    it("creates user with valid data", () => {});
+    it("throws error for invalid email", () => {});
+    it("throws error for duplicate email", () => {});
+  });
+
+  describe("updateUser", () => {
+    it("updates existing user", () => {});
+    it("throws error for non-existent user", () => {});
+  });
+});
 ```
 
 ### Test Data Management
@@ -1134,72 +1152,72 @@ describe('UserService', () => {
 ```typescript
 // factories/user.factory.ts
 export const createUserData = (overrides = {}) => ({
-  name: 'John Doe',
-  email: 'john@example.com',
-  role: 'user',
+  name: "John Doe",
+  email: "john@example.com",
+  role: "user",
   ...overrides,
-})
+});
 
 export const createUser = async (overrides = {}) => {
-  const userData = createUserData(overrides)
-  return await userRepository.create(userData)
-}
+  const userData = createUserData(overrides);
+  return await userRepository.create(userData);
+};
 
 // Usage in tests
-it('updates user name', async () => {
-  const user = await createUser()
-  const updated = await userService.updateUser(user.id, { name: 'Jane Doe' })
-  expect(updated.name).toBe('Jane Doe')
-})
+it("updates user name", async () => {
+  const user = await createUser();
+  const updated = await userService.updateUser(user.id, { name: "Jane Doe" });
+  expect(updated.name).toBe("Jane Doe");
+});
 ```
 
 ### Async Testing
 
 ```typescript
 // Testing async operations
-it('fetches user data', async () => {
-  const promise = userService.getUser(1)
-  await expect(promise).resolves.toEqual(expectedUser)
-})
+it("fetches user data", async () => {
+  const promise = userService.getUser(1);
+  await expect(promise).resolves.toEqual(expectedUser);
+});
 
-it('handles network errors', async () => {
-  const promise = userService.getUser(999)
-  await expect(promise).rejects.toThrow('User not found')
-})
+it("handles network errors", async () => {
+  const promise = userService.getUser(999);
+  await expect(promise).rejects.toThrow("User not found");
+});
 
 // Testing with timeouts
-it('completes within time limit', async () => {
-  const start = Date.now()
-  await userService.processLargeData()
-  const duration = Date.now() - start
-  expect(duration).toBeLessThan(5000)
-})
+it("completes within time limit", async () => {
+  const start = Date.now();
+  await userService.processLargeData();
+  const duration = Date.now() - start;
+  expect(duration).toBeLessThan(5000);
+});
 ```
 
 ### Mocking Guidelines
 
 ```typescript
 // Mock external dependencies
-vi.mock('~/lib/email-service', () => ({
+vi.mock("~/lib/email-service", () => ({
   sendEmail: vi.fn().mockResolvedValue(true),
-}))
+}));
 
 // Partial mocking
-vi.mock('~/lib/utils', async () => {
-  const actual = await vi.importActual('~/lib/utils')
+vi.mock("~/lib/utils", async () => {
+  const actual = await vi.importActual("~/lib/utils");
   return {
     ...actual,
-    getCurrentTimestamp: vi.fn(() => '2024-01-01T00:00:00Z'),
-  }
-})
+    getCurrentTimestamp: vi.fn(() => "2024-01-01T00:00:00Z"),
+  };
+});
 
 // Spy on console methods
-it('logs error message', () => {
-  const consoleSpy = vi.spyOn(console, 'error')
-  service.handleError(new Error('Test error'))
-  expect(consoleSpy).toHaveBeenCalledWith('Test error')
-  consoleSpy.mockRestore()
-})
+it("logs error message", () => {
+  const consoleSpy = vi.spyOn(console, "error");
+  service.handleError(new Error("Test error"));
+  expect(consoleSpy).toHaveBeenCalledWith("Test error");
+  consoleSpy.mockRestore();
+});
 ```
 
 ---
@@ -1230,32 +1248,32 @@ it('logs error message', () => {
 
 ```typescript
 // Debug with console.log
-it('debugs complex logic', () => {
-  const result = complexFunction(input)
-  console.log('Debug result:', result) // Remove before commit
-  expect(result).toBe(expected)
-})
+it("debugs complex logic", () => {
+  const result = complexFunction(input);
+  console.log("Debug result:", result); // Remove before commit
+  expect(result).toBe(expected);
+});
 
 // Debug with debugger
-it('steps through code', () => {
-  debugger // Execution will pause here
-  const result = complexFunction(input)
-  expect(result).toBe(expected)
-})
+it("steps through code", () => {
+  debugger; // Execution will pause here
+  const result = complexFunction(input);
+  expect(result).toBe(expected);
+});
 
 // Debug failed tests
-it('investigates failure', () => {
-  const result = unreliableFunction()
-  
+it("investigates failure", () => {
+  const result = unreliableFunction();
+
   // Log state for investigation
   if (result !== expected) {
-    console.log('Unexpected result:', result)
-    console.log('Expected:', expected)
-    console.log('Input state:', getInputState())
+    console.log("Unexpected result:", result);
+    console.log("Expected:", expected);
+    console.log("Input state:", getInputState());
   }
-  
-  expect(result).toBe(expected)
-})
+
+  expect(result).toBe(expected);
+});
 ```
 
 ---
@@ -1266,43 +1284,43 @@ it('investigates failure', () => {
 
 ```typescript
 // tests/performance/api-performance.test.ts
-import { describe, test, expect } from 'vitest'
-import { SELF } from 'cloudflare:test'
+import { SELF } from "cloudflare:test";
+import { describe, expect, test } from "vitest";
 
-describe('API Performance', () => {
-  test('API responses are under acceptable latency', async () => {
-    const start = performance.now()
-    
-    const response = await SELF.fetch('/api/showcases')
-    
-    const end = performance.now()
-    const duration = end - start
-    
-    expect(response.status).toBe(200)
-    expect(duration).toBeLessThan(1000) // Under 1 second
-  })
+describe("API Performance", () => {
+  test("API responses are under acceptable latency", async () => {
+    const start = performance.now();
 
-  test('handles concurrent requests efficiently', async () => {
-    const concurrentRequests = 10
-    const start = performance.now()
-    
+    const response = await SELF.fetch("/api/showcases");
+
+    const end = performance.now();
+    const duration = end - start;
+
+    expect(response.status).toBe(200);
+    expect(duration).toBeLessThan(1000); // Under 1 second
+  });
+
+  test("handles concurrent requests efficiently", async () => {
+    const concurrentRequests = 10;
+    const start = performance.now();
+
     const promises = Array.from({ length: concurrentRequests }, () =>
-      SELF.fetch('/api/health')
-    )
-    
-    const responses = await Promise.all(promises)
-    const end = performance.now()
-    
+      SELF.fetch("/api/health"),
+    );
+
+    const responses = await Promise.all(promises);
+    const end = performance.now();
+
     // All requests should succeed
-    responses.forEach(response => {
-      expect(response.status).toBe(200)
-    })
-    
+    responses.forEach((response) => {
+      expect(response.status).toBe(200);
+    });
+
     // Total time should be reasonable for concurrent requests
-    const totalDuration = end - start
-    expect(totalDuration).toBeLessThan(2000) // Under 2 seconds for 10 requests
-  })
-})
+    const totalDuration = end - start;
+    expect(totalDuration).toBeLessThan(2000); // Under 2 seconds for 10 requests
+  });
+});
 ```
 
 ---
@@ -1324,42 +1342,42 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node-version: [22]
-        
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-          
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
-        
+
       - name: Run type checking
         run: bun run typecheck
-        
+
       - name: Run unit tests
         run: bun run test
-        
+
       - name: Run tests with coverage
         run: bun run coverage
 ```
 
 ### Test Commands Reference
 
-| Command | Description | When to Use | Troubleshooting |
-|---------|-------------|-------------|-----------------|
-| `bun test` | Run all tests once | Before commits, CI | [Test failures](./TROUBLESHOOTING.md#test-failures) |
-| `bun test --watch` | Run tests in watch mode | Active development | Performance issues if too many files |
-| `bun test --ui` | Open Vitest UI | Debugging test failures | [UI not opening](./TROUBLESHOOTING.md#vitest-ui-issues) |
-| `bun run coverage` | Generate coverage report | Before releases | Low coverage warnings |
-| `bun test <pattern>` | Run specific tests | Testing single feature | Pattern matching help |
+| Command              | Description              | When to Use             | Troubleshooting                                         |
+| -------------------- | ------------------------ | ----------------------- | ------------------------------------------------------- |
+| `bun test`           | Run all tests once       | Before commits, CI      | [Test failures](./TROUBLESHOOTING.md#test-failures)     |
+| `bun test --watch`   | Run tests in watch mode  | Active development      | Performance issues if too many files                    |
+| `bun test --ui`      | Open Vitest UI           | Debugging test failures | [UI not opening](./TROUBLESHOOTING.md#vitest-ui-issues) |
+| `bun run coverage`   | Generate coverage report | Before releases         | Low coverage warnings                                   |
+| `bun test <pattern>` | Run specific tests       | Testing single feature  | Pattern matching help                                   |
 
 ---
 
