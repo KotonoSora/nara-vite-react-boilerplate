@@ -17,15 +17,16 @@ This guide explains the two main GitHub Actions workflows used in this project:
 **How it works:**
 
 1. **Trigger:** Runs on every PR to the main development branches.
-2. **Duplicate Check:** Skips duplicate runs for the same PR to save resources.
-3. **Quality Checks:**
 
-- Checks out the code.
-- Sets up Bun (the JavaScript runtime used in this project).
-- Installs dependencies using Bun.
-- Runs TypeScript type checking to catch type errors.
-- Runs ESLint to enforce code style and catch common mistakes.
-- Runs unit tests to ensure code correctness.
+2. **Duplicate Check:** Skips duplicate runs for the same PR to save resources.
+
+3. **Quality Checks:**
+   - Checks out the code.
+   - Sets up Bun (the JavaScript runtime used in this project).
+   - Installs dependencies using Bun.
+   - Runs TypeScript type checking to catch type errors.
+   - Runs ESLint to enforce code style and catch common mistakes.
+   - Runs unit tests to ensure code correctness.
 
 **What you need to know:**
 
@@ -45,27 +46,23 @@ This guide explains the two main GitHub Actions workflows used in this project:
 **How it works:**
 
 1. **Trigger:**
-
-- Manually started from the GitHub Actions tab ("workflow_dispatch").
-- You choose which branch to deploy.
+   - Manually started from the GitHub Actions tab ("workflow_dispatch").
+   - You choose which branch to deploy.
 
 2. **Secrets Validation:**
-
-- Checks that all required secrets (API tokens, database info) are set up in the repository.
+   - Checks that all required secrets (API tokens, database info) are set up in the repository.
 
 3. **Setup:**
-
-- Checks out the selected branch.
-- Sets up Bun and installs dependencies.
-- Disables telemetry for privacy.
-- Injects Cloudflare and database configuration using secrets and variables.
-- Generates type definitions for Wrangler (Cloudflare tool).
-- Runs database migrations for production.
+   - Checks out the selected branch.
+   - Sets up Bun and installs dependencies.
+   - Disables telemetry for privacy.
+   - Injects Cloudflare and database configuration using secrets and variables.
+   - Generates type definitions for Wrangler (Cloudflare tool).
+   - Runs database migrations for production.
 
 4. **Deploy:**
-
-- Deploys to Cloudflare Pages.
-- Uses different environments (production or development) based on the branch.
+   - Deploys to Cloudflare Pages.
+   - Uses different environments (production or development) based on the branch.
 
 **What you need to know:**
 
