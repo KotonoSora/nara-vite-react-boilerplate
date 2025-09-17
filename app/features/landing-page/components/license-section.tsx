@@ -13,7 +13,7 @@ export const LicenseSection = memo(function LicenseSection() {
   const { t } = useI18n();
   const { githubRepository, commercialLink } = usePageContext() || {};
 
-  if (!githubRepository || !commercialLink) return null;
+  if (!githubRepository) return null;
 
   return (
     <section

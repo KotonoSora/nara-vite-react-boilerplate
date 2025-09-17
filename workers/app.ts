@@ -1,6 +1,6 @@
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
-import { createRequestHandler } from "react-router";
+import { createRequestHandler, RouterContextProvider } from "react-router";
 
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
@@ -8,7 +8,7 @@ import * as schema from "~/database/schema";
 import apiRoute from "~/workers/api/common";
 
 declare module "react-router" {
-  export interface AppLoadContext {
+  export interface RouterContextProvider {
     cloudflare: {
       env: Env;
       ctx: ExecutionContext;
@@ -38,10 +38,14 @@ app.all("*", async (c) => {
 
   const db = drizzle(env.DB, { schema });
 
-  const response = await requestHandler(request, {
-    cloudflare: { env, ctx },
-    db,
-  });
+  const context = new RouterContextProvider();
+  const response = await requestHandler(
+    request,
+    Object.assign(context, {
+      cloudflare: { env, ctx },
+      db,
+    }),
+  );
   return response;
 });
 
