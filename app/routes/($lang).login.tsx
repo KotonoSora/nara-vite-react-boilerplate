@@ -9,9 +9,13 @@ import {
   pageMiddlewareContext,
 } from "~/features/login/middleware/page-middleware";
 import { ContentLoginPage } from "~/features/login/page";
+import { authMiddleware } from "~/features/shared/middleware/auth";
 import { createTranslationFunction } from "~/lib/i18n";
 
-export const middleware: MiddlewareFunction[] = [pageMiddleware];
+export const middleware: MiddlewareFunction[] = [
+  authMiddleware,
+  pageMiddleware,
+];
 
 export async function loader({ context }: Route.LoaderArgs) {
   const pageContent = context.get(pageMiddlewareContext);
