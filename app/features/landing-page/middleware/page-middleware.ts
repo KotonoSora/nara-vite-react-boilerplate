@@ -59,4 +59,6 @@ export const pageMiddleware: MiddlewareFunction = async (
   };
 
   context.set(pageMiddlewareContext, contextValue);
+
+  return await next();
 };

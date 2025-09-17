@@ -13,7 +13,7 @@ import { createTranslationFunction } from "~/lib/i18n";
 
 export const middleware: MiddlewareFunction[] = [forgotPasswordMiddleware];
 
-export async function loader({ context }: any) {
+export async function loader({ context }: Route.LoaderArgs) {
   const forgotPasswordContent = context.get(forgotPasswordMiddlewareContext);
   return forgotPasswordContent;
 }
@@ -47,7 +47,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   };
 }
 
-export function meta({ loaderData }: any) {
+export function meta({ loaderData }: Route.MetaArgs) {
   const { title, description } = loaderData;
   return [{ title }, { name: "description", content: description }];
 }
