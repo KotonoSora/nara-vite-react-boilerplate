@@ -1,31 +1,25 @@
 import { z } from "zod";
 
+import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).forgot-password";
 
 import { PageContext } from "~/features/forgot-password/context/page-context";
+import {
+  forgotPasswordMiddleware,
+  forgotPasswordMiddlewareContext,
+} from "~/features/forgot-password/middleware/forgot-password-middleware";
 import { ForgotPasswordPage } from "~/features/forgot-password/page";
 import { createTranslationFunction } from "~/lib/i18n";
 
-export async function loader({ context, request }: Route.LoaderArgs) {
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
+export const middleware: MiddlewareFunction[] = [forgotPasswordMiddleware];
 
-  const language = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
-
-  return {
-    title: t("auth.forgotPassword.title"),
-    description: t("auth.forgotPassword.description"),
-  };
+export async function loader({ context }: Route.LoaderArgs) {
+  const forgotPasswordContent = context.get(forgotPasswordMiddlewareContext);
+  return forgotPasswordContent;
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
-
-  const language = await resolveRequestLanguage(request);
+  const { language } = context.get(forgotPasswordMiddlewareContext);
   const t = createTranslationFunction(language);
   const formData = await request.formData();
   const forgotPasswordSchema = z.object({
@@ -54,22 +48,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (
-    !("title" in loaderData) ||
-    !("description" in loaderData) ||
-    !loaderData.title ||
-    !loaderData.description
-  ) {
-    return [
-      { title: "Forgot Password" },
-      { name: "description", content: "Reset your password" },
-    ];
-  }
-
-  return [
-    { title: loaderData.title },
-    { name: "description", content: loaderData.description },
-  ];
+  const { title, description } = loaderData;
+  return [{ title }, { name: "description", content: description }];
 }
 
 export default function ForgotPassword({ actionData }: Route.ComponentProps) {

@@ -1,40 +1,30 @@
-import { redirect } from "react-router";
 import { z } from "zod";
 
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).login";
 
 import { PageContext } from "~/features/login/context/page-context";
+import {
+  pageMiddleware,
+  pageMiddlewareContext,
+} from "~/features/login/middleware/page-middleware";
 import { ContentLoginPage } from "~/features/login/page";
+import { authMiddleware } from "~/features/shared/middleware/auth";
 import { createTranslationFunction } from "~/lib/i18n";
 
-export async function loader({ context, request }: Route.LoaderArgs) {
-  const { getUserId } = await import("~/lib/auth/auth.server");
+export const middleware: MiddlewareFunction[] = [
+  authMiddleware,
+  pageMiddleware,
+];
 
-  // Redirect if already logged in
-  const userId = await getUserId(request);
-  if (userId) {
-    throw redirect("/dashboard");
-  }
-
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
-
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
-
-  return {
-    title: t("auth.login.title"),
-    description: t("auth.login.description"),
-  };
+export async function loader({ context }: Route.LoaderArgs) {
+  const pageContent = context.get(pageMiddlewareContext);
+  return pageContent;
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
+  const pageContent = context.get(pageMiddlewareContext);
+  const { language } = pageContent;
   const t = createTranslationFunction(language);
 
   const formData = await request.formData();
@@ -70,25 +60,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (
-    !("title" in loaderData) ||
-    !("description" in loaderData) ||
-    !loaderData.title ||
-    !loaderData.description
-  ) {
-    return [
-      { title: "Sign In" },
-      {
-        name: "description",
-        content: "Sign in to your account",
-      },
-    ];
-  }
-
-  return [
-    { title: loaderData.title },
-    { name: "description", content: loaderData.description },
-  ];
+  const { title, description } = loaderData;
+  return [{ title }, { name: "description", content: description }];
 }
 
 export default function Login({ actionData }: Route.ComponentProps) {
