@@ -1,3 +1,5 @@
 export type PrivacyPageProps = {
-  githubRepository?: string | null;
+  title: string;
+  description: string;
+  githubRepository?: string;
 };

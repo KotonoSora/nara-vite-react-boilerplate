@@ -1,55 +1,27 @@
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).privacy";
 
-import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { PageContext } from "~/features/privacy/context/page-context";
+import {
+  privacyMiddleware,
+  privacyMiddlewareContext,
+} from "~/features/privacy/middleware/page-middleware";
 import { ContentPrivacyPage } from "~/features/privacy/page";
-import { createTranslationFunction } from "~/lib/i18n";
 
-export async function loader({ context, request }: Route.LoaderArgs) {
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
+export const middleware: MiddlewareFunction[] = [privacyMiddleware];
 
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
-
-  const title = t("legal.privacy.title");
-  const description = t("legal.privacy.description");
-
-  const { githubRepository } =
-    (await getPageInformation(import.meta.env as any)) || {};
-
-  return {
-    title,
-    description,
-    githubRepository,
-  };
+export async function loader({ context }: Route.LoaderArgs) {
+  const privacyContent = context.get(privacyMiddlewareContext);
+  return privacyContent;
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (
-    !("title" in loaderData) ||
-    !("description" in loaderData) ||
-    !loaderData.title ||
-    !loaderData.description
-  ) {
-    return [
-      { title: "Privacy Policy" },
-      { name: "description", content: "Privacy Policy" },
-    ];
-  }
-
-  return [
-    { title: loaderData.title },
-    { name: "description", content: loaderData.description },
-  ];
+  const { title, description } = loaderData;
+  return [{ title }, { name: "description", content: description }];
 }
 export default function PrivacyPage({ loaderData }: Route.ComponentProps) {
-  const { githubRepository } = loaderData;
-
   return (
-    <PageContext.Provider value={{ githubRepository }}>
+    <PageContext.Provider value={loaderData}>
       <ContentPrivacyPage />
     </PageContext.Provider>
   );
