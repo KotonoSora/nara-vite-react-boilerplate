@@ -1,3 +1,5 @@
+import { redirect } from "react-router";
+
 import type { SupportedLanguage } from "~/lib/i18n";
 import type { MiddlewareFunction } from "react-router";
 
@@ -25,12 +27,12 @@ export const adminMiddleware: MiddlewareFunction = async (
   const { getUserId } = await import("~/lib/auth/auth.server");
   const userId = await getUserId(request);
   if (!userId) {
-    return Response.redirect("/", 302);
+    throw redirect("/");
   }
   const { getUserById } = await import("~/lib/auth/user.server");
   const user = await getUserById(db, userId);
   if (!user || user.role !== "admin") {
-    return Response.redirect("/", 302);
+    throw redirect("/");
   }
   const contextValue: AdminPageContextType = {
     title: t("admin.meta.title"),
