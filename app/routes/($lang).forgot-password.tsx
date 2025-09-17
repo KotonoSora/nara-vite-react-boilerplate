@@ -49,7 +49,7 @@ export async function action({ request, context }: Route.ActionArgs) {
 
 export function meta({ loaderData }: any) {
   const { title, description } = loaderData;
-  return [{ title: title }, { name: "description", content: description }];
+  return [{ title }, { name: "description", content: description }];
 }
 
 export default function ForgotPassword({ actionData }: Route.ComponentProps) {

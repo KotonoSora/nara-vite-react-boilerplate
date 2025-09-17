@@ -17,7 +17,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 
 export function meta({ loaderData }: Route.MetaArgs) {
   const { title, description } = loaderData;
-  return [{ title: title }, { name: "description", content: description }];
+  return [{ title }, { name: "description", content: description }];
 }
 
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
