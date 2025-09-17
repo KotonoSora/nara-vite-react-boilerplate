@@ -1,45 +1,24 @@
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).about";
 
+import {
+  aboutMiddleware,
+  aboutMiddlewareContext,
+} from "~/features/about/middleware/about-middleware";
 import { AboutPage } from "~/features/about/page";
-import { createTranslationFunction } from "~/lib/i18n";
 
-export async function loader({ context, request }: Route.LoaderArgs) {
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
+export const middleware: MiddlewareFunction[] = [aboutMiddleware];
 
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
-
-  return {
-    title: t("about.meta.title"),
-    description: t("about.meta.description"),
-  };
+export async function loader({ context }: Route.LoaderArgs) {
+  const aboutContent = context.get(aboutMiddlewareContext);
+  return aboutContent;
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (
-    !("title" in loaderData) ||
-    !("description" in loaderData) ||
-    !loaderData.title ||
-    !loaderData.description
-  ) {
-    return [
-      { title: "About Us" },
-      {
-        name: "description",
-        content: "Learn more about our company and team.",
-      },
-    ];
-  }
-
-  return [
-    { title: loaderData.title },
-    { name: "description", content: loaderData.description },
-  ];
+  const { title, description } = loaderData;
+  return [{ title }, { name: "description", content: description }];
 }
 
-export default function Page({}: Route.ComponentProps) {
+export default function Page() {
   return <AboutPage />;
 }
