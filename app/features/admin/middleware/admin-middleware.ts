@@ -1,3 +1,4 @@
+import type { SupportedLanguage } from "~/lib/i18n";
 import type { MiddlewareFunction } from "react-router";
 
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
@@ -7,7 +8,7 @@ import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 export type AdminPageContextType = {
   title: string;
   description: string;
-  language: string;
+  language: SupportedLanguage;
   user: any;
 };
 

@@ -5,28 +5,28 @@ import { createMiddlewareContext } from "~/features/shared/context/create-middle
 import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 
-export type AboutPageContextType = {
+export type ForgotPasswordPageContextType = {
   title: string;
   description: string;
   language: SupportedLanguage;
 };
 
-export const { aboutMiddlewareContext } =
-  createMiddlewareContext<AboutPageContextType>("aboutMiddlewareContext");
+export const { forgotPasswordMiddlewareContext } =
+  createMiddlewareContext<ForgotPasswordPageContextType>(
+    "forgotPasswordMiddlewareContext",
+  );
 
-export const aboutMiddleware: MiddlewareFunction = async (
+export const forgotPasswordMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
   const language = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
-
-  const contextValue: AboutPageContextType = {
-    title: t("about.meta.title"),
-    description: t("about.meta.description"),
+  const contextValue: ForgotPasswordPageContextType = {
+    title: t("auth.forgotPassword.title"),
+    description: t("auth.forgotPassword.description"),
     language,
   };
-
-  context.set(aboutMiddlewareContext, contextValue);
+  context.set(forgotPasswordMiddlewareContext, contextValue);
   return next();
 };
