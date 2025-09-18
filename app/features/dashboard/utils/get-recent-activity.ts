@@ -1,10 +1,10 @@
-import type { TranslationKey } from "~/lib/i18n/types";
+import type { TranslationFunctionType } from "~/lib/i18n/translations";
 import type { Icon } from "../types/type";
 
 import { formatTimeAgo } from "~/lib/i18n/time-format";
 
 export function getRecentActivity(
-  t: (key: TranslationKey, params?: Record<string, string | number>) => string,
+  t: TranslationFunctionType,
   createdAt: string | Date,
 ) {
   // Create timestamps for mock activity data

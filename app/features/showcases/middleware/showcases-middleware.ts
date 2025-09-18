@@ -4,8 +4,7 @@ import type { PageInformation } from "../types/type";
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import { I18nContext } from "~/middleware/i18n";
 
 export const { showcasesMiddlewareContext } =
   createMiddlewareContext<PageInformation>("showcasesMiddlewareContext");
@@ -14,8 +13,7 @@ export const showcasesMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
-  const language = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
+  const { language } = context.get(I18nContext);
 
   const { db } = context;
   const { title, description, githubRepository } = getPageInformation(
@@ -33,5 +31,4 @@ export const showcasesMiddleware: MiddlewareFunction = async (
   };
 
   context.set(showcasesMiddlewareContext, contextValue);
-  return next();
 };

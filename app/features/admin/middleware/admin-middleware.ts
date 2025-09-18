@@ -4,8 +4,7 @@ import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { MiddlewareFunction } from "react-router";
 
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import { I18nContext } from "~/middleware/i18n";
 
 export type AdminPageContextType = {
   title: string;
@@ -22,8 +21,7 @@ export const adminMiddleware: MiddlewareFunction = async (
   next,
 ) => {
   const { db } = context;
-  const language = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
+  const { language, t } = context.get(I18nContext);
   const { getUserId } = await import("~/lib/auth/auth.server");
   const userId = await getUserId(request);
   if (!userId) {
@@ -41,5 +39,4 @@ export const adminMiddleware: MiddlewareFunction = async (
     user,
   };
   context.set(adminMiddlewareContext, contextValue);
-  return next();
 };

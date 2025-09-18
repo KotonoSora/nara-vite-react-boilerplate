@@ -6,8 +6,7 @@ import type { MiddlewareFunction } from "react-router";
 import { getRecentActivity } from "~/features/dashboard/utils/get-recent-activity";
 import { getStats } from "~/features/dashboard/utils/get-stats";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import { I18nContext } from "~/middleware/i18n";
 
 export type DashboardPageContextType = {
   title: string;
@@ -28,8 +27,7 @@ export const dashboardMiddleware: MiddlewareFunction = async (
   next,
 ) => {
   const { db } = context;
-  const language = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
+  const { language, t } = context.get(I18nContext);
   const { getUserId } = await import("~/lib/auth/auth.server");
   const userId = await getUserId(request);
   if (!userId) {
@@ -52,5 +50,4 @@ export const dashboardMiddleware: MiddlewareFunction = async (
     stats,
   };
   context.set(dashboardMiddlewareContext, contextValue);
-  return next();
 };
