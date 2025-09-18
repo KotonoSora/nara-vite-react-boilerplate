@@ -23,12 +23,15 @@ import type { Route } from "./+types/root";
 import appCssUrl from "~/app.css?url";
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/auth/provider";
+import {
+  cancelIdleCallback,
+  scheduleIdleCallback,
+} from "~/lib/helper/idle.client";
 import { DEFAULT_LANGUAGE, isRTLLanguage } from "~/lib/i18n/config";
 import { I18nProvider } from "~/lib/i18n/provider";
 import { AuthContext, authMiddleware } from "~/middleware/auth";
 import { I18nContext, i18nMiddleware } from "~/middleware/i18n";
 import { ThemeContext, themeMiddleware } from "~/middleware/theme";
-import { cancelIdleCallback, scheduleIdleCallback } from "~/utils.client";
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
 const ToasterLazy = lazy(async () => ({
