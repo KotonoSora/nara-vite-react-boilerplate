@@ -9,7 +9,9 @@
     "commitlint",
     "cssnano",
     "embla",
+    "Español",
     "familytree",
+    "Français",
     "gumroad",
     "Hono",
     "ianvs",
@@ -29,10 +31,14 @@
     "sonner",
     "tailwindcss",
     "testid",
+    "Tiếng",
     "tsbuildinfo",
     "vaul",
+    "Việt",
     "vite",
     "vitest",
-    "yarnrc"
+    "yarnrc",
+    "العربية",
+    "हिन्दी"
   ]
 }
