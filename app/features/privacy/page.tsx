@@ -1,5 +1,5 @@
 import { LegalPageLayout } from "~/features/shared/components/legal-page-layout";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 import { usePageContext } from "./context/page-context";
 import { getRelatedPages } from "./utils/get-related-pages";

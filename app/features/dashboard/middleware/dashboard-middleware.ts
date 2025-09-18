@@ -1,13 +1,13 @@
 import { redirect } from "react-router";
 
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { MiddlewareFunction } from "react-router";
 
 import { getRecentActivity } from "~/features/dashboard/utils/get-recent-activity";
 import { getStats } from "~/features/dashboard/utils/get-stats";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
+import { AuthContext } from "~/middleware/auth";
+import { I18nContext } from "~/middleware/i18n";
 
 export type DashboardPageContextType = {
   title: string;
@@ -27,23 +27,12 @@ export const dashboardMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
-  const { db } = context;
-  const language = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
-  const { getUserId } = await import("~/lib/auth/auth.server");
-  const userId = await getUserId(request);
-  if (!userId) {
-    throw redirect("/");
-  }
-  const { getUserById } = await import("~/lib/auth/user.server");
-  const user = await getUserById(db, userId);
-  if (!user) {
-    throw redirect("/");
-  }
-
+  const { language, t } = context.get(I18nContext);
+  const { user } = context.get(AuthContext);
+  if (!user) throw redirect("/");
   const recentActivity = getRecentActivity(t, user.createdAt);
   const stats = getStats(user.createdAt);
-  const contextValue: DashboardPageContextType = {
+  const contextValue = {
     title: t("dashboard.meta.title"),
     description: t("dashboard.meta.description"),
     language,
@@ -52,5 +41,4 @@ export const dashboardMiddleware: MiddlewareFunction = async (
     stats,
   };
   context.set(dashboardMiddlewareContext, contextValue);
-  return next();
 };

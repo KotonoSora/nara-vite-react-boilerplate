@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router";
 import { z } from "zod";
 
-import type { TranslationKey } from "~/lib/i18n";
+import type { TranslationFunctionType } from "~/lib/i18n/translations";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -24,13 +24,11 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 import { usePageContext } from "../context/page-context";
 
-const createRegisterSchema = (
-  t: (key: TranslationKey, params?: Record<string, string | number>) => string,
-) =>
+const createRegisterSchema = (t: TranslationFunctionType) =>
   z
     .object({
       name: z.string().min(2, t("auth.register.validation.nameMinLength")),

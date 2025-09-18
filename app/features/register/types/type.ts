@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
 
 export type RegisterContentProps = {
   error?: string | null;

@@ -2,7 +2,6 @@ import type {
   LandingPageEnv,
   PageInformation,
 } from "~/features/landing-page/types/type";
-import type { SupportedLanguage } from "~/lib/i18n";
 import type { MiddlewareFunction } from "react-router";
 
 import { getFeaturesConfigs } from "~/features/landing-page/utils/get-features-configs";
@@ -10,8 +9,7 @@ import { getPageInformation } from "~/features/landing-page/utils/get-page-infor
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { getSteps } from "~/features/landing-page/utils/get-steps";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { createTranslationFunction } from "~/lib/i18n";
-import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
+import { I18nContext } from "~/middleware/i18n";
 
 export const { pageMiddlewareContext } =
   createMiddlewareContext<PageInformation>("pageMiddlewareContext");
@@ -21,10 +19,7 @@ export const pageMiddleware: MiddlewareFunction = async (
   next,
 ) => {
   const { db } = context;
-
-  // Resolve language and translation function
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
+  const { t } = context.get(I18nContext);
 
   // Get page information from environment
   const env = import.meta.env as LandingPageEnv | undefined;
@@ -59,6 +54,4 @@ export const pageMiddleware: MiddlewareFunction = async (
   };
 
   context.set(pageMiddlewareContext, contextValue);
-
-  return await next();
 };

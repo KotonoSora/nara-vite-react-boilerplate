@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 export const FooterSection = memo(function FooterSection() {
   const { t } = useI18n();
