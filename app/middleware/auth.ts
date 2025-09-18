@@ -7,6 +7,7 @@ import { getUserId } from "~/lib/auth/auth.server";
 import { getUserById } from "~/lib/auth/user.server";
 
 export type AuthContextType = {
+  userId: number | null;
   user: User | null;
 };
 
@@ -19,5 +20,5 @@ export const authMiddleware: MiddlewareFunction = async (
   const { db } = context;
   const userId = await getUserId(request);
   const user = userId && db ? await getUserById(db, userId) : null;
-  context.set(AuthContext, { user });
+  context.set(AuthContext, { userId, user });
 };

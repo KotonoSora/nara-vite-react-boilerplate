@@ -6,6 +6,7 @@ import type { MiddlewareFunction } from "react-router";
 import { getRecentActivity } from "~/features/dashboard/utils/get-recent-activity";
 import { getStats } from "~/features/dashboard/utils/get-stats";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
+import { AuthContext } from "~/middleware/auth";
 import { I18nContext } from "~/middleware/i18n";
 
 export type DashboardPageContextType = {
@@ -26,22 +27,12 @@ export const dashboardMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
-  const { db } = context;
   const { language, t } = context.get(I18nContext);
-  const { getUserId } = await import("~/lib/auth/auth.server");
-  const userId = await getUserId(request);
-  if (!userId) {
-    throw redirect("/");
-  }
-  const { getUserById } = await import("~/lib/auth/user.server");
-  const user = await getUserById(db, userId);
-  if (!user) {
-    throw redirect("/");
-  }
-
+  const { user } = context.get(AuthContext);
+  if (!user) throw redirect("/");
   const recentActivity = getRecentActivity(t, user.createdAt);
   const stats = getStats(user.createdAt);
-  const contextValue: DashboardPageContextType = {
+  const contextValue = {
     title: t("dashboard.meta.title"),
     description: t("dashboard.meta.description"),
     language,
