@@ -17,12 +17,15 @@ import {
 } from "remix-themes";
 
 import type { SupportedLanguage } from "~/lib/i18n";
+import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/root";
 
 import appCssUrl from "~/app.css?url";
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/auth";
 import { DEFAULT_LANGUAGE, I18nProvider, isRTLLanguage } from "~/lib/i18n";
+import { I18nContext, i18nMiddleware } from "~/middleware/i18n";
+import { ThemeContext, themeMiddleware } from "~/middleware/theme";
 import { cancelIdleCallback, scheduleIdleCallback } from "~/utils.client";
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
@@ -51,16 +54,14 @@ export const links: Route.LinksFunction = () => {
   return links;
 };
 
+export const middleware: MiddlewareFunction[] = [
+  i18nMiddleware,
+  themeMiddleware,
+];
+
 export async function loader({ request, context }: Route.LoaderArgs) {
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
-
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
-
-  const { themeSessionResolver } = await import("~/lib/theme/sessions.server");
-
-  const { getTheme } = await themeSessionResolver(request);
+  const { language } = context.get(I18nContext);
+  const { theme } = context.get(ThemeContext);
 
   const { getUserId } = await import("~/lib/auth/auth.server");
 
@@ -80,7 +81,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   }
 
   return {
-    theme: getTheme(),
+    theme,
     language,
     user,
   };
