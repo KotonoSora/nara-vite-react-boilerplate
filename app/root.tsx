@@ -16,14 +16,15 @@ import {
   useTheme,
 } from "remix-themes";
 
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/root";
 
 import appCssUrl from "~/app.css?url";
 import { DemoTag } from "~/features/shared/components/demo-tag";
-import { AuthProvider } from "~/lib/auth";
-import { DEFAULT_LANGUAGE, I18nProvider, isRTLLanguage } from "~/lib/i18n";
+import { AuthProvider } from "~/lib/auth/provider";
+import { DEFAULT_LANGUAGE, isRTLLanguage } from "~/lib/i18n/config";
+import { I18nProvider } from "~/lib/i18n/provider";
 import { AuthContext, authMiddleware } from "~/middleware/auth";
 import { I18nContext, i18nMiddleware } from "~/middleware/i18n";
 import { ThemeContext, themeMiddleware } from "~/middleware/theme";

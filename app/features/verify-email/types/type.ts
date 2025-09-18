@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
 
 export type VerifyEmailPageProps = {
   isSuccess?: boolean;

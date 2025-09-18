@@ -2,7 +2,7 @@ import type {
   LandingPageEnv,
   PageInformation,
 } from "~/features/landing-page/types/type";
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { MiddlewareFunction } from "react-router";
 
 import { getFeaturesConfigs } from "~/features/landing-page/utils/get-features-configs";
@@ -10,8 +10,8 @@ import { getPageInformation } from "~/features/landing-page/utils/get-page-infor
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { getSteps } from "~/features/landing-page/utils/get-steps";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export const { pageMiddlewareContext } =
   createMiddlewareContext<PageInformation>("pageMiddlewareContext");

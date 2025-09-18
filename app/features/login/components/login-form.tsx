@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router";
 import { z } from "zod";
 
-import type { TranslationKey } from "~/lib/i18n";
+import type { TranslationKey } from "~/lib/i18n/types";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -24,7 +24,7 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 import { usePageContext } from "../context/page-context";
 

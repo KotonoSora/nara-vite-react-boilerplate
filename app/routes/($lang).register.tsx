@@ -13,7 +13,7 @@ import {
 import { ContentRegisterPage } from "~/features/register/page";
 import { MAX_USERS } from "~/features/shared/constants/limit";
 import { authMiddleware } from "~/features/shared/middleware/auth";
-import { createTranslationFunction } from "~/lib/i18n";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export const middleware: MiddlewareFunction[] = [
   authMiddleware,

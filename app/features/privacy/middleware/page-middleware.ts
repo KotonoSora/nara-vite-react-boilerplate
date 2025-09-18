@@ -3,8 +3,8 @@ import type { PrivacyPageProps } from "../types/type";
 
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export const { privacyMiddlewareContext } =
   createMiddlewareContext<PrivacyPageProps>("privacyMiddlewareContext");

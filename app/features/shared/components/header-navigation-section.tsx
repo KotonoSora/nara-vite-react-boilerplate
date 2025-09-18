@@ -13,8 +13,8 @@ import { Form, Link } from "react-router";
 import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
-import { useOptionalAuth } from "~/lib/auth";
-import { useI18n } from "~/lib/i18n";
+import { useOptionalAuth } from "~/lib/auth/context";
+import { useI18n } from "~/lib/i18n/context";
 import { cn } from "~/lib/utils";
 
 import { BrandLogo } from "./brand-logo";

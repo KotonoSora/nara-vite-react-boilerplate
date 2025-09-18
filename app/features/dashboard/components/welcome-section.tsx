@@ -2,7 +2,7 @@ import { Shield } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
-import { useTranslation } from "~/lib/i18n";
+import { useTranslation } from "~/lib/i18n/context";
 
 import { usePageContext } from "../context/page-context";
 

@@ -11,9 +11,8 @@ import {
   isRTLLanguage,
   LANGUAGE_NAMES,
   SUPPORTED_LANGUAGES,
-  useI18n,
-  useLanguage,
-} from "~/lib/i18n";
+} from "~/lib/i18n/config";
+import { useI18n, useLanguage } from "~/lib/i18n/context";
 
 // Lazy-load dropdown primitives only when needed to trim initial JS
 export function LanguageSwitcher() {

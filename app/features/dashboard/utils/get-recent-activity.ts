@@ -1,7 +1,7 @@
-import type { TranslationKey } from "~/lib/i18n";
+import type { TranslationKey } from "~/lib/i18n/types";
 import type { Icon } from "../types/type";
 
-import { formatTimeAgo } from "~/lib/i18n";
+import { formatTimeAgo } from "~/lib/i18n/time-format";
 
 export function getRecentActivity(
   t: (key: TranslationKey, params?: Record<string, string | number>) => string,

@@ -1,13 +1,13 @@
 import { redirect } from "react-router";
 
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { MiddlewareFunction } from "react-router";
 
 import { getRecentActivity } from "~/features/dashboard/utils/get-recent-activity";
 import { getStats } from "~/features/dashboard/utils/get-stats";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { createTranslationFunction } from "~/lib/i18n";
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 
 export type DashboardPageContextType = {
   title: string;
