@@ -7,17 +7,35 @@ import { HTTP_STATUS } from "~/workers/types";
 
 /**
  * JWT Token utilities for API authentication
- * Simple implementation without external dependencies
+ * Uses Web Crypto API for proper HMAC-SHA256 signing
  */
 export const tokenUtils = {
   /**
-   * Creates a simple JWT-like token for API authentication
-   * NOTE: This is a simplified implementation. Use a proper JWT library in production.
+   * Gets or generates a secret key for HMAC signing
+   * In production, this should be a proper environment variable
    */
-  createToken(
+  async getSecretKey(): Promise<CryptoKey> {
+    // Use a fixed secret for consistency (in production, use process.env.JWT_SECRET)
+    const secret = "__nara_jwt_secret_key__";
+    const encoder = new TextEncoder();
+    const keyData = encoder.encode(secret);
+
+    return await crypto.subtle.importKey(
+      "raw",
+      keyData,
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["sign", "verify"],
+    );
+  },
+
+  /**
+   * Creates a proper JWT token with HMAC-SHA256 signature
+   */
+  async createToken(
     payload: { userId: number; role: string },
     expiresInSeconds: number = 3600,
-  ): string {
+  ): Promise<string> {
     const header = {
       typ: "JWT",
       alg: "HS256",
@@ -33,26 +51,59 @@ export const tokenUtils = {
     const encodedHeader = btoa(JSON.stringify(header));
     const encodedPayload = btoa(JSON.stringify(tokenPayload));
 
-    // Simple signature (use proper HMAC-SHA256 in production)
+    // Create proper HMAC-SHA256 signature
+    const signingInput = `${encodedHeader}.${encodedPayload}`;
+    const secretKey = await this.getSecretKey();
+    const encoder = new TextEncoder();
+
+    const signatureBuffer = await crypto.subtle.sign(
+      "HMAC",
+      secretKey,
+      encoder.encode(signingInput),
+    );
+
     const signature = btoa(
-      `${encodedHeader}.${encodedPayload}.simple_signature`,
+      String.fromCharCode(...new Uint8Array(signatureBuffer)),
     );
 
     return `${encodedHeader}.${encodedPayload}.${signature}`;
   },
 
   /**
-   * Validates and decodes a simple token
-   * NOTE: This is a simplified implementation. Use a proper JWT library in production.
+   * Validates and decodes a JWT token with proper signature verification
    */
-  validateToken(
+  async validateToken(
     token: string,
-  ): { userId: number; role: string; exp: number } | null {
+  ): Promise<{ userId: number; role: string; exp: number } | null> {
     try {
       const parts = token.split(".");
       if (parts.length !== 3) return null;
 
-      const payload = JSON.parse(atob(parts[1]));
+      const [encodedHeader, encodedPayload, signature] = parts;
+
+      // Verify signature
+      const signingInput = `${encodedHeader}.${encodedPayload}`;
+      const secretKey = await this.getSecretKey();
+      const encoder = new TextEncoder();
+
+      const signatureBuffer = new Uint8Array(
+        atob(signature)
+          .split("")
+          .map((c) => c.charCodeAt(0)),
+      );
+
+      const isValid = await crypto.subtle.verify(
+        "HMAC",
+        secretKey,
+        signatureBuffer,
+        encoder.encode(signingInput),
+      );
+
+      if (!isValid) {
+        return null;
+      }
+
+      const payload = JSON.parse(atob(encodedPayload));
 
       if (!payload.userId || !payload.exp || Date.now() / 1000 > payload.exp) {
         return null;
@@ -377,7 +428,7 @@ export const authMiddleware: MiddlewareHandler<HonoBindings> = async (
       const token = authHeader.substring(7);
 
       // Validate token using utility function
-      const payload = tokenUtils.validateToken(token);
+      const payload = await tokenUtils.validateToken(token);
 
       if (!payload) {
         throw new Error("Invalid or expired token");
