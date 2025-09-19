@@ -6,6 +6,66 @@ import type { Context, MiddlewareHandler } from "hono";
 import { HTTP_STATUS } from "~/workers/types";
 
 /**
+ * JWT Token utilities for API authentication
+ * Simple implementation without external dependencies
+ */
+export const tokenUtils = {
+  /**
+   * Creates a simple JWT-like token for API authentication
+   * NOTE: This is a simplified implementation. Use a proper JWT library in production.
+   */
+  createToken(
+    payload: { userId: number; role: string },
+    expiresInSeconds: number = 3600,
+  ): string {
+    const header = {
+      typ: "JWT",
+      alg: "HS256",
+    };
+
+    const exp = Math.floor(Date.now() / 1000) + expiresInSeconds;
+    const tokenPayload = {
+      ...payload,
+      exp,
+      iat: Math.floor(Date.now() / 1000),
+    };
+
+    const encodedHeader = btoa(JSON.stringify(header));
+    const encodedPayload = btoa(JSON.stringify(tokenPayload));
+
+    // Simple signature (use proper HMAC-SHA256 in production)
+    const signature = btoa(
+      `${encodedHeader}.${encodedPayload}.simple_signature`,
+    );
+
+    return `${encodedHeader}.${encodedPayload}.${signature}`;
+  },
+
+  /**
+   * Validates and decodes a simple token
+   * NOTE: This is a simplified implementation. Use a proper JWT library in production.
+   */
+  validateToken(
+    token: string,
+  ): { userId: number; role: string; exp: number } | null {
+    try {
+      const parts = token.split(".");
+      if (parts.length !== 3) return null;
+
+      const payload = JSON.parse(atob(parts[1]));
+
+      if (!payload.userId || !payload.exp || Date.now() / 1000 > payload.exp) {
+        return null;
+      }
+
+      return payload;
+    } catch {
+      return null;
+    }
+  },
+};
+
+/**
  * Enhanced error handling middleware with proper type safety and standardized responses
  * Includes request ID tracing and structured error logging
  */
@@ -443,64 +503,4 @@ export const performanceMiddleware: MiddlewareHandler<HonoBindings> = async (
       console.warn(JSON.stringify(logData));
     }
   }
-};
-
-/**
- * JWT Token utilities for API authentication
- * Simple implementation without external dependencies
- */
-export const tokenUtils = {
-  /**
-   * Creates a simple JWT-like token for API authentication
-   * NOTE: This is a simplified implementation. Use a proper JWT library in production.
-   */
-  createToken(
-    payload: { userId: number; role: string },
-    expiresInSeconds: number = 3600,
-  ): string {
-    const header = {
-      typ: "JWT",
-      alg: "HS256",
-    };
-
-    const exp = Math.floor(Date.now() / 1000) + expiresInSeconds;
-    const tokenPayload = {
-      ...payload,
-      exp,
-      iat: Math.floor(Date.now() / 1000),
-    };
-
-    const encodedHeader = btoa(JSON.stringify(header));
-    const encodedPayload = btoa(JSON.stringify(tokenPayload));
-
-    // Simple signature (use proper HMAC-SHA256 in production)
-    const signature = btoa(
-      `${encodedHeader}.${encodedPayload}.simple_signature`,
-    );
-
-    return `${encodedHeader}.${encodedPayload}.${signature}`;
-  },
-
-  /**
-   * Validates and decodes a simple token
-   * NOTE: This is a simplified implementation. Use a proper JWT library in production.
-   */
-  validateToken(
-    token: string,
-  ): { userId: number; role: string; exp: number } | null {
-    try {
-      const parts = token.split(".");
-      if (parts.length !== 3) return null;
-
-      const payload = JSON.parse(atob(parts[1]));
-
-      if (!payload.userId || !payload.exp || Date.now() / 1000 > payload.exp) {
-        return null;
-      }
-
-      return payload;
-    } catch {
-      return null;
-    }
-  },
 };
