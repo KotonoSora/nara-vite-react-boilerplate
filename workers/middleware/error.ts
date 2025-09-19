@@ -8,17 +8,34 @@ import { HTTP_STATUS } from "~/workers/types";
 /**
  * JWT Token utilities for API authentication
  * Uses Web Crypto API for proper HMAC-SHA256 signing
+ *
+ * SECURITY REQUIREMENTS:
+ * - JWT_SECRET environment variable MUST be set in Cloudflare Workers
+ * - AUTH_SESSION_SECRET environment variable MUST be set for session cookies
+ * - Use `wrangler secret put` to set them securely
+ * - Generate strong, random secrets (minimum 32 characters each)
+ * - Never commit secrets to version control
+ *
+ * Example setup:
+ * $ wrangler secret put JWT_SECRET
+ * ? Enter a secret value: [paste your generated JWT secret here]
+ * $ wrangler secret put AUTH_SESSION_SECRET
+ * ? Enter a secret value: [paste your generated session secret here]
  */
 export const tokenUtils = {
   /**
-   * Gets or generates a secret key for HMAC signing
-   * In production, this should be a proper environment variable
+   * Gets the secret key for HMAC signing from environment variables
+   * Throws an error if JWT_SECRET is not configured
    */
-  async getSecretKey(): Promise<CryptoKey> {
-    // Use a fixed secret for consistency (in production, use process.env.JWT_SECRET)
-    const secret = "__nara_jwt_secret_key__";
+  async getSecretKey(env: Env): Promise<CryptoKey> {
+    if (!env.JWT_SECRET) {
+      throw new Error(
+        "JWT_SECRET environment variable is required but not configured",
+      );
+    }
+
     const encoder = new TextEncoder();
-    const keyData = encoder.encode(secret);
+    const keyData = encoder.encode(env.JWT_SECRET);
 
     return await crypto.subtle.importKey(
       "raw",
@@ -33,6 +50,7 @@ export const tokenUtils = {
    * Creates a proper JWT token with HMAC-SHA256 signature
    */
   async createToken(
+    env: Env,
     payload: { userId: number; role: string },
     expiresInSeconds: number = 3600,
   ): Promise<string> {
@@ -53,7 +71,7 @@ export const tokenUtils = {
 
     // Create proper HMAC-SHA256 signature
     const signingInput = `${encodedHeader}.${encodedPayload}`;
-    const secretKey = await this.getSecretKey();
+    const secretKey = await this.getSecretKey(env);
     const encoder = new TextEncoder();
 
     const signatureBuffer = await crypto.subtle.sign(
@@ -73,6 +91,7 @@ export const tokenUtils = {
    * Validates and decodes a JWT token with proper signature verification
    */
   async validateToken(
+    env: Env,
     token: string,
   ): Promise<{ userId: number; role: string; exp: number } | null> {
     try {
@@ -83,7 +102,7 @@ export const tokenUtils = {
 
       // Verify signature
       const signingInput = `${encodedHeader}.${encodedPayload}`;
-      const secretKey = await this.getSecretKey();
+      const secretKey = await this.getSecretKey(env);
       const encoder = new TextEncoder();
 
       const signatureBuffer = new Uint8Array(
@@ -105,7 +124,12 @@ export const tokenUtils = {
 
       const payload = JSON.parse(atob(encodedPayload));
 
-      if (!payload.userId || !payload.exp || Date.now() / 1000 > payload.exp) {
+      if (
+        payload.userId == null ||
+        typeof payload.userId !== "number" ||
+        !payload.exp ||
+        Date.now() / 1000 > payload.exp
+      ) {
         return null;
       }
 
@@ -428,7 +452,7 @@ export const authMiddleware: MiddlewareHandler<HonoBindings> = async (
       const token = authHeader.substring(7);
 
       // Validate token using utility function
-      const payload = await tokenUtils.validateToken(token);
+      const payload = await tokenUtils.validateToken(c.env, token);
 
       if (!payload) {
         throw new Error("Invalid or expired token");
@@ -458,13 +482,20 @@ export const authMiddleware: MiddlewareHandler<HonoBindings> = async (
       // Parse session using the same session storage as the main app
       const { createCookieSessionStorage } = await import("react-router");
 
+      // Validate AUTH_SESSION_SECRET is configured
+      if (!c.env.AUTH_SESSION_SECRET) {
+        throw new Error(
+          "AUTH_SESSION_SECRET environment variable is required but not configured",
+        );
+      }
+
       const authSessionStorage = createCookieSessionStorage({
         cookie: {
           name: "__nara_auth",
           path: "/",
           httpOnly: true,
           sameSite: "lax",
-          secrets: ["__nara_auth"],
+          secrets: [c.env.AUTH_SESSION_SECRET],
           secure: import.meta.env.PROD,
           maxAge: 60 * 60 * 24 * 30, // 30 days
         },

@@ -21,8 +21,6 @@ const { user } = schema;
 
 const app = new Hono<HonoBindings>();
 
-const ADMIN_SECRET = process.env.ADMIN_REGISTRATION_SECRET;
-
 /**
  * POST /auth/admin/register
  *
@@ -73,8 +71,16 @@ app.post(
         adminSecret: string;
       }>(c, "json");
 
-      // Verify admin secret
-      if (validatedData.adminSecret !== ADMIN_SECRET) {
+      // Verify admin secret from environment
+      if (!c.env.ADMIN_REGISTRATION_SECRET) {
+        const errorResponse: APIErrorResponse = {
+          success: false,
+          error: "Admin registration is not configured",
+        };
+        return c.json(errorResponse, HTTP_STATUS.INTERNAL_SERVER_ERROR);
+      }
+
+      if (validatedData.adminSecret !== c.env.ADMIN_REGISTRATION_SECRET) {
         const errorResponse: APIErrorResponse = {
           success: false,
           error: "Invalid admin secret",

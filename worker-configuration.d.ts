@@ -3,6 +3,10 @@
 declare namespace Cloudflare {
   interface Env {
     DB: D1Database;
+    // Security
+    JWT_SECRET: string;
+    AUTH_SESSION_SECRET: string;
+    ADMIN_REGISTRATION_SECRET: string;
     // Landing page environment variables
     VITE_LANDING_PAGE_TITLE?: string;
     VITE_LANDING_PAGE_DESCRIPTION?: string;
