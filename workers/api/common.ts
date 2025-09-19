@@ -36,7 +36,11 @@ app.use("*", securityHeaders);
 
 // 3. Rate limiting - In production only (placeholder for future KV implementation)
 if (!import.meta.env.DEV) {
-  app.use("*", rateLimit(100, 60000)); // 100 requests per minute in production
+  // Use environment variables for rate limiting, with defaults
+  const RATE_LIMIT_REQUESTS =
+    Number(import.meta.env.RATE_LIMIT_REQUESTS) || 100;
+  const RATE_LIMIT_WINDOW = Number(import.meta.env.RATE_LIMIT_WINDOW) || 60000;
+  app.use("*", rateLimit(RATE_LIMIT_REQUESTS, RATE_LIMIT_WINDOW)); // Configurable via env
 }
 
 // 4. Logging middleware - After security, before processing
