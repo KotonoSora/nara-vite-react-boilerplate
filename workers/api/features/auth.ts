@@ -153,7 +153,7 @@ app.post(
  * Security: Does not require admin secret.
  */
 app.post(
-  "/member/register", // Fixed: Added missing slash
+  "/member/register",
   zValidator("json", authSchemas.memberRegister),
   async (c): Promise<Response> => {
     const db = getDbOrFail<typeof schema>(c, schema);
