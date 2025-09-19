@@ -31,7 +31,7 @@
     "date-fns": "4.1.0",
     "drizzle-orm": "~0.44.5",
     "embla-carousel-react": "8.6.0",
-    "hono": "4.9.7",
+    "hono": "4.9.8",
     "input-otp": "1.4.2",
     "isbot": "5.1.30",
     "lucide-react": "0.544.0",
@@ -51,9 +51,9 @@
     "zod": "4.1.9"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.13.0",
-    "@cloudflare/vitest-pool-workers": "0.9.0",
-    "@cloudflare/workers-types": "4.20250913.0",
+    "@cloudflare/vite-plugin": "1.13.3",
+    "@cloudflare/vitest-pool-workers": "0.9.3",
+    "@cloudflare/workers-types": "4.20250919.0",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@ianvs/prettier-plugin-sort-imports": "4.7.0",
@@ -72,10 +72,10 @@
     "prettier-plugin-tailwindcss": "0.6.14",
     "tailwindcss": "4.1.13",
     "typescript": "5.9.2",
-    "vite": "npm:rolldown-vite@7.1.10",
+    "vite": "npm:rolldown-vite@7.1.11",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4",
-    "wrangler": "4.36.0"
+    "wrangler": "4.38.0"
   },
   "engines": {
     "node": "24.8.0"
