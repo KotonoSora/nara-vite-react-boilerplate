@@ -27,7 +27,7 @@ app.get("/", async (c): Promise<Response> => {
     if (db instanceof Response) return db;
 
     const { title, description, githubRepository, commercialLink } =
-      getPageInformation({ ...c.env } as any);
+      getPageInformation(c.env);
     const showcases = await getShowcases(db);
 
     const successResponse: APISuccessResponse = {

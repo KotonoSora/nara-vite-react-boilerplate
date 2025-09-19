@@ -3,6 +3,11 @@
 declare namespace Cloudflare {
   interface Env {
     DB: D1Database;
+    // Landing page environment variables
+    VITE_LANDING_PAGE_TITLE?: string;
+    VITE_LANDING_PAGE_DESCRIPTION?: string;
+    VITE_LANDING_PAGE_REPOSITORY?: string;
+    VITE_LANDING_PAGE_COMMERCIAL_LINK?: string;
   }
 }
 interface Env extends Cloudflare.Env {}
