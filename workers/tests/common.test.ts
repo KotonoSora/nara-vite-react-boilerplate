@@ -14,32 +14,53 @@ describe("common", () => {
   test("GET /api", async () => {
     const res = await appRoute.request("/api");
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({
-      message: `Hello from Hono! Running in API`,
-      env: import.meta.env,
+    const json = (await res.json()) as any;
+    expect(json.success).toBe(true);
+    expect(json.data).toMatchObject({
+      message: "NARA Boilerplate API",
+      version: "1.0.0",
+      environment: "test",
     });
+    expect(json.data.requestId).toBeDefined();
+    expect(json.data.timestamp).toBeDefined();
   });
 
   test("GET /api/hello-world", async () => {
     const res = await appRoute.request("/api/hello-world");
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ message: "Hello, World!" });
+    const json = (await res.json()) as any;
+    expect(json.success).toBe(true);
+    expect(json.data.message).toBe("Hello, World!");
+    expect(json.data.requestId).toBeDefined();
   });
 
   test("GET /api/health", async () => {
     const res = await appRoute.request("/api/health");
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ status: "ok" });
+    const json = (await res.json()) as any;
+    expect(json.success).toBe(true);
+    expect(json.data.status).toBe("healthy");
+    expect(json.data.checks).toMatchObject({
+      database: "operational",
+      api: "operational",
+      middleware: "operational",
+    });
+    expect(json.data.requestId).toBeDefined();
+    expect(json.data.timestamp).toBeDefined();
   });
 
   test("POST /api/posts with Request object", async () => {
-    const env = import.meta.env;
     const req = new Request("http://localhost/api");
     const res = await appRoute.fetch(req);
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({
-      message: `Hello from Hono! Running in API`,
-      env,
+    const json = (await res.json()) as any;
+    expect(json.success).toBe(true);
+    expect(json.data).toMatchObject({
+      message: "NARA Boilerplate API",
+      version: "1.0.0",
+      environment: "test",
     });
+    expect(json.data.requestId).toBeDefined();
+    expect(json.data.timestamp).toBeDefined();
   });
 });

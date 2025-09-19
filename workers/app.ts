@@ -2,10 +2,12 @@ import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import { createRequestHandler, RouterContextProvider } from "react-router";
 
+import type { HonoBindings } from "~/workers/types";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as schema from "~/database/schema";
 import apiRoute from "~/workers/api/common";
+import { HTTP_STATUS } from "~/workers/types";
 
 declare module "react-router" {
   export interface RouterContextProvider {
@@ -22,14 +24,23 @@ const requestHandler = createRequestHandler(
   import.meta.env.MODE,
 );
 
-// Init app
-const app = new Hono<{ Bindings: Env }>();
-
-// Not found handler
-app.notFound((c) => c.json({ error: "Not Found" }, 404));
+// Init app with proper type bindings
+const app = new Hono<HonoBindings>();
 
 // Routes
 app.route("/api", apiRoute);
+
+// Not found handler with standardized response
+app.notFound((c) =>
+  c.json(
+    {
+      success: false,
+      error: "Not Found",
+      path: c.req.path,
+    },
+    HTTP_STATUS.NOT_FOUND,
+  ),
+);
 
 app.all("*", async (c) => {
   const request = c.req.raw; // Get the raw Request object
