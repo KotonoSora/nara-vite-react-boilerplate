@@ -1,19 +1,21 @@
 import { z } from "zod";
 
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).verify-email";
 
+import {
+  pageMiddleware,
+  pageMiddlewareContext,
+} from "~/features/verify-email/middleware/page-middleware";
 import { VerifyEmailPage } from "~/features/verify-email/page";
-import { createTranslationFunction } from "~/lib/i18n";
+import { createTranslationFunction } from "~/lib/i18n/translations";
+
+export const middleware: MiddlewareFunction[] = [pageMiddleware];
 
 export async function loader({ context, request }: Route.LoaderArgs) {
+  const { title, description, language } = context.get(pageMiddlewareContext);
   const { db } = context;
 
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
-
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
   const url = new URL(request.url);
   const token = url.searchParams.get("token");
@@ -25,8 +27,8 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   const validationResult = verifyEmailSchema.safeParse({ token });
   if (!validationResult.success) {
     return {
-      title: t("auth.verifyEmail.title"),
-      description: t("auth.verifyEmail.description"),
+      title,
+      description,
       error: t("auth.verifyEmail.validation.tokenRequired"),
       errorCode: "REQUIRED_TOKEN",
     };
@@ -57,38 +59,24 @@ export async function loader({ context, request }: Route.LoaderArgs) {
         errorMessage = result.error; // Fallback to original error message
     }
     return {
-      title: t("auth.verifyEmail.title"),
-      description: t("auth.verifyEmail.description"),
+      title,
+      description,
       error: errorMessage,
       errorCode: result.errorCode,
     };
   }
 
   return {
-    title: t("auth.verifyEmail.title"),
-    description: t("auth.verifyEmail.description"),
+    title,
+    description,
     success: true,
     message: t("auth.verifyEmail.success.message"),
   };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (!("title" in loaderData) || !("description" in loaderData)) {
-    return [
-      {
-        title: "Email Verification",
-      },
-      {
-        name: "description",
-        content: "Verify your email address",
-      },
-    ];
-  }
-
-  return [
-    { title: loaderData.title },
-    { name: "description", content: loaderData.description },
-  ];
+  const { title, description } = loaderData;
+  return [{ title }, { name: "description", content: description }];
 }
 
 export default function VerifyEmail({ loaderData }: Route.ComponentProps) {

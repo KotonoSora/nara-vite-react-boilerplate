@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import type { ProjectInfo } from "../types/type";
 
 import { Button } from "~/components/ui/button";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 import { ShowcaseItem } from "../components/showcase-item";
 import { usePageContext } from "../context/page-context";

@@ -1,7 +1,7 @@
 import { Clock, Code, Heart, Shield } from "lucide-react";
 import { memo } from "react";
 
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 export const BuiltForDevelopersSection = memo(
   function BuiltForDevelopersSection() {

@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n";
+import { useTranslation } from "~/lib/i18n/context";
 
 import { usePageContext } from "../context/page-context";
 

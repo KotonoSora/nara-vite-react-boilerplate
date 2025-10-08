@@ -3,7 +3,7 @@ import { memo } from "react";
 import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 import { usePageContext } from "../context/page-context";
 import {

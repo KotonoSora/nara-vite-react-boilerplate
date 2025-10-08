@@ -1,7 +1,5 @@
 import { User } from "lucide-react";
 
-import type { FC } from "react";
-
 import { Badge } from "~/components/ui/badge";
 import {
   Card,
@@ -11,7 +9,7 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
-import { useTranslation } from "~/lib/i18n";
+import { useTranslation } from "~/lib/i18n/context";
 
 import { usePageContext } from "../context/page-context";
 

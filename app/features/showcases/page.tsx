@@ -1,6 +1,6 @@
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 import { ButtonScrollToTop } from "../shared/components/button-scroll-to-top";
 import { ShowcaseItem } from "./components/showcase-item";

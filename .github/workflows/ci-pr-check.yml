@@ -58,4 +58,4 @@ jobs:
         run: bun run lint
 
       - name: Run unit tests
-        run: bun run test --run --silent 'passed-only'
+        run: bun run test --run --silent 'passed-only' --passWithNoTests

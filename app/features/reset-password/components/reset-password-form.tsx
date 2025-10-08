@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router";
 import { z } from "zod";
 
-import type { TranslationKey } from "~/lib/i18n";
+import type { TranslationFunctionType } from "~/lib/i18n/translations";
 
 import { Alert, AlertDescription } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -25,7 +25,7 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useI18n } from "~/lib/i18n";
+import { useI18n } from "~/lib/i18n/context";
 
 import { usePageContext } from "../context/page-context";
 import { PasswordRequirement } from "./password-requirement";
@@ -36,9 +36,7 @@ const lowercaseSchema = z.string().regex(/[a-z]/);
 const numberSchema = z.string().regex(/\d/);
 const specialCharSchema = z.string().regex(/[!@#$%^&*(),.?":{}|<>]/);
 
-const createResetPasswordSchema = (
-  t: (key: TranslationKey, params?: Record<string, string | number>) => string,
-) =>
+const createResetPasswordSchema = (t: TranslationFunctionType) =>
   z
     .object({
       password: z

@@ -16,14 +16,22 @@ import {
   useTheme,
 } from "remix-themes";
 
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { SupportedLanguage } from "~/lib/i18n/config";
+import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/root";
 
 import appCssUrl from "~/app.css?url";
 import { DemoTag } from "~/features/shared/components/demo-tag";
-import { AuthProvider } from "~/lib/auth";
-import { DEFAULT_LANGUAGE, I18nProvider, isRTLLanguage } from "~/lib/i18n";
-import { cancelIdleCallback, scheduleIdleCallback } from "~/utils.client";
+import { AuthProvider } from "~/lib/auth/provider";
+import {
+  cancelIdleCallback,
+  scheduleIdleCallback,
+} from "~/lib/helper/idle.client";
+import { DEFAULT_LANGUAGE, isRTLLanguage } from "~/lib/i18n/config";
+import { I18nProvider } from "~/lib/i18n/provider";
+import { AuthContext, authMiddleware } from "~/middleware/auth";
+import { I18nContext, i18nMiddleware } from "~/middleware/i18n";
+import { ThemeContext, themeMiddleware } from "~/middleware/theme";
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
 const ToasterLazy = lazy(async () => ({
@@ -51,39 +59,17 @@ export const links: Route.LinksFunction = () => {
   return links;
 };
 
+export const middleware: MiddlewareFunction[] = [
+  i18nMiddleware,
+  themeMiddleware,
+  authMiddleware,
+];
+
 export async function loader({ request, context }: Route.LoaderArgs) {
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
-
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
-
-  const { themeSessionResolver } = await import("~/lib/theme/sessions.server");
-
-  const { getTheme } = await themeSessionResolver(request);
-
-  const { getUserId } = await import("~/lib/auth/auth.server");
-
-  // Get current user if logged in and context is available
-  const userId = await getUserId(request);
-  let user = null;
-
-  if (userId && context?.db) {
-    try {
-      const { getUserById } = await import("~/lib/auth/user.server");
-
-      user = await getUserById(context.db, userId);
-    } catch (error) {
-      // If user lookup fails, continue without user (they'll be logged out)
-      console.error("Error loading user:", error);
-    }
-  }
-
-  return {
-    theme: getTheme(),
-    language,
-    user,
-  };
+  const { language } = context.get(I18nContext);
+  const { theme } = context.get(ThemeContext);
+  const { user } = context.get(AuthContext);
+  return { theme, language, user };
 }
 
 function InnerLayout({
@@ -138,7 +124,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       themeAction="/action/set-theme"
     >
       <I18nProvider initialLanguage={data?.language || DEFAULT_LANGUAGE}>
-        <AuthProvider user={data?.user || null}>
+        <AuthProvider user={data?.user ?? null}>
           <InnerLayout
             ssrTheme={Boolean(data?.theme)}
             language={data?.language || DEFAULT_LANGUAGE}

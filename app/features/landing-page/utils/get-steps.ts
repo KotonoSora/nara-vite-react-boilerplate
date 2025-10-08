@@ -1,8 +1,6 @@
-import type { TranslationKey } from "~/lib/i18n";
+import type { TranslationFunctionType } from "~/lib/i18n/translations";
 
-export function getSteps(
-  t: (key: TranslationKey, params?: Record<string, string | number>) => string,
-) {
+export function getSteps(t: TranslationFunctionType) {
   return [
     {
       number: 1,

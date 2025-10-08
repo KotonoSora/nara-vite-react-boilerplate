@@ -1,44 +1,33 @@
 import { sql } from "drizzle-orm";
-import { redirect } from "react-router";
 import { z } from "zod";
 
-import type { SupportedLanguage } from "~/lib/i18n";
+import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).register";
 
 import * as schema from "~/database/schema";
 import { PageContext } from "~/features/register/context/page-context";
+import {
+  pageMiddleware,
+  pageMiddlewareContext,
+} from "~/features/register/middleware/page-middleware";
 import { ContentRegisterPage } from "~/features/register/page";
 import { MAX_USERS } from "~/features/shared/constants/limit";
-import { createTranslationFunction } from "~/lib/i18n";
+import { authMiddleware } from "~/features/shared/middleware/auth";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 
-export async function loader({ context, request }: Route.LoaderArgs) {
-  const { getUserId } = await import("~/lib/auth/auth.server");
+export const middleware: MiddlewareFunction[] = [
+  authMiddleware,
+  pageMiddleware,
+];
 
-  // Redirect if already logged in
-  const userId = await getUserId(request);
-  if (userId) {
-    throw redirect("/dashboard");
-  }
-
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
-
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
-
-  return {
-    registerTitle: t("auth.register.title"),
-    registerDescription: t("auth.register.description"),
-  };
+export async function loader({ context }: Route.LoaderArgs) {
+  const pageContent = context.get(pageMiddlewareContext);
+  return pageContent;
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
-
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
+  const pageContent = context.get(pageMiddlewareContext);
+  const { language } = pageContent;
   const t = createTranslationFunction(language);
 
   const formData = await request.formData();
@@ -108,22 +97,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (
-    !("title" in loaderData) ||
-    !("description" in loaderData) ||
-    !loaderData.title ||
-    !loaderData.description
-  ) {
-    return [
-      { title: "Sign Up" },
-      { name: "description", content: "Create a new account" },
-    ];
-  }
-
-  return [
-    { title: loaderData.title },
-    { name: "description", content: loaderData.description },
-  ];
+  const { title, description } = loaderData;
+  return [{ title }, { name: "description", content: description }];
 }
 
 export default function Register({ actionData }: Route.ComponentProps) {

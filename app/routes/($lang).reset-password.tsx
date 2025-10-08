@@ -1,40 +1,40 @@
 import { redirect } from "react-router";
 import { z } from "zod";
 
+import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).reset-password";
 
 import { PageContext } from "~/features/reset-password/context/page-context";
+import {
+  pageMiddleware,
+  pageMiddlewareContext,
+} from "~/features/reset-password/middleware/page-middleware";
+import {
+  tokenMiddleware,
+  tokenMiddlewareContext,
+} from "~/features/reset-password/middleware/token";
 import { ResetPasswordPage } from "~/features/reset-password/page";
 import { isStrongPassword } from "~/lib/auth/config";
-import { createTranslationFunction } from "~/lib/i18n";
+import { createTranslationFunction } from "~/lib/i18n/translations";
 
-export async function loader({ context, request }: Route.LoaderArgs) {
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
+export const middleware: MiddlewareFunction[] = [
+  tokenMiddleware,
+  pageMiddleware,
+];
 
-  const language = await resolveRequestLanguage(request);
-  const t = createTranslationFunction(language);
-  const url = new URL(request.url);
-  const token = url.searchParams.get("token");
-
-  if (!token) {
-    return redirect("/forgot-password");
-  }
+export async function loader({ context }: Route.LoaderArgs) {
+  const { token } = context.get(tokenMiddlewareContext);
+  const { title, description } = context.get(pageMiddlewareContext);
 
   return {
     token,
-    title: t("auth.resetPassword.title"),
-    description: t("auth.resetPassword.description"),
+    title,
+    description,
   };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const { resolveRequestLanguage } = await import(
-    "~/lib/i18n/request-language.server"
-  );
-
-  const language = await resolveRequestLanguage(request);
+  const { language } = context.get(pageMiddlewareContext);
   const t = createTranslationFunction(language);
 
   const formData = await request.formData();
@@ -82,22 +82,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  if (
-    !("title" in loaderData) ||
-    !("description" in loaderData) ||
-    !loaderData.title ||
-    !loaderData.description
-  ) {
-    return [
-      { title: "Reset Password" },
-      { name: "description", content: "Set a new password for your account" },
-    ];
-  }
-
-  return [
-    { title: loaderData.title },
-    { name: "description", content: loaderData.description },
-  ];
+  const { title, description } = loaderData;
+  return [{ title }, { name: "description", content: description }];
 }
 
 export default function ResetPassword({

@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 4.6.10 (2025-10-08)
+
+- Upgraded Bun to v1.2.23
+- Upgraded Node.js v24.9.0
+- Upgraded dependency versions
+
+## 4.6.9 (2025-09-21)
+
+- Upgraded Bun to v1.2.21
+- Upgraded dependency versions
+- Remove source code workers api and tests
+- Apply middleware of React Router v7.9.1
+
 ## 4.6.9 (2025-09-14)
 
 - Upgraded Node.js v24.8.0
