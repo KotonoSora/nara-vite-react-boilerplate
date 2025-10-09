@@ -1,7 +1,6 @@
 import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).terms";
 
-import { PageContext } from "~/features/terms/context/page-context";
 import {
   termsMiddleware,
   termsMiddlewareContext,
@@ -20,10 +19,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function TermsPage({ loaderData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={loaderData}>
-      <ContentTermsPage />
-    </PageContext.Provider>
-  );
+export default function TermsPage({}: Route.ComponentProps) {
+  return <ContentTermsPage />;
 }
