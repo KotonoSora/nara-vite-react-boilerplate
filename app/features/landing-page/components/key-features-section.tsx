@@ -1,7 +1,8 @@
 import { Rocket } from "lucide-react";
 import { memo } from "react";
+import { useLoaderData } from "react-router";
 
-import type { FeatureCardProps } from "../types/type";
+import type { FeatureCardProps, PageInformation } from "../types/type";
 
 import {
   Card,
@@ -12,7 +13,6 @@ import {
 } from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
 import { getIconComponent } from "../utils/get-icon-component";
 import {
   BackgroundDecoration,
@@ -49,7 +49,7 @@ const FeatureCard = memo(function FeatureCard({ config }: FeatureCardProps) {
 
 export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
   const { t } = useI18n();
-  const { featuresConfig } = usePageContext() || {};
+  const { featuresConfig } = useLoaderData<PageInformation>();
 
   if (!featuresConfig) return null;
 

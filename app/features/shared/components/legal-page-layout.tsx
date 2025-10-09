@@ -119,7 +119,7 @@ export function LegalPageLayout({
   return (
     <>
       {/* Header Navigation */}
-      <HeaderNavigationSection usePageContext={usePageContext} />
+      <HeaderNavigationSection />
 
       <div className="min-h-screen bg-background">
         {/* Reading Progress Bar */}

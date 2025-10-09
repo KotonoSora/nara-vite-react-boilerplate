@@ -1,17 +1,16 @@
 import { Check, Copy, Play, Terminal } from "lucide-react";
 import { memo, useCallback, useState } from "react";
+import { useLoaderData } from "react-router";
 
-import type { Step } from "../types/type";
+import type { PageInformation, Step } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
 export const GettingStartedSection = memo(function GettingStartedSection() {
   const { t } = useI18n();
-  const { steps } = usePageContext() || {};
+  const { steps } = useLoaderData<PageInformation>();
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
 
   const copyToClipboard = async (step: Step) => {

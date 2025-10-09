@@ -1,18 +1,17 @@
 import { CircleChevronRight } from "lucide-react";
 import { memo } from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
-import type { ProjectInfo } from "../types/type";
+import type { PageInformation, ProjectInfo } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
 
 import { ShowcaseItem } from "../components/showcase-item";
-import { usePageContext } from "../context/page-context";
 
 export const ShowcaseSection = memo(function ShowcaseSection() {
   const { t } = useI18n();
-  const { showcases } = usePageContext() || {};
+  const { showcases } = useLoaderData<PageInformation>();
 
   return (
     <section

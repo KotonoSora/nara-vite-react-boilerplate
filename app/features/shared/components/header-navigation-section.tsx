@@ -42,9 +42,7 @@ function UserInitialAvatar({
   );
 }
 
-export const HeaderNavigationSection = memo(function HeaderNavigationSection({
-  usePageContext,
-}: any) {
+export const HeaderNavigationSection = memo(function HeaderNavigationSection() {
   const auth = useOptionalAuth();
   const { t } = useI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -150,7 +148,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection({
           )}
 
           <Suspense fallback={null}>
-            <GitHubButtonLazy usePageContext={usePageContext} />
+            <GitHubButtonLazy />
           </Suspense>
           <LanguageSwitcher />
           <ModeSwitcher />
@@ -259,7 +257,7 @@ export const HeaderNavigationSection = memo(function HeaderNavigationSection({
 
           <div className="pt-3 border-t flex justify-end">
             <Suspense fallback={null}>
-              <GitHubButtonLazy usePageContext={usePageContext} />
+              <GitHubButtonLazy />
             </Suspense>
           </div>
         </div>

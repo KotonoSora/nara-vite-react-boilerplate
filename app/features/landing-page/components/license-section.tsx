@@ -1,19 +1,17 @@
 import { Shield } from "lucide-react";
 import { memo } from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
+
+import type { PageInformation } from "../types/type";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
 export const LicenseSection = memo(function LicenseSection() {
   const { t } = useI18n();
-  const { githubRepository, commercialLink } = usePageContext() || {};
-
-  if (!githubRepository) return null;
+  const { githubRepository, commercialLink } = useLoaderData<PageInformation>();
 
   return (
     <section
@@ -72,7 +70,7 @@ export const LicenseSection = memo(function LicenseSection() {
 
               <Button variant="outline" className="w-full" asChild>
                 <Link
-                  to={githubRepository}
+                  to={githubRepository ?? ""}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t("landing.license.openSource.button")}

@@ -1,7 +1,6 @@
 import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang)._index";
 
-import { PageContext } from "~/features/landing-page/context/page-context";
 import {
   pageMiddleware,
   pageMiddlewareContext,
@@ -20,10 +19,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function Page({ loaderData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={loaderData}>
-      <ContentPage />
-    </PageContext.Provider>
-  );
+export default function Page({}: Route.ComponentProps) {
+  return <ContentPage />;
 }

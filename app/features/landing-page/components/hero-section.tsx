@@ -1,11 +1,12 @@
 import { ArrowRight, ExternalLink, Rocket, Sparkles, Star } from "lucide-react";
 import { memo } from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
+
+import type { PageInformation } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
 import {
   BackgroundDecoration,
   heroDecorationConfig,
@@ -13,7 +14,7 @@ import {
 
 export const HeroSection = memo(function HeroSection() {
   const { t } = useI18n();
-  const { githubRepository } = usePageContext() || {};
+  const { githubRepository } = useLoaderData<PageInformation>();
 
   return (
     <section className="py-24 px-4 bg-background relative overflow-hidden">

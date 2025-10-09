@@ -8,7 +8,6 @@ import { KeyFeaturesSection } from "./components/key-features-section";
 import { LicenseSection } from "./components/license-section";
 import { ShowcaseSection } from "./components/showcase-section";
 import { TechStackSection } from "./components/tech-stack-section";
-import { usePageContext } from "./context/page-context";
 
 export function ContentPage() {
   return (
@@ -17,7 +16,7 @@ export function ContentPage() {
       style={{ contentVisibility: "auto" }}
     >
       {/* Header/Navigation Section */}
-      <HeaderNavigationSection usePageContext={usePageContext} />
+      <HeaderNavigationSection />
 
       {/* Hero Section */}
       <HeroSection />
