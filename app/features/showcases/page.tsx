@@ -15,10 +15,7 @@ export function ContentShowcasePage() {
 
   return (
     <>
-      <main
-        className="min-h-screen bg-background flex flex-col"
-        style={{ contentVisibility: "auto" }}
-      >
+      <main className="min-h-screen bg-background flex flex-col content-visibility-auto">
         {/* Header/Navigation Section */}
         <HeaderNavigationSection />
 

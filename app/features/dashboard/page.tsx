@@ -10,10 +10,7 @@ import { HeaderNavigationSection } from "~/features/shared/components/header-nav
 
 export function ContentDashboardPage() {
   return (
-    <main
-      className="min-h-screen bg-background"
-      style={{ contentVisibility: "auto" }}
-    >
+    <main className="min-h-screen bg-background content-visibility-auto">
       {/* Header */}
       <HeaderNavigationSection />
 

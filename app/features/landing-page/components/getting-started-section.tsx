@@ -29,10 +29,7 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
   }, []);
 
   return (
-    <section
-      className="py-24 px-4 bg-gradient-to-br from-muted/30 to-muted/10 relative"
-      style={{ contentVisibility: "auto" }}
-    >
+    <section className="py-24 px-4 bg-gradient-to-br from-muted/30 to-muted/10 relative content-visibility-auto">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
 

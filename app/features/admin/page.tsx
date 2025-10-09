@@ -17,10 +17,7 @@ export function ContentAdminPage() {
   const t = useTranslation();
 
   return (
-    <main
-      className="min-h-screen bg-background"
-      style={{ contentVisibility: "auto" }}
-    >
+    <main className="min-h-screen bg-background content-visibility-auto">
       {/* Header */}
       <HeaderNavigationSection />
 

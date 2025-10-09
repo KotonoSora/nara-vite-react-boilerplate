@@ -11,10 +11,7 @@ import { TechStackSection } from "./components/tech-stack-section";
 
 export function ContentPage() {
   return (
-    <main
-      className="min-h-screen bg-background"
-      style={{ contentVisibility: "auto" }}
-    >
+    <main className="min-h-screen bg-background content-visibility-auto">
       {/* Header/Navigation Section */}
       <HeaderNavigationSection />
 

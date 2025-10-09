@@ -54,10 +54,7 @@ export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
   if (!featuresConfig) return null;
 
   return (
-    <section
-      className="py-24 px-4 bg-background relative overflow-hidden"
-      style={{ contentVisibility: "auto" }}
-    >
+    <section className="py-24 px-4 bg-background relative overflow-hidden content-visibility-auto">
       {/* Background decoration */}
       <div
         className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-green-500/5"

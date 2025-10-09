@@ -14,10 +14,7 @@ export const ShowcaseSection = memo(function ShowcaseSection() {
   const { showcases } = useLoaderData<PageInformation>();
 
   return (
-    <section
-      className="py-16 px-6 lg:px-24 bg-background"
-      style={{ contentVisibility: "auto" }}
-    >
+    <section className="py-16 px-6 lg:px-24 bg-background content-visibility-auto">
       <div className="max-w-5xl mx-auto text-center space-y-4">
         <h2 className="text-3xl font-bold tracking-tight">
           {t("landing.showcase.title")}
