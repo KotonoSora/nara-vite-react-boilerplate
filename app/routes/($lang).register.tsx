@@ -5,7 +5,6 @@ import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).register";
 
 import * as schema from "~/database/schema";
-import { PageContext } from "~/features/register/context/page-context";
 import {
   pageMiddleware,
   pageMiddlewareContext,
@@ -101,10 +100,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function Register({ actionData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={{ error: actionData?.error }}>
-      <ContentRegisterPage />
-    </PageContext.Provider>
-  );
+export default function Register({}: Route.ComponentProps) {
+  return <ContentRegisterPage />;
 }
