@@ -1,5 +1,6 @@
-import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { MiddlewareFunction } from "react-router";
+
+import type { SupportedLanguage } from "~/lib/i18n/config";
 
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
 import { I18nContext } from "~/middleware/i18n";

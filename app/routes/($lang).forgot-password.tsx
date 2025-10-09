@@ -1,7 +1,8 @@
 import { z } from "zod";
 
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).forgot-password";
+
+import type { MiddlewareFunction } from "react-router";
 
 import {
   forgotPasswordMiddleware,

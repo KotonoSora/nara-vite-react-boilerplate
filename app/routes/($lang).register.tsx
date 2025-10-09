@@ -1,8 +1,9 @@
 import { sql } from "drizzle-orm";
 import { z } from "zod";
 
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).register";
+
+import type { MiddlewareFunction } from "react-router";
 
 import * as schema from "~/database/schema";
 import {

@@ -1,7 +1,8 @@
 import { z } from "zod";
 
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).login";
+
+import type { MiddlewareFunction } from "react-router";
 
 import {
   pageMiddleware,

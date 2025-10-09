@@ -1,5 +1,5 @@
 import { FooterSection } from "../shared/components/footer-section";
-import { HeaderNavigationSection } from "../shared/components/header-navigation-section";
+import { HeaderNavigation } from "../shared/header-navigation";
 import { BuiltForDevelopersSection } from "./components/built-for-developers-section";
 import { DonateSection } from "./components/donate-section";
 import { GettingStartedSection } from "./components/getting-started-section";
@@ -13,7 +13,7 @@ export function ContentPage() {
   return (
     <main className="min-h-screen bg-background content-visibility-auto">
       {/* Header/Navigation Section */}
-      <HeaderNavigationSection />
+      <HeaderNavigation />
 
       {/* Hero Section */}
       <HeroSection />

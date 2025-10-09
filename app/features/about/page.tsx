@@ -1,13 +1,13 @@
 import { Link } from "react-router";
 
 import { FooterSection } from "~/features/shared/components/footer-section";
-import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
+import { HeaderNavigation } from "~/features/shared/header-navigation";
 
 export function AboutPage() {
   return (
     <div className="min-h-screen relative flex flex-col">
       {/* Header */}
-      <HeaderNavigationSection />
+      <HeaderNavigation />
 
       {/* Main content */}
       <section className="flex flex-col items-center justify-center min-h-0 h-full flex-1 py-12 px-4 text-center bg-background">

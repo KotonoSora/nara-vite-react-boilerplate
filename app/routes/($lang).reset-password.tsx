@@ -1,8 +1,9 @@
 import { redirect } from "react-router";
 import { z } from "zod";
 
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).reset-password";
+
+import type { MiddlewareFunction } from "react-router";
 
 import {
   pageMiddleware,

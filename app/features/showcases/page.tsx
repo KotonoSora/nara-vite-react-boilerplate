@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router";
 import type { PageInformation } from "./types/type";
 
 import { FooterSection } from "~/features/shared/components/footer-section";
-import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
+import { HeaderNavigation } from "~/features/shared/header-navigation";
 import { useI18n } from "~/lib/i18n/context";
 
 import { ButtonScrollToTop } from "../shared/components/button-scroll-to-top";
@@ -17,7 +17,7 @@ export function ContentShowcasePage() {
     <>
       <main className="min-h-screen bg-background flex flex-col content-visibility-auto">
         {/* Header/Navigation Section */}
-        <HeaderNavigationSection />
+        <HeaderNavigation />
 
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col">
