@@ -77,9 +77,9 @@ jobs:
       - name: Deploy to Cloudflare Pages
         run: |
           if [ "${GITHUB_REF##*/}" = "main" ]; then
-            bun run deploy --env production
+            CLOUDFLARE_ENV=production bun run deploy:env
           else
-            bun run deploy --env development
+            CLOUDFLARE_ENV=development bun run deploy:env
           fi
 
     env:
