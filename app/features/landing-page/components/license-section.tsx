@@ -1,5 +1,4 @@
 import { Shield } from "lucide-react";
-import { memo } from "react";
 import { Link, useLoaderData } from "react-router";
 
 import type { PageInformation } from "../types/type";
@@ -9,7 +8,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n/context";
 
-export const LicenseSection = memo(function LicenseSection() {
+export function LicenseSection() {
   const { t } = useI18n();
   const { githubRepository, commercialLink } = useLoaderData<PageInformation>();
 
@@ -140,4 +139,4 @@ export const LicenseSection = memo(function LicenseSection() {
       </div>
     </section>
   );
-});
+}

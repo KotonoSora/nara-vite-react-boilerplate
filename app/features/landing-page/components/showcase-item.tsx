@@ -1,5 +1,4 @@
 import { ExternalLink } from "lucide-react";
-import { memo } from "react";
 import { Link } from "react-router";
 
 import type { ProjectInfo } from "../types/type";
@@ -10,11 +9,7 @@ import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import SocialPreview from "~/features/shared/assets/social-preview.svg?url";
 import { useI18n } from "~/lib/i18n/context";
 
-export const ShowcaseItem = memo(function ShowcaseItem({
-  project,
-}: {
-  project: ProjectInfo;
-}) {
+export function ShowcaseItem({ project }: { project: ProjectInfo }) {
   const { t } = useI18n();
   return (
     <Card className="overflow-hidden py-0 gap-0 content-visibility-auto">
@@ -51,4 +46,4 @@ export const ShowcaseItem = memo(function ShowcaseItem({
       </CardContent>
     </Card>
   );
-});
+}

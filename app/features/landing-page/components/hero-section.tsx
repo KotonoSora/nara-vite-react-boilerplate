@@ -1,5 +1,4 @@
 import { ArrowRight, ExternalLink, Rocket, Sparkles, Star } from "lucide-react";
-import { memo } from "react";
 import { Link, useLoaderData } from "react-router";
 
 import type { PageInformation } from "../types/type";
@@ -7,12 +6,10 @@ import type { PageInformation } from "../types/type";
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
 
-import {
-  BackgroundDecoration,
-  heroDecorationConfig,
-} from "./shared/background-decoration";
+import { heroDecorationConfig } from "../constants/background-decoration";
+import { BackgroundDecoration } from "./background-decoration";
 
-export const HeroSection = memo(function HeroSection() {
+export function HeroSection() {
   const { t } = useI18n();
   const { githubRepository } = useLoaderData<PageInformation>();
 
@@ -110,4 +107,4 @@ export const HeroSection = memo(function HeroSection() {
       </div>
     </section>
   );
-});
+}

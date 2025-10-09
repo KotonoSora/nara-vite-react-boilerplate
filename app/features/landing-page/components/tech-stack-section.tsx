@@ -1,10 +1,9 @@
 import { Zap } from "lucide-react";
-import { memo } from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n/context";
 
-export const TechStackSection = memo(function TechStackSection() {
+export function TechStackSection() {
   const { t } = useI18n();
 
   return (
@@ -231,4 +230,4 @@ export const TechStackSection = memo(function TechStackSection() {
       </div>
     </section>
   );
-});
+}
