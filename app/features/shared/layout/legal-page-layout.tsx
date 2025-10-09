@@ -10,9 +10,9 @@ import { Separator } from "~/components/ui/separator";
 import { useI18n } from "~/lib/i18n/context";
 import { cn } from "~/lib/utils";
 
-import { ButtonScrollToTop } from "./button-scroll-to-top";
-import { FooterSection } from "./footer-section";
-import { HeaderNavigationSection } from "./header-navigation-section";
+import { ButtonScrollToTop } from "../components/button-scroll-to-top";
+import { FooterSection } from "../components/footer-section";
+import { HeaderNavigation } from "../header-navigation";
 
 interface LegalSection {
   id: string;
@@ -117,7 +117,7 @@ export function LegalPageLayout({
   return (
     <>
       {/* Header Navigation */}
-      <HeaderNavigationSection />
+      <HeaderNavigation />
 
       <div className="min-h-screen bg-background">
         {/* Reading Progress Bar */}
