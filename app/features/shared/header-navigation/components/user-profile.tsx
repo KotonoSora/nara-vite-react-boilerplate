@@ -1,22 +1,22 @@
 import { Link } from "react-router";
 
-import type { AuthenticatedMobileMenuProps } from "../types/type";
+import type { AuthenticatedMenuContentProps } from "../types/type";
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { useI18n } from "~/lib/i18n/context";
 
-export function DashboardLink({
+export function UserProfile({
   userName,
   userEmail,
-  onNavigate,
-}: AuthenticatedMobileMenuProps) {
+  onClose,
+}: AuthenticatedMenuContentProps) {
   const { t } = useI18n();
   const userInitial = userName?.charAt(0).toUpperCase();
 
   return (
     <Link
       to="/dashboard"
-      onClick={onNavigate}
+      onClick={onClose}
       aria-label={t("navigation.dashboard")}
     >
       <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-2">

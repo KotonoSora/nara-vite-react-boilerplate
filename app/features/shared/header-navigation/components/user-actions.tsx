@@ -6,13 +6,13 @@ import type { NavigationProps } from "../types/type";
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
 
-export function NavigationActions({ onNavigate }: NavigationProps) {
+export function UserActions({ onClose }: NavigationProps) {
   const { t } = useI18n();
 
   return (
     <div className="flex gap-4">
       <Button variant="outline" size="sm" asChild>
-        <Link to="/" onClick={onNavigate} title={t("navigation.home")}>
+        <Link to="/" onClick={onClose} title={t("navigation.home")}>
           <Home className="h-4 w-4" />
         </Link>
       </Button>
@@ -21,7 +21,7 @@ export function NavigationActions({ onNavigate }: NavigationProps) {
           type="submit"
           variant="outline"
           size="sm"
-          onClick={onNavigate}
+          onClick={onClose}
           title={t("navigation.signOut")}
         >
           <LogOut className="h-4 w-4" aria-label={t("navigation.signOut")} />

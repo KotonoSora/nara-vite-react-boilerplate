@@ -1,26 +1,16 @@
-import type { RefObject } from "react";
-
 export type NavigationProps = {
-  onNavigate: () => void;
+  onClose: () => void;
 };
 
-export type AuthenticatedMenuProps = NavigationProps & {
-  userName?: string;
-};
-
-export type AuthenticatedMobileMenuProps = NavigationProps & {
+export type AuthenticatedMenuContentProps = NavigationProps & {
   userName?: string;
   userEmail?: string;
 };
 
-export type MobileNavigationProps = NavigationProps & {
+export type NavigationMenuProps = NavigationProps;
+
+export type NavigationMenuTriggerProps = {
   isOpen: boolean;
 };
 
-export type MobileMenuButtonProps = {
-  isOpen: boolean;
-  onToggle: () => void;
-  buttonRef: RefObject<HTMLButtonElement | null>;
-};
-
-export type GuestMobileMenuProps = NavigationProps;
+export type GuestMenuContentProps = NavigationProps;
