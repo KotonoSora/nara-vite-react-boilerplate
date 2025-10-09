@@ -1,7 +1,6 @@
 import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).dashboard";
 
-import { PageContext } from "~/features/dashboard/context/page-context";
 import {
   dashboardMiddleware,
   dashboardMiddlewareContext,
@@ -20,10 +19,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function Dashboard({ loaderData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={loaderData}>
-      <ContentDashboardPage />
-    </PageContext.Provider>
-  );
+export default function Dashboard({}: Route.ComponentProps) {
+  return <ContentDashboardPage />;
 }
