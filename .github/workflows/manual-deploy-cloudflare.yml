@@ -77,9 +77,9 @@ jobs:
       - name: Deploy to Cloudflare Pages
         run: |
           if [ "${GITHUB_REF##*/}" = "main" ]; then
-            bun run build && wrangler deploy --env production
+            bun run deploy --env production
           else
-            bun run build && wrangler deploy --env development
+            bun run deploy --env development
           fi
 
     env:
