@@ -78,10 +78,10 @@ jobs:
         run: |
           if [ "${GITHUB_REF##*/}" = "main" ]; then
             CLOUDFLARE_ENV=production bun run build
-            CLOUDFLARE_ENV=production bun run deploy
+            CLOUDFLARE_ENV=production bun run deploy -- --env=""
           else
             CLOUDFLARE_ENV=development bun run build
-            CLOUDFLARE_ENV=development bun run deploy
+            CLOUDFLARE_ENV=development bun run deploy -- --env=""
           fi
 
     env:
