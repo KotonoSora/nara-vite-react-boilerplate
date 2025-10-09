@@ -1,12 +1,12 @@
 import { Home, LogOut } from "lucide-react";
 import { Form, Link } from "react-router";
 
-import type { NavigationProps } from "../types/type";
+import type { MenuCloseHandler } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
 
-export function UserActions({ onClose }: NavigationProps) {
+export function UserActions({ onClose }: MenuCloseHandler) {
   const { t } = useI18n();
 
   return (

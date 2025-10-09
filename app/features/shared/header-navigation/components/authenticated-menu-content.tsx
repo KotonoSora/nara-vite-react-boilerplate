@@ -1,4 +1,4 @@
-import type { AuthenticatedMenuContentProps } from "../types/type";
+import type { AuthenticatedMenuProps } from "../types/type";
 
 import { UserActions } from "./user-actions";
 import { UserProfile } from "./user-profile";
@@ -7,7 +7,7 @@ export function AuthenticatedMenuContent({
   userName,
   userEmail,
   onClose,
-}: AuthenticatedMenuContentProps) {
+}: AuthenticatedMenuProps) {
   return (
     <div className="flex flex-col gap-4">
       <UserProfile

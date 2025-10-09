@@ -1,16 +1,12 @@
-export type NavigationProps = {
+export type MenuCloseHandler = {
   onClose: () => void;
 };
 
-export type AuthenticatedMenuContentProps = NavigationProps & {
+export type AuthenticatedMenuProps = MenuCloseHandler & {
   userName?: string;
   userEmail?: string;
 };
 
-export type NavigationMenuProps = NavigationProps;
-
-export type NavigationMenuTriggerProps = {
+export type MenuTriggerProps = {
   isOpen: boolean;
 };
-
-export type GuestMenuContentProps = NavigationProps;

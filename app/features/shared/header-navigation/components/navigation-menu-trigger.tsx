@@ -1,6 +1,6 @@
 import { Menu, X } from "lucide-react";
 
-import type { NavigationMenuTriggerProps } from "../types/type";
+import type { MenuTriggerProps } from "../types/type";
 
 import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
@@ -8,7 +8,7 @@ import { Button } from "~/components/ui/button";
 import { PopoverTrigger } from "~/components/ui/popover";
 import { useI18n } from "~/lib/i18n/context";
 
-export function NavigationMenuTrigger({ isOpen }: NavigationMenuTriggerProps) {
+export function MenuTrigger({ isOpen }: MenuTriggerProps) {
   const { t } = useI18n();
 
   return (

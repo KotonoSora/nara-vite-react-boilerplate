@@ -1,17 +1,19 @@
 import { Link } from "react-router";
 
-import type { AuthenticatedMenuContentProps } from "../types/type";
+import type { AuthenticatedMenuProps } from "../types/type";
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { useI18n } from "~/lib/i18n/context";
+
+import { getUserInitial } from "../utils/get-user-initial";
 
 export function UserProfile({
   userName,
   userEmail,
   onClose,
-}: AuthenticatedMenuContentProps) {
+}: AuthenticatedMenuProps) {
   const { t } = useI18n();
-  const userInitial = userName?.charAt(0).toUpperCase();
+  const userInitial = getUserInitial(userName);
 
   return (
     <Link

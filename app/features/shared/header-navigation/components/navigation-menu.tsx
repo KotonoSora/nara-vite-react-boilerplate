@@ -1,18 +1,18 @@
 import { Link } from "react-router";
 
-import type { NavigationMenuProps } from "../types/type";
+import type { MenuCloseHandler } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { PopoverContent } from "~/components/ui/popover";
-import { useOptionalAuth } from "~/lib/auth/context";
+import { GitHubButton } from "~/features/shared/components/github-button";
+import { useAuth } from "~/lib/auth/context";
 import { useI18n } from "~/lib/i18n/context";
 
-import { GitHubButton } from "../../components/github-button";
 import { AuthenticatedMenuContent } from "./authenticated-menu-content";
 import { GuestMenuContent } from "./guest-menu-content";
 
-export function NavigationMenu({ onClose }: NavigationMenuProps) {
-  const auth = useOptionalAuth();
+export function Menu({ onClose }: MenuCloseHandler) {
+  const auth = useAuth();
   const { t } = useI18n();
   const isAuthenticated = auth?.isAuthenticated;
 

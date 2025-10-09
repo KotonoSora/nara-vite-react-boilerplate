@@ -1,11 +1,11 @@
 import { Link } from "react-router";
 
-import type { GuestMenuContentProps } from "../types/type";
+import type { MenuCloseHandler } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
 
-export function GuestMenuContent({ onClose }: GuestMenuContentProps) {
+export function GuestMenuContent({ onClose }: MenuCloseHandler) {
   const { t } = useI18n();
 
   return (
