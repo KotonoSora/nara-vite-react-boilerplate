@@ -15,6 +15,15 @@ export const aboutMiddleware: MiddlewareFunction = async ({ context }) => {
     title: t("about.meta.title"),
     description: t("about.meta.description"),
     language,
+    content: {
+      heading: t("about.heading"),
+      tagline: t("about.tagline"),
+      taglineSecond: t("about.taglineSecond"),
+      description: t("about.description"),
+      descriptionSecond: t("about.descriptionSecond"),
+      contactLabel: t("about.contactLabel"),
+      email: import.meta.env.VITE_CONTACT_EMAIL ?? "",
+    },
   };
 
   context.set(aboutMiddlewareContext, contextValue);

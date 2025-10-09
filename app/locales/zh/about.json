@@ -1,6 +1,12 @@
 {
   "meta": {
     "title": "关于我们",
-    "description": "了解更多关于我们的公司和团队。"
-  }
+    "description": "了解更多关于我们公司和团队的信息。"
+  },
+  "heading": "关于我们",
+  "tagline": "我们构建重要的东西。",
+  "taglineSecond": "简单、实用、美观。",
+  "description": "有目的地打造。为明天而建。",
+  "descriptionSecond": "由精确驱动。",
+  "contactLabel": "联系方式"
 }

@@ -1,6 +1,12 @@
 {
   "meta": {
-    "title": "معلومات عنا",
-    "description": "تعرف على المزيد حول شركتنا وفريقنا."
-  }
+    "title": "من نحن",
+    "description": "اعرف المزيد عن شركتنا وفريقنا."
+  },
+  "heading": "من نحن",
+  "tagline": "نحن نبني أشياء مهمة.",
+  "taglineSecond": "بسيط، عملي، جميل.",
+  "description": "صُنع بهدف. بُني للغد.",
+  "descriptionSecond": "مدفوع بالدقة.",
+  "contactLabel": "اتصل بنا"
 }

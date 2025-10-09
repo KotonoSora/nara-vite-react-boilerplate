@@ -1,6 +1,12 @@
 {
   "meta": {
     "title": "私たちについて",
-    "description": "私たちの会社とチームについてもっと知る。"
-  }
+    "description": "私たちの会社とチームについて詳しく知る。"
+  },
+  "heading": "私たちについて",
+  "tagline": "私たちは重要なものを作ります。",
+  "taglineSecond": "シンプル、機能的、美しい。",
+  "description": "目的を持って作られました。明日のために構築されました。",
+  "descriptionSecond": "精度によって推進されます。",
+  "contactLabel": "お問い合わせ"
 }
