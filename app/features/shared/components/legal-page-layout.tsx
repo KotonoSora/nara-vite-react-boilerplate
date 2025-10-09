@@ -1,6 +1,6 @@
 import { ChevronRight, Clock, FileText, Printer, Share2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -36,7 +36,6 @@ interface LegalPageLayoutProps {
     href: string;
     description: string;
   }>;
-  usePageContext?: any;
 }
 
 export function LegalPageLayout({
@@ -46,10 +45,9 @@ export function LegalPageLayout({
   sections,
   estimatedReadTime = 5,
   relatedPages = [],
-  usePageContext,
 }: LegalPageLayoutProps) {
   const { t } = useI18n();
-  const { githubRepository } = usePageContext();
+  const { githubRepository } = useLoaderData();
   const [activeSection, setActiveSection] = useState<string>("");
   const [readingProgress, setReadingProgress] = useState(0);
   const [isTocOpen, setIsTocOpen] = useState(false);
