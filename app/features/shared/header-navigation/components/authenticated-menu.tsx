@@ -3,11 +3,11 @@ import { Link } from "react-router";
 
 import type { AuthenticatedMenuProps } from "../types/type";
 
+import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
 
 import { LogoutButton } from "./logout-button";
-import { UserInitialAvatar } from "./user-initial-avatar";
 
 export function AuthenticatedMenu({
   userName,
@@ -31,10 +31,9 @@ export function AuthenticatedMenu({
         onClick={onNavigate}
         aria-label={t("navigation.dashboard")}
       >
-        <UserInitialAvatar
-          initial={userInitial}
-          title={t("navigation.dashboard")}
-        />
+        <Avatar>
+          <AvatarFallback>{userInitial}</AvatarFallback>
+        </Avatar>
       </Link>
       <LogoutButton />
     </div>

@@ -2,9 +2,8 @@ import { Link } from "react-router";
 
 import type { AuthenticatedMobileMenuProps } from "../types/type";
 
+import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { useI18n } from "~/lib/i18n/context";
-
-import { UserInitialAvatar } from "./user-initial-avatar";
 
 export function DashboardLink({
   userName,
@@ -21,10 +20,9 @@ export function DashboardLink({
       aria-label={t("navigation.dashboard")}
     >
       <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-2">
-        <UserInitialAvatar
-          initial={userInitial}
-          title={t("navigation.dashboard")}
-        />
+        <Avatar>
+          <AvatarFallback>{userInitial}</AvatarFallback>
+        </Avatar>
         <div className="min-w-0 flex-1">
           <div className="text-sm font-medium line-clamp-1">{userName}</div>
           <div className="text-xs text-muted-foreground">{userEmail}</div>

@@ -24,8 +24,3 @@ export type MobileMenuButtonProps = {
 };
 
 export type GuestMobileMenuProps = NavigationProps;
-
-export type UserInitialAvatarProps = {
-  initial?: string;
-  title?: string;
-};
