@@ -1,5 +1,5 @@
 import { AlertCircle } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useActionData } from "react-router";
 
 import { Alert, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -14,10 +14,9 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
 export function RequestEmailForm() {
-  const { error } = usePageContext();
+  const actionData = useActionData();
+  const { error } = actionData || {};
   const { t } = useI18n();
 
   return (

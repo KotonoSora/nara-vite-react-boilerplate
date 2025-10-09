@@ -3,7 +3,6 @@ import { z } from "zod";
 import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).forgot-password";
 
-import { PageContext } from "~/features/forgot-password/context/page-context";
 import {
   forgotPasswordMiddleware,
   forgotPasswordMiddlewareContext,
@@ -52,20 +51,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function ForgotPassword({ actionData }: Route.ComponentProps) {
-  const {
-    success = false,
-    error = null,
-    message = null,
-  } = (actionData ?? {}) as Partial<{
-    success: boolean;
-    error: string;
-    message: string;
-  }>;
-
-  return (
-    <PageContext.Provider value={{ isSuccess: success, error, message }}>
-      <ForgotPasswordPage />
-    </PageContext.Provider>
-  );
+export default function ForgotPassword({}: Route.ComponentProps) {
+  return <ForgotPasswordPage />;
 }
