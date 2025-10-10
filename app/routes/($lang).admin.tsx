@@ -1,7 +1,7 @@
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).admin";
 
-import { PageContext } from "~/features/admin/context/page-context";
+import type { MiddlewareFunction } from "react-router";
+
 import {
   adminMiddleware,
   adminMiddlewareContext,
@@ -21,9 +21,5 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function Admin({ loaderData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={loaderData}>
-      <ContentAdminPage />
-    </PageContext.Provider>
-  );
+  return <ContentAdminPage />;
 }

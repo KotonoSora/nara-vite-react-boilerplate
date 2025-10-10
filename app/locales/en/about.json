@@ -2,5 +2,11 @@
   "meta": {
     "title": "About Us",
     "description": "Learn more about our company and team."
-  }
+  },
+  "heading": "About",
+  "tagline": "We build things that matter.",
+  "taglineSecond": "Simple, functional, beautiful.",
+  "description": "Crafted with purpose. Built for tomorrow.",
+  "descriptionSecond": "Driven by precision.",
+  "contactLabel": "Contact"
 }

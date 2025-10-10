@@ -11,10 +11,6 @@ export function useAuth(): AuthContextValue {
   return useContext(AuthContext);
 }
 
-export function useOptionalAuth(): AuthContextValue {
-  return useContext(AuthContext);
-}
-
 export function useUser() {
   const { user } = useAuth();
   return user;

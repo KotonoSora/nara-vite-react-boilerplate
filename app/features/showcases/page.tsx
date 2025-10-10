@@ -1,23 +1,23 @@
+import { useLoaderData } from "react-router";
+
+import type { PageInformation } from "./types/type";
+
 import { FooterSection } from "~/features/shared/components/footer-section";
-import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
+import { HeaderNavigation } from "~/features/shared/header-navigation";
 import { useI18n } from "~/lib/i18n/context";
 
 import { ButtonScrollToTop } from "../shared/components/button-scroll-to-top";
 import { ShowcaseItem } from "./components/showcase-item";
-import { usePageContext } from "./context/page-context";
 
 export function ContentShowcasePage() {
   const { t } = useI18n();
-  const { showcases } = usePageContext() || {};
+  const { showcases } = useLoaderData<PageInformation>();
 
   return (
     <>
-      <main
-        className="min-h-screen bg-background flex flex-col"
-        style={{ contentVisibility: "auto" }}
-      >
+      <main className="min-h-screen bg-background flex flex-col content-visibility-auto">
         {/* Header/Navigation Section */}
-        <HeaderNavigationSection usePageContext={usePageContext} />
+        <HeaderNavigation />
 
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col">

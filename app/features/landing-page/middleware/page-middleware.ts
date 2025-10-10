@@ -1,15 +1,14 @@
-import type {
-  LandingPageEnv,
-  PageInformation,
-} from "~/features/landing-page/types/type";
 import type { MiddlewareFunction } from "react-router";
 
-import { getFeaturesConfigs } from "~/features/landing-page/utils/get-features-configs";
-import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
-import { getShowcases } from "~/features/landing-page/utils/get-showcases";
-import { getSteps } from "~/features/landing-page/utils/get-steps";
+import type { LandingPageEnv, PageInformation } from "../types/type";
+
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
 import { I18nContext } from "~/middleware/i18n";
+
+import { getFeaturesConfigs } from "../utils/get-features-configs";
+import { getPageInformation } from "../utils/get-page-information";
+import { getShowcases } from "../utils/get-showcases";
+import { getSteps } from "../utils/get-steps";
 
 export const { pageMiddlewareContext } =
   createMiddlewareContext<PageInformation>("pageMiddlewareContext");

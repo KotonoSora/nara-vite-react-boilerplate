@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
@@ -7,13 +7,9 @@ import { useI18n } from "~/lib/i18n/context";
 import GitHubLogoDark from "../assets/github-invertocat-dark.svg?url";
 import GitHubLogoLight from "../assets/github-invertocat-light.svg?url";
 
-export const GitHubButton = memo(function GitHubButton({
-  usePageContext,
-}: any) {
+export const GitHubButton = memo(function GitHubButton() {
   const { t } = useI18n();
-  const { githubRepository } = usePageContext();
-
-  if (!githubRepository) return null;
+  const { githubRepository } = useLoaderData<{ githubRepository: string }>();
 
   return (
     <Button

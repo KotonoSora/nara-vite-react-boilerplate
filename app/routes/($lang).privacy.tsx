@@ -1,7 +1,7 @@
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).privacy";
 
-import { PageContext } from "~/features/privacy/context/page-context";
+import type { MiddlewareFunction } from "react-router";
+
 import {
   privacyMiddleware,
   privacyMiddlewareContext,
@@ -20,9 +20,5 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 export default function PrivacyPage({ loaderData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={loaderData}>
-      <ContentPrivacyPage />
-    </PageContext.Provider>
-  );
+  return <ContentPrivacyPage />;
 }

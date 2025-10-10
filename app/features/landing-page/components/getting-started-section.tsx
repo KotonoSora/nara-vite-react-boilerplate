@@ -1,17 +1,16 @@
 import { Check, Copy, Play, Terminal } from "lucide-react";
-import { memo, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
+import { useLoaderData } from "react-router";
 
-import type { Step } from "../types/type";
+import type { PageInformation, Step } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
-export const GettingStartedSection = memo(function GettingStartedSection() {
+export function GettingStartedSection() {
   const { t } = useI18n();
-  const { steps } = usePageContext() || {};
+  const { steps } = useLoaderData<PageInformation>();
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
 
   const copyToClipboard = async (step: Step) => {
@@ -30,10 +29,7 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
   }, []);
 
   return (
-    <section
-      className="py-24 px-4 bg-gradient-to-br from-muted/30 to-muted/10 relative"
-      style={{ contentVisibility: "auto" }}
-    >
+    <section className="py-24 px-4 bg-gradient-to-br from-muted/30 to-muted/10 relative content-visibility-auto">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
 
@@ -132,4 +128,4 @@ export const GettingStartedSection = memo(function GettingStartedSection() {
       </div>
     </section>
   );
-});
+}

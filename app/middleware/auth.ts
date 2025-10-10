@@ -1,7 +1,8 @@
 import { createContext } from "react-router";
 
-import type { User } from "~/lib/auth/user.server";
 import type { MiddlewareFunction } from "react-router";
+
+import type { User } from "~/lib/auth/user.server";
 
 import { getUserId } from "~/lib/auth/auth.server";
 import { getUserById } from "~/lib/auth/user.server";

@@ -1,17 +1,13 @@
 import { Zap } from "lucide-react";
-import { memo } from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n/context";
 
-export const TechStackSection = memo(function TechStackSection() {
+export function TechStackSection() {
   const { t } = useI18n();
 
   return (
-    <section
-      className="py-24 px-4 bg-muted/20"
-      style={{ contentVisibility: "auto" }}
-    >
+    <section className="py-24 px-4 bg-muted/20 content-visibility-auto">
       <div className="container mx-auto">
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full text-sm font-medium text-cyan-600 dark:text-cyan-400 mb-6">
@@ -234,4 +230,4 @@ export const TechStackSection = memo(function TechStackSection() {
       </div>
     </section>
   );
-});
+}

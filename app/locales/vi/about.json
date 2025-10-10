@@ -1,6 +1,12 @@
 {
   "meta": {
-    "title": "Về chúng tôi",
+    "title": "Về Chúng Tôi",
     "description": "Tìm hiểu thêm về công ty và đội ngũ của chúng tôi."
-  }
+  },
+  "heading": "Về Chúng Tôi",
+  "tagline": "Chúng tôi xây dựng những thứ có ý nghĩa.",
+  "taglineSecond": "Đơn giản, chức năng, đẹp đẽ.",
+  "description": "Tạo ra với mục đích. Xây dựng cho tương lai.",
+  "descriptionSecond": "Được thúc đẩy bởi sự chính xác.",
+  "contactLabel": "Liên Hệ"
 }

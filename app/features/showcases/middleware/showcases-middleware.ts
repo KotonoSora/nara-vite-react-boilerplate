@@ -1,4 +1,5 @@
 import type { MiddlewareFunction } from "react-router";
+
 import type { PageInformation } from "../types/type";
 
 import { getPageInformation } from "~/features/landing-page/utils/get-page-information";

@@ -1,5 +1,7 @@
 import { Settings, Shield, TrendingUp, User } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
+
+import type { DashboardContentProps } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -11,10 +13,8 @@ import {
 } from "~/components/ui/card";
 import { useTranslation } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
 export function QuickActionsCard() {
-  const { user } = usePageContext() || {};
+  const { user } = useLoaderData<DashboardContentProps>();
   const t = useTranslation();
 
   if (!user) return null;

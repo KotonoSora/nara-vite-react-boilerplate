@@ -1,12 +1,13 @@
 import { Activity, Calendar, TrendingUp, Users } from "lucide-react";
+import { useLoaderData } from "react-router";
+
+import type { DashboardContentProps } from "../types/type";
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useTranslation } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
 export function StatsOverviewSection() {
-  const { stats } = usePageContext() || {};
+  const { stats } = useLoaderData<DashboardContentProps>();
   const t = useTranslation();
 
   if (!stats) return null;

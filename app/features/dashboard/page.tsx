@@ -6,18 +6,13 @@ import { SystemStatusCard } from "~/features/dashboard/components/system-status-
 import { UserInfoCard } from "~/features/dashboard/components/user-info-card";
 import { WelcomeSection } from "~/features/dashboard/components/welcome-section";
 import { FooterSection } from "~/features/shared/components/footer-section";
-import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
-
-import { usePageContext } from "./context/page-context";
+import { HeaderNavigation } from "~/features/shared/header-navigation";
 
 export function ContentDashboardPage() {
   return (
-    <main
-      className="min-h-screen bg-background"
-      style={{ contentVisibility: "auto" }}
-    >
+    <main className="min-h-screen bg-background content-visibility-auto">
       {/* Header */}
-      <HeaderNavigationSection usePageContext={usePageContext} />
+      <HeaderNavigation />
 
       {/* Main content */}
       <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12">

@@ -1,6 +1,6 @@
 import { ChevronRight, Clock, FileText, Printer, Share2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -10,9 +10,9 @@ import { Separator } from "~/components/ui/separator";
 import { useI18n } from "~/lib/i18n/context";
 import { cn } from "~/lib/utils";
 
-import { ButtonScrollToTop } from "./button-scroll-to-top";
-import { FooterSection } from "./footer-section";
-import { HeaderNavigationSection } from "./header-navigation-section";
+import { ButtonScrollToTop } from "../components/button-scroll-to-top";
+import { FooterSection } from "../components/footer-section";
+import { HeaderNavigation } from "../header-navigation";
 
 interface LegalSection {
   id: string;
@@ -36,7 +36,6 @@ interface LegalPageLayoutProps {
     href: string;
     description: string;
   }>;
-  usePageContext?: any;
 }
 
 export function LegalPageLayout({
@@ -46,10 +45,9 @@ export function LegalPageLayout({
   sections,
   estimatedReadTime = 5,
   relatedPages = [],
-  usePageContext,
 }: LegalPageLayoutProps) {
   const { t } = useI18n();
-  const { githubRepository } = usePageContext();
+  const { githubRepository } = useLoaderData();
   const [activeSection, setActiveSection] = useState<string>("");
   const [readingProgress, setReadingProgress] = useState(0);
   const [isTocOpen, setIsTocOpen] = useState(false);
@@ -119,7 +117,7 @@ export function LegalPageLayout({
   return (
     <>
       {/* Header Navigation */}
-      <HeaderNavigationSection usePageContext={usePageContext} />
+      <HeaderNavigation />
 
       <div className="min-h-screen bg-background">
         {/* Reading Progress Bar */}
