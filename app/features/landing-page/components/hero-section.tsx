@@ -1,7 +1,7 @@
 import { ArrowRight, ExternalLink, Rocket, Sparkles, Star } from "lucide-react";
 import { Link, useLoaderData } from "react-router";
 
-import type { PageInformation } from "../types/type";
+import type { GeneralInformationType } from "~/features/shared/types/type";
 
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
@@ -11,7 +11,7 @@ import { BackgroundDecoration } from "./background-decoration";
 
 export function HeroSection() {
   const { t } = useI18n();
-  const { githubRepository } = useLoaderData<PageInformation>();
+  const { githubRepository } = useLoaderData<GeneralInformationType>();
 
   return (
     <section className="py-24 px-4 bg-background relative overflow-hidden">
@@ -61,7 +61,7 @@ export function HeroSection() {
               asChild
             >
               <Link
-                to={githubRepository || "#"}
+                to={githubRepository ?? ""}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 leading-none"

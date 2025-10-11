@@ -7,12 +7,14 @@ import {
   pageMiddlewareContext,
 } from "~/features/landing-page/middleware/page-middleware";
 import { ContentPage } from "~/features/landing-page/page";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [pageMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const pageContent = context.get(pageMiddlewareContext);
-  return pageContent;
+  return { ...generalInformation, ...pageContent };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

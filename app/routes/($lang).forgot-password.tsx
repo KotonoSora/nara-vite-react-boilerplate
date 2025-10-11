@@ -10,12 +10,14 @@ import {
 } from "~/features/forgot-password/middleware/forgot-password-middleware";
 import { ForgotPasswordPage } from "~/features/forgot-password/page";
 import { createTranslationFunction } from "~/lib/i18n/translations";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [forgotPasswordMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const forgotPasswordContent = context.get(forgotPasswordMiddlewareContext);
-  return forgotPasswordContent;
+  return { ...generalInformation, ...forgotPasswordContent };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {

@@ -31,20 +31,9 @@ export type FeatureCardConfig = {
 };
 
 export type PageInformation = {
-  title?: string;
-  description?: string;
-  githubRepository?: string;
-  commercialLink?: string;
   showcases?: ProjectInfo[];
   steps: Step[];
   featuresConfig: FeatureCardConfig[];
-};
-
-export type LandingPageEnv = {
-  VITE_LANDING_PAGE_TITLE?: string;
-  VITE_LANDING_PAGE_DESCRIPTION?: string;
-  VITE_LANDING_PAGE_REPOSITORY?: string;
-  VITE_LANDING_PAGE_COMMERCIAL_LINK?: string;
 };
 
 export type BrandLogoProps = {

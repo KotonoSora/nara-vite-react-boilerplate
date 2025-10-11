@@ -11,6 +11,7 @@ import {
 import { ContentLoginPage } from "~/features/login/page";
 import { authMiddleware } from "~/features/shared/middleware/auth";
 import { createTranslationFunction } from "~/lib/i18n/translations";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [
   authMiddleware,
@@ -18,8 +19,9 @@ export const middleware: MiddlewareFunction[] = [
 ];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const pageContent = context.get(pageMiddlewareContext);
-  return pageContent;
+  return { ...generalInformation, ...pageContent };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {

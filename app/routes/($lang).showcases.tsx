@@ -7,12 +7,14 @@ import {
   showcasesMiddlewareContext,
 } from "~/features/showcases/middleware/showcases-middleware";
 import { ContentShowcasePage } from "~/features/showcases/page";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [showcasesMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const showcasesContent = context.get(showcasesMiddlewareContext);
-  return showcasesContent;
+  return { ...generalInformation, ...showcasesContent };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

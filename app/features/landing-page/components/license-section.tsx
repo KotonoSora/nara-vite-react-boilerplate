@@ -1,7 +1,7 @@
 import { Shield } from "lucide-react";
 import { Link, useLoaderData } from "react-router";
 
-import type { PageInformation } from "../types/type";
+import type { GeneralInformationType } from "~/features/shared/types/type";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -10,7 +10,8 @@ import { useI18n } from "~/lib/i18n/context";
 
 export function LicenseSection() {
   const { t } = useI18n();
-  const { githubRepository, commercialLink } = useLoaderData<PageInformation>();
+  const { githubRepository, commercialLink } =
+    useLoaderData<GeneralInformationType>();
 
   return (
     <section className="py-16 px-6 lg:px-24 bg-gradient-to-br from-muted/40 to-primary/5 content-visibility-auto">

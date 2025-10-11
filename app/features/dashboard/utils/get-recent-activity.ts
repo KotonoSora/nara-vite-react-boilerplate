@@ -1,6 +1,6 @@
-import type { Icon } from "../types/type";
-
 import type { TranslationFunctionType } from "~/lib/i18n/translations";
+
+import type { Icon } from "../types/type";
 
 import { formatTimeAgo } from "~/lib/i18n/time-format";
 
