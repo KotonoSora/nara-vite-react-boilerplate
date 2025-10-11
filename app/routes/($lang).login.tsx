@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).login";
 
-import { PageContext } from "~/features/login/context/page-context";
+import type { MiddlewareFunction } from "react-router";
+
 import {
   pageMiddleware,
   pageMiddlewareContext,
@@ -64,10 +64,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function Login({ actionData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={{ error: actionData?.error }}>
-      <ContentLoginPage />
-    </PageContext.Provider>
-  );
+export default function Login({}: Route.ComponentProps) {
+  return <ContentLoginPage />;
 }

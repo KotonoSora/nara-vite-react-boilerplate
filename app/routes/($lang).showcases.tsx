@@ -1,7 +1,7 @@
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).showcases";
 
-import { PageContext } from "~/features/showcases/context/page-context";
+import type { MiddlewareFunction } from "react-router";
+
 import {
   showcasesMiddleware,
   showcasesMiddlewareContext,
@@ -20,10 +20,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function Page({ loaderData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={loaderData}>
-      <ContentShowcasePage />
-    </PageContext.Provider>
-  );
+export default function Page({}: Route.ComponentProps) {
+  return <ContentShowcasePage />;
 }

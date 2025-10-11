@@ -13,10 +13,7 @@ export function ShowcaseItem({ project }: { project: ProjectInfo }) {
   const { t } = useI18n();
 
   return (
-    <Card
-      className="overflow-hidden py-0 gap-0"
-      style={{ contentVisibility: "auto" }}
-    >
+    <Card className="overflow-hidden py-0 gap-0 content-visibility-auto">
       <CardHeader className="p-0 gap-0">
         <img
           src={project.image ?? SocialPreview}

@@ -6,10 +6,7 @@ export const FooterSection = memo(function FooterSection() {
   const { t } = useI18n();
 
   return (
-    <footer
-      className="border-t py-12 px-4 bg-background/80 backdrop-blur-sm"
-      style={{ contentVisibility: "auto" }}
-    >
+    <footer className="border-t py-12 px-4 bg-background/80 backdrop-blur-sm content-visibility-auto">
       <div className="container mx-auto text-center">
         <div className="mb-6">
           <div className="flex items-center justify-center gap-2 mb-2">

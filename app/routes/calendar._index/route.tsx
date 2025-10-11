@@ -1,6 +1,7 @@
 import type { Route } from "./+types/route";
 
 import { ContentCalendarInfinityPage } from "./page";
+
 import styleUrl from "./style/custom.css?url";
 
 export function links() {

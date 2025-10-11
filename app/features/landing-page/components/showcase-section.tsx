@@ -1,24 +1,19 @@
 import { CircleChevronRight } from "lucide-react";
-import { memo } from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
-import type { ProjectInfo } from "../types/type";
+import type { PageInformation, ProjectInfo } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
 
 import { ShowcaseItem } from "../components/showcase-item";
-import { usePageContext } from "../context/page-context";
 
-export const ShowcaseSection = memo(function ShowcaseSection() {
+export function ShowcaseSection() {
   const { t } = useI18n();
-  const { showcases } = usePageContext() || {};
+  const { showcases } = useLoaderData<PageInformation>();
 
   return (
-    <section
-      className="py-16 px-6 lg:px-24 bg-background"
-      style={{ contentVisibility: "auto" }}
-    >
+    <section className="py-16 px-6 lg:px-24 bg-background content-visibility-auto">
       <div className="max-w-5xl mx-auto text-center space-y-4">
         <h2 className="text-3xl font-bold tracking-tight">
           {t("landing.showcase.title")}
@@ -45,4 +40,4 @@ export const ShowcaseSection = memo(function ShowcaseSection() {
       </div>
     </section>
   );
-});
+}

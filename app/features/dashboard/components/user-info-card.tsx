@@ -1,4 +1,7 @@
 import { User } from "lucide-react";
+import { useLoaderData } from "react-router";
+
+import type { DashboardContentProps } from "../types/type";
 
 import { Badge } from "~/components/ui/badge";
 import {
@@ -11,10 +14,8 @@ import {
 import { Separator } from "~/components/ui/separator";
 import { useTranslation } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
 export function UserInfoCard() {
-  const { user } = usePageContext() || {};
+  const { user } = useLoaderData<DashboardContentProps>();
   const t = useTranslation();
 
   if (!user) return null;

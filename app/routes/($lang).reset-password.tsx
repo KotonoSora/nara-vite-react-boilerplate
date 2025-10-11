@@ -1,10 +1,10 @@
 import { redirect } from "react-router";
 import { z } from "zod";
 
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).reset-password";
 
-import { PageContext } from "~/features/reset-password/context/page-context";
+import type { MiddlewareFunction } from "react-router";
+
 import {
   pageMiddleware,
   pageMiddlewareContext,
@@ -86,15 +86,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function ResetPassword({
-  loaderData,
-  actionData,
-}: Route.ComponentProps) {
-  const { token } = loaderData;
-
-  return (
-    <PageContext.Provider value={{ token, error: actionData?.error }}>
-      <ResetPasswordPage />
-    </PageContext.Provider>
-  );
+export default function ResetPassword({}: Route.ComponentProps) {
+  return <ResetPasswordPage />;
 }

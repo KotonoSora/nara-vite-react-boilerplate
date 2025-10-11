@@ -1,12 +1,13 @@
 import { Check, X } from "lucide-react";
-import React from "react";
+
+import type { ReactNode } from "react";
 
 export function PasswordRequirement({
   met,
   children,
 }: {
   met: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <li

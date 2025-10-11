@@ -1,5 +1,5 @@
 import { CheckCircle2 } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useActionData } from "react-router";
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -12,10 +12,9 @@ import {
 } from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
 export function SuccessVerificationToken() {
-  const { message } = usePageContext();
+  const actionData = useActionData();
+  const { message } = actionData || {};
   const { t } = useI18n();
 
   return (
