@@ -10,10 +10,12 @@ import {
 } from "~/features/verify-email/middleware/page-middleware";
 import { VerifyEmailPage } from "~/features/verify-email/page";
 import { createTranslationFunction } from "~/lib/i18n/translations";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [pageMiddleware];
 
 export async function loader({ context, request }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const { title, description, language } = context.get(pageMiddlewareContext);
   const { db } = context;
 
@@ -28,6 +30,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   const validationResult = verifyEmailSchema.safeParse({ token });
   if (!validationResult.success) {
     return {
+      ...generalInformation,
       title,
       description,
       error: t("auth.verifyEmail.validation.tokenRequired"),
@@ -60,6 +63,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
         errorMessage = result.error; // Fallback to original error message
     }
     return {
+      ...generalInformation,
       title,
       description,
       error: errorMessage,
@@ -68,6 +72,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   }
 
   return {
+    ...generalInformation,
     title,
     description,
     success: true,

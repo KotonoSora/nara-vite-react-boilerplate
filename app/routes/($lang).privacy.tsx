@@ -7,12 +7,14 @@ import {
   privacyMiddlewareContext,
 } from "~/features/privacy/middleware/page-middleware";
 import { ContentPrivacyPage } from "~/features/privacy/page";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [privacyMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const privacyContent = context.get(privacyMiddlewareContext);
-  return privacyContent;
+  return { ...generalInformation, ...privacyContent };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

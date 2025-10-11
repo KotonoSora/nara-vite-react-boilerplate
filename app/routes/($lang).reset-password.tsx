@@ -16,6 +16,7 @@ import {
 import { ResetPasswordPage } from "~/features/reset-password/page";
 import { isStrongPassword } from "~/lib/auth/config";
 import { createTranslationFunction } from "~/lib/i18n/translations";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [
   tokenMiddleware,
@@ -23,10 +24,12 @@ export const middleware: MiddlewareFunction[] = [
 ];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const { token } = context.get(tokenMiddlewareContext);
   const { title, description } = context.get(pageMiddlewareContext);
 
   return {
+    ...generalInformation,
     token,
     title,
     description,

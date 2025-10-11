@@ -7,12 +7,14 @@ import {
   adminMiddlewareContext,
 } from "~/features/admin/middleware/admin-middleware";
 import { ContentAdminPage } from "~/features/admin/page";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [adminMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const adminContent = context.get(adminMiddlewareContext);
-  return adminContent;
+  return { ...generalInformation, ...adminContent };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
