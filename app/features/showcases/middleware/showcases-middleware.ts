@@ -2,9 +2,9 @@ import type { MiddlewareFunction } from "react-router";
 
 import type { PageInformation } from "../types/type";
 
-import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
+import { getGeneralInformation } from "~/features/shared/utils/get-general-information";
 import { I18nContext } from "~/middleware/i18n";
 
 export const { showcasesMiddlewareContext } =
@@ -17,7 +17,7 @@ export const showcasesMiddleware: MiddlewareFunction = async (
   const { language } = context.get(I18nContext);
 
   const { db } = context;
-  const { title, description, githubRepository } = getPageInformation(
+  const { title, description, githubRepository } = getGeneralInformation(
     import.meta.env as any,
   );
   const showcases = await getShowcases(db);

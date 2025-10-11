@@ -32,6 +32,10 @@ import { DEFAULT_LANGUAGE, isRTLLanguage } from "~/lib/i18n/config";
 import { I18nProvider } from "~/lib/i18n/provider";
 import { AuthContext, authMiddleware } from "~/middleware/auth";
 import { I18nContext, i18nMiddleware } from "~/middleware/i18n";
+import {
+  GeneralInformationContext,
+  generalInformationMiddleware,
+} from "~/middleware/information";
 import { ThemeContext, themeMiddleware } from "~/middleware/theme";
 
 import appCssUrl from "~/app.css?url";
@@ -63,6 +67,7 @@ export const links: Route.LinksFunction = () => {
 };
 
 export const middleware: MiddlewareFunction[] = [
+  generalInformationMiddleware,
   i18nMiddleware,
   themeMiddleware,
   authMiddleware,

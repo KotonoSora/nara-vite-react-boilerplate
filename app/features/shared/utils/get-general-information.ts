@@ -1,4 +1,4 @@
-import type { LandingPageEnv } from "../types/type";
+import type { PUBLIC_ENV_FLAG } from "~/features/shared/types/type";
 
 /**
  * Get the page information from the environment variables.
@@ -10,12 +10,12 @@ import type { LandingPageEnv } from "../types/type";
  * @param params.VITE_LANDING_PAGE_COMMERCIAL_LINK The commercial link.
  * @returns The page information.
  */
-export function getPageInformation({
+export function getGeneralInformation({
   VITE_LANDING_PAGE_TITLE,
   VITE_LANDING_PAGE_DESCRIPTION,
   VITE_LANDING_PAGE_REPOSITORY,
   VITE_LANDING_PAGE_COMMERCIAL_LINK,
-}: LandingPageEnv) {
+}: PUBLIC_ENV_FLAG) {
   return {
     title: VITE_LANDING_PAGE_TITLE,
     description: VITE_LANDING_PAGE_DESCRIPTION,
@@ -24,4 +24,4 @@ export function getPageInformation({
   };
 }
 
-export type GetPageInformation = ReturnType<typeof getPageInformation>;
+export type GetPageInformation = ReturnType<typeof getGeneralInformation>;

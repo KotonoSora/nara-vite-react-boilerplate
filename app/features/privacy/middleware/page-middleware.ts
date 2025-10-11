@@ -2,8 +2,8 @@ import type { MiddlewareFunction } from "react-router";
 
 import type { PrivacyPageProps } from "../types/type";
 
-import { getPageInformation } from "~/features/landing-page/utils/get-page-information";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
+import { getGeneralInformation } from "~/features/shared/utils/get-general-information";
 import { I18nContext } from "~/middleware/i18n";
 
 export const { privacyMiddlewareContext } =
@@ -18,7 +18,7 @@ export const privacyMiddleware: MiddlewareFunction = async (
   const title = t("legal.privacy.title");
   const description = t("legal.privacy.description");
 
-  const { githubRepository } = getPageInformation(import.meta.env as any);
+  const { githubRepository } = getGeneralInformation(import.meta.env as any);
 
   context.set(privacyMiddlewareContext, {
     title,
