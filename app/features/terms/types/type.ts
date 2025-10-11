@@ -1,3 +1,1 @@
-export type TermsPageProps = {
-  githubRepository?: string;
-};
+export type TermsPageProps = {};

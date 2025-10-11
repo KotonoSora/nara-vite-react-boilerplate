@@ -31,10 +31,6 @@ export type FeatureCardConfig = {
 };
 
 export type PageInformation = {
-  title?: string;
-  description?: string;
-  githubRepository?: string;
-  commercialLink?: string;
   showcases?: ProjectInfo[];
   steps: Step[];
   featuresConfig: FeatureCardConfig[];

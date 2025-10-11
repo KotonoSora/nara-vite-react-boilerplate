@@ -4,29 +4,19 @@ import type { PageInformation } from "../types/type";
 
 import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { getGeneralInformation } from "~/features/shared/utils/get-general-information";
 import { I18nContext } from "~/middleware/i18n";
 
 export const { showcasesMiddlewareContext } =
   createMiddlewareContext<PageInformation>("showcasesMiddlewareContext");
 
-export const showcasesMiddleware: MiddlewareFunction = async (
-  { request, context },
-  next,
-) => {
+export const showcasesMiddleware: MiddlewareFunction = async ({ context }) => {
   const { language } = context.get(I18nContext);
 
   const { db } = context;
-  const { title, description, githubRepository } = getGeneralInformation(
-    import.meta.env as any,
-  );
   const showcases = await getShowcases(db);
 
   const contextValue = {
-    title,
-    description,
     language,
-    githubRepository,
     commercialLink: "",
     showcases,
   };

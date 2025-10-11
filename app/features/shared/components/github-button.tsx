@@ -1,6 +1,8 @@
 import { memo } from "react";
 import { Link, useLoaderData } from "react-router";
 
+import type { GeneralInformationType } from "../types/type";
+
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
 
@@ -9,7 +11,7 @@ import GitHubLogoLight from "../assets/github-invertocat-light.svg?url";
 
 export const GitHubButton = memo(function GitHubButton() {
   const { t } = useI18n();
-  const { githubRepository } = useLoaderData<{ githubRepository: string }>();
+  const { githubRepository } = useLoaderData<GeneralInformationType>();
 
   return (
     <Button
@@ -18,7 +20,7 @@ export const GitHubButton = memo(function GitHubButton() {
       asChild
     >
       <Link
-        to={githubRepository}
+        to={githubRepository ?? ""}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-3"

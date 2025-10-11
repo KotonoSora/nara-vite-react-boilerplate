@@ -2,19 +2,15 @@ import { createContext } from "react-router";
 
 import type { MiddlewareFunction } from "react-router";
 
-import type { PUBLIC_ENV_FLAG } from "~/features/shared/types/type";
+import type {
+  GeneralInformationType,
+  PUBLIC_ENV_FLAG,
+} from "~/features/shared/types/type";
 
 import { getGeneralInformation } from "~/features/shared/utils/get-general-information";
 
-export type GeneralInformationContextType = {
-  title?: string;
-  description?: string;
-  githubRepository?: string;
-  commercialLink?: string;
-};
-
 export const GeneralInformationContext =
-  createContext<GeneralInformationContextType>();
+  createContext<GeneralInformationType>();
 
 export const generalInformationMiddleware: MiddlewareFunction = async (
   { context },

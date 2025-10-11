@@ -2,6 +2,8 @@ import { ChevronRight, Clock, FileText, Printer, Share2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router";
 
+import type { GeneralInformationType } from "../types/type";
+
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
@@ -47,7 +49,7 @@ export function LegalPageLayout({
   relatedPages = [],
 }: LegalPageLayoutProps) {
   const { t } = useI18n();
-  const { githubRepository } = useLoaderData();
+  const { githubRepository } = useLoaderData<GeneralInformationType>();
   const [activeSection, setActiveSection] = useState<string>("");
   const [readingProgress, setReadingProgress] = useState(0);
   const [isTocOpen, setIsTocOpen] = useState(false);
@@ -357,7 +359,7 @@ export function LegalPageLayout({
                     <p>
                       {t("legal.common.contactInfo")}{" "}
                       <Link
-                        to={githubRepository || "#"}
+                        to={githubRepository ?? ""}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="underline underline-offset-4 hover:text-primary"

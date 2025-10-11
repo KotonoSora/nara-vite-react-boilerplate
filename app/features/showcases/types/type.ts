@@ -8,9 +8,5 @@ export type ProjectInfo = {
 };
 
 export type PageInformation = {
-  title?: string;
-  description?: string;
-  githubRepository?: string;
-  commercialLink?: string;
   showcases?: ProjectInfo[];
 };
