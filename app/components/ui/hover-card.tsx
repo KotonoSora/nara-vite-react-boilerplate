@@ -1,3 +1,5 @@
+"use client";
+
 import { HoverCard as HoverCardPrimitive } from "radix-ui";
 import * as React from "react";
 

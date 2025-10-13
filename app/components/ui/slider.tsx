@@ -1,3 +1,5 @@
+"use client";
+
 import { Slider as SliderPrimitive } from "radix-ui";
 import * as React from "react";
 
