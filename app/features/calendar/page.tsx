@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useRef, useState } from "react";
 
 import type {
@@ -5,6 +7,9 @@ import type {
   RegisterActionsFn,
   RenderDayParams,
 } from "./types/type";
+
+import { FooterSection } from "~/features/shared/components/footer-section";
+import { HeaderNavigation } from "~/features/shared/header-navigation";
 
 import { CalendarApp } from "./components/calendar-app";
 import { Controls } from "./components/controls";
@@ -40,19 +45,27 @@ export function ContentCalendarInfinityPage() {
   }
 
   return (
-    <PageProvider>
-      <div className="h-screen min-h-0 flex flex-col gap-2 p-4">
-        <PageHeader />
-        <Controls />
-        <TodayButtonWrapper />
-        <VisibleWeeksLabel label={visibleLabel} />
-        <WeekdayHeader />
-        <CalendarApp
-          onRegisterActions={onRegisterActions}
-          onVisibleLabelChange={handleVisibleLabelChange}
-          renderDay={renderDay}
-        />
-      </div>
-    </PageProvider>
+    <main className="min-h-screen bg-background content-visibility-auto">
+      <HeaderNavigation />
+
+      <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12 space-y-4">
+        <PageProvider>
+          <div className="space-y-4 min-h-screen flex flex-col flex-1 items-stretch justify-start">
+            <PageHeader />
+            <Controls />
+            <TodayButtonWrapper />
+            <VisibleWeeksLabel label={visibleLabel} />
+            <WeekdayHeader />
+            <CalendarApp
+              onRegisterActions={onRegisterActions}
+              onVisibleLabelChange={handleVisibleLabelChange}
+              renderDay={renderDay}
+            />
+          </div>
+        </PageProvider>
+      </section>
+
+      <FooterSection />
+    </main>
   );
 }

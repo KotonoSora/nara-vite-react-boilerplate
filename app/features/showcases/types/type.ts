@@ -1,5 +1,5 @@
 export type ProjectInfo = {
-  id: number;
+  id: number | string;
   name: string;
   description: string;
   url: string;
@@ -9,4 +9,5 @@ export type ProjectInfo = {
 
 export type PageInformation = {
   showcases?: ProjectInfo[];
+  builtInDemos: ProjectInfo[];
 };

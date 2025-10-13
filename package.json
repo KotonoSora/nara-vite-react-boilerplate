@@ -31,15 +31,15 @@
     "date-fns": "4.1.0",
     "drizzle-orm": "~0.44.6",
     "embla-carousel-react": "8.6.0",
-    "hono": "4.9.10",
+    "hono": "4.9.11",
     "input-otp": "1.4.2",
     "isbot": "5.1.31",
     "lucide-react": "0.545.0",
     "radix-ui": "1.4.3",
     "react": "19.2.0",
-    "react-day-picker": "9.11.0",
+    "react-day-picker": "9.11.1",
     "react-dom": "19.2.0",
-    "react-hook-form": "7.64.0",
+    "react-hook-form": "7.65.0",
     "react-resizable-panels": "3.0.6",
     "react-router": "7.9.4",
     "recharts": "2.15.4",
@@ -51,9 +51,9 @@
     "zod": "4.1.12"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.13.11",
-    "@cloudflare/vitest-pool-workers": "0.9.11",
-    "@cloudflare/workers-types": "4.20251008.0",
+    "@cloudflare/vite-plugin": "1.13.12",
+    "@cloudflare/vitest-pool-workers": "0.9.12",
+    "@cloudflare/workers-types": "4.20251011.0",
     "@commitlint/cli": "20.1.0",
     "@commitlint/config-conventional": "20.0.0",
     "@ianvs/prettier-plugin-sort-imports": "4.7.0",
@@ -75,7 +75,7 @@
     "vite": "npm:rolldown-vite@7.1.16",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4",
-    "wrangler": "4.42.1"
+    "wrangler": "4.42.2"
   },
   "engines": {
     "node": "24.9.0"

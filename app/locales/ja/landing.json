@@ -133,7 +133,27 @@
   },
   "showcase": {
     "title": "🌟 ショーケース",
-    "description": "NARA で誇らしげに構築されたプロジェクト"
+    "description": "NARA で誇らしげに構築されたプロジェクト",
+    "builtInDemos": {
+      "title": "✨ ビルトインデモページ",
+      "description": "NARA に含まれる事前構築済みデモページを探索"
+    },
+    "communityShowcases": {
+      "title": "コミュニティショーケース",
+      "description": "コミュニティによって NARA で構築されたプロジェクト"
+    },
+    "demos": {
+      "charts": {
+        "name": "インタラクティブチャート",
+        "description": "エリア、バー、ライン、パイ、レーダー、ラジアルチャートなど、インタラクティブ機能を備えたさまざまなチャートタイプを探索。",
+        "tags": ["チャート", "Recharts", "データ可視化"]
+      },
+      "calendar": {
+        "name": "無限スクロールカレンダー",
+        "description": "日付選択、週表示、スムーズなナビゲーションを備えた無限スクロールカレンダーコンポーネント。",
+        "tags": ["カレンダー", "無限スクロール", "日付ピッカー"]
+      }
+    }
   },
   "techStack": {
     "badge": "モダンスタック",

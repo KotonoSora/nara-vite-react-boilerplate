@@ -1,3 +1,5 @@
+"use client";
+
 import type { DayContentProps } from "../types/type";
 
 export function DayContent({ day, dayGlobalIndex, isToday }: DayContentProps) {

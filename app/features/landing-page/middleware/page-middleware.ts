@@ -5,6 +5,7 @@ import type { PageInformation } from "../types/type";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
 import { I18nContext } from "~/middleware/i18n";
 
+import { getBuiltInDemos } from "../utils/get-built-in-demos";
 import { getFeaturesConfigs } from "../utils/get-features-configs";
 import { getShowcases } from "../utils/get-showcases";
 import { getSteps } from "../utils/get-steps";
@@ -22,6 +23,7 @@ export const pageMiddleware: MiddlewareFunction = async ({ context }) => {
   // Build context object
   const contextValue: PageInformation = {
     showcases,
+    builtInDemos: getBuiltInDemos(t),
     steps: getSteps(t),
     featuresConfig: getFeaturesConfigs(t),
   };
