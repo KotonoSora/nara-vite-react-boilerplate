@@ -9,10 +9,10 @@ export function AboutPage() {
   const { content } = useLoaderData<AboutPageContextType>();
 
   return (
-    <div className="min-h-screen relative flex flex-col">
+    <main className="min-h-screen bg-background content-visibility-auto">
       <HeaderNavigation />
 
-      <section className="flex flex-col items-center justify-center min-h-0 h-full flex-1 py-12 px-4 text-center bg-background">
+      <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12 space-y-4">
         <div className="max-w-2xl space-y-8 text-center">
           <h1 className="text-4xl font-light text-foreground">
             {content.heading}
@@ -40,6 +40,6 @@ export function AboutPage() {
       </section>
 
       <FooterSection />
-    </div>
+    </main>
   );
 }
