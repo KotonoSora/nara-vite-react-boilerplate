@@ -9,4 +9,5 @@ export type ProjectInfo = {
 
 export type PageInformation = {
   showcases?: ProjectInfo[];
+  builtInDemos: ProjectInfo[];
 };
