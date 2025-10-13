@@ -133,7 +133,27 @@
   },
   "showcase": {
     "title": "🌟 Showcase",
-    "description": "Projects proudly built with NARA"
+    "description": "Projects proudly built with NARA",
+    "builtInDemos": {
+      "title": "✨ Built-in Demo Pages",
+      "description": "Explore pre-built demo pages included in NARA"
+    },
+    "communityShowcases": {
+      "title": "Community Showcases",
+      "description": "Projects built with NARA by the community"
+    },
+    "demos": {
+      "charts": {
+        "name": "Interactive Charts",
+        "description": "Explore various chart types including area, bar, line, pie, radar, and radial charts with interactive features.",
+        "tags": ["Charts", "Recharts", "Data Visualization"]
+      },
+      "calendar": {
+        "name": "Calendar with Infinite Scroll",
+        "description": "An infinite scrolling calendar component with date selection, week view, and smooth navigation.",
+        "tags": ["Calendar", "Infinite Scroll", "Date Picker"]
+      }
+    }
   },
   "techStack": {
     "badge": "Modern Stack",

@@ -1,63 +1,22 @@
 import { Rocket } from "lucide-react";
-import { memo } from "react";
+import { useLoaderData } from "react-router";
 
-import type { FeatureCardProps } from "../types/type";
+import type { PageInformation } from "../types/type";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-import { getIconComponent } from "../utils/get-icon-component";
-import {
-  BackgroundDecoration,
-  keyFeaturesDecorationConfig,
-} from "./shared/background-decoration";
+import { keyFeaturesDecorationConfig } from "../constants/background-decoration";
+import { BackgroundDecoration } from "./background-decoration";
+import { FeatureCard } from "./feature-card";
 
-const FeatureCard = memo(function FeatureCard({ config }: FeatureCardProps) {
-  const { icon: iconName, title, description, colors } = config;
-  const Icon = getIconComponent(iconName);
-
-  return (
-    <Card
-      className={`border-2 border-primary/20 bg-gradient-to-br from-background via-background ${colors.background} relative overflow-hidden`}
-    >
-      <div
-        className={`absolute inset-0 bg-gradient-to-br from-${colors.primary}/5 to-transparent`}
-      />
-      <CardHeader className="pb-4 relative">
-        <div
-          className={`w-12 h-12 bg-gradient-to-br from-${colors.primary}/20 to-${colors.secondary}/20 rounded-lg flex items-center justify-center mb-4`}
-        >
-          <Icon className={`w-6 h-6 ${colors.icon}`} />
-        </div>
-        <CardTitle className={`text-xl ${colors.hover}`}>{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="relative">
-        <CardDescription className="text-base leading-relaxed">
-          {description}
-        </CardDescription>
-      </CardContent>
-    </Card>
-  );
-});
-
-export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
+export function KeyFeaturesSection() {
   const { t } = useI18n();
-  const { featuresConfig } = usePageContext() || {};
+  const { featuresConfig } = useLoaderData<PageInformation>();
 
   if (!featuresConfig) return null;
 
   return (
-    <section
-      className="py-24 px-4 bg-background relative overflow-hidden"
-      style={{ contentVisibility: "auto" }}
-    >
+    <section className="py-24 px-4 bg-background relative overflow-hidden content-visibility-auto">
       {/* Background decoration */}
       <div
         className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-green-500/5"
@@ -94,4 +53,4 @@ export const KeyFeaturesSection = memo(function KeyFeaturesSection() {
       </div>
     </section>
   );
-});
+}

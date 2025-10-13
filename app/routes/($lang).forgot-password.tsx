@@ -1,21 +1,23 @@
 import { z } from "zod";
 
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).forgot-password";
 
-import { PageContext } from "~/features/forgot-password/context/page-context";
+import type { MiddlewareFunction } from "react-router";
+
 import {
   forgotPasswordMiddleware,
   forgotPasswordMiddlewareContext,
 } from "~/features/forgot-password/middleware/forgot-password-middleware";
 import { ForgotPasswordPage } from "~/features/forgot-password/page";
 import { createTranslationFunction } from "~/lib/i18n/translations";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [forgotPasswordMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const forgotPasswordContent = context.get(forgotPasswordMiddlewareContext);
-  return forgotPasswordContent;
+  return { ...generalInformation, ...forgotPasswordContent };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
@@ -52,20 +54,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function ForgotPassword({ actionData }: Route.ComponentProps) {
-  const {
-    success = false,
-    error = null,
-    message = null,
-  } = (actionData ?? {}) as Partial<{
-    success: boolean;
-    error: string;
-    message: string;
-  }>;
-
-  return (
-    <PageContext.Provider value={{ isSuccess: success, error, message }}>
-      <ForgotPasswordPage />
-    </PageContext.Provider>
-  );
+export default function ForgotPassword({}: Route.ComponentProps) {
+  return <ForgotPasswordPage />;
 }

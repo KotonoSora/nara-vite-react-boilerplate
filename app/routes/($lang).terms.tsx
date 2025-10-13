@@ -1,18 +1,20 @@
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).terms";
 
-import { PageContext } from "~/features/terms/context/page-context";
+import type { MiddlewareFunction } from "react-router";
+
 import {
   termsMiddleware,
   termsMiddlewareContext,
 } from "~/features/terms/middleware/terms-middleware";
 import { ContentTermsPage } from "~/features/terms/page";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [termsMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const termsContent = context.get(termsMiddlewareContext);
-  return termsContent;
+  return { ...generalInformation, ...termsContent };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -20,10 +22,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function TermsPage({ loaderData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={loaderData}>
-      <ContentTermsPage />
-    </PageContext.Provider>
-  );
+export default function TermsPage({}: Route.ComponentProps) {
+  return <ContentTermsPage />;
 }

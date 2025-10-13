@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).login";
 
-import { PageContext } from "~/features/login/context/page-context";
+import type { MiddlewareFunction } from "react-router";
+
 import {
   pageMiddleware,
   pageMiddlewareContext,
@@ -11,6 +11,7 @@ import {
 import { ContentLoginPage } from "~/features/login/page";
 import { authMiddleware } from "~/features/shared/middleware/auth";
 import { createTranslationFunction } from "~/lib/i18n/translations";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [
   authMiddleware,
@@ -18,8 +19,9 @@ export const middleware: MiddlewareFunction[] = [
 ];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const pageContent = context.get(pageMiddlewareContext);
-  return pageContent;
+  return { ...generalInformation, ...pageContent };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
@@ -64,10 +66,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function Login({ actionData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={{ error: actionData?.error }}>
-      <ContentLoginPage />
-    </PageContext.Provider>
-  );
+export default function Login({}: Route.ComponentProps) {
+  return <ContentLoginPage />;
 }

@@ -1,10 +1,10 @@
 import { redirect } from "react-router";
 import { z } from "zod";
 
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).reset-password";
 
-import { PageContext } from "~/features/reset-password/context/page-context";
+import type { MiddlewareFunction } from "react-router";
+
 import {
   pageMiddleware,
   pageMiddlewareContext,
@@ -16,6 +16,7 @@ import {
 import { ResetPasswordPage } from "~/features/reset-password/page";
 import { isStrongPassword } from "~/lib/auth/config";
 import { createTranslationFunction } from "~/lib/i18n/translations";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [
   tokenMiddleware,
@@ -23,10 +24,12 @@ export const middleware: MiddlewareFunction[] = [
 ];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const { token } = context.get(tokenMiddlewareContext);
   const { title, description } = context.get(pageMiddlewareContext);
 
   return {
+    ...generalInformation,
     token,
     title,
     description,
@@ -86,15 +89,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function ResetPassword({
-  loaderData,
-  actionData,
-}: Route.ComponentProps) {
-  const { token } = loaderData;
-
-  return (
-    <PageContext.Provider value={{ token, error: actionData?.error }}>
-      <ResetPasswordPage />
-    </PageContext.Provider>
-  );
+export default function ResetPassword({}: Route.ComponentProps) {
+  return <ResetPasswordPage />;
 }

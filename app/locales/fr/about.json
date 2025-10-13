@@ -1,6 +1,12 @@
 {
   "meta": {
-    "title": "À propos de nous",
+    "title": "À Propos de Nous",
     "description": "En savoir plus sur notre entreprise et notre équipe."
-  }
+  },
+  "heading": "À Propos",
+  "tagline": "Nous construisons des choses qui comptent.",
+  "taglineSecond": "Simple, fonctionnel, beau.",
+  "description": "Conçu avec un but. Construit pour demain.",
+  "descriptionSecond": "Guidé par la précision.",
+  "contactLabel": "Contact"
 }

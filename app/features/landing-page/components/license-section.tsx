@@ -1,25 +1,20 @@
 import { Shield } from "lucide-react";
-import { memo } from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
+
+import type { GeneralInformationType } from "~/features/shared/types/type";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
-export const LicenseSection = memo(function LicenseSection() {
+export function LicenseSection() {
   const { t } = useI18n();
-  const { githubRepository, commercialLink } = usePageContext() || {};
-
-  if (!githubRepository) return null;
+  const { githubRepository, commercialLink } =
+    useLoaderData<GeneralInformationType>();
 
   return (
-    <section
-      className="py-16 px-6 lg:px-24 bg-gradient-to-br from-muted/40 to-primary/5"
-      style={{ contentVisibility: "auto" }}
-    >
+    <section className="py-16 px-6 lg:px-24 bg-gradient-to-br from-muted/40 to-primary/5 content-visibility-auto">
       <div className="max-w-4xl mx-auto space-y-6 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-full text-sm font-medium text-green-600 dark:text-green-400 mb-6">
           <Shield className="h-4 w-4" />
@@ -72,7 +67,7 @@ export const LicenseSection = memo(function LicenseSection() {
 
               <Button variant="outline" className="w-full" asChild>
                 <Link
-                  to={githubRepository}
+                  to={githubRepository ?? ""}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t("landing.license.openSource.button")}
@@ -145,4 +140,4 @@ export const LicenseSection = memo(function LicenseSection() {
       </div>
     </section>
   );
-});
+}

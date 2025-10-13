@@ -133,7 +133,27 @@
   },
   "showcase": {
     "title": "🌟 Escaparate",
-    "description": "Proyectos construidos orgullosamente con NARA"
+    "description": "Proyectos construidos orgullosamente con NARA",
+    "builtInDemos": {
+      "title": "✨ Páginas Demo Integradas",
+      "description": "Explora páginas demo preconstruidas incluidas en NARA"
+    },
+    "communityShowcases": {
+      "title": "Escaparate de la Comunidad",
+      "description": "Proyectos construidos con NARA por la comunidad"
+    },
+    "demos": {
+      "charts": {
+        "name": "Gráficos Interactivos",
+        "description": "Explora varios tipos de gráficos, incluidos área, barras, líneas, pastel, radar y radiales con funciones interactivas.",
+        "tags": ["Gráficos", "Recharts", "Visualización de Datos"]
+      },
+      "calendar": {
+        "name": "Calendario con Desplazamiento Infinito",
+        "description": "Componente de calendario con desplazamiento infinito con selección de fecha, vista semanal y navegación fluida.",
+        "tags": ["Calendario", "Desplazamiento Infinito", "Selector de Fecha"]
+      }
+    }
   },
   "techStack": {
     "badge": "Stack Moderno",

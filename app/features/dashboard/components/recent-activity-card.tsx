@@ -1,4 +1,7 @@
 import { Calendar, Clock, Settings, User } from "lucide-react";
+import { useLoaderData } from "react-router";
+
+import type { DashboardContentProps } from "../types/type";
 
 import {
   Card,
@@ -9,10 +12,8 @@ import {
 } from "~/components/ui/card";
 import { useTranslation } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
 export function RecentActivityCard() {
-  const { recentActivity } = usePageContext() || {};
+  const { recentActivity } = useLoaderData<DashboardContentProps>();
   const t = useTranslation();
 
   if (!recentActivity) return null;

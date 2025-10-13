@@ -1,5 +1,5 @@
 export type ProjectInfo = {
-  id: number;
+  id: number | string;
   name: string;
   description: string;
   url: string;
@@ -8,9 +8,6 @@ export type ProjectInfo = {
 };
 
 export type PageInformation = {
-  title?: string;
-  description?: string;
-  githubRepository?: string;
-  commercialLink?: string;
   showcases?: ProjectInfo[];
+  builtInDemos: ProjectInfo[];
 };

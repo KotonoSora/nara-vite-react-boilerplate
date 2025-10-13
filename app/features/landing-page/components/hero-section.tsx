@@ -1,19 +1,17 @@
 import { ArrowRight, ExternalLink, Rocket, Sparkles, Star } from "lucide-react";
-import { memo } from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
+
+import type { GeneralInformationType } from "~/features/shared/types/type";
 
 import { Button } from "~/components/ui/button";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-import {
-  BackgroundDecoration,
-  heroDecorationConfig,
-} from "./shared/background-decoration";
+import { heroDecorationConfig } from "../constants/background-decoration";
+import { BackgroundDecoration } from "./background-decoration";
 
-export const HeroSection = memo(function HeroSection() {
+export function HeroSection() {
   const { t } = useI18n();
-  const { githubRepository } = usePageContext() || {};
+  const { githubRepository } = useLoaderData<GeneralInformationType>();
 
   return (
     <section className="py-24 px-4 bg-background relative overflow-hidden">
@@ -63,7 +61,7 @@ export const HeroSection = memo(function HeroSection() {
               asChild
             >
               <Link
-                to={githubRepository || "#"}
+                to={githubRepository ?? ""}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 leading-none"
@@ -109,4 +107,4 @@ export const HeroSection = memo(function HeroSection() {
       </div>
     </section>
   );
-});
+}

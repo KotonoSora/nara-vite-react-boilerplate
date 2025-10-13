@@ -133,7 +133,27 @@
   },
   "showcase": {
     "title": "🌟 展示",
-    "description": "使用 NARA 自豪地构建的项目"
+    "description": "使用 NARA 自豪地构建的项目",
+    "builtInDemos": {
+      "title": "✨ 内置演示页面",
+      "description": "探索 NARA 中包含的预构建演示页面"
+    },
+    "communityShowcases": {
+      "title": "社区展示",
+      "description": "社区使用 NARA 构建的项目"
+    },
+    "demos": {
+      "charts": {
+        "name": "交互式图表",
+        "description": "探索各种图表类型，包括面积图、柱状图、折线图、饼图、雷达图和径向图，具有交互功能。",
+        "tags": ["图表", "Recharts", "数据可视化"]
+      },
+      "calendar": {
+        "name": "无限滚动日历",
+        "description": "具有日期选择、周视图和平滑导航的无限滚动日历组件。",
+        "tags": ["日历", "无限滚动", "日期选择器"]
+      }
+    }
   },
   "techStack": {
     "badge": "现代技术栈",

@@ -2,10 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Form, Link } from "react-router";
+import { Form, Link, useActionData, useLoaderData } from "react-router";
 import { z } from "zod";
 
 import type { TranslationFunctionType } from "~/lib/i18n/translations";
+
+import type { ResetPasswordPageProps } from "../types/type";
 
 import { Alert, AlertDescription } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -27,7 +29,6 @@ import {
 import { Input } from "~/components/ui/input";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
 import { PasswordRequirement } from "./password-requirement";
 
 const minLengthSchema = z.string().min(8);
@@ -78,7 +79,9 @@ function usePasswordRequirements(password: string) {
 }
 
 export function ResetPasswordForm() {
-  const { token, error } = usePageContext();
+  const { token } = useLoaderData<ResetPasswordPageProps>();
+  const actionData = useActionData();
+  const { error } = actionData || {};
   const { t } = useI18n();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);

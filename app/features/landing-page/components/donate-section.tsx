@@ -4,12 +4,7 @@ import { Button } from "~/components/ui/button";
 
 export function DonateSection() {
   return (
-    <div
-      className="border-t bg-background py-12 text-center"
-      style={{
-        contentVisibility: "auto",
-      }}
-    >
+    <div className="border-t bg-background py-12 text-center content-visibility-auto">
       <Button variant="link" asChild>
         <Link
           className="gumroad-button"

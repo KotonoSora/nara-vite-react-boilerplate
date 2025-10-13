@@ -16,11 +16,12 @@ import {
   useTheme,
 } from "remix-themes";
 
-import type { SupportedLanguage } from "~/lib/i18n/config";
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/root";
 
-import appCssUrl from "~/app.css?url";
+import type { MiddlewareFunction } from "react-router";
+
+import type { SupportedLanguage } from "~/lib/i18n/config";
+
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/auth/provider";
 import {
@@ -31,7 +32,13 @@ import { DEFAULT_LANGUAGE, isRTLLanguage } from "~/lib/i18n/config";
 import { I18nProvider } from "~/lib/i18n/provider";
 import { AuthContext, authMiddleware } from "~/middleware/auth";
 import { I18nContext, i18nMiddleware } from "~/middleware/i18n";
+import {
+  GeneralInformationContext,
+  generalInformationMiddleware,
+} from "~/middleware/information";
 import { ThemeContext, themeMiddleware } from "~/middleware/theme";
+
+import appCssUrl from "~/app.css?url";
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
 const ToasterLazy = lazy(async () => ({
@@ -60,6 +67,7 @@ export const links: Route.LinksFunction = () => {
 };
 
 export const middleware: MiddlewareFunction[] = [
+  generalInformationMiddleware,
   i18nMiddleware,
   themeMiddleware,
   authMiddleware,

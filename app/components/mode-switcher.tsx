@@ -14,10 +14,9 @@ export function ModeSwitcher() {
   return (
     <Button
       variant="ghost"
-      className="group/toggle h-8 w-8 px-0 cursor-pointer"
+      className="group/toggle h-8 w-8 px-0 cursor-pointer content-visibility-auto"
       aria-label="Toggle theme"
       onClick={toggleTheme}
-      style={{ contentVisibility: "auto" }}
     >
       <SunIcon className="hidden [html.dark_&]:block" />
       <MoonIcon className="hidden [html.light_&]:block" />

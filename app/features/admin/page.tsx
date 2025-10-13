@@ -10,22 +10,16 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { FooterSection } from "~/features/shared/components/footer-section";
-import { HeaderNavigationSection } from "~/features/shared/components/header-navigation-section";
+import { HeaderNavigation } from "~/features/shared/header-navigation";
 import { useTranslation } from "~/lib/i18n/context";
 
-import { usePageContext } from "./context/page-context";
-
 export function ContentAdminPage() {
-  const { user } = usePageContext();
   const t = useTranslation();
 
   return (
-    <main
-      className="min-h-screen bg-background"
-      style={{ contentVisibility: "auto" }}
-    >
+    <main className="min-h-screen bg-background content-visibility-auto">
       {/* Header */}
-      <HeaderNavigationSection usePageContext={usePageContext} />
+      <HeaderNavigation />
 
       {/* Main content */}
       <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12">
@@ -165,6 +159,7 @@ export function ContentAdminPage() {
           </Card>
         </div>
       </section>
+
       {/* Footer Section */}
       <FooterSection />
     </main>

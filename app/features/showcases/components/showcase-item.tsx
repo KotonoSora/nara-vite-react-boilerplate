@@ -1,7 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { Link } from "react-router";
 
-import type { ProjectInfo } from "../types/type";
+import type { ProjectInfo } from "~/features/showcases/types/type";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -13,10 +13,7 @@ export function ShowcaseItem({ project }: { project: ProjectInfo }) {
   const { t } = useI18n();
 
   return (
-    <Card
-      className="overflow-hidden py-0 gap-0"
-      style={{ contentVisibility: "auto" }}
-    >
+    <Card className="overflow-hidden py-0 gap-0 content-visibility-auto">
       <CardHeader className="p-0 gap-0">
         <img
           src={project.image ?? SocialPreview}

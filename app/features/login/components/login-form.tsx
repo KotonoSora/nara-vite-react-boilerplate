@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Form, Link } from "react-router";
+import { Form, Link, useActionData } from "react-router";
 import { z } from "zod";
 
 import type { TranslationFunctionType } from "~/lib/i18n/translations";
@@ -26,8 +26,6 @@ import {
 import { Input } from "~/components/ui/input";
 import { useI18n } from "~/lib/i18n/context";
 
-import { usePageContext } from "../context/page-context";
-
 const createLoginSchema = (t: TranslationFunctionType) =>
   z.object({
     email: z.email(t("auth.login.validation.emailRequired")),
@@ -37,7 +35,8 @@ const createLoginSchema = (t: TranslationFunctionType) =>
 type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
 
 export function LoginForm() {
-  const { error } = usePageContext();
+  const actionData = useActionData();
+  const { error } = actionData || {};
   const { t } = useI18n();
   const [showPassword, setShowPassword] = useState(false);
 

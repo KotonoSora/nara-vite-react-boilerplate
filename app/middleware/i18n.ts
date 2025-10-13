@@ -1,8 +1,9 @@
 import { createContext } from "react-router";
 
+import type { MiddlewareFunction } from "react-router";
+
 import type { SupportedLanguage } from "~/lib/i18n/config";
 import type { TranslationFunctionType } from "~/lib/i18n/translations";
-import type { MiddlewareFunction } from "react-router";
 
 import { resolveRequestLanguage } from "~/lib/i18n/request-language.server";
 import { createTranslationFunction } from "~/lib/i18n/translations";

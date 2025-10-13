@@ -1,11 +1,11 @@
 import { sql } from "drizzle-orm";
 import { z } from "zod";
 
-import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/($lang).register";
 
+import type { MiddlewareFunction } from "react-router";
+
 import * as schema from "~/database/schema";
-import { PageContext } from "~/features/register/context/page-context";
 import {
   pageMiddleware,
   pageMiddlewareContext,
@@ -14,6 +14,7 @@ import { ContentRegisterPage } from "~/features/register/page";
 import { MAX_USERS } from "~/features/shared/constants/limit";
 import { authMiddleware } from "~/features/shared/middleware/auth";
 import { createTranslationFunction } from "~/lib/i18n/translations";
+import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [
   authMiddleware,
@@ -21,8 +22,9 @@ export const middleware: MiddlewareFunction[] = [
 ];
 
 export async function loader({ context }: Route.LoaderArgs) {
+  const generalInformation = context.get(GeneralInformationContext);
   const pageContent = context.get(pageMiddlewareContext);
-  return pageContent;
+  return { ...generalInformation, ...pageContent };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
@@ -101,10 +103,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title }, { name: "description", content: description }];
 }
 
-export default function Register({ actionData }: Route.ComponentProps) {
-  return (
-    <PageContext.Provider value={{ error: actionData?.error }}>
-      <ContentRegisterPage />
-    </PageContext.Provider>
-  );
+export default function Register({}: Route.ComponentProps) {
+  return <ContentRegisterPage />;
 }
