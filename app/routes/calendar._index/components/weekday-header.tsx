@@ -1,3 +1,5 @@
+"use client";
+
 import { WEEKDAY_NAMES } from "../constants/common";
 
 export function WeekdayHeader() {
