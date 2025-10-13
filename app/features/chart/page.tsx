@@ -1,8 +1,7 @@
-import type { Route } from "./+types/route";
+"use client";
 
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
-import { GeneralInformationContext } from "~/middleware/information";
 
 import { ChartAreaInteractive } from "./components/area-1";
 import { ChartBarInteractive } from "./components/bar-1";
@@ -12,17 +11,7 @@ import { ChartRadarDefault } from "./components/radar-1";
 import { ChartRadialSimple } from "./components/radial-1";
 import { ChartTooltipDefault } from "./components/tooltip-1";
 
-export function loader({ context }: Route.LoaderArgs) {
-  const pageInformation = context.get(GeneralInformationContext);
-  return pageInformation;
-}
-
-export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
-}
-
-export default function Page({}: Route.ComponentProps) {
+export function ContentChartPage() {
   return (
     <main className="min-h-screen bg-background content-visibility-auto">
       <HeaderNavigation />
