@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 4.6.11 (2025-10-13)
+
+- Upgraded dependency versions
+- Updated the context of CoC
+- Upgraded deployment workflows
+- Implemented built-in demo pages for the chart and calendar
+- Enhanced implementation to use hooks instead of page context
+- Refactor Import Order
+- Remove unused code
+
 ## 4.6.10 (2025-10-08)
 
 - Upgraded Bun to v1.2.23
