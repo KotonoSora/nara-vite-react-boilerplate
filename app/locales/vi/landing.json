@@ -133,7 +133,27 @@
   },
   "showcase": {
     "title": "🌟 Trưng Bày",
-    "description": "Các dự án được xây dựng tự hào với NARA"
+    "description": "Các dự án được xây dựng tự hào với NARA",
+    "builtInDemos": {
+      "title": "✨ Trang Demo Tích Hợp Sẵn",
+      "description": "Khám phá các trang demo được xây dựng sẵn trong NARA"
+    },
+    "communityShowcases": {
+      "title": "Trưng Bày Cộng Đồng",
+      "description": "Các dự án được xây dựng với NARA bởi cộng đồng"
+    },
+    "demos": {
+      "charts": {
+        "name": "Biểu Đồ Tương Tác",
+        "description": "Khám phá các loại biểu đồ bao gồm diện tích, thanh, đường, tròn, radar và radial với các tính năng tương tác.",
+        "tags": ["Biểu Đồ", "Recharts", "Trực Quan Hóa Dữ Liệu"]
+      },
+      "calendar": {
+        "name": "Lịch với Cuộn Vô Hạn",
+        "description": "Component lịch cuộn vô hạn với lựa chọn ngày, chế độ xem tuần và điều hướng mượt mà.",
+        "tags": ["Lịch", "Cuộn Vô Hạn", "Chọn Ngày"]
+      }
+    }
   },
   "techStack": {
     "badge": "Stack Hiện Đại",

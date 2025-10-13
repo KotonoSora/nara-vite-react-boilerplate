@@ -1,11 +1,4 @@
-export type ProjectInfo = {
-  id: number;
-  name: string;
-  description: string;
-  url: string;
-  image?: string;
-  tags: string[];
-};
+import type { ProjectInfo } from "~/features/showcases/types/type";
 
 export type ProjectInfoWithoutID = Omit<ProjectInfo, "id">;
 
@@ -32,6 +25,7 @@ export type FeatureCardConfig = {
 
 export type PageInformation = {
   showcases?: ProjectInfo[];
+  builtInDemos: ProjectInfo[];
   steps: Step[];
   featuresConfig: FeatureCardConfig[];
 };

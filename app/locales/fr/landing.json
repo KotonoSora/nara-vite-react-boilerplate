@@ -133,7 +133,27 @@
   },
   "showcase": {
     "title": "🌟 Vitrine",
-    "description": "Projets fièrement construits avec NARA"
+    "description": "Projets fièrement construits avec NARA",
+    "builtInDemos": {
+      "title": "✨ Pages de Démo Intégrées",
+      "description": "Explorez les pages de démo préconstruites incluses dans NARA"
+    },
+    "communityShowcases": {
+      "title": "Vitrine de la Communauté",
+      "description": "Projets construits avec NARA par la communauté"
+    },
+    "demos": {
+      "charts": {
+        "name": "Graphiques Interactifs",
+        "description": "Explorez différents types de graphiques, y compris les graphiques en aires, barres, lignes, secteurs, radar et radiaux avec des fonctionnalités interactives.",
+        "tags": ["Graphiques", "Recharts", "Visualisation de Données"]
+      },
+      "calendar": {
+        "name": "Calendrier avec Défilement Infini",
+        "description": "Composant de calendrier à défilement infini avec sélection de date, vue hebdomadaire et navigation fluide.",
+        "tags": ["Calendrier", "Défilement Infini", "Sélecteur de Date"]
+      }
+    }
   },
   "techStack": {
     "badge": "Stack Moderne",

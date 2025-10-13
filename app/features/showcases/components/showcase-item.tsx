@@ -1,7 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { Link } from "react-router";
 
-import type { ProjectInfo } from "../types/type";
+import type { ProjectInfo } from "~/features/showcases/types/type";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
