@@ -1,13 +1,11 @@
-import { useMemo } from "react";
-
 import type { ViewportHeightParams } from "../types/type";
 
 /**
  * useViewportHeight
  *
  * Compute the pixel height of the visible viewport used by the calendar
- * virtualization. The result is memoized so callers can depend on a stable
- * reference unless the inputs change.
+ * virtualization. The result is calculated so callers can depend on it
+ * unless the inputs change.
  *
  * Contract:
  * - Inputs: rowHeight (pixels per row), weeksPerScreen (number of rows visible)
@@ -16,7 +14,6 @@ import type { ViewportHeightParams } from "../types/type";
  *
  * Notes:
  * - We use Math.max(1, weeksPerScreen) to ensure at least one row is counted.
- * - The value is memoized with `useMemo` using both inputs as dependencies.
  *
  * Example:
  * const viewportHeight = useViewportHeight(40, 5); // -> 200
@@ -29,8 +26,5 @@ export function useViewportHeight({
 }: ViewportHeightParams) {
   // Multiply rowHeight by the number of weeks we want visible.
   // Math.max guards against 0 or negative weeksPerScreen values.
-  return useMemo(
-    () => rowHeight * Math.max(1, weeksPerScreen),
-    [rowHeight, weeksPerScreen],
-  );
+  return rowHeight * Math.max(1, weeksPerScreen);
 }

@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import type { VisibleLabelParams } from "../types/type";
 
 import { indexToWeek } from "../utils/helper-date";
@@ -21,7 +19,7 @@ import { indexToWeek } from "../utils/helper-date";
  * Contract (inputs/outputs):
  * - Inputs: visibleWindow { firstWeekIndex, lastWeekIndex }, totalWeeks, minWeekIndex, mode
  * - Output: formatted string describing the visible range
- * - Notes: pure formatting function memoized with useMemo for performance
+ * - Notes: pure formatting function for performance
  *
  * Dependency rationale:
  * - We include `visibleWindow` because the label obviously changes when
@@ -38,48 +36,46 @@ export function useVisibleLabel({
   minWeekIndex,
   mode,
 }: VisibleLabelParams) {
-  return useMemo(() => {
-    const { firstWeekIndex, lastWeekIndex } = visibleWindow;
+  const { firstWeekIndex, lastWeekIndex } = visibleWindow;
 
-    // --- Sequence mode: show simple week numbers relative to the loaded range
-    if (mode === "sequence") {
-      // Convert absolute week indexes to 1-based sequence numbers for display
-      const firstNumber = firstWeekIndex - minWeekIndex + 1;
-      const lastNumber = lastWeekIndex - minWeekIndex + 1;
-      return `Week ${firstNumber} - ${lastNumber} of ${totalWeeks}`;
-    }
+  // --- Sequence mode: show simple week numbers relative to the loaded range
+  if (mode === "sequence") {
+    // Convert absolute week indexes to 1-based sequence numbers for display
+    const firstNumber = firstWeekIndex - minWeekIndex + 1;
+    const lastNumber = lastWeekIndex - minWeekIndex + 1;
+    return `Week ${firstNumber} - ${lastNumber} of ${totalWeeks}`;
+  }
 
-    // --- Date mode (default): convert week indexes to human-readable date ranges
-    // Convert the week indexes to start-of-week Date objects
-    const start = indexToWeek(firstWeekIndex);
-    const endWeekStart = indexToWeek(lastWeekIndex);
+  // --- Date mode (default): convert week indexes to human-readable date ranges
+  // Convert the week indexes to start-of-week Date objects
+  const start = indexToWeek(firstWeekIndex);
+  const endWeekStart = indexToWeek(lastWeekIndex);
 
-    // The visible range should show the inclusive end date, which is 6 days
-    // after the week start (assuming weeks are 7 days long starting at start).
-    const end = new Date(endWeekStart);
-    end.setDate(end.getDate() + 6);
+  // The visible range should show the inclusive end date, which is 6 days
+  // after the week start (assuming weeks are 7 days long starting at start).
+  const end = new Date(endWeekStart);
+  end.setDate(end.getDate() + 6);
 
-    // For formatting we may need to include years if the range crosses years
-    const startYear = start.getFullYear();
-    const endYear = end.getFullYear();
+  // For formatting we may need to include years if the range crosses years
+  const startYear = start.getFullYear();
+  const endYear = end.getFullYear();
 
-    // Format short month/day strings (locale aware)
-    const startStr = start.toLocaleString(undefined, {
-      month: "short",
-      day: "2-digit",
-    });
-    const endStr = end.toLocaleString(undefined, {
-      month: "short",
-      day: "2-digit",
-    });
+  // Format short month/day strings (locale aware)
+  const startStr = start.toLocaleString(undefined, {
+    month: "short",
+    day: "2-digit",
+  });
+  const endStr = end.toLocaleString(undefined, {
+    month: "short",
+    day: "2-digit",
+  });
 
-    // Include years when the range spans different years or when the end year
-    // is not the current year to avoid ambiguity.
-    if (startYear !== endYear || endYear !== new Date().getFullYear()) {
-      return `${startStr}, ${startYear} - ${endStr}, ${endYear}`;
-    }
+  // Include years when the range spans different years or when the end year
+  // is not the current year to avoid ambiguity.
+  if (startYear !== endYear || endYear !== new Date().getFullYear()) {
+    return `${startStr}, ${startYear} - ${endStr}, ${endYear}`;
+  }
 
-    // Typical case: same year and it's the current year, render without years
-    return `${startStr} - ${endStr}`;
-  }, [visibleWindow, totalWeeks, minWeekIndex, mode]);
+  // Typical case: same year and it's the current year, render without years
+  return `${startStr} - ${endStr}`;
 }

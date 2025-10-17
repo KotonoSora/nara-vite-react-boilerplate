@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { ReactNode } from "react";
 
@@ -26,7 +26,7 @@ import { WrapperWeekRow } from "./wrapper-week-row";
  *
  * Implementation notes (high-level):
  * - Read calendar settings from context (row height, weeks per screen, mode).
- * - Compute a "buffer" of weeks around the focused week (memoized).
+ * - Compute a "buffer" of weeks around the focused week.
  * - Derive viewport height and visible ranges for virtualization.
  * - Map visible items to row components and render inside a container that
  *   provides the scrollable area and correct offsets.
@@ -51,13 +51,7 @@ export function InfiniteScroll({
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // How many weeks to show around the current focus (minimum 1).
-  // We memoize this simple derived value so that components/effects which
-  // depend on `bufferWeeks` only update when `weeksPerScreen` actually changes.
-  // This makes dependency arrays explicit and avoids unnecessary recalculations.
-  const bufferWeeks = useMemo(
-    () => Math.max(weeksPerScreen, 1),
-    [weeksPerScreen],
-  );
+  const bufferWeeks = Math.max(weeksPerScreen, 1);
 
   const todayWeekIndex = useTodayWeekIndex({ mode });
 
@@ -132,28 +126,21 @@ export function InfiniteScroll({
 
   // Render the visible items. We keep the mapping here (in the component)
   // because rendering concerns (JSX, children render-prop) belong to UI code
-  // rather than pure hooks. Memoize to avoid rebuilding elements unnecessarily.
-  const items = useMemo<ReactNode[]>(
-    () =>
-      visibleItems.map(({ weekIndex, offset }) => (
-        <WrapperWeekRow
-          key={`week-${weekIndex}`}
-          weekIndex={weekIndex}
-          offset={offset}
-        >
-          {children(weekIndex)}
-        </WrapperWeekRow>
-      )),
-    [visibleItems, children],
-  );
+  // rather than pure hooks.
+  const items: ReactNode[] = visibleItems.map(({ weekIndex, offset }) => (
+    <WrapperWeekRow
+      key={`week-${weekIndex}`}
+      weekIndex={weekIndex}
+      offset={offset}
+    >
+      {children(weekIndex)}
+    </WrapperWeekRow>
+  ));
 
   // Total scrollable content height (pixels). This value is used by the
   // scroll container to set the inner content area size so the native scrollbar
   // behaves as expected for the virtualized list.
-  const totalContentHeight = useMemo<number>(
-    () => visibleRange.totalWeeks * rowHeight,
-    [visibleRange.totalWeeks, rowHeight],
-  );
+  const totalContentHeight = visibleRange.totalWeeks * rowHeight;
 
   // Keep the loaded week range synchronized with the active mode and the
   // computed "today" week. When entering date mode we center the range
@@ -194,24 +181,21 @@ export function InfiniteScroll({
   }, [rowHeight]);
 
   // Prepare a stable handle that uses refs to read current values when invoked.
-  const handle = useMemo<CalendarActionHandle>(
-    () => ({
-      scrollToToday: () => {
-        const tw = todayWeekRef.current;
-        const minW = minWeekRef.current;
-        const wps = weeksPerScreenRef.current;
-        const rh = rowHeightRef.current;
-        if (!containerRef.current || typeof tw !== "number") return;
-        const centerOffset = Math.round(wps / 2);
-        let offsetWeeks = tw - minW + centerOffset;
-        if (offsetWeeks < 0) offsetWeeks = 0;
-        const top = offsetWeeks * rh;
-        containerRef.current.scrollTop = top;
-        setScrollTop(top);
-      },
-    }),
-    [],
-  );
+  const handle: CalendarActionHandle = {
+    scrollToToday: () => {
+      const tw = todayWeekRef.current;
+      const minW = minWeekRef.current;
+      const wps = weeksPerScreenRef.current;
+      const rh = rowHeightRef.current;
+      if (!containerRef.current || typeof tw !== "number") return;
+      const centerOffset = Math.round(wps / 2);
+      let offsetWeeks = tw - minW + centerOffset;
+      if (offsetWeeks < 0) offsetWeeks = 0;
+      const top = offsetWeeks * rh;
+      containerRef.current.scrollTop = top;
+      setScrollTop(top);
+    },
+  };
 
   // Register the actions once (and deregister on unmount or when callback changes).
   useEffect(() => {
@@ -238,56 +222,30 @@ export function InfiniteScroll({
     );
   }, [currentScrollTop]);
 
-  // Prepare memoized params for mode-specific hooks so their identity
-  // doesn't change every render. This reduces needless effect runs in the
-  // underlying hooks and keeps render churn low when geometry updates.
-  const onDidInitialScroll = useCallback(() => setDidInitialScroll(true), []);
+  // Prepare params for mode-specific hooks
+  const onDidInitialScroll = () => setDidInitialScroll(true);
 
-  const initialModeParams = useMemo(
-    () => ({
-      containerRef,
-      todayWeekIndex,
-      minWeekIndex,
-      mode,
-      setScrollTop,
-      onDidInitialScroll,
-    }),
-    [
-      containerRef,
-      todayWeekIndex,
-      minWeekIndex,
-      mode,
-      setScrollTop,
-      onDidInitialScroll,
-    ],
-  );
+  const initialModeParams = {
+    containerRef,
+    todayWeekIndex,
+    minWeekIndex,
+    mode,
+    setScrollTop,
+    onDidInitialScroll,
+  };
 
-  const lazyModeParams = useMemo(
-    () => ({
-      scrollTop,
-      viewportHeight,
-      minWeekIndex,
-      maxWeekIndex,
-      setMinWeekIndex,
-      setMaxWeekIndex,
-      containerRef,
-      didInitialScroll,
-      bufferWeeks,
-      mode,
-    }),
-    [
-      scrollTop,
-      viewportHeight,
-      minWeekIndex,
-      maxWeekIndex,
-      setMinWeekIndex,
-      setMaxWeekIndex,
-      containerRef,
-      didInitialScroll,
-      bufferWeeks,
-      mode,
-    ],
-  );
+  const lazyModeParams = {
+    scrollTop,
+    viewportHeight,
+    minWeekIndex,
+    maxWeekIndex,
+    setMinWeekIndex,
+    setMaxWeekIndex,
+    containerRef,
+    didInitialScroll,
+    bufferWeeks,
+    mode,
+  };
 
   useModeEffects({
     initialParams: initialModeParams,

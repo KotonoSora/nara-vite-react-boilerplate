@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { CalendarProviderProps } from "../types/type";
 
@@ -17,21 +17,18 @@ export function CalendarProvider({ children }: CalendarProviderProps) {
   const { weeksPerScreen, mode } = usePageContext();
   const [rowHeight, setRowHeight] = useState<number>(0);
 
-  const today = useMemo(() => new Date(), []);
-  const todayDayIndex = useMemo(() => dayToIndex(today), [today]);
+  const today = new Date();
+  const todayDayIndex = dayToIndex(today);
   const overScan = Math.max(1, weeksPerScreen + 1);
 
-  const calendarContextValue = useMemo(
-    () => ({
-      rowHeight,
-      weeksPerScreen,
-      overScan,
-      today,
-      todayDayIndex,
-      mode,
-    }),
-    [rowHeight, weeksPerScreen, overScan, today, todayDayIndex, mode],
-  );
+  const calendarContextValue = {
+    rowHeight,
+    weeksPerScreen,
+    overScan,
+    today,
+    todayDayIndex,
+    mode,
+  };
 
   useEffect(() => {
     if (!parentRef?.current) return;
