@@ -6,6 +6,15 @@ import babel from "vite-plugin-babel";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(() => ({
+  build: {
+    rollupOptions: {
+      output: {
+        advancedChunks: {
+          groups: [{ name: "recharts", test: /recharts/ }],
+        },
+      },
+    },
+  },
   plugins: [
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
