@@ -1,5 +1,3 @@
-import { memo, useMemo } from "react";
-
 import type { DayCellProps } from "../types/type";
 
 import { cn } from "~/lib/utils";
@@ -7,69 +5,61 @@ import { cn } from "~/lib/utils";
 import { useCalendar } from "../context/calendar-context";
 import { dayToIndex, startOfDay } from "../utils/helper-date";
 
-const DayCellComponent = ({ day, dayGlobalIndex, renderDay }: DayCellProps) => {
+export function DayCell({ day, dayGlobalIndex, renderDay }: DayCellProps) {
   const { mode, todayDayIndex, today } = useCalendar();
 
   // Compute a stable global day index: prefer explicit prop, otherwise derive from `day`.
-  const computedGlobalDayIndex = useMemo(() => {
-    if (typeof dayGlobalIndex === "number") return dayGlobalIndex;
-    if (day) return dayToIndex(day);
-    return undefined;
-  }, [dayGlobalIndex, day]);
+  const computedGlobalDayIndex =
+    typeof dayGlobalIndex === "number"
+      ? dayGlobalIndex
+      : day
+        ? dayToIndex(day)
+        : undefined;
 
-  const isToday = useMemo(() => {
-    const todayStart = startOfDay(today).getTime();
-    if (day) {
-      return startOfDay(day).getTime() === todayStart;
-    }
-    return (
-      typeof computedGlobalDayIndex === "number" &&
-      computedGlobalDayIndex === todayDayIndex
+  const todayStart = startOfDay(today).getTime();
+  const isToday = day
+    ? startOfDay(day).getTime() === todayStart
+    : typeof computedGlobalDayIndex === "number" &&
+      computedGlobalDayIndex === todayDayIndex;
+
+  const currentYear = today.getFullYear();
+
+  // Create the label based on mode and day information
+  let dateNameLabel = null;
+
+  if (mode === "sequence" && typeof computedGlobalDayIndex === "number") {
+    dateNameLabel = (
+      <div
+        className="bg-secondary rounded-md p-2"
+        data-date={computedGlobalDayIndex}
+      >
+        <div className="text-sm">{computedGlobalDayIndex + 1}</div>
+      </div>
     );
-  }, [day, computedGlobalDayIndex, todayDayIndex, today]);
+  } else if (mode === "date" && day) {
+    const isFirstDay = day.getDate() === 1;
+    const needsYear = day.getFullYear() !== currentYear;
 
-  const currentYear = useMemo(() => today.getFullYear(), [today]);
+    const fmt = new Intl.DateTimeFormat(undefined, {
+      day: "2-digit",
+      ...(isFirstDay ? { month: "2-digit" } : {}),
+      ...(isFirstDay && needsYear ? { year: "numeric" } : {}),
+    } as Intl.DateTimeFormatOptions);
 
-  // Memoize the label to avoid re-creating elements and formatters each render
-  const dateNameLabel = useMemo(() => {
-    if (mode === "sequence" && typeof computedGlobalDayIndex === "number") {
-      return (
-        <div
-          className="bg-secondary rounded-md p-2"
-          data-date={computedGlobalDayIndex}
-        >
-          <div className="text-sm">{computedGlobalDayIndex + 1}</div>
-        </div>
-      );
-    }
+    const dateString = fmt.format(day);
 
-    if (mode === "date" && day) {
-      const isFirstDay = day.getDate() === 1;
-      const needsYear = day.getFullYear() !== currentYear;
-
-      const fmt = new Intl.DateTimeFormat(undefined, {
-        day: "2-digit",
-        ...(isFirstDay ? { month: "2-digit" } : {}),
-        ...(isFirstDay && needsYear ? { year: "numeric" } : {}),
-      } as Intl.DateTimeFormatOptions);
-
-      const dateString = fmt.format(day);
-
-      return (
-        <div
-          className={cn("text-sm", {
-            "rounded-xl text-center flex flex-col items-center justify-start font-bold bg-primary text-primary-foreground px-1":
-              isToday,
-            "font-bold": isFirstDay,
-          })}
-        >
-          {dateString}
-        </div>
-      );
-    }
-
-    return null;
-  }, [mode, day, computedGlobalDayIndex, isToday, currentYear]);
+    dateNameLabel = (
+      <div
+        className={cn("text-sm", {
+          "rounded-xl text-center flex flex-col items-center justify-start font-bold bg-primary text-primary-foreground px-1":
+            isToday,
+          "font-bold": isFirstDay,
+        })}
+      >
+        {dateString}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -90,6 +80,4 @@ const DayCellComponent = ({ day, dayGlobalIndex, renderDay }: DayCellProps) => {
       </div>
     </div>
   );
-};
-
-export const DayCell = memo(DayCellComponent);
+}

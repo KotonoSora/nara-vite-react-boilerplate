@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import type { WeekRowProps } from "../types/type";
 
 import { useCalendar } from "../context/calendar-context";
@@ -9,21 +7,19 @@ import { DayCell } from "./day-cell";
 export function WeekRow({ weekIndex, renderDay }: WeekRowProps) {
   const { rowHeight, mode } = useCalendar();
 
-  const rowStyle = useMemo(() => ({ height: rowHeight }), [rowHeight]);
+  const rowStyle = { height: rowHeight };
 
   if (mode === "sequence") {
-    const sequenceCells = useMemo(() => {
-      return Array.from({ length: 7 }, (_, j) => {
-        const dayIndex = weekIndex * 7 + j;
-        return (
-          <DayCell
-            key={dayIndex}
-            dayGlobalIndex={dayIndex}
-            renderDay={renderDay}
-          />
-        );
-      });
-    }, [weekIndex, renderDay]);
+    const sequenceCells = Array.from({ length: 7 }, (_, j) => {
+      const dayIndex = weekIndex * 7 + j;
+      return (
+        <DayCell
+          key={dayIndex}
+          dayGlobalIndex={dayIndex}
+          renderDay={renderDay}
+        />
+      );
+    });
 
     return (
       <div style={rowStyle} className="grid grid-cols-7 gap-2 pb-2">
@@ -34,23 +30,15 @@ export function WeekRow({ weekIndex, renderDay }: WeekRowProps) {
 
   const weekStart = indexToWeek(weekIndex);
 
-  const days = useMemo(
-    () =>
-      Array.from({ length: 7 }, (_, j) => {
-        const d = new Date(weekStart);
-        d.setDate(weekStart.getDate() + j);
-        return d;
-      }),
-    [weekStart],
-  );
+  const days = Array.from({ length: 7 }, (_, j) => {
+    const d = new Date(weekStart);
+    d.setDate(weekStart.getDate() + j);
+    return d;
+  });
 
-  const dateCells = useMemo(
-    () =>
-      days.map((d) => (
-        <DayCell key={d.toISOString()} day={d} renderDay={renderDay} />
-      )),
-    [days, renderDay],
-  );
+  const dateCells = days.map((d) => (
+    <DayCell key={d.toISOString()} day={d} renderDay={renderDay} />
+  ));
 
   return (
     <div style={rowStyle} className="grid grid-cols-7 gap-2 pb-2">

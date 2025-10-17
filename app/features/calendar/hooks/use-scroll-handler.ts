@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { ScrollHandlerParams } from "../types/type";
 
@@ -36,9 +36,8 @@ export function useScrollHandler({
   // - useRef keeps a mutable value that does not trigger re-renders
   const ticking = useRef(false);
 
-  // onScroll: event callback attached to the DOM node. We wrap in useCallback
-  // so the same function identity is stable for add/remove event listener.
-  const onScroll = useCallback(() => {
+  // onScroll: event callback attached to the DOM node.
+  const onScroll = () => {
     const node = containerRef.current;
     // If no node, nothing to do
     if (!node) return;
@@ -54,7 +53,7 @@ export function useScrollHandler({
       // Mark that we've scheduled an update for the current frame
       ticking.current = true;
     }
-  }, [containerRef]);
+  };
 
   // Attach the scroll listener once the node is available and cleanup on change
   useEffect(() => {
@@ -66,7 +65,7 @@ export function useScrollHandler({
 
     // Cleanup: remove the listener when effect dependencies change / unmount
     return () => node.removeEventListener("scroll", onScroll);
-  }, [onScroll, containerRef]);
+  }, [containerRef]);
 
   // Return the latest throttled scrollTop for consumers
   return scrollTop;

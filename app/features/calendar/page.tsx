@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import type {
   CalendarActionHandle,
@@ -22,20 +22,19 @@ import { usePageContext } from "./context/page-context";
 import { PageProvider } from "./context/page-provider";
 
 export function ContentCalendarInfinityPage() {
-  const renderDay = useCallback(
-    ({ day, dayGlobalIndex, isToday }: RenderDayParams) => (
-      <DayContent day={day} dayGlobalIndex={dayGlobalIndex} isToday={isToday} />
-    ),
-    [],
+  const renderDay = ({ day, dayGlobalIndex, isToday }: RenderDayParams) => (
+    <DayContent day={day} dayGlobalIndex={dayGlobalIndex} isToday={isToday} />
   );
+
   const calendarRef = useRef<CalendarActionHandle | null>(null);
-  const onRegisterActions = useCallback<RegisterActionsFn>((h) => {
+  const onRegisterActions: RegisterActionsFn = (h) => {
     calendarRef.current = h;
-  }, []);
+  };
+
   const [visibleLabel, setVisibleLabel] = useState<string>("");
-  const handleVisibleLabelChange = useCallback((l: string) => {
+  const handleVisibleLabelChange = (l: string) => {
     setVisibleLabel(l);
-  }, []);
+  };
 
   function TodayButtonWrapper() {
     const { mode } = usePageContext();

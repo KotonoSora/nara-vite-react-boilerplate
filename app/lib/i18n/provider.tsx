@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useFetcher } from "react-router";
 
 import type { SupportedLanguage } from "./config";
@@ -16,20 +16,17 @@ export function I18nProvider({ children, initialLanguage }: I18nProviderProps) {
     useState<SupportedLanguage>(initialLanguage);
   const fetcher = useFetcher();
 
-  const setLanguage = useCallback(
-    (newLanguage: SupportedLanguage) => {
-      setLanguageState(newLanguage);
+  const setLanguage = (newLanguage: SupportedLanguage) => {
+    setLanguageState(newLanguage);
 
-      // Update the language preference on the server
-      const formData = new FormData();
-      formData.append("language", newLanguage);
-      fetcher.submit(formData, {
-        method: "POST",
-        action: "/action/set-language",
-      });
-    },
-    [fetcher],
-  );
+    // Update the language preference on the server
+    const formData = new FormData();
+    formData.append("language", newLanguage);
+    fetcher.submit(formData, {
+      method: "POST",
+      action: "/action/set-language",
+    });
+  };
 
   const t = createTranslationFunction(language);
 

@@ -1,8 +1,6 @@
-import { memo } from "react";
-
 import { useI18n } from "~/lib/i18n/context";
 
-export const FooterSection = memo(function FooterSection() {
+export function FooterSection() {
   const { t } = useI18n();
 
   return (
@@ -32,4 +30,4 @@ export const FooterSection = memo(function FooterSection() {
       </div>
     </footer>
   );
-});
+}

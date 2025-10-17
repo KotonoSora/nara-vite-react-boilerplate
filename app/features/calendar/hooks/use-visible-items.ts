@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import type { VisibleItemsParams } from "../types/type";
 
 /**
@@ -12,9 +10,9 @@ import type { VisibleItemsParams } from "../types/type";
  *
  * Contract:
  * - Input: `visibleRange` with startOffset/endOffset and `minWeekIndex`.
- * - Output: memoized array of { weekIndex, offset } covering the inclusive
+ * - Output: array of { weekIndex, offset } covering the inclusive
  *   range [startOffset, endOffset].
- * - Behavior: memoizes result and only recomputes when offsets or minWeekIndex change.
+ * - Behavior: recomputes result when offsets or minWeekIndex change.
  *
  * Steps:
  * 1. Read start/end offsets from visibleRange.
@@ -28,24 +26,22 @@ export function useVisibleItems({
   visibleRange,
   minWeekIndex,
 }: VisibleItemsParams) {
-  return useMemo(() => {
-    // Prepare an array to collect visible items. Using a local array and
-    // returning it is faster than mapping over a generated range.
-    const list: { weekIndex: number; offset: number }[] = [];
+  // Prepare an array to collect visible items. Using a local array and
+  // returning it is faster than mapping over a generated range.
+  const list: { weekIndex: number; offset: number }[] = [];
 
-    // Extract start/end offsets for readability
-    const startOffset = visibleRange.startOffset;
-    const endOffset = visibleRange.endOffset;
+  // Extract start/end offsets for readability
+  const startOffset = visibleRange.startOffset;
+  const endOffset = visibleRange.endOffset;
 
-    // Iterate inclusive from startOffset to endOffset and compute absolute week index
-    for (let offset = startOffset; offset <= endOffset; offset++) {
-      // weekIndex is the absolute index within the overall calendar space
-      const weekIndex = minWeekIndex + offset;
-      // Append the minimal shape the UI needs: absolute index + offset for positioning
-      list.push({ weekIndex, offset });
-    }
+  // Iterate inclusive from startOffset to endOffset and compute absolute week index
+  for (let offset = startOffset; offset <= endOffset; offset++) {
+    // weekIndex is the absolute index within the overall calendar space
+    const weekIndex = minWeekIndex + offset;
+    // Append the minimal shape the UI needs: absolute index + offset for positioning
+    list.push({ weekIndex, offset });
+  }
 
-    // Return the constructed list (memoized by useMemo dependencies below)
-    return list;
-  }, [visibleRange.startOffset, visibleRange.endOffset, minWeekIndex]);
+  // Return the constructed list
+  return list;
 }

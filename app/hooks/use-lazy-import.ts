@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * useLazyImport
@@ -27,7 +27,7 @@ export function useLazyImport<T>(importFn: () => Promise<T>) {
     };
   }, []);
 
-  const load = useCallback(async () => {
+  const load = async () => {
     if (modRef.current) return; // already loaded
 
     if (promiseRef.current) {
@@ -46,7 +46,7 @@ export function useLazyImport<T>(importFn: () => Promise<T>) {
       modRef.current = loaded;
       if (mountedRef.current) setMod(loaded);
     }
-  }, []);
+  };
 
   return [mod, load] as const;
 }
