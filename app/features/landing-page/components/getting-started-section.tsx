@@ -1,5 +1,5 @@
 import { Check, Copy, Play, Terminal } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useLoaderData } from "react-router";
 
 import type { PageInformation, Step } from "../types/type";
@@ -24,9 +24,9 @@ export function GettingStartedSection() {
     }
   };
 
-  const handleCopyClick = useCallback((step: Step) => {
+  const handleCopyClick = (step: Step) => {
     return () => copyToClipboard(step);
-  }, []);
+  };
 
   return (
     <section className="py-24 px-4 bg-gradient-to-br from-muted/30 to-muted/10 relative content-visibility-auto">

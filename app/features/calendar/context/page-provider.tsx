@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import type { CalendarEngineMode, PageProviderProps } from "../types/type";
 
@@ -11,9 +11,7 @@ export function PageProvider({ children }: PageProviderProps) {
   );
   const [mode, setMode] = useState<CalendarEngineMode>(DEFAULT_MODE);
 
-  const pageContextValue = useMemo(() => {
-    return { weeksPerScreen, setWeeksPerScreen, mode, setMode };
-  }, [weeksPerScreen, setWeeksPerScreen, mode, setMode]);
+  const pageContextValue = { weeksPerScreen, setWeeksPerScreen, mode, setMode };
 
   return (
     <PageContext.Provider value={pageContextValue}>

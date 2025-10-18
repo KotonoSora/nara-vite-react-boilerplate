@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { Link, useLoaderData } from "react-router";
 
 import type { GeneralInformationType } from "../types/type";
@@ -9,7 +8,7 @@ import { useI18n } from "~/lib/i18n/context";
 import GitHubLogoDark from "../assets/github-invertocat-dark.svg?url";
 import GitHubLogoLight from "../assets/github-invertocat-light.svg?url";
 
-export const GitHubButton = memo(function GitHubButton() {
+export function GitHubButton() {
   const { t } = useI18n();
   const { githubRepository } = useLoaderData<GeneralInformationType>();
 
@@ -41,4 +40,4 @@ export const GitHubButton = memo(function GitHubButton() {
       </Link>
     </Button>
   );
-});
+}
