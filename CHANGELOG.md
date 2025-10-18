@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 4.6.12 (2025-10-18)
+
+- Upgraded Bun to v1.3.0
+- Upgraded Node.js v24.10.0
+- Upgraded dependency versions
+- Remove unused code
+- React Compiler integration
+
 ## 4.6.11 (2025-10-13)
 
 - Upgraded dependency versions
