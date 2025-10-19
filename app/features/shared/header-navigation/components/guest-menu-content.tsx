@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import type { MenuCloseHandler } from "../types/type";
 
 import { Button } from "~/components/ui/button";
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 export function GuestMenuContent({ onClose }: MenuCloseHandler) {
   const { t } = useI18n();

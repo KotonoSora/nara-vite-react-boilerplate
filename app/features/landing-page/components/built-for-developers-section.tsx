@@ -1,6 +1,6 @@
 import { Clock, Code, Heart, Shield } from "lucide-react";
 
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 export function BuiltForDevelopersSection() {
   const { t } = useI18n();

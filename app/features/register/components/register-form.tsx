@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link, useActionData } from "react-router";
 import { z } from "zod";
 
-import type { TranslationFunctionType } from "~/lib/i18n/translations";
+import type { TranslationFunctionType } from "~/lib/i18n/utils/translations";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -24,7 +24,7 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 const createRegisterSchema = (t: TranslationFunctionType) =>
   z

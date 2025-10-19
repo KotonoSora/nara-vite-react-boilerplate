@@ -1,5 +1,5 @@
 import type { ProjectInfo } from "~/features/showcases/types/type";
-import type { TranslationFunction } from "~/lib/i18n/types";
+import type { TranslationFunction } from "~/lib/i18n/types/translation";
 
 /**
  * Get built-in demo showcases.

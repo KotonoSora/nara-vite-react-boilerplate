@@ -1,32 +1,10 @@
-export const SUPPORTED_LANGUAGES = [
-  "en",
-  "es",
-  "fr",
-  "zh",
-  "hi",
-  "ar",
-  "vi",
-  "ja",
-  "th",
-] as const;
-export const DEFAULT_LANGUAGE = "en" as const;
+import type { SupportedLanguage } from "../types/common";
 
-export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
-
-export const LANGUAGE_NAMES: Record<SupportedLanguage, string> = {
-  en: "English",
-  es: "Español",
-  fr: "Français",
-  zh: "中文",
-  hi: "हिन्दी",
-  ar: "العربية",
-  vi: "Tiếng Việt",
-  ja: "日本語",
-  th: "ไทย",
-} as const;
-
-// RTL (Right-to-Left) languages configuration
-export const RTL_LANGUAGES: readonly SupportedLanguage[] = ["ar"] as const;
+import {
+  DEFAULT_LANGUAGE,
+  RTL_LANGUAGES,
+  SUPPORTED_LANGUAGES,
+} from "../constants/common";
 
 export function isRTLLanguage(language: SupportedLanguage): boolean {
   return RTL_LANGUAGES.includes(language);

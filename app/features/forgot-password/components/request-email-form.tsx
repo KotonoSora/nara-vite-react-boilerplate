@@ -12,7 +12,7 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 export function RequestEmailForm() {
   const actionData = useActionData();

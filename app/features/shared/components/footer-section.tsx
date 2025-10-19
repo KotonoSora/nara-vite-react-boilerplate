@@ -1,4 +1,4 @@
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 export function FooterSection() {
   const { t } = useI18n();

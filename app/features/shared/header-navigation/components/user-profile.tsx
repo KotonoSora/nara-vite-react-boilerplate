@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import type { AuthenticatedMenuProps } from "../types/type";
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 import { getUserInitial } from "../utils/get-user-initial";
 

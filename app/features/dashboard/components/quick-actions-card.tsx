@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/common";
 
 export function QuickActionsCard() {
   const { user } = useLoaderData<DashboardContentProps>();

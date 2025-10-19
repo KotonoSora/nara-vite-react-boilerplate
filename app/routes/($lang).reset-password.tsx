@@ -15,7 +15,7 @@ import {
 } from "~/features/reset-password/middleware/token";
 import { ResetPasswordPage } from "~/features/reset-password/page";
 import { isStrongPassword } from "~/lib/auth/config";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import { createTranslationFunction } from "~/lib/i18n/utils/translations";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [

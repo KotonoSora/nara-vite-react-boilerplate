@@ -6,13 +6,15 @@ import { useLocation, useNavigate } from "react-router";
 import { Button } from "~/components/ui/button";
 import { useLazyImport } from "~/hooks/use-lazy-import";
 import {
+  LANGUAGE_NAMES,
+  SUPPORTED_LANGUAGES,
+} from "~/lib/i18n/constants/common";
+import { useI18n, useLanguage } from "~/lib/i18n/hooks/common";
+import {
   addLanguageToPath,
   getLanguageFromPath,
   isRTLLanguage,
-  LANGUAGE_NAMES,
-  SUPPORTED_LANGUAGES,
-} from "~/lib/i18n/config";
-import { useI18n, useLanguage } from "~/lib/i18n/context";
+} from "~/lib/i18n/utils/config";
 
 // Lazy-load dropdown primitives only when needed to trim initial JS
 export function LanguageSwitcher() {

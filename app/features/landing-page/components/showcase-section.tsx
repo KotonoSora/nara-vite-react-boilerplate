@@ -7,7 +7,7 @@ import type { PageInformation } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 import { BuiltInDemoItem } from "../components/built-in-demo-item";
 import { ShowcaseItem } from "../components/showcase-item";

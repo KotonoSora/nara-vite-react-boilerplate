@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 export function ResultCheckToken({
   isSuccess,

@@ -1,15 +1,8 @@
-import { createContext, useContext } from "react";
+import { useContext } from "react";
 
-import type { SupportedLanguage } from "./config";
-import type { TranslationFunction } from "./types";
+import type { I18nContextValue } from "../types/context";
 
-export interface I18nContextValue {
-  language: SupportedLanguage;
-  t: TranslationFunction;
-  setLanguage: (language: SupportedLanguage) => void;
-}
-
-export const I18nContext = createContext<I18nContextValue | null>(null);
+import { I18nContext } from "../react/context";
 
 export function useI18n(): I18nContextValue {
   const context = useContext(I18nContext);

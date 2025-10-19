@@ -11,7 +11,7 @@ import {
 } from "~/components/ui/card";
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
-import { useTranslation } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/common";
 
 export function ContentAdminPage() {
   const t = useTranslation();

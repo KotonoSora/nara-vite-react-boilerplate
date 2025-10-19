@@ -1,8 +1,8 @@
-import type { TranslationFunctionType } from "~/lib/i18n/translations";
+import type { TranslationFunctionType } from "~/lib/i18n/utils/translations";
 
 import type { Icon } from "../types/type";
 
-import { formatTimeAgo } from "~/lib/i18n/time-format";
+import { formatTimeAgo } from "~/lib/i18n/format/time";
 
 export function getRecentActivity(
   t: TranslationFunctionType,

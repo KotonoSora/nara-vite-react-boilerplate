@@ -6,7 +6,7 @@ import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
 import { PopoverTrigger } from "~/components/ui/popover";
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 export function MenuTrigger({ isOpen }: MenuTriggerProps) {
   const { t } = useI18n();

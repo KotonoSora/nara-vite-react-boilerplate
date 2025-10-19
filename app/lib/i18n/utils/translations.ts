@@ -1,5 +1,8 @@
-import type { SupportedLanguage } from "./config";
-import type { NestedTranslationObject, TranslationKey } from "./types";
+import type { SupportedLanguage } from "../types/common";
+import type {
+  NestedTranslationObject,
+  TranslationKey,
+} from "../types/translation";
 
 import arAbout from "~/locales/ar/about.json";
 // Import translation files
@@ -120,7 +123,7 @@ import zhShowcase from "~/locales/zh/showcase.json";
 import zhTheme from "~/locales/zh/theme.json";
 import zhTime from "~/locales/zh/time.json";
 
-import { DEFAULT_LANGUAGE } from "./config";
+import { DEFAULT_LANGUAGE } from "../constants/common";
 
 const translations: Record<SupportedLanguage, NestedTranslationObject> = {
   en: {

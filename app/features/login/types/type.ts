@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "~/lib/i18n/config";
+import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 export type LoginContentProps = {};
 

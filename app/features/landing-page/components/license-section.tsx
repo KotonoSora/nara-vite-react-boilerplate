@@ -6,7 +6,7 @@ import type { GeneralInformationType } from "~/features/shared/types/type";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 export function LicenseSection() {
   const { t } = useI18n();

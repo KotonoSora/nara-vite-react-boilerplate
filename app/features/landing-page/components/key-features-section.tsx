@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router";
 
 import type { PageInformation } from "../types/type";
 
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 import { keyFeaturesDecorationConfig } from "../constants/background-decoration";
 import { BackgroundDecoration } from "./background-decoration";

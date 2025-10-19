@@ -2,7 +2,7 @@ import { redirect } from "react-router";
 
 import type { MiddlewareFunction } from "react-router";
 
-import type { SupportedLanguage } from "~/lib/i18n/config";
+import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
 import { AuthContext } from "~/middleware/auth";

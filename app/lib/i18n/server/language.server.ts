@@ -1,8 +1,9 @@
 import { createCookieSessionStorage } from "react-router";
 
-import type { SupportedLanguage } from "./config";
+import type { SupportedLanguage } from "../types/common";
 
-import { DEFAULT_LANGUAGE, isSupportedLanguage } from "./config";
+import { DEFAULT_LANGUAGE } from "../constants/common";
+import { isSupportedLanguage } from "../utils/config";
 
 const { getSession, commitSession } = createCookieSessionStorage({
   cookie: {

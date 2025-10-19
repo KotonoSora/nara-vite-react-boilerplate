@@ -6,7 +6,7 @@ import type { PageInformation } from "./types/type";
 import { Separator } from "~/components/ui/separator";
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
-import { useI18n } from "~/lib/i18n/context";
+import { useI18n } from "~/lib/i18n/hooks/common";
 
 import { ButtonScrollToTop } from "../shared/components/button-scroll-to-top";
 import { BuiltInDemoItem } from "./components/built-in-demo-item";

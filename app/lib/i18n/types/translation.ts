@@ -27,9 +27,6 @@ type NamespaceTranslations = typeof enCommon & {
   about: typeof enAbout;
 };
 
-// Extract the shape of the translation object to create a recursive type
-type TranslationValue = string | { [key: string]: TranslationValue };
-
 type NestedKeyOf<ObjectType extends object> = {
   [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object
     ? `${Key}` | `${Key}.${NestedKeyOf<ObjectType[Key]>}`
