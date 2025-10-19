@@ -1,4 +1,4 @@
-import type { TranslationFunction } from "../types/translation";
+import type { TranslationFunction } from "../types/translations";
 
 /**
  * Formats a relative time string using i18n translations

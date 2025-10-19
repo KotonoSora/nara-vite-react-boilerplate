@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import type { SupportedLanguage } from "./common";
-import type { TranslationFunction } from "./translation";
+import type { TranslationFunction } from "./translations";
 
 export interface I18nContextValue {
   language: SupportedLanguage;
