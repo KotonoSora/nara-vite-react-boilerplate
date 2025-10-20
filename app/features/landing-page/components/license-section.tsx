@@ -6,10 +6,10 @@ import type { GeneralInformationType } from "~/features/shared/types/type";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function LicenseSection() {
-  const { t } = useI18n();
+  const t = useTranslation();
   const { githubRepository, commercialLink } =
     useLoaderData<GeneralInformationType>();
 

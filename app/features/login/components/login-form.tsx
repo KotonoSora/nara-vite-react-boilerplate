@@ -24,7 +24,7 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 const createLoginSchema = (t: TranslationFunctionType) =>
   z.object({
@@ -37,7 +37,7 @@ type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
 export function LoginForm() {
   const actionData = useActionData();
   const { error } = actionData || {};
-  const { t } = useI18n();
+  const t = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
 
   const loginSchema = createLoginSchema(t);

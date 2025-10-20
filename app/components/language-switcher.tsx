@@ -9,7 +9,8 @@ import {
   LANGUAGE_NAMES,
   SUPPORTED_LANGUAGES,
 } from "~/lib/i18n/constants/common";
-import { useI18n, useLanguage } from "~/lib/i18n/hooks/common";
+import { useLanguage } from "~/lib/i18n/hooks/use-language";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import {
   addLanguageToPath,
   getLanguageFromPath,
@@ -18,7 +19,7 @@ import {
 
 // Lazy-load dropdown primitives only when needed to trim initial JS
 export function LanguageSwitcher() {
-  const { t } = useI18n();
+  const t = useTranslation();
   const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();

@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
-import { useTranslation } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function UserInfoCard() {
   const { user } = useLoaderData<DashboardContentProps>();

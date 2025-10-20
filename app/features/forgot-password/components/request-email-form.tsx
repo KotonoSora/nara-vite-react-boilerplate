@@ -12,12 +12,12 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function RequestEmailForm() {
   const actionData = useActionData();
   const { error } = actionData || {};
-  const { t } = useI18n();
+  const t = useTranslation();
 
   return (
     <Card className="w-full max-w-md mx-auto">

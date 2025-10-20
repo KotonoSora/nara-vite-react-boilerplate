@@ -4,7 +4,7 @@ import { useLoaderData } from "react-router";
 import type { DashboardContentProps } from "../types/type";
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function StatsOverviewSection() {
   const { stats } = useLoaderData<DashboardContentProps>();

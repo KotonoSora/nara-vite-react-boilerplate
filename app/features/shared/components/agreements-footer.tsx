@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function AgreementsFooter() {
-  const { t } = useI18n();
+  const t = useTranslation();
 
   return (
     <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">

@@ -1,11 +1,11 @@
 import { LegalPageLayout } from "~/features/shared/layout/legal-page-layout";
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { getRelatedPages } from "./utils/get-related-pages";
 import { getSections } from "./utils/get-sections";
 
 export function ContentTermsPage() {
-  const { t } = useI18n();
+  const t = useTranslation();
   const sections = getSections(t);
   const relatedPages = getRelatedPages(t);
 

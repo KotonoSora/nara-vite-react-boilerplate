@@ -1,9 +1,9 @@
 import { Clock, Code, Heart, Shield } from "lucide-react";
 
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function BuiltForDevelopersSection() {
-  const { t } = useI18n();
+  const t = useTranslation();
 
   return (
     <section className="py-12 px-4 sm:py-20 sm:px-8 lg:py-24 bg-gradient-to-br from-muted/50 via-muted/30 to-muted/40 relative overflow-hidden content-visibility-auto">

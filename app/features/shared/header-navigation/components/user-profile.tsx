@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import type { AuthenticatedMenuProps } from "../types/type";
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { getUserInitial } from "../utils/get-user-initial";
 
@@ -12,7 +12,7 @@ export function UserProfile({
   userEmail,
   onClose,
 }: AuthenticatedMenuProps) {
-  const { t } = useI18n();
+  const t = useTranslation();
   const userInitial = getUserInitial(userName);
 
   return (

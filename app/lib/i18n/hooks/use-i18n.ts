@@ -11,13 +11,3 @@ export function useI18n(): I18nContextValue {
   }
   return context;
 }
-
-export function useTranslation() {
-  const { t } = useI18n();
-  return t;
-}
-
-export function useLanguage() {
-  const { language, setLanguage } = useI18n();
-  return { language, setLanguage };
-}

@@ -27,7 +27,7 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { PasswordRequirement } from "./password-requirement";
 
@@ -82,7 +82,7 @@ export function ResetPasswordForm() {
   const { token } = useLoaderData<ResetPasswordPageProps>();
   const actionData = useActionData();
   const { error } = actionData || {};
-  const { t } = useI18n();
+  const t = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 

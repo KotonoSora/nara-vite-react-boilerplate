@@ -5,7 +5,7 @@ import type { DashboardContentProps } from "../types/type";
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
-import { useTranslation } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function WelcomeSection() {
   const { user } = useLoaderData<DashboardContentProps>();

@@ -6,14 +6,14 @@ import { Button } from "~/components/ui/button";
 import { PopoverContent } from "~/components/ui/popover";
 import { GitHubButton } from "~/features/shared/components/github-button";
 import { useAuth } from "~/lib/auth/context";
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { AuthenticatedMenuContent } from "./authenticated-menu-content";
 import { GuestMenuContent } from "./guest-menu-content";
 
 export function Menu({ onClose }: MenuCloseHandler) {
   const auth = useAuth();
-  const { t } = useI18n();
+  const t = useTranslation();
   const isAuthenticated = auth?.isAuthenticated;
 
   return (

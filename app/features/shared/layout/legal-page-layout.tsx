@@ -9,7 +9,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { cn } from "~/lib/utils";
 
 import { ButtonScrollToTop } from "../components/button-scroll-to-top";
@@ -48,7 +48,7 @@ export function LegalPageLayout({
   estimatedReadTime = 5,
   relatedPages = [],
 }: LegalPageLayoutProps) {
-  const { t } = useI18n();
+  const t = useTranslation();
   const { githubRepository } = useLoaderData<GeneralInformationType>();
   const [activeSection, setActiveSection] = useState<string>("");
   const [readingProgress, setReadingProgress] = useState(0);

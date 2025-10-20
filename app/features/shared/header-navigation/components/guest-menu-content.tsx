@@ -3,10 +3,10 @@ import { Link } from "react-router";
 import type { MenuCloseHandler } from "../types/type";
 
 import { Button } from "~/components/ui/button";
-import { useI18n } from "~/lib/i18n/hooks/common";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function GuestMenuContent({ onClose }: MenuCloseHandler) {
-  const { t } = useI18n();
+  const t = useTranslation();
 
   return (
     <div className="grid grid-cols-2 gap-2">
