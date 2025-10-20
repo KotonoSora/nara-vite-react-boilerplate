@@ -1,5 +1,5 @@
-import type { SupportedLanguage } from "../types/common";
-import type { PluralCategory } from "../types/pluralization";
+import type { SupportedLanguage } from "../../types/common";
+import type { PluralCategory } from "../../types/pluralization";
 
 import { getCommonPlural } from "./get-common-plural";
 import { pluralize } from "./pluralize";

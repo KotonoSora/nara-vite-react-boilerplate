@@ -2,7 +2,7 @@ import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 import type { Icon } from "../types/type";
 
-import { formatTimeAgo } from "~/lib/i18n/format/datetime/format-time-ago";
+import { formatTimeAgo } from "~/lib/i18n/utils/datetime/format-time-ago";
 
 export function getRecentActivity(
   language: SupportedLanguage,

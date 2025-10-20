@@ -1,5 +1,5 @@
-import type { SupportedLanguage } from "../types/common";
-import type { PluralCategory } from "../types/pluralization";
+import type { SupportedLanguage } from "../../types/common";
+import type { PluralCategory } from "../../types/pluralization";
 
 /**
  * Returns the plural category for a given count and language.

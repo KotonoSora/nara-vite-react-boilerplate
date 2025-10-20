@@ -1,6 +1,6 @@
-import type { SupportedLanguage } from "../types/common";
+import type { SupportedLanguage } from "../../types/common";
 
-import { COMMON_PLURALS } from "../constants/pluralization";
+import { COMMON_PLURALS } from "../../constants/pluralization";
 import { pluralize } from "./pluralize";
 
 /**
