@@ -2,7 +2,14 @@ import type { SupportedLanguage } from "../../types/common";
 
 import { LOCALE_MAP } from "../../constants/locale";
 
-// Date formatting
+/**
+ * Formats a given date into a localized string representation.
+ *
+ * @param date - The date to format. Can be a `Date` object, a string, or a number.
+ * @param language - The language code used to determine the locale for formatting.
+ * @param options - Optional. Additional formatting options for `Intl.DateTimeFormat`.
+ * @returns The formatted date string according to the specified locale and options.
+ */
 export function formatDate(
   date: Date | string | number,
   language: SupportedLanguage,

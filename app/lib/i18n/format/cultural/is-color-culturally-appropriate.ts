@@ -3,7 +3,12 @@ import type { SupportedLanguage } from "../../types/common";
 import { CULTURAL_COLORS } from "../../constants/cultural";
 
 /**
- * Check if a color is culturally appropriate
+ * Determines if a given color is culturally appropriate for a specified language and context.
+ *
+ * @param color - The color to evaluate (case-insensitive).
+ * @param language - The language/culture to consider for color appropriateness.
+ * @param context - The context in which the color is used. Can be "general", "celebration", or "mourning". Defaults to "general".
+ * @returns An object indicating whether the color is appropriate (`appropriate: boolean`), and optionally a `reason` string if inappropriate.
  */
 export function isColorCulturallyAppropriate(
   color: string,

@@ -3,7 +3,11 @@ import type { SupportedLanguage } from "../../types/common";
 import { ADDRESS_FORMATS } from "../../constants/cultural";
 
 /**
- * Validate postal code format for a language
+ * Validates a postal code string against the format specified for a given language.
+ *
+ * @param postalCode - The postal code to validate.
+ * @param language - The language used to determine the postal code format.
+ * @returns `true` if the postal code matches the format for the specified language, or if no format is defined; otherwise, `false`.
  */
 export function validatePostalCode(
   postalCode: string,

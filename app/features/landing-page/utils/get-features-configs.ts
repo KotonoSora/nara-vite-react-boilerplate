@@ -1,6 +1,6 @@
-import type { TranslationFunctionType } from "~/lib/i18n/types/translations";
+import type { TranslationFunction } from "~/lib/i18n/types/translations";
 
-export function getFeaturesConfigs(t: TranslationFunctionType) {
+export function getFeaturesConfigs(t: TranslationFunction) {
   return [
     {
       icon: "shield",

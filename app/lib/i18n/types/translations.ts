@@ -12,8 +12,6 @@ import type enShowcase from "~/locales/en/showcase.json";
 import type enTheme from "~/locales/en/theme.json";
 import type enTime from "~/locales/en/time.json";
 
-import type { createTranslationFunction } from "../utils/translations/create-translation-function";
-
 // Create the complete namespace translation structure
 type NamespaceTranslations = typeof enCommon & {
   navigation: typeof enNavigation;
@@ -46,7 +44,3 @@ export type TranslationFunction = (
 
 // Helper type to extract nested object values
 export type NestedTranslationObject = NamespaceTranslations;
-
-export type TranslationFunctionType = ReturnType<
-  typeof createTranslationFunction
->;

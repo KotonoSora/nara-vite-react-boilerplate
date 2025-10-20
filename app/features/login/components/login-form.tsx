@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link, useActionData } from "react-router";
 import { z } from "zod";
 
-import type { TranslationFunctionType } from "~/lib/i18n/types/translations";
+import type { TranslationFunction } from "~/lib/i18n/types/translations";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -26,7 +26,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
-const createLoginSchema = (t: TranslationFunctionType) =>
+const createLoginSchema = (t: TranslationFunction) =>
   z.object({
     email: z.email(t("auth.login.validation.emailRequired")),
     password: z.string().min(8, t("auth.login.validation.passwordMinLength")),

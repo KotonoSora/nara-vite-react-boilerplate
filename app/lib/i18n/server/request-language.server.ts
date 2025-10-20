@@ -5,8 +5,16 @@ import { detectLanguageFromAcceptLanguage } from "../utils/common/detect-languag
 import { getLanguageFromPath } from "../utils/common/get-language-from-path";
 
 /**
- * Resolve the preferred language for a request using:
- * 1) URL segment, 2) cookie session, 3) Accept-Language header, 4) default
+ * Resolves the preferred language for a given HTTP request.
+ *
+ * The resolution follows these steps in order:
+ * 1. Checks the URL path segment for a supported language.
+ * 2. Checks the language stored in the cookie session.
+ * 3. Checks the `Accept-Language` header from the request.
+ * 4. Falls back to the default language if none of the above are found.
+ *
+ * @param request - The incoming HTTP request object.
+ * @returns A promise that resolves to the detected supported language.
  */
 export async function resolveRequestLanguage(
   request: Request,

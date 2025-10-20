@@ -2,7 +2,16 @@ import type { SupportedLanguage } from "../../types/common";
 
 import { formatRelativeTime } from "./format-relative-time";
 
-// Smart relative time calculation
+/**
+ * Returns a localized relative time string representing the difference between the given date and the current time.
+ *
+ * The function calculates the time difference between the provided `date` and now, and formats it in a human-readable
+ * relative format (e.g., "5 minutes ago", "in 2 days") according to the specified language.
+ *
+ * @param date - The target date to compare with the current time. Can be a `Date` object, ISO string, or timestamp.
+ * @param language - The language code used for localization.
+ * @returns A localized string describing the relative time difference.
+ */
 export function getRelativeTimeString(
   date: Date | string | number,
   language: SupportedLanguage,

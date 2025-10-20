@@ -17,6 +17,18 @@ const { getSession, commitSession } = createCookieSessionStorage({
   },
 });
 
+/**
+ * Retrieves and manages the language session for a given request.
+ *
+ * This function returns an object with methods to get, set, and commit the user's language preference
+ * stored in the session. The language is validated against supported languages, and a default is used if invalid.
+ *
+ * @param request - The incoming HTTP request containing session cookies.
+ * @returns An object with the following methods:
+ * - `getLanguage`: Returns the current language from the session, or the default if not set or unsupported.
+ * - `setLanguage`: Sets the language in the session.
+ * - `commit`: Commits the session changes and returns the updated session cookie string.
+ */
 export async function getLanguageSession(request: Request) {
   const session = await getSession(request.headers.get("Cookie"));
   return {

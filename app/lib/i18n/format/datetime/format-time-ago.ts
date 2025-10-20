@@ -3,10 +3,15 @@ import type { SupportedLanguage } from "../../types/common";
 import { formatRelativeTime } from "./format-relative-time";
 
 /**
- * Calculates and formats relative time from a date
- * @param date - The date to compare with current time
- * @param language - The language for formatting
- * @returns Formatted relative time string
+ * Formats a given date as a relative time string (e.g., "2 hours ago") in the specified language.
+ *
+ * Calculates the difference between the current time and the provided date,
+ * and returns a human-readable string representing the elapsed time in the largest appropriate unit
+ * (years, months, weeks, days, hours, minutes, or seconds).
+ *
+ * @param date - The target date to compare with the current time. Can be a `Date` object or an ISO date string.
+ * @param language - The language code to use for formatting the relative time.
+ * @returns A localized string representing the relative time difference.
  */
 export function formatTimeAgo(
   date: Date | string,

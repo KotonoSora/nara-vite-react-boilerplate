@@ -3,7 +3,18 @@ import type { SupportedLanguage } from "../../types/common";
 import { NAME_FORMATS } from "../../constants/cultural";
 
 /**
- * Format name according to cultural conventions
+ * Formats a person's name according to cultural conventions and language-specific rules.
+ *
+ * The function assembles name components (such as first, middle, last, etc.) in the order
+ * specified by the language's format, optionally including an honorific and handling formal
+ * name formatting (e.g., using initials for middle names in Western cultures).
+ *
+ * @param name - An object containing possible name components (first, middle, last, father, grandfather, family, maternal).
+ * @param language - The language code used to determine the name formatting rules.
+ * @param options - Optional settings:
+ *   - honorific: An honorific to prepend if supported by the language.
+ *   - formal: If true, applies formal formatting (e.g., initials for middle names in some languages).
+ * @returns The formatted name string according to the specified language and options.
  */
 export function formatName(
   name: {

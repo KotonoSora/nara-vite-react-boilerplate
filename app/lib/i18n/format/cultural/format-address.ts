@@ -4,7 +4,17 @@ import type { Address } from "../../types/cultural";
 import { ADDRESS_FORMATS } from "../../constants/cultural";
 
 /**
- * Format address according to cultural conventions
+ * Formats an address object into a string according to cultural and language-specific conventions.
+ *
+ * The formatting adapts to the specified language, supporting both Western and Asian address formats.
+ * It can output the address in a single line or multiline format, and optionally include the country.
+ *
+ * @param address - The address object containing fields such as name, street, city, state, postalCode, and country.
+ * @param language - The language code used to determine the address format (e.g., "en", "zh", "ja").
+ * @param options - Optional formatting options.
+ * @param options.multiline - If true, formats the address in multiple lines. Defaults to false.
+ * @param options.includeCountry - If true, includes the country in the formatted address. Defaults to true.
+ * @returns The formatted address string.
  */
 export function formatAddress(
   address: Address,
