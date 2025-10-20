@@ -33,10 +33,7 @@ import { I18nProvider } from "~/lib/i18n/react/provider";
 import { isRTLLanguage } from "~/lib/i18n/utils/common/is-rtl-language";
 import { AuthContext, authMiddleware } from "~/middleware/auth";
 import { I18nContext, i18nMiddleware } from "~/middleware/i18n";
-import {
-  GeneralInformationContext,
-  generalInformationMiddleware,
-} from "~/middleware/information";
+import { generalInformationMiddleware } from "~/middleware/information";
 import { ThemeContext, themeMiddleware } from "~/middleware/theme";
 
 import appCssUrl from "~/app.css?url";
