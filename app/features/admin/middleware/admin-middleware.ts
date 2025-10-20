@@ -11,7 +11,6 @@ import { I18nContext } from "~/middleware/i18n";
 export type AdminPageContextType = {
   title: string;
   description: string;
-  language: SupportedLanguage;
   user: any;
 };
 

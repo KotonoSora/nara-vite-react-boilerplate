@@ -1,5 +1,3 @@
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
-
 export type VerifyEmailPageProps = {
   isSuccess?: boolean;
   error?: string | null;
@@ -9,5 +7,4 @@ export type VerifyEmailPageProps = {
 export type PageInformation = {
   title?: string;
   description?: string;
-  language: SupportedLanguage;
 };

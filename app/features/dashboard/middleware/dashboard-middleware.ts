@@ -2,8 +2,6 @@ import { redirect } from "react-router";
 
 import type { MiddlewareFunction } from "react-router";
 
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
-
 import { getRecentActivity } from "~/features/dashboard/utils/get-recent-activity";
 import { getStats } from "~/features/dashboard/utils/get-stats";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
@@ -13,7 +11,6 @@ import { I18nContext } from "~/middleware/i18n";
 export type DashboardPageContextType = {
   title: string;
   description: string;
-  language: SupportedLanguage;
   user: any;
   recentActivity: any;
   stats: any;

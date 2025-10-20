@@ -17,7 +17,7 @@ export const middleware: MiddlewareFunction[] = [pageMiddleware];
 export async function loader({ context, request }: Route.LoaderArgs) {
   const { t } = context.get(I18nContext);
   const generalInformation = context.get(GeneralInformationContext);
-  const { title, description, language } = context.get(pageMiddlewareContext);
+  const { title, description } = context.get(pageMiddlewareContext);
   const { db } = context;
 
   const url = new URL(request.url);

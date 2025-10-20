@@ -9,12 +9,11 @@ export const { aboutMiddlewareContext } =
   createMiddlewareContext<AboutPageContextType>("aboutMiddlewareContext");
 
 export const aboutMiddleware: MiddlewareFunction = async ({ context }) => {
-  const { language, t } = context.get(I18nContext);
+  const { t } = context.get(I18nContext);
 
   const contextValue: AboutPageContextType = {
     title: t("about.meta.title"),
     description: t("about.meta.description"),
-    language,
     content: {
       heading: t("about.heading"),
       tagline: t("about.tagline"),

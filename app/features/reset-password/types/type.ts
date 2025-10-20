@@ -1,5 +1,3 @@
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
-
 export type ResetPasswordPageProps = {
   token: string;
 };
@@ -7,5 +5,4 @@ export type ResetPasswordPageProps = {
 export interface ResetPasswordPageInformation {
   title: string;
   description: string;
-  language: SupportedLanguage;
 }
