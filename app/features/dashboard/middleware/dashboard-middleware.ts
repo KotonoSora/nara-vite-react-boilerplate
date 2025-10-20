@@ -31,7 +31,7 @@ export const dashboardMiddleware: MiddlewareFunction = async (
   const { language, t } = context.get(I18nContext);
   const { user } = context.get(AuthContext);
   if (!user) throw redirect("/");
-  const recentActivity = getRecentActivity(t, user.createdAt);
+  const recentActivity = getRecentActivity(language, user.createdAt);
   const stats = getStats(user.createdAt);
   const contextValue = {
     title: t("dashboard.meta.title"),
