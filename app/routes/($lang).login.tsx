@@ -10,7 +10,7 @@ import {
 } from "~/features/login/middleware/page-middleware";
 import { ContentLoginPage } from "~/features/login/page";
 import { authMiddleware } from "~/features/shared/middleware/auth";
-import { createTranslationFunction } from "~/lib/i18n/utils/translations";
+import { createTranslationFunction } from "~/lib/i18n/utils/translations/create-translation-function";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [

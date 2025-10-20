@@ -3,7 +3,7 @@ import { createCookieSessionStorage } from "react-router";
 import type { SupportedLanguage } from "../types/common";
 
 import { DEFAULT_LANGUAGE } from "../constants/common";
-import { isSupportedLanguage } from "../utils/config";
+import { isSupportedLanguage } from "../utils/common/is-supported-language";
 
 const { getSession, commitSession } = createCookieSessionStorage({
   cookie: {

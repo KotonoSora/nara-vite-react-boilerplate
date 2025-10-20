@@ -9,7 +9,7 @@ import {
   pageMiddlewareContext,
 } from "~/features/verify-email/middleware/page-middleware";
 import { VerifyEmailPage } from "~/features/verify-email/page";
-import { createTranslationFunction } from "~/lib/i18n/utils/translations";
+import { createTranslationFunction } from "~/lib/i18n/utils/translations/create-translation-function";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [pageMiddleware];

@@ -1,4 +1,4 @@
-import type { TranslationFunctionType } from "~/lib/i18n/utils/translations";
+import type { TranslationFunctionType } from "~/lib/i18n/types/translations";
 
 export function getSections(t: TranslationFunctionType) {
   return [

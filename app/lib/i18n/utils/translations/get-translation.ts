@@ -1,39 +1,9 @@
-import type { SupportedLanguage } from "../types/common";
-import type {
-  NestedTranslationObject,
-  TranslationKey,
-} from "../types/translations";
+import type { SupportedLanguage } from "../../types/common";
+import type { TranslationKey } from "../../types/translations";
 
-import { DEFAULT_LANGUAGE } from "../constants/common";
-import { translations } from "../constants/translations";
-
-/**
- * Retrieves a nested value from an object using a dot-notation path string.
- *
- * @param obj - The nested translation object to traverse
- * @param path - A dot-separated string representing the path to the desired value (e.g., "user.profile.name")
- * @returns The string value at the specified path, or undefined if the path doesn't exist or the value is not a string
- *
- * @example
- * ```typescript
- * const translations = { user: { profile: { name: "John" } } };
- * getNestedValue(translations, "user.profile.name"); // Returns "John"
- * getNestedValue(translations, "user.invalid.path"); // Returns undefined
- * ```
- */
-function getNestedValue(
-  obj: NestedTranslationObject,
-  path: string,
-): string | undefined {
-  return path.split(".").reduce<unknown>((current, key) => {
-    return current &&
-      typeof current === "object" &&
-      current !== null &&
-      key in current
-      ? (current as Record<string, unknown>)[key]
-      : undefined;
-  }, obj) as string | undefined;
-}
+import { DEFAULT_LANGUAGE } from "../../constants/common";
+import { translations } from "../../constants/translations";
+import { getNestedValue } from "./get-nested-value";
 
 /**
  * Retrieves a translated string for the specified language and key.
@@ -95,12 +65,3 @@ export function getTranslation(
 
   return translation;
 }
-
-export function createTranslationFunction(language: SupportedLanguage) {
-  return (key: TranslationKey, params?: Record<string, string | number>) =>
-    getTranslation(language, key, params);
-}
-
-export type TranslationFunctionType = ReturnType<
-  typeof createTranslationFunction
->;

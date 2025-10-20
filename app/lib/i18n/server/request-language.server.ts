@@ -1,10 +1,8 @@
 import type { SupportedLanguage } from "../types/common";
 
 import { DEFAULT_LANGUAGE } from "../constants/common";
-import {
-  detectLanguageFromAcceptLanguage,
-  getLanguageFromPath,
-} from "../utils/config";
+import { detectLanguageFromAcceptLanguage } from "../utils/common/detect-language-from-accept-language";
+import { getLanguageFromPath } from "../utils/common/get-language-from-path";
 
 /**
  * Resolve the preferred language for a request using:
@@ -19,9 +17,7 @@ export async function resolveRequestLanguage(
   const pathLanguage = getLanguageFromPath(url.pathname);
   if (pathLanguage) return pathLanguage;
 
-  const { getLanguageSession } = await import(
-    "~/lib/i18n/server/language.server"
-  );
+  const { getLanguageSession } = await import("./language.server");
 
   // 2) Check cookie session
   const languageSession = await getLanguageSession(request);

@@ -3,10 +3,10 @@ import { createContext } from "react-router";
 import type { MiddlewareFunction } from "react-router";
 
 import type { SupportedLanguage } from "~/lib/i18n/types/common";
-import type { TranslationFunctionType } from "~/lib/i18n/utils/translations";
+import type { TranslationFunctionType } from "~/lib/i18n/types/translations";
 
 import { resolveRequestLanguage } from "~/lib/i18n/server/request-language.server";
-import { createTranslationFunction } from "~/lib/i18n/utils/translations";
+import { createTranslationFunction } from "~/lib/i18n/utils/translations/create-translation-function";
 
 export type I18nContextType = {
   language: SupportedLanguage;

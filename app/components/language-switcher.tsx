@@ -11,11 +11,9 @@ import {
 } from "~/lib/i18n/constants/common";
 import { useLanguage } from "~/lib/i18n/hooks/use-language";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
-import {
-  addLanguageToPath,
-  getLanguageFromPath,
-  isRTLLanguage,
-} from "~/lib/i18n/utils/config";
+import { addLanguageToPath } from "~/lib/i18n/utils/common/add-language-to-path";
+import { getLanguageFromPath } from "~/lib/i18n/utils/common/get-language-from-path";
+import { isRTLLanguage } from "~/lib/i18n/utils/common/is-rtl-language";
 
 // Lazy-load dropdown primitives only when needed to trim initial JS
 export function LanguageSwitcher() {

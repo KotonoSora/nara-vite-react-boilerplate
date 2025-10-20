@@ -9,7 +9,7 @@ import {
   forgotPasswordMiddlewareContext,
 } from "~/features/forgot-password/middleware/forgot-password-middleware";
 import { ForgotPasswordPage } from "~/features/forgot-password/page";
-import { createTranslationFunction } from "~/lib/i18n/utils/translations";
+import { createTranslationFunction } from "~/lib/i18n/utils/translations/create-translation-function";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [forgotPasswordMiddleware];
