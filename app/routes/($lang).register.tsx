@@ -13,7 +13,7 @@ import {
 import { ContentRegisterPage } from "~/features/register/page";
 import { MAX_USERS } from "~/features/shared/constants/limit";
 import { authMiddleware } from "~/features/shared/middleware/auth";
-import { createTranslationFunction } from "~/lib/i18n/utils/translations/create-translation-function";
+import { I18nContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [
@@ -28,9 +28,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const pageContent = context.get(pageMiddlewareContext);
-  const { language } = pageContent;
-  const t = createTranslationFunction(language);
+  const { t } = context.get(I18nContext);
 
   const formData = await request.formData();
 
