@@ -1,5 +1,3 @@
-"use client";
-
 import { ModeSelect } from "./mode-select";
 import { WeeksSelect } from "./weeks-select";
 

@@ -1,5 +1,3 @@
-"use client";
-
 import type { VisibleWeeksLabelProps } from "../types/type";
 
 export function VisibleWeeksLabel({ label }: VisibleWeeksLabelProps) {
