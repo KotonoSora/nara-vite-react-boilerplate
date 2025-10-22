@@ -15,7 +15,7 @@ import {
 } from "~/features/reset-password/middleware/token";
 import { ResetPasswordPage } from "~/features/reset-password/page";
 import { isStrongPassword } from "~/lib/auth/config";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import { I18nContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [
@@ -37,9 +37,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const { language } = context.get(pageMiddlewareContext);
-  const t = createTranslationFunction(language);
-
+  const { t } = context.get(I18nContext);
   const formData = await request.formData();
   const resetPasswordSchema = z
     .object({

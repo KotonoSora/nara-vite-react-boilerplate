@@ -6,10 +6,10 @@ import type { PageInformation, Step } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function GettingStartedSection() {
-  const { t } = useI18n();
+  const t = useTranslation();
   const { steps } = useLoaderData<PageInformation>();
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
 

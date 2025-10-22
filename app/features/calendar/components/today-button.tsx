@@ -1,5 +1,3 @@
-"use client";
-
 import type { TodayButtonProps } from "../types/type";
 
 import { Button } from "~/components/ui/button";

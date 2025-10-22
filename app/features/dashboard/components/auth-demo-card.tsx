@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function AuthDemoCard() {
   const t = useTranslation();

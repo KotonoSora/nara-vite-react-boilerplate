@@ -1,5 +1,3 @@
-"use client";
-
 import { TrendingUp } from "lucide-react";
 import { RadialBar, RadialBarChart } from "recharts";
 

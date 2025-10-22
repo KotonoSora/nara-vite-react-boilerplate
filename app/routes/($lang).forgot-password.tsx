@@ -9,7 +9,7 @@ import {
   forgotPasswordMiddlewareContext,
 } from "~/features/forgot-password/middleware/forgot-password-middleware";
 import { ForgotPasswordPage } from "~/features/forgot-password/page";
-import { createTranslationFunction } from "~/lib/i18n/translations";
+import { I18nContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [forgotPasswordMiddleware];
@@ -21,8 +21,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const { language } = context.get(forgotPasswordMiddlewareContext);
-  const t = createTranslationFunction(language);
+  const { t } = context.get(I18nContext);
   const formData = await request.formData();
   const forgotPasswordSchema = z.object({
     email: z.email(t("auth.forgotPassword.errorInvalidEmail")),

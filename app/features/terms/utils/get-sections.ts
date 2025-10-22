@@ -1,6 +1,6 @@
-import type { TranslationFunctionType } from "~/lib/i18n/translations";
+import type { TranslationFunction } from "~/lib/i18n/types/translations";
 
-export function getSections(t: TranslationFunctionType) {
+export function getSections(t: TranslationFunction) {
   return [
     {
       id: "acceptance",

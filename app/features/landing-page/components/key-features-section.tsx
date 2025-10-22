@@ -3,14 +3,14 @@ import { useLoaderData } from "react-router";
 
 import type { PageInformation } from "../types/type";
 
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { keyFeaturesDecorationConfig } from "../constants/background-decoration";
 import { BackgroundDecoration } from "./background-decoration";
 import { FeatureCard } from "./feature-card";
 
 export function KeyFeaturesSection() {
-  const { t } = useI18n();
+  const t = useTranslation();
   const { featuresConfig } = useLoaderData<PageInformation>();
 
   if (!featuresConfig) return null;

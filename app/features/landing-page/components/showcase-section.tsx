@@ -7,13 +7,13 @@ import type { PageInformation } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { BuiltInDemoItem } from "../components/built-in-demo-item";
 import { ShowcaseItem } from "../components/showcase-item";
 
 export function ShowcaseSection() {
-  const { t } = useI18n();
+  const t = useTranslation();
   const { showcases, builtInDemos } = useLoaderData<PageInformation>();
 
   return (

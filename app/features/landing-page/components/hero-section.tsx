@@ -4,13 +4,13 @@ import { Link, useLoaderData } from "react-router";
 import type { GeneralInformationType } from "~/features/shared/types/type";
 
 import { Button } from "~/components/ui/button";
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { heroDecorationConfig } from "../constants/background-decoration";
 import { BackgroundDecoration } from "./background-decoration";
 
 export function HeroSection() {
-  const { t } = useI18n();
+  const t = useTranslation();
   const { githubRepository } = useLoaderData<GeneralInformationType>();
 
   return (

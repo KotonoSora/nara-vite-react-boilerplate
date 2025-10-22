@@ -1,9 +1,8 @@
-import type { SupportedLanguage } from "~/lib/i18n/config";
+import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 export type AboutPageContextType = {
   title: string;
   description: string;
-  language: SupportedLanguage;
   content: {
     heading: string;
     tagline: string;

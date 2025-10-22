@@ -1,11 +1,11 @@
-import type { TranslationFunctionType } from "~/lib/i18n/translations";
+import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 import type { Icon } from "../types/type";
 
-import { formatTimeAgo } from "~/lib/i18n/time-format";
+import { formatTimeAgo } from "~/lib/i18n/utils/datetime/format-time-ago";
 
 export function getRecentActivity(
-  t: TranslationFunctionType,
+  language: SupportedLanguage,
   createdAt: string | Date,
 ) {
   // Create timestamps for mock activity data
@@ -17,19 +17,19 @@ export function getRecentActivity(
     {
       id: 1,
       actionKey: "dashboard.recentActivity.types.profileUpdated",
-      time: formatTimeAgo(t, twoHoursAgo),
+      time: formatTimeAgo(twoHoursAgo, language),
       icon: "User" as Icon,
     },
     {
       id: 2,
       actionKey: "dashboard.recentActivity.types.settingsChanged",
-      time: formatTimeAgo(t, oneDayAgo),
+      time: formatTimeAgo(oneDayAgo, language),
       icon: "Settings" as Icon,
     },
     {
       id: 3,
       actionKey: "dashboard.recentActivity.types.accountCreated",
-      time: formatTimeAgo(t, accountCreatedDate),
+      time: formatTimeAgo(accountCreatedDate, language),
       icon: "Calendar" as Icon,
     },
   ];

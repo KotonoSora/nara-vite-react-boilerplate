@@ -1,5 +1,3 @@
-"use client";
-
 import type { CalendarAppProps } from "../types/type";
 
 import { CalendarProvider } from "../context/calendar-provider";

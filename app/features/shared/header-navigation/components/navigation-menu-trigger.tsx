@@ -6,10 +6,10 @@ import { LanguageSwitcher } from "~/components/language-switcher";
 import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
 import { PopoverTrigger } from "~/components/ui/popover";
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function MenuTrigger({ isOpen }: MenuTriggerProps) {
-  const { t } = useI18n();
+  const t = useTranslation();
 
   return (
     <div className="flex items-center space-x-2">

@@ -10,12 +10,13 @@
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
+    "types": ["./worker-configuration.d.ts"],
     "baseUrl": ".",
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "~/workers/*": ["./workers/*"],
       "~/database/*": ["./database/*"],
       "~/*": ["./app/*"]
-    },
+    }
   }
 }

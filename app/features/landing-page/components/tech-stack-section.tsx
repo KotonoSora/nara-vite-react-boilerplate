@@ -1,10 +1,10 @@
 import { Zap } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function TechStackSection() {
-  const { t } = useI18n();
+  const t = useTranslation();
 
   return (
     <section className="py-24 px-4 bg-muted/20 content-visibility-auto">
