@@ -31,13 +31,33 @@ const { getSession, commitSession } = createCookieSessionStorage({
  */
 export async function getLanguageSession(request: Request) {
   const session = await getSession(request.headers.get("Cookie"));
+  let detectedLanguage: SupportedLanguage = DEFAULT_LANGUAGE;
+  const language = session.get("language");
+  if (isSupportedLanguage(language)) {
+    detectedLanguage = language;
+  } else {
+    // Try to detect from Accept-Language header (browser)
+    const acceptLanguage = request.headers.get("Accept-Language");
+    if (acceptLanguage) {
+      // Parse Accept-Language header, e.g. "en-US,en;q=0.9,fr;q=0.8"
+      const langs = acceptLanguage
+        .split(",")
+        .map((l) => l.split(";")[0].trim());
+      const found = langs.find((l) => isSupportedLanguage(l.split("-")[0]));
+      if (found) {
+        detectedLanguage = found.split("-")[0] as SupportedLanguage;
+      }
+    }
+    // Optionally, set the detected language in session for future requests
+    session.set("language", detectedLanguage);
+  }
   return {
     getLanguage(): SupportedLanguage {
-      const language = session.get("language");
-      return isSupportedLanguage(language) ? language : DEFAULT_LANGUAGE;
+      return detectedLanguage;
     },
     setLanguage(language: SupportedLanguage) {
       session.set("language", language);
+      detectedLanguage = language;
     },
     commit() {
       return commitSession(session);
