@@ -29,18 +29,18 @@ export function GettingStartedSection() {
   };
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-br from-muted/30 to-muted/10 relative content-visibility-auto">
+    <section className="py-24 px-4 bg-linear-to-br from-muted/30 to-muted/10 relative content-visibility-auto">
       {/* Background pattern */}
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
+      <div className="absolute inset-0 bg-grid-white/[0.02] bg-size-[40px_40px]" />
 
       <div className="container mx-auto relative">
         <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/10 to-primary/10 border border-green-500/20 rounded-full text-sm font-medium text-green-600 dark:text-green-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-green-500/10 to-primary/10 border border-green-500/20 rounded-full text-sm font-medium text-green-600 dark:text-green-400 mb-6">
             <Play className="h-4 w-4" />
             {t("landing.gettingStarted.badge")}
           </div>
 
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight sm:leading-snug md:leading-normal">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-linear-to-br from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight sm:leading-snug md:leading-normal">
             {t("landing.gettingStarted.title")}
           </h2>
 
@@ -55,11 +55,11 @@ export function GettingStartedSection() {
               steps.map((step) => (
                 <Card
                   key={step.number}
-                  className="border-2 border-primary/20 bg-gradient-to-br from-background/80 to-background/60 backdrop-blur-sm"
+                  className="border-2 border-primary/20 bg-linear-to-br from-background/80 to-background/60 backdrop-blur-sm"
                 >
                   <CardHeader className="pb-4">
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm">
+                      <div className="w-8 h-8 bg-linear-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm">
                         {step.number}
                       </div>
                       <CardTitle className="text-lg">{step.title}</CardTitle>
@@ -119,7 +119,7 @@ export function GettingStartedSection() {
 
           {/* Quick completion indicator */}
           <div className="mt-12 text-center">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500/10 to-primary/10 border border-green-500/20 rounded-full text-sm font-medium text-green-600 dark:text-green-400">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-green-500/10 to-primary/10 border border-green-500/20 rounded-full text-sm font-medium text-green-600 dark:text-green-400">
               <div className="w-2 h-2 bg-green-500 rounded-full" />
               {t("landing.gettingStarted.setupTime")}
             </div>

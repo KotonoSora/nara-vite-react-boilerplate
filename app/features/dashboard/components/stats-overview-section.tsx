@@ -14,7 +14,7 @@ export function StatsOverviewSection() {
 
   return (
     <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-      <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50">
+      <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-linear-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 sm:pb-3">
           <CardTitle className="text-sm font-medium text-gray-700 dark:text-gray-300">
             {t("dashboard.stats.daysActive.title")}
@@ -31,7 +31,7 @@ export function StatsOverviewSection() {
         </CardContent>
       </Card>
 
-      <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50">
+      <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-linear-to-br from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 sm:pb-3">
           <CardTitle className="text-sm font-medium text-gray-700 dark:text-gray-300">
             {t("dashboard.stats.totalLogins.title")}
@@ -48,7 +48,7 @@ export function StatsOverviewSection() {
         </CardContent>
       </Card>
 
-      <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-950/50 dark:to-violet-950/50">
+      <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-linear-to-br from-purple-50 to-violet-50 dark:from-purple-950/50 dark:to-violet-950/50">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 sm:pb-3">
           <CardTitle className="text-sm font-medium text-gray-700 dark:text-gray-300">
             {t("dashboard.stats.profileViews.title")}
@@ -65,7 +65,7 @@ export function StatsOverviewSection() {
         </CardContent>
       </Card>
 
-      <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50">
+      <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-linear-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 sm:pb-3">
           <CardTitle className="text-sm font-medium text-gray-700 dark:text-gray-300">
             {t("dashboard.stats.lastLogin.title")}

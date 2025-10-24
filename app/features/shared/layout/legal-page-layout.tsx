@@ -203,7 +203,7 @@ export function LegalPageLayout({
                                       : undefined
                                   }
                                 >
-                                  <span className="flex-shrink-0 text-xs text-muted-foreground min-w-[20px] mt-0.5">
+                                  <span className="shrink-0 text-xs text-muted-foreground min-w-[20px] mt-0.5">
                                     {index + 1}.
                                   </span>
                                   <span className="flex-1 leading-relaxed">
@@ -244,7 +244,7 @@ export function LegalPageLayout({
                                     {page.description}
                                   </p>
                                 </div>
-                                <ChevronRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-muted-foreground transition-colors flex-shrink-0 mt-0.5" />
+                                <ChevronRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-muted-foreground transition-colors shrink-0 mt-0.5" />
                               </div>
                             </Link>
                           </li>

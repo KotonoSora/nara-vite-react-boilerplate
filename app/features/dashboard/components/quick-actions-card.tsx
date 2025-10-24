@@ -20,7 +20,7 @@ export function QuickActionsCard() {
   if (!user) return null;
 
   return (
-    <Card className="lg:col-span-1 transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-950/50 dark:to-blue-950/50">
+    <Card className="lg:col-span-1 transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-linear-to-br from-indigo-50 to-blue-50 dark:from-indigo-950/50 dark:to-blue-950/50">
       <CardHeader className="pb-4 sm:pb-6">
         <CardTitle className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100">
           {t("dashboard.quickActions.title")}

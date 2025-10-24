@@ -10,7 +10,7 @@ export function TechStackSection() {
     <section className="py-24 px-4 bg-muted/20 content-visibility-auto">
       <div className="container mx-auto">
         <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full text-sm font-medium text-cyan-600 dark:text-cyan-400 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full text-sm font-medium text-cyan-600 dark:text-cyan-400 mb-6">
             <Zap className="h-4 w-4" />
             {t("landing.techStack.badge")}
           </div>
@@ -23,10 +23,10 @@ export function TechStackSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <Card className="border-2 border-blue-500/20 bg-gradient-to-br from-background/60 to-blue-500/5">
+          <Card className="border-2 border-blue-500/20 bg-linear-to-br from-background/60 to-blue-500/5">
             <CardHeader className="pb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-lg flex items-center justify-center mb-4">
-                <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-sm"></div>
+              <div className="w-12 h-12 bg-linear-to-br from-blue-500/20 to-blue-600/20 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-6 h-6 bg-linear-to-br from-blue-500 to-blue-600 rounded-sm"></div>
               </div>
               <CardTitle className="text-xl flex items-center gap-2">
                 Frontend
@@ -57,10 +57,10 @@ export function TechStackSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-purple-500/20 bg-gradient-to-br from-background/60 to-purple-500/5">
+          <Card className="border-2 border-purple-500/20 bg-linear-to-br from-background/60 to-purple-500/5">
             <CardHeader className="pb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-lg flex items-center justify-center mb-4">
-                <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-purple-600 rounded-sm"></div>
+              <div className="w-12 h-12 bg-linear-to-br from-purple-500/20 to-purple-600/20 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-6 h-6 bg-linear-to-br from-purple-500 to-purple-600 rounded-sm"></div>
               </div>
               <CardTitle className="text-xl flex items-center gap-2">
                 Styling
@@ -91,10 +91,10 @@ export function TechStackSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-green-500/20 bg-gradient-to-br from-background/60 to-green-500/5">
+          <Card className="border-2 border-green-500/20 bg-linear-to-br from-background/60 to-green-500/5">
             <CardHeader className="pb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-lg flex items-center justify-center mb-4">
-                <div className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-sm"></div>
+              <div className="w-12 h-12 bg-linear-to-br from-green-500/20 to-green-600/20 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-6 h-6 bg-linear-to-br from-green-500 to-green-600 rounded-sm"></div>
               </div>
               <CardTitle className="text-xl flex items-center gap-2">
                 Backend
@@ -125,10 +125,10 @@ export function TechStackSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-orange-500/20 bg-gradient-to-br from-background/60 to-orange-500/5">
+          <Card className="border-2 border-orange-500/20 bg-linear-to-br from-background/60 to-orange-500/5">
             <CardHeader className="pb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-lg flex items-center justify-center mb-4">
-                <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-orange-600 rounded-sm"></div>
+              <div className="w-12 h-12 bg-linear-to-br from-orange-500/20 to-orange-600/20 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-6 h-6 bg-linear-to-br from-orange-500 to-orange-600 rounded-sm"></div>
               </div>
               <CardTitle className="text-xl flex items-center gap-2">
                 Database
@@ -159,10 +159,10 @@ export function TechStackSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-red-500/20 bg-gradient-to-br from-background/60 to-red-500/5">
+          <Card className="border-2 border-red-500/20 bg-linear-to-br from-background/60 to-red-500/5">
             <CardHeader className="pb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-red-500/20 to-red-600/20 rounded-lg flex items-center justify-center mb-4">
-                <div className="w-6 h-6 bg-gradient-to-br from-red-500 to-red-600 rounded-sm"></div>
+              <div className="w-12 h-12 bg-linear-to-br from-red-500/20 to-red-600/20 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-6 h-6 bg-linear-to-br from-red-500 to-red-600 rounded-sm"></div>
               </div>
               <CardTitle className="text-xl flex items-center gap-2">
                 Tooling
@@ -193,10 +193,10 @@ export function TechStackSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-cyan-500/20 bg-gradient-to-br from-background/60 to-cyan-500/5">
+          <Card className="border-2 border-cyan-500/20 bg-linear-to-br from-background/60 to-cyan-500/5">
             <CardHeader className="pb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 rounded-lg flex items-center justify-center mb-4">
-                <div className="w-6 h-6 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-sm"></div>
+              <div className="w-12 h-12 bg-linear-to-br from-cyan-500/20 to-cyan-600/20 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-6 h-6 bg-linear-to-br from-cyan-500 to-cyan-600 rounded-sm"></div>
               </div>
               <CardTitle className="text-xl flex items-center gap-2">
                 Deployment

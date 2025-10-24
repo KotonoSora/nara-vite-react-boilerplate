@@ -17,29 +17,29 @@ export function HeroSection() {
     <section className="py-24 px-4 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div
-        className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5"
+        className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-purple-500/5"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]"
+        className="absolute inset-0 bg-grid-white/[0.02] bg-size-[60px_60px]"
         aria-hidden="true"
       />
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full blur-3xl opacity-20"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-linear-to-r from-primary/20 to-purple-500/20 rounded-full blur-3xl opacity-20"
         aria-hidden="true"
       />
 
       <div className="container mx-auto text-center relative">
         <div className="mx-auto max-w-5xl">
           {/* Badge with better animation */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 rounded-full text-sm font-medium text-primary mb-6 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-primary/10 to-purple-500/10 border border-primary/20 rounded-full text-sm font-medium text-primary mb-6 backdrop-blur-sm">
             <Star className="h-4 w-4 fill-current" />
             {t("landing.hero.badge")}
             <Sparkles className="h-4 w-4" />
           </div>
 
           {/* Title with better gradient */}
-          <h2 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-primary to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-linear-to-br from-foreground via-primary to-purple-600 bg-clip-text text-transparent">
             {t("landing.hero.title")}
           </h2>
 
@@ -57,7 +57,7 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Button
               size="lg"
-              className="text-lg px-8 h-12 leading-none box-border transition-none bg-gradient-to-r from-primary to-purple-600"
+              className="text-lg px-8 h-12 leading-none box-border transition-none bg-linear-to-r from-primary to-purple-600"
               asChild
             >
               <Link

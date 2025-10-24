@@ -14,9 +14,9 @@ export function LicenseSection() {
     useLoaderData<GeneralInformationType>();
 
   return (
-    <section className="py-16 px-6 lg:px-24 bg-gradient-to-br from-muted/40 to-primary/5 content-visibility-auto">
+    <section className="py-16 px-6 lg:px-24 bg-linear-to-br from-muted/40 to-primary/5 content-visibility-auto">
       <div className="max-w-4xl mx-auto space-y-6 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-full text-sm font-medium text-green-600 dark:text-green-400 mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-full text-sm font-medium text-green-600 dark:text-green-400 mb-6">
           <Shield className="h-4 w-4" />
           {t("landing.license.badge")}
         </div>
@@ -79,10 +79,10 @@ export function LicenseSection() {
           </Card>
 
           {/* Commercial Card */}
-          <Card className="text-left border-2 border-purple-500/20 bg-gradient-to-br from-background to-purple-500/5">
+          <Card className="text-left border-2 border-purple-500/20 bg-linear-to-br from-background to-purple-500/5">
             <CardContent className="p-6 space-y-4">
               <div className="flex items-center justify-between">
-                <Badge className="text-sm bg-gradient-to-r from-purple-500 to-pink-500 text-white border-none">
+                <Badge className="text-sm bg-linear-to-r from-purple-500 to-pink-500 text-white border-none">
                   {t("landing.license.commercial.badge")}
                 </Badge>
                 <span className="text-2xl font-bold text-purple-500">

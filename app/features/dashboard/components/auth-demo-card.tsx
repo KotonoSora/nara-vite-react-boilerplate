@@ -15,7 +15,7 @@ export function AuthDemoCard() {
   const t = useTranslation();
 
   return (
-    <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/50 dark:to-purple-950/50">
+    <Card className="transition-all hover:shadow-lg hover:-translate-y-1 border-0 bg-linear-to-br from-violet-50 to-purple-50 dark:from-violet-950/50 dark:to-purple-950/50">
       <CardHeader className="pb-4 sm:pb-6">
         <CardTitle className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100">
           {t("dashboard.authDemo.title")}
