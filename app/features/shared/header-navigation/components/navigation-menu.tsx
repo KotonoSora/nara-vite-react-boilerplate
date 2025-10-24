@@ -30,7 +30,7 @@ export function Menu({ onClose }: MenuCloseHandler) {
         )}
 
         <div className="pt-3 border-t flex justify-end">
-          <Button variant="ghost" size="sm" asChild className="flex-shrink-0">
+          <Button variant="ghost" size="sm" asChild className="shrink-0">
             <Link to="/about" onClick={onClose}>
               {t("navigation.about")}
             </Link>

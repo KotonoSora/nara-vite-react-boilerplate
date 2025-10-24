@@ -16,14 +16,14 @@ export function FeatureCard({ config }: FeatureCardProps) {
 
   return (
     <Card
-      className={`border-2 border-primary/20 bg-gradient-to-br from-background via-background ${colors.background} relative overflow-hidden`}
+      className={`border-2 border-primary/20 bg-linear-to-br from-background via-background ${colors.background} relative overflow-hidden`}
     >
       <div
-        className={`absolute inset-0 bg-gradient-to-br from-${colors.primary}/5 to-transparent`}
+        className={`absolute inset-0 bg-linear-to-br from-${colors.primary}/5 to-transparent`}
       />
       <CardHeader className="pb-4 relative">
         <div
-          className={`w-12 h-12 bg-gradient-to-br from-${colors.primary}/20 to-${colors.secondary}/20 rounded-lg flex items-center justify-center mb-4`}
+          className={`w-12 h-12 bg-linear-to-br from-${colors.primary}/20 to-${colors.secondary}/20 rounded-lg flex items-center justify-center mb-4`}
         >
           <Icon className={`w-6 h-6 ${colors.icon}`} />
         </div>

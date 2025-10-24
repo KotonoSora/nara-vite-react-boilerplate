@@ -2080,7 +2080,7 @@ function UserProfile({ children, className }: { children: React.ReactNode; class
 function UserAvatar({ user, size = 'md' }: { user: User; size?: 'sm' | 'md' | 'lg' }) {
   return (
     <Avatar className={cn(
-      "flex-shrink-0",
+      "shrink-0",
       size === 'sm' && "h-8 w-8",
       size === 'md' && "h-12 w-12",
       size === 'lg' && "h-16 w-16"
