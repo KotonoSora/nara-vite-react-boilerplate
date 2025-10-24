@@ -97,7 +97,7 @@ export function LoginForm() {
                       to="/forgot-password"
                       className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                     >
-                      Forgot your password?
+                      {t("auth.forgotPassword.heading")}
                     </Link>
                   </div>
                   <div className="relative">
