@@ -40,7 +40,7 @@ export function GettingStartedSection() {
             {t("landing.gettingStarted.badge")}
           </div>
 
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight sm:leading-snug md:leading-normal">
             {t("landing.gettingStarted.title")}
           </h2>
 

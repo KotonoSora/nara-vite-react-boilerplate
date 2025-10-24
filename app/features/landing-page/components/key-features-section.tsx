@@ -33,7 +33,7 @@ export function KeyFeaturesSection() {
             <Rocket className="h-4 w-4" />
             {t("landing.features.badge")}
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight sm:leading-snug md:leading-normal">
             {t("landing.features.sectionTitle")}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
