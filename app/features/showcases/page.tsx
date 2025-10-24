@@ -6,14 +6,14 @@ import type { PageInformation } from "./types/type";
 import { Separator } from "~/components/ui/separator";
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { ButtonScrollToTop } from "../shared/components/button-scroll-to-top";
 import { BuiltInDemoItem } from "./components/built-in-demo-item";
 import { ShowcaseItem } from "./components/showcase-item";
 
 export function ContentShowcasePage() {
-  const { t } = useI18n();
+  const t = useTranslation();
   const { showcases, builtInDemos } = useLoaderData<PageInformation>();
 
   const hasBuiltInDemos =

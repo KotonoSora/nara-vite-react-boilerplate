@@ -1,16 +1,16 @@
 // Import all translation files to generate types
-import enAbout from "~/locales/en/about.json";
-import enAdmin from "~/locales/en/admin.json";
-import enAuth from "~/locales/en/auth.json";
-import enCommon from "~/locales/en/common.json";
-import enDashboard from "~/locales/en/dashboard.json";
-import enErrors from "~/locales/en/errors.json";
-import enLanding from "~/locales/en/landing.json";
-import enLegal from "~/locales/en/legal.json";
-import enNavigation from "~/locales/en/navigation.json";
-import enShowcase from "~/locales/en/showcase.json";
-import enTheme from "~/locales/en/theme.json";
-import enTime from "~/locales/en/time.json";
+import type enAbout from "~/locales/en/about.json";
+import type enAdmin from "~/locales/en/admin.json";
+import type enAuth from "~/locales/en/auth.json";
+import type enCommon from "~/locales/en/common.json";
+import type enDashboard from "~/locales/en/dashboard.json";
+import type enErrors from "~/locales/en/errors.json";
+import type enLanding from "~/locales/en/landing.json";
+import type enLegal from "~/locales/en/legal.json";
+import type enNavigation from "~/locales/en/navigation.json";
+import type enShowcase from "~/locales/en/showcase.json";
+import type enTheme from "~/locales/en/theme.json";
+import type enTime from "~/locales/en/time.json";
 
 // Create the complete namespace translation structure
 type NamespaceTranslations = typeof enCommon & {
@@ -26,9 +26,6 @@ type NamespaceTranslations = typeof enCommon & {
   legal: typeof enLegal;
   about: typeof enAbout;
 };
-
-// Extract the shape of the translation object to create a recursive type
-type TranslationValue = string | { [key: string]: TranslationValue };
 
 type NestedKeyOf<ObjectType extends object> = {
   [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object

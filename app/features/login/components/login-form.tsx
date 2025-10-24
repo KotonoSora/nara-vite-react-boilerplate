@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link, useActionData } from "react-router";
 import { z } from "zod";
 
-import type { TranslationFunctionType } from "~/lib/i18n/translations";
+import type { TranslationFunction } from "~/lib/i18n/types/translations";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -24,9 +24,9 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
-const createLoginSchema = (t: TranslationFunctionType) =>
+const createLoginSchema = (t: TranslationFunction) =>
   z.object({
     email: z.email(t("auth.login.validation.emailRequired")),
     password: z.string().min(8, t("auth.login.validation.passwordMinLength")),
@@ -37,7 +37,7 @@ type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
 export function LoginForm() {
   const actionData = useActionData();
   const { error } = actionData || {};
-  const { t } = useI18n();
+  const t = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
 
   const loginSchema = createLoginSchema(t);
@@ -97,7 +97,7 @@ export function LoginForm() {
                       to="/forgot-password"
                       className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                     >
-                      Forgot your password?
+                      {t("auth.forgotPassword.heading")}
                     </Link>
                   </div>
                   <div className="relative">

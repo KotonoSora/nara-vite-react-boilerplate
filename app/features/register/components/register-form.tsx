@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link, useActionData } from "react-router";
 import { z } from "zod";
 
-import type { TranslationFunctionType } from "~/lib/i18n/translations";
+import type { TranslationFunction } from "~/lib/i18n/types/translations";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -24,9 +24,9 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
-const createRegisterSchema = (t: TranslationFunctionType) =>
+const createRegisterSchema = (t: TranslationFunction) =>
   z
     .object({
       name: z.string().min(2, t("auth.register.validation.nameMinLength")),
@@ -48,7 +48,7 @@ type RegisterFormData = z.infer<ReturnType<typeof createRegisterSchema>>;
 export function RegisterForm() {
   const actionData = useActionData();
   const { error } = actionData || {};
-  const { t } = useI18n();
+  const t = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 

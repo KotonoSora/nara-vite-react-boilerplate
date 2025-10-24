@@ -1,7 +1,7 @@
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function FooterSection() {
-  const { t } = useI18n();
+  const t = useTranslation();
 
   return (
     <footer className="border-t py-12 px-4 bg-background/80 backdrop-blur-sm content-visibility-auto">

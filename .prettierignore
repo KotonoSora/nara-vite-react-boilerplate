@@ -10,6 +10,9 @@
 !README.md
 !CHANGELOG.md
 !degit.json
+!tsconfig.cloudflare.json
+!tsconfig.json
+!tsconfig.node.json
 
 # Allow folder .vscode
 !.vscode/

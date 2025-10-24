@@ -21,6 +21,18 @@ const requestHandler = createRequestHandler(
   import.meta.env.MODE,
 );
 
+const getLoadContext = (loadContext: {
+  cloudflare: {
+    env: Env;
+    ctx: ExecutionContext;
+  };
+  db: DrizzleD1Database<typeof schema>;
+}): RouterContextProvider => {
+  let context = new RouterContextProvider();
+  Object.assign(context, loadContext);
+  return context;
+};
+
 // Init app
 const app = new Hono<{ Bindings: Env }>();
 
@@ -34,10 +46,9 @@ app.all("*", async (c) => {
 
   const db = drizzle(env.DB, { schema });
 
-  const context = new RouterContextProvider();
   const response = await requestHandler(
     request,
-    Object.assign(context, {
+    getLoadContext({
       cloudflare: { env, ctx },
       db,
     }),

@@ -1,6 +1,6 @@
-import type { TranslationFunctionType } from "~/lib/i18n/translations";
+import type { TranslationFunction } from "~/lib/i18n/types/translations";
 
-export function getSteps(t: TranslationFunctionType) {
+export function getSteps(t: TranslationFunction) {
   return [
     {
       number: 1,

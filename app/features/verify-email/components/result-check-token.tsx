@@ -12,14 +12,14 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function ResultCheckToken({
   isSuccess,
   error,
   message,
 }: VerifyEmailPageProps) {
-  const { t } = useI18n();
+  const t = useTranslation();
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="text-center">

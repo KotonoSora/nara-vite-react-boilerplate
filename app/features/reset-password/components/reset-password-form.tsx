@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link, useActionData, useLoaderData } from "react-router";
 import { z } from "zod";
 
-import type { TranslationFunctionType } from "~/lib/i18n/translations";
+import type { TranslationFunction } from "~/lib/i18n/types/translations";
 
 import type { ResetPasswordPageProps } from "../types/type";
 
@@ -27,7 +27,7 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useI18n } from "~/lib/i18n/context";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { PasswordRequirement } from "./password-requirement";
 
@@ -37,7 +37,7 @@ const lowercaseSchema = z.string().regex(/[a-z]/);
 const numberSchema = z.string().regex(/\d/);
 const specialCharSchema = z.string().regex(/[!@#$%^&*(),.?":{}|<>]/);
 
-const createResetPasswordSchema = (t: TranslationFunctionType) =>
+const createResetPasswordSchema = (t: TranslationFunction) =>
   z
     .object({
       password: z
@@ -82,7 +82,7 @@ export function ResetPasswordForm() {
   const { token } = useLoaderData<ResetPasswordPageProps>();
   const actionData = useActionData();
   const { error } = actionData || {};
-  const { t } = useI18n();
+  const t = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 

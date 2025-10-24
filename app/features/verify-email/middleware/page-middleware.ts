@@ -12,10 +12,9 @@ export const pageMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
-  const { language, t } = context.get(I18nContext);
+  const { t } = context.get(I18nContext);
   context.set(pageMiddlewareContext, {
     title: t("auth.verifyEmail.title"),
     description: t("auth.verifyEmail.description"),
-    language,
   });
 };

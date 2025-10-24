@@ -1,5 +1,3 @@
-"use client";
-
 import { Bar, BarChart, XAxis } from "recharts";
 
 import type { ChartConfig } from "~/components/ui/chart";

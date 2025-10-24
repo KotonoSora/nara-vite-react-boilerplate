@@ -1,6 +1,6 @@
-import type { TranslationFunctionType } from "~/lib/i18n/translations";
+import type { TranslationFunction } from "~/lib/i18n/types/translations";
 
-export function getRelatedPages(t: TranslationFunctionType) {
+export function getRelatedPages(t: TranslationFunction) {
   return [
     {
       title: t("legal.terms.title"),
