@@ -96,7 +96,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   });
 
   const { createUserSession } = await import(
-    "~/lib/authentication/server/auth.server"
+    "~/lib/authentication/server/authenticate.server"
   );
 
   return createUserSession(newUser.id, "/dashboard");

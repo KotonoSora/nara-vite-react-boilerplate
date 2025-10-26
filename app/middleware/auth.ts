@@ -15,7 +15,9 @@ export const authMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
-  const { getUserId } = await import("~/lib/authentication/server/auth.server");
+  const { getUserId } = await import(
+    "~/lib/authentication/server/authenticate.server"
+  );
   const { getUserById } = await import(
     "~/lib/authentication/server/user.server"
   );

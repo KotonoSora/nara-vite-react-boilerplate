@@ -3,11 +3,11 @@ import { createCookieSessionStorage } from "react-router";
 const { getSession, commitSession, destroySession } =
   createCookieSessionStorage({
     cookie: {
-      name: "__nara_auth",
+      name: "__nara_authentication",
       path: "/",
       httpOnly: true,
       sameSite: "lax",
-      secrets: ["__nara_auth"],
+      secrets: ["__nara_authentication"],
       secure: import.meta.env.PROD,
       maxAge: 60 * 60 * 24 * 30, // 30 days
     },
