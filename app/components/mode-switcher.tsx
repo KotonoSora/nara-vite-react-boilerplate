@@ -1,15 +1,21 @@
 import { MoonIcon, SunIcon } from "lucide-react";
-import React from "react";
 import { Theme, useTheme } from "remix-themes";
 
 import { Button } from "~/components/ui/button";
+import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 
 export function ModeSwitcher() {
   const [theme, setTheme] = useTheme();
 
-  const toggleTheme = React.useCallback(() => {
+  const toggleTheme = () => {
     setTheme(theme === Theme.DARK ? Theme.LIGHT : Theme.DARK);
-  }, [theme, setTheme]);
+
+    // tracking switch theme event
+    trackCustomEvents({
+      event_category: "Switch",
+      event_label: `Switch new theme ${theme}`,
+    });
+  };
 
   return (
     <Button

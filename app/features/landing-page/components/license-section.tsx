@@ -6,6 +6,7 @@ import type { GeneralInformationType } from "~/features/shared/types/type";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
+import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function LicenseSection() {
@@ -71,6 +72,13 @@ export function LicenseSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t("landing.license.openSource.button")}
+                  onClick={() => {
+                    // tracking event open open source
+                    trackCustomEvents({
+                      event_category: "Button",
+                      event_label: "Open Source",
+                    });
+                  }}
                 >
                   {t("landing.license.openSource.button")}
                 </Link>
@@ -121,6 +129,13 @@ export function LicenseSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t("landing.license.commercial.button")}
+                    onClick={() => {
+                      // tracking event open commercial
+                      trackCustomEvents({
+                        event_category: "Button",
+                        event_label: "Commercial",
+                      });
+                    }}
                   >
                     {t("landing.license.commercial.button")}
                   </Link>
