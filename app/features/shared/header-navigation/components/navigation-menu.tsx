@@ -5,7 +5,7 @@ import type { MenuCloseHandler } from "../types/type";
 import { Button } from "~/components/ui/button";
 import { PopoverContent } from "~/components/ui/popover";
 import { GitHubButton } from "~/features/shared/components/github-button";
-import { useAuth } from "~/lib/auth/hooks/use-auth";
+import { useAuth } from "~/lib/authentication/hooks/use-auth";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { AuthenticatedMenuContent } from "./authenticated-menu-content";

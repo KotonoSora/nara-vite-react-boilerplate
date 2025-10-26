@@ -14,7 +14,7 @@ import {
   tokenMiddlewareContext,
 } from "~/features/reset-password/middleware/token";
 import { ResetPasswordPage } from "~/features/reset-password/page";
-import { isStrongPassword } from "~/lib/auth/utils/common/is-strong-password";
+import { isStrongPassword } from "~/lib/authentication/utils/common/is-strong-password";
 import { I18nContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
@@ -73,7 +73,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   const { db } = context;
 
   const { resetPasswordWithToken } = await import(
-    "~/lib/auth/server/user.server"
+    "~/lib/authentication/server/user.server"
   );
 
   const resetResult = await resetPasswordWithToken(db, token, password);

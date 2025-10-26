@@ -5,12 +5,12 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { CreateUserDataSchema, UserSchema } from "../types/user";
 
 import * as schema from "~/database/schema";
-import { generateEmailVerificationToken } from "~/lib/auth/utils/common/generate-email-verification-token";
-import { generatePasswordResetToken } from "~/lib/auth/utils/common/generate-password-reset-token";
-import { getEmailVerificationExpiry } from "~/lib/auth/utils/common/get-email-verification-expiry";
-import { getPasswordResetExpiry } from "~/lib/auth/utils/common/get-password-reset-expiry";
-import { hashPassword } from "~/lib/auth/utils/common/hash-password";
-import { verifyPassword } from "~/lib/auth/utils/common/verify-password";
+import { generateEmailVerificationToken } from "~/lib/authentication/utils/common/generate-email-verification-token";
+import { generatePasswordResetToken } from "~/lib/authentication/utils/common/generate-password-reset-token";
+import { getEmailVerificationExpiry } from "~/lib/authentication/utils/common/get-email-verification-expiry";
+import { getPasswordResetExpiry } from "~/lib/authentication/utils/common/get-password-reset-expiry";
+import { hashPassword } from "~/lib/authentication/utils/common/hash-password";
+import { verifyPassword } from "~/lib/authentication/utils/common/verify-password";
 
 const { user } = schema;
 

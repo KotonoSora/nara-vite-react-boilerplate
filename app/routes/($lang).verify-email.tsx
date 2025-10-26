@@ -39,7 +39,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   }
 
   const { verifyEmailWithToken } = await import(
-    "~/lib/auth/server/user.server"
+    "~/lib/authentication/server/user.server"
   );
 
   // Verify the email with the token

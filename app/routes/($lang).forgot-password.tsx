@@ -39,7 +39,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   const baseUrl = `${url.protocol}//${url.host}`;
 
   const { requestPasswordReset } = await import(
-    "~/lib/auth/server/user.server"
+    "~/lib/authentication/server/user.server"
   );
 
   await requestPasswordReset(db, email, baseUrl);
