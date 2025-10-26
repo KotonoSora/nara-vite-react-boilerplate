@@ -38,7 +38,9 @@ export async function loader({ context, request }: Route.LoaderArgs) {
     };
   }
 
-  const { verifyEmailWithToken } = await import("~/lib/auth/user.server");
+  const { verifyEmailWithToken } = await import(
+    "~/lib/auth/server/user.server"
+  );
 
   // Verify the email with the token
   const result = await verifyEmailWithToken(db, validationResult.data.token);

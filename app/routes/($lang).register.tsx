@@ -73,7 +73,7 @@ export async function action({ request, context }: Route.ActionArgs) {
     return { error: "Registration limit reached" };
   }
 
-  const { getUserByEmail } = await import("~/lib/auth/user.server");
+  const { getUserByEmail } = await import("~/lib/auth/server/user.server");
 
   // Check if user already exists
   const existingUser = await getUserByEmail(db, email);
@@ -81,7 +81,7 @@ export async function action({ request, context }: Route.ActionArgs) {
     return { error: t("auth.register.errors.accountExists") };
   }
 
-  const { createUser } = await import("~/lib/auth/user.server");
+  const { createUser } = await import("~/lib/auth/server/user.server");
 
   // Create new user
   const newUser = await createUser(db, {
@@ -91,7 +91,7 @@ export async function action({ request, context }: Route.ActionArgs) {
     role: "user",
   });
 
-  const { createUserSession } = await import("~/lib/auth/auth.server");
+  const { createUserSession } = await import("~/lib/auth/server/auth.server");
 
   return createUserSession(newUser.id, "/dashboard");
 }
