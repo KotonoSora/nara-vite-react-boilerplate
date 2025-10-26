@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 4.6.13 (2025-10-24)
+
+- Initialized environment configuration file
+- Rolled back integration from rolldown-vite to vite
+- Upgraded dependency versions
+- Removed the cloudflare vitest pool workers package
+- Removed worker-configuration.d.ts file
+- Removed the "use client"; tag
+- Refactored source code in app/lib/i18n
+- Refactored hooks and types used in i18n
+- Upgraded TailwindCSS to version 4.16
+- Implemented Vitest v3.2 for i18n utility functions
+
 ## 4.6.12 (2025-10-18)
 
 - Upgraded Bun to v1.3.0

@@ -2,30 +2,36 @@ import { and, eq, gt } from "drizzle-orm";
 
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
+import type {
+  CreateUserDataSchema,
+  EmailVerificationResultSchema,
+  UserSchema,
+} from "../types/user";
+
 import * as schema from "~/database/schema";
-import {
-  generateEmailVerificationToken,
-  generatePasswordResetToken,
-  getEmailVerificationExpiry,
-  getPasswordResetExpiry,
-  hashPassword,
-  verifyPassword,
-} from "~/lib/auth/config";
+import { generateEmailVerificationToken } from "~/lib/authentication/utils/common/generate-email-verification-token";
+import { generatePasswordResetToken } from "~/lib/authentication/utils/common/generate-password-reset-token";
+import { getEmailVerificationExpiry } from "~/lib/authentication/utils/common/get-email-verification-expiry";
+import { getPasswordResetExpiry } from "~/lib/authentication/utils/common/get-password-reset-expiry";
+import { hashPassword } from "~/lib/authentication/utils/common/hash-password";
+import { verifyPassword } from "~/lib/authentication/utils/common/verify-password";
 
 const { user } = schema;
 
-export type User = typeof user.$inferSelect;
-export type CreateUserData = {
-  email: string;
-  password: string;
-  name: string;
-  role?: "admin" | "user";
-};
-
+/**
+ * Creates a new user in the database with the provided user data.
+ * Hashes the user's password, generates an email verification token,
+ * and sets the verification expiry. Optionally logs the verification
+ * link in development mode.
+ *
+ * @param db - The DrizzleD1Database instance connected to the schema.
+ * @param userData - The data required to create a new user, including email, password, name, and optional role.
+ * @returns A promise that resolves to the newly created user object.
+ */
 export async function createUser(
   db: DrizzleD1Database<typeof schema>,
-  userData: CreateUserData,
-): Promise<User> {
+  userData: CreateUserDataSchema,
+): Promise<UserSchema> {
   const passwordHash = await hashPassword(userData.password);
   const emailVerificationToken = generateEmailVerificationToken();
   const emailVerificationExpires = getEmailVerificationExpiry();
@@ -61,7 +67,7 @@ export async function createUser(
 export async function getUserByEmail(
   db: DrizzleD1Database<typeof schema>,
   email: string,
-): Promise<User | null> {
+): Promise<UserSchema | null> {
   const [foundUser] = await db
     .select()
     .from(user)
@@ -71,10 +77,17 @@ export async function getUserByEmail(
   return foundUser || null;
 }
 
+/**
+ * Retrieves a user from the database by their unique ID.
+ *
+ * @param db - The DrizzleD1Database instance connected to the database.
+ * @param id - The unique identifier of the user to retrieve.
+ * @returns A promise that resolves to the user object if found, or `null` if no user exists with the given ID.
+ */
 export async function getUserById(
   db: DrizzleD1Database<typeof schema>,
   id: number,
-): Promise<User | null> {
+): Promise<UserSchema | null> {
   const [foundUser] = await db
     .select()
     .from(user)
@@ -84,11 +97,19 @@ export async function getUserById(
   return foundUser || null;
 }
 
+/**
+ * Authenticates a user by verifying their email and password.
+ *
+ * @param db - The DrizzleD1Database instance connected to the user schema.
+ * @param email - The email address of the user attempting to authenticate.
+ * @param password - The plaintext password provided by the user.
+ * @returns A promise that resolves to the authenticated user's schema object if authentication is successful, or `null` if authentication fails.
+ */
 export async function authenticateUser(
   db: DrizzleD1Database<typeof schema>,
   email: string,
   password: string,
-): Promise<User | null> {
+): Promise<UserSchema | null> {
   const foundUser = await getUserByEmail(db, email);
 
   if (!foundUser) {
@@ -107,23 +128,29 @@ export async function authenticateUser(
   return foundUser;
 }
 
-export type EmailVerificationResult =
-  | { success: true; user: User }
-  | {
-      success: false;
-      error: string;
-      errorCode:
-        | "INVALID_TOKEN"
-        | "EXPIRED_TOKEN"
-        | "ALREADY_VERIFIED"
-        | "TOKEN_NOT_FOUND"
-        | "DATABASE_ERROR";
-    };
-
+/**
+ * Verifies a user's email address using a provided verification token.
+ *
+ * This function checks the validity of the token, ensures the email is not already verified,
+ * and that the token has not expired. If all checks pass, it marks the user's email as verified,
+ * clears the verification token and its expiration, and updates the user's record.
+ *
+ * @param db - The DrizzleD1Database instance connected to the user schema.
+ * @param token - The email verification token to validate.
+ * @returns A promise that resolves to an `EmailVerificationResult` indicating the outcome:
+ *   - `success: true` and the updated user if verification succeeds.
+ *   - `success: false` and an error message with an error code if verification fails.
+ *
+ * @error INVALID_TOKEN - If the token is missing or empty.
+ * @error TOKEN_NOT_FOUND - If no user is found with the provided token.
+ * @error ALREADY_VERIFIED - If the user's email is already verified.
+ * @error EXPIRED_TOKEN - If the verification token has expired.
+ * @error DATABASE_ERROR - If a database error occurs during the process.
+ */
 export async function verifyEmailWithToken(
   db: DrizzleD1Database<typeof schema>,
   token: string,
-): Promise<EmailVerificationResult> {
+): Promise<EmailVerificationResultSchema> {
   try {
     // Check if token is provided
     if (!token || token.trim() === "") {
@@ -248,7 +275,7 @@ export async function resetPasswordWithToken(
   db: DrizzleD1Database<typeof schema>,
   token: string,
   newPassword: string,
-): Promise<{ success: boolean; user?: User; error?: string }> {
+): Promise<{ success: boolean; user?: UserSchema; error?: string }> {
   const [foundUser] = await db
     .select()
     .from(user)

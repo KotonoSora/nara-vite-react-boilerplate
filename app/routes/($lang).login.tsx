@@ -47,14 +47,18 @@ export async function action({ request, context }: Route.ActionArgs) {
   const { email, password } = result.data;
   const { db } = context;
 
-  const { authenticateUser } = await import("~/lib/auth/user.server");
+  const { authenticateUser } = await import(
+    "~/lib/authentication/server/user.server"
+  );
 
   const user = await authenticateUser(db, email, password);
   if (!user) {
     return { error: t("errors.common.checkInput") };
   }
 
-  const { createUserSession } = await import("~/lib/auth/auth.server");
+  const { createUserSession } = await import(
+    "~/lib/authentication/server/authenticate.server"
+  );
 
   return createUserSession(user.id, "/dashboard");
 }
