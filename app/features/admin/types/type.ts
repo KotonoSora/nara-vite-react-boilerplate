@@ -1,5 +1,5 @@
-import type { User } from "~/lib/auth/user.server";
+import type { UserSchema } from "~/lib/authentication/types/user";
 
 export type AdminContentProps = {
-  user?: User;
+  user?: UserSchema;
 };

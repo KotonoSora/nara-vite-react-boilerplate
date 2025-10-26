@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 4.6.14 (2025-10-26)
+
+- Upgraded Hono.js to version 4.10.3
+- Refactored source code in app/lib/auth
+- Renamed source code in app/lib/auth to app/lib/authentication
+- Refactored hooks and types used in authentication
+- Implemented Vitest v3.2 for authentication utility functions
+
 ## 4.6.13 (2025-10-24)
 
 - Initialized environment configuration file

@@ -23,7 +23,7 @@ import type { MiddlewareFunction } from "react-router";
 import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 import { DemoTag } from "~/features/shared/components/demo-tag";
-import { AuthProvider } from "~/lib/auth/provider";
+import { AuthProvider } from "~/lib/authentication/react/provider";
 import {
   cancelIdleCallback,
   scheduleIdleCallback,
