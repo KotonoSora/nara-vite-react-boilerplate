@@ -22,6 +22,8 @@ import type { MiddlewareFunction } from "react-router";
 
 import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
+import { HeadScriptTrackingTag } from "~/features/google-analytics/components/head-script-tracking-tag";
+import { usePageView } from "~/features/google-analytics/hooks/use-page-view";
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/authentication/react/provider";
 import {
@@ -97,6 +99,8 @@ function InnerLayout({
     return () => cancelIdleCallback(id);
   }, []);
 
+  usePageView();
+
   return (
     <html lang={language} dir={direction} className={clsx("font-sans", theme)}>
       <head>
@@ -105,6 +109,7 @@ function InnerLayout({
         <Meta />
         <PreventFlashOnWrongTheme ssrTheme={ssrTheme} />
         <Links />
+        <HeadScriptTrackingTag />
       </head>
       <body>
         {children}
