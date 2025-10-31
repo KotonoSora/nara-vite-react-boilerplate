@@ -2,6 +2,7 @@
 import hiAbout from "~/locales/hi/about.json";
 import hiAdmin from "~/locales/hi/admin.json";
 import hiAuth from "~/locales/hi/auth.json";
+import hiBlog from "~/locales/hi/blog.json";
 import hiCommon from "~/locales/hi/common.json";
 import hiDashboard from "~/locales/hi/dashboard.json";
 import hiErrors from "~/locales/hi/errors.json";
@@ -14,15 +15,16 @@ import hiTime from "~/locales/hi/time.json";
 
 export const hindiTranslations = {
   ...hiCommon,
-  navigation: hiNavigation,
-  auth: hiAuth,
+  about: hiAbout,
   admin: hiAdmin,
+  auth: hiAuth,
+  blog: hiBlog,
   dashboard: hiDashboard,
   errors: hiErrors,
-  showcase: hiShowcase,
-  time: hiTime,
-  theme: hiTheme,
   landing: hiLanding,
   legal: hiLegal,
-  about: hiAbout,
+  navigation: hiNavigation,
+  showcase: hiShowcase,
+  theme: hiTheme,
+  time: hiTime,
 };

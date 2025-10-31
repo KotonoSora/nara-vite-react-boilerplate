@@ -1,12 +1,26 @@
-import { Outlet } from "react-router";
-
 import type { Route } from "./+types/($lang).blog";
 
+import type { MiddlewareFunction } from "react-router";
+
+import {
+  blogMiddleware,
+  blogMiddlewareContext,
+} from "~/features/blog/middleware/blog-middleware";
+import { BlogPage } from "~/features/blog/page";
 import { GeneralInformationContext } from "~/middleware/information";
+
+import styleUrl from "~/features/blog/style/custom.css?url";
+
+export function links() {
+  return [{ rel: "stylesheet", href: styleUrl }];
+}
+
+export const middleware: MiddlewareFunction[] = [blogMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
-  return { ...generalInformation };
+  const blogContent = context.get(blogMiddlewareContext);
+  return { ...generalInformation, ...blogContent };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -15,9 +29,5 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function Page({}: Route.ComponentProps) {
-  return (
-    <main className="min-h-screen bg-background content-visibility-auto flex flex-col">
-      <Outlet />
-    </main>
-  );
+  return <BlogPage />;
 }

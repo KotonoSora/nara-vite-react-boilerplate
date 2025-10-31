@@ -2,6 +2,7 @@
 import thAbout from "~/locales/th/about.json";
 import thAdmin from "~/locales/th/admin.json";
 import thAuth from "~/locales/th/auth.json";
+import thBlog from "~/locales/th/blog.json";
 import thCommon from "~/locales/th/common.json";
 import thDashboard from "~/locales/th/dashboard.json";
 import thErrors from "~/locales/th/errors.json";
@@ -14,15 +15,16 @@ import thTime from "~/locales/th/time.json";
 
 export const thaiTranslations = {
   ...thCommon,
-  navigation: thNavigation,
-  auth: thAuth,
+  about: thAbout,
   admin: thAdmin,
+  auth: thAuth,
+  blog: thBlog,
   dashboard: thDashboard,
   errors: thErrors,
-  showcase: thShowcase,
-  time: thTime,
-  theme: thTheme,
   landing: thLanding,
   legal: thLegal,
-  about: thAbout,
+  navigation: thNavigation,
+  showcase: thShowcase,
+  theme: thTheme,
+  time: thTime,
 };

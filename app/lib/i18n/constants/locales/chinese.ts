@@ -2,6 +2,7 @@
 import zhAbout from "~/locales/zh/about.json";
 import zhAdmin from "~/locales/zh/admin.json";
 import zhAuth from "~/locales/zh/auth.json";
+import zhBlog from "~/locales/zh/blog.json";
 import zhCommon from "~/locales/zh/common.json";
 import zhDashboard from "~/locales/zh/dashboard.json";
 import zhErrors from "~/locales/zh/errors.json";
@@ -14,15 +15,16 @@ import zhTime from "~/locales/zh/time.json";
 
 export const chineseTranslations = {
   ...zhCommon,
-  navigation: zhNavigation,
-  auth: zhAuth,
+  about: zhAbout,
   admin: zhAdmin,
+  auth: zhAuth,
+  blog: zhBlog,
   dashboard: zhDashboard,
   errors: zhErrors,
-  showcase: zhShowcase,
-  time: zhTime,
-  theme: zhTheme,
   landing: zhLanding,
   legal: zhLegal,
-  about: zhAbout,
+  navigation: zhNavigation,
+  showcase: zhShowcase,
+  theme: zhTheme,
+  time: zhTime,
 };
