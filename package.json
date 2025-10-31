@@ -69,6 +69,7 @@
     "dotenv-cli": "10.0.0",
     "drizzle-kit": "~0.31.6",
     "husky": "9.1.7",
+    "mdx-mermaid": "2.0.3",
     "prettier": "3.6.2",
     "prettier-plugin-tailwindcss": "0.7.1",
     "rehype-highlight": "7.0.2",

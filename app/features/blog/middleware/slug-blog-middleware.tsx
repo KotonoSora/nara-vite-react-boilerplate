@@ -1,4 +1,5 @@
 import { MDXProvider } from "@mdx-js/react";
+import { Mermaid } from "mdx-mermaid/lib/Mermaid";
 
 import type { ComponentType } from "react";
 import type { MiddlewareFunction } from "react-router";
@@ -74,6 +75,7 @@ export const mdxComponents = {
   img: (props: any) => (
     <img className="rounded-lg my-4 max-w-full h-auto" {...props} />
   ),
+  mermaid: Mermaid,
 };
 
 export const { slugBlogMiddlewareContext } = createMiddlewareContext<any>(

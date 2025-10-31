@@ -6,13 +6,21 @@ author: John Doe
 tags: [React, TypeScript]
 ---
 
-# Hello World
+## Hello World
 
 This supports **all markdown features** including:
 
 - Lists
 - [Links](https://example.com)
 - `inline code`
+
+---
+
+1. Numbered lists
+2. More items
+3. `code blocks`
+
+---
 
 ```typescript
 const code: string = "with syntax highlighting";
@@ -46,20 +54,64 @@ import { Spinner } from "~/components/ui/spinner";
 
 ## Demo Math
 
-$a = \sqrt{a^2 + b^2}$
+```math
+a = \sqrt{a^2 + b^2}
+```
 
-$b = \sum_{i=1}^\infty\frac{1}{n^2}=\frac{\pi^2}{6}$
+```math
+b = \sum_{i=1}^\infty\frac{1}{n^2}=\frac{\pi^2}{6}
+```
 
-$c = \pm\sqrt{a^2 + b^2}$
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
 
-$E = mc^2$
+```math
+E = mc^2
+```
 
-$v = v_0 + at$
+```math
+v = v_0 + at
+```
 
-$f(x) = \int_{-\infty}^\infty e^{-t^2} dt$
+```math
+f(x) = \int_{-\infty}^\infty e^{-t^2} dt
+```
 
-$L = \frac{1}{2} \rho v^2 S C_L$
+```math
+L = \frac{1}{2} \rho v^2 S C_L
+```
 
 ```math
 C_L
+```
+
+---
+
+## Demo load image
+
+import SocialPreview from "~/features/shared/assets/social-preview.svg?url";
+
+<img src={SocialPreview} alt="Demo Unsplash" className="rounded shadow-md" />
+
+![Alt text for accessibility](/assets/logo-light.svg)
+
+<img
+  src={SocialPreview}
+  alt="Beautiful landscape"
+  width={400}
+  height={250}
+  className="rounded-lg border"
+/>
+
+---
+
+### Demo mermaid diagram
+
+```mermaid
+graph TD
+    A[Start] --> B{Is it working?}
+    B -- Yes --> C[Great!]
+    B -- No --> D[Fix it]
+    D --> B
 ```

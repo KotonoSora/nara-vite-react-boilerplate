@@ -4,6 +4,7 @@ import { cloudflare } from "@cloudflare/vite-plugin";
 import mdx from "@mdx-js/rollup";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
+import mdxMermaid from "mdx-mermaid";
 import rehypeHighlight from "rehype-highlight";
 import rehypeMathjax from "rehype-mathjax";
 import remarkFrontmatter from "remark-frontmatter";
@@ -16,20 +17,21 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(() => ({
   plugins: [
-    cloudflare({ viteEnvironment: { name: "ssr" } }),
+    tsconfigPaths({ loose: true }),
     tailwindcss(),
     mdx({
-      rehypePlugins: [rehypeHighlight, rehypeMathjax],
+      providerImportSource: "@mdx-js/react",
       remarkPlugins: [
+        remarkMath,
+        mdxMermaid,
         remarkGfm,
         remarkFrontmatter,
         remarkMdxFrontmatter,
-        remarkMath,
       ],
-      providerImportSource: "@mdx-js/react",
+      rehypePlugins: [rehypeHighlight, rehypeMathjax],
     }),
     reactRouter(),
-    tsconfigPaths({ loose: true }),
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
     babel({
       filter: /\.[jt]sx?$/,
       babelConfig: {
