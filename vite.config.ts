@@ -5,8 +5,10 @@ import mdx from "@mdx-js/rollup";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import rehypeHighlight from "rehype-highlight";
+import rehypeMathjax from "rehype-mathjax";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { defineConfig } from "vite";
 import babel from "vite-plugin-babel";
@@ -17,8 +19,13 @@ export default defineConfig(() => ({
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
     mdx({
-      rehypePlugins: [rehypeHighlight],
-      remarkPlugins: [remarkGfm, remarkFrontmatter, remarkMdxFrontmatter],
+      rehypePlugins: [rehypeHighlight, rehypeMathjax],
+      remarkPlugins: [
+        remarkGfm,
+        remarkFrontmatter,
+        remarkMdxFrontmatter,
+        remarkMath,
+      ],
       providerImportSource: "@mdx-js/react",
     }),
     reactRouter(),
