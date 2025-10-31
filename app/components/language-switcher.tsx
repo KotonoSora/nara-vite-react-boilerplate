@@ -59,7 +59,7 @@ export function LanguageSwitcher() {
     // tracking switch language event
     trackCustomEvents({
       event_category: "Switch",
-      event_label: `Switch new language ${newLanguage}`,
+      event_label: `Switch to the new language ${newLanguage}`,
     });
   };
 
