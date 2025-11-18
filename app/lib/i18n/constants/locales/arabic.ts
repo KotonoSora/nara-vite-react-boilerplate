@@ -2,6 +2,7 @@
 import arAbout from "~/locales/ar/about.json";
 import arAdmin from "~/locales/ar/admin.json";
 import arAuth from "~/locales/ar/auth.json";
+import arBlog from "~/locales/ar/blog.json";
 import arCommon from "~/locales/ar/common.json";
 import arDashboard from "~/locales/ar/dashboard.json";
 import arErrors from "~/locales/ar/errors.json";
@@ -14,15 +15,16 @@ import arTime from "~/locales/ar/time.json";
 
 export const arabicTranslations = {
   ...arCommon,
-  navigation: arNavigation,
-  auth: arAuth,
+  about: arAbout,
   admin: arAdmin,
+  auth: arAuth,
+  blog: arBlog,
   dashboard: arDashboard,
   errors: arErrors,
-  showcase: arShowcase,
-  time: arTime,
-  theme: arTheme,
   landing: arLanding,
   legal: arLegal,
-  about: arAbout,
+  navigation: arNavigation,
+  showcase: arShowcase,
+  theme: arTheme,
+  time: arTime,
 };

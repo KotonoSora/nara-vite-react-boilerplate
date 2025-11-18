@@ -76,7 +76,7 @@ export function LicenseSection() {
                     // tracking event open open source
                     trackCustomEvents({
                       event_category: "Button",
-                      event_label: "Open Source",
+                      event_label: "Click to open the Open Source link",
                     });
                   }}
                 >
@@ -133,7 +133,7 @@ export function LicenseSection() {
                       // tracking event open commercial
                       trackCustomEvents({
                         event_category: "Button",
-                        event_label: "Commercial",
+                        event_label: "Click to open the Commercial link",
                       });
                     }}
                   >

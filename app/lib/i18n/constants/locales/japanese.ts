@@ -2,6 +2,7 @@
 import jaAbout from "~/locales/ja/about.json";
 import jaAdmin from "~/locales/ja/admin.json";
 import jaAuth from "~/locales/ja/auth.json";
+import jaBlog from "~/locales/ja/blog.json";
 import jaCommon from "~/locales/ja/common.json";
 import jaDashboard from "~/locales/ja/dashboard.json";
 import jaErrors from "~/locales/ja/errors.json";
@@ -14,15 +15,16 @@ import jaTime from "~/locales/ja/time.json";
 
 export const japaneseTranslations = {
   ...jaCommon,
-  navigation: jaNavigation,
-  auth: jaAuth,
+  about: jaAbout,
   admin: jaAdmin,
+  auth: jaAuth,
+  blog: jaBlog,
   dashboard: jaDashboard,
   errors: jaErrors,
-  showcase: jaShowcase,
-  time: jaTime,
-  theme: jaTheme,
   landing: jaLanding,
   legal: jaLegal,
-  about: jaAbout,
+  navigation: jaNavigation,
+  showcase: jaShowcase,
+  theme: jaTheme,
+  time: jaTime,
 };

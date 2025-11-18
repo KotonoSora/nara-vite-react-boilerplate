@@ -13,6 +13,7 @@
 !tsconfig.cloudflare.json
 !tsconfig.json
 !tsconfig.node.json
+!vite.config.ts
 
 # Allow folder .vscode
 !.vscode/

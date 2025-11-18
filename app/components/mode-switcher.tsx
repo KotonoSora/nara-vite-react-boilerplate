@@ -4,16 +4,20 @@ import { Theme, useTheme } from "remix-themes";
 import { Button } from "~/components/ui/button";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 
+export function getNextTheme(theme: Theme | null) {
+  return theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
+}
+
 export function ModeSwitcher() {
   const [theme, setTheme] = useTheme();
 
   const toggleTheme = () => {
-    setTheme(theme === Theme.DARK ? Theme.LIGHT : Theme.DARK);
+    setTheme((preTheme) => getNextTheme(preTheme));
 
     // tracking switch theme event
     trackCustomEvents({
       event_category: "Switch",
-      event_label: `Switch new theme ${theme}`,
+      event_label: `Switch to the new theme ${getNextTheme(theme)}`,
     });
   };
 
