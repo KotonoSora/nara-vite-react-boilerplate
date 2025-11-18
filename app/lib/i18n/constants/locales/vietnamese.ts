@@ -2,6 +2,7 @@
 import viAbout from "~/locales/vi/about.json";
 import viAdmin from "~/locales/vi/admin.json";
 import viAuth from "~/locales/vi/auth.json";
+import viBlog from "~/locales/vi/blog.json";
 import viCommon from "~/locales/vi/common.json";
 import viDashboard from "~/locales/vi/dashboard.json";
 import viErrors from "~/locales/vi/errors.json";
@@ -14,15 +15,16 @@ import viTime from "~/locales/vi/time.json";
 
 export const vietnameseTranslations = {
   ...viCommon,
-  navigation: viNavigation,
-  auth: viAuth,
+  about: viAbout,
   admin: viAdmin,
+  auth: viAuth,
+  blog: viBlog,
   dashboard: viDashboard,
   errors: viErrors,
-  showcase: viShowcase,
-  time: viTime,
-  theme: viTheme,
   landing: viLanding,
   legal: viLegal,
-  about: viAbout,
+  navigation: viNavigation,
+  showcase: viShowcase,
+  theme: viTheme,
+  time: viTime,
 };

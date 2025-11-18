@@ -2,6 +2,7 @@
 import frAbout from "~/locales/fr/about.json";
 import frAdmin from "~/locales/fr/admin.json";
 import frAuth from "~/locales/fr/auth.json";
+import frBlog from "~/locales/fr/blog.json";
 import frCommon from "~/locales/fr/common.json";
 import frDashboard from "~/locales/fr/dashboard.json";
 import frErrors from "~/locales/fr/errors.json";
@@ -14,15 +15,16 @@ import frTime from "~/locales/fr/time.json";
 
 export const frenchTranslations = {
   ...frCommon,
-  navigation: frNavigation,
-  auth: frAuth,
+  about: frAbout,
   admin: frAdmin,
+  auth: frAuth,
+  blog: frBlog,
   dashboard: frDashboard,
   errors: frErrors,
-  showcase: frShowcase,
-  time: frTime,
-  theme: frTheme,
   landing: frLanding,
   legal: frLegal,
-  about: frAbout,
+  navigation: frNavigation,
+  showcase: frShowcase,
+  theme: frTheme,
+  time: frTime,
 };

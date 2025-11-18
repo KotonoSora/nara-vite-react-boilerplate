@@ -2,6 +2,7 @@
 import type enAbout from "~/locales/en/about.json";
 import type enAdmin from "~/locales/en/admin.json";
 import type enAuth from "~/locales/en/auth.json";
+import type enBlog from "~/locales/en/blog.json";
 import type enCommon from "~/locales/en/common.json";
 import type enDashboard from "~/locales/en/dashboard.json";
 import type enErrors from "~/locales/en/errors.json";
@@ -14,17 +15,18 @@ import type enTime from "~/locales/en/time.json";
 
 // Create the complete namespace translation structure
 type NamespaceTranslations = typeof enCommon & {
-  navigation: typeof enNavigation;
-  auth: typeof enAuth;
+  about: typeof enAbout;
   admin: typeof enAdmin;
+  auth: typeof enAuth;
+  blog: typeof enBlog;
   dashboard: typeof enDashboard;
   errors: typeof enErrors;
-  showcase: typeof enShowcase;
-  time: typeof enTime;
-  theme: typeof enTheme;
   landing: typeof enLanding;
   legal: typeof enLegal;
-  about: typeof enAbout;
+  navigation: typeof enNavigation;
+  showcase: typeof enShowcase;
+  theme: typeof enTheme;
+  time: typeof enTime;
 };
 
 type NestedKeyOf<ObjectType extends object> = {

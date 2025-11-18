@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.6.15 (2025-11-18)
+
+- Implemented built-in blog pages
+- Upgraded dependency versions
+
 ## 4.6.14 (2025-10-26)
 
 - Upgraded Hono.js to version 4.10.3

@@ -1,0 +1,118 @@
+---
+title: Example - My Blog Post
+description: A great post
+date: 2025-11-15
+author: KotonoSora
+tags: [React, TypeScript, Tutorial]
+published: true
+---
+
+## Hello World
+
+This supports **all markdown features** including:
+
+- Lists
+- [Links](https://example.com)
+- `inline code`
+
+---
+
+1. Numbered lists
+2. More items
+3. `code blocks`
+
+---
+
+```typescript
+const code: string = "with syntax highlighting";
+```
+
+| Tables | Work |
+| ------ | ---- |
+| Too    | !    |
+
+---
+
+Hello
+
+<div>a ha</div>
+
+---
+
+> This is a blockquote.
+
+---
+
+## Demo shadcn-ui component
+
+### Demo spinner
+
+import { Spinner } from "~/components/ui/spinner";
+
+<Spinner className="size-8" />
+
+---
+
+## Demo Math
+
+```math
+a = \sqrt{a^2 + b^2}
+```
+
+```math
+b = \sum_{i=1}^\infty\frac{1}{n^2}=\frac{\pi^2}{6}
+```
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+```math
+E = mc^2
+```
+
+```math
+v = v_0 + at
+```
+
+```math
+f(x) = \int_{-\infty}^\infty e^{-t^2} dt
+```
+
+```math
+L = \frac{1}{2} \rho v^2 S C_L
+```
+
+```math
+C_L
+```
+
+---
+
+## Demo load image
+
+import SocialPreview from "~/features/shared/assets/social-preview.svg?url";
+
+<img src={SocialPreview} alt="Demo Unsplash" className="rounded shadow-md" />
+
+![Alt text for accessibility](/assets/logo-light.svg)
+
+<img
+  src={SocialPreview}
+  alt="Beautiful landscape"
+  width={400}
+  height={250}
+  className="rounded-lg border"
+/>
+
+---
+
+### Demo mermaid diagram
+
+```mermaid
+graph TD
+    A[Start] --> B{Is it working?}
+    B -- Yes --> C[Great!]
+    B -- No --> D[Fix it]
+    D --> B
+```

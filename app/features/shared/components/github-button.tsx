@@ -3,6 +3,7 @@ import { Link, useLoaderData } from "react-router";
 import type { GeneralInformationType } from "../types/type";
 
 import { Button } from "~/components/ui/button";
+import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import GitHubLogoDark from "../assets/github-invertocat-dark.svg?url";
@@ -24,6 +25,13 @@ export function GitHubButton() {
         rel="noopener noreferrer"
         className="flex items-center gap-3"
         aria-label={t("landing.github.seeMore")}
+        onClick={() => {
+          // tracking event open open source
+          trackCustomEvents({
+            event_category: "Button",
+            event_label: "Click to open the Open Source link",
+          });
+        }}
       >
         <img
           src={GitHubLogoLight}

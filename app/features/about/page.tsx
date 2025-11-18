@@ -2,6 +2,7 @@ import { Link, useLoaderData } from "react-router";
 
 import type { AboutPageContextType } from "./types/type";
 
+import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
 
@@ -31,6 +32,13 @@ export function AboutPage() {
           <Link
             to={`mailto:${content.email}`}
             className="text-muted-foreground hover:text-foreground hover:underline transition-colors duration-200 inline-block"
+            onClick={() => {
+              // tracking event open open source
+              trackCustomEvents({
+                event_category: "Button",
+                event_label: "Click to open the email contact link",
+              });
+            }}
           >
             {content.email}
           </Link>

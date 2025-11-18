@@ -31,6 +31,11 @@ export function Menu({ onClose }: MenuCloseHandler) {
 
         <div className="pt-3 border-t flex justify-end">
           <Button variant="ghost" size="sm" asChild className="shrink-0">
+            <Link to="/blog" onClick={onClose}>
+              {t("navigation.blog")}
+            </Link>
+          </Button>
+          <Button variant="ghost" size="sm" asChild className="shrink-0">
             <Link to="/about" onClick={onClose}>
               {t("navigation.about")}
             </Link>

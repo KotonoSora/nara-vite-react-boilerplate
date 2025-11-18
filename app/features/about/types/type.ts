@@ -1,5 +1,3 @@
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
-
 export type AboutPageContextType = {
   title: string;
   description: string;
