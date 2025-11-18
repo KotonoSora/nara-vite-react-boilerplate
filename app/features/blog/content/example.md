@@ -1,9 +1,10 @@
 ---
-title: My Blog Post
+title: Example - My Blog Post
 description: A great post
-date: 2025-01-15
-author: John Doe
-tags: [React, TypeScript]
+date: 2025-11-15
+author: KotonoSora
+tags: [React, TypeScript, Tutorial]
+published: true
 ---
 
 ## Hello World

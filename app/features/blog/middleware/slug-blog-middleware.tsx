@@ -1,106 +1,85 @@
 import { MDXProvider } from "@mdx-js/react";
-import { Mermaid } from "mdx-mermaid/lib/Mermaid";
+import { data } from "react-router";
 
-import type { ComponentType } from "react";
 import type { MiddlewareFunction } from "react-router";
 
+import type { BlogFrontmatter } from "~/features/blog/utils/mdx-loader";
+
+import { mdxComponents } from "~/features/blog/config/mdx-components";
+import { loadBlogPost } from "~/features/blog/utils/mdx-loader";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
 
-export const mdxComponents = {
-  table: (props: any) => (
-    <div className="overflow-x-auto my-6">
-      <table className="min-w-full divide-y divide-border" {...props} />
-    </div>
-  ),
-  thead: (props: any) => <thead className="bg-muted" {...props} />,
-  tbody: (props: any) => (
-    <tbody className="divide-y divide-border bg-background" {...props} />
-  ),
-  tr: (props: any) => <tr className="hover:bg-muted/50" {...props} />,
-  th: (props: any) => (
-    <th
-      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
-      {...props}
-    />
-  ),
-  td: (props: any) => (
-    <td className="px-6 py-4 whitespace-nowrap text-sm" {...props} />
-  ),
-  h1: (props: any) => (
-    <h1 className="text-4xl font-bold mt-8 mb-4" {...props} />
-  ),
-  h2: (props: any) => (
-    <h2 className="text-3xl font-bold mt-6 mb-3" {...props} />
-  ),
-  h3: (props: any) => (
-    <h3 className="text-2xl font-semibold mt-4 mb-2" {...props} />
-  ),
-  p: (props: any) => <p className="mb-4 leading-7" {...props} />,
-  ul: (props: any) => (
-    <ul className="list-disc list-inside mb-4 space-y-2" {...props} />
-  ),
-  ol: (props: any) => (
-    <ol className="list-decimal list-inside mb-4 space-y-2" {...props} />
-  ),
-  code: (props: any) => {
-    const { className, children, ...rest } = props;
-    // Inline code
-    if (!className) {
-      return (
-        <code
-          className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono"
-          {...rest}
-        >
-          {children}
-        </code>
-      );
-    }
-    // Code blocks (handled by highlight.js)
-    return (
-      <code className={className} {...rest}>
-        {children}
-      </code>
-    );
-  },
-  pre: (props: any) => (
-    <pre className="bg-muted p-4 rounded-lg overflow-x-auto my-4" {...props} />
-  ),
-  blockquote: (props: any) => (
-    <blockquote
-      className="border-l-4 border-primary pl-4 italic my-4 text-muted-foreground"
-      {...props}
-    />
-  ),
-  a: (props: any) => <a className="text-primary hover:underline" {...props} />,
-  img: (props: any) => (
-    <img className="rounded-lg my-4 max-w-full h-auto" {...props} />
-  ),
-  mermaid: Mermaid,
-};
+interface SlugBlogContext {
+  content: JSX.Element;
+  frontmatter: BlogFrontmatter;
+  slug: string;
+}
 
-export const { slugBlogMiddlewareContext } = createMiddlewareContext<any>(
-  "slugBlogMiddlewareContext",
-);
+export const { slugBlogMiddlewareContext } =
+  createMiddlewareContext<SlugBlogContext>("slugBlogMiddlewareContext");
 
-export const slugBlogMiddleware: MiddlewareFunction = async ({ context }) => {
-  const content = (await import("~/features/blog/content/example.mdx")) as {
-    default: ComponentType;
-    frontmatter: Record<string, unknown>;
-  };
+export const slugBlogMiddleware: MiddlewareFunction = async ({
+  context,
+  params,
+}) => {
+  const slug = params.slug as string;
 
-  const MDXContent = content.default;
-  const frontmatter = content.frontmatter;
+  if (!slug) {
+    throw data({ error: "Slug parameter is required" }, { status: 400 });
+  }
 
-  const contextValue: any = {
+  const post = await loadBlogPost(slug);
+
+  if (!post) {
+    throw data({ error: "Blog post not found" }, { status: 404 });
+  }
+
+  const MDXContent = post.content;
+
+  const contextValue: SlugBlogContext = {
+    slug: post.slug,
+    frontmatter: post.frontmatter,
     content: (
-      <div className="prose">
-        <div>content load form middleware</div>
+      <article className="prose prose-slate dark:prose-invert max-w-none">
+        <header className="mb-8">
+          <h1 className="text-4xl font-bold mb-2">{post.frontmatter.title}</h1>
+          {post.frontmatter.description && (
+            <p className="text-xl text-muted-foreground">
+              {post.frontmatter.description}
+            </p>
+          )}
+          <div className="flex gap-4 text-sm text-muted-foreground mt-4">
+            {post.frontmatter.author && (
+              <span>By {post.frontmatter.author}</span>
+            )}
+            {post.frontmatter.date && (
+              <time dateTime={post.frontmatter.date}>
+                {new Date(post.frontmatter.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+            )}
+          </div>
+          {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+            <div className="flex gap-2 mt-4">
+              {post.frontmatter.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2 py-1 text-xs rounded-full bg-muted"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </header>
         <MDXProvider components={mdxComponents}>
           <MDXContent />
         </MDXProvider>
-      </div>
+      </article>
     ),
-    frontmatter,
   };
 
   context.set(slugBlogMiddlewareContext, contextValue);

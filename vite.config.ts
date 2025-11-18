@@ -26,18 +26,61 @@ export default defineConfig(() => ({
         mdxMermaid,
         remarkGfm,
         remarkFrontmatter,
-        remarkMdxFrontmatter,
+        [remarkMdxFrontmatter, { name: "frontmatter" }],
       ],
-      rehypePlugins: [rehypeHighlight, rehypeMathjax],
+      rehypePlugins: [
+        [rehypeHighlight, { ignoreMissing: true, subset: false }],
+        rehypeMathjax,
+      ],
     }),
     reactRouter(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     babel({
       filter: /\.[jt]sx?$/,
+      exclude: /node_modules/,
       babelConfig: {
         presets: ["@babel/preset-typescript"],
         plugins: ["babel-plugin-react-compiler"],
       },
     }),
   ],
+  optimizeDeps: {
+    include: [
+      "react",
+      "react-dom",
+      "recharts",
+      "lucide-react",
+      "@mdx-js/rollup",
+      "@mdx-js/react",
+      "remark-math",
+      "mdx-mermaid",
+      "remark-gfm",
+      "remark-frontmatter",
+      "remark-mdx-frontmatter",
+      "rehype-highlight",
+      "rehype-mathjax",
+    ],
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        advancedChunks: {
+          groups: [
+            { name: "react", test: /\/(react)($|\/)/ },
+            { name: "react-dom", test: /\/(react-dom)($|\/)/ },
+            { name: "recharts", test: /\/(recharts)($|\/)/ },
+            { name: "lucide-react", test: /\/(lucide-react)($|\/)/ },
+            {
+              name: "mdx",
+              test: /\/(@mdx-js\/react|@mdx-js\/mdx)($|\/)/,
+            },
+            {
+              name: "mdx-plugins",
+              test: /\/(rehype-highlight|rehype-mathjax|remark-gfm|remark-math|remark-frontmatter|remark-mdx-frontmatter)($|\/)/,
+            },
+          ],
+        },
+      },
+    },
+  },
 }));
