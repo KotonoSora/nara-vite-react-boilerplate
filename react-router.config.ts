@@ -4,7 +4,15 @@ export default {
   // Config options...
   // Server-side render by default, to enable SPA mode set this to `false`
   ssr: true,
-  prerender: ["/about", "/terms", "/privacy", "/blog", "/blog/*"],
+  prerender: [
+    "/about",
+    "/chart",
+    "/calendar",
+    "/terms",
+    "/privacy",
+    "/blog",
+    "/blog/*",
+  ],
   future: {
     v8_middleware: true,
     unstable_optimizeDeps: true,
