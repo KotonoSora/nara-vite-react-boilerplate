@@ -6,8 +6,8 @@ import { Button } from "~/components/ui/button";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
-import GitHubLogoDark from "../assets/github-invertocat-dark.svg?url";
-import GitHubLogoLight from "../assets/github-invertocat-light.svg?url";
+import GitHubLogoDark from "../assets/github-invertocat-dark.svg?no-inline";
+import GitHubLogoLight from "../assets/github-invertocat-light.svg?no-inline";
 
 export function GitHubButton() {
   const t = useTranslation();
