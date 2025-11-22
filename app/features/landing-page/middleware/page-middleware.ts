@@ -13,7 +13,7 @@ import { getSteps } from "../utils/get-steps";
 export const { pageMiddlewareContext } =
   createMiddlewareContext<PageInformation>("pageMiddlewareContext");
 
-export const pageMiddleware: MiddlewareFunction = async ({ context }) => {
+export const pageMiddleware: MiddlewareFunction = async ({ context }, next) => {
   const { db } = context;
   const { t } = context.get(I18nContext);
 
@@ -29,4 +29,5 @@ export const pageMiddleware: MiddlewareFunction = async ({ context }) => {
   };
 
   context.set(pageMiddlewareContext, contextValue);
+  return await next();
 };
