@@ -26,4 +26,5 @@ export const authMiddleware: MiddlewareFunction = async (
   const userId = await getUserId(request);
   const user = userId && db ? await getUserById(db, userId) : null;
   context.set(AuthContext, { userId, user });
+  return await next();
 };

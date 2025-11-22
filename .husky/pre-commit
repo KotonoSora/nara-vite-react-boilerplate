@@ -1,3 +1,1 @@
-bun run typecheck
-bun run lint
-bun run test --run --silent 'passed-only' --passWithNoTests
+bun lint-staged
