@@ -23,7 +23,7 @@ import { getWeekStartsOnByLanguage } from "~/lib/i18n/utils/datetime/get-week-st
  * @param {SupportedLanguage|string} [options.language] - The language code for localization (e.g., 'en', 'fr'). Optional.
  *
  * @returns An object containing:
- * - `currentDate`: The current month as a Date object (always the first day of the month).
+ * - `firstDayOfMonth`: The current month as a Date object (always the first day of the month).
  * - `goToToday`: Function to reset the view to the current month.
  * - `goToNextMonth`: Function to navigate to the next month.
  * - `goToPrevMonth`: Function to navigate to the previous month.
@@ -39,7 +39,7 @@ export function useCurrentMonthNavigation({
   initialDate?: Date | string | number | null;
   language?: SupportedLanguage | string;
 } = {}): {
-  currentDate: Date;
+  firstDayOfMonth: Date;
   goToToday: () => void;
   goToNextMonth: () => void;
   goToPrevMonth: () => void;
@@ -58,18 +58,18 @@ export function useCurrentMonthNavigation({
     return startOfMonth(date);
   };
 
-  const [currentDate, setCurrentDate] = useState<Date>(getInitialDate);
+  const [firstDayOfMonth, setFirstDayOfMonth] = useState<Date>(getInitialDate);
 
   const goToToday = useCallback(() => {
-    setCurrentDate(startOfMonth(new Date()));
+    setFirstDayOfMonth(startOfMonth(new Date()));
   }, []);
 
   const goToNextMonth = useCallback(() => {
-    setCurrentDate((prev) => startOfMonth(addMonths(prev, 1)));
+    setFirstDayOfMonth((prev) => startOfMonth(addMonths(prev, 1)));
   }, []);
 
   const goToPrevMonth = useCallback(() => {
-    setCurrentDate((prev) => startOfMonth(subMonths(prev, 1)));
+    setFirstDayOfMonth((prev) => startOfMonth(subMonths(prev, 1)));
   }, []);
 
   const weekStartsOn = getWeekStartsOnByLanguage({
@@ -82,7 +82,7 @@ export function useCurrentMonthNavigation({
   });
 
   const monthLabel = formatMonthLabelByLanguage({
-    date: currentDate,
+    date: firstDayOfMonth,
     language,
     formatStyle: "long",
   });
@@ -92,7 +92,7 @@ export function useCurrentMonthNavigation({
     : "ltr";
 
   return {
-    currentDate, // always day 1 of the current month, at 00:00:00.000
+    firstDayOfMonth, // always day 1 of the current month, at 00:00:00.000
     goToToday,
     goToNextMonth,
     goToPrevMonth,
