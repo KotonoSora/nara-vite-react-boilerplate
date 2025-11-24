@@ -3,6 +3,7 @@ import hiAbout from "~/locales/hi/about.json";
 import hiAdmin from "~/locales/hi/admin.json";
 import hiAuth from "~/locales/hi/auth.json";
 import hiBlog from "~/locales/hi/blog.json";
+import hiCalendar from "~/locales/hi/calendar.json";
 import hiCommon from "~/locales/hi/common.json";
 import hiDashboard from "~/locales/hi/dashboard.json";
 import hiErrors from "~/locales/hi/errors.json";
@@ -19,6 +20,7 @@ export const hindiTranslations = {
   admin: hiAdmin,
   auth: hiAuth,
   blog: hiBlog,
+  calendar: hiCalendar,
   dashboard: hiDashboard,
   errors: hiErrors,
   landing: hiLanding,

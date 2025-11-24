@@ -3,6 +3,7 @@ import esAbout from "~/locales/es/about.json";
 import esAdmin from "~/locales/es/admin.json";
 import esAuth from "~/locales/es/auth.json";
 import esBlog from "~/locales/es/blog.json";
+import esCalendar from "~/locales/es/calendar.json";
 import esCommon from "~/locales/es/common.json";
 import esDashboard from "~/locales/es/dashboard.json";
 import esErrors from "~/locales/es/errors.json";
@@ -19,6 +20,7 @@ export const spanishTranslations = {
   admin: esAdmin,
   auth: esAuth,
   blog: esBlog,
+  calendar: esCalendar,
   dashboard: esDashboard,
   errors: esErrors,
   landing: esLanding,

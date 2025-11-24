@@ -25,7 +25,9 @@ import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
 import { useLanguage } from "~/lib/i18n/hooks/use-language";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
+import { formatFirstDayOfMonthByLanguage } from "~/lib/i18n/utils/datetime/format-first-day-of-month-by-language";
 import { formatNumber } from "~/lib/i18n/utils/number/format-number";
+import { cn } from "~/lib/utils";
 
 import { useCurrentMonthNavigation } from "./hooks/use-current-month-navigation";
 
@@ -38,11 +40,8 @@ const gridComponents: VirtuosoGridProps<Date, undefined>["components"] = {
     <div
       ref={ref}
       {...props}
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        ...style,
-      }}
+      style={style}
+      className="flex flex-wrap border-box border-r border-gray-200 dark:border-gray-700"
     >
       {children}
     </div>
@@ -50,12 +49,7 @@ const gridComponents: VirtuosoGridProps<Date, undefined>["components"] = {
   Item: ({ children, ...props }) => (
     <div
       {...props}
-      style={{
-        width: "14.285714%", // 100% / 7 days
-        display: "block",
-        alignContent: "stretch",
-        boxSizing: "border-box",
-      }}
+      className="block content-stretch box-border border-l border-b border-gray-200 dark:border-gray-700 w-[calc(100%/7)]"
     >
       {children}
     </div>
@@ -67,18 +61,19 @@ function MonthNavigation({
   goToNextMonth,
   goToPrevMonth,
   monthLabel,
-  direction,
+  firstDayOfMonth,
 }: {
   goToToday: () => void;
   goToNextMonth: () => void;
   goToPrevMonth: () => void;
   monthLabel: string;
-  direction: "ltr" | "rtl";
+  firstDayOfMonth: Date;
 }): JSX.Element {
   const t = useTranslation();
+  const dataDate = format(firstDayOfMonth, "yyyy-MM");
 
   return (
-    <div className="flex flex-1 shrink-0 flex-row justify-between items-center p-2 relative">
+    <div className="flex flex-1 shrink-0 flex-row justify-between items-center py-2 relative">
       <div className="flex flex-row gap-2 items-center">
         <Button
           variant="ghost"
@@ -88,7 +83,7 @@ function MonthNavigation({
           aria-label={t("calendar.common.previousMonth")}
           data-label={t("calendar.common.previousMonth")}
         >
-          {direction === "rtl" ? <ChevronRight /> : <ChevronLeft />}
+          <ChevronLeft />
         </Button>
         <Button
           variant="secondary"
@@ -104,7 +99,7 @@ function MonthNavigation({
       <div
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         aria-label={monthLabel}
-        data-label={monthLabel}
+        data-label={dataDate}
       >
         {monthLabel}
       </div>
@@ -116,7 +111,7 @@ function MonthNavigation({
         aria-label={t("calendar.common.nextMonth")}
         data-label={t("calendar.common.nextMonth")}
       >
-        {direction === "rtl" ? <ChevronLeft /> : <ChevronRight />}
+        <ChevronRight />
       </Button>
     </div>
   );
@@ -124,11 +119,11 @@ function MonthNavigation({
 
 function WeekdayHeaders({ weekDays }: { weekDays: string[] }): JSX.Element {
   return (
-    <div className="flex flex-1 shrink-0 flex-row justify-between items-center border-b">
+    <div className="flex flex-1 shrink-0 flex-row justify-between items-center box-border border-t border-b border-r border-gray-200 dark:border-gray-700">
       {weekDays.map((day) => (
         <div
           key={day}
-          className="flex flex-1 shrink-0 justify-center items-center border-l first:border-l-0"
+          className="flex flex-1 shrink-0 justify-center items-center box-border border-l border-gray-200 dark:border-gray-700"
           aria-label={day}
           data-label={day}
         >
@@ -249,24 +244,38 @@ function DayGrids({
     const dayNumber = format(day, "d");
     const isCurrentMonth = isSameMonth(day, firstDayOfMonth);
     const isTodayDate = isToday(day);
+    const dayLabel: string | number =
+      dayNumber !== "1"
+        ? formatNumber(parseInt(dayNumber), language)
+        : formatFirstDayOfMonthByLanguage({ date: day, language });
+    const ariaLabel = format(day, "MMMM d, yyyy");
+    const dataLabel = format(day, "yyyy-MM-dd");
 
     return (
       <div
-        className={`
-          flex flex-col items-center justify-center
-          min-h-20 p-2 border border-gray-200 dark:border-gray-700
-          transition-colors
-          ${!isCurrentMonth ? "text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-900" : ""}
-          ${isTodayDate ? "bg-blue-100 dark:bg-blue-900 font-bold" : ""}
-        `}
-        aria-label={format(day, "MMMM d, yyyy")}
-        data-date={format(day, "yyyy-MM-dd")}
+        className={cn("overflow-hidden h-20 px-1 py-0.5 box-border", {
+          "text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-900":
+            !isCurrentMonth,
+          "bg-blue-100 dark:bg-blue-900": isTodayDate,
+        })}
+        aria-label={ariaLabel}
+        data-label={dataLabel}
       >
-        <span
-          className={`text-lg ${isTodayDate ? "text-blue-600 dark:text-blue-300" : ""}`}
-        >
-          {formatNumber(parseInt(dayNumber), language)}
-        </span>
+        <div className="flex flex-row items-end justify-between">
+          <span
+            className={cn("text-sm leading-none", {
+              "text-blue-600 dark:text-blue-300 font-bold": isTodayDate,
+            })}
+          >
+            {dayLabel}
+          </span>
+          <span className="text-xs leading-none"></span>
+        </div>
+        <div className="text-xs leading-none text-right"></div>
+        <div className="text-xs leading-none text-right"></div>
+        <div className="text-xs leading-none text-right"></div>
+        <div className="text-xs leading-none text-right"></div>
+        <div className="text-xs leading-none text-right"></div>
       </div>
     );
   };
@@ -293,7 +302,6 @@ export function ContentCalendarInfinityPage(): JSX.Element {
     weekDays,
     monthLabel,
     weekStartsOn,
-    direction,
   } = useCurrentMonthNavigation({ language });
 
   return (
@@ -308,7 +316,7 @@ export function ContentCalendarInfinityPage(): JSX.Element {
           goToNextMonth={goToNextMonth}
           goToPrevMonth={goToPrevMonth}
           monthLabel={monthLabel}
-          direction={direction}
+          firstDayOfMonth={firstDayOfMonth}
         />
       </section>
 

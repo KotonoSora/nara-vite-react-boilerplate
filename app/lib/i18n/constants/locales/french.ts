@@ -3,6 +3,7 @@ import frAbout from "~/locales/fr/about.json";
 import frAdmin from "~/locales/fr/admin.json";
 import frAuth from "~/locales/fr/auth.json";
 import frBlog from "~/locales/fr/blog.json";
+import frCalendar from "~/locales/fr/calendar.json";
 import frCommon from "~/locales/fr/common.json";
 import frDashboard from "~/locales/fr/dashboard.json";
 import frErrors from "~/locales/fr/errors.json";
@@ -19,6 +20,7 @@ export const frenchTranslations = {
   admin: frAdmin,
   auth: frAuth,
   blog: frBlog,
+  calendar: frCalendar,
   dashboard: frDashboard,
   errors: frErrors,
   landing: frLanding,

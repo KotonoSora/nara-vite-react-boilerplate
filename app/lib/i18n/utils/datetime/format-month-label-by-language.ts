@@ -13,7 +13,7 @@ import { getIntlLocaleByLanguage } from "./get-intl-locale-by-language";
  * @param {Date} params.date - The date to format.
  * @param {SupportedLanguage|string} [params.language] - (Optional) The language code or SupportedLanguage to use for formatting.
  * @param {('numeric'|'2-digit'|'long'|'short'|'narrow'|undefined)} [params.formatStyle] - (Optional) The format style for the month.
- * @returns The formatted month label as a string (e.g., "Jan 2024").
+ * @returns {string} The formatted month label as a string (e.g., "Jan 2024").
  */
 export function formatMonthLabelByLanguage({
   date,

@@ -3,6 +3,7 @@ import thAbout from "~/locales/th/about.json";
 import thAdmin from "~/locales/th/admin.json";
 import thAuth from "~/locales/th/auth.json";
 import thBlog from "~/locales/th/blog.json";
+import thCalendar from "~/locales/th/calendar.json";
 import thCommon from "~/locales/th/common.json";
 import thDashboard from "~/locales/th/dashboard.json";
 import thErrors from "~/locales/th/errors.json";
@@ -19,6 +20,7 @@ export const thaiTranslations = {
   admin: thAdmin,
   auth: thAuth,
   blog: thBlog,
+  calendar: thCalendar,
   dashboard: thDashboard,
   errors: thErrors,
   landing: thLanding,
