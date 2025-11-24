@@ -49,7 +49,7 @@ const gridComponents: VirtuosoGridProps<Date, undefined>["components"] = {
   Item: ({ children, ...props }) => (
     <div
       {...props}
-      className="block content-stretch box-border border-l border-b border-gray-200 dark:border-gray-700 w-[calc(100%/7)]"
+      className="block h-20 content-stretch box-border border-l border-b border-gray-200 dark:border-gray-700 w-[calc(100%/7)]"
     >
       {children}
     </div>
@@ -253,7 +253,7 @@ function DayGrids({
 
     return (
       <div
-        className={cn("overflow-hidden h-20 px-1 py-0.5 box-border", {
+        className={cn("overflow-hidden h-full px-1 py-0.5 box-border", {
           "text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-900":
             !isCurrentMonth,
           "bg-blue-100 dark:bg-blue-900": isTodayDate,
