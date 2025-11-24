@@ -15,8 +15,11 @@ export const pageMiddleware: MiddlewareFunction = async (
   next,
 ) => {
   const { t } = context.get(I18nContext);
+
   context.set(pageMiddlewareContext, {
     title: t("auth.resetPassword.title"),
     description: t("auth.resetPassword.description"),
   });
+
+  return await next();
 };

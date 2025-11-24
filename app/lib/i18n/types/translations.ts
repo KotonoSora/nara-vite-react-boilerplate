@@ -3,6 +3,7 @@ import type enAbout from "~/locales/en/about.json";
 import type enAdmin from "~/locales/en/admin.json";
 import type enAuth from "~/locales/en/auth.json";
 import type enBlog from "~/locales/en/blog.json";
+import type enCalendar from "~/locales/en/calendar.json";
 import type enCommon from "~/locales/en/common.json";
 import type enDashboard from "~/locales/en/dashboard.json";
 import type enErrors from "~/locales/en/errors.json";
@@ -19,6 +20,7 @@ type NamespaceTranslations = typeof enCommon & {
   admin: typeof enAdmin;
   auth: typeof enAuth;
   blog: typeof enBlog;
+  calendar: typeof enCalendar;
   dashboard: typeof enDashboard;
   errors: typeof enErrors;
   landing: typeof enLanding;

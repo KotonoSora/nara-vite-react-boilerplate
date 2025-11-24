@@ -6,6 +6,16 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as schema from "~/database/schema";
 
+declare module "react-router" {
+  export interface RouterContextProvider {
+    cloudflare: {
+      env: Env;
+      ctx: ExecutionContext;
+    };
+    db: DrizzleD1Database<typeof schema>;
+  }
+}
+
 // Init app
 const app = new Hono<{ Bindings: Env }>();
 

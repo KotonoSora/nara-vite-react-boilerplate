@@ -11,7 +11,10 @@ export type TermsPageContextType = {
 export const { termsMiddlewareContext } =
   createMiddlewareContext<TermsPageContextType>("termsMiddlewareContext");
 
-export const termsMiddleware: MiddlewareFunction = async ({ context }) => {
+export const termsMiddleware: MiddlewareFunction = async (
+  { context },
+  next,
+) => {
   const { t } = context.get(I18nContext);
   const title = t("legal.terms.title");
   const description = t("legal.terms.description");
@@ -22,4 +25,6 @@ export const termsMiddleware: MiddlewareFunction = async ({ context }) => {
   };
 
   context.set(termsMiddlewareContext, contextValue);
+
+  return await next();
 };

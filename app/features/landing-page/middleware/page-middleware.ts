@@ -29,5 +29,6 @@ export const pageMiddleware: MiddlewareFunction = async ({ context }, next) => {
   };
 
   context.set(pageMiddlewareContext, contextValue);
+
   return await next();
 };

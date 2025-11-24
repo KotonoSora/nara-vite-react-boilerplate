@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
 import { useLanguage } from "~/lib/i18n/hooks/use-language";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { useCurrentMonthNavigation } from "./hooks/use-current-month-navigation";
 
@@ -22,6 +23,8 @@ function MonthNavigation({
   monthLabel: string;
   direction: "ltr" | "rtl";
 }): JSX.Element {
+  const t = useTranslation();
+
   return (
     <div className="flex flex-1 shrink-0 flex-row justify-between items-center p-2 relative">
       <div className="flex flex-row gap-2 items-center">
@@ -30,8 +33,8 @@ function MonthNavigation({
           size="icon-sm"
           className="cursor-pointer"
           onClick={goToPrevMonth}
-          aria-label="Previous Month"
-          data-label="Previous Month"
+          aria-label={t("calendar.common.previousMonth")}
+          data-label={t("calendar.common.previousMonth")}
         >
           {direction === "rtl" ? <ChevronRight /> : <ChevronLeft />}
         </Button>
@@ -43,7 +46,7 @@ function MonthNavigation({
           aria-label="Today"
           data-label="Today"
         >
-          Today
+          {t("calendar.common.today")}
         </Button>
       </div>
       <div
@@ -58,8 +61,8 @@ function MonthNavigation({
         size="icon-sm"
         className="cursor-pointer"
         onClick={goToNextMonth}
-        aria-label="Next Month"
-        data-label="Next Month"
+        aria-label={t("calendar.common.nextMonth")}
+        data-label={t("calendar.common.nextMonth")}
       >
         {direction === "rtl" ? <ChevronLeft /> : <ChevronRight />}
       </Button>

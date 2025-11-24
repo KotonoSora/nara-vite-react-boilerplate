@@ -8,7 +8,7 @@ import { I18nContext } from "~/middleware/i18n";
 export const { blogMiddlewareContext } =
   createMiddlewareContext<BlogPageContextType>("blogMiddlewareContext");
 
-export const blogMiddleware: MiddlewareFunction = async ({ context }) => {
+export const blogMiddleware: MiddlewareFunction = async ({ context }, next) => {
   const { t } = context.get(I18nContext);
 
   const contextValue: BlogPageContextType = {
@@ -17,4 +17,6 @@ export const blogMiddleware: MiddlewareFunction = async ({ context }) => {
   };
 
   context.set(blogMiddlewareContext, contextValue);
+
+  return await next();
 };
