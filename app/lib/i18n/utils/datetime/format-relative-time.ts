@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from "../../types/common";
 
-import { LOCALE_MAP } from "../../constants/locale";
+import { getIntlLocaleByLanguage } from "./get-intl-locale-by-language";
 
 /**
  * Formats a relative time value (e.g., "3 days ago", "in 2 hours") according to the specified language and options.
@@ -17,7 +17,8 @@ export function formatRelativeTime(
   language: SupportedLanguage,
   options?: Intl.RelativeTimeFormatOptions,
 ): string {
-  const locale = LOCALE_MAP[language];
+  const locale = getIntlLocaleByLanguage(language);
+
   return new Intl.RelativeTimeFormat(locale, {
     numeric: "auto",
     ...options,

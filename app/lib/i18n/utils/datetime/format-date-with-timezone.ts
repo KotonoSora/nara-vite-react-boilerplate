@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from "../../types/common";
 
-import { LOCALE_MAP } from "../../constants/locale";
+import { getIntlLocaleByLanguage } from "./get-intl-locale-by-language";
 
 /**
  * Formats a date with the specified language, timezone, and formatting options.
@@ -17,7 +17,8 @@ export function formatDateWithTimezone(
   timezone?: string,
   options?: Intl.DateTimeFormatOptions,
 ): string {
-  const locale = LOCALE_MAP[language];
+  const locale = getIntlLocaleByLanguage(language);
+
   const dateObj =
     typeof date === "string" || typeof date === "number"
       ? new Date(date)

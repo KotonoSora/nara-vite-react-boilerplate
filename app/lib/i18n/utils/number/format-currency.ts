@@ -1,7 +1,7 @@
 import type { SupportedLanguage } from "../../types/common";
 
 import { CURRENCY_MAP } from "../../constants/currency";
-import { LOCALE_MAP } from "../../constants/locale";
+import { getIntlLocaleByLanguage } from "../datetime/get-intl-locale-by-language";
 
 /**
  * Formats a numeric value as a currency string according to the specified language and currency.
@@ -16,7 +16,8 @@ export function formatCurrency(
   language: SupportedLanguage,
   currency?: string,
 ): string {
-  const locale = LOCALE_MAP[language];
+  const locale = getIntlLocaleByLanguage(language);
+
   const currencyCode = currency || CURRENCY_MAP[language];
 
   return new Intl.NumberFormat(locale, {

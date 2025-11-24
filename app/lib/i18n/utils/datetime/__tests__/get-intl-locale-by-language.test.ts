@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import type { SupportedLanguage } from "../../../types/common";
 
-import { getLocaleFromLanguage } from "../get-locale-from-language";
+import { getIntlLocaleByLanguage } from "../get-intl-locale-by-language";
 
-describe("getLocaleFromLanguage", () => {
+describe("getIntlLocaleByLanguage", () => {
   it.each([
     ["en", "en-US"],
     ["fr", "fr-FR"],
@@ -16,7 +16,7 @@ describe("getLocaleFromLanguage", () => {
     ["hi", "hi-IN"],
     ["th", "th-TH"],
   ])("returns locale for %s: %s", (lang, expectedLocalePattern) => {
-    const result = getLocaleFromLanguage(lang as SupportedLanguage);
+    const result = getIntlLocaleByLanguage(lang as SupportedLanguage);
     expect(result).toBeTruthy();
     expect(typeof result).toBe("string");
     expect(result.length).toBeGreaterThan(0);
@@ -35,7 +35,7 @@ describe("getLocaleFromLanguage", () => {
     ["hi"],
     ["th"],
   ])("returns valid locale string for language: %s", (lang) => {
-    const result = getLocaleFromLanguage(lang as SupportedLanguage);
+    const result = getIntlLocaleByLanguage(lang as SupportedLanguage);
     expect(result).toBeTruthy();
     expect(typeof result).toBe("string");
   });
@@ -43,7 +43,7 @@ describe("getLocaleFromLanguage", () => {
   it("returns locale format with hyphen or underscore", () => {
     const languages: SupportedLanguage[] = ["en", "fr", "es", "ja", "zh"];
     languages.forEach((lang) => {
-      const result = getLocaleFromLanguage(lang);
+      const result = getIntlLocaleByLanguage(lang);
       // Locale typically contains hyphen (en-US) or underscore (en_US)
       expect(result).toBeTruthy();
       expect(result.length).toBeGreaterThan(1);
@@ -51,8 +51,8 @@ describe("getLocaleFromLanguage", () => {
   });
 
   it("returns consistent locale for same language", () => {
-    const result1 = getLocaleFromLanguage("en" as SupportedLanguage);
-    const result2 = getLocaleFromLanguage("en" as SupportedLanguage);
+    const result1 = getIntlLocaleByLanguage("en" as SupportedLanguage);
+    const result2 = getIntlLocaleByLanguage("en" as SupportedLanguage);
     expect(result1).toBe(result2);
   });
 
@@ -68,7 +68,7 @@ describe("getLocaleFromLanguage", () => {
       "hi",
       "th",
     ];
-    const locales = languages.map((lang) => getLocaleFromLanguage(lang));
+    const locales = languages.map((lang) => getIntlLocaleByLanguage(lang));
 
     // All locales should be truthy and strings
     locales.forEach((locale) => {

@@ -1,67 +1,133 @@
-import { useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import type {
-  CalendarActionHandle,
-  RegisterActionsFn,
-  RenderDayParams,
-} from "./types/type";
+import type { JSX } from "react";
 
+import { Button } from "~/components/ui/button";
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
+import { useLanguage } from "~/lib/i18n/hooks/use-language";
 
-import { CalendarApp } from "./components/calendar-app";
-import { Controls } from "./components/controls";
-import { DayContent } from "./components/day-content";
-import { PageHeader } from "./components/page-header";
-import { TodayButton } from "./components/today-button";
-import { VisibleWeeksLabel } from "./components/visible-weeks-label";
-import { WeekdayHeader } from "./components/weekday-header";
-import { usePageContext } from "./context/page-context";
-import { PageProvider } from "./context/page-provider";
+import { useCurrentMonthNavigation } from "./hooks/use-current-month-navigation";
 
-export function ContentCalendarInfinityPage() {
-  const renderDay = ({ day, dayGlobalIndex, isToday }: RenderDayParams) => (
-    <DayContent day={day} dayGlobalIndex={dayGlobalIndex} isToday={isToday} />
+function MonthNavigation({
+  goToToday,
+  goToNextMonth,
+  goToPrevMonth,
+  monthLabel,
+  direction,
+}: {
+  goToToday: () => void;
+  goToNextMonth: () => void;
+  goToPrevMonth: () => void;
+  monthLabel: string;
+  direction: "ltr" | "rtl";
+}): JSX.Element {
+  return (
+    <div className="flex flex-1 shrink-0 flex-row justify-between items-center p-2 relative">
+      <div className="flex flex-row gap-2 items-center">
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          className="cursor-pointer"
+          onClick={goToPrevMonth}
+          aria-label="Previous Month"
+          data-label="Previous Month"
+        >
+          {direction === "rtl" ? <ChevronRight /> : <ChevronLeft />}
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="cursor-pointer"
+          onClick={goToToday}
+          aria-label="Today"
+          data-label="Today"
+        >
+          Today
+        </Button>
+      </div>
+      <div
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        aria-label={monthLabel}
+        data-label={monthLabel}
+      >
+        {monthLabel}
+      </div>
+      <Button
+        variant="ghost"
+        size="icon-sm"
+        className="cursor-pointer"
+        onClick={goToNextMonth}
+        aria-label="Next Month"
+        data-label="Next Month"
+      >
+        {direction === "rtl" ? <ChevronLeft /> : <ChevronRight />}
+      </Button>
+    </div>
   );
+}
 
-  const calendarRef = useRef<CalendarActionHandle | null>(null);
-  const onRegisterActions: RegisterActionsFn = (h) => {
-    calendarRef.current = h;
-  };
+function WeekdayHeaders({ weekDays }: { weekDays: string[] }): JSX.Element {
+  return (
+    <div className="flex flex-1 shrink-0 flex-row justify-between items-center border-b">
+      {weekDays.map((day) => (
+        <div
+          key={day}
+          className="flex flex-1 shrink-0 justify-center items-center border-l first:border-l-0"
+          aria-label={day}
+          data-label={day}
+        >
+          {day}
+        </div>
+      ))}
+    </div>
+  );
+}
 
-  const [visibleLabel, setVisibleLabel] = useState<string>("");
-  const handleVisibleLabelChange = (l: string) => {
-    setVisibleLabel(l);
-  };
-
-  function TodayButtonWrapper() {
-    const { mode } = usePageContext();
-    return mode === "date" ? (
-      <TodayButton onClick={() => calendarRef.current?.scrollToToday()} />
-    ) : null;
-  }
+export function ContentCalendarInfinityPage(): JSX.Element {
+  const { language } = useLanguage();
+  const {
+    currentDate,
+    goToToday,
+    goToNextMonth,
+    goToPrevMonth,
+    weekDays,
+    monthLabel,
+    weekStartsOn,
+    direction,
+  } = useCurrentMonthNavigation({ language });
 
   return (
     <main className="min-h-screen bg-background content-visibility-auto">
+      {/* Header navigation */}
       <HeaderNavigation />
 
-      <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12 space-y-4">
-        <PageProvider>
-          <div className="space-y-4 min-h-screen flex flex-col flex-1 items-stretch justify-start">
-            <PageHeader />
-            <Controls />
-            <TodayButtonWrapper />
-            <VisibleWeeksLabel label={visibleLabel} />
-            <WeekdayHeader />
-            <CalendarApp
-              onRegisterActions={onRegisterActions}
-              onVisibleLabelChange={handleVisibleLabelChange}
-              renderDay={renderDay}
-            />
-          </div>
-        </PageProvider>
+      {/* Month navigation */}
+      <section className="container mx-auto sticky top-14 z-40 bg-white dark:bg-black">
+        <MonthNavigation
+          goToToday={goToToday}
+          goToNextMonth={goToNextMonth}
+          goToPrevMonth={goToPrevMonth}
+          monthLabel={monthLabel}
+          direction={direction}
+        />
       </section>
 
+      {/* Weekday headers */}
+      <section className="container mx-auto sticky top-26 z-30 bg-white dark:bg-black">
+        <WeekdayHeaders weekDays={weekDays} />
+      </section>
+
+      {/* Calendar content */}
+      <section className="container mx-auto">
+        <div className="h-screen">
+          <div>days grid</div>
+          <div>{currentDate.toString()}</div>
+          <div>{weekStartsOn}</div>
+        </div>
+      </section>
+
+      {/* Footer section */}
       <FooterSection />
     </main>
   );
