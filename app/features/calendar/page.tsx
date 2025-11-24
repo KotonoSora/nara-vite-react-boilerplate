@@ -91,7 +91,7 @@ function MonthNavigation({
           {direction === "rtl" ? <ChevronRight /> : <ChevronLeft />}
         </Button>
         <Button
-          variant="ghost"
+          variant="secondary"
           size="sm"
           className="cursor-pointer"
           onClick={goToToday}
@@ -197,7 +197,7 @@ function DayGrids({
 
   /**
    * Calculate dynamic height based on total weeks in the current month
-   * Each day cell has min-h-[100px] + padding + border
+   * Each day cell has min-h-20
    */
   const gridHeight = useMemo(() => {
     const monthStart = startOfMonth(firstDayOfMonth);
@@ -216,9 +216,10 @@ function DayGrids({
     // Calculate total weeks in the current month
     const weeksInMonth = differenceInWeeks(lastWeekStart, firstWeekStart) + 1;
 
-    const dayItemHeight = 100;
-    const itemTotalHeight = dayItemHeight;
-    return weeksInMonth * itemTotalHeight;
+    const itemTotalHeight = 80;
+    const totalHeight = weeksInMonth * itemTotalHeight;
+
+    return totalHeight;
   }, [firstDayOfMonth, weekStartsOn]);
 
   /**
@@ -253,7 +254,7 @@ function DayGrids({
       <div
         className={`
           flex flex-col items-center justify-center
-          min-h-[100px] p-2 border border-gray-200 dark:border-gray-700
+          min-h-20 p-2 border border-gray-200 dark:border-gray-700
           transition-colors
           ${!isCurrentMonth ? "text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-900" : ""}
           ${isTodayDate ? "bg-blue-100 dark:bg-blue-900 font-bold" : ""}
@@ -296,7 +297,7 @@ export function ContentCalendarInfinityPage(): JSX.Element {
   } = useCurrentMonthNavigation({ language });
 
   return (
-    <main className="min-h-screen bg-background content-visibility-auto">
+    <main className="min-h-svh bg-background content-visibility-auto">
       {/* Header navigation */}
       <HeaderNavigation />
 
