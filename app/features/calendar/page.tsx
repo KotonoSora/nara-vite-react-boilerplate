@@ -1,57 +1,67 @@
+import { useRef, useState } from "react";
+
+import type {
+  CalendarActionHandle,
+  RegisterActionsFn,
+  RenderDayParams,
+} from "./types/type";
+
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
-import { useLanguage } from "~/lib/i18n/hooks/use-language";
 
-import { DayGrids } from "./components/day-grids";
-import { MonthNavigation } from "./components/month-navigation";
-import { WeekdayHeaders } from "./components/weekday-headers";
-import { useCurrentMonthNavigation } from "./hooks/use-current-month-navigation";
+import { CalendarApp } from "./components/calendar-app";
+import { Controls } from "./components/controls";
+import { DayContent } from "./components/day-content";
+import { PageHeader } from "./components/page-header";
+import { TodayButton } from "./components/today-button";
+import { VisibleWeeksLabel } from "./components/visible-weeks-label";
+import { WeekdayHeader } from "./components/weekday-header";
+import { usePageContext } from "./context/page-context";
+import { PageProvider } from "./context/page-provider";
 
 export function ContentCalendarInfinityPage() {
-  const { language } = useLanguage();
-  const {
-    firstDayOfMonth,
-    goToToday,
-    goToNextMonth,
-    goToPrevMonth,
-    weekDays,
-    monthLabel,
-    weekStartsOn,
-    virtuosoRef,
-  } = useCurrentMonthNavigation({ language });
+  const renderDay = ({ day, dayGlobalIndex, isToday }: RenderDayParams) => (
+    <DayContent day={day} dayGlobalIndex={dayGlobalIndex} isToday={isToday} />
+  );
+
+  const calendarRef = useRef<CalendarActionHandle | null>(null);
+  const onRegisterActions: RegisterActionsFn = (h) => {
+    calendarRef.current = h;
+  };
+
+  const [visibleLabel, setVisibleLabel] = useState<string>("");
+  const handleVisibleLabelChange = (l: string) => {
+    setVisibleLabel(l);
+  };
+
+  function TodayButtonWrapper() {
+    const { mode } = usePageContext();
+    return mode === "date" ? (
+      <TodayButton onClick={() => calendarRef.current?.scrollToToday()} />
+    ) : null;
+  }
 
   return (
-    <main className="min-h-svh bg-background content-visibility-auto">
-      {/* Header navigation */}
+    <main className="min-h-screen bg-background content-visibility-auto">
       <HeaderNavigation />
 
-      {/* Month navigation */}
-      <section className="container mx-auto sticky top-14 z-40 bg-white dark:bg-black">
-        <MonthNavigation
-          goToToday={goToToday}
-          goToNextMonth={goToNextMonth}
-          goToPrevMonth={goToPrevMonth}
-          monthLabel={monthLabel}
-          firstDayOfMonth={firstDayOfMonth}
-        />
+      <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12 space-y-4">
+        <PageProvider>
+          <div className="space-y-4 min-h-screen flex flex-col flex-1 items-stretch justify-start">
+            <PageHeader />
+            <Controls />
+            <TodayButtonWrapper />
+            <VisibleWeeksLabel label={visibleLabel} />
+            <WeekdayHeader />
+            <CalendarApp
+              onRegisterActions={onRegisterActions}
+              onVisibleLabelChange={handleVisibleLabelChange}
+              renderDay={renderDay}
+            />
+          </div>
+        </PageProvider>
       </section>
 
-      {/* Weekday headers */}
-      <section className="container mx-auto sticky top-26 z-30 bg-white dark:bg-black">
-        <WeekdayHeaders weekDays={weekDays} />
-      </section>
-
-      {/* Calendar content */}
-      <section className="container mx-auto">
-        <DayGrids
-          firstDayOfMonth={firstDayOfMonth}
-          weekStartsOn={weekStartsOn}
-          language={language}
-          virtuosoRef={virtuosoRef}
-        />
-      </section>
-
-      {/* Footer section */}
       <FooterSection />
     </main>
   );

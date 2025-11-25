@@ -7,12 +7,13 @@ import type { VirtuosoGridHandle } from "react-virtuoso";
 
 import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
-import { getIndexCurrentMonth } from "~/features/calendar/utils/get-index-current-month";
-import { getStartDateFirstWeekOfYear } from "~/features/calendar/utils/get-start-date-first-week-of-year";
 import { isRTLLanguage } from "~/lib/i18n/utils/common/is-rtl-language";
 import { formatMonthLabelByLanguage } from "~/lib/i18n/utils/datetime/format-month-label-by-language";
 import { getWeekDayLabels } from "~/lib/i18n/utils/datetime/get-week-day-labels";
 import { getWeekStartsOnByLanguage } from "~/lib/i18n/utils/datetime/get-week-starts-on-by-language";
+
+import { getIndexCurrentMonth } from "../utils/get-index-current-month";
+import { getStartDateFirstWeekOfYear } from "../utils/get-start-date-first-week-of-year";
 
 /**
  * A custom React hook for managing calendar month navigation and localization.
