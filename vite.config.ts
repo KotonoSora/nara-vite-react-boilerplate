@@ -60,6 +60,7 @@ export default defineConfig(() => ({
       "rehype-highlight",
       "rehype-mathjax",
       "react-virtuoso",
+      "date-fns",
     ],
   },
   build: {
@@ -82,6 +83,10 @@ export default defineConfig(() => ({
             {
               name: "virtualized",
               test: /\/(react-virtuoso)($|\/)/,
+            },
+            {
+              name: "date-fns",
+              test: /\/(date-fns)($|\/)/,
             },
           ],
         },

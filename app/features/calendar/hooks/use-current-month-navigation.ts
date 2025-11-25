@@ -1,10 +1,14 @@
 import { addMonths, startOfMonth, subMonths } from "date-fns";
-import { useCallback, useState } from "react";
+import { useRef, useState } from "react";
 
 import type { Day } from "date-fns";
+import type { RefObject } from "react";
+import type { VirtuosoGridHandle } from "react-virtuoso";
 
 import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
+import { getIndexCurrentMonth } from "~/features/calendar/utils/get-index-current-month";
+import { getStartDateFirstWeekOfYear } from "~/features/calendar/utils/get-start-date-first-week-of-year";
 import { isRTLLanguage } from "~/lib/i18n/utils/common/is-rtl-language";
 import { formatMonthLabelByLanguage } from "~/lib/i18n/utils/datetime/format-month-label-by-language";
 import { getWeekDayLabels } from "~/lib/i18n/utils/datetime/get-week-day-labels";
@@ -31,6 +35,7 @@ import { getWeekStartsOnByLanguage } from "~/lib/i18n/utils/datetime/get-week-st
  * - `monthLabel`: A localized label for the current month (long format).
  * - `weekStartsOn`: The day the week starts on, based on the language.
  * - `direction`: Text direction ('ltr' or 'rtl') based on the language.
+ * - `virtuosoRef`: Ref attached to the virtualized grid for imperative scrolling.
  */
 export function useCurrentMonthNavigation({
   initialDate,
@@ -47,8 +52,8 @@ export function useCurrentMonthNavigation({
   monthLabel: string;
   weekStartsOn: Day;
   direction: "ltr" | "rtl";
+  virtuosoRef: RefObject<VirtuosoGridHandle | null>;
 } {
-  // Normalize initial date: if not provided → today at 00:00:00.000
   const getInitialDate = (): Date => {
     if (!initialDate) return startOfMonth(new Date());
 
@@ -60,21 +65,56 @@ export function useCurrentMonthNavigation({
 
   const [firstDayOfMonth, setFirstDayOfMonth] = useState<Date>(getInitialDate);
 
-  const goToToday = useCallback(() => {
-    setFirstDayOfMonth(startOfMonth(new Date()));
-  }, []);
-
-  const goToNextMonth = useCallback(() => {
-    setFirstDayOfMonth((prev) => startOfMonth(addMonths(prev, 1)));
-  }, []);
-
-  const goToPrevMonth = useCallback(() => {
-    setFirstDayOfMonth((prev) => startOfMonth(subMonths(prev, 1)));
-  }, []);
-
   const weekStartsOn = getWeekStartsOnByLanguage({
     language,
   });
+
+  const virtuosoRef = useRef<VirtuosoGridHandle>(null);
+
+  const scrollToMonthStart = (targetDate: Date) => {
+    if (!virtuosoRef.current) return;
+
+    const normalizedDate = startOfMonth(targetDate);
+    const startDateFirstWeekOfYear = getStartDateFirstWeekOfYear({
+      date: normalizedDate,
+      weekStartsOn,
+    });
+    const monthIndex = getIndexCurrentMonth({
+      start: startDateFirstWeekOfYear,
+      date: normalizedDate,
+      weekStartsOn,
+    });
+
+    if (monthIndex < 0) return;
+
+    virtuosoRef.current.scrollToIndex({
+      index: monthIndex * 7,
+      align: "start",
+      behavior: "auto",
+    });
+  };
+
+  const goToToday = () => {
+    const today = startOfMonth(new Date());
+    setFirstDayOfMonth(today);
+    scrollToMonthStart(today);
+  };
+
+  const goToNextMonth = () => {
+    setFirstDayOfMonth((previousMonth) => {
+      const nextMonth = startOfMonth(addMonths(previousMonth, 1));
+      scrollToMonthStart(nextMonth);
+      return nextMonth;
+    });
+  };
+
+  const goToPrevMonth = () => {
+    setFirstDayOfMonth((previousMonth) => {
+      const previousMonthDate = startOfMonth(subMonths(previousMonth, 1));
+      scrollToMonthStart(previousMonthDate);
+      return previousMonthDate;
+    });
+  };
 
   const weekDays = getWeekDayLabels({
     language,
@@ -100,5 +140,6 @@ export function useCurrentMonthNavigation({
     weekDays,
     weekStartsOn,
     direction,
+    virtuosoRef,
   };
 }
