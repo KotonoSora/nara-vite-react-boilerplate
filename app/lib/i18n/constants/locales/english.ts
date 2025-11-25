@@ -3,6 +3,7 @@ import enAbout from "~/locales/en/about.json";
 import enAdmin from "~/locales/en/admin.json";
 import enAuth from "~/locales/en/auth.json";
 import enBlog from "~/locales/en/blog.json";
+import enCalendar from "~/locales/en/calendar.json";
 import enCommon from "~/locales/en/common.json";
 import enDashboard from "~/locales/en/dashboard.json";
 import enErrors from "~/locales/en/errors.json";
@@ -19,6 +20,7 @@ export const englishTranslations = {
   admin: enAdmin,
   auth: enAuth,
   blog: enBlog,
+  calendar: enCalendar,
   dashboard: enDashboard,
   errors: enErrors,
   landing: enLanding,

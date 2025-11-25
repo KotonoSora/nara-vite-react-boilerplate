@@ -8,7 +8,10 @@ import { I18nContext } from "~/middleware/i18n";
 export const { privacyMiddlewareContext } =
   createMiddlewareContext<PrivacyPageProps>("privacyMiddlewareContext");
 
-export const privacyMiddleware: MiddlewareFunction = async ({ context }) => {
+export const privacyMiddleware: MiddlewareFunction = async (
+  { context },
+  next,
+) => {
   const { t } = context.get(I18nContext);
 
   const title = t("legal.privacy.title");
@@ -18,4 +21,6 @@ export const privacyMiddleware: MiddlewareFunction = async ({ context }) => {
     title,
     description,
   });
+
+  return await next();
 };

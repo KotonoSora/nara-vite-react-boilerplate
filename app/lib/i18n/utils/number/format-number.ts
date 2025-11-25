@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from "../../types/common";
 
-import { LOCALE_MAP } from "../../constants/locale";
+import { getIntlLocaleByLanguage } from "../datetime/get-intl-locale-by-language";
 
 /**
  * Formats a number according to the specified language and formatting options.
@@ -15,6 +15,7 @@ export function formatNumber(
   language: SupportedLanguage,
   options?: Intl.NumberFormatOptions,
 ): string {
-  const locale = LOCALE_MAP[language];
+  const locale = getIntlLocaleByLanguage(language);
+
   return new Intl.NumberFormat(locale, options).format(value);
 }

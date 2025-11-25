@@ -28,5 +28,8 @@ export const adminMiddleware: MiddlewareFunction = async (
     language,
     user,
   };
+
   context.set(adminMiddlewareContext, contextValue);
+
+  return await next();
 };

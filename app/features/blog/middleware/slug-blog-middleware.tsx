@@ -1,6 +1,7 @@
 import { MDXProvider } from "@mdx-js/react";
 import { data } from "react-router";
 
+import type { JSX } from "react";
 import type { MiddlewareFunction } from "react-router";
 
 import type { BlogFrontmatter } from "~/features/blog/utils/mdx-loader";
@@ -18,10 +19,10 @@ interface SlugBlogContext {
 export const { slugBlogMiddlewareContext } =
   createMiddlewareContext<SlugBlogContext>("slugBlogMiddlewareContext");
 
-export const slugBlogMiddleware: MiddlewareFunction = async ({
-  context,
-  params,
-}) => {
+export const slugBlogMiddleware: MiddlewareFunction = async (
+  { context, params },
+  next,
+) => {
   const slug = params.slug as string;
 
   if (!slug) {
@@ -83,4 +84,6 @@ export const slugBlogMiddleware: MiddlewareFunction = async ({
   };
 
   context.set(slugBlogMiddlewareContext, contextValue);
+
+  return await next();
 };

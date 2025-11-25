@@ -1,4 +1,4 @@
-import type { Route } from "./+types/($lang).showcases";
+import type { Route } from "./+types/($lang).showcases._index";
 
 import type { MiddlewareFunction } from "react-router";
 

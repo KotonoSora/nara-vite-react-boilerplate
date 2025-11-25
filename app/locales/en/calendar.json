@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "title": "Calendar",
+    "description": "View and manage your events."
+  },
+  "common": {
+    "today": "Today",
+    "nextMonth": "Next Month",
+    "previousMonth": "Previous Month"
+  }
+}

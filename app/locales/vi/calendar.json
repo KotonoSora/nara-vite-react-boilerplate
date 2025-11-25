@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "title": "Lịch",
+    "description": "Xem và quản lý sự kiện của bạn."
+  },
+  "common": {
+    "today": "Hôm nay",
+    "nextMonth": "Tháng tới",
+    "previousMonth": "Tháng trước"
+  }
+}

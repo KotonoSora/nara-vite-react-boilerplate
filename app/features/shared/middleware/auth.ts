@@ -13,4 +13,6 @@ export const authMiddleware: MiddlewareFunction = async (
 ) => {
   const { user } = context.get(AuthContext);
   if (user) throw redirect("/dashboard");
+
+  return await next();
 };

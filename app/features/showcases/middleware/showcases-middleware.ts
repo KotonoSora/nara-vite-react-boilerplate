@@ -10,7 +10,10 @@ import { I18nContext } from "~/middleware/i18n";
 export const { showcasesMiddlewareContext } =
   createMiddlewareContext<PageInformation>("showcasesMiddlewareContext");
 
-export const showcasesMiddleware: MiddlewareFunction = async ({ context }) => {
+export const showcasesMiddleware: MiddlewareFunction = async (
+  { context },
+  next,
+) => {
   const { t, language } = context.get(I18nContext);
 
   const { db } = context;
@@ -24,4 +27,6 @@ export const showcasesMiddleware: MiddlewareFunction = async ({ context }) => {
   };
 
   context.set(showcasesMiddlewareContext, contextValue);
+
+  return await next();
 };

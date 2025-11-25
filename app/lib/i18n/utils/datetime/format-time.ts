@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from "../../types/common";
 
-import { LOCALE_MAP } from "../../constants/locale";
+import { getIntlLocaleByLanguage } from "./get-intl-locale-by-language";
 
 /**
  * Formats a given date, string, or number as a localized time string.
@@ -15,7 +15,8 @@ export function formatTime(
   language: SupportedLanguage,
   options?: Intl.DateTimeFormatOptions,
 ): string {
-  const locale = LOCALE_MAP[language];
+  const locale = getIntlLocaleByLanguage(language);
+
   const dateObj =
     typeof date === "string" || typeof date === "number"
       ? new Date(date)

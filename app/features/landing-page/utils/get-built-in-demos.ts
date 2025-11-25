@@ -24,7 +24,7 @@ export function getBuiltInDemos(t: TranslationFunction): ProjectInfo[] {
       id: "built-in-demo-calendar",
       name: t("landing.showcase.demos.calendar.name"),
       description: t("landing.showcase.demos.calendar.description"),
-      url: "/calendar",
+      url: "/showcases/calendar",
       tags: [
         t("landing.showcase.demos.calendar.tags.0"),
         t("landing.showcase.demos.calendar.tags.1"),

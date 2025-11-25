@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from "../../types/common";
 
-import { LOCALE_MAP } from "../../constants/locale";
+import { getIntlLocaleByLanguage } from "../datetime/get-intl-locale-by-language";
 
 /**
  * Formats an array of strings into a localized list using conjunctions (e.g., "A, B, and C").
@@ -15,7 +15,7 @@ export function formatList(
   language: SupportedLanguage,
   options?: Intl.ListFormatOptions,
 ): string {
-  const locale = LOCALE_MAP[language];
+  const locale = getIntlLocaleByLanguage(language);
   return new Intl.ListFormat(locale, {
     style: "long",
     type: "conjunction",

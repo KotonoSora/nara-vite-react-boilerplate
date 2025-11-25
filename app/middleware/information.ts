@@ -34,5 +34,6 @@ export const generalInformationMiddleware: MiddlewareFunction = async (
   const pageInformation = getGeneralInformation(env);
 
   context.set(GeneralInformationContext, pageInformation);
+
   return await next();
 };
