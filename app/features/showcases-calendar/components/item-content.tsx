@@ -1,17 +1,10 @@
 import { addDays, format, isSameMonth, isToday } from "date-fns";
 
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
+import type { ItemContentProps } from "../types/component";
 
 import { formatFirstDayOfMonthByLanguage } from "~/lib/i18n/utils/datetime/format-first-day-of-month-by-language";
 import { formatNumber } from "~/lib/i18n/utils/number/format-number";
 import { cn } from "~/lib/utils";
-
-type ItemContentProps = {
-  dayIndex: number;
-  start: Date;
-  current: Date;
-  language: SupportedLanguage;
-};
 
 export function ItemContent({
   dayIndex,

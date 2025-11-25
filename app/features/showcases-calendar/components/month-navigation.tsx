@@ -1,16 +1,10 @@
 import { format } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import type { MonthNavigationProps } from "../types/component";
+
 import { Button } from "~/components/ui/button";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
-
-type MonthNavigationProps = {
-  goToToday: () => void;
-  goToNextMonth: () => void;
-  goToPrevMonth: () => void;
-  monthLabel?: string;
-  firstDayOfMonth?: Date;
-};
 
 export function MonthNavigation({
   goToToday,

@@ -1,6 +1,4 @@
-type WeekdayHeadersProps = {
-  weekDays: string[];
-};
+import type { WeekdayHeadersProps } from "../types/component";
 
 export function WeekdayHeaders({ weekDays }: WeekdayHeadersProps) {
   if (!Array.isArray(weekDays) || weekDays.length === 0) return null;

@@ -1,14 +1,11 @@
 import { startOfWeek } from "date-fns";
 
-import type { Day } from "date-fns";
+import type { GetStartDateProps, GetStartDateReturn } from "../types/util";
 
 export const getStartDateOfWeek = ({
   date,
   weekStartsOn,
-}: {
-  date: Date;
-  weekStartsOn: Day;
-}): Date => {
+}: GetStartDateProps): GetStartDateReturn => {
   return startOfWeek(date, {
     weekStartsOn,
   });

@@ -1,16 +1,13 @@
 import { startOfYear } from "date-fns";
 
-import type { Day } from "date-fns";
+import type { GetStartDateProps, GetStartDateReturn } from "../types/util";
 
 import { getStartDateOfWeek } from "./get-start-date-of-week";
 
 export const getStartDateFirstWeekOfYear = ({
   date,
   weekStartsOn,
-}: {
-  date: Date;
-  weekStartsOn: Day;
-}) => {
+}: GetStartDateProps): GetStartDateReturn => {
   return getStartDateOfWeek({
     date: startOfYear(date),
     weekStartsOn,
