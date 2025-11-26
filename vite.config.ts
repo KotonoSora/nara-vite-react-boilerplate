@@ -17,7 +17,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(() => ({
   plugins: [
-    tsconfigPaths({ loose: true }),
+    tsconfigPaths(),
     tailwindcss(),
     mdx({
       providerImportSource: "@mdx-js/react",
