@@ -1,5 +1,10 @@
 import { SLOGANS } from "../constants/common";
 
+/**
+ * Returns random slogan from predefined list
+ * @returns Random slogan string
+ */
 export function getRandomSlogan(): string {
-  return SLOGANS[Math.floor(Math.random() * SLOGANS.length)];
+  const index = Math.floor(Math.random() * SLOGANS.length);
+  return SLOGANS[index];
 }

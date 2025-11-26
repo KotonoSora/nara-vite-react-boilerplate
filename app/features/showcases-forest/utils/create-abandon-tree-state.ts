@@ -2,11 +2,15 @@ import type { ForestState } from "../types/common";
 
 import { STATUS } from "../constants/common";
 
+/**
+ * Creates withered tree state when user abandons growing
+ * @param state - Current forest state
+ * @returns New state with WITHERED status
+ */
 export function createAbandonTreeState(state: ForestState): ForestState {
   return {
+    ...state,
     status: STATUS.WITHERED,
     seconds: 0,
-    initialSeconds: state.initialSeconds,
-    slogan: state.slogan,
   };
 }
