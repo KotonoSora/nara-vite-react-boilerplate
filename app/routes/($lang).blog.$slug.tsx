@@ -21,7 +21,7 @@ export async function clientLoader({ context }: Route.ClientLoaderArgs) {
 
 clientLoader.hydrate = true as const;
 
-export function meta({ data }: Route.MetaArgs) {
+export function meta({ loaderData: data }: Route.MetaArgs) {
   if (!data) {
     return [
       { title: "Blog Post Not Found" },
