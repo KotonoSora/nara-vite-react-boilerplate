@@ -11,6 +11,7 @@ export function createFullyGrownState(prevState: ForestState): ForestState {
   return {
     ...prevState,
     status: STATUS.FULLY_GROWN,
+    seconds: prevState.initialSeconds,
     initialSeconds: prevState.initialSeconds,
     slogan: prevState.slogan,
   };
