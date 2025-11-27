@@ -1,8 +1,13 @@
+import { cn } from "~/lib/utils";
+
+import { BottomBar } from "./components/bottom-bar";
 import { FullyGrownScreen } from "./components/fully-grown-screen";
 import { GrowingScreen } from "./components/growing-screen";
+import { HeaderBar } from "./components/header-bar";
 import { PlantingScreen } from "./components/planting-screen";
 import { WitheredScreen } from "./components/withered-screen";
 import { RANGE_MAX, RANGE_MIN, STATUS } from "./constants/common";
+import { BACKGROUND_COLOR } from "./constants/ui";
 import { useForestPage } from "./hooks/use-forest-page";
 
 export function ForestPage() {
@@ -18,12 +23,18 @@ export function ForestPage() {
   } = useForestPage();
 
   return (
-    <main className="min-h-svh h-svh w-full content-visibility-auto bg-[#4faa8c] ">
+    <main
+      className={cn(
+        "h-svh w-full content-visibility-auto flex flex-col flex-1 items-stretch justify-between",
+        {
+          [`bg-[${BACKGROUND_COLOR}]`]: BACKGROUND_COLOR,
+        },
+      )}
+    >
+      <HeaderBar />
       {state.status === STATUS.PLANTING && (
         <PlantingScreen
           timerLabel={timerLabel}
-          rangeMin={RANGE_MIN}
-          rangeMax={RANGE_MAX}
           inputRef={inputRef}
           onTimerChange={updateTimerPreview}
           onPlant={startGrowing}
@@ -38,11 +49,20 @@ export function ForestPage() {
         />
       )}
       {state.status === STATUS.FULLY_GROWN && (
-        <FullyGrownScreen slogan={state.slogan} onReset={resetToPlanting} />
+        <FullyGrownScreen
+          slogan={state.slogan}
+          label={timerLabel}
+          onReset={resetToPlanting}
+        />
       )}
       {state.status === STATUS.WITHERED && (
-        <WitheredScreen onReset={resetToPlanting} />
+        <WitheredScreen
+          slogan={state.slogan}
+          label={timerLabel}
+          onReset={resetToPlanting}
+        />
       )}
+      <BottomBar />
     </main>
   );
 }

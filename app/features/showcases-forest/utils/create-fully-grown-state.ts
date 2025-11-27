@@ -9,8 +9,8 @@ import { STATUS } from "../constants/common";
  */
 export function createFullyGrownState(prevState: ForestState): ForestState {
   return {
+    ...prevState,
     status: STATUS.FULLY_GROWN,
-    seconds: 0,
     initialSeconds: prevState.initialSeconds,
     slogan: prevState.slogan,
   };

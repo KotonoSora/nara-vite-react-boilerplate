@@ -11,6 +11,6 @@ export function createAbandonTreeState(state: ForestState): ForestState {
   return {
     ...state,
     status: STATUS.WITHERED,
-    seconds: 0,
+    slogan: "Oops! You can do better next time.",
   };
 }

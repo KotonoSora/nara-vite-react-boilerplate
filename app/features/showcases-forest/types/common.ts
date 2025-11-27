@@ -11,6 +11,7 @@ export type ForestState = {
 
 export type FullyGrownScreenProps = {
   slogan: string;
+  label: string;
   onReset: () => void;
 };
 
@@ -23,8 +24,6 @@ export type GrowingScreenProps = {
 
 export type PlantingScreenProps = {
   timerLabel: string;
-  rangeMin: number;
-  rangeMax: number;
   inputRef: React.RefObject<HTMLInputElement | null>;
   onTimerChange: () => void;
   onPlant: () => void;
@@ -33,5 +32,12 @@ export type PlantingScreenProps = {
 export type TimerDisplayProps = { label: string };
 
 export type WitheredScreenProps = {
+  slogan: string;
+  label: string;
   onReset: () => void;
+};
+
+export type TreeStatusProgressProps = {
+  status: Status;
+  progress?: number;
 };
