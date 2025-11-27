@@ -41,3 +41,7 @@ export type TreeStatusProgressProps = {
   status: Status;
   progress?: number;
 };
+
+export type FocusTagButtonProps = {
+  label?: string;
+};

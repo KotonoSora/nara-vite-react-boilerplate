@@ -23,17 +23,15 @@ export function PlantingScreen({
       </div>
 
       <TreeStatusProgress status="planting" />
-
-      <div className="flex flex-col items-center justify-center gap-6">
-        <div className="w-[300px] bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-          <input
-            type="range"
-            min={RANGE_MIN}
-            max={RANGE_MAX}
-            step={1}
-            defaultValue={RANGE_MIN}
-            ref={inputRef}
-            className="w-full h-3 bg-white/20 rounded-lg appearance-none cursor-pointer 
+      <div className="w-[300px] bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
+        <input
+          type="range"
+          min={RANGE_MIN}
+          max={RANGE_MAX}
+          step={1}
+          defaultValue={RANGE_MIN}
+          ref={inputRef}
+          className="w-full h-3 bg-white/20 rounded-lg appearance-none cursor-pointer 
               [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 
               [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white 
               [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:cursor-pointer
@@ -42,10 +40,11 @@ export function PlantingScreen({
               [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:shadow-lg 
               [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:transition-transform 
               [&::-moz-range-thumb]:hover:scale-110"
-            onChange={onTimerChange}
-          />
-        </div>
+          onChange={onTimerChange}
+        />
+      </div>
 
+      <div className="flex flex-col items-center justify-center gap-6">
         <FocusTagButton />
 
         <TimerDisplay label={timerLabel} />

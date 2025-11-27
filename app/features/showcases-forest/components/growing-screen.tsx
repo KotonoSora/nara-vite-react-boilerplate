@@ -29,7 +29,7 @@ export function GrowingScreen({
         <Button
           variant="outline"
           size="sm"
-          className="h-6 bg-transparent text-white hover:bg-muted/10 hover:text-white cursor-pointer text-xs"
+          className="h-8 bg-transparent text-white hover:bg-muted/10 hover:text-white cursor-pointer text-xs"
           onClick={onGiveUp}
         >
           Give Up

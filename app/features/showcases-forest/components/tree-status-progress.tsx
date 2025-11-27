@@ -5,7 +5,6 @@ import type { TreeStatusProgressProps } from "../types/common";
 import { cn } from "~/lib/utils";
 
 import { STATUS } from "../constants/common";
-import { BACKGROUND_COLOR, PLANTING_CIRCLE_BG } from "../constants/ui";
 
 export function TreeStatusProgress({
   status,
@@ -13,24 +12,26 @@ export function TreeStatusProgress({
 }: TreeStatusProgressProps) {
   const getIcon = () => {
     if (status === STATUS.PLANTING || status === STATUS.FULLY_GROWN) {
-      return <Trees className="size-12" stroke={BACKGROUND_COLOR} />;
+      return <Trees className="size-12 stroke-(--color-forest-primary)" />;
     }
 
     if (status === STATUS.WITHERED) {
-      return <FlameKindling className="size-12" stroke={BACKGROUND_COLOR} />;
+      return (
+        <FlameKindling className="size-12 stroke-(--color-forest-primary)" />
+      );
     }
 
     // Growing status - icon based on progress
     if (progress <= 25) {
-      return <Sprout className="size-12" stroke={BACKGROUND_COLOR} />;
+      return <Sprout className="size-12 stroke-(--color-forest-primary)" />;
     }
     if (progress <= 50) {
-      return <Shrub className="size-12" stroke={BACKGROUND_COLOR} />;
+      return <Shrub className="size-12 stroke-(--color-forest-primary)" />;
     }
     if (progress <= 75) {
-      return <TreePine className="size-12" stroke={BACKGROUND_COLOR} />;
+      return <TreePine className="size-12 stroke-(--color-forest-primary)" />;
     }
-    return <Trees className="size-12" stroke={BACKGROUND_COLOR} />;
+    return <Trees className="size-12 stroke-(--color-forest-primary)" />;
   };
 
   return (
@@ -38,9 +39,7 @@ export function TreeStatusProgress({
       id="tree-status-progress"
       className={cn(
         "w-[150px] h-[150px] rounded-full flex flex-col items-center justify-center relative overflow-hidden",
-        {
-          [`bg-[${PLANTING_CIRCLE_BG}]`]: PLANTING_CIRCLE_BG,
-        },
+        "bg-(--color-forest-secondary)",
       )}
     >
       <div className="text-base leading-none text-center z-10 relative">

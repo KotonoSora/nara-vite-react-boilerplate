@@ -6,8 +6,7 @@ import { GrowingScreen } from "./components/growing-screen";
 import { HeaderBar } from "./components/header-bar";
 import { PlantingScreen } from "./components/planting-screen";
 import { WitheredScreen } from "./components/withered-screen";
-import { RANGE_MAX, RANGE_MIN, STATUS } from "./constants/common";
-import { BACKGROUND_COLOR } from "./constants/ui";
+import { STATUS } from "./constants/common";
 import { useForestPage } from "./hooks/use-forest-page";
 
 export function ForestPage() {
@@ -26,9 +25,7 @@ export function ForestPage() {
     <main
       className={cn(
         "h-svh w-full content-visibility-auto flex flex-col flex-1 items-stretch justify-between",
-        {
-          [`bg-[${BACKGROUND_COLOR}]`]: BACKGROUND_COLOR,
-        },
+        "bg-(--color-forest-primary)",
       )}
     >
       <HeaderBar />

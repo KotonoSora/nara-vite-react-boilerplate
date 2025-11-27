@@ -1,10 +1,8 @@
 import { Pencil } from "lucide-react";
 
-import { Button } from "~/components/ui/button";
+import type { FocusTagButtonProps } from "../types/common";
 
-interface FocusTagButtonProps {
-  label?: string;
-}
+import { Button } from "~/components/ui/button";
 
 export function FocusTagButton({ label = "Work" }: FocusTagButtonProps) {
   return (
