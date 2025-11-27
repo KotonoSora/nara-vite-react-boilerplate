@@ -12,6 +12,10 @@ export function GrowingScreen({
   slogan,
   progress,
   onGiveUp,
+  tagColor,
+  tagLabel,
+  onTagColorChange,
+  onTagLabelChange,
 }: GrowingScreenProps) {
   return (
     <section className="flex flex-col flex-1 items-center justify-between gap-4 py-4">
@@ -22,7 +26,12 @@ export function GrowingScreen({
       <TreeStatusProgress status={STATUS.GROWING} progress={progress} />
 
       <div className="flex flex-col items-center justify-center gap-6">
-        <FocusTagButton />
+        <FocusTagButton
+          label={tagLabel}
+          color={tagColor}
+          onLabelChange={onTagLabelChange}
+          onColorChange={onTagColorChange}
+        />
 
         <TimerDisplay label={label} />
 

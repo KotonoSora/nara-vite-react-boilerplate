@@ -19,6 +19,10 @@ export function ForestPage() {
     startGrowing,
     updateTimerPreview,
     resetToPlanting,
+    tagColor,
+    setTagColor,
+    tagLabel,
+    setTagLabel,
   } = useForestPage();
 
   return (
@@ -35,6 +39,10 @@ export function ForestPage() {
           inputRef={inputRef}
           onTimerChange={updateTimerPreview}
           onPlant={startGrowing}
+          tagColor={tagColor}
+          tagLabel={tagLabel}
+          onTagColorChange={setTagColor}
+          onTagLabelChange={setTagLabel}
         />
       )}
       {state.status === STATUS.GROWING && (
@@ -43,6 +51,10 @@ export function ForestPage() {
           slogan={state.slogan}
           progress={progress}
           onGiveUp={abandonTree}
+          tagColor={tagColor}
+          tagLabel={tagLabel}
+          onTagColorChange={setTagColor}
+          onTagLabelChange={setTagLabel}
         />
       )}
       {state.status === STATUS.FULLY_GROWN && (
@@ -50,6 +62,10 @@ export function ForestPage() {
           slogan={state.slogan}
           label={timerLabel}
           onReset={resetToPlanting}
+          tagColor={tagColor}
+          tagLabel={tagLabel}
+          onTagColorChange={setTagColor}
+          onTagLabelChange={setTagLabel}
         />
       )}
       {state.status === STATUS.WITHERED && (
@@ -57,6 +73,10 @@ export function ForestPage() {
           slogan={state.slogan}
           label={timerLabel}
           onReset={resetToPlanting}
+          tagColor={tagColor}
+          tagLabel={tagLabel}
+          onTagColorChange={setTagColor}
+          onTagLabelChange={setTagLabel}
         />
       )}
       <BottomBar />

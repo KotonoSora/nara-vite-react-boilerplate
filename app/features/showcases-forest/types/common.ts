@@ -13,6 +13,10 @@ export type FullyGrownScreenProps = {
   slogan: string;
   label: string;
   onReset: () => void;
+  tagColor: string;
+  tagLabel: string;
+  onTagColorChange: (color: string) => void;
+  onTagLabelChange: (label: string) => void;
 };
 
 export type GrowingScreenProps = {
@@ -20,6 +24,10 @@ export type GrowingScreenProps = {
   slogan: string;
   progress: number;
   onGiveUp: () => void;
+  tagColor: string;
+  tagLabel: string;
+  onTagColorChange: (color: string) => void;
+  onTagLabelChange: (label: string) => void;
 };
 
 export type PlantingScreenProps = {
@@ -27,6 +35,10 @@ export type PlantingScreenProps = {
   inputRef: React.RefObject<HTMLInputElement | null>;
   onTimerChange: () => void;
   onPlant: () => void;
+  tagColor: string;
+  tagLabel: string;
+  onTagColorChange: (color: string) => void;
+  onTagLabelChange: (label: string) => void;
 };
 
 export type TimerDisplayProps = { label: string };
@@ -35,6 +47,10 @@ export type WitheredScreenProps = {
   slogan: string;
   label: string;
   onReset: () => void;
+  tagColor: string;
+  tagLabel: string;
+  onTagColorChange: (color: string) => void;
+  onTagLabelChange: (label: string) => void;
 };
 
 export type TreeStatusProgressProps = {
@@ -43,5 +59,8 @@ export type TreeStatusProgressProps = {
 };
 
 export type FocusTagButtonProps = {
-  label?: string;
+  label: string;
+  color: string;
+  onLabelChange: (label: string) => void;
+  onColorChange: (color: string) => void;
 };

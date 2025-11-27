@@ -11,6 +11,10 @@ export function FullyGrownScreen({
   slogan,
   label,
   onReset,
+  tagColor,
+  tagLabel,
+  onTagColorChange,
+  onTagLabelChange,
 }: FullyGrownScreenProps) {
   return (
     <section className="flex flex-col flex-1 items-center justify-between gap-4 py-4">
@@ -21,7 +25,12 @@ export function FullyGrownScreen({
       <TreeStatusProgress status={STATUS.FULLY_GROWN} />
 
       <div className="flex flex-col items-center justify-center gap-6">
-        <FocusTagButton />
+        <FocusTagButton
+          label={tagLabel}
+          color={tagColor}
+          onLabelChange={onTagLabelChange}
+          onColorChange={onTagColorChange}
+        />
 
         <TimerDisplay label={label} />
 

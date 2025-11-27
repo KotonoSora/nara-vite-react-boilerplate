@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import type { ForestState } from "../types/common";
 
-import { STATUS } from "../constants/common";
+import { STATUS, TAG_COLORS } from "../constants/common";
 import { calculateProgress } from "../utils/calculate-progress";
 import { clearTimerInterval } from "../utils/clear-timer-interval";
 import { createAbandonTreeState } from "../utils/create-abandon-tree-state";
@@ -19,6 +19,8 @@ export function useForestPage() {
   const startTimeRef = useRef<number | null>(null);
 
   const [state, setState] = useState<ForestState>(createPlantingState());
+  const [tagColor, setTagColor] = useState(TAG_COLORS[0]);
+  const [tagLabel, setTagLabel] = useState("Work");
 
   const timerLabel = formatSecondsToMinutesSeconds(state.seconds);
   const progress = calculateProgress(state.initialSeconds, state.seconds);
@@ -105,5 +107,9 @@ export function useForestPage() {
     startGrowing,
     updateTimerPreview,
     resetToPlanting,
+    tagColor,
+    setTagColor,
+    tagLabel,
+    setTagLabel,
   };
 }
