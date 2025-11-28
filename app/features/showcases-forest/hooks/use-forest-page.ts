@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 
-import type { ForestState } from "../types/common";
+import type { ForestAction, ForestState } from "../types/common";
 
-import { STATUS, TAG_COLORS } from "../constants/common";
+import { FOREST_ACTIONS, STATUS, TAG_COLORS } from "../constants/common";
 import { calculateProgress } from "../utils/calculate-progress";
 import { clearTimerInterval } from "../utils/clear-timer-interval";
 import { createAbandonTreeState } from "../utils/create-abandon-tree-state";
@@ -10,15 +10,36 @@ import { createFullyGrownState } from "../utils/create-fully-grown-state";
 import { createGrowingState } from "../utils/create-growing-state";
 import { createPlantingState } from "../utils/create-planting-state";
 import { formatSecondsToMinutesSeconds } from "../utils/format-seconds-to-minutes-seconds";
-import { getInputValue } from "../utils/get-input-value";
 import { updateTimerPreviewState } from "../utils/update-timer-preview-state";
 
+function reducer(state: ForestState, action: ForestAction): ForestState {
+  switch (action.type) {
+    case FOREST_ACTIONS.START_GROWING:
+      return Object.assign(
+        {},
+        state,
+        createGrowingState(action.payload.minutes),
+      );
+    case FOREST_ACTIONS.ABANDON:
+      return Object.assign({}, state, createAbandonTreeState(state));
+    case FOREST_ACTIONS.RESET:
+      return Object.assign({}, state, createPlantingState());
+    case FOREST_ACTIONS.UPDATE_PREVIEW:
+      return updateTimerPreviewState(state, action.payload.minutes);
+    case FOREST_ACTIONS.TICK:
+      return { ...state, seconds: action.payload.remainingSeconds };
+    case FOREST_ACTIONS.COMPLETE:
+      return createFullyGrownState(state);
+    default:
+      return state;
+  }
+}
+
 export function useForestPage() {
-  const inputRef = useRef<HTMLInputElement>(null);
   const intervalRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
 
-  const [state, setState] = useState<ForestState>(createPlantingState());
+  const [state, dispatch] = useReducer(reducer, createPlantingState());
   const [tagColor, setTagColor] = useState(TAG_COLORS[0]);
   const [tagLabel, setTagLabel] = useState("Work");
 
@@ -28,26 +49,23 @@ export function useForestPage() {
   const abandonTree = () => {
     clearTimerInterval(intervalRef);
     startTimeRef.current = null;
-    setState(createAbandonTreeState(state));
+    dispatch({ type: FOREST_ACTIONS.ABANDON, payload: undefined });
   };
 
   const startGrowing = () => {
-    const value = getInputValue(inputRef);
-    if (value === null) return;
+    const minutes = state.initialSeconds / 60;
     startTimeRef.current = Date.now();
-    setState(createGrowingState(value));
+    dispatch({ type: FOREST_ACTIONS.START_GROWING, payload: { minutes } });
   };
 
-  const updateTimerPreview = () => {
-    const value = getInputValue(inputRef);
-    if (value === null) return;
-    setState((prev) => updateTimerPreviewState(prev, value));
+  const updateTimerPreview = (minutes: number) => {
+    dispatch({ type: FOREST_ACTIONS.UPDATE_PREVIEW, payload: { minutes } });
   };
 
   const resetToPlanting = () => {
     clearTimerInterval(intervalRef);
     startTimeRef.current = null;
-    setState(createPlantingState());
+    dispatch({ type: FOREST_ACTIONS.RESET, payload: undefined });
   };
 
   useEffect(() => {
@@ -72,17 +90,14 @@ export function useForestPage() {
         state.initialSeconds - elapsedSeconds,
       );
 
-      setState((prev) => {
-        if (remainingSeconds <= 0) {
-          clearTimerInterval(intervalRef);
-          startTimeRef.current = null;
-          return createFullyGrownState(prev);
-        }
-        return { ...prev, seconds: remainingSeconds };
-      });
+      if (remainingSeconds <= 0) {
+        clearTimerInterval(intervalRef);
+        startTimeRef.current = null;
+        dispatch({ type: FOREST_ACTIONS.COMPLETE, payload: undefined });
+      } else {
+        dispatch({ type: FOREST_ACTIONS.TICK, payload: { remainingSeconds } });
+      }
     };
-
-    tick();
 
     intervalRef.current = window.setInterval(tick, 1000);
 
@@ -100,7 +115,6 @@ export function useForestPage() {
 
   return {
     state,
-    inputRef,
     timerLabel,
     progress,
     abandonTree,

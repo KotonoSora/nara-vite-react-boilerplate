@@ -1,20 +1,29 @@
 export const RANGE_MIN: number = 10;
 export const RANGE_MAX: number = 180;
 
-export const SLOGANS: string[] = [
+export const SLOGANS = [
   "In the forest, every tree tells a story of growth and resilience.",
   "The forest is a symphony of life, where every leaf plays its part.",
   "Amidst the trees, we find our roots and grow towards the sky.",
   "The forest whispers secrets of ancient wisdom and timeless beauty.",
   "In the heart of the forest, we discover the essence of life itself.",
-];
+] as const;
 
-export const STATUS: Record<string, string> = {
+export const STATUS = {
   PLANTING: "planting",
   GROWING: "growing",
   WITHERED: "withered",
   FULLY_GROWN: "fully_grown",
-};
+} as const;
+
+export const FOREST_ACTIONS = {
+  START_GROWING: "START_GROWING",
+  ABANDON: "ABANDON",
+  RESET: "RESET",
+  UPDATE_PREVIEW: "UPDATE_PREVIEW",
+  TICK: "TICK",
+  COMPLETE: "COMPLETE",
+} as const;
 
 export const TAG_COLORS = [
   "bg-red-400",

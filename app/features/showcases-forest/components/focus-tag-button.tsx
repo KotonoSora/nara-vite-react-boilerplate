@@ -13,13 +13,16 @@ import {
 import { cn } from "~/lib/utils";
 
 import { TAG_COLORS } from "../constants/common";
+import { useForestContext } from "../context/forest-context";
 
-export function FocusTagButton({
-  label,
-  color,
-  onLabelChange,
-  onColorChange,
-}: FocusTagButtonProps) {
+export function FocusTagButton() {
+  const {
+    tagLabel: label,
+    tagColor: color,
+    setTagLabel: onLabelChange,
+    setTagColor: onColorChange,
+  } = useForestContext();
+
   return (
     <Popover>
       <PopoverTrigger asChild>

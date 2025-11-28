@@ -1,6 +1,16 @@
 import type { STATUS } from "../constants/common";
 
+import { FOREST_ACTIONS } from "../constants/common";
+
 export type Status = (typeof STATUS)[keyof typeof STATUS];
+
+export type ForestAction =
+  | { type: typeof FOREST_ACTIONS.START_GROWING; payload: { minutes: number } }
+  | { type: typeof FOREST_ACTIONS.ABANDON; payload: undefined }
+  | { type: typeof FOREST_ACTIONS.RESET; payload: undefined }
+  | { type: typeof FOREST_ACTIONS.UPDATE_PREVIEW; payload: { minutes: number } }
+  | { type: typeof FOREST_ACTIONS.TICK; payload: { remainingSeconds: number } }
+  | { type: typeof FOREST_ACTIONS.COMPLETE; payload: undefined };
 
 export type ForestState = {
   status: Status;
@@ -32,13 +42,13 @@ export type GrowingScreenProps = {
 
 export type PlantingScreenProps = {
   timerLabel: string;
-  inputRef: React.RefObject<HTMLInputElement | null>;
-  onTimerChange: () => void;
+  onTimerChange: (value: number) => void;
   onPlant: () => void;
   tagColor: string;
   tagLabel: string;
   onTagColorChange: (color: string) => void;
   onTagLabelChange: (label: string) => void;
+  defaultMinutes: number;
 };
 
 export type TimerDisplayProps = { label: string };
