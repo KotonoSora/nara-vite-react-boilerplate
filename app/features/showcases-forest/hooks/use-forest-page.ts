@@ -65,7 +65,14 @@ function reducer(state: ForestState, action: ForestAction): ForestState {
       });
     }
     case FOREST_ACTIONS.COMPLETE: {
-      return Object.assign({}, state, createFullyGrownState(state));
+      return Object.assign(
+        {},
+        state,
+        createFullyGrownState({
+          seconds: state.initialSeconds,
+          slogan: t("forest.screens.full_grown.slogan"),
+        }),
+      );
     }
     default:
       return state;
