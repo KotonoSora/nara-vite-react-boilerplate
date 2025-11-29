@@ -2,7 +2,9 @@ import { useEffect, useReducer, useRef, useState } from "react";
 
 import type { ForestAction, ForestState } from "../types/common";
 
+import { useLanguage } from "~/lib/i18n/hooks/use-language";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
+import { formatSecondsToMinutesSeconds } from "~/lib/i18n/utils/datetime/format-seconds-to-minutes-seconds";
 
 import { FOREST_ACTIONS, STATUS, TAG_COLORS } from "../constants/common";
 import { calculateProgress } from "../utils/calculate-progress";
@@ -11,7 +13,6 @@ import { createAbandonTreeState } from "../utils/create-abandon-tree-state";
 import { createFullyGrownState } from "../utils/create-fully-grown-state";
 import { createGrowingState } from "../utils/create-growing-state";
 import { createPlantingState } from "../utils/create-planting-state";
-import { formatSecondsToMinutesSeconds } from "../utils/format-seconds-to-minutes-seconds";
 import { updateTimerPreviewState } from "../utils/update-timer-preview-state";
 
 function reducer(state: ForestState, action: ForestAction): ForestState {
@@ -83,6 +84,7 @@ export function useForestPage() {
   const intervalRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
   const t = useTranslation();
+  const { language } = useLanguage();
 
   const [state, dispatch] = useReducer(
     reducer,
@@ -97,7 +99,10 @@ export function useForestPage() {
   const [tagColor, setTagColor] = useState(TAG_COLORS[0]);
   const [tagLabel, setTagLabel] = useState(t("forest.common.work"));
 
-  const timerLabel = formatSecondsToMinutesSeconds(state.seconds);
+  const timerLabel = formatSecondsToMinutesSeconds({
+    seconds: state.seconds,
+    language,
+  });
   const progress = calculateProgress(state.initialSeconds, state.seconds);
 
   const abandonTree = () => {

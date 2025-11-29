@@ -10,7 +10,7 @@ import { TreeStatusProgress } from "./tree-status-progress";
 
 export function WitheredScreen() {
   const t = useTranslation();
-  const { state, timerLabel, resetToPlanting } = useForestContext();
+  const { timerLabel, resetToPlanting } = useForestContext();
 
   return (
     <section className="flex flex-col flex-1 items-center justify-between gap-4 py-4">

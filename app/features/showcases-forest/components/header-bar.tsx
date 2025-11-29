@@ -8,7 +8,7 @@ export function HeaderBar() {
       </div>
       <div className="absolute top-1/2 right-2 transform -translate-y-1/2 text-base leading-none flex flex-row justify-end items-center gap-2">
         <Leaf stroke="#ffffff" />
-        <span className="text-sm leading-none text-white">Streak: 0</span>
+        <span className="text-sm leading-none text-white"></span>
       </div>
     </section>
   );

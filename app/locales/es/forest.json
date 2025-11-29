@@ -5,9 +5,7 @@
   },
   "screens": {
     "planting": {
-      "slogans": {
-        "planting_1": "Elige el tiempo que quieres concentrarte. ¡Un árbol crecerá mientras mantengas tu enfoque!"
-      }
+      "slogan": "Elige el tiempo que quieres concentrarte. ¡Un árbol crecerá mientras mantengas tu enfoque!"
     },
     "growing": {
       "slogans": {
@@ -17,6 +15,9 @@
         "growing_4": "El bosque susurra secretos de sabiduría antigua y belleza atemporal.",
         "growing_5": "En el corazón del bosque, descubrimos la esencia de la vida misma."
       }
+    },
+    "full_grown": {
+      "slogan": "¡Felicidades! Tu árbol está completamente crecido."
     },
     "withered": {
       "slogan": "¡Oh no! Lo harás mejor la próxima vez."
