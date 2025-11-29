@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.6.16 (2025-11-29)
+
+- Implemented built-in forest countdown pages
+- Upgraded dependency versions
+- Update landing page function return showcases built-in features
+
 ## 4.6.15 (2025-11-18)
 
 - Implemented built-in blog pages
