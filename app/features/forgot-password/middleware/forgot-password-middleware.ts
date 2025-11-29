@@ -22,5 +22,8 @@ export const forgotPasswordMiddleware: MiddlewareFunction = async (
     title: t("auth.forgotPassword.title"),
     description: t("auth.forgotPassword.description"),
   };
+
   context.set(forgotPasswordMiddlewareContext, contextValue);
+
+  return await next();
 };

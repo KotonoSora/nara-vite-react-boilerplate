@@ -5,13 +5,13 @@ import {
   OctagonXIcon,
   TriangleAlertIcon,
 } from "lucide-react";
-import { useTheme } from "remix-themes";
+import { Theme, useTheme } from "remix-themes";
 import { Toaster as Sonner } from "sonner";
 
 import type { ToasterProps } from "sonner";
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const [theme = "system"] = useTheme();
+  const [theme = Theme.LIGHT] = useTheme();
 
   return (
     <Sonner

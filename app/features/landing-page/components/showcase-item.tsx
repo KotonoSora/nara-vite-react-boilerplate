@@ -6,7 +6,7 @@ import type { ProjectInfo } from "~/features/showcases/types/type";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
-import SocialPreview from "~/features/shared/assets/social-preview.svg?url";
+import SocialPreview from "~/features/shared/assets/social-preview.svg?no-inline";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function ShowcaseItem({ project }: { project: ProjectInfo }) {

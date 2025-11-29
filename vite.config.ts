@@ -17,7 +17,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(() => ({
   plugins: [
-    tsconfigPaths({ loose: true }),
+    tsconfigPaths(),
     tailwindcss(),
     mdx({
       providerImportSource: "@mdx-js/react",
@@ -59,6 +59,8 @@ export default defineConfig(() => ({
       "remark-mdx-frontmatter",
       "rehype-highlight",
       "rehype-mathjax",
+      "react-virtuoso",
+      "date-fns",
     ],
   },
   build: {
@@ -77,6 +79,14 @@ export default defineConfig(() => ({
             {
               name: "mdx-plugins",
               test: /\/(rehype-highlight|rehype-mathjax|remark-gfm|remark-math|remark-frontmatter|remark-mdx-frontmatter)($|\/)/,
+            },
+            {
+              name: "virtualized",
+              test: /\/(react-virtuoso)($|\/)/,
+            },
+            {
+              name: "date-fns",
+              test: /\/(date-fns)($|\/)/,
             },
           ],
         },

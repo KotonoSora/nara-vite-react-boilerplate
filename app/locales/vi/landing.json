@@ -152,6 +152,16 @@
         "name": "Lịch với Cuộn Vô Hạn",
         "description": "Component lịch cuộn vô hạn với lựa chọn ngày, chế độ xem tuần và điều hướng mượt mà.",
         "tags": ["Lịch", "Cuộn Vô Hạn", "Chọn Ngày"]
+      },
+      "forest": {
+        "name": "Rừng",
+        "description": "Đếm ngược đến sự kiện rừng tiếp theo.",
+        "tags": ["Rừng", "Đếm Ngược", "Tập Trung"]
+      },
+      "blog": {
+        "name": "Nền Tảng Blog",
+        "description": "Một demo blog đơn giản với các bài đăng hỗ trợ markdown.",
+        "tags": ["Blog", "Markdown", "Nội Dung"]
       }
     }
   },

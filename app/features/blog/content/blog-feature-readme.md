@@ -106,7 +106,7 @@ Pre-styled components available in all MDX files:
 ### Using Components in MDX
 
 ```mdx
-import MyImage from "~/assets/image.svg?url";
+import MyImage from "~/assets/image.svg?no-inline";
 import { Spinner } from "~/components/ui/spinner";
 
 <Spinner className="size-8" />

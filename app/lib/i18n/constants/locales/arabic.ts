@@ -3,9 +3,11 @@ import arAbout from "~/locales/ar/about.json";
 import arAdmin from "~/locales/ar/admin.json";
 import arAuth from "~/locales/ar/auth.json";
 import arBlog from "~/locales/ar/blog.json";
+import arCalendar from "~/locales/ar/calendar.json";
 import arCommon from "~/locales/ar/common.json";
 import arDashboard from "~/locales/ar/dashboard.json";
 import arErrors from "~/locales/ar/errors.json";
+import arForest from "~/locales/ar/forest.json";
 import arLanding from "~/locales/ar/landing.json";
 import arLegal from "~/locales/ar/legal.json";
 import arNavigation from "~/locales/ar/navigation.json";
@@ -19,8 +21,10 @@ export const arabicTranslations = {
   admin: arAdmin,
   auth: arAuth,
   blog: arBlog,
+  calendar: arCalendar,
   dashboard: arDashboard,
   errors: arErrors,
+  forest: arForest,
   landing: arLanding,
   legal: arLegal,
   navigation: arNavigation,

@@ -72,7 +72,7 @@ import { Spinner } from "~/components/ui/spinner";
 ### Import Images
 
 ```mdx
-import MyImage from "~/assets/image.svg?url";
+import MyImage from "~/assets/image.svg?no-inline";
 
 <img src={MyImage} alt="Description" />
 

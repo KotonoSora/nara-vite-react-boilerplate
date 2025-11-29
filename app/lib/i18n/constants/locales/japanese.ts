@@ -3,9 +3,11 @@ import jaAbout from "~/locales/ja/about.json";
 import jaAdmin from "~/locales/ja/admin.json";
 import jaAuth from "~/locales/ja/auth.json";
 import jaBlog from "~/locales/ja/blog.json";
+import jaCalendar from "~/locales/ja/calendar.json";
 import jaCommon from "~/locales/ja/common.json";
 import jaDashboard from "~/locales/ja/dashboard.json";
 import jaErrors from "~/locales/ja/errors.json";
+import jaForest from "~/locales/ja/forest.json";
 import jaLanding from "~/locales/ja/landing.json";
 import jaLegal from "~/locales/ja/legal.json";
 import jaNavigation from "~/locales/ja/navigation.json";
@@ -19,8 +21,10 @@ export const japaneseTranslations = {
   admin: jaAdmin,
   auth: jaAuth,
   blog: jaBlog,
+  calendar: jaCalendar,
   dashboard: jaDashboard,
   errors: jaErrors,
+  forest: jaForest,
   landing: jaLanding,
   legal: jaLegal,
   navigation: jaNavigation,

@@ -38,5 +38,8 @@ export const dashboardMiddleware: MiddlewareFunction = async (
     recentActivity,
     stats,
   };
+
   context.set(dashboardMiddlewareContext, contextValue);
+
+  return await next();
 };

@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "title": "日历",
+    "description": "查看和管理您的事件。"
+  },
+  "common": {
+    "today": "今天",
+    "nextMonth": "下个月",
+    "previousMonth": "上个月"
+  }
+}

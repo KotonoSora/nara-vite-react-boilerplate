@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "title": "カレンダー",
+    "description": "イベントを表示および管理します。"
+  },
+  "common": {
+    "today": "今日",
+    "nextMonth": "翌月",
+    "previousMonth": "前月"
+  }
+}

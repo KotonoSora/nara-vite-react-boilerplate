@@ -1,15 +1,15 @@
 {
   "title": "NARA React Boilerplate",
-  "subtitle": "Un démarreur rapide et structuré pour construire des applications React full-stack",
-  "description": "Construit avec React Router v7, TypeScript, Cloudflare Workers et des outils modernes. Conçu en mettant l'accent sur la sécurité des types, les performances et l'ergonomie du développeur.",
+  "subtitle": "Un démarreur rapide et opiniâtre pour construire des applications React full-stack",
+  "description": "Construit avec React Router v7, TypeScript, Cloudflare Workers et des outils modernes. Conçu avec un focus sur la sécurité des types, les performances et l'ergonomie des développeurs.",
   "getStarted": "Commencer",
   "viewDocs": "Voir la Documentation",
   "hero": {
     "badge": "Boilerplate Prêt pour la Production",
     "title": "NARA Boilerplate",
-    "subtitle": "Le Boilerplate Full-Stack React Qui Fonctionne Vraiment",
-    "description": "Arrêtez de perdre du temps sur la configuration de boilerplate. Commencez avec une base prête pour la production construite pour les développeurs qui expédient vite et souvent.",
-    "starOnGitHub": "Star sur GitHub",
+    "subtitle": "Le Boilerplate React Full-Stack Qui Se Déploie Vraiment",
+    "description": "Arrêtez de perdre du temps sur la configuration du boilerplate. Commencez avec une fondation prête pour la production conçue pour les développeurs qui déploient rapidement et souvent.",
+    "starOnGitHub": "Étoiler sur GitHub",
     "quickStart": "Démarrage Rapide",
     "statusText": "De git clone à la production en 5 minutes"
   },
@@ -17,44 +17,44 @@
     "title": "Fonctionnalités",
     "badge": "Pourquoi Choisir NARA",
     "sectionTitle": "Fonctionnalités Prêtes pour la Production",
-    "sectionDescription": "Construit en mettant l'accent sur la sécurité des types, les performances et l'ergonomie du développeur",
+    "sectionDescription": "Construit avec un focus sur la sécurité des types, les performances et l'ergonomie des développeurs",
     "typeSafety": {
       "title": "Sécurité des Types",
-      "description": "Couverture TypeScript de bout en bout avec un typage de route approprié et une vérification de type stricte dans toute la pile."
+      "description": "Couverture TypeScript de bout en bout avec un typage correct des routes et une vérification stricte des types dans toute la pile."
     },
     "performance": {
       "title": "Performance",
-      "description": "Outils modernes avec Vite et Bun pour des builds ultra-rapides, plus le déploiement Cloudflare edge pour une performance globale."
+      "description": "Outils modernes avec Vite et Bun pour des builds ultra-rapides, plus le déploiement edge Cloudflare pour des performances globales."
     },
     "developerErgonomics": {
-      "title": "Ergonomie du Développeur",
-      "description": "Configuration opiniâtre qui fonctionne simplement. Outils préconfigurés, tests et environnement de développement pour une productivité maximale."
+      "title": "Ergonomie des Développeurs",
+      "description": "Configuration opiniâtre qui fonctionne simplement. Outils pré-configurés, tests et environnement de développement pour une productivité maximale."
     },
     "versatile": {
       "title": "Polyvalent",
       "description": "Architecture flexible conçue pour s'adapter à la majorité des idées de projets, des MVPs aux applications de production."
     },
     "typeScript": "TypeScript",
-    "typeScriptDesc": "Sécurité de type complète avec support TypeScript",
+    "typeScriptDesc": "Sécurité complète des types avec support TypeScript",
     "reactRouter": "React Router v7",
     "reactRouterDesc": "Routage moderne avec rendu côté serveur",
     "cloudflare": "Cloudflare Workers",
-    "cloudflareDesc": "Déploiement en périphérie avec performance globale",
+    "cloudflareDesc": "Déploiement edge avec performances globales",
     "database": "Base de Données Prête",
     "databaseDesc": "Drizzle ORM avec intégration Cloudflare D1",
     "ui": "UI Moderne",
-    "uiDesc": "Beaux composants avec Tailwind CSS et shadcn/ui",
-    "testing": "Configuration de Tests",
-    "testingDesc": "Vitest et utilitaires de test préconfigurés"
+    "uiDesc": "Composants magnifiques avec Tailwind CSS et shadcn/ui",
+    "testing": "Configuration de Test",
+    "testingDesc": "Vitest et utilitaires de test pré-configurés"
   },
   "gettingStarted": {
-    "badge": "Commencez en Minutes",
+    "badge": "Commencer en Quelques Minutes",
     "title": "De Zéro à la Production",
-    "description": "Suivez ces étapes simples pour démarrer votre application NARA",
+    "description": "Suivez ces étapes simples pour mettre en route votre application NARA",
     "steps": {
       "clone": {
         "title": "Cloner le Dépôt",
-        "description": "Obtenez la dernière version du boilerplate NARA",
+        "description": "Obtenir la dernière version du boilerplate NARA",
         "note": "Remplacez 'my-app' par le nom de votre projet"
       },
       "install": {
@@ -75,20 +75,20 @@
     },
     "copyCommand": "Copier la commande",
     "copied": "Copié !",
-    "setupTime": "Temps d'installation estimé : ~5 minutes"
+    "setupTime": "Temps de configuration estimé : ~5 minutes"
   },
   "footer": {
-    "tagline": "Le Boilerplate Full-Stack React Qui Fonctionne Vraiment",
-    "copyright": "© 2025 NARA Boilerplate. Construit avec ❤️ par KotonoSora — pour vous aider à expédier plus vite et avec confiance."
+    "tagline": "Le Boilerplate React Full-Stack Qui Se Déploie Vraiment",
+    "copyright": "© 2025 NARA Boilerplate. Construit avec ❤️ par KotonoSora — pour vous aider à déployer plus rapidement et avec confiance."
   },
   "builtForDevelopers": {
-    "badge": "Construit pour les Développeurs Qui Expédient",
-    "title": "Tout Ce Dont Vous Avez Besoin, Rien Que Vous N'avez Pas",
+    "badge": "Construit pour les Développeurs Qui Déploient",
+    "title": "Tout Ce Dont Vous Avez Besoin, Rien Que Vous N'Ayez Pas",
     "stats": {
       "setupTime": {
         "value": "5min",
-        "label": "Temps d'installation",
-        "description": "Du clone au déploiement"
+        "label": "Temps de configuration",
+        "description": "De clone à déploiement"
       },
       "typeSafe": {
         "value": "100%",
@@ -97,13 +97,13 @@
       },
       "configHeadaches": {
         "value": "0",
-        "label": "Maux de tête de config",
+        "label": "Maux de tête de configuration",
         "description": "Fonctionne directement"
       }
     }
   },
   "license": {
-    "badge": "Open Source et Commercial",
+    "badge": "Open Source & Commercial",
     "title": "🚀 Options de Licence",
     "openSource": {
       "badge": "AGPL-3.0",
@@ -119,11 +119,11 @@
     },
     "commercial": {
       "badge": "Licence Commerciale",
-      "price": "Une fois",
+      "price": "Unique",
       "title": "Édition Commerciale",
-      "description": "Idéal pour les projets SaaS fermés et de production",
+      "description": "Excellent pour les projets SaaS fermés et de production",
       "features": {
-        "noOpenSource": "Pas besoin d'ouvrir le code de vos modifications",
+        "noOpenSource": "Pas besoin d'ouvrir vos modifications",
         "oneTime": "Paiement unique pour un accès à vie",
         "gumroad": "Distribué via Gumroad"
       },
@@ -136,28 +136,38 @@
     "description": "Projets fièrement construits avec NARA",
     "builtInDemos": {
       "title": "✨ Pages de Démo Intégrées",
-      "description": "Explorez les pages de démo préconstruites incluses dans NARA"
+      "description": "Explorez les pages de démo pré-construites incluses dans NARA"
     },
     "communityShowcases": {
-      "title": "Vitrine de la Communauté",
+      "title": "Vitrines Communautaires",
       "description": "Projets construits avec NARA par la communauté"
     },
     "demos": {
       "charts": {
         "name": "Graphiques Interactifs",
-        "description": "Explorez différents types de graphiques, y compris les graphiques en aires, barres, lignes, secteurs, radar et radiaux avec des fonctionnalités interactives.",
+        "description": "Explorez divers types de graphiques incluant les graphiques en aires, barres, lignes, camembert, radar et radiaux avec des fonctionnalités interactives.",
         "tags": ["Graphiques", "Recharts", "Visualisation de Données"]
       },
       "calendar": {
         "name": "Calendrier avec Défilement Infini",
-        "description": "Composant de calendrier à défilement infini avec sélection de date, vue hebdomadaire et navigation fluide.",
+        "description": "Un composant calendrier avec défilement infini, sélection de date, vue semaine et navigation fluide.",
         "tags": ["Calendrier", "Défilement Infini", "Sélecteur de Date"]
+      },
+      "forest": {
+        "name": "Forêt",
+        "description": "Compte à rebours jusqu'au prochain événement forêt.",
+        "tags": ["Forêt", "Compte à Rebours", "Focus"]
+      },
+      "blog": {
+        "name": "Plateforme de Blog",
+        "description": "Une démo de blog simple avec des articles supportant le markdown.",
+        "tags": ["Blog", "Markdown", "Contenu"]
       }
     }
   },
   "techStack": {
-    "badge": "Stack Moderne",
-    "title": "Stack Technologique Moderne",
+    "badge": "Pile Moderne",
+    "title": "Pile Technologique Moderne",
     "description": "Technologies soigneusement sélectionnées qui fonctionnent parfaitement ensemble"
   },
   "github": {

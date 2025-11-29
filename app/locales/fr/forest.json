@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "title": "Forêt",
+    "description": "Compte à rebours jusqu'à l'événement forestier suivant"
+  },
+  "screens": {
+    "planting": {
+      "slogan": "Choisissez le temps que vous voulez vous concentrer. Un arbre grandira pendant que vous maintenez votre concentration !"
+    },
+    "growing": {
+      "slogans": {
+        "growing_1": "Dans la forêt, chaque arbre raconte une histoire de croissance et de résilience.",
+        "growing_2": "La forêt est une symphonie de vie, où chaque feuille joue son rôle.",
+        "growing_3": "Au milieu des arbres, nous trouvons nos racines et grandissons vers le ciel.",
+        "growing_4": "La forêt murmure des secrets de sagesse ancienne et de beauté intemporelle.",
+        "growing_5": "Au cœur de la forêt, nous découvrons l'essence de la vie elle-même."
+      }
+    },
+    "full_grown": {
+      "slogan": "Félicitations ! Votre arbre est complètement développé."
+    },
+    "withered": {
+      "slogan": "Oh non ! Vous ferez mieux la prochaine fois."
+    }
+  },
+  "actions": {
+    "start": "Planter un Arbre",
+    "give": "Abandonner",
+    "take_break": "Prendre une Pause"
+  },
+  "common": {
+    "work": "Travail"
+  }
+}

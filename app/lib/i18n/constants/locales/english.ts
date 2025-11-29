@@ -3,9 +3,11 @@ import enAbout from "~/locales/en/about.json";
 import enAdmin from "~/locales/en/admin.json";
 import enAuth from "~/locales/en/auth.json";
 import enBlog from "~/locales/en/blog.json";
+import enCalendar from "~/locales/en/calendar.json";
 import enCommon from "~/locales/en/common.json";
 import enDashboard from "~/locales/en/dashboard.json";
 import enErrors from "~/locales/en/errors.json";
+import enForest from "~/locales/en/forest.json";
 import enLanding from "~/locales/en/landing.json";
 import enLegal from "~/locales/en/legal.json";
 import enNavigation from "~/locales/en/navigation.json";
@@ -19,8 +21,10 @@ export const englishTranslations = {
   admin: enAdmin,
   auth: enAuth,
   blog: enBlog,
+  calendar: enCalendar,
   dashboard: enDashboard,
   errors: enErrors,
+  forest: enForest,
   landing: enLanding,
   legal: enLegal,
   navigation: enNavigation,

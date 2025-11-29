@@ -21,5 +21,8 @@ export const i18nMiddleware: MiddlewareFunction = async (
 ) => {
   const language: SupportedLanguage = await resolveRequestLanguage(request);
   const t = createTranslationFunction(language);
+
   context.set(I18nContext, { language, t });
+
+  return await next();
 };

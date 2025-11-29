@@ -13,8 +13,11 @@ export const pageMiddleware: MiddlewareFunction = async (
   next,
 ) => {
   const { t } = context.get(I18nContext);
+
   context.set(pageMiddlewareContext, {
     title: t("auth.register.title"),
     description: t("auth.register.description"),
   });
+
+  return await next();
 };
