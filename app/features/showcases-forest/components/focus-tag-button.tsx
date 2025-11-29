@@ -1,10 +1,7 @@
 import { Pencil } from "lucide-react";
 
-import type { FocusTagButtonProps } from "../types/common";
-
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
 import {
   Popover,
   PopoverContent,
@@ -44,40 +41,25 @@ export function FocusTagButton() {
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <div className="grid gap-4">
-          <div className="space-y-2">
-            <h4 className="font-medium leading-none">Focus Tag</h4>
-            <p className="text-sm text-muted-foreground">
-              Set the label and color for your focus session.
-            </p>
-          </div>
-          <div className="grid gap-2">
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="label">Label</Label>
-              <Input
-                id="label"
-                defaultValue={label}
-                className="col-span-2 h-8"
-                onChange={(e) => onLabelChange(e.target.value)}
+          <Input
+            id="label"
+            defaultValue={label}
+            className="col-span-2 h-8"
+            onChange={(e) => onLabelChange(e.target.value)}
+          />
+          <div className="col-span-2 flex flex-wrap gap-2">
+            {TAG_COLORS.map((c) => (
+              <button
+                key={c}
+                type="button"
+                className={cn(
+                  "w-6 h-6 rounded-full border border-zinc-200 cursor-pointer transition-all hover:scale-110",
+                  c,
+                  color === c && "ring-2 ring-offset-2 ring-black scale-110",
+                )}
+                onClick={() => onColorChange(c)}
               />
-            </div>
-            <div className="grid grid-cols-3 items-start gap-4">
-              <Label className="mt-2">Color</Label>
-              <div className="col-span-2 flex flex-wrap gap-2">
-                {TAG_COLORS.map((c) => (
-                  <button
-                    key={c}
-                    type="button"
-                    className={cn(
-                      "w-6 h-6 rounded-full border border-zinc-200 cursor-pointer transition-all hover:scale-110",
-                      c,
-                      color === c &&
-                        "ring-2 ring-offset-2 ring-black scale-110",
-                    )}
-                    onClick={() => onColorChange(c)}
-                  />
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </PopoverContent>

@@ -43,4 +43,5 @@ export const TAG_COLORS = [
   "bg-fuchsia-400",
   "bg-pink-400",
   "bg-rose-400",
+  "bg-zinc-400",
 ];
