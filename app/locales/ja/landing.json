@@ -1,76 +1,76 @@
 {
   "title": "NARA React ボイラープレート",
-  "subtitle": "フルスタック React アプリを構築するための高速で意見のある スターター",
-  "description": "React Router v7、TypeScript、Cloudflare Workers、モダンツールで構築されています。型安全性、パフォーマンス、開発者体験に焦点を当てて設計されています。",
+  "subtitle": "フルスタック React アプリを構築するための高速で意見のあるスターター",
+  "description": "React Router v7、TypeScript、Cloudflare Workers、最新のツールで構築。型安全性、パフォーマンス、開発者体験に焦点を当てて設計されています。",
   "getStarted": "始める",
   "viewDocs": "ドキュメントを見る",
   "hero": {
-    "badge": "プロダクション対応ボイラープレート",
-    "title": "NARA Boilerplate",
-    "subtitle": "実際に動作するフルスタック React ボイラープレート",
-    "description": "ボイラープレートのセットアップに時間を無駄にするのをやめましょう。迅速かつ頻繁に出荷する開発者向けに構築されたプロダクション対応の基盤から始めましょう。",
+    "badge": "本番対応ボイラープレート",
+    "title": "NARA ボイラープレート",
+    "subtitle": "実際にリリースされるフルスタック React ボイラープレート",
+    "description": "ボイラープレートのセットアップに時間を無駄にしないでください。高速で頻繁にリリースする開発者向けに構築された本番対応の基盤から始めましょう。",
     "starOnGitHub": "GitHub でスター",
     "quickStart": "クイックスタート",
-    "statusText": "git clone から本番環境まで 5 分"
+    "statusText": "git clone から本番まで 5 分で"
   },
   "features": {
     "title": "機能",
     "badge": "なぜ NARA を選ぶのか",
-    "sectionTitle": "プロダクション対応機能",
+    "sectionTitle": "本番対応機能",
     "sectionDescription": "型安全性、パフォーマンス、開発者体験に焦点を当てて構築",
     "typeSafety": {
       "title": "型安全性",
-      "description": "適切なルート型付けとスタック全体での厳密な型チェックを備えたエンドツーエンド TypeScript カバレッジ。"
+      "description": "適切なルートタイピングとスタック全体での厳密な型チェックを備えたエンドツーエンド TypeScript カバレッジ。"
     },
     "performance": {
       "title": "パフォーマンス",
-      "description": "超高速ビルドのための Vite と Bun を使用したモダンツール、さらにグローバルパフォーマンスのための Cloudflare エッジデプロイメント。"
+      "description": "超高速ビルドのための Vite と Bun を使用した最新ツール、グローバルパフォーマンスのための Cloudflare エッジデプロイメント。"
     },
     "developerErgonomics": {
       "title": "開発者体験",
-      "description": "そのまま動作する独断的なセットアップ。最大の生産性のために事前設定されたツール、テスト、開発環境。"
+      "description": "そのまま動作する意見のあるセットアップ。最大の生産性のために事前設定されたツール、テスト、開発環境。"
     },
     "versatile": {
       "title": "多用途",
-      "description": "MVP からプロダクションアプリケーションまで、プロジェクトアイデアの大部分に適合するように設計された柔軟なアーキテクチャ。"
+      "description": "MVP から本番アプリケーションまで、プロジェクトアイデアの大部分に適合する柔軟なアーキテクチャ。"
     },
     "typeScript": "TypeScript",
     "typeScriptDesc": "TypeScript サポートによる完全な型安全性",
     "reactRouter": "React Router v7",
-    "reactRouterDesc": "サーバーサイドレンダリングを備えたモダンルーティング",
+    "reactRouterDesc": "サーバーサイドレンダリングによる最新のルーティング",
     "cloudflare": "Cloudflare Workers",
-    "cloudflareDesc": "グローバルパフォーマンスを持つエッジデプロイメント",
+    "cloudflareDesc": "グローバルパフォーマンスによるエッジデプロイメント",
     "database": "データベース対応",
-    "databaseDesc": "Cloudflare D1 統合を持つ Drizzle ORM",
+    "databaseDesc": "Cloudflare D1 統合による Drizzle ORM",
     "ui": "モダン UI",
     "uiDesc": "Tailwind CSS と shadcn/ui による美しいコンポーネント",
     "testing": "テストセットアップ",
-    "testingDesc": "事前設定された Vitest とテストユーティリティ"
+    "testingDesc": "Vitest とテストユーティリティの事前設定"
   },
   "gettingStarted": {
-    "badge": "数分で開始",
-    "title": "ゼロからプロダクションまで",
-    "description": "これらの簡単な手順に従って NARA アプリケーションを立ち上げて実行しましょう",
+    "badge": "数分で始める",
+    "title": "ゼロから本番へ",
+    "description": "これらの簡単なステップに従って、NARA アプリケーションを起動しましょう",
     "steps": {
       "clone": {
         "title": "リポジトリをクローン",
         "description": "NARA ボイラープレートの最新バージョンを取得",
-        "note": "'my-app' をプロジェクト名に置き換えてください"
+        "note": "'my-app' をプロジェクト名に置き換え"
       },
       "install": {
         "title": "依存関係をインストール",
-        "description": "お好みのパッケージマネージャーを使用",
-        "note": "パッケージマネージャーは現在 Bun のみサポート"
+        "description": "好みの package manager を使用",
+        "note": "現在、package manager は Bun のみサポート"
       },
       "database": {
-        "title": "データベースをセットアップ",
+        "title": "データベースを設定",
         "description": "ローカルデータベースを初期化",
         "note": "開発用の SQLite データベースを作成"
       },
       "start": {
         "title": "開発を開始",
         "description": "開発サーバーを起動",
-        "note": "アプリは http://localhost:5173 で利用可能になります"
+        "note": "アプリは http://localhost:5173 で利用可能"
       }
     },
     "copyCommand": "コマンドをコピー",
@@ -78,12 +78,12 @@
     "setupTime": "推定セットアップ時間: ~5 分"
   },
   "footer": {
-    "tagline": "実際に動作するフルスタック React ボイラープレート",
-    "copyright": "© 2025 NARA Boilerplate。KotonoSora が ❤️ で構築 — より迅速かつ自信を持って出荷できるよう支援します。"
+    "tagline": "実際にリリースされるフルスタック React ボイラープレート",
+    "copyright": "© 2025 NARA ボイラープレート。KotonoSora によって ❤️ で構築 — より速く自信を持ってリリースするため。"
   },
   "builtForDevelopers": {
-    "badge": "出荷する開発者のために構築",
-    "title": "必要なものすべて、不要なものは何もなし",
+    "badge": "リリースする開発者のために構築",
+    "title": "必要なものはすべて、不必要なものはなし",
     "stats": {
       "setupTime": {
         "value": "5分",
@@ -120,11 +120,11 @@
     "commercial": {
       "badge": "商用ライセンス",
       "price": "一回限り",
-      "title": "商用版",
+      "title": "商用エディション",
       "description": "クローズドソースおよびプロダクション SaaS プロジェクトに最適",
       "features": {
         "noOpenSource": "変更をオープンソース化する必要なし",
-        "oneTime": "生涯アクセスの一括払い",
+        "oneTime": "生涯アクセスの一回払い",
         "gumroad": "Gumroad 経由で配布"
       },
       "button": "商用ライセンスを取得",
@@ -133,10 +133,10 @@
   },
   "showcase": {
     "title": "🌟 ショーケース",
-    "description": "NARA で誇らしげに構築されたプロジェクト",
+    "description": "NARA で誇りを持って構築されたプロジェクト",
     "builtInDemos": {
-      "title": "✨ ビルトインデモページ",
-      "description": "NARA に含まれる事前構築済みデモページを探索"
+      "title": "✨ 組み込みデモページ",
+      "description": "NARA に含まれる事前構築デモページを探索"
     },
     "communityShowcases": {
       "title": "コミュニティショーケース",
@@ -145,13 +145,23 @@
     "demos": {
       "charts": {
         "name": "インタラクティブチャート",
-        "description": "エリア、バー、ライン、パイ、レーダー、ラジアルチャートなど、インタラクティブ機能を備えたさまざまなチャートタイプを探索。",
+        "description": "エリア、バー、ライン、パイ、レーダー、ラジアルチャートなどのさまざまなチャートタイプをインタラクティブ機能で探索。",
         "tags": ["チャート", "Recharts", "データ可視化"]
       },
       "calendar": {
         "name": "無限スクロールカレンダー",
-        "description": "日付選択、週表示、スムーズなナビゲーションを備えた無限スクロールカレンダーコンポーネント。",
+        "description": "日付選択、週ビュー、スムーズなナビゲーションを備えた無限スクロールカレンダーコンポーネント。",
         "tags": ["カレンダー", "無限スクロール", "日付ピッカー"]
+      },
+      "forest": {
+        "name": "フォレスト",
+        "description": "次のフォレストイベントまでのカウントダウン。",
+        "tags": ["フォレスト", "カウントダウン", "フォーカス"]
+      },
+      "blog": {
+        "name": "ブログプラットフォーム",
+        "description": "Markdown サポート付きの投稿によるシンプルなブログデモ。",
+        "tags": ["ブログ", "Markdown", "コンテンツ"]
       }
     }
   },
