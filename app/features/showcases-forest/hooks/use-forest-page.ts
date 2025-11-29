@@ -2,11 +2,17 @@ import { useEffect, useReducer, useRef, useState } from "react";
 
 import type { ForestAction, ForestState } from "../types/common";
 
+import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { useLanguage } from "~/lib/i18n/hooks/use-language";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { formatSecondsToMinutesSeconds } from "~/lib/i18n/utils/datetime/format-seconds-to-minutes-seconds";
 
-import { FOREST_ACTIONS, STATUS, TAG_COLORS } from "../constants/common";
+import {
+  FOREST_ACTIONS,
+  LIMIT_LABEL_TAGS_CHARACTERS,
+  STATUS,
+  TAG_COLORS,
+} from "../constants/common";
 import { calculateProgress } from "../utils/calculate-progress";
 import { clearTimerInterval } from "../utils/clear-timer-interval";
 import { createAbandonTreeState } from "../utils/create-abandon-tree-state";
@@ -99,6 +105,18 @@ export function useForestPage() {
   const [tagColor, setTagColor] = useState(TAG_COLORS[0]);
   const [tagLabel, setTagLabel] = useState(t("forest.common.work"));
 
+  /**
+   * Sets the tag label, limiting it to a maximum of 60 characters.
+   * @param label The new tag label string.
+   */
+  const handleChangeTagLabel = (label: string) => {
+    setTagLabel(
+      label.length > LIMIT_LABEL_TAGS_CHARACTERS
+        ? label.slice(0, LIMIT_LABEL_TAGS_CHARACTERS)
+        : label,
+    );
+  };
+
   const timerLabel = formatSecondsToMinutesSeconds({
     seconds: state.seconds,
     language,
@@ -111,9 +129,20 @@ export function useForestPage() {
     dispatch({ type: FOREST_ACTIONS.ABANDON, payload: undefined });
   };
 
+  /**
+   * Starts the growing process and logs a Google Analytics event for planting.
+   * Logs the time (minutes) and tag label name.
+   */
   const startGrowing = () => {
     const minutes = state.initialSeconds / 60;
     startTimeRef.current = Date.now();
+    // Log Google Analytics event for planting
+    trackCustomEvents({
+      event_category: "Button",
+      event_action: "forest_plant_tree",
+      event_label: `Forest | ${tagLabel} | ${minutes}m`,
+      event_value: `tag: ${tagLabel} | minutes: ${minutes} | color: ${tagColor}`,
+    });
     dispatch({ type: FOREST_ACTIONS.START_GROWING, payload: { minutes } });
   };
 
@@ -183,6 +212,6 @@ export function useForestPage() {
     tagColor,
     setTagColor,
     tagLabel,
-    setTagLabel,
+    onLabelChange: handleChangeTagLabel,
   };
 }

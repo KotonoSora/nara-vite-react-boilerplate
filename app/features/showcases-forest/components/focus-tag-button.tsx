@@ -9,14 +9,14 @@ import {
 } from "~/components/ui/popover";
 import { cn } from "~/lib/utils";
 
-import { TAG_COLORS } from "../constants/common";
+import { LIMIT_LABEL_TAGS_CHARACTERS, TAG_COLORS } from "../constants/common";
 import { useForestContext } from "../context/forest-context";
 
 export function FocusTagButton() {
   const {
     tagLabel: label,
     tagColor: color,
-    setTagLabel: onLabelChange,
+    onLabelChange,
     setTagColor: onColorChange,
   } = useForestContext();
 
@@ -46,6 +46,7 @@ export function FocusTagButton() {
             defaultValue={label}
             className="col-span-2 h-8"
             onChange={(e) => onLabelChange(e.target.value)}
+            maxLength={LIMIT_LABEL_TAGS_CHARACTERS}
           />
           <div className="col-span-2 flex flex-wrap gap-2">
             {TAG_COLORS.map((c) => (

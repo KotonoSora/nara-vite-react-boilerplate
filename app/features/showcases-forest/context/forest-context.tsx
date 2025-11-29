@@ -15,7 +15,7 @@ interface ForestContextValue {
   tagColor: string;
   setTagColor: (color: string) => void;
   tagLabel: string;
-  setTagLabel: (label: string) => void;
+  onLabelChange: (label: string) => void;
 }
 
 const ForestContext = createContext<ForestContextValue | undefined>(undefined);
@@ -34,7 +34,7 @@ export function ForestProvider({ children }: { children: ReactNode }) {
       tagColor: ctx.tagColor,
       setTagColor: ctx.setTagColor,
       tagLabel: ctx.tagLabel,
-      setTagLabel: ctx.setTagLabel,
+      onLabelChange: ctx.onLabelChange,
     }),
     [ctx],
   );

@@ -1,5 +1,6 @@
 export const RANGE_MIN: number = 10;
 export const RANGE_MAX: number = 180;
+export const LIMIT_LABEL_TAGS_CHARACTERS: number = 30;
 
 export const STATUS = {
   PLANTING: "planting",
