@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "title": "Forest",
+    "description": "Countdown to the next forest event"
+  },
+  "screens": {
+    "planting": {
+      "slogan": "Choose the time you want to focus. A tree will grow as you maintain your focus!"
+    },
+    "growing": {
+      "slogans": {
+        "growing_1": "In the forest, every tree tells a story of growth and resilience.",
+        "growing_2": "The forest is a symphony of life, where every leaf plays its part.",
+        "growing_3": "Amidst the trees, we find our roots and grow towards the sky.",
+        "growing_4": "The forest whispers secrets of ancient wisdom and timeless beauty.",
+        "growing_5": "In the heart of the forest, we discover the essence of life itself."
+      }
+    },
+    "full_grown": {
+      "slogan": "Congratulations! Your tree is fully grown."
+    },
+    "withered": {
+      "slogan": "Oh no! You'll do better next time."
+    }
+  },
+  "actions": {
+    "start": "Plant Tree",
+    "give": "Give Up",
+    "take_break": "Take a Break"
+  },
+  "common": {
+    "work": "Work"
+  }
+}

@@ -7,10 +7,13 @@ import { STATUS } from "../constants/common";
  * @param state - Current forest state
  * @returns New state with WITHERED status
  */
-export function createAbandonTreeState(state: ForestState): ForestState {
+export function createAbandonTreeState(
+  state: ForestState,
+  slogan: string,
+): ForestState {
   return {
     ...state,
     status: STATUS.WITHERED,
-    slogan: "Oops! You can do better next time.",
+    slogan,
   };
 }

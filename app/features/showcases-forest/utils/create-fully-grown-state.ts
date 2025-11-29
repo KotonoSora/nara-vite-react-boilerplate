@@ -7,12 +7,16 @@ import { STATUS } from "../constants/common";
  * @param prevState - Previous state to preserve slogan and initial seconds
  * @returns New state with FULLY_GROWN status
  */
-export function createFullyGrownState(prevState: ForestState): ForestState {
+export function createFullyGrownState({
+  seconds,
+  slogan,
+}: {
+  seconds: number;
+  slogan: string;
+}): Pick<ForestState, "status" | "seconds" | "slogan"> {
   return {
-    ...prevState,
     status: STATUS.FULLY_GROWN,
-    seconds: prevState.initialSeconds,
-    initialSeconds: prevState.initialSeconds,
-    slogan: prevState.slogan,
+    seconds,
+    slogan,
   };
 }

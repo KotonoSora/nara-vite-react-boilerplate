@@ -8,12 +8,18 @@ import { getRandomSlogan } from "./get-random-slogan";
  * @param minutes - Duration in minutes
  * @returns New state with GROWING status
  */
-export function createGrowingState(minutes: number): ForestState {
+export function createGrowingState({
+  minutes,
+  slogans,
+}: {
+  minutes: number;
+  slogans: string[];
+}): ForestState {
   const seconds = minutes * 60;
   return {
     status: STATUS.GROWING,
     seconds,
     initialSeconds: seconds,
-    slogan: getRandomSlogan(),
+    slogan: getRandomSlogan(slogans),
   };
 }

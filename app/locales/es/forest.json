@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "title": "Bosque",
+    "description": "Cuenta regresiva para el próximo evento del bosque"
+  },
+  "screens": {
+    "planting": {
+      "slogans": {
+        "planting_1": "Elige el tiempo que quieres concentrarte. ¡Un árbol crecerá mientras mantengas tu enfoque!"
+      }
+    },
+    "growing": {
+      "slogans": {
+        "growing_1": "En el bosque, cada árbol cuenta una historia de crecimiento y resiliencia.",
+        "growing_2": "El bosque es una sinfonía de vida, donde cada hoja juega su papel.",
+        "growing_3": "Entre los árboles, encontramos nuestras raíces y crecemos hacia el cielo.",
+        "growing_4": "El bosque susurra secretos de sabiduría antigua y belleza atemporal.",
+        "growing_5": "En el corazón del bosque, descubrimos la esencia de la vida misma."
+      }
+    },
+    "withered": {
+      "slogan": "¡Oh no! Lo harás mejor la próxima vez."
+    }
+  },
+  "actions": {
+    "start": "Plantar Árbol",
+    "give": "Rendirse",
+    "take_break": "Tomar un Descanso"
+  },
+  "common": {
+    "work": "Trabajo"
+  }
+}

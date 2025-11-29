@@ -2,6 +2,8 @@ import { useEffect, useReducer, useRef, useState } from "react";
 
 import type { ForestAction, ForestState } from "../types/common";
 
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
+
 import { FOREST_ACTIONS, STATUS, TAG_COLORS } from "../constants/common";
 import { calculateProgress } from "../utils/calculate-progress";
 import { clearTimerInterval } from "../utils/clear-timer-interval";
@@ -13,23 +15,58 @@ import { formatSecondsToMinutesSeconds } from "../utils/format-seconds-to-minute
 import { updateTimerPreviewState } from "../utils/update-timer-preview-state";
 
 function reducer(state: ForestState, action: ForestAction): ForestState {
-  switch (action.type) {
-    case FOREST_ACTIONS.START_GROWING:
+  const { payload, type } = action;
+  const t = useTranslation();
+  const GROWING_SLOGANS: string[] = [
+    t("forest.screens.growing.slogans.growing_1"),
+    t("forest.screens.growing.slogans.growing_2"),
+    t("forest.screens.growing.slogans.growing_3"),
+    t("forest.screens.growing.slogans.growing_4"),
+    t("forest.screens.growing.slogans.growing_5"),
+  ];
+
+  switch (type) {
+    case FOREST_ACTIONS.START_GROWING: {
       return Object.assign(
         {},
         state,
-        createGrowingState(action.payload.minutes),
+        createGrowingState({
+          minutes: payload.minutes,
+          slogans: GROWING_SLOGANS,
+        }),
       );
-    case FOREST_ACTIONS.ABANDON:
-      return Object.assign({}, state, createAbandonTreeState(state));
-    case FOREST_ACTIONS.RESET:
-      return Object.assign({}, state, createPlantingState());
-    case FOREST_ACTIONS.UPDATE_PREVIEW:
-      return updateTimerPreviewState(state, action.payload.minutes);
-    case FOREST_ACTIONS.TICK:
-      return { ...state, seconds: action.payload.remainingSeconds };
-    case FOREST_ACTIONS.COMPLETE:
-      return createFullyGrownState(state);
+    }
+    case FOREST_ACTIONS.ABANDON: {
+      return Object.assign(
+        {},
+        state,
+        createAbandonTreeState(state, t("forest.screens.withered.slogan")),
+      );
+    }
+    case FOREST_ACTIONS.RESET: {
+      return Object.assign(
+        {},
+        state,
+        createPlantingState({
+          slogan: t("forest.screens.planting.slogan"),
+        }),
+      );
+    }
+    case FOREST_ACTIONS.UPDATE_PREVIEW: {
+      return Object.assign(
+        {},
+        state,
+        updateTimerPreviewState({ minutes: payload.minutes }),
+      );
+    }
+    case FOREST_ACTIONS.TICK: {
+      return Object.assign({}, state, {
+        seconds: payload.remainingSeconds,
+      });
+    }
+    case FOREST_ACTIONS.COMPLETE: {
+      return Object.assign({}, state, createFullyGrownState(state));
+    }
     default:
       return state;
   }
@@ -38,10 +75,20 @@ function reducer(state: ForestState, action: ForestAction): ForestState {
 export function useForestPage() {
   const intervalRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
+  const t = useTranslation();
 
-  const [state, dispatch] = useReducer(reducer, createPlantingState());
+  const [state, dispatch] = useReducer(
+    reducer,
+    Object.assign(
+      {},
+      createPlantingState({
+        slogan: t("forest.screens.planting.slogan"),
+      }),
+      {},
+    ),
+  );
   const [tagColor, setTagColor] = useState(TAG_COLORS[0]);
-  const [tagLabel, setTagLabel] = useState("Work");
+  const [tagLabel, setTagLabel] = useState(t("forest.common.work"));
 
   const timerLabel = formatSecondsToMinutesSeconds(state.seconds);
   const progress = calculateProgress(state.initialSeconds, state.seconds);

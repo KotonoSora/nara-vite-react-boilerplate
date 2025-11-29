@@ -7,6 +7,7 @@ import type enCalendar from "~/locales/en/calendar.json";
 import type enCommon from "~/locales/en/common.json";
 import type enDashboard from "~/locales/en/dashboard.json";
 import type enErrors from "~/locales/en/errors.json";
+import type enForest from "~/locales/en/forest.json";
 import type enLanding from "~/locales/en/landing.json";
 import type enLegal from "~/locales/en/legal.json";
 import type enNavigation from "~/locales/en/navigation.json";
@@ -23,6 +24,7 @@ type NamespaceTranslations = typeof enCommon & {
   calendar: typeof enCalendar;
   dashboard: typeof enDashboard;
   errors: typeof enErrors;
+  forest: typeof enForest;
   landing: typeof enLanding;
   legal: typeof enLegal;
   navigation: typeof enNavigation;
