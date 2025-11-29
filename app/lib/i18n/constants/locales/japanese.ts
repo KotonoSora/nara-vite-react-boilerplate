@@ -7,6 +7,7 @@ import jaCalendar from "~/locales/ja/calendar.json";
 import jaCommon from "~/locales/ja/common.json";
 import jaDashboard from "~/locales/ja/dashboard.json";
 import jaErrors from "~/locales/ja/errors.json";
+import jaForest from "~/locales/ja/forest.json";
 import jaLanding from "~/locales/ja/landing.json";
 import jaLegal from "~/locales/ja/legal.json";
 import jaNavigation from "~/locales/ja/navigation.json";
@@ -23,6 +24,7 @@ export const japaneseTranslations = {
   calendar: jaCalendar,
   dashboard: jaDashboard,
   errors: jaErrors,
+  forest: jaForest,
   landing: jaLanding,
   legal: jaLegal,
   navigation: jaNavigation,

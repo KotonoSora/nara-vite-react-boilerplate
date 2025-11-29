@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "title": "Rừng",
+    "description": "Đếm ngược đến sự kiện rừng tiếp theo"
+  },
+  "screens": {
+    "planting": {
+      "slogan": "Chọn thời gian bạn muốn tập trung. Một cái cây sẽ lớn lên khi bạn duy trì sự tập trung!"
+    },
+    "growing": {
+      "slogans": {
+        "growing_1": "Trong rừng, mỗi cái cây kể một câu chuyện về sự phát triển và kiên cường.",
+        "growing_2": "Rừng là bản giao hưởng của sự sống, nơi mỗi chiếc lá đều có vai trò riêng.",
+        "growing_3": "Giữa những tán cây, chúng ta tìm thấy cội nguồn và vươn lên bầu trời.",
+        "growing_4": "Khu rừng thì thầm những bí mật của trí tuệ cổ xưa và vẻ đẹp vượt thời gian.",
+        "growing_5": "Ở trung tâm khu rừng, chúng ta khám phá ra bản chất của sự sống."
+      }
+    },
+    "full_grown": {
+      "slogan": "Chúc mừng! Cây của bạn đã phát triển hoàn chỉnh."
+    },
+    "withered": {
+      "slogan": "Ôi không! Lần sau bạn sẽ làm tốt hơn."
+    }
+  },
+  "actions": {
+    "start": "Trồng cây",
+    "give": "Bỏ cuộc",
+    "take_break": "Nghỉ giải lao"
+  },
+  "common": {
+    "work": "Làm việc"
+  }
+}

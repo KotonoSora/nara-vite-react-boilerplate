@@ -7,6 +7,7 @@ import viCalendar from "~/locales/vi/calendar.json";
 import viCommon from "~/locales/vi/common.json";
 import viDashboard from "~/locales/vi/dashboard.json";
 import viErrors from "~/locales/vi/errors.json";
+import viForest from "~/locales/vi/forest.json";
 import viLanding from "~/locales/vi/landing.json";
 import viLegal from "~/locales/vi/legal.json";
 import viNavigation from "~/locales/vi/navigation.json";
@@ -23,6 +24,7 @@ export const vietnameseTranslations = {
   calendar: viCalendar,
   dashboard: viDashboard,
   errors: viErrors,
+  forest: viForest,
   landing: viLanding,
   legal: viLegal,
   navigation: viNavigation,

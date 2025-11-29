@@ -7,6 +7,7 @@ import frCalendar from "~/locales/fr/calendar.json";
 import frCommon from "~/locales/fr/common.json";
 import frDashboard from "~/locales/fr/dashboard.json";
 import frErrors from "~/locales/fr/errors.json";
+import frForest from "~/locales/fr/forest.json";
 import frLanding from "~/locales/fr/landing.json";
 import frLegal from "~/locales/fr/legal.json";
 import frNavigation from "~/locales/fr/navigation.json";
@@ -23,6 +24,7 @@ export const frenchTranslations = {
   calendar: frCalendar,
   dashboard: frDashboard,
   errors: frErrors,
+  forest: frForest,
   landing: frLanding,
   legal: frLegal,
   navigation: frNavigation,

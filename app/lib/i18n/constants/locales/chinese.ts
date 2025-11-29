@@ -7,6 +7,7 @@ import zhCalendar from "~/locales/zh/calendar.json";
 import zhCommon from "~/locales/zh/common.json";
 import zhDashboard from "~/locales/zh/dashboard.json";
 import zhErrors from "~/locales/zh/errors.json";
+import zhForest from "~/locales/zh/forest.json";
 import zhLanding from "~/locales/zh/landing.json";
 import zhLegal from "~/locales/zh/legal.json";
 import zhNavigation from "~/locales/zh/navigation.json";
@@ -23,6 +24,7 @@ export const chineseTranslations = {
   calendar: zhCalendar,
   dashboard: zhDashboard,
   errors: zhErrors,
+  forest: zhForest,
   landing: zhLanding,
   legal: zhLegal,
   navigation: zhNavigation,

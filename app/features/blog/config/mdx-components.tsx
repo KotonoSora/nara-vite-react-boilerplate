@@ -1,6 +1,6 @@
 import { Mermaid } from "mdx-mermaid/lib/Mermaid";
 
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, JSX } from "react";
 
 type MDXComponents = {
   [key: string]: (props: any) => JSX.Element;

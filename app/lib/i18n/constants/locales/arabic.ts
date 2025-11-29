@@ -7,6 +7,7 @@ import arCalendar from "~/locales/ar/calendar.json";
 import arCommon from "~/locales/ar/common.json";
 import arDashboard from "~/locales/ar/dashboard.json";
 import arErrors from "~/locales/ar/errors.json";
+import arForest from "~/locales/ar/forest.json";
 import arLanding from "~/locales/ar/landing.json";
 import arLegal from "~/locales/ar/legal.json";
 import arNavigation from "~/locales/ar/navigation.json";
@@ -23,6 +24,7 @@ export const arabicTranslations = {
   calendar: arCalendar,
   dashboard: arDashboard,
   errors: arErrors,
+  forest: arForest,
   landing: arLanding,
   legal: arLegal,
   navigation: arNavigation,

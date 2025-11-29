@@ -7,6 +7,7 @@ import enCalendar from "~/locales/en/calendar.json";
 import enCommon from "~/locales/en/common.json";
 import enDashboard from "~/locales/en/dashboard.json";
 import enErrors from "~/locales/en/errors.json";
+import enForest from "~/locales/en/forest.json";
 import enLanding from "~/locales/en/landing.json";
 import enLegal from "~/locales/en/legal.json";
 import enNavigation from "~/locales/en/navigation.json";
@@ -23,6 +24,7 @@ export const englishTranslations = {
   calendar: enCalendar,
   dashboard: enDashboard,
   errors: enErrors,
+  forest: enForest,
   landing: enLanding,
   legal: enLegal,
   navigation: enNavigation,
