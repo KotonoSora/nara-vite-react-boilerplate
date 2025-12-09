@@ -25,7 +25,7 @@ export const QRCodeGenerator: FC = () => {
   const [options, setOptions] = useState<QRCodeOptions>({
     size: 256,
     level: "H",
-    includeMargin: true,
+    marginSize: 4,
   });
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -124,17 +124,17 @@ export const QRCodeGenerator: FC = () => {
           <div className="space-y-2">
             <Label htmlFor="qr-margin">{t("qrGenerator.marginLabel")}</Label>
             <Select
-              value={options.includeMargin ? "yes" : "no"}
+              value={options.marginSize.toString()}
               onValueChange={(value) =>
-                setOptions({ ...options, includeMargin: value === "yes" })
+                setOptions({ ...options, marginSize: parseInt(value) })
               }
             >
               <SelectTrigger id="qr-margin">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="yes">{t("qrGenerator.yes")}</SelectItem>
-                <SelectItem value="no">{t("qrGenerator.no")}</SelectItem>
+                <SelectItem value="0">{t("qrGenerator.no")}</SelectItem>
+                <SelectItem value="4">{t("qrGenerator.yes")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -153,7 +153,7 @@ export const QRCodeGenerator: FC = () => {
               value={text}
               size={options.size}
               level={options.level}
-              includeMargin={options.includeMargin}
+              marginSize={options.marginSize}
               className="max-w-full h-auto"
               style={{ maxWidth: "100%", height: "auto" }}
             />
