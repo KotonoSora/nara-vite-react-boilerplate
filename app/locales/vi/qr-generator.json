@@ -11,5 +11,6 @@
   "preview": "Xem trước mã QR",
   "downloadPNG": "Tải xuống PNG",
   "downloadJPG": "Tải xuống JPG",
-  "emptyState": "Nhập văn bản hoặc URL ở trên để tạo mã QR"
+  "emptyState": "Nhập văn bản hoặc URL ở trên để tạo mã QR",
+  "maxLengthReached": "Đã đạt giới hạn ký tự tối đa (2000 ký tự)"
 }

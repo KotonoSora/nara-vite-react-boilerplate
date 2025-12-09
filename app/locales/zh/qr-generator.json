@@ -11,5 +11,6 @@
   "preview": "二维码预览",
   "downloadPNG": "下载PNG",
   "downloadJPG": "下载JPG",
-  "emptyState": "在上方输入文本或URL以生成二维码"
+  "emptyState": "在上方输入文本或URL以生成二维码",
+  "maxLengthReached": "已达到最大字符限制（2000字符）"
 }
