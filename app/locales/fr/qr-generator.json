@@ -12,5 +12,5 @@
   "downloadPNG": "Télécharger PNG",
   "downloadJPG": "Télécharger JPG",
   "emptyState": "Entrez du texte ou une URL ci-dessus pour générer un code QR",
-  "maxLengthReached": "Limite maximale de caractères atteinte (2000 caractères)"
+  "maxLengthReached": "Limite maximale de caractères atteinte"
 }

@@ -12,5 +12,5 @@
   "downloadPNG": "ดาวน์โหลด PNG",
   "downloadJPG": "ดาวน์โหลด JPG",
   "emptyState": "ใส่ข้อความหรือ URL ด้านบนเพื่อสร้าง QR Code",
-  "maxLengthReached": "ถึงขอบเขตอักขระสูงสุดแล้ว (2000 อักขระ)"
+  "maxLengthReached": "ถึงขอบเขตอักขระสูงสุดแล้ว"
 }

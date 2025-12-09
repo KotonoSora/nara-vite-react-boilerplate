@@ -1,7 +1,6 @@
 import { type FC } from "react";
 
 import { useQRGenerator } from "../hooks/use-qr-generator";
-
 import { QRDownloadButtons } from "./qr-download-buttons";
 import { QREmptyState } from "./qr-empty-state";
 import { QRInputSection } from "./qr-input-section";
@@ -13,6 +12,7 @@ export const QRCodeGenerator: FC = () => {
     qrRef,
     text,
     options,
+    maxLength,
     handleTextChange,
     handleDownload,
     updateOptions,
@@ -21,7 +21,11 @@ export const QRCodeGenerator: FC = () => {
   return (
     <div className="w-full max-w-4xl mx-auto space-y-8">
       <div className="space-y-4 p-6 bg-card rounded-lg border">
-        <QRInputSection text={text} onTextChange={handleTextChange} />
+        <QRInputSection
+          text={text}
+          maxLength={maxLength}
+          onTextChange={handleTextChange}
+        />
         <QROptionsSection options={options} onUpdateOptions={updateOptions} />
       </div>
 

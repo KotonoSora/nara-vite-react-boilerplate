@@ -1,5 +1,7 @@
 import { type FC } from "react";
 
+import type { QRCodeOptions } from "../types/type";
+
 import { Label } from "~/components/ui/label";
 import {
   Select,
@@ -9,8 +11,6 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
-
-import type { QRCodeOptions } from "../types/type";
 
 import {
   QR_ERROR_CORRECTION_OPTIONS,
