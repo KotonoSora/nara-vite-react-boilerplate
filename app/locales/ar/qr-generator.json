@@ -1,15 +1,15 @@
 {
-  "title": "QR Code Generator",
-  "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
-  "inputLabel": "Text or URL",
-  "inputPlaceholder": "Enter text or URL to generate QR code...",
-  "sizeLabel": "Size",
-  "errorCorrectionLabel": "Error Correction",
-  "marginLabel": "Include Margin",
-  "yes": "Yes",
-  "no": "No",
-  "preview": "QR Code Preview",
-  "downloadPNG": "Download PNG",
-  "downloadJPG": "Download JPG",
-  "emptyState": "Enter text or URL above to generate a QR code"
+  "title": "مولد رمز الاستجابة السريعة",
+  "description": "أنشئ رموز QR من النصوص أو عناوين URL وقم بتنزيلها كصور PNG أو JPG.",
+  "inputLabel": "نص أو URL",
+  "inputPlaceholder": "أدخل نصًا أو URL لإنشاء رمز QR...",
+  "sizeLabel": "الحجم",
+  "errorCorrectionLabel": "تصحيح الأخطاء",
+  "marginLabel": "تضمين الهامش",
+  "yes": "نعم",
+  "no": "لا",
+  "preview": "معاينة رمز الاستجابة السريعة",
+  "downloadPNG": "تنزيل PNG",
+  "downloadJPG": "تنزيل JPG",
+  "emptyState": "أدخل نصًا أو URL أعلاه لإنشاء رمز QR"
 }

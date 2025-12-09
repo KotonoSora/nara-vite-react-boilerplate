@@ -1,15 +1,15 @@
 {
-  "title": "QR Code Generator",
-  "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
-  "inputLabel": "Text or URL",
-  "inputPlaceholder": "Enter text or URL to generate QR code...",
-  "sizeLabel": "Size",
-  "errorCorrectionLabel": "Error Correction",
-  "marginLabel": "Include Margin",
-  "yes": "Yes",
+  "title": "Generador de Código QR",
+  "description": "Genera códigos QR desde texto o URLs y descárgalos como imágenes PNG o JPG.",
+  "inputLabel": "Texto o URL",
+  "inputPlaceholder": "Ingresa texto o URL para generar código QR...",
+  "sizeLabel": "Tamaño",
+  "errorCorrectionLabel": "Corrección de Errores",
+  "marginLabel": "Incluir Margen",
+  "yes": "Sí",
   "no": "No",
-  "preview": "QR Code Preview",
-  "downloadPNG": "Download PNG",
-  "downloadJPG": "Download JPG",
-  "emptyState": "Enter text or URL above to generate a QR code"
+  "preview": "Vista Previa del Código QR",
+  "downloadPNG": "Descargar PNG",
+  "downloadJPG": "Descargar JPG",
+  "emptyState": "Ingresa texto o URL arriba para generar un código QR"
 }

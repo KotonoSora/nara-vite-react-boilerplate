@@ -164,9 +164,9 @@
         "tags": ["مدونة", "Markdown", "محتوى"]
       },
       "qrGenerator": {
-        "name": "QR Code Generator",
-        "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
-        "tags": ["QR Code", "Generator", "Utility"]
+        "name": "مولد رمز الاستجابة السريعة",
+        "description": "أنشئ رموز QR من النصوص أو عناوين URL وقم بتنزيلها كصور PNG أو JPG.",
+        "tags": ["رمز QR", "مولد", "أداة"]
       }
     }
   },

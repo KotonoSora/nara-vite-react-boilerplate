@@ -164,9 +164,9 @@
         "tags": ["Blog", "Markdown", "Contenido"]
       },
       "qrGenerator": {
-        "name": "QR Code Generator",
-        "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
-        "tags": ["QR Code", "Generator", "Utility"]
+        "name": "Generador de Código QR",
+        "description": "Genera códigos QR desde texto o URLs y descárgalos como imágenes PNG o JPG.",
+        "tags": ["Código QR", "Generador", "Utilidad"]
       }
     }
   },
