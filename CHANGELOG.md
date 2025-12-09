@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 4.6.17 (2025-12-09)
+
+- Implemented built-in qr-generator page
+- Upgraded dependency versions
+- Update landing page item showcases qr-generator
+- Config react-router unstable to v8
+
 ## 4.6.16 (2025-11-29)
 
 - Implemented built-in forest countdown pages
