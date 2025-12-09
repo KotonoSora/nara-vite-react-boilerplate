@@ -23,9 +23,8 @@ export async function action({ request }: Route.ActionArgs) {
   const language = formData.get("language");
 
   if (typeof language === "string" && isSupportedLanguage(language)) {
-    const { getLanguageSession } = await import(
-      "~/lib/i18n/server/language.server"
-    );
+    const { getLanguageSession } =
+      await import("~/lib/i18n/server/language.server");
 
     const languageSession = await getLanguageSession(request);
     languageSession.setLanguage(language);
