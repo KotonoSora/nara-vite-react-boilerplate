@@ -1,0 +1,15 @@
+{
+  "title": "Tạo Mã QR",
+  "description": "Tạo mã QR từ văn bản hoặc URL và tải xuống dưới dạng hình ảnh PNG hoặc JPG.",
+  "inputLabel": "Văn bản hoặc URL",
+  "inputPlaceholder": "Nhập văn bản hoặc URL để tạo mã QR...",
+  "sizeLabel": "Kích thước",
+  "errorCorrectionLabel": "Độ chính xác",
+  "marginLabel": "Bao gồm lề",
+  "yes": "Có",
+  "no": "Không",
+  "preview": "Xem trước mã QR",
+  "downloadPNG": "Tải xuống PNG",
+  "downloadJPG": "Tải xuống JPG",
+  "emptyState": "Nhập văn bản hoặc URL ở trên để tạo mã QR"
+}

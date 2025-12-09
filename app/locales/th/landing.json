@@ -162,6 +162,11 @@
         "name": "แพลตฟอร์มบล็อก",
         "description": "เดโมบล็อกง่ายๆ พร้อมโพสต์ที่มีการสนับสนุน markdown",
         "tags": ["บล็อก", "Markdown", "เนื้อหา"]
+      },
+      "qrGenerator": {
+        "name": "QR Code Generator",
+        "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
+        "tags": ["QR Code", "Generator", "Utility"]
       }
     }
   },

@@ -11,6 +11,7 @@ import hiForest from "~/locales/hi/forest.json";
 import hiLanding from "~/locales/hi/landing.json";
 import hiLegal from "~/locales/hi/legal.json";
 import hiNavigation from "~/locales/hi/navigation.json";
+import hiQrGenerator from "~/locales/hi/qr-generator.json";
 import hiShowcase from "~/locales/hi/showcase.json";
 import hiTheme from "~/locales/hi/theme.json";
 import hiTime from "~/locales/hi/time.json";
@@ -28,6 +29,7 @@ export const hindiTranslations = {
   landing: hiLanding,
   legal: hiLegal,
   navigation: hiNavigation,
+  qrGenerator: hiQrGenerator,
   showcase: hiShowcase,
   theme: hiTheme,
   time: hiTime,

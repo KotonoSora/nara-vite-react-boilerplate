@@ -11,6 +11,7 @@ import jaForest from "~/locales/ja/forest.json";
 import jaLanding from "~/locales/ja/landing.json";
 import jaLegal from "~/locales/ja/legal.json";
 import jaNavigation from "~/locales/ja/navigation.json";
+import jaQrGenerator from "~/locales/ja/qr-generator.json";
 import jaShowcase from "~/locales/ja/showcase.json";
 import jaTheme from "~/locales/ja/theme.json";
 import jaTime from "~/locales/ja/time.json";
@@ -28,6 +29,7 @@ export const japaneseTranslations = {
   landing: jaLanding,
   legal: jaLegal,
   navigation: jaNavigation,
+  qrGenerator: jaQrGenerator,
   showcase: jaShowcase,
   theme: jaTheme,
   time: jaTime,

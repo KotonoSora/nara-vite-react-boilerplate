@@ -162,6 +162,11 @@
         "name": "Nền Tảng Blog",
         "description": "Một demo blog đơn giản với các bài đăng hỗ trợ markdown.",
         "tags": ["Blog", "Markdown", "Nội Dung"]
+      },
+      "qrGenerator": {
+        "name": "Tạo Mã QR",
+        "description": "Tạo mã QR từ văn bản hoặc URL và tải xuống dưới dạng hình ảnh PNG hoặc JPG.",
+        "tags": ["Mã QR", "Công Cụ Tạo", "Tiện Ích"]
       }
     }
   },

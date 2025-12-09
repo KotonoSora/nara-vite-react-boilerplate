@@ -11,6 +11,7 @@ import arForest from "~/locales/ar/forest.json";
 import arLanding from "~/locales/ar/landing.json";
 import arLegal from "~/locales/ar/legal.json";
 import arNavigation from "~/locales/ar/navigation.json";
+import arQrGenerator from "~/locales/ar/qr-generator.json";
 import arShowcase from "~/locales/ar/showcase.json";
 import arTheme from "~/locales/ar/theme.json";
 import arTime from "~/locales/ar/time.json";
@@ -28,6 +29,7 @@ export const arabicTranslations = {
   landing: arLanding,
   legal: arLegal,
   navigation: arNavigation,
+  qrGenerator: arQrGenerator,
   showcase: arShowcase,
   theme: arTheme,
   time: arTime,

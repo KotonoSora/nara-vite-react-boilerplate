@@ -162,6 +162,11 @@
         "name": "Plateforme de Blog",
         "description": "Une démo de blog simple avec des articles supportant le markdown.",
         "tags": ["Blog", "Markdown", "Contenu"]
+      },
+      "qrGenerator": {
+        "name": "QR Code Generator",
+        "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
+        "tags": ["QR Code", "Generator", "Utility"]
       }
     }
   },
