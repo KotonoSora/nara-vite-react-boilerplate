@@ -16,6 +16,7 @@
         "input-otp": "1.4.2",
         "isbot": "5.1.32",
         "lucide-react": "0.555.0",
+        "qrcode.react": "4.2.0",
         "radix-ui": "1.4.3",
         "react": "19.2.0",
         "react-day-picker": "9.11.2",
@@ -45,6 +46,7 @@
         "@react-router/fs-routes": "7.9.6",
         "@tailwindcss/vite": "4.1.17",
         "@types/node": "24",
+        "@types/qrcode.react": "3.0.0",
         "@types/react": "19.2.7",
         "@types/react-dom": "19.2.3",
         "@vitest/coverage-istanbul": "3.2.4",
@@ -703,6 +705,8 @@
     "@types/ms": ["@types/ms@2.1.0", "", {}, "sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA=="],
 
     "@types/node": ["@types/node@24.0.1", "", { "dependencies": { "undici-types": "~7.8.0" } }, "sha512-MX4Zioh39chHlDJbKmEgydJDS3tspMP/lnQC67G3SWsTnb9NeYVWOjkxpOSy4oMfPs4StcWHwBrvUb4ybfnuaw=="],
+
+    "@types/qrcode.react": ["@types/qrcode.react@3.0.0", "", { "dependencies": { "qrcode.react": "*" } }, "sha512-VPHYhnDfvt4LjlWajpYWRBVqmftEEza3GJVhe8sS5Wew0n4nTkg3+2MYunAiU6t04AZt0s/hkkMovefWeENjAQ=="],
 
     "@types/react": ["@types/react@19.2.7", "", { "dependencies": { "csstype": "^3.2.2" } }, "sha512-MWtvHrGZLFttgeEj28VXHxpmwYbor/ATPYbBfSFZEIRK0ecCFLl2Qo55z52Hss+UV9CRN7trSeq1zbgx7YDWWg=="],
 
@@ -1609,6 +1613,8 @@
     "puppeteer": ["puppeteer@22.15.0", "", { "dependencies": { "@puppeteer/browsers": "2.3.0", "cosmiconfig": "^9.0.0", "devtools-protocol": "0.0.1312386", "puppeteer-core": "22.15.0" }, "bin": { "puppeteer": "lib/esm/puppeteer/node/cli.js" } }, "sha512-XjCY1SiSEi1T7iSYuxS82ft85kwDJUS7wj1Z0eGVXKdtr5g4xnVcbjwxhq5xBnpK/E7x1VZZoJDxpjAOasHT4Q=="],
 
     "puppeteer-core": ["puppeteer-core@22.15.0", "", { "dependencies": { "@puppeteer/browsers": "2.3.0", "chromium-bidi": "0.6.3", "debug": "^4.3.6", "devtools-protocol": "0.0.1312386", "ws": "^8.18.0" } }, "sha512-cHArnywCiAAVXa3t4GGL2vttNxh7GqXtIYGym99egkNJ3oG//wL9LkvO4WE8W1TJe95t1F1ocu9X4xWaGsOKOA=="],
+
+    "qrcode.react": ["qrcode.react@4.2.0", "", { "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-QpgqWi8rD9DsS9EP3z7BT+5lY5SFhsqGjpgW5DY/i3mK4M9DTBNz3ErMi8BWYEfI3L0d8GIbGmcdFAS1uIRGjA=="],
 
     "quansync": ["quansync@0.2.11", "", {}, "sha512-AifT7QEbW9Nri4tAwR5M/uzpBuqfZf+zwaEM/QkzEjj7NBuFD2rBuy0K3dE+8wltbezDV7JMA0WfnCPYRSYbXA=="],
 
