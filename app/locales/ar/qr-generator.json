@@ -12,5 +12,5 @@
   "downloadPNG": "تنزيل PNG",
   "downloadJPG": "تنزيل JPG",
   "emptyState": "أدخل نصًا أو URL أعلاه لإنشاء رمز QR",
-  "maxLengthReached": "تم الوصول إلى الحد الأقصى للأحرف (2000 حرف)"
+  "maxLengthReached": "تم الوصول إلى الحد الأقصى للأحرف"
 }

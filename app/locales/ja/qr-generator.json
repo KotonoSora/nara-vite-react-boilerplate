@@ -12,5 +12,5 @@
   "downloadPNG": "PNGをダウンロード",
   "downloadJPG": "JPGをダウンロード",
   "emptyState": "上にテキストまたはURLを入力してQRコードを生成してください",
-  "maxLengthReached": "最大文字数に達しました（2000文字）"
+  "maxLengthReached": "最大文字数に達しました"
 }

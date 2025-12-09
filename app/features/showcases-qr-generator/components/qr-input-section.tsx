@@ -4,15 +4,15 @@ import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
-import { MAX_QR_LENGTH } from "../constants/qr-options";
-
 interface QRInputSectionProps {
   text: string;
+  maxLength: number;
   onTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export const QRInputSection: FC<QRInputSectionProps> = ({
   text,
+  maxLength,
   onTextChange,
 }) => {
   const t = useTranslation();
@@ -22,7 +22,7 @@ export const QRInputSection: FC<QRInputSectionProps> = ({
       <div className="flex justify-between items-center">
         <Label htmlFor="qr-text">{t("qrGenerator.inputLabel")}</Label>
         <span className="text-xs text-muted-foreground">
-          {text.length}/{MAX_QR_LENGTH}
+          {text.length}/{maxLength}
         </span>
       </div>
       <Textarea
@@ -31,9 +31,9 @@ export const QRInputSection: FC<QRInputSectionProps> = ({
         value={text}
         onChange={onTextChange}
         className="w-full min-h-24 resize-y"
-        maxLength={MAX_QR_LENGTH}
+        maxLength={maxLength}
       />
-      {text.length >= MAX_QR_LENGTH && (
+      {text.length >= maxLength && (
         <p className="text-xs text-destructive">
           {t("qrGenerator.maxLengthReached")}
         </p>

@@ -6,7 +6,7 @@ import type { QRCodeFormat } from "../types/type";
 export const downloadQRCode = (
   svg: SVGElement,
   format: QRCodeFormat,
-  size: number
+  size: number,
 ): void => {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -43,7 +43,7 @@ export const downloadQRCode = (
         URL.revokeObjectURL(downloadUrl);
       },
       format === "jpg" ? "image/jpeg" : "image/png",
-      1.0
+      1.0,
     );
   };
 
