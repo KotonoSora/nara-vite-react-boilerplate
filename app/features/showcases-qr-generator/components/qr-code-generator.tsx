@@ -128,13 +128,15 @@ export const QRCodeGenerator: FC = () => {
           <h3 className="text-lg font-semibold">{t("qrGenerator.preview")}</h3>
           <div
             ref={qrRef}
-            className="flex justify-center items-center p-8 bg-white rounded-lg"
+            className="flex justify-center items-center p-8 bg-white rounded-lg overflow-hidden"
           >
             <QRCodeCanvas
               value={text}
               size={options.size}
               level={options.level}
               includeMargin={options.includeMargin}
+              className="max-w-full h-auto"
+              style={{ maxWidth: "100%", height: "auto" }}
             />
           </div>
 
