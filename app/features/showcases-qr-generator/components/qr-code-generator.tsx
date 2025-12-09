@@ -5,7 +5,6 @@ import { type FC, useRef, useState } from "react";
 import type { QRCodeFormat, QRCodeOptions } from "../types/type";
 
 import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import {
   Select,
@@ -14,7 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { Textarea } from "~/components/ui/textarea";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
+
+const MAX_QR_LENGTH = 2000;
 
 export const QRCodeGenerator: FC = () => {
   const t = useTranslation();
@@ -25,6 +27,13 @@ export const QRCodeGenerator: FC = () => {
     level: "H",
     includeMargin: true,
   });
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    if (value.length <= MAX_QR_LENGTH) {
+      setText(value);
+    }
+  };
 
   const handleDownload = (format: QRCodeFormat) => {
     const canvas = qrRef.current?.querySelector("canvas");
@@ -50,15 +59,25 @@ export const QRCodeGenerator: FC = () => {
       {/* Input Section */}
       <div className="space-y-4 p-6 bg-card rounded-lg border">
         <div className="space-y-2">
-          <Label htmlFor="qr-text">{t("qrGenerator.inputLabel")}</Label>
-          <Input
+          <div className="flex justify-between items-center">
+            <Label htmlFor="qr-text">{t("qrGenerator.inputLabel")}</Label>
+            <span className="text-xs text-muted-foreground">
+              {text.length}/{MAX_QR_LENGTH}
+            </span>
+          </div>
+          <Textarea
             id="qr-text"
-            type="text"
             placeholder={t("qrGenerator.inputPlaceholder")}
             value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="w-full"
+            onChange={handleTextChange}
+            className="w-full min-h-24 resize-y"
+            maxLength={MAX_QR_LENGTH}
           />
+          {text.length >= MAX_QR_LENGTH && (
+            <p className="text-xs text-destructive">
+              {t("qrGenerator.maxLengthReached")}
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

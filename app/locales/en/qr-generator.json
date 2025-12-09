@@ -11,5 +11,6 @@
   "preview": "QR Code Preview",
   "downloadPNG": "Download PNG",
   "downloadJPG": "Download JPG",
-  "emptyState": "Enter text or URL above to generate a QR code"
+  "emptyState": "Enter text or URL above to generate a QR code",
+  "maxLengthReached": "Maximum character limit reached (2000 characters)"
 }
