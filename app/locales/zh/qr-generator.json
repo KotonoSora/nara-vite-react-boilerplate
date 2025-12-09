@@ -1,15 +1,15 @@
 {
-  "title": "QR Code Generator",
-  "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
-  "inputLabel": "Text or URL",
-  "inputPlaceholder": "Enter text or URL to generate QR code...",
-  "sizeLabel": "Size",
-  "errorCorrectionLabel": "Error Correction",
-  "marginLabel": "Include Margin",
-  "yes": "Yes",
-  "no": "No",
-  "preview": "QR Code Preview",
-  "downloadPNG": "Download PNG",
-  "downloadJPG": "Download JPG",
-  "emptyState": "Enter text or URL above to generate a QR code"
+  "title": "二维码生成器",
+  "description": "从文本或URL生成二维码，并下载为PNG或JPG图像。",
+  "inputLabel": "文本或URL",
+  "inputPlaceholder": "输入文本或URL以生成二维码...",
+  "sizeLabel": "大小",
+  "errorCorrectionLabel": "纠错等级",
+  "marginLabel": "包含边距",
+  "yes": "是",
+  "no": "否",
+  "preview": "二维码预览",
+  "downloadPNG": "下载PNG",
+  "downloadJPG": "下载JPG",
+  "emptyState": "在上方输入文本或URL以生成二维码"
 }

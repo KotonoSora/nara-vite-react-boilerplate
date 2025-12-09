@@ -164,9 +164,9 @@
         "tags": ["博客", "Markdown", "内容"]
       },
       "qrGenerator": {
-        "name": "QR Code Generator",
-        "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
-        "tags": ["QR Code", "Generator", "Utility"]
+        "name": "二维码生成器",
+        "description": "从文本或URL生成二维码，并下载为PNG或JPG图像。",
+        "tags": ["二维码", "生成器", "实用工具"]
       }
     }
   },

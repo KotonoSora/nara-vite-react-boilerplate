@@ -164,9 +164,9 @@
         "tags": ["ब्लॉग", "मार्कडाउन", "सामग्री"]
       },
       "qrGenerator": {
-        "name": "QR Code Generator",
-        "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
-        "tags": ["QR Code", "Generator", "Utility"]
+        "name": "QR कोड जेनरेटर",
+        "description": "टेक्स्ट या URLs से QR कोड बनाएं और उन्हें PNG या JPG छवियों के रूप में डाउनलोड करें।",
+        "tags": ["QR कोड", "जेनरेटर", "उपयोगिता"]
       }
     }
   },

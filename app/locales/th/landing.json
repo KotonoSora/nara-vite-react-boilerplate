@@ -164,9 +164,9 @@
         "tags": ["บล็อก", "Markdown", "เนื้อหา"]
       },
       "qrGenerator": {
-        "name": "QR Code Generator",
-        "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
-        "tags": ["QR Code", "Generator", "Utility"]
+        "name": "เครื่องมือสร้าง QR Code",
+        "description": "สร้าง QR Code จากข้อความหรือ URL และดาวน์โหลดเป็นภาพ PNG หรือ JPG",
+        "tags": ["QR Code", "เครื่องมือสร้าง", "ยูทิลิตี้"]
       }
     }
   },
