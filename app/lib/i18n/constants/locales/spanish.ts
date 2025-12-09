@@ -11,6 +11,7 @@ import esForest from "~/locales/es/forest.json";
 import esLanding from "~/locales/es/landing.json";
 import esLegal from "~/locales/es/legal.json";
 import esNavigation from "~/locales/es/navigation.json";
+import esQrGenerator from "~/locales/es/qr-generator.json";
 import esShowcase from "~/locales/es/showcase.json";
 import esTheme from "~/locales/es/theme.json";
 import esTime from "~/locales/es/time.json";
@@ -28,6 +29,7 @@ export const spanishTranslations = {
   landing: esLanding,
   legal: esLegal,
   navigation: esNavigation,
+  qrGenerator: esQrGenerator,
   showcase: esShowcase,
   theme: esTheme,
   time: esTime,

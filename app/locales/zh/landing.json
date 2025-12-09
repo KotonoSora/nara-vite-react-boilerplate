@@ -162,6 +162,11 @@
         "name": "博客平台",
         "description": "一个简单的博客演示，支持 markdown 的帖子。",
         "tags": ["博客", "Markdown", "内容"]
+      },
+      "qrGenerator": {
+        "name": "QR Code Generator",
+        "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
+        "tags": ["QR Code", "Generator", "Utility"]
       }
     }
   },

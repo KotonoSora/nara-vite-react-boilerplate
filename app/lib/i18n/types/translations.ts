@@ -11,6 +11,7 @@ import type enForest from "~/locales/en/forest.json";
 import type enLanding from "~/locales/en/landing.json";
 import type enLegal from "~/locales/en/legal.json";
 import type enNavigation from "~/locales/en/navigation.json";
+import type enQrGenerator from "~/locales/en/qr-generator.json";
 import type enShowcase from "~/locales/en/showcase.json";
 import type enTheme from "~/locales/en/theme.json";
 import type enTime from "~/locales/en/time.json";
@@ -28,6 +29,7 @@ type NamespaceTranslations = typeof enCommon & {
   landing: typeof enLanding;
   legal: typeof enLegal;
   navigation: typeof enNavigation;
+  qrGenerator: typeof enQrGenerator;
   showcase: typeof enShowcase;
   theme: typeof enTheme;
   time: typeof enTime;
