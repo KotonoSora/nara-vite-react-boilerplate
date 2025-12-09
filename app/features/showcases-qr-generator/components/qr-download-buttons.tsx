@@ -15,19 +15,25 @@ export const QRDownloadButtons: FC<QRDownloadButtonsProps> = ({
 }) => {
   const t = useTranslation();
 
+  const handleDownload =
+    (format: QRCodeFormat) => (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      onDownload(format);
+    };
+
   return (
     <div className="flex flex-wrap gap-3">
       <Button
-        onClick={() => onDownload("png")}
-        className="gap-2"
+        onClick={handleDownload("png")}
+        className="gap-2 cursor-pointer"
         variant="default"
       >
         <Download className="w-4 h-4" />
         {t("qrGenerator.downloadPNG")}
       </Button>
       <Button
-        onClick={() => onDownload("jpg")}
-        className="gap-2"
+        onClick={handleDownload("jpg")}
+        className="gap-2 cursor-pointer"
         variant="outline"
       >
         <Download className="w-4 h-4" />
