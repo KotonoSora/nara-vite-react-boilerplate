@@ -11,6 +11,7 @@ import zhForest from "~/locales/zh/forest.json";
 import zhLanding from "~/locales/zh/landing.json";
 import zhLegal from "~/locales/zh/legal.json";
 import zhNavigation from "~/locales/zh/navigation.json";
+import zhQrGenerator from "~/locales/zh/qr-generator.json";
 import zhShowcase from "~/locales/zh/showcase.json";
 import zhTheme from "~/locales/zh/theme.json";
 import zhTime from "~/locales/zh/time.json";
@@ -28,6 +29,7 @@ export const chineseTranslations = {
   landing: zhLanding,
   legal: zhLegal,
   navigation: zhNavigation,
+  qrGenerator: zhQrGenerator,
   showcase: zhShowcase,
   theme: zhTheme,
   time: zhTime,

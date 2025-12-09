@@ -53,5 +53,16 @@ export function getBuiltInDemos(t: TranslationFunction): ProjectInfo[] {
         t("landing.showcase.demos.blog.tags.2"),
       ],
     },
+    {
+      id: "built-in-demo-qr-generator",
+      name: t("landing.showcase.demos.qrGenerator.name"),
+      description: t("landing.showcase.demos.qrGenerator.description"),
+      url: "/showcases/qr-generator",
+      tags: [
+        t("landing.showcase.demos.qrGenerator.tags.0"),
+        t("landing.showcase.demos.qrGenerator.tags.1"),
+        t("landing.showcase.demos.qrGenerator.tags.2"),
+      ],
+    },
   ];
 }

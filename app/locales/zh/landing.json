@@ -162,6 +162,11 @@
         "name": "博客平台",
         "description": "一个简单的博客演示，支持 markdown 的帖子。",
         "tags": ["博客", "Markdown", "内容"]
+      },
+      "qrGenerator": {
+        "name": "二维码生成器",
+        "description": "从文本或URL生成二维码，并下载为PNG或JPG图像。",
+        "tags": ["二维码", "生成器", "实用工具"]
       }
     }
   },

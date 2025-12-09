@@ -1,0 +1,16 @@
+{
+  "title": "เครื่องมือสร้าง QR Code",
+  "description": "สร้าง QR Code จากข้อความหรือ URL และดาวน์โหลดเป็นภาพ PNG หรือ JPG",
+  "inputLabel": "ข้อความหรือ URL",
+  "inputPlaceholder": "ใส่ข้อความหรือ URL เพื่อสร้าง QR Code...",
+  "sizeLabel": "ขนาด",
+  "errorCorrectionLabel": "การแก้ไขข้อผิดพลาด",
+  "marginLabel": "รวมระยะขอบ",
+  "yes": "ใช่",
+  "no": "ไม่ใช่",
+  "preview": "ตัวอย่าง QR Code",
+  "downloadPNG": "ดาวน์โหลด PNG",
+  "downloadJPG": "ดาวน์โหลด JPG",
+  "emptyState": "ใส่ข้อความหรือ URL ด้านบนเพื่อสร้าง QR Code",
+  "maxLengthReached": "ถึงขอบเขตอักขระสูงสุดแล้ว"
+}

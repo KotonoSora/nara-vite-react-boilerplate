@@ -72,9 +72,8 @@ export async function action({ request, context }: Route.ActionArgs) {
   }
   const { db } = context;
 
-  const { resetPasswordWithToken } = await import(
-    "~/lib/authentication/server/user.server"
-  );
+  const { resetPasswordWithToken } =
+    await import("~/lib/authentication/server/user.server");
 
   const resetResult = await resetPasswordWithToken(db, token, password);
   if (!resetResult.success) {

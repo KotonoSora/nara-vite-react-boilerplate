@@ -1,0 +1,16 @@
+{
+  "title": "QR कोड जेनरेटर",
+  "description": "टेक्स्ट या URLs से QR कोड बनाएं और उन्हें PNG या JPG छवियों के रूप में डाउनलोड करें।",
+  "inputLabel": "टेक्स्ट या URL",
+  "inputPlaceholder": "QR कोड जेनरेट करने के लिए टेक्स्ट या URL दर्ज करें...",
+  "sizeLabel": "आकार",
+  "errorCorrectionLabel": "त्रुटि सुधार",
+  "marginLabel": "मार्जिन शामिल करें",
+  "yes": "हाँ",
+  "no": "नहीं",
+  "preview": "QR कोड पूर्वावलोकन",
+  "downloadPNG": "PNG डाउनलोड करें",
+  "downloadJPG": "JPG डाउनलोड करें",
+  "emptyState": "QR कोड जेनरेट करने के लिए ऊपर टेक्स्ट या URL दर्ज करें",
+  "maxLengthReached": "अधिकतम वर्ण सीमा तक पहुंच गया"
+}

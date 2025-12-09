@@ -11,6 +11,7 @@ import viForest from "~/locales/vi/forest.json";
 import viLanding from "~/locales/vi/landing.json";
 import viLegal from "~/locales/vi/legal.json";
 import viNavigation from "~/locales/vi/navigation.json";
+import viQrGenerator from "~/locales/vi/qr-generator.json";
 import viShowcase from "~/locales/vi/showcase.json";
 import viTheme from "~/locales/vi/theme.json";
 import viTime from "~/locales/vi/time.json";
@@ -28,6 +29,7 @@ export const vietnameseTranslations = {
   landing: viLanding,
   legal: viLegal,
   navigation: viNavigation,
+  qrGenerator: viQrGenerator,
   showcase: viShowcase,
   theme: viTheme,
   time: viTime,

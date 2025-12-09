@@ -162,6 +162,11 @@
         "name": "ブログプラットフォーム",
         "description": "Markdown サポート付きの投稿によるシンプルなブログデモ。",
         "tags": ["ブログ", "Markdown", "コンテンツ"]
+      },
+      "qrGenerator": {
+        "name": "QRコードジェネレーター",
+        "description": "テキストやURLからQRコードを生成し、PNGまたはJPG画像としてダウンロードできます。",
+        "tags": ["QRコード", "ジェネレーター", "ユーティリティ"]
       }
     }
   },

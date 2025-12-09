@@ -30,7 +30,7 @@ export function BlogPostCard({ post, locale = "en-US" }: BlogPostCardProps) {
       </header>
 
       {post.frontmatter.description && (
-        <p className="text-muted-foreground mb-4 flex-grow">
+        <p className="text-muted-foreground mb-4 grow">
           {post.frontmatter.description}
         </p>
       )}

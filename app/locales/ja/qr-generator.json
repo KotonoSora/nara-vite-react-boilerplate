@@ -1,0 +1,16 @@
+{
+  "title": "QRコードジェネレーター",
+  "description": "テキストやURLからQRコードを生成し、PNGまたはJPG画像としてダウンロードできます。",
+  "inputLabel": "テキストまたはURL",
+  "inputPlaceholder": "QRコードを生成するにはテキストまたはURLを入力してください...",
+  "sizeLabel": "サイズ",
+  "errorCorrectionLabel": "エラー訂正",
+  "marginLabel": "余白を含める",
+  "yes": "はい",
+  "no": "いいえ",
+  "preview": "QRコードプレビュー",
+  "downloadPNG": "PNGをダウンロード",
+  "downloadJPG": "JPGをダウンロード",
+  "emptyState": "上にテキストまたはURLを入力してQRコードを生成してください",
+  "maxLengthReached": "最大文字数に達しました"
+}

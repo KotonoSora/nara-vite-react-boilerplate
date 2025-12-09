@@ -15,12 +15,10 @@ export const authMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
-  const { getUserId } = await import(
-    "~/lib/authentication/server/authenticate.server"
-  );
-  const { getUserById } = await import(
-    "~/lib/authentication/server/user.server"
-  );
+  const { getUserId } =
+    await import("~/lib/authentication/server/authenticate.server");
+  const { getUserById } =
+    await import("~/lib/authentication/server/user.server");
 
   const { db } = context;
   const userId = await getUserId(request);

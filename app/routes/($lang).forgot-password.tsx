@@ -38,9 +38,8 @@ export async function action({ request, context }: Route.ActionArgs) {
   const url = new URL(request.url);
   const baseUrl = `${url.protocol}//${url.host}`;
 
-  const { requestPasswordReset } = await import(
-    "~/lib/authentication/server/user.server"
-  );
+  const { requestPasswordReset } =
+    await import("~/lib/authentication/server/user.server");
 
   await requestPasswordReset(db, email, baseUrl);
 
