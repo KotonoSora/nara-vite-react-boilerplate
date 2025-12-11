@@ -39,6 +39,7 @@ import { generalInformationMiddleware } from "~/middleware/information";
 import { ThemeContext, themeMiddleware } from "~/middleware/theme";
 
 import appCssUrl from "~/app.css?url";
+import animationsCssUrl from "~/styles/animations.css?url";
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
 const ToasterLazy = lazy(async () => ({
@@ -99,6 +100,14 @@ function InnerLayout({
     // Defer notifications to idle to keep hydration fast
     const id = scheduleIdleCallback(() => setClientReady(true));
     return () => cancelIdleCallback(id);
+  }, []);
+
+  useEffect(() => {
+    // Dynamically load animation styles after initial render to reduce initial CSS bundle
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = animationsCssUrl;
+    document.head.appendChild(link);
   }, []);
 
   usePageView();
