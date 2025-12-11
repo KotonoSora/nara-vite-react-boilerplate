@@ -7,7 +7,6 @@ import { I18nContext } from "~/middleware/i18n";
 
 import { getBuiltInDemos } from "../utils/get-built-in-demos";
 import { getFeaturesConfigs } from "../utils/get-features-configs";
-import { getShowcases } from "../utils/get-showcases";
 import { getSteps } from "../utils/get-steps";
 
 export const { pageMiddlewareContext } =
@@ -17,6 +16,9 @@ export const pageMiddleware: MiddlewareFunction = async ({ context }, next) => {
   const { db } = context;
   const { t } = context.get(I18nContext);
 
+  // Dynamically import database query function to defer drizzle-orm loading
+  const { getShowcases } = await import("../utils/get-showcases");
+  
   // Prepare data in parallel if needed
   const showcases = await getShowcases(db);
 
