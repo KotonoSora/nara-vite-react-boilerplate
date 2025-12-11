@@ -78,12 +78,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const { theme } = context.get(ThemeContext);
   const { user } = context.get(AuthContext);
 
-  // Preload translations on server to avoid flash of untranslated content
-  const { preloadTranslationsServer } = await import(
-    "~/lib/i18n/server/preload-translations.server"
-  );
-  await preloadTranslationsServer(language);
-
+  // Translations and date-fns locales are preloaded in i18n middleware
   return { theme, language, user };
 }
 

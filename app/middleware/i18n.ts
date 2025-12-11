@@ -20,6 +20,13 @@ export const i18nMiddleware: MiddlewareFunction = async (
   next,
 ) => {
   const language: SupportedLanguage = await resolveRequestLanguage(request);
+  
+  // Preload translations and date-fns locale for SSR
+  const { preloadTranslationsServer } = await import(
+    "~/lib/i18n/server/preload-translations.server"
+  );
+  await preloadTranslationsServer(language);
+  
   const t = createTranslationFunction(language);
 
   context.set(I18nContext, { language, t });
