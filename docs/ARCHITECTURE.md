@@ -474,6 +474,77 @@ export function UserForm() {
 
 ## 🚀 Performance Optimizations
 
+### **Modular Monolith Architecture**
+
+The application implements a **modular monolith architecture** that optimizes for fast initial load times through aggressive code splitting and lazy loading:
+
+#### Bundle Size Improvements
+
+| Route | Before | After | Improvement |
+|-------|--------|-------|-------------|
+| Landing Page | 52KB | 8.9KB | **83% reduction** |
+| Dashboard | 27KB | 6.5KB | **76% reduction** |
+| Calendar | 20KB | 6.3KB | **68% reduction** |
+
+#### Lazy Loading Strategy
+
+**Above-the-fold content** is loaded eagerly for fast LCP (Largest Contentful Paint):
+
+```tsx
+export function ContentPage() {
+  return (
+    <main>
+      <HeaderNavigation /> {/* Eager - Critical */}
+      <HeroSection /> {/* Eager - Above-the-fold */}
+      
+      {/* Below-the-fold sections - Lazy loaded */}
+      <Suspense fallback={<SectionLoader />}>
+        <GettingStartedSection />
+      </Suspense>
+    </main>
+  );
+}
+```
+
+**Heavy dependencies** are lazy-loaded only when needed:
+
+```tsx
+// Charts (recharts: 433KB) - Lazy loaded per component
+const ChartAreaInteractive = lazy(() =>
+  import("./components/area-1").then((m) => ({ default: m.ChartAreaInteractive }))
+);
+
+// Diagrams (mermaid: 2.2MB) - Only loaded in blog posts
+// Forms (react-hook-form, zod: 72KB) - Lazy loaded in form pages
+// QR Code (qrcode.react: 16KB) - Lazy loaded in QR generator
+```
+
+#### Vite Chunk Configuration
+
+Optimized chunk splitting prevents too many small chunks while grouping related libraries:
+
+```ts
+build: {
+  rollupOptions: {
+    output: {
+      advancedChunks: {
+        minSize: 20000, // Prevent chunk fragmentation
+        groups: [
+          { name: "mermaid", test: /\/(mermaid|cytoscape|dagre)($|\/)/ },
+          { name: "form-libs", test: /\/(react-hook-form|zod|@hookform)($|\/)/ },
+          { name: "ui-libs", test: /\/(sonner|vaul|cmdk|embla-carousel)($|\/)/ },
+        ],
+      },
+    },
+  },
+}
+```
+
+This configuration ensures:
+- React + React DOM (~600KB) is shared across routes
+- Heavy libraries load only when needed
+- Initial bundle is minimal (8.9KB for landing page)
+
 ### **Code Splitting**
 
 Routes are automatically code-split:
