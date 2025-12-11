@@ -1,20 +1,8 @@
-import { lazy, Suspense } from "react";
-
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
-const QRCodeGenerator = lazy(() =>
-  import("./components/qr-code-generator").then((m) => ({ default: m.QRCodeGenerator }))
-);
-
-function QRLoader() {
-  return (
-    <div className="w-full max-w-4xl mx-auto h-[400px] flex items-center justify-center">
-      <div className="animate-pulse text-muted-foreground">Loading QR generator...</div>
-    </div>
-  );
-}
+import { QRCodeGenerator } from "./components/qr-code-generator";
 
 export function QRGeneratorPage() {
   const t = useTranslation();
@@ -38,9 +26,7 @@ export function QRGeneratorPage() {
 
       {/* QR Generator Content */}
       <section className="container mx-auto px-4 pb-12">
-        <Suspense fallback={<QRLoader />}>
-          <QRCodeGenerator />
-        </Suspense>
+        <QRCodeGenerator />
       </section>
 
       {/* Footer section */}

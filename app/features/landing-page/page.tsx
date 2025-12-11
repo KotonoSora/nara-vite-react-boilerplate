@@ -1,38 +1,13 @@
-import { lazy, Suspense } from "react";
-
 import { FooterSection } from "../shared/components/footer-section";
 import { HeaderNavigation } from "../shared/header-navigation";
+import { BuiltForDevelopersSection } from "./components/built-for-developers-section";
+import { DonateSection } from "./components/donate-section";
+import { GettingStartedSection } from "./components/getting-started-section";
 import { HeroSection } from "./components/hero-section";
-
-const GettingStartedSection = lazy(() =>
-  import("./components/getting-started-section").then((m) => ({ default: m.GettingStartedSection }))
-);
-const BuiltForDevelopersSection = lazy(() =>
-  import("./components/built-for-developers-section").then((m) => ({ default: m.BuiltForDevelopersSection }))
-);
-const KeyFeaturesSection = lazy(() =>
-  import("./components/key-features-section").then((m) => ({ default: m.KeyFeaturesSection }))
-);
-const TechStackSection = lazy(() =>
-  import("./components/tech-stack-section").then((m) => ({ default: m.TechStackSection }))
-);
-const LicenseSection = lazy(() =>
-  import("./components/license-section").then((m) => ({ default: m.LicenseSection }))
-);
-const ShowcaseSection = lazy(() =>
-  import("./components/showcase-section").then((m) => ({ default: m.ShowcaseSection }))
-);
-const DonateSection = lazy(() =>
-  import("./components/donate-section").then((m) => ({ default: m.DonateSection }))
-);
-
-function SectionLoader() {
-  return (
-    <div className="w-full h-[200px] flex items-center justify-center">
-      <div className="animate-pulse text-muted-foreground">Loading...</div>
-    </div>
-  );
-}
+import { KeyFeaturesSection } from "./components/key-features-section";
+import { LicenseSection } from "./components/license-section";
+import { ShowcaseSection } from "./components/showcase-section";
+import { TechStackSection } from "./components/tech-stack-section";
 
 export function ContentPage() {
   return (
@@ -40,40 +15,32 @@ export function ContentPage() {
       {/* Header/Navigation Section */}
       <HeaderNavigation />
 
-      {/* Hero Section - Always loaded for LCP */}
+      {/* Hero Section */}
       <HeroSection />
 
-      {/* Below-the-fold sections - Lazy loaded */}
-      <Suspense fallback={<SectionLoader />}>
-        <GettingStartedSection />
-      </Suspense>
+      {/* Getting Started Section */}
+      <GettingStartedSection />
 
-      <Suspense fallback={<SectionLoader />}>
-        <BuiltForDevelopersSection />
-      </Suspense>
+      {/* Built for Developers Section */}
+      <BuiltForDevelopersSection />
 
-      <Suspense fallback={<SectionLoader />}>
-        <KeyFeaturesSection />
-      </Suspense>
+      {/* Key Features Section */}
+      <KeyFeaturesSection />
 
-      <Suspense fallback={<SectionLoader />}>
-        <TechStackSection />
-      </Suspense>
+      {/* Tech Stack Section */}
+      <TechStackSection />
 
-      <Suspense fallback={<SectionLoader />}>
-        <LicenseSection />
-      </Suspense>
+      {/* License Section */}
+      <LicenseSection />
 
-      <Suspense fallback={<SectionLoader />}>
-        <ShowcaseSection />
-      </Suspense>
+      {/* Showcase Section */}
+      <ShowcaseSection />
 
       {/* Footer Section */}
       <FooterSection />
 
-      <Suspense fallback={null}>
-        <DonateSection />
-      </Suspense>
+      {/* Donate Section */}
+      <DonateSection />
     </main>
   );
 }
