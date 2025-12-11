@@ -50,6 +50,7 @@ export const links: Route.LinksFunction = () => {
   const links: ReturnType<Route.LinksFunction> = [
     { rel: "preload", href: appCssUrl, as: "style" },
     { rel: "stylesheet", href: appCssUrl },
+    { rel: "stylesheet", href: animationsCssUrl },
     { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
   ];
 
@@ -100,14 +101,6 @@ function InnerLayout({
     // Defer notifications to idle to keep hydration fast
     const id = scheduleIdleCallback(() => setClientReady(true));
     return () => cancelIdleCallback(id);
-  }, []);
-
-  useEffect(() => {
-    // Dynamically load animation styles after initial render to reduce initial CSS bundle
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = animationsCssUrl;
-    document.head.appendChild(link);
   }, []);
 
   usePageView();
