@@ -22,14 +22,7 @@ import type { MiddlewareFunction } from "react-router";
 
 import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
-import { HeadScriptTrackingTag } from "~/features/google-analytics/components/head-script-tracking-tag";
-import { usePageView } from "~/features/google-analytics/hooks/use-page-view";
-import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/authentication/react/provider";
-import {
-  cancelIdleCallback,
-  scheduleIdleCallback,
-} from "~/lib/helper/idle.client";
 import { DEFAULT_LANGUAGE } from "~/lib/i18n/constants/common";
 import { I18nProvider } from "~/lib/i18n/react/provider";
 import { isRTLLanguage } from "~/lib/i18n/utils/common/is-rtl-language";
@@ -41,10 +34,29 @@ import { ThemeContext, themeMiddleware } from "~/middleware/theme";
 import appCssUrl from "~/app.css?url";
 import animationsCssUrl from "~/styles/animations.css?url";
 
-// Lazy-load notifications to avoid pulling them into the initial bundle
+// Lazy-load components to avoid pulling them into the initial bundle
 const ToasterLazy = lazy(async () => ({
   default: (await import("~/components/ui/sonner")).Toaster,
 }));
+
+const HeadScriptTrackingTagLazy = lazy(async () => ({
+  default: (await import("~/features/google-analytics/components/head-script-tracking-tag")).HeadScriptTrackingTag,
+}));
+
+const DemoTagLazy = lazy(async () => ({
+  default: (await import("~/features/shared/components/demo-tag")).DemoTag,
+}));
+
+// Lazy-load page view hook wrapper
+const PageViewTracker = lazy(async () => {
+  const { usePageView } = await import("~/features/google-analytics/hooks/use-page-view");
+  return {
+    default: () => {
+      usePageView();
+      return null;
+    },
+  };
+});
 
 export const links: Route.LinksFunction = () => {
   const links: ReturnType<Route.LinksFunction> = [
@@ -98,12 +110,13 @@ function InnerLayout({
   const [clientReady, setClientReady] = useState(false);
 
   useEffect(() => {
-    // Defer notifications to idle to keep hydration fast
-    const id = scheduleIdleCallback(() => setClientReady(true));
-    return () => cancelIdleCallback(id);
+    // Dynamically import idle helpers only on client side
+    import("~/lib/helper/idle.client").then(({ scheduleIdleCallback, cancelIdleCallback }) => {
+      // Defer notifications to idle to keep hydration fast
+      const id = scheduleIdleCallback(() => setClientReady(true));
+      return () => cancelIdleCallback(id);
+    });
   }, []);
-
-  usePageView();
 
   return (
     <html lang={language} dir={direction} className={clsx("font-sans", theme)}>
@@ -113,18 +126,27 @@ function InnerLayout({
         <Meta />
         <PreventFlashOnWrongTheme ssrTheme={ssrTheme} />
         <Links />
-        <HeadScriptTrackingTag />
+        <Suspense fallback={null}>
+          <HeadScriptTrackingTagLazy />
+        </Suspense>
       </head>
       <body>
         {children}
         <ScrollRestoration />
         <Scripts />
+        <Suspense fallback={null}>
+          <PageViewTracker />
+        </Suspense>
         {clientReady ? (
           <Suspense fallback={null}>
             <ToasterLazy />
           </Suspense>
         ) : null}
-        {import.meta.env.DEV && <DemoTag />}
+        {import.meta.env.DEV && (
+          <Suspense fallback={null}>
+            <DemoTagLazy />
+          </Suspense>
+        )}
       </body>
     </html>
   );
