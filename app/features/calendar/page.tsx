@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { lazy, Suspense, useRef, useState } from "react";
 
 import type {
   CalendarActionHandle,
@@ -9,7 +9,6 @@ import type {
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
 
-import { CalendarApp } from "./components/calendar-app";
 import { Controls } from "./components/controls";
 import { DayContent } from "./components/day-content";
 import { PageHeader } from "./components/page-header";
@@ -18,6 +17,18 @@ import { VisibleWeeksLabel } from "./components/visible-weeks-label";
 import { WeekdayHeader } from "./components/weekday-header";
 import { usePageContext } from "./context/page-context";
 import { PageProvider } from "./context/page-provider";
+
+const CalendarApp = lazy(() =>
+  import("./components/calendar-app").then((m) => ({ default: m.CalendarApp }))
+);
+
+function CalendarLoader() {
+  return (
+    <div className="w-full h-[600px] flex items-center justify-center">
+      <div className="animate-pulse text-muted-foreground">Loading calendar...</div>
+    </div>
+  );
+}
 
 export function ContentCalendarInfinityPage() {
   const renderDay = ({ day, dayGlobalIndex, isToday }: RenderDayParams) => (
@@ -53,11 +64,13 @@ export function ContentCalendarInfinityPage() {
             <TodayButtonWrapper />
             <VisibleWeeksLabel label={visibleLabel} />
             <WeekdayHeader />
-            <CalendarApp
-              onRegisterActions={onRegisterActions}
-              onVisibleLabelChange={handleVisibleLabelChange}
-              renderDay={renderDay}
-            />
+            <Suspense fallback={<CalendarLoader />}>
+              <CalendarApp
+                onRegisterActions={onRegisterActions}
+                onVisibleLabelChange={handleVisibleLabelChange}
+                renderDay={renderDay}
+              />
+            </Suspense>
           </div>
         </PageProvider>
       </section>

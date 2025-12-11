@@ -68,6 +68,7 @@ export default defineConfig(() => ({
     rollupOptions: {
       output: {
         advancedChunks: {
+          minSize: 20000,
           groups: [
             { name: "react", test: /\/(react)($|\/)/ },
             { name: "react-dom", test: /\/(react-dom)($|\/)/ },
@@ -82,6 +83,10 @@ export default defineConfig(() => ({
               test: /\/(rehype-highlight|rehype-mathjax|remark-gfm|remark-math|remark-frontmatter|remark-mdx-frontmatter)($|\/)/,
             },
             {
+              name: "mermaid",
+              test: /\/(mermaid|cytoscape|dagre)($|\/)/,
+            },
+            {
               name: "virtualized",
               test: /\/(react-virtuoso)($|\/)/,
             },
@@ -92,6 +97,14 @@ export default defineConfig(() => ({
             {
               name: "qrcode.react",
               test: /\/(qrcode.react)($|\/)/,
+            },
+            {
+              name: "form-libs",
+              test: /\/(react-hook-form|zod|@hookform)($|\/)/,
+            },
+            {
+              name: "ui-libs",
+              test: /\/(sonner|vaul|cmdk|embla-carousel)($|\/)/,
             },
           ],
         },
