@@ -1,17 +1,19 @@
 import type { SupportedLanguage } from "../../types/common";
 import type { TranslationKey } from "../../types/translations";
 
-import { DEFAULT_LANGUAGE } from "../../constants/common";
-import { translations } from "../../constants/translations";
 import { getNestedValue } from "./get-nested-value";
+import { loadTranslations } from "./load-translations";
 
 /**
- * Retrieves a translated string for the specified language and key.
+ * Cache to store synchronously accessible translations once loaded
+ */
+const syncTranslationCache = new Map<SupportedLanguage, any>();
+
+/**
+ * Retrieves a translated string for the specified language and key synchronously.
  *
- * This function looks up a translation in the following order:
- * 1. Attempts to find the translation in the requested language
- * 2. Falls back to the default language if not found
- * 3. Returns the key itself as a last resort (with a console warning)
+ * This function looks up a translation from the cache. If translations haven't been loaded yet,
+ * it returns the key itself as a fallback.
  *
  * Supports parameter interpolation using the `{{paramKey}}` syntax in translation strings.
  *
@@ -34,16 +36,15 @@ export function getTranslation(
   key: TranslationKey,
   params?: Record<string, string | number>,
 ): string {
-  const languageTranslations = translations[language];
-  const fallbackTranslations = translations[DEFAULT_LANGUAGE];
+  const languageTranslations = syncTranslationCache.get(language);
+
+  // If translations not loaded yet, return key as fallback
+  if (!languageTranslations) {
+    return key;
+  }
 
   // Try to get translation from the requested language
   let translation = getNestedValue(languageTranslations, key);
-
-  // Fallback to default language if translation not found
-  if (translation === undefined) {
-    translation = getNestedValue(fallbackTranslations, key);
-  }
 
   // Final fallback to the key itself if nothing is found
   if (translation === undefined) {
@@ -64,4 +65,19 @@ export function getTranslation(
   }
 
   return translation;
+}
+
+/**
+ * Ensures translations are loaded and cached for synchronous access.
+ * This should be called during app initialization.
+ *
+ * @param language - The language to ensure is loaded
+ */
+export async function ensureTranslationsLoaded(
+  language: SupportedLanguage,
+): Promise<void> {
+  if (!syncTranslationCache.has(language)) {
+    const translations = await loadTranslations(language);
+    syncTranslationCache.set(language, translations);
+  }
 }
