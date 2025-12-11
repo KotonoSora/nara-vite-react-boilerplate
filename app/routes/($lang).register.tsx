@@ -1,17 +1,12 @@
-import { sql } from "drizzle-orm";
-import { z } from "zod";
-
 import type { Route } from "./+types/($lang).register";
 
 import type { MiddlewareFunction } from "react-router";
 
-import * as schema from "~/database/schema";
 import {
   pageMiddleware,
   pageMiddlewareContext,
 } from "~/features/register/middleware/page-middleware";
 import { ContentRegisterPage } from "~/features/register/page";
-import { MAX_USERS } from "~/features/shared/constants/limit";
 import { authMiddleware } from "~/features/shared/middleware/auth";
 import { I18nContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
@@ -31,6 +26,9 @@ export async function action({ request, context }: Route.ActionArgs) {
   const { t } = context.get(I18nContext);
 
   const formData = await request.formData();
+
+  // Dynamically import zod only when action is called
+  const { z } = await import("zod");
 
   const registerSchema = z
     .object({
@@ -62,6 +60,11 @@ export async function action({ request, context }: Route.ActionArgs) {
 
   const { name, email, password } = result.data;
   const { db } = context;
+  
+  // Dynamically import drizzle-orm and schema only when action is called
+  const { sql } = await import("drizzle-orm");
+  const schema = await import("~/database/schema");
+  const { MAX_USERS } = await import("~/features/shared/constants/limit");
   const { user } = schema;
 
   const userCount = await db
