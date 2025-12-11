@@ -1,9 +1,10 @@
 import type { SupportedLanguage } from "../types/common";
 
 import { ensureTranslationsLoaded } from "../utils/translations/get-translation";
+import { ensureDateFnsLocaleLoaded } from "../utils/datetime/get-date-fns-locale-by-language";
 
 /**
- * Preloads translations on the server side to ensure they're available
+ * Preloads translations and date-fns locales on the server side to ensure they're available
  * before rendering the initial HTML. This prevents flash of untranslated content.
  *
  * This should be called in root loader or middleware that runs before rendering.
@@ -23,5 +24,8 @@ import { ensureTranslationsLoaded } from "../utils/translations/get-translation"
 export async function preloadTranslationsServer(
   language: SupportedLanguage,
 ): Promise<void> {
-  await ensureTranslationsLoaded(language);
+  await Promise.all([
+    ensureTranslationsLoaded(language),
+    ensureDateFnsLocaleLoaded(language),
+  ]);
 }

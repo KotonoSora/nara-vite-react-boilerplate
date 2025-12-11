@@ -42,11 +42,16 @@ export function I18nProvider({
   const [isLoaded, setIsLoaded] = useState(false);
   const fetcher = useFetcher();
 
-  // Load translations for the current language
+  // Load translations and date-fns locale for the current language
   useEffect(() => {
     let mounted = true;
 
-    ensureTranslationsLoaded(language).then(() => {
+    Promise.all([
+      ensureTranslationsLoaded(language),
+      import("../utils/datetime/get-date-fns-locale-by-language").then((m) =>
+        m.ensureDateFnsLocaleLoaded(language)
+      ),
+    ]).then(() => {
       if (mounted) {
         setIsLoaded(true);
 
@@ -55,6 +60,12 @@ export function I18nProvider({
         if (language === "en") {
           preloadTranslations("es");
           preloadTranslations("fr");
+          
+          // Also preload date-fns locales
+          import("../utils/datetime/load-date-fns-locale").then((m) => {
+            m.preloadDateFnsLocale("es");
+            m.preloadDateFnsLocale("fr");
+          });
         }
       }
     });
