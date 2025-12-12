@@ -16,7 +16,7 @@
     "dev": "react-router dev",
     "start": "wrangler dev",
     "wrangler:types": "wrangler types",
-    "generate:i18n-types": "tsx scripts/generate-i18n-types.ts",
+    "generate:i18n-types": "bun scripts/generate-i18n-types.ts",
     "typecheck": "wrangler types && react-router typegen && tsc --noEmit",
     "lint": "tsc --noEmit",
     "prepare": "husky",
