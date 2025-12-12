@@ -68,6 +68,8 @@ bun.lockb
 .dev.vars*
 worker-configuration.d.ts
 
+# Auto-generated i18n types
+app/lib/i18n/types/generated-translations.d.ts
 
 !.dev.vars.example
 !.env.example
