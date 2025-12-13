@@ -152,6 +152,21 @@
         "name": "Calendar with Infinite Scroll",
         "description": "An infinite scrolling calendar component with date selection, week view, and smooth navigation.",
         "tags": ["Calendar", "Infinite Scroll", "Date Picker"]
+      },
+      "forest": {
+        "name": "Forest",
+        "description": "Countdown to the next forest event.",
+        "tags": ["Forest", "Countdown", "Focus"]
+      },
+      "blog": {
+        "name": "Blog Platform",
+        "description": "A simple blog demo with posts with markdown support.",
+        "tags": ["Blog", "Markdown", "Content"]
+      },
+      "qrGenerator": {
+        "name": "QR Code Generator",
+        "description": "Generate QR codes from text or URLs and download them as PNG or JPG images.",
+        "tags": ["QR Code", "Generator", "Utility"]
       }
     }
   },

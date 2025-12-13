@@ -11,6 +11,7 @@ import frForest from "~/locales/fr/forest.json";
 import frLanding from "~/locales/fr/landing.json";
 import frLegal from "~/locales/fr/legal.json";
 import frNavigation from "~/locales/fr/navigation.json";
+import frQrGenerator from "~/locales/fr/qr-generator.json";
 import frShowcase from "~/locales/fr/showcase.json";
 import frTheme from "~/locales/fr/theme.json";
 import frTime from "~/locales/fr/time.json";
@@ -28,6 +29,7 @@ export const frenchTranslations = {
   landing: frLanding,
   legal: frLegal,
   navigation: frNavigation,
+  qrGenerator: frQrGenerator,
   showcase: frShowcase,
   theme: frTheme,
   time: frTime,

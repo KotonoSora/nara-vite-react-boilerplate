@@ -1,41 +1,41 @@
 {
   "title": "NARA React Boilerplate",
-  "subtitle": "Un iniciador rápido y estructurado para construir aplicaciones React full-stack",
-  "description": "Construido con React Router v7, TypeScript, Cloudflare Workers y herramientas modernas. Diseñado con enfoque en seguridad de tipos, rendimiento y ergonomía del desarrollador.",
+  "subtitle": "Un iniciador rápido y opinado para construir aplicaciones React full-stack",
+  "description": "Construido con React Router v7, TypeScript, Cloudflare Workers y herramientas modernas. Diseñado con enfoque en la seguridad de tipos, rendimiento y ergonomía del desarrollador.",
   "getStarted": "Comenzar",
   "viewDocs": "Ver Documentación",
   "hero": {
     "badge": "Boilerplate Listo para Producción",
     "title": "NARA Boilerplate",
-    "subtitle": "El Boilerplate Full-Stack de React Que Realmente Funciona",
-    "description": "Deja de perder tiempo configurando boilerplates. Comienza con una base lista para producción construida para desarrolladores que envían rápido y a menudo.",
-    "starOnGitHub": "Dar Estrella en GitHub",
+    "subtitle": "El Boilerplate Full-Stack React Que Realmente Se Envía",
+    "description": "Deja de perder tiempo en la configuración del boilerplate. Comienza con una base lista para producción construida para desarrolladores que envían rápido y a menudo.",
+    "starOnGitHub": "Estrella en GitHub",
     "quickStart": "Inicio Rápido",
     "statusText": "De git clone a producción en 5 minutos"
   },
   "features": {
     "title": "Características",
-    "badge": "¿Por Qué Elegir NARA?",
+    "badge": "¿Por Qué Elegir NARA",
     "sectionTitle": "Características Listas para Producción",
-    "sectionDescription": "Construido con enfoque en seguridad de tipos, rendimiento y ergonomía del desarrollador",
+    "sectionDescription": "Construido con enfoque en la seguridad de tipos, rendimiento y ergonomía del desarrollador",
     "typeSafety": {
       "title": "Seguridad de Tipos",
-      "description": "Cobertura TypeScript de extremo a extremo con tipado de rutas apropiado y verificación estricta de tipos en toda la pila."
+      "description": "Cobertura de TypeScript de extremo a extremo con tipado adecuado de rutas y verificación estricta de tipos en toda la pila."
     },
     "performance": {
       "title": "Rendimiento",
-      "description": "Herramientas modernas con Vite y Bun para compilaciones ultrarrápidas, más despliegue en el borde de Cloudflare para rendimiento global."
+      "description": "Herramientas modernas con Vite y Bun para compilaciones ultrarrápidas, además de despliegue en el borde de Cloudflare para rendimiento global."
     },
     "developerErgonomics": {
       "title": "Ergonomía del Desarrollador",
-      "description": "Configuración con opiniones que simplemente funciona. Herramientas preconfiguradas, pruebas y entorno de desarrollo para máxima productividad."
+      "description": "Configuración opinada que simplemente funciona. Herramientas preconfiguradas, pruebas y entorno de desarrollo para máxima productividad."
     },
     "versatile": {
       "title": "Versátil",
-      "description": "Arquitectura flexible diseñada para adaptarse a la mayoría de ideas de proyectos, desde MVPs hasta aplicaciones de producción."
+      "description": "Arquitectura flexible diseñada para adaptarse a la mayoría de las ideas de proyectos, desde MVPs hasta aplicaciones de producción."
     },
     "typeScript": "TypeScript",
-    "typeScriptDesc": "Seguridad de tipos completa con soporte de TypeScript",
+    "typeScriptDesc": "Seguridad completa de tipos con soporte de TypeScript",
     "reactRouter": "React Router v7",
     "reactRouterDesc": "Enrutamiento moderno con renderizado del lado del servidor",
     "cloudflare": "Cloudflare Workers",
@@ -45,17 +45,17 @@
     "ui": "UI Moderna",
     "uiDesc": "Componentes hermosos con Tailwind CSS y shadcn/ui",
     "testing": "Configuración de Pruebas",
-    "testingDesc": "Vitest y utilidades de prueba preconfiguradas"
+    "testingDesc": "Vitest y utilidades de pruebas preconfiguradas"
   },
   "gettingStarted": {
     "badge": "Comienza en Minutos",
     "title": "De Cero a Producción",
-    "description": "Sigue estos simples pasos para poner en marcha tu aplicación NARA",
+    "description": "Sigue estos pasos simples para poner en marcha tu aplicación NARA",
     "steps": {
       "clone": {
-        "title": "Clonar el Repositorio",
+        "title": "Clona el Repositorio",
         "description": "Obtén la última versión del boilerplate NARA",
-        "note": "Reemplaza 'mi-app' con el nombre de tu proyecto"
+        "note": "Reemplaza 'my-app' con el nombre de tu proyecto"
       },
       "install": {
         "title": "Instalar Dependencias",
@@ -78,7 +78,7 @@
     "setupTime": "Tiempo estimado de configuración: ~5 minutos"
   },
   "footer": {
-    "tagline": "El Boilerplate Full-Stack de React Que Realmente Funciona",
+    "tagline": "El Boilerplate Full-Stack React Que Realmente Se Envía",
     "copyright": "© 2025 NARA Boilerplate. Construido con ❤️ por KotonoSora — para ayudarte a enviar más rápido y con confianza."
   },
   "builtForDevelopers": {
@@ -88,7 +88,7 @@
       "setupTime": {
         "value": "5min",
         "label": "Tiempo de configuración",
-        "description": "De clonar a despliegue"
+        "description": "De clonación a despliegue"
       },
       "typeSafe": {
         "value": "100%",
@@ -98,7 +98,7 @@
       "configHeadaches": {
         "value": "0",
         "label": "Dolores de cabeza de configuración",
-        "description": "Simplemente funciona desde el primer momento"
+        "description": "Simplemente funciona desde la caja"
       }
     }
   },
@@ -111,53 +111,68 @@
       "title": "Código Abierto",
       "description": "Perfecto para proyectos de código abierto y aprendizaje",
       "features": {
-        "useFreely": "Usar, modificar y desplegar libremente",
+        "useFreely": "Usa, modifica y despliega libremente",
         "fullSource": "Acceso completo al código fuente",
-        "mustOpenSource": "Debe ser de código abierto si se despliega públicamente"
+        "mustOpenSource": "Debe abrir el código fuente si se despliega públicamente"
       },
       "button": "Comenzar Gratis"
     },
     "commercial": {
       "badge": "Licencia Comercial",
-      "price": "Una sola vez",
+      "price": "Una vez",
       "title": "Edición Comercial",
-      "description": "Ideal para proyectos SaaS de código cerrado y producción",
+      "description": "Genial para proyectos SaaS de código cerrado y producción",
       "features": {
-        "noOpenSource": "No necesitas abrir el código de tus cambios",
-        "oneTime": "Pago único para acceso de por vida",
-        "gumroad": "Distribuido a través de Gumroad"
+        "noOpenSource": "No necesitas abrir el código fuente de tus cambios",
+        "oneTime": "Pago único por acceso de por vida",
+        "gumroad": "Distribuido vía Gumroad"
       },
       "button": "Obtener Licencia Comercial",
       "comingSoon": "Próximamente"
     }
   },
   "showcase": {
-    "title": "🌟 Escaparate",
-    "description": "Proyectos construidos orgullosamente con NARA",
+    "title": "🌟 Muestra",
+    "description": "Proyectos orgullosamente construidos con NARA",
     "builtInDemos": {
-      "title": "✨ Páginas Demo Integradas",
-      "description": "Explora páginas demo preconstruidas incluidas en NARA"
+      "title": "✨ Páginas de Demo Integradas",
+      "description": "Explora páginas de demo pre-construidas incluidas en NARA"
     },
     "communityShowcases": {
-      "title": "Escaparate de la Comunidad",
+      "title": "Muestras de la Comunidad",
       "description": "Proyectos construidos con NARA por la comunidad"
     },
     "demos": {
       "charts": {
         "name": "Gráficos Interactivos",
-        "description": "Explora varios tipos de gráficos, incluidos área, barras, líneas, pastel, radar y radiales con funciones interactivas.",
+        "description": "Explora varios tipos de gráficos incluyendo área, barra, línea, pastel, radar y radiales con características interactivas.",
         "tags": ["Gráficos", "Recharts", "Visualización de Datos"]
       },
       "calendar": {
         "name": "Calendario con Desplazamiento Infinito",
-        "description": "Componente de calendario con desplazamiento infinito con selección de fecha, vista semanal y navegación fluida.",
+        "description": "Un componente de calendario con desplazamiento infinito con selección de fecha, vista semanal y navegación suave.",
         "tags": ["Calendario", "Desplazamiento Infinito", "Selector de Fecha"]
+      },
+      "forest": {
+        "name": "Bosque",
+        "description": "Cuenta regresiva para el próximo evento forestal.",
+        "tags": ["Bosque", "Cuenta Regresiva", "Enfoque"]
+      },
+      "blog": {
+        "name": "Plataforma de Blog",
+        "description": "Una demo simple de blog con publicaciones con soporte de markdown.",
+        "tags": ["Blog", "Markdown", "Contenido"]
+      },
+      "qrGenerator": {
+        "name": "Generador de Código QR",
+        "description": "Genera códigos QR desde texto o URLs y descárgalos como imágenes PNG o JPG.",
+        "tags": ["Código QR", "Generador", "Utilidad"]
       }
     }
   },
   "techStack": {
-    "badge": "Stack Moderno",
-    "title": "Stack Tecnológico Moderno",
+    "badge": "Pila Moderna",
+    "title": "Pila Tecnológica Moderna",
     "description": "Tecnologías cuidadosamente seleccionadas que funcionan perfectamente juntas"
   },
   "github": {

@@ -31,5 +31,38 @@ export function getBuiltInDemos(t: TranslationFunction): ProjectInfo[] {
         t("landing.showcase.demos.calendar.tags.2"),
       ],
     },
+    {
+      id: "built-in-demo-forest",
+      name: t("landing.showcase.demos.forest.name"),
+      description: t("landing.showcase.demos.forest.description"),
+      url: "/showcases/forest",
+      tags: [
+        t("landing.showcase.demos.forest.tags.0"),
+        t("landing.showcase.demos.forest.tags.1"),
+        t("landing.showcase.demos.forest.tags.2"),
+      ],
+    },
+    {
+      id: "built-in-demo-blog",
+      name: t("landing.showcase.demos.blog.name"),
+      description: t("landing.showcase.demos.blog.description"),
+      url: "/blog",
+      tags: [
+        t("landing.showcase.demos.blog.tags.0"),
+        t("landing.showcase.demos.blog.tags.1"),
+        t("landing.showcase.demos.blog.tags.2"),
+      ],
+    },
+    {
+      id: "built-in-demo-qr-generator",
+      name: t("landing.showcase.demos.qrGenerator.name"),
+      description: t("landing.showcase.demos.qrGenerator.description"),
+      url: "/showcases/qr-generator",
+      tags: [
+        t("landing.showcase.demos.qrGenerator.tags.0"),
+        t("landing.showcase.demos.qrGenerator.tags.1"),
+        t("landing.showcase.demos.qrGenerator.tags.2"),
+      ],
+    },
   ];
 }

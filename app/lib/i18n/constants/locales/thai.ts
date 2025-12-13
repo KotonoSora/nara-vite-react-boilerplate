@@ -11,6 +11,7 @@ import thForest from "~/locales/th/forest.json";
 import thLanding from "~/locales/th/landing.json";
 import thLegal from "~/locales/th/legal.json";
 import thNavigation from "~/locales/th/navigation.json";
+import thQrGenerator from "~/locales/th/qr-generator.json";
 import thShowcase from "~/locales/th/showcase.json";
 import thTheme from "~/locales/th/theme.json";
 import thTime from "~/locales/th/time.json";
@@ -28,6 +29,7 @@ export const thaiTranslations = {
   landing: thLanding,
   legal: thLegal,
   navigation: thNavigation,
+  qrGenerator: thQrGenerator,
   showcase: thShowcase,
   theme: thTheme,
   time: thTime,

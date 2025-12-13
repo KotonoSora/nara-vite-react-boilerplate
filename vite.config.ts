@@ -61,6 +61,7 @@ export default defineConfig(() => ({
       "rehype-mathjax",
       "react-virtuoso",
       "date-fns",
+      "qrcode.react",
     ],
   },
   build: {
@@ -87,6 +88,10 @@ export default defineConfig(() => ({
             {
               name: "date-fns",
               test: /\/(date-fns)($|\/)/,
+            },
+            {
+              name: "qrcode.react",
+              test: /\/(qrcode.react)($|\/)/,
             },
           ],
         },
