@@ -2,6 +2,93 @@
 
 This directory contains utility scripts for the NARA boilerplate project.
 
+## generate-missing-locales.mjs
+
+### Purpose
+Auto-generates missing JSON locale files for all languages based on the English locale files in `app/locales/en/`. This ensures all languages have a complete set of translation files, even if they contain placeholder English text that needs translation.
+
+### Problem Solved
+When new translation namespaces are added to the English locale:
+- Other language directories might be missing these new files
+- This causes runtime errors when the app tries to load missing translations
+- Manually creating placeholder files for all languages is tedious and error-prone
+
+### Solution
+The script automatically:
+1. Scans all JSON files in `app/locales/en/`
+2. Checks each language directory for missing files
+3. Generates missing files with English content as placeholders
+4. Adds translation markers to indicate files need translation
+
+### Usage
+
+#### Generate missing locale files:
+```bash
+npm run generate:missing-locales
+```
+
+Or directly with Node.js:
+```bash
+node scripts/generate-missing-locales.mjs
+```
+
+#### When to run:
+- After adding new translation namespaces to English locale
+- After adding a new language directory
+- When setting up the project for the first time
+- As part of CI/CD to ensure locale file consistency
+
+### Output Format
+Generated files include metadata comments:
+
+```json
+{
+  "_comment": "⚠️ This file needs translation to FR. Currently using English (EN) as placeholder.",
+  "_filename": "theme.json",
+  "_language": "fr",
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System",
+  "toggle": "Toggle theme"
+}
+```
+
+The `_comment`, `_filename`, and `_language` keys serve as visual indicators that the file needs translation. These can be removed once translation is complete.
+
+### Benefits
+- **Prevents runtime errors**: Ensures all required locale files exist
+- **Saves developer time**: No manual file creation needed
+- **Clear translation status**: Marker comments indicate which files need work
+- **Consistent structure**: All languages maintain the same file structure
+- **CI/CD friendly**: Can be integrated into build pipelines
+
+### Architecture Notes
+- Only creates files that don't exist (non-destructive)
+- Preserves existing translations
+- Uses English as the canonical structure
+- Compatible with both Node.js and Bun runtimes
+- Pure ESM module (`.mjs` extension)
+
+### Supported Languages
+Currently supports all language directories in `app/locales/`:
+- `ar` - Arabic
+- `en` - English (base language)
+- `es` - Spanish
+- `fr` - French
+- `hi` - Hindi
+- `ja` - Japanese
+- `th` - Thai
+- `vi` - Vietnamese
+- `zh` - Chinese
+
+### Maintenance
+- Add new language directories as needed
+- Run script after updating English translations
+- Remove metadata comments (`_comment`, `_filename`, `_language`) after translating
+- Consider integrating into pre-commit hooks or CI/CD
+
+---
+
 ## generate-i18n-types.ts
 
 ### Purpose
