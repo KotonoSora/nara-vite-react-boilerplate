@@ -18,6 +18,7 @@
     "wrangler:types": "wrangler types",
     "generate:i18n-types": "bun scripts/generate-i18n-types.ts",
     "generate:missing-locales": "node scripts/generate-missing-locales.mjs",
+    "create:locale": "node scripts/create-locale.mjs",
     "typecheck": "wrangler types && react-router typegen && tsc --noEmit",
     "lint": "tsc --noEmit",
     "prepare": "husky",
