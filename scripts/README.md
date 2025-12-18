@@ -5,29 +5,27 @@ This directory contains utility scripts for the NARA boilerplate project.
 ## create-locale.mjs
 
 ### Purpose
-Interactive CLI script to create new locale translation files from the command line. Provides a user-friendly interface for adding translations without manually creating or editing JSON files.
+Simple CLI script to create new locale translation files across all language directories. Provides a streamlined interface for scaffolding translation files without complex prompts or manual file creation.
 
 ### Problem Solved
 Creating translations typically requires:
-- Manually creating JSON files in the correct directory
-- Ensuring proper JSON formatting and structure
-- Creating placeholder files for all languages
-- Maintaining consistent key naming conventions
+- Manually creating JSON files in every language directory
+- Ensuring proper JSON formatting
+- Maintaining consistent file structure across languages
+- Risk of forgetting to create files for some languages
 
-This script automates and streamlines the entire process with an interactive CLI.
+This script automates the process with a single prompt.
 
 ### Features
-- **Interactive prompts** for language, namespace, and translation input
-- **Validates** language codes, namespace names, and key formats
-- **Supports existing files** - can add to existing translations or create new files
-- **Auto-generates placeholders** for all languages (optional)
-- **Alphabetically sorts** translation keys for consistency
-- **Pretty-printed JSON** output with proper formatting
-- **Works with both** Node.js and Bun runtimes
+- **Simple single-prompt interface**: Just enter a filename
+- **Creates files for all languages**: Automatically generates files in all existing language directories
+- **Non-destructive**: Skips files that already exist
+- **Pretty-printed JSON**: Clean, formatted empty JSON objects ready for content
+- **Validation**: Ensures valid filename format
 
 ### Usage
 
-#### Create a new translation:
+#### Create a new locale file:
 ```bash
 npm run create:locale
 ```
@@ -37,156 +35,108 @@ Or directly with Node.js:
 node scripts/create-locale.mjs
 ```
 
-#### Interactive Flow:
-1. **Select language** - Choose from existing languages or create a new one
-2. **Select namespace** - Choose from existing namespaces (e.g., "auth", "theme") or create new
-3. **Add translations** - Enter key-value pairs interactively
-4. **Confirm** - Review summary and confirm creation
-5. **Generate placeholders** - Optionally create files for all languages
+#### Simple Flow:
+1. **Enter filename** - Input the namespace/filename (e.g., "user-profile", "dashboard")
+2. **Done!** - Files created in all language directories
 
 ### Example Session
 
 ```
-🌍 Create New Locale Translation
+🌍 Create New Locale Files
 
-Select language:
-1. en - English
-2. es - Spanish
-3. fr - French
-4. Create new...
+==================================================
+This will create a new JSON file in all language directories.
+Format: lowercase letters, numbers, and hyphens
+Examples: user-profile, dashboard, settings, auth
 
-Select an option (number): 1
+Enter filename (without .json): user-profile
 
-✅ Selected language: en (English)
+🔨 Creating user-profile.json in 9 language(s)...
 
-Select namespace:
-1. common.json
-2. theme.json
-3. auth.json
-4. Create new...
+✅ Created: ar/user-profile.json
+✅ Created: en/user-profile.json
+✅ Created: es/user-profile.json
+✅ Created: fr/user-profile.json
+✅ Created: hi/user-profile.json
+✅ Created: ja/user-profile.json
+✅ Created: th/user-profile.json
+✅ Created: vi/user-profile.json
+✅ Created: zh/user-profile.json
 
-Select an option (number): 4
+==================================================
+✨ Done!
+==================================================
 
-📝 Creating new namespace...
-Enter namespace name: user-profile
-
-✅ Selected namespace: user-profile
-
-📝 Add translation keys and values
-Translation key (or press Enter to finish): displayName
-Translation value for "displayName": Display Name
-✅ Added: displayName = "Display Name"
-
-Translation key (or press Enter to finish): bio
-Translation value for "bio": Biography
-✅ Added: bio = "Biography"
-
-Translation key (or press Enter to finish): 
-
-📋 Summary
-Language: en (English)
-Namespace: user-profile
-Translation count: 2
-
-Translations:
-  bio: "Biography"
-  displayName: "Display Name"
-
-Create these translations? (y/n): y
-
-✅ Created: app/locales/en/user-profile.json
-
-Generate placeholder files for other languages? (y/n): y
-✅ Generated placeholders for: es, fr, de, ja, ko, pt, zh, ar
-
-✨ Done! Translation file(s) created successfully.
+✅ Created 9 new file(s): ar, en, es, fr, hi, ja, th, vi, zh
 
 💡 Next steps:
-   1. Review the generated file(s)
+   1. Add translation keys to the JSON files
    2. Run 'npm run generate:i18n-types' to update TypeScript types
-   3. Translate placeholder files if generated
-   4. Test the translations in your app
+   3. Test the translations in your app
 ```
 
 ### Validation Rules
 
-#### Language Code:
-- Format: 2-3 lowercase letters
-- Examples: `en`, `fr`, `de`, `ja`
-- Must match pattern: `/^[a-z]{2,3}$/`
-
-#### Namespace Name:
-- Format: lowercase letters, numbers, and hyphens
+#### Filename Format:
+- Format: lowercase letters, numbers, and hyphens only
 - Must start with a letter
-- Examples: `auth`, `user-profile`, `admin-dashboard`
+- Examples: `user-profile`, `dashboard`, `auth`, `settings`
 - Must match pattern: `/^[a-z][a-z0-9-]*$/`
-
-#### Translation Key:
-- Format: camelCase or dot notation
-- Must start with a letter
-- Examples: `userName`, `user.profile.name`, `myKey`
-- Must match pattern: `/^[a-zA-Z][a-zA-Z0-9.]*$/`
+- Cannot be empty
 
 ### Output Format
 
-#### Main Translation File:
+All files are created as empty JSON objects:
 ```json
-{
-  "bio": "Biography",
-  "displayName": "Display Name",
-  "email": "Email Address"
-}
+{}
 ```
 
-#### Placeholder Files (other languages):
-```json
-{
-  "_comment": "⚠️ This file needs translation to FR. Currently using EN as placeholder.",
-  "_filename": "user-profile.json",
-  "_language": "fr",
-  "bio": "Biography",
-  "displayName": "Display Name",
-  "email": "Email Address"
-}
-```
+This allows you to add translation keys manually, maintaining full control over the content and structure.
 
 ### Benefits
-- **Faster workflow**: No manual file creation or JSON editing
-- **Consistency**: Ensures proper formatting and structure
-- **Error prevention**: Validates input before creating files
-- **Complete coverage**: Optionally generates files for all languages
-- **User-friendly**: Interactive CLI with helpful prompts and feedback
-- **Non-destructive**: Can safely add to existing files
+- **Faster workflow**: Single prompt instead of multiple steps
+- **Consistency**: All language directories get the same file structure
+- **Error prevention**: Validates filename format
+- **Complete coverage**: Creates files for all existing languages automatically
+- **Simple and focused**: No complex options or menus to navigate
 
 ### When to Use
-- Adding a new translation namespace
-- Adding translations to an existing namespace
-- Creating translations for a new language
-- Quick translation updates during development
+- Creating a new translation namespace for a feature
+- Adding a new category of translations
+- Quick scaffolding before adding translation content
+- Setting up translation files for a new section of your app
 
 ### Integration with Other Scripts
-After creating translations, remember to:
-1. Run `npm run generate:i18n-types` to update TypeScript types
-2. Run `npm run generate:missing-locales` if you didn't generate placeholders
-3. Translate placeholder files to their respective languages
-4. Commit the changes to version control
+After creating files, remember to:
+1. Add translation keys and values to each JSON file
+2. Run `npm run generate:i18n-types` to update TypeScript types
+3. Test the translations in your app
 
-### Supported Languages
-Currently supports these language codes:
-- `en` - English
-- `es` - Spanish
-- `fr` - French
-- `de` - German
-- `ja` - Japanese
-- `ko` - Korean
-- `pt` - Portuguese
-- `zh` - Chinese
-- `ar` - Arabic
-- `hi` - Hindi
-- `th` - Thai
-- `vi` - Vietnamese
+### Use Cases
+1. **New feature**: Creating translations for a new app section
+   ```bash
+   # Create files for user profile feature
+   npm run create:locale
+   > user-profile
+   ```
 
-Custom language codes can also be used with a confirmation prompt.
+2. **New category**: Organizing translations by category
+   ```bash
+   # Create files for payment-related translations
+   npm run create:locale
+   > payment-methods
+   ```
+
+3. **Quick setup**: Rapidly scaffolding multiple translation namespaces
+   ```bash
+   # Create files one by one
+   npm run create:locale
+   > dashboard
+   npm run create:locale
+   > settings
+   npm run create:locale
+   > notifications
+   ```
 
 ---
 
