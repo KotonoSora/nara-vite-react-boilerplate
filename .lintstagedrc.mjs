@@ -1,10 +1,12 @@
 export default {
-  '**/*.{ts,tsx}': (filenames) => {
-    const escapedFilenames = filenames.map(filename => `"${filename}"`).join(' ');
+  "(app|database|workers)/**/*.{ts,tsx}": (filenames) => {
+    const quotedFiles = filenames.map((file) => `"${file}"`).join(" ");
     return [
-      'bun run typecheck',
-      'bun run lint',
-      `bun run test --run --silent 'passed-only' --passWithNoTests related ${escapedFilenames}`
+      "bun run typecheck",
+      "bun run lint",
+      quotedFiles
+        ? `bun run test -- --run --silent --passWithNoTests related ${quotedFiles}`
+        : "bun run test -- --run --silent --passWithNoTests",
     ];
-  }
+  },
 };
