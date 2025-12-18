@@ -18,7 +18,7 @@ export const pageMiddleware: MiddlewareFunction = async ({ context }, next) => {
 
   // Prepare data in parallel if needed
   const { getShowcases } = await import("../utils/get-showcases");
-  const showcases = await getShowcases(db);
+  const showcases = getShowcases(db);
 
   // Build context object
   const contextValue: PageInformation = {

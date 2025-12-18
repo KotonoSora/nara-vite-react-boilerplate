@@ -1,4 +1,5 @@
 import { CircleChevronRight } from "lucide-react";
+import { use } from "react";
 import { Link, useLoaderData } from "react-router";
 
 import type { ProjectInfo } from "~/features/showcases/types/type";
@@ -14,7 +15,9 @@ import { ShowcaseItem } from "../components/showcase-item";
 
 export function ShowcaseSection() {
   const t = useTranslation();
-  const { showcases, builtInDemos } = useLoaderData<PageInformation>();
+  const { showcases: fetchShowcases, builtInDemos } =
+    useLoaderData<PageInformation>();
+  const showcases = use(fetchShowcases);
 
   return (
     <section className="py-16 px-6 lg:px-24 bg-background content-visibility-auto">
