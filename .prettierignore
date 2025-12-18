@@ -29,4 +29,5 @@
 # !docs/**
 !database/
 !database/**
-!scripts/generate-i18n-types.ts
+!scripts/
+!scripts/**

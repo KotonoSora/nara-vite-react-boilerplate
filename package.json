@@ -16,7 +16,6 @@
     "dev": "react-router dev",
     "start": "wrangler dev",
     "wrangler:types": "wrangler types",
-    "generate:i18n-types": "node scripts/generate-i18n-types.mjs",
     "pretypecheck": "wrangler types && node scripts/generate-i18n-types.mjs",
     "typecheck": "react-router typegen",
     "posttypecheck": "tsc --noEmit",
@@ -24,7 +23,9 @@
     "prepare": "husky",
     "lint:commitlint": "commitlint --edit",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "generate:i18n-types": "node scripts/generate-i18n-types.mjs",
+    "generate:i18n-locales": "node scripts/generate-missing-locales.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.2.2",
