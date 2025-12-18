@@ -25,7 +25,8 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "generate:i18n-types": "node scripts/generate-i18n-types.mjs",
-    "generate:i18n-locales": "node scripts/generate-missing-locales.mjs"
+    "generate:i18n-locales": "node scripts/generate-missing-locales.mjs",
+    "create:locale": "node scripts/create-locale.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.2.2",
