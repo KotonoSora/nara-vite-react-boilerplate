@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import type { Route } from "./+types/($lang).login";
 
 import type { MiddlewareFunction } from "react-router";
@@ -28,6 +26,8 @@ export async function action({ request, context }: Route.ActionArgs) {
   const { t } = context.get(I18nContext);
 
   const formData = await request.formData();
+
+  const { z } = await import("zod");
 
   const loginSchema = z.object({
     email: z.email(),

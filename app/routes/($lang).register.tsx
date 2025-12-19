@@ -1,5 +1,4 @@
 import { sql } from "drizzle-orm";
-import { z } from "zod";
 
 import type { Route } from "./+types/($lang).register";
 
@@ -31,6 +30,8 @@ export async function action({ request, context }: Route.ActionArgs) {
   const { t } = context.get(I18nContext);
 
   const formData = await request.formData();
+
+  const { z } = await import("zod");
 
   const registerSchema = z
     .object({

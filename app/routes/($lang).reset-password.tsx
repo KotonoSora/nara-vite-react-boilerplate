@@ -1,5 +1,4 @@
 import { redirect } from "react-router";
-import { z } from "zod";
 
 import type { Route } from "./+types/($lang).reset-password";
 
@@ -39,6 +38,9 @@ export async function loader({ context }: Route.LoaderArgs) {
 export async function action({ request, context }: Route.ActionArgs) {
   const { t } = context.get(I18nContext);
   const formData = await request.formData();
+
+  const { z } = await import("zod");
+
   const resetPasswordSchema = z
     .object({
       token: z.string().min(1, t("auth.resetPassword.errorMissingToken")),

@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import type { Route } from "./+types/($lang).forgot-password";
 
 import type { MiddlewareFunction } from "react-router";
@@ -23,6 +21,9 @@ export async function loader({ context }: Route.LoaderArgs) {
 export async function action({ request, context }: Route.ActionArgs) {
   const { t } = context.get(I18nContext);
   const formData = await request.formData();
+
+  const { z } = await import("zod");
+
   const forgotPasswordSchema = z.object({
     email: z.email(t("auth.forgotPassword.errorInvalidEmail")),
   });

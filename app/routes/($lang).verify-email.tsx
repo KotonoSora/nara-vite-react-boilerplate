@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import type { Route } from "./+types/($lang).verify-email";
 
 import type { MiddlewareFunction } from "react-router";
@@ -22,6 +20,9 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 
   const url = new URL(request.url);
   const token = url.searchParams.get("token");
+
+  const { z } = await import("zod");
+
   // Create schema with localized error message
   const verifyEmailSchema = z.object({
     token: z.string().min(1, t("auth.verifyEmail.validation.tokenRequired")),
