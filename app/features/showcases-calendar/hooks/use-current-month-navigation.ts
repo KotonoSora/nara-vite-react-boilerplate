@@ -1,6 +1,7 @@
 import { addMonths, startOfMonth, subMonths } from "date-fns";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import type { Day } from "date-fns";
 import type { VirtuosoGridHandle } from "react-virtuoso";
 
 import type {
@@ -20,6 +21,10 @@ export function useCurrentMonthNavigation({
   initialDate,
   language,
 }: CurrentMonthNavigationProps): CurrentMonthNavigationReturn {
+  /**
+   * Derive a safe Date representing the first day of the intended month.
+   * Falls back to the current month when input is invalid or missing.
+   */
   const getInitialDate = (): Date => {
     if (!initialDate) return startOfMonth(new Date());
 
@@ -30,13 +35,19 @@ export function useCurrentMonthNavigation({
   };
 
   const [firstDayOfMonth, setFirstDayOfMonth] = useState<Date>(getInitialDate);
-
-  const weekStartsOn = getWeekStartsOnByLanguage({
-    language,
-  });
+  /**
+   * Store week configuration/labels derived asynchronously from language.
+   * Defaults ensure consistent behavior before async resolution.
+   */
+  const [weekStartsOn, setWeekStartsOn] = useState<Day>(0 as Day);
+  const [weekDays, setWeekDays] = useState<string[]>([]);
 
   const virtuosoRef = useRef<VirtuosoGridHandle | null>(null);
 
+  /**
+   * Scroll the grid to the start index of the target month.
+   * No-op until a valid ref exists. Uses current `weekStartsOn` state.
+   */
   const scrollToMonthStart = (targetDate: Date) => {
     if (!virtuosoRef.current) return;
 
@@ -82,10 +93,30 @@ export function useCurrentMonthNavigation({
     });
   };
 
-  const weekDays = getWeekDayLabels({
-    language,
-    formatStyle: "short",
-  });
+  /**
+   * Resolve async language-driven week configuration and labels.
+   * Updates whenever `language` changes; guards against stale updates.
+   */
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const [resolvedWeekStartsOn, resolvedWeekDays] = await Promise.all([
+          getWeekStartsOnByLanguage({ language }),
+          getWeekDayLabels({ language, formatStyle: "short" }),
+        ]);
+        if (!cancelled) {
+          setWeekStartsOn(resolvedWeekStartsOn);
+          setWeekDays(resolvedWeekDays);
+        }
+      } catch {
+        // Keep safe defaults on error; intentionally silent.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [language]);
 
   const monthLabel = formatMonthLabelByLanguage({
     date: firstDayOfMonth,
