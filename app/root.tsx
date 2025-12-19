@@ -39,6 +39,7 @@ import { generalInformationMiddleware } from "~/middleware/information";
 import { ThemeContext, themeMiddleware } from "~/middleware/theme";
 
 import appCssUrl from "~/app.css?url";
+import animationsCssUrl from "~/styles/animations.css?url";
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
 const ToasterLazy = lazy(async () => ({
@@ -49,6 +50,8 @@ export const links: Route.LinksFunction = () => {
   const links: ReturnType<Route.LinksFunction> = [
     { rel: "preload", href: appCssUrl, as: "style" },
     { rel: "stylesheet", href: appCssUrl },
+    { rel: "preload", href: animationsCssUrl, as: "style" },
+    { rel: "stylesheet", href: animationsCssUrl },
     { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
   ];
 
