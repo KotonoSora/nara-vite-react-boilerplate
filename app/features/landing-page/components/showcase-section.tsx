@@ -4,7 +4,7 @@ import { Link, useLoaderData } from "react-router";
 
 import type { ProjectInfo } from "~/features/showcases/types/type";
 
-import type { PageInformation } from "../types/type";
+import type { LandingPageContextType } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
@@ -16,7 +16,7 @@ import { ShowcaseItem } from "../components/showcase-item";
 export function ShowcaseSection() {
   const t = useTranslation();
   const { showcases: fetchShowcases, builtInDemos } =
-    useLoaderData<PageInformation>();
+    useLoaderData<LandingPageContextType>();
   const showcases = use(fetchShowcases);
 
   return (
