@@ -22,7 +22,9 @@ export function meta({ loaderData }: Route.MetaArgs) {
   const { title, description } = loaderData;
 
   const canonicalUrl =
-    import.meta.env.VITE_PROD_DOMAIN || import.meta.env.VITE_DEV_DOMAIN;
+    process.env.CLOUDFLARE_ENV === "production"
+      ? import.meta.env.VITE_PROD_DOMAIN
+      : import.meta.env.VITE_DEV_DOMAIN;
   const siteName = "KotonoSora";
   const locale = "en_US";
   const language = "en-US";
