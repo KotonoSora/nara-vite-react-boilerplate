@@ -7,7 +7,7 @@ import type { SupportedLanguage } from "../types/common";
 import type { I18nProviderProps } from "../types/context";
 
 import { createTranslationFunction } from "../utils/translations/create-translation-function";
-import { I18nContext } from "./context";
+import { I18nReactContext } from "./context";
 
 /**
  * Provides internationalization (i18n) context to its children components.
@@ -56,5 +56,9 @@ export function I18nProvider({
     setLanguage,
   };
 
-  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+  return (
+    <I18nReactContext.Provider value={value}>
+      {children}
+    </I18nReactContext.Provider>
+  );
 }

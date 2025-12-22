@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { FooterSection } from "../shared/components/footer-section";
 import { HeaderNavigation } from "../shared/header-navigation";
 import { BuiltForDevelopersSection } from "./components/built-for-developers-section";
@@ -34,7 +36,9 @@ export function ContentPage() {
       <LicenseSection />
 
       {/* Showcase Section */}
-      <ShowcaseSection />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ShowcaseSection />
+      </Suspense>
 
       {/* Footer Section */}
       <FooterSection />

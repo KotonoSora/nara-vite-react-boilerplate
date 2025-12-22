@@ -2,11 +2,12 @@ import { Menu, X } from "lucide-react";
 
 import type { MenuTriggerProps } from "../types/type";
 
-import { LanguageSwitcher } from "~/components/language-switcher";
-import { ModeSwitcher } from "~/components/mode-switcher";
 import { Button } from "~/components/ui/button";
 import { PopoverTrigger } from "~/components/ui/popover";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
+
+import { LanguageSwitcher } from "./language-switcher";
+import { ModeSwitcher } from "./mode-switcher";
 
 export function MenuTrigger({ isOpen }: MenuTriggerProps) {
   const t = useTranslation();

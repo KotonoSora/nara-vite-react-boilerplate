@@ -4,7 +4,7 @@ import type { MiddlewareFunction } from "react-router";
 
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
 import { AuthContext } from "~/middleware/auth";
-import { I18nContext } from "~/middleware/i18n";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 
 export type AdminPageContextType = {
   title: string;
@@ -19,13 +19,13 @@ export const adminMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
-  const { language, t } = context.get(I18nContext);
+  const { t } = context.get(I18nReactRouterContext);
   const { user } = context.get(AuthContext);
   if (!user || user.role !== "admin") throw redirect("/");
+
   const contextValue = {
     title: t("admin.meta.title"),
     description: t("admin.meta.description"),
-    language,
     user,
   };
 

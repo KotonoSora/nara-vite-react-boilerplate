@@ -1,7 +1,7 @@
 import { Rocket } from "lucide-react";
 import { useLoaderData } from "react-router";
 
-import type { PageInformation } from "../types/type";
+import type { LandingPageContextType } from "../types/type";
 
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
@@ -11,7 +11,7 @@ import { FeatureCard } from "./feature-card";
 
 export function KeyFeaturesSection() {
   const t = useTranslation();
-  const { featuresConfig } = useLoaderData<PageInformation>();
+  const { featuresConfig } = useLoaderData<LandingPageContextType>();
 
   if (!featuresConfig) return null;
 

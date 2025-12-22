@@ -8,6 +8,6 @@ export type ProjectInfo = {
 };
 
 export type PageInformation = {
-  showcases?: ProjectInfo[];
+  showcases: Promise<ProjectInfo[]>;
   builtInDemos: ProjectInfo[];
 };

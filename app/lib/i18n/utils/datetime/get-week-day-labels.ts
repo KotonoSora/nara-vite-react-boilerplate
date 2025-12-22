@@ -16,7 +16,7 @@ import { getWeekStartsOnByLanguage } from "./get-week-starts-on-by-language";
  * @param {('long'|'short'|'narrow')} options.formatStyle - Format style for weekday names
  * @returns Array of 7 weekday names in correct order
  */
-export function getWeekDayLabels({
+export async function getWeekDayLabels({
   language = "en",
   startOnSunday,
   formatStyle = "short",
@@ -24,11 +24,11 @@ export function getWeekDayLabels({
   language?: SupportedLanguage | string;
   startOnSunday?: boolean;
   formatStyle?: "long" | "short" | "narrow";
-}): string[] {
-  const locale = getDateFNSLocaleByLanguage(language);
+}): Promise<string[]> {
+  const locale = await getDateFNSLocaleByLanguage(language);
 
   // Determine weekStartsOn: prioritize override, then locale default, then Monday (1)
-  const weekStartsOn = getWeekStartsOnByLanguage({
+  const weekStartsOn = await getWeekStartsOnByLanguage({
     startOnSunday,
     language,
   });

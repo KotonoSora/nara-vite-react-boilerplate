@@ -3,7 +3,7 @@ import type { MiddlewareFunction } from "react-router";
 import type { AboutPageContextType } from "../types/type";
 
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { I18nContext } from "~/middleware/i18n";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 
 export const { aboutMiddlewareContext } =
   createMiddlewareContext<AboutPageContextType>("aboutMiddlewareContext");
@@ -12,7 +12,7 @@ export const aboutMiddleware: MiddlewareFunction = async (
   { context },
   next,
 ) => {
-  const { t } = context.get(I18nContext);
+  const { t } = context.get(I18nReactRouterContext);
 
   const contextValue: AboutPageContextType = {
     title: t("about.meta.title"),

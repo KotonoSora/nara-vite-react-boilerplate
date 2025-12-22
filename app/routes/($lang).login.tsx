@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import type { Route } from "./+types/($lang).login";
 
 import type { MiddlewareFunction } from "react-router";
@@ -10,7 +8,7 @@ import {
 } from "~/features/login/middleware/page-middleware";
 import { ContentLoginPage } from "~/features/login/page";
 import { authMiddleware } from "~/features/shared/middleware/auth";
-import { I18nContext } from "~/middleware/i18n";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [
@@ -25,9 +23,11 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const { t } = context.get(I18nContext);
+  const { t } = context.get(I18nReactRouterContext);
 
   const formData = await request.formData();
+
+  const { z } = await import("zod");
 
   const loginSchema = z.object({
     email: z.email(),

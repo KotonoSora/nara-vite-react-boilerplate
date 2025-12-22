@@ -2,7 +2,7 @@ import { Check, Copy, Play, Terminal } from "lucide-react";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
 
-import type { PageInformation, Step } from "../types/type";
+import type { LandingPageContextType, Step } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
@@ -10,7 +10,7 @@ import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function GettingStartedSection() {
   const t = useTranslation();
-  const { steps } = useLoaderData<PageInformation>();
+  const { steps } = useLoaderData<LandingPageContextType>();
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
 
   const copyToClipboard = async (step: Step) => {

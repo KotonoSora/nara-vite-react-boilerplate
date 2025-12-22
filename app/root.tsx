@@ -34,7 +34,7 @@ import { DEFAULT_LANGUAGE } from "~/lib/i18n/constants/common";
 import { I18nProvider } from "~/lib/i18n/react/provider";
 import { isRTLLanguage } from "~/lib/i18n/utils/common/is-rtl-language";
 import { AuthContext, authMiddleware } from "~/middleware/auth";
-import { I18nContext, i18nMiddleware } from "~/middleware/i18n";
+import { i18nMiddleware, I18nReactRouterContext } from "~/middleware/i18n";
 import { generalInformationMiddleware } from "~/middleware/information";
 import { ThemeContext, themeMiddleware } from "~/middleware/theme";
 
@@ -74,7 +74,7 @@ export const middleware: MiddlewareFunction[] = [
 ];
 
 export async function loader({ request, context }: Route.LoaderArgs) {
-  const { language } = context.get(I18nContext);
+  const { language } = context.get(I18nReactRouterContext);
   const { theme } = context.get(ThemeContext);
   const { user } = context.get(AuthContext);
   return { theme, language, user };

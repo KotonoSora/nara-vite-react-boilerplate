@@ -46,22 +46,25 @@ export function getTranslation(
   }
 
   // Final fallback to the key itself if nothing is found
+  let translatedString: string;
   if (translation === undefined) {
     console.warn(
       `Translation not found for key: ${key} in language: ${language}`,
     );
-    translation = key;
+    translatedString = key;
+  } else {
+    translatedString = String(translation);
   }
 
   // Handle parameter replacement
-  if (params && typeof translation === "string") {
+  if (params) {
     Object.entries(params).forEach(([paramKey, value]) => {
-      translation = translation!.replace(
+      translatedString = translatedString.replace(
         new RegExp(`{{${paramKey}}}`, "g"),
         String(value),
       );
     });
   }
 
-  return translation;
+  return translatedString;
 }
