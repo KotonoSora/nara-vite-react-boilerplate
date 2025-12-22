@@ -7,13 +7,13 @@ import {
   pageMiddlewareContext,
 } from "~/features/verify-email/middleware/page-middleware";
 import { VerifyEmailPage } from "~/features/verify-email/page";
-import { I18nContext } from "~/middleware/i18n";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [pageMiddleware];
 
 export async function loader({ context, request }: Route.LoaderArgs) {
-  const { t } = context.get(I18nContext);
+  const { t } = context.get(I18nReactRouterContext);
   const generalInformation = context.get(GeneralInformationContext);
   const { title, description } = context.get(pageMiddlewareContext);
   const { db } = context;

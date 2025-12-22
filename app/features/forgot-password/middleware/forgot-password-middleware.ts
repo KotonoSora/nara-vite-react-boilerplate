@@ -1,7 +1,7 @@
 import type { MiddlewareFunction } from "react-router";
 
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { I18nContext } from "~/middleware/i18n";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 
 export type ForgotPasswordPageContextType = {
   title: string;
@@ -17,7 +17,7 @@ export const forgotPasswordMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
-  const { t } = context.get(I18nContext);
+  const { t } = context.get(I18nReactRouterContext);
   const contextValue: ForgotPasswordPageContextType = {
     title: t("auth.forgotPassword.title"),
     description: t("auth.forgotPassword.description"),
