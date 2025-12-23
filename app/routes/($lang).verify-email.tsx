@@ -2,6 +2,7 @@ import type { Route } from "./+types/($lang).verify-email";
 
 import type { MiddlewareFunction } from "react-router";
 
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import {
   pageMiddleware,
   pageMiddlewareContext,
@@ -15,6 +16,7 @@ export const middleware: MiddlewareFunction[] = [pageMiddleware];
 export async function loader({ context, request }: Route.LoaderArgs) {
   const { t } = context.get(I18nReactRouterContext);
   const generalInformation = context.get(GeneralInformationContext);
+  const i18nContent = context.get(I18nReactRouterContext);
   const { title, description } = context.get(pageMiddlewareContext);
   const { db } = context;
 
@@ -32,6 +34,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   if (!validationResult.success) {
     return {
       ...generalInformation,
+      ...i18nContent,
       title,
       description,
       error: t("auth.verifyEmail.validation.tokenRequired"),
@@ -66,6 +69,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
     }
     return {
       ...generalInformation,
+      ...i18nContent,
       title,
       description,
       error: errorMessage,
@@ -75,6 +79,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 
   return {
     ...generalInformation,
+    ...i18nContent,
     title,
     description,
     success: true,
@@ -83,8 +88,8 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
+  const { title, description, language } = loaderData;
+  return generateMetaTags({ title, description, language });
 }
 
 export default function VerifyEmail({ loaderData }: Route.ComponentProps) {

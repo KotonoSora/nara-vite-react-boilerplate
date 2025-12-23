@@ -11,6 +11,7 @@ import {
   slugBlogMiddleware,
   slugBlogMiddlewareContext,
 } from "~/features/blog/middleware/slug-blog-middleware";
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 
 export const clientMiddleware: MiddlewareFunction[] = [slugBlogMiddleware];
 
@@ -23,28 +24,16 @@ clientLoader.hydrate = true as const;
 
 export function meta({ loaderData: data }: Route.MetaArgs) {
   if (!data) {
-    return [
-      { title: "Blog Post Not Found" },
-      {
-        name: "description",
-        content: "The requested blog post could not be found.",
-      },
-    ];
+    return generateMetaTags({
+      title: "Blog Post Not Found",
+      description: "The requested blog post could not be found.",
+    });
   }
 
-  return [
-    { title: data.frontmatter.title },
-    {
-      name: "description",
-      content: data.frontmatter.description || data.frontmatter.title,
-    },
-    ...(data.frontmatter.author
-      ? [{ name: "author", content: data.frontmatter.author }]
-      : []),
-    ...(data.frontmatter.tags
-      ? [{ name: "keywords", content: data.frontmatter.tags.join(", ") }]
-      : []),
-  ];
+  return generateMetaTags({
+    title: data.frontmatter.title,
+    description: data.frontmatter.description || data.frontmatter.title,
+  });
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

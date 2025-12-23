@@ -2,6 +2,7 @@ import type { Route } from "./+types/($lang).blog._index";
 
 import { HomePage } from "~/features/blog/components/home-page";
 import { getAllBlogPosts } from "~/features/blog/utils/mdx-loader";
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 
 export async function clientLoader() {
   const posts = await getAllBlogPosts();
@@ -11,13 +12,10 @@ export async function clientLoader() {
 clientLoader.hydrate = true as const;
 
 export function meta() {
-  return [
-    { title: "Blog - All Posts" },
-    {
-      name: "description",
-      content: "Read our latest articles, tutorials, and insights",
-    },
-  ];
+  return generateMetaTags({
+    title: "Blog - All Posts",
+    description: "Read our latest articles, tutorials, and insights",
+  });
 }
 
 export default function Page({ loaderData }: Route.ComponentProps) {
