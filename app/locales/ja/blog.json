@@ -2,5 +2,28 @@
   "meta": {
     "title": "ブログ - Nara Vite React Boilerplate",
     "description": "Nara Vite React Boilerplateのブログで最新の記事と更新をお読みください。"
+  },
+  "home": {
+    "title": "ブログ",
+    "subtitle": "チームからの洞察、チュートリアル、最新情報",
+    "noPosts": "まだブログ記事はありません。"
+  },
+  "card": {
+    "by": "投稿者",
+    "readMore": "続きを読む"
+  },
+  "error": {
+    "notFoundTitle": "ブログ記事が見つかりません",
+    "serverErrorTitle": "エラーが発生しました",
+    "notFoundMessage": "お探しのブログ記事は存在しないか、削除されました。",
+    "serverErrorMessage": "このブログ記事の読み込み中にエラーが発生しました。後でもう一度お試しください。",
+    "errorDetails": "エラーの詳細",
+    "viewAllPosts": "すべての記事を表示",
+    "goHome": "ホームへ戻る"
+  },
+  "loading": {
+    "title": "リクエストを処理中",
+    "description": "リクエストを処理していますので、お待ちください。ページを更新しないでください。",
+    "cancel": "キャンセル"
   }
 }

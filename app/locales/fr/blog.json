@@ -2,5 +2,28 @@
   "meta": {
     "title": "Blog - Boilerplate React Vite Nara",
     "description": "Lisez les derniers articles et mises à jour sur le blog de Nara Vite React Boilerplate."
+  },
+  "home": {
+    "title": "Blog",
+    "subtitle": "Perspectives, tutoriels et mises à jour de notre équipe",
+    "noPosts": "Aucun article de blog disponible pour le moment."
+  },
+  "card": {
+    "by": "Par",
+    "readMore": "Lire la suite"
+  },
+  "error": {
+    "notFoundTitle": "Article de Blog Non Trouvé",
+    "serverErrorTitle": "Quelque Chose S'est Mal Passé",
+    "notFoundMessage": "L'article de blog que vous recherchez n'existe pas ou a été supprimé.",
+    "serverErrorMessage": "Une erreur s'est produite lors du chargement de cet article de blog. Veuillez réessayer plus tard.",
+    "errorDetails": "Détails de l'Erreur",
+    "viewAllPosts": "Voir Tous les Articles",
+    "goHome": "Retour à l'Accueil"
+  },
+  "loading": {
+    "title": "Traitement de votre demande",
+    "description": "Veuillez patienter pendant que nous traitons votre demande. Ne rafraîchissez pas la page.",
+    "cancel": "Annuler"
   }
 }
