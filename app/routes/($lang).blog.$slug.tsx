@@ -9,14 +9,16 @@ import { SlugHydrateFallback } from "~/features/blog/components/slug-hydrate-fal
 import { SlugPage } from "~/features/blog/components/slug-page";
 import {
   slugBlogMiddleware,
-  slugBlogMiddlewareContext,
+  SlugBlogReactRouterContext,
 } from "~/features/blog/middleware/slug-blog-middleware";
 import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 
 export const clientMiddleware: MiddlewareFunction[] = [slugBlogMiddleware];
 
 export async function clientLoader({ context }: Route.ClientLoaderArgs) {
-  const { content, frontmatter, slug } = context.get(slugBlogMiddlewareContext);
+  const { content, frontmatter, slug } = context.get(
+    SlugBlogReactRouterContext,
+  );
   return { content, frontmatter, slug };
 }
 
@@ -32,7 +34,7 @@ export function meta({ loaderData: data }: Route.MetaArgs) {
 
   return generateMetaTags({
     title: data.frontmatter.title,
-    description: data.frontmatter.description || data.frontmatter.title,
+    description: data.frontmatter.description,
   });
 }
 
@@ -63,6 +65,6 @@ export function HydrateFallback() {
   return <SlugHydrateFallback />;
 }
 
-export default function Page({ loaderData }: Route.ComponentProps) {
-  return <SlugPage {...loaderData} />;
+export default function Page({}: Route.ComponentProps) {
+  return <SlugPage />;
 }

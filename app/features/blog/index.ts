@@ -33,7 +33,7 @@ export {
 
 export {
   slugBlogMiddleware,
-  slugBlogMiddlewareContext,
+  SlugBlogReactRouterContext,
 } from "./middleware/slug-blog-middleware";
 
 export {

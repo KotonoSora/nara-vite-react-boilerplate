@@ -16,8 +16,8 @@ interface SlugBlogContext {
   slug: string;
 }
 
-export const { slugBlogMiddlewareContext } =
-  createMiddlewareContext<SlugBlogContext>("slugBlogMiddlewareContext");
+export const { SlugBlogReactRouterContext } =
+  createMiddlewareContext<SlugBlogContext>("SlugBlogReactRouterContext");
 
 export const slugBlogMiddleware: MiddlewareFunction = async (
   { context, params },
@@ -83,7 +83,7 @@ export const slugBlogMiddleware: MiddlewareFunction = async (
     ),
   };
 
-  context.set(slugBlogMiddlewareContext, contextValue);
+  context.set(SlugBlogReactRouterContext, contextValue);
 
   return await next();
 };
