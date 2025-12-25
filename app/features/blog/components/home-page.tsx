@@ -1,15 +1,14 @@
 import type { BlogPost } from "~/features/blog/utils/mdx-loader";
 
 import { BlogPostCard } from "~/features/blog/components/blog-post-card";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
+import { useI18n } from "~/lib/i18n/hooks/use-i18n";
 
 interface HomePageProps {
   posts?: BlogPost[];
-  locale?: string;
 }
 
-export function HomePage({ posts = [], locale = "en-US" }: HomePageProps) {
-  const t = useTranslation();
+export function HomePage({ posts = [] }: HomePageProps) {
+  const { t } = useI18n();
 
   return (
     <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12">
@@ -28,7 +27,7 @@ export function HomePage({ posts = [], locale = "en-US" }: HomePageProps) {
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
-              <BlogPostCard key={post.slug} post={post} locale={locale} />
+              <BlogPostCard key={post.slug} post={post} />
             ))}
           </div>
         )}
