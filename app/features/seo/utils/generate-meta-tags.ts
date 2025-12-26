@@ -22,7 +22,7 @@ export function generateMetaTags({
   language = DEFAULT_LANGUAGE,
 }: GenerateMetaTagsParams): GenerateMetaTagsResponse {
   const canonicalUrl =
-    import.meta.env.CLOUDFLARE_ENV === "production"
+    process.env.CLOUDFLARE_ENV === "production"
       ? import.meta.env.VITE_PROD_DOMAIN
       : import.meta.env.VITE_DEV_DOMAIN;
 
