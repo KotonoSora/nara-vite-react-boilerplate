@@ -87,6 +87,7 @@ jobs:
       CLOUDFLARE_ENV: ${{ github.event.inputs.branch == 'feature/reduce-loading-time-translate-files' && 'production' || 'development' }}
       NODE_ENV: production
       ADMIN_REGISTRATION_SECRET: ${{ secrets.ADMIN_REGISTRATION_SECRET }}
+      VITE_DOMAIN_ENV: ${{ github.event.inputs.branch == 'feature/reduce-loading-time-translate-files' && 'production' || 'development' }}
       VITE_MAX_USERS: ${{ vars.VITE_MAX_USERS }}
       VITE_LANDING_PAGE_TITLE: ${{ vars.VITE_LANDING_PAGE_TITLE }}
       VITE_LANDING_PAGE_DESCRIPTION: ${{ vars.VITE_LANDING_PAGE_DESCRIPTION }}

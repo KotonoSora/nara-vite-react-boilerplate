@@ -16,16 +16,16 @@ import {
   twitterHandle,
 } from "../constants/common";
 
+const canonicalUrl =
+  import.meta.env.VITE_DOMAIN_ENV === "production"
+    ? import.meta.env.VITE_PROD_DOMAIN
+    : import.meta.env.VITE_DEV_DOMAIN;
+
 export function generateMetaTags({
   title = import.meta.env.VITE_LANDING_PAGE_TITLE,
   description = import.meta.env.VITE_LANDING_PAGE_DESCRIPTION,
   language = DEFAULT_LANGUAGE,
 }: GenerateMetaTagsParams): GenerateMetaTagsResponse {
-  const canonicalUrl =
-    process.env.CLOUDFLARE_ENV === "production"
-      ? import.meta.env.VITE_PROD_DOMAIN
-      : import.meta.env.VITE_DEV_DOMAIN;
-
   const locale = getIntlLocaleByLanguage(language);
   const socialImage = canonicalUrl + "/assets/png/social-media.png";
   const fallbackSocialImage = SocialPreview;
