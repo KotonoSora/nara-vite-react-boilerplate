@@ -1,8 +1,11 @@
 import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
+import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function DonateSection() {
+  const t = useTranslation();
   const donateLink = import.meta.env.VITE_DONATE_LINK;
 
   if (!donateLink) return null;
@@ -15,8 +18,15 @@ export function DonateSection() {
           to={donateLink}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => {
+            // tracking event open donate link
+            trackCustomEvents({
+              event_category: "Button",
+              event_label: "Click to open the Donate link",
+            });
+          }}
         >
-          Buy Me a Coffee
+          {t("landing.donate.label")}
         </Link>
       </Button>
     </div>

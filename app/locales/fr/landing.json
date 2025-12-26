@@ -177,5 +177,8 @@
   },
   "github": {
     "seeMore": "Voir Plus"
+  },
+  "donate": {
+    "label": "Offrez-moi un café"
   }
 }
