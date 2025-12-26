@@ -4,7 +4,7 @@ import type { MiddlewareFunction } from "react-router";
 
 import {
   blogMiddleware,
-  blogMiddlewareContext,
+  BlogReactRouterContext,
 } from "~/features/blog/middleware/blog-middleware";
 import { BlogPage } from "~/features/blog/page";
 import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
@@ -22,7 +22,7 @@ export const middleware: MiddlewareFunction[] = [blogMiddleware];
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
   const i18nContent = context.get(I18nReactRouterContext);
-  const blogContent = context.get(blogMiddlewareContext);
+  const blogContent = context.get(BlogReactRouterContext);
   return { ...generalInformation, ...i18nContent, ...blogContent };
 }
 

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Blog - Boilerplate React Vite Nara",
-    "description": "Lisez les derniers articles et mises à jour sur le blog de Nara Vite React Boilerplate."
+    "title": "Blog",
+    "description": "Lisez les derniers articles et mises à jour."
   },
   "home": {
     "title": "Blog",

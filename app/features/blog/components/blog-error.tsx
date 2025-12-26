@@ -1,14 +1,8 @@
 import { Link } from "react-router";
 
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
+import type { BlogErrorProps } from "../types/type";
 
-interface BlogErrorProps {
-  error?: {
-    status?: number;
-    statusText?: string;
-    message?: string;
-  };
-}
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function BlogError({ error }: BlogErrorProps) {
   const t = useTranslation();

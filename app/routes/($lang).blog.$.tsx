@@ -1,6 +1,6 @@
 import { isRouteErrorResponse } from "react-router";
 
-import type { Route } from "./+types/($lang).blog.$slug";
+import type { Route } from "./+types/($lang).blog.$";
 
 import type { MiddlewareFunction } from "react-router";
 
@@ -11,7 +11,6 @@ import {
   slugBlogMiddleware,
   SlugBlogReactRouterContext,
 } from "~/features/blog/middleware/slug-blog-middleware";
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 
 export const clientMiddleware: MiddlewareFunction[] = [slugBlogMiddleware];
 
@@ -23,20 +22,6 @@ export async function clientLoader({ context }: Route.ClientLoaderArgs) {
 }
 
 clientLoader.hydrate = true as const;
-
-export function meta({ loaderData: data }: Route.MetaArgs) {
-  if (!data) {
-    return generateMetaTags({
-      title: "Blog Post Not Found",
-      description: "The requested blog post could not be found.",
-    });
-  }
-
-  return generateMetaTags({
-    title: data.frontmatter.title,
-    description: data.frontmatter.description,
-  });
-}
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   if (isRouteErrorResponse(error)) {

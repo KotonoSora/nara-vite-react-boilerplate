@@ -5,6 +5,7 @@ import type {
 
 import SocialPreview from "~/features/shared/assets/social-preview.svg?no-inline";
 import { DEFAULT_LANGUAGE } from "~/lib/i18n/constants/common";
+import { getIntlLocaleByLanguage } from "~/lib/i18n/utils/datetime/get-intl-locale-by-language";
 
 import {
   author,
@@ -25,18 +26,16 @@ export function generateMetaTags({
       ? import.meta.env.VITE_PROD_DOMAIN
       : import.meta.env.VITE_DEV_DOMAIN;
 
-  const locale = "en_US";
+  const locale = getIntlLocaleByLanguage(language);
   const socialImage = canonicalUrl + "/assets/png/social-media.png";
   const fallbackSocialImage = SocialPreview;
   const imageContent = socialImage ?? fallbackSocialImage;
 
   return [
-    { charSet: "utf-8" },
     { title },
     { name: "description", content: description },
     { name: "language", content: language },
     { tagName: "link", rel: "canonical", href: canonicalUrl },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
     {
       name: "robots",
       content:

@@ -7,9 +7,7 @@ export function BlogPage() {
   return (
     <main className="min-h-screen bg-background content-visibility-auto flex flex-col">
       <HeaderNavigation />
-
       <Outlet />
-
       <FooterSection />
     </main>
   );

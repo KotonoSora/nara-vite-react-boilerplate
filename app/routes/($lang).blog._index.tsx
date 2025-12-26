@@ -1,23 +1,53 @@
+import { isRouteErrorResponse } from "react-router";
+
 import type { Route } from "./+types/($lang).blog._index";
 
-import { HomePage } from "~/features/blog/components/home-page";
-import { getAllBlogPosts } from "~/features/blog/utils/mdx-loader";
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
+import type { MiddlewareFunction } from "react-router";
 
-export async function clientLoader() {
-  const posts = await getAllBlogPosts();
+import { BlogError } from "~/features/blog/components/blog-error";
+import { HomePage } from "~/features/blog/components/home-page";
+import { SlugHydrateFallback } from "~/features/blog/components/slug-hydrate-fallback";
+import {
+  allBlogMiddleware,
+  AllBlogReactRouterContext,
+} from "~/features/blog/middleware/all-blog-middleware";
+
+export const clientMiddleware: MiddlewareFunction[] = [allBlogMiddleware];
+export async function clientLoader({ context }: Route.ClientLoaderArgs) {
+  const { posts } = context.get(AllBlogReactRouterContext);
+
   return { posts };
 }
 
 clientLoader.hydrate = true as const;
 
-export function meta() {
-  return generateMetaTags({
-    title: "Blog - All Posts",
-    description: "Read our latest articles, tutorials, and insights",
-  });
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  if (isRouteErrorResponse(error)) {
+    return (
+      <BlogError
+        error={{
+          status: error.status,
+          statusText: error.statusText,
+          message: error.data?.error || error.statusText,
+        }}
+      />
+    );
+  }
+
+  return (
+    <BlogError
+      error={{
+        status: 500,
+        message: error instanceof Error ? error.message : "Unknown error",
+      }}
+    />
+  );
 }
 
-export default function Page({ loaderData }: Route.ComponentProps) {
-  return <HomePage posts={loaderData.posts} />;
+export function HydrateFallback() {
+  return <SlugHydrateFallback />;
+}
+
+export default function Page({}: Route.ComponentProps) {
+  return <HomePage />;
 }

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Blog - Bộ khuôn mẫu React Vite Nara",
-    "description": "Đọc các bài viết và cập nhật mới nhất trên blog của Nara Vite React Boilerplate."
+    "title": "Blog",
+    "description": "Đọc các bài viết và cập nhật mới nhất."
   },
   "home": {
     "title": "Blog",
