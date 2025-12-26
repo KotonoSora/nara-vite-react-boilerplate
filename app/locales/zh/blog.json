@@ -1,6 +1,29 @@
 {
   "meta": {
-    "title": "博客 - Nara Vite React Boilerplate",
-    "description": "阅读 Nara Vite React Boilerplate 博客上的最新文章和更新。"
+    "title": "博客",
+    "description": "阅读最新文章和更新。"
+  },
+  "home": {
+    "title": "博客",
+    "subtitle": "来自我们团队的见解、教程和更新",
+    "noPosts": "暂无博客文章。"
+  },
+  "card": {
+    "by": "作者",
+    "readMore": "阅读更多"
+  },
+  "error": {
+    "notFoundTitle": "未找到博客文章",
+    "serverErrorTitle": "出现错误",
+    "notFoundMessage": "您要查找的博客文章不存在或已被删除。",
+    "serverErrorMessage": "加载此博客文章时发生错误。请稍后再试。",
+    "errorDetails": "错误详情",
+    "viewAllPosts": "查看所有文章",
+    "goHome": "返回首页"
+  },
+  "loading": {
+    "title": "正在处理您的请求",
+    "description": "请稍候，我们正在处理您的请求。请勿刷新页面。",
+    "cancel": "取消"
   }
 }

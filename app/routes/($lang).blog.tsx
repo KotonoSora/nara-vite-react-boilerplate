@@ -4,9 +4,11 @@ import type { MiddlewareFunction } from "react-router";
 
 import {
   blogMiddleware,
-  blogMiddlewareContext,
+  BlogReactRouterContext,
 } from "~/features/blog/middleware/blog-middleware";
 import { BlogPage } from "~/features/blog/page";
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 import styleUrl from "~/features/blog/style/custom.css?url";
@@ -19,13 +21,14 @@ export const middleware: MiddlewareFunction[] = [blogMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
-  const blogContent = context.get(blogMiddlewareContext);
-  return { ...generalInformation, ...blogContent };
+  const i18nContent = context.get(I18nReactRouterContext);
+  const blogContent = context.get(BlogReactRouterContext);
+  return { ...generalInformation, ...i18nContent, ...blogContent };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
+  const { title, description, language } = loaderData;
+  return generateMetaTags({ title, description, language });
 }
 
 export default function Page({}: Route.ComponentProps) {

@@ -7,19 +7,22 @@ import {
   dashboardMiddlewareContext,
 } from "~/features/dashboard/middleware/dashboard-middleware";
 import { ContentDashboardPage } from "~/features/dashboard/page";
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [dashboardMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
+  const i18nContent = context.get(I18nReactRouterContext);
   const dashboardContent = context.get(dashboardMiddlewareContext);
-  return { ...generalInformation, ...dashboardContent };
+  return { ...generalInformation, ...i18nContent, ...dashboardContent };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
+  const { title, description, language } = loaderData;
+  return generateMetaTags({ title, description, language });
 }
 
 export default function Dashboard({}: Route.ComponentProps) {

@@ -1,3 +1,12 @@
+/**
+ * Formats a date string into a localized date representation.
+ * @param dateString - The date string to format (should be a valid date string)
+ * @param locale - The locale code for formatting (default: "en-US")
+ * @returns A formatted date string in the specified locale, or the original string if formatting fails
+ * @example
+ * formatDate("2024-01-15") // "January 15, 2024"
+ * formatDate("2024-01-15", "fr-FR") // "15 janvier 2024"
+ */
 export function formatDate(
   dateString: string,
   locale: string = "en-US",
@@ -9,45 +18,6 @@ export function formatDate(
       month: "long",
       day: "numeric",
     });
-  } catch {
-    return dateString;
-  }
-}
-
-export function formatDateShort(
-  dateString: string,
-  locale: string = "en-US",
-): string {
-  try {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(locale, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  } catch {
-    return dateString;
-  }
-}
-
-export function getRelativeTime(
-  dateString: string,
-  locale: string = "en-US",
-): string {
-  try {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-
-    if (diffInSeconds < 60) return "just now";
-    if (diffInSeconds < 3600)
-      return `${Math.floor(diffInSeconds / 60)} minutes ago`;
-    if (diffInSeconds < 86400)
-      return `${Math.floor(diffInSeconds / 3600)} hours ago`;
-    if (diffInSeconds < 604800)
-      return `${Math.floor(diffInSeconds / 86400)} days ago`;
-
-    return formatDate(dateString, locale);
   } catch {
     return dateString;
   }

@@ -5,8 +5,8 @@ import type { BlogPageContextType } from "../types/type";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 
-export const { blogMiddlewareContext } =
-  createMiddlewareContext<BlogPageContextType>("blogMiddlewareContext");
+export const { BlogReactRouterContext } =
+  createMiddlewareContext<BlogPageContextType>("BlogReactRouterContext");
 
 export const blogMiddleware: MiddlewareFunction = async ({ context }, next) => {
   const { t } = context.get(I18nReactRouterContext);
@@ -16,7 +16,7 @@ export const blogMiddleware: MiddlewareFunction = async ({ context }, next) => {
     description: t("blog.meta.description"),
   };
 
-  context.set(blogMiddlewareContext, contextValue);
+  context.set(BlogReactRouterContext, contextValue);
 
   return await next();
 };

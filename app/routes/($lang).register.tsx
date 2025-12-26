@@ -10,6 +10,7 @@ import {
   pageMiddlewareContext,
 } from "~/features/register/middleware/page-middleware";
 import { ContentRegisterPage } from "~/features/register/page";
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { MAX_USERS } from "~/features/shared/constants/limit";
 import { authMiddleware } from "~/features/shared/middleware/auth";
 import { I18nReactRouterContext } from "~/middleware/i18n";
@@ -22,8 +23,9 @@ export const middleware: MiddlewareFunction[] = [
 
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
+  const i18nContent = context.get(I18nReactRouterContext);
   const pageContent = context.get(pageMiddlewareContext);
-  return { ...generalInformation, ...pageContent };
+  return { ...generalInformation, ...i18nContent, ...pageContent };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
@@ -101,8 +103,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
+  const { title, description, language } = loaderData;
+  return generateMetaTags({ title, description, language });
 }
 
 export default function Register({}: Route.ComponentProps) {

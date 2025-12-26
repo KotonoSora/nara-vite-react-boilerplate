@@ -230,6 +230,29 @@ export interface BlogTranslations {
     title: string;
     description: string;
   };
+  home: {
+    title: string;
+    subtitle: string;
+    noPosts: string;
+  };
+  card: {
+    by: string;
+    readMore: string;
+  };
+  error: {
+    notFoundTitle: string;
+    serverErrorTitle: string;
+    notFoundMessage: string;
+    serverErrorMessage: string;
+    errorDetails: string;
+    viewAllPosts: string;
+    goHome: string;
+  };
+  loading: {
+    title: string;
+    description: string;
+    cancel: string;
+  };
 }
 
 /**

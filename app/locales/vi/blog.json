@@ -1,6 +1,29 @@
 {
   "meta": {
-    "title": "Blog - Bộ khuôn mẫu React Vite Nara",
-    "description": "Đọc các bài viết và cập nhật mới nhất trên blog của Nara Vite React Boilerplate."
+    "title": "Blog",
+    "description": "Đọc các bài viết và cập nhật mới nhất."
+  },
+  "home": {
+    "title": "Blog",
+    "subtitle": "Thông tin chi tiết, hướng dẫn và cập nhật từ đội ngũ của chúng tôi",
+    "noPosts": "Chưa có bài viết blog nào."
+  },
+  "card": {
+    "by": "Bởi",
+    "readMore": "Đọc thêm"
+  },
+  "error": {
+    "notFoundTitle": "Không Tìm Thấy Bài Viết Blog",
+    "serverErrorTitle": "Đã Xảy Ra Lỗi",
+    "notFoundMessage": "Bài viết blog bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.",
+    "serverErrorMessage": "Đã xảy ra lỗi khi tải bài viết blog này. Vui lòng thử lại sau.",
+    "errorDetails": "Chi Tiết Lỗi",
+    "viewAllPosts": "Xem Tất Cả Bài Viết",
+    "goHome": "Về Trang Chủ"
+  },
+  "loading": {
+    "title": "Đang xử lý yêu cầu của bạn",
+    "description": "Vui lòng đợi trong khi chúng tôi xử lý yêu cầu của bạn. Đừng làm mới trang.",
+    "cancel": "Hủy"
   }
 }
