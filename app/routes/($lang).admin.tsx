@@ -7,19 +7,22 @@ import {
   adminMiddlewareContext,
 } from "~/features/admin/middleware/admin-middleware";
 import { ContentAdminPage } from "~/features/admin/page";
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [adminMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
+  const i18nContent = context.get(I18nReactRouterContext);
   const adminContent = context.get(adminMiddlewareContext);
-  return { ...generalInformation, ...adminContent };
+  return { ...generalInformation, ...i18nContent, ...adminContent };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
+  const { title, description, language } = loaderData;
+  return generateMetaTags({ title, description, language });
 }
 
 export default function Admin({ loaderData }: Route.ComponentProps) {

@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import type { Route } from "./+types/($lang).login";
 
 import type { MiddlewareFunction } from "react-router";
@@ -9,8 +7,9 @@ import {
   pageMiddlewareContext,
 } from "~/features/login/middleware/page-middleware";
 import { ContentLoginPage } from "~/features/login/page";
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { authMiddleware } from "~/features/shared/middleware/auth";
-import { I18nContext } from "~/middleware/i18n";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [
@@ -20,14 +19,17 @@ export const middleware: MiddlewareFunction[] = [
 
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
+  const i18nContent = context.get(I18nReactRouterContext);
   const pageContent = context.get(pageMiddlewareContext);
-  return { ...generalInformation, ...pageContent };
+  return { ...generalInformation, ...i18nContent, ...pageContent };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const { t } = context.get(I18nContext);
+  const { t } = context.get(I18nReactRouterContext);
 
   const formData = await request.formData();
+
+  const { z } = await import("zod");
 
   const loginSchema = z.object({
     email: z.email(),
@@ -62,8 +64,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
+  const { title, description, language } = loaderData;
+  return generateMetaTags({ title, description, language });
 }
 
 export default function Login({}: Route.ComponentProps) {

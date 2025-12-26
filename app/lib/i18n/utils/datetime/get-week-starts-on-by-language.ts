@@ -13,14 +13,16 @@ import { getDateFNSLocaleByLanguage } from "./get-date-fns-locale-by-language";
  * @param {Locale} params.locale - The locale object, which may specify a default starting day of the week via `options.weekStartsOn`.
  * @returns {Day} The index of the first day of the week: `0` for Sunday, `1` for Monday, or the value specified by the locale.
  */
-export function getWeekStartsOnByLanguage({
+export async function getWeekStartsOnByLanguage({
   startOnSunday,
   language,
 }: {
   startOnSunday?: boolean;
   language?: string;
-}): Day {
-  const locale = getDateFNSLocaleByLanguage(language as SupportedLanguage);
+}): Promise<Day> {
+  const locale = await getDateFNSLocaleByLanguage(
+    language as SupportedLanguage,
+  );
 
   return startOnSunday === true
     ? 0

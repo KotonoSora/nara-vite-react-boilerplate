@@ -6,6 +6,8 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as schema from "~/database/schema";
 
+import devShowcaseApi from "./api/dev/showcases";
+
 declare module "react-router" {
   export interface RouterContextProvider {
     cloudflare: {
@@ -24,6 +26,7 @@ app.notFound((c) => c.json({ error: "Not Found" }, 404));
 
 // Add more routes here
 app.get("/health", (c) => c.json({ status: "ok" }));
+app.route("/api/dev", devShowcaseApi);
 
 // Main request handler
 app.all("*", (c) => {

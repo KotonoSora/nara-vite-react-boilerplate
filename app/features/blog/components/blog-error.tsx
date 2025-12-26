@@ -1,14 +1,11 @@
 import { Link } from "react-router";
 
-interface BlogErrorProps {
-  error?: {
-    status?: number;
-    statusText?: string;
-    message?: string;
-  };
-}
+import type { BlogErrorProps } from "../types/type";
+
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function BlogError({ error }: BlogErrorProps) {
+  const t = useTranslation();
   const status = error?.status || 500;
   const isNotFound = status === 404;
 
@@ -18,20 +15,22 @@ export function BlogError({ error }: BlogErrorProps) {
         <div className="space-y-2">
           <h1 className="text-6xl font-bold text-muted-foreground">{status}</h1>
           <h2 className="text-3xl font-bold">
-            {isNotFound ? "Blog Post Not Found" : "Something Went Wrong"}
+            {isNotFound
+              ? t("blog.error.notFoundTitle")
+              : t("blog.error.serverErrorTitle")}
           </h2>
         </div>
 
         <p className="text-lg text-muted-foreground">
           {isNotFound
-            ? "The blog post you're looking for doesn't exist or has been removed."
-            : "An error occurred while loading this blog post. Please try again later."}
+            ? t("blog.error.notFoundMessage")
+            : t("blog.error.serverErrorMessage")}
         </p>
 
         {error?.message && !isNotFound && (
           <details className="text-left p-4 bg-muted rounded-lg">
             <summary className="cursor-pointer font-medium">
-              Error Details
+              {t("blog.error.errorDetails")}
             </summary>
             <pre className="mt-2 text-sm overflow-x-auto">{error.message}</pre>
           </details>
@@ -42,13 +41,13 @@ export function BlogError({ error }: BlogErrorProps) {
             to="/blog"
             className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
           >
-            View All Posts
+            {t("blog.error.viewAllPosts")}
           </Link>
           <Link
             to="/"
             className="px-6 py-3 border rounded-lg hover:bg-muted transition-colors font-medium"
           >
-            Go Home
+            {t("blog.error.goHome")}
           </Link>
         </div>
       </div>

@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 4.6.18 (2025-12-26)
+
+- Create scripts for automation generate i18n json files
+- Config github actions for generate i18n static types
+- Change config lint-staged
+- Change logic load data from database
+- Enhance logic loading showcases data
+- Implemented logic loading translations data on server side
+- Implemented logic generate meta tags for SEO optimization
+- Upgraded dependency versions
+
 ## 4.6.17 (2025-12-09)
 
 - Implemented built-in qr-generator page

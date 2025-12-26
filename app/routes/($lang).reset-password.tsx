@@ -1,5 +1,4 @@
 import { redirect } from "react-router";
-import { z } from "zod";
 
 import type { Route } from "./+types/($lang).reset-password";
 
@@ -14,8 +13,9 @@ import {
   tokenMiddlewareContext,
 } from "~/features/reset-password/middleware/token";
 import { ResetPasswordPage } from "~/features/reset-password/page";
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { isStrongPassword } from "~/lib/authentication/utils/common/is-strong-password";
-import { I18nContext } from "~/middleware/i18n";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [
@@ -25,11 +25,13 @@ export const middleware: MiddlewareFunction[] = [
 
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
+  const i18nContent = context.get(I18nReactRouterContext);
   const { token } = context.get(tokenMiddlewareContext);
   const { title, description } = context.get(pageMiddlewareContext);
 
   return {
     ...generalInformation,
+    ...i18nContent,
     token,
     title,
     description,
@@ -37,8 +39,11 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const { t } = context.get(I18nContext);
+  const { t } = context.get(I18nReactRouterContext);
   const formData = await request.formData();
+
+  const { z } = await import("zod");
+
   const resetPasswordSchema = z
     .object({
       token: z.string().min(1, t("auth.resetPassword.errorMissingToken")),
@@ -84,8 +89,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
+  const { title, description, language } = loaderData;
+  return generateMetaTags({ title, description, language });
 }
 
 export default function ResetPassword({}: Route.ComponentProps) {

@@ -1,5 +1,29 @@
-import type { BlogPost } from "./mdx-loader";
+import type { BlogPost } from "../types/mdx";
 
+/**
+ * Searches through an array of blog posts and filters them based on a query string.
+ *
+ * The search is case-insensitive and matches against the following fields:
+ * - Post title
+ * - Post description
+ * - Post author
+ * - Post tags
+ *
+ * @param posts - The array of blog posts to search through
+ * @param query - The search query string. If empty or whitespace-only, returns all posts unchanged
+ * @returns A filtered array of blog posts that match the search query in any of the searchable fields
+ *
+ * @example
+ * ```typescript
+ * const posts = [
+ *   { frontmatter: { title: "React Tips", description: "...", author: "John", tags: ["react"] } },
+ *   { frontmatter: { title: "Vue Guide", description: "...", author: "Jane", tags: ["vue"] } }
+ * ];
+ *
+ * searchPosts(posts, "react"); // Returns posts matching "react" in title, description, author, or tags
+ * searchPosts(posts, ""); // Returns all posts unchanged
+ * ```
+ */
 export function searchPosts(posts: BlogPost[], query: string): BlogPost[] {
   if (!query.trim()) return posts;
 
@@ -20,72 +44,5 @@ export function searchPosts(posts: BlogPost[], query: string): BlogPost[] {
     );
 
     return titleMatch || descriptionMatch || authorMatch || tagsMatch;
-  });
-}
-
-export function filterPostsByTag(posts: BlogPost[], tag: string): BlogPost[] {
-  if (!tag) return posts;
-
-  return posts.filter((post) =>
-    post.frontmatter.tags?.some((t) => t.toLowerCase() === tag.toLowerCase()),
-  );
-}
-
-export function filterPostsByAuthor(
-  posts: BlogPost[],
-  author: string,
-): BlogPost[] {
-  if (!author) return posts;
-
-  return posts.filter(
-    (post) => post.frontmatter.author?.toLowerCase() === author.toLowerCase(),
-  );
-}
-
-export function getAllTags(posts: BlogPost[]): string[] {
-  const tags = new Set<string>();
-
-  posts.forEach((post) => {
-    post.frontmatter.tags?.forEach((tag) => tags.add(tag));
-  });
-
-  return Array.from(tags).sort();
-}
-
-export function getAllAuthors(posts: BlogPost[]): string[] {
-  const authors = new Set<string>();
-
-  posts.forEach((post) => {
-    if (post.frontmatter.author) {
-      authors.add(post.frontmatter.author);
-    }
-  });
-
-  return Array.from(authors).sort();
-}
-
-export function sortPostsByDate(
-  posts: BlogPost[],
-  order: "asc" | "desc" = "desc",
-): BlogPost[] {
-  return [...posts].sort((a, b) => {
-    const dateA = a.frontmatter.date
-      ? new Date(a.frontmatter.date).getTime()
-      : 0;
-    const dateB = b.frontmatter.date
-      ? new Date(b.frontmatter.date).getTime()
-      : 0;
-
-    return order === "desc" ? dateB - dateA : dateA - dateB;
-  });
-}
-
-export function sortPostsByTitle(
-  posts: BlogPost[],
-  order: "asc" | "desc" = "asc",
-): BlogPost[] {
-  return [...posts].sort((a, b) => {
-    const comparison = a.frontmatter.title.localeCompare(b.frontmatter.title);
-    return order === "desc" ? -comparison : comparison;
   });
 }

@@ -2,24 +2,27 @@ import type { Route } from "./+types/($lang).showcases._index";
 
 import type { MiddlewareFunction } from "react-router";
 
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import {
   showcasesMiddleware,
   showcasesMiddlewareContext,
 } from "~/features/showcases/middleware/showcases-middleware";
 import { ContentShowcasePage } from "~/features/showcases/page";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [showcasesMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
+  const i18nContent = context.get(I18nReactRouterContext);
   const showcasesContent = context.get(showcasesMiddlewareContext);
-  return { ...generalInformation, ...showcasesContent };
+  return { ...generalInformation, ...i18nContent, ...showcasesContent };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
+  const { title, description, language } = loaderData;
+  return generateMetaTags({ title, description, language });
 }
 
 export default function Page({}: Route.ComponentProps) {

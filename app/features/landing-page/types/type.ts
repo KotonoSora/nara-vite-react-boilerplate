@@ -23,8 +23,8 @@ export type FeatureCardConfig = {
   };
 };
 
-export type PageInformation = {
-  showcases?: ProjectInfo[];
+export type LandingPageContextType = {
+  showcases: Promise<ProjectInfo[]>;
   builtInDemos: ProjectInfo[];
   steps: Step[];
   featuresConfig: FeatureCardConfig[];

@@ -1,7 +1,6 @@
 export type PageInformation = {
   title: string;
   description: string;
-  language: string;
 };
 
 export type QRCodeFormat = "png" | "jpg";

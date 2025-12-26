@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import type { Route } from "./+types/($lang).forgot-password";
 
 import type { MiddlewareFunction } from "react-router";
@@ -9,20 +7,25 @@ import {
   forgotPasswordMiddlewareContext,
 } from "~/features/forgot-password/middleware/forgot-password-middleware";
 import { ForgotPasswordPage } from "~/features/forgot-password/page";
-import { I18nContext } from "~/middleware/i18n";
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [forgotPasswordMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
+  const i18nContent = context.get(I18nReactRouterContext);
   const forgotPasswordContent = context.get(forgotPasswordMiddlewareContext);
-  return { ...generalInformation, ...forgotPasswordContent };
+  return { ...generalInformation, ...i18nContent, ...forgotPasswordContent };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const { t } = context.get(I18nContext);
+  const { t } = context.get(I18nReactRouterContext);
   const formData = await request.formData();
+
+  const { z } = await import("zod");
+
   const forgotPasswordSchema = z.object({
     email: z.email(t("auth.forgotPassword.errorInvalidEmail")),
   });
@@ -50,8 +53,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
+  const { title, description, language } = loaderData;
+  return generateMetaTags({ title, description, language });
 }
 
 export default function ForgotPassword({}: Route.ComponentProps) {

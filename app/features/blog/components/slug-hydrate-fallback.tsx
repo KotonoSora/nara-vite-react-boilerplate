@@ -10,8 +10,11 @@ import {
   EmptyTitle,
 } from "~/components/ui/empty";
 import { Spinner } from "~/components/ui/spinner";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function SlugHydrateFallback() {
+  const t = useTranslation();
+
   return (
     <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12 space-y-8 flex flex-col flex-1 justify-center items-center text-center">
       <Empty className="w-full">
@@ -19,14 +22,12 @@ export function SlugHydrateFallback() {
           <EmptyMedia variant="icon">
             <Spinner />
           </EmptyMedia>
-          <EmptyTitle>Processing your request</EmptyTitle>
-          <EmptyDescription>
-            Please wait while we process your request. Do not refresh the page.
-          </EmptyDescription>
+          <EmptyTitle>{t("blog.loading.title")}</EmptyTitle>
+          <EmptyDescription>{t("blog.loading.description")}</EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
           <Button variant="outline" asChild size="sm">
-            <Link to="/blog">Cancel</Link>
+            <Link to="/blog">{t("blog.loading.cancel")}</Link>
           </Button>
         </EmptyContent>
       </Empty>

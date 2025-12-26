@@ -1,6 +1,29 @@
 {
   "meta": {
-    "title": "Blog - Plantilla de React Vite Nara",
-    "description": "Lee los artículos y novedades más recientes en el blog de Nara Vite React Boilerplate."
+    "title": "Blog",
+    "description": "Lee los artículos y actualizaciones más recientes."
+  },
+  "home": {
+    "title": "Blog",
+    "subtitle": "Perspectivas, tutoriales y actualizaciones de nuestro equipo",
+    "noPosts": "Aún no hay publicaciones de blog disponibles."
+  },
+  "card": {
+    "by": "Por",
+    "readMore": "Leer más"
+  },
+  "error": {
+    "notFoundTitle": "Publicación de Blog No Encontrada",
+    "serverErrorTitle": "Algo Salió Mal",
+    "notFoundMessage": "La publicación de blog que buscas no existe o ha sido eliminada.",
+    "serverErrorMessage": "Ocurrió un error al cargar esta publicación de blog. Por favor, inténtalo de nuevo más tarde.",
+    "errorDetails": "Detalles del Error",
+    "viewAllPosts": "Ver Todas las Publicaciones",
+    "goHome": "Ir al Inicio"
+  },
+  "loading": {
+    "title": "Procesando tu solicitud",
+    "description": "Por favor espera mientras procesamos tu solicitud. No actualices la página.",
+    "cancel": "Cancelar"
   }
 }

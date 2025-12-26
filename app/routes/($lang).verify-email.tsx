@@ -1,27 +1,30 @@
-import { z } from "zod";
-
 import type { Route } from "./+types/($lang).verify-email";
 
 import type { MiddlewareFunction } from "react-router";
 
+import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import {
   pageMiddleware,
   pageMiddlewareContext,
 } from "~/features/verify-email/middleware/page-middleware";
 import { VerifyEmailPage } from "~/features/verify-email/page";
-import { I18nContext } from "~/middleware/i18n";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 export const middleware: MiddlewareFunction[] = [pageMiddleware];
 
 export async function loader({ context, request }: Route.LoaderArgs) {
-  const { t } = context.get(I18nContext);
   const generalInformation = context.get(GeneralInformationContext);
+  const i18nContent = context.get(I18nReactRouterContext);
+  const { t } = i18nContent;
   const { title, description } = context.get(pageMiddlewareContext);
   const { db } = context;
 
   const url = new URL(request.url);
   const token = url.searchParams.get("token");
+
+  const { z } = await import("zod");
+
   // Create schema with localized error message
   const verifyEmailSchema = z.object({
     token: z.string().min(1, t("auth.verifyEmail.validation.tokenRequired")),
@@ -31,6 +34,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   if (!validationResult.success) {
     return {
       ...generalInformation,
+      ...i18nContent,
       title,
       description,
       error: t("auth.verifyEmail.validation.tokenRequired"),
@@ -65,6 +69,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
     }
     return {
       ...generalInformation,
+      ...i18nContent,
       title,
       description,
       error: errorMessage,
@@ -74,6 +79,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 
   return {
     ...generalInformation,
+    ...i18nContent,
     title,
     description,
     success: true,
@@ -82,8 +88,8 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description } = loaderData;
-  return [{ title }, { name: "description", content: description }];
+  const { title, description, language } = loaderData;
+  return generateMetaTags({ title, description, language });
 }
 
 export default function VerifyEmail({ loaderData }: Route.ComponentProps) {

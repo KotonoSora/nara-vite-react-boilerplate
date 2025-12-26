@@ -3,7 +3,7 @@ import type { MiddlewareFunction } from "react-router";
 import type { ForestPageContextType } from "../types/type";
 
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-import { I18nContext } from "~/middleware/i18n";
+import { I18nReactRouterContext } from "~/middleware/i18n";
 
 export const { forestMiddlewareContext } =
   createMiddlewareContext<ForestPageContextType>("forestMiddlewareContext");
@@ -12,7 +12,7 @@ export const forestMiddleware: MiddlewareFunction = async (
   { context },
   next,
 ) => {
-  const { t } = context.get(I18nContext);
+  const { t } = context.get(I18nReactRouterContext);
 
   const contextValue: ForestPageContextType = {
     title: t("forest.meta.title"),

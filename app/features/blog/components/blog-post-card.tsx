@@ -1,15 +1,16 @@
 import { Link } from "react-router";
 
-import type { BlogPost } from "~/features/blog/utils/mdx-loader";
+import type { BlogPostCardProps } from "../types/type";
 
-import { formatDate } from "~/features/blog/utils/format-date";
+import { useI18n } from "~/lib/i18n/hooks/use-i18n";
+import { getIntlLocaleByLanguage } from "~/lib/i18n/utils/datetime/get-intl-locale-by-language";
 
-interface BlogPostCardProps {
-  post: BlogPost;
-  locale?: string;
-}
+import { formatDate } from "../utils/format-date";
 
-export function BlogPostCard({ post, locale = "en-US" }: BlogPostCardProps) {
+export function BlogPostCard({ post }: BlogPostCardProps) {
+  const { t, language } = useI18n();
+  const locale = getIntlLocaleByLanguage(language);
+
   return (
     <article className="flex flex-col p-6 rounded-lg border bg-card hover:shadow-lg transition-shadow">
       <header className="mb-4">
@@ -48,14 +49,14 @@ export function BlogPostCard({ post, locale = "en-US" }: BlogPostCardProps) {
       <footer className="flex items-center justify-between mt-auto pt-4 border-t">
         {post.frontmatter.author && (
           <span className="text-sm text-muted-foreground">
-            By {post.frontmatter.author}
+            {t("blog.card.by")} {post.frontmatter.author}
           </span>
         )}
         <Link
           to={`/blog/${post.slug}`}
           className="text-sm font-medium text-primary hover:underline"
         >
-          Read more →
+          {t("blog.card.readMore")} →
         </Link>
       </footer>
     </article>
