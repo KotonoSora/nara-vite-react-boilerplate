@@ -76,19 +76,15 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         run: |
-          if [ "${GITHUB_REF##*/}" = "main" ]; then
-            CLOUDFLARE_ENV=production bun run build
-            CLOUDFLARE_ENV=production bun run deploy -- --env=""
-          else
-            CLOUDFLARE_ENV=development bun run build
-            CLOUDFLARE_ENV=development bun run deploy -- --env=""
-          fi
+          bun run build
+          bun run deploy -- --env=""
 
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
       D1_DATABASE_NAME: ${{ secrets.D1_DATABASE_NAME }}
+      CLOUDFLARE_ENV: ${{ github.event.inputs.branch == 'feature/reduce-loading-time-translate-files' && 'production' || 'development' }}
       NODE_ENV: production
       ADMIN_REGISTRATION_SECRET: ${{ secrets.ADMIN_REGISTRATION_SECRET }}
       VITE_MAX_USERS: ${{ vars.VITE_MAX_USERS }}
