@@ -84,10 +84,10 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
       D1_DATABASE_NAME: ${{ secrets.D1_DATABASE_NAME }}
-      CLOUDFLARE_ENV: ${{ github.event.inputs.branch == 'feature/reduce-loading-time-translate-files' && 'production' || 'development' }}
+      CLOUDFLARE_ENV: ${{ github.event.inputs.branch == 'main' && 'production' || 'development' }}
       NODE_ENV: production
       ADMIN_REGISTRATION_SECRET: ${{ secrets.ADMIN_REGISTRATION_SECRET }}
-      VITE_DOMAIN_ENV: ${{ github.event.inputs.branch == 'feature/reduce-loading-time-translate-files' && 'production' || 'development' }}
+      VITE_DOMAIN_ENV: ${{ github.event.inputs.branch == 'main' && 'production' || 'development' }}
       VITE_MAX_USERS: ${{ vars.VITE_MAX_USERS }}
       VITE_LANDING_PAGE_TITLE: ${{ vars.VITE_LANDING_PAGE_TITLE }}
       VITE_LANDING_PAGE_DESCRIPTION: ${{ vars.VITE_LANDING_PAGE_DESCRIPTION }}
