@@ -9,9 +9,9 @@ import { getBuiltInDemos } from "../utils/get-built-in-demos";
 import { getFeaturesConfigs } from "../utils/get-features-configs";
 import { getSteps } from "../utils/get-steps";
 
-export const { landingPageMiddlewareContext } =
+export const { LandingPageReactRouterContext } =
   createMiddlewareContext<LandingPageContextType>(
-    "landingPageMiddlewareContext",
+    "LandingPageReactRouterContext",
   );
 
 export const landingPageMiddleware: MiddlewareFunction = async (
@@ -33,7 +33,7 @@ export const landingPageMiddleware: MiddlewareFunction = async (
     featuresConfig: getFeaturesConfigs(t),
   };
 
-  context.set(landingPageMiddlewareContext, contextValue);
+  context.set(LandingPageReactRouterContext, contextValue);
 
   return await next();
 };

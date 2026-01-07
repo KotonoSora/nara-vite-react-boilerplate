@@ -629,6 +629,9 @@ export interface LandingTranslations {
   github: {
     seeMore: string;
   };
+  donate: {
+    label: string;
+  };
 }
 
 /**
