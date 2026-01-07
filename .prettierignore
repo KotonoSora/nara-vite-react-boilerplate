@@ -32,3 +32,6 @@
 !database/**
 !scripts/
 !scripts/**
+
+# Disable file
+app/lib/i18n/types/generated-translations.d.ts
