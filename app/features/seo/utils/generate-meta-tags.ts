@@ -63,5 +63,6 @@ export function generateMetaTags({
     { name: "twitter:image", content: imageContent },
     { name: "keywords", content: keywords },
     { name: "author", content: author },
+    { rel: "icon", href: `${canonicalUrl}/favicon.ico`, type: "image/x-icon" },
   ];
 }
