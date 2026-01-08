@@ -43,6 +43,14 @@ const listQuerySchema = z.object({
   deleted: z.enum(["true", "false"]).optional(),
 });
 
+const tagsQuerySchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  pageSize: z.coerce.number().int().min(1).max(50).default(20),
+  sortBy: z.enum(["tag", "count"]).default("tag"),
+  sortDir: z.enum(["asc", "desc"]).default("asc"),
+  deleted: z.enum(["true", "false"]).optional(),
+});
+
 type ShowcaseApiItem = {
   id: string;
   name: string;
@@ -236,6 +244,64 @@ devShowcaseApi.get("/list", zValidator("query", listQuerySchema), async (c) => {
       page: query.page,
       pageSize: query.pageSize,
       total: totalRow?.count ?? 0,
+    },
+    200,
+  );
+});
+
+devShowcaseApi.get("/tags", zValidator("query", tagsQuerySchema), async (c) => {
+  const query = c.req.valid("query");
+  const db: DrizzleD1Database<typeof schema> = drizzle(c.env.DB, {
+    schema,
+  });
+
+  const { showcase, showcaseTag } = schema;
+
+  const deletedFilter =
+    query.deleted === "true"
+      ? isNotNull(showcase.deletedAt)
+      : isNull(showcase.deletedAt);
+
+  const countColumn = sql<number>`count(distinct ${showcase.id})`;
+
+  const orderBy =
+    query.sortBy === "tag"
+      ? query.sortDir === "asc"
+        ? asc(showcaseTag.tag)
+        : desc(showcaseTag.tag)
+      : query.sortDir === "asc"
+        ? asc(countColumn)
+        : desc(countColumn);
+
+  const tagsWithCount = await db
+    .select({
+      id: showcaseTag.id,
+      showcaseId: showcaseTag.showcaseId,
+      tag: showcaseTag.tag,
+      count: countColumn,
+      createdAt: showcaseTag.createdAt,
+      updatedAt: showcaseTag.updatedAt,
+      deletedAt: showcaseTag.deletedAt,
+    })
+    .from(showcaseTag)
+    .leftJoin(showcase, eq(showcaseTag.showcaseId, showcase.id))
+    .where(deletedFilter)
+    .groupBy(showcaseTag.tag)
+    .orderBy(orderBy)
+    .all();
+
+  const total = tagsWithCount.length;
+
+  const startIndex = (query.page - 1) * query.pageSize;
+  const endIndex = startIndex + query.pageSize;
+  const paginatedTags = tagsWithCount.slice(startIndex, endIndex);
+
+  return c.json(
+    {
+      items: paginatedTags,
+      page: query.page,
+      pageSize: query.pageSize,
+      total,
     },
     200,
   );

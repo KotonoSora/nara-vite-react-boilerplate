@@ -33,4 +33,11 @@ export const showcaseTag = sqliteTable("showcase_tags", {
     .notNull()
     .references(() => showcase.id, { onDelete: "cascade" }),
   tag: text("tag").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
+    () => new Date(),
+  ),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(
+    () => new Date(),
+  ),
+  deletedAt: integer("deleted_at", { mode: "timestamp" }),
 });
