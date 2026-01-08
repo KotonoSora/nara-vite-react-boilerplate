@@ -17,7 +17,7 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as schema from "~/database/schema";
 
-type FetchShowcasesParams = {
+export type FetchShowcasesParams = {
   page: number;
   pageSize: number;
   sortBy: "name" | "createdAt" | "publishedAt";
@@ -31,7 +31,7 @@ type FetchShowcasesParams = {
   deleted?: "true" | "false";
 };
 
-type ShowcaseItem = {
+export type ShowcaseItem = {
   id: string;
   name: string;
   description: string;
@@ -46,7 +46,7 @@ type ShowcaseItem = {
   deletedAt?: Date;
 };
 
-type FetchShowcasesResult = {
+export type FetchShowcasesResult = {
   items: ShowcaseItem[];
   page: number;
   pageSize: number;
