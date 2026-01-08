@@ -6,7 +6,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import * as React from "react";
 
 import type {
@@ -18,12 +18,25 @@ import type {
 
 import { Button } from "~/components/ui/button";
 import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "~/components/ui/command";
+import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Input } from "~/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "~/components/ui/popover";
 import {
   Table,
   TableBody,
@@ -54,6 +67,9 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   searchValue?: string;
   onSearchChange?: (value: string) => void;
+  tagsValue?: string[];
+  onTagsChange?: (tags: string[]) => void;
+  availableTags?: string[];
   pagination?: ServerPaginationProps;
   sortingServer?: ServerSortingProps;
 }
@@ -69,6 +85,9 @@ export function ShowcasesDataTable<TData, TValue>({
   sortingServer,
   searchValue,
   onSearchChange,
+  tagsValue,
+  onTagsChange,
+  availableTags,
 }: DataTableProps<TData, TValue>) {
   const initialSorting = React.useMemo<SortingState>(() => {
     if (!sortingServer) return [];
@@ -91,6 +110,16 @@ export function ShowcasesDataTable<TData, TValue>({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  const allTags = React.useMemo(() => {
+    if (availableTags && availableTags.length) return availableTags;
+    const set = new Set<string>();
+    for (const item of data as unknown as Array<{ tags?: unknown }>) {
+      const tags = (item?.tags as string[] | undefined) || [];
+      for (const t of tags) set.add(t);
+    }
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
+  }, [availableTags, data]);
+
   const table = useReactTable({
     data,
     columns,
@@ -103,7 +132,6 @@ export function ShowcasesDataTable<TData, TValue>({
     onRowSelectionChange: setRowSelection,
     onSortingChange: (updater) => {
       const next = typeof updater === "function" ? updater(sorting) : updater;
-      // Always update local state for header indicators
       setSorting(next);
       if (sortingServer) {
         const first = next[0];
@@ -130,8 +158,7 @@ export function ShowcasesDataTable<TData, TValue>({
 
   return (
     <div className="w-full space-y-4">
-      {/* Filters and Controls */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <Input
           placeholder="Filter by name or description..."
           value={
@@ -146,35 +173,99 @@ export function ShowcasesDataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
+        <div className="flex items-center gap-2">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={false}
+                aria-label="Select tags"
+              >
+                Tags
+                {tagsValue && tagsValue.length ? ` (${tagsValue.length})` : ""}
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent align="end" className="w-64 p-0">
+              <Command>
+                <CommandInput placeholder="Search tags..." />
+                <CommandList>
+                  <CommandEmpty>No tags found.</CommandEmpty>
+                  <CommandGroup>
+                    {allTags.length ? (
+                      allTags.map((tag) => {
+                        const checked = !!tagsValue?.includes(tag);
+                        return (
+                          <CommandItem
+                            key={tag}
+                            onSelect={() => {
+                              if (!onTagsChange) return;
+                              const next = new Set(tagsValue ?? []);
+                              if (next.has(tag)) next.delete(tag);
+                              else next.add(tag);
+                              onTagsChange(Array.from(next));
+                            }}
+                          >
+                            <Check
+                              className={`mr-2 h-4 w-4 ${checked ? "opacity-100" : "opacity-0"}`}
+                            />
+                            {tag}
+                          </CommandItem>
+                        );
+                      })
+                    ) : (
+                      <div className="text-muted-foreground px-2 py-1 text-sm">
+                        No tags
+                      </div>
+                    )}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+              {onTagsChange && tagsValue && tagsValue.length > 0 ? (
+                <div className="border-t p-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onTagsChange([])}
+                    className="w-full"
                   >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+                    Clear tags
+                  </Button>
+                </div>
+              ) : null}
+            </PopoverContent>
+          </Popover>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Columns <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
-      {/* Table */}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -228,7 +319,6 @@ export function ShowcasesDataTable<TData, TValue>({
         </Table>
       </div>
 
-      {/* Pagination and Selection Info */}
       <div className="flex items-center justify-between space-x-2">
         <div className="text-muted-foreground flex-1 text-sm">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}

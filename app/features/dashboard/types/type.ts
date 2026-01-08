@@ -28,4 +28,5 @@ export type DashboardContentProps = {
   recentActivity: Activity[];
   stats: Stats;
   showcases: FetchShowcasesResult;
+  availableTags: string[];
 };

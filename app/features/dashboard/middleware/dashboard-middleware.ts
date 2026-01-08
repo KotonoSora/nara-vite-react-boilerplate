@@ -6,6 +6,7 @@ import type { FetchShowcasesResult } from "~/features/landing-page/utils/fetch-s
 
 import { getRecentActivity } from "~/features/dashboard/utils/get-recent-activity";
 import { getStats } from "~/features/dashboard/utils/get-stats";
+import { fetchShowcaseTags } from "~/features/landing-page/utils/fetch-showcase-tags";
 import { fetchShowcases } from "~/features/landing-page/utils/fetch-showcases";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
 import { AuthContext } from "~/middleware/auth";
@@ -18,6 +19,7 @@ export type DashboardPageContextType = {
   recentActivity: any;
   stats: any;
   showcases: FetchShowcasesResult;
+  availableTags: string[];
 };
 
 export const { DashboardMiddlewareContext } =
@@ -42,6 +44,7 @@ export const dashboardMiddleware: MiddlewareFunction = async (
   const sortByParam = url.searchParams.get("sortBy");
   const sortDirParam = url.searchParams.get("sortDir");
   const searchParam = url.searchParams.get("search");
+  const tagsParam = url.searchParams.getAll("tags");
   const page = Math.max(1, Number(pageParam) || 1);
   const pageSize = Math.max(1, Number(pageSizeParam) || 10);
   const sortBy =
@@ -61,8 +64,19 @@ export const dashboardMiddleware: MiddlewareFunction = async (
     sortBy,
     sortDir,
     search: searchParam || undefined,
+    tags: tagsParam.length ? tagsParam : undefined,
     // authorId: user.id,
   });
+
+  // Get global available tags for filtering (not limited to current page)
+  const tagsResult = await fetchShowcaseTags(db, {
+    page: 1,
+    pageSize: 10000,
+    sortBy: "tag",
+    sortDir: "asc",
+    deleted: "false",
+  });
+  const availableTags = Array.from(new Set(tagsResult.items.map((t) => t.tag)));
 
   const contextValue = {
     title: t("dashboard.meta.title"),
@@ -71,6 +85,7 @@ export const dashboardMiddleware: MiddlewareFunction = async (
     recentActivity,
     stats,
     showcases,
+    availableTags,
   };
 
   context.set(DashboardMiddlewareContext, contextValue);

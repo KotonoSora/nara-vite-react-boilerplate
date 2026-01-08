@@ -15,12 +15,13 @@ import { ShowcasesDataTable } from "~/features/dashboard/components/showcases-da
  * Built with TanStack Table and shadcn/ui data-table pattern.
  */
 export const ManageShowcase: FC = () => {
-  const { showcases } = useLoaderData<DashboardContentProps>();
+  const { showcases, availableTags } = useLoaderData<DashboardContentProps>();
   const { items, total, page, pageSize } = showcases;
   const [searchParams, setSearchParams] = useSearchParams();
   const sortByParam = searchParams.get("sortBy");
   const sortDirParam = searchParams.get("sortDir");
   const searchParam = searchParams.get("search") || "";
+  const tagsParam = searchParams.getAll("tags");
   const sortBy =
     sortByParam === "name" ||
     sortByParam === "publishedAt" ||
@@ -58,6 +59,19 @@ export const ManageShowcase: FC = () => {
     [searchParams, pageSize, setSearchParams],
   );
 
+  const handleTagsChange = useCallback(
+    (tags: string[]) => {
+      const sp = new URLSearchParams(searchParams);
+      // clear existing tags
+      sp.delete("tags");
+      for (const t of tags) sp.append("tags", t);
+      sp.set("page", "1");
+      sp.set("pageSize", String(pageSize));
+      setSearchParams(sp);
+    },
+    [searchParams, pageSize, setSearchParams],
+  );
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -80,6 +94,9 @@ export const ManageShowcase: FC = () => {
         data={items}
         searchValue={searchParam}
         onSearchChange={handleSearchChange}
+        tagsValue={tagsParam}
+        onTagsChange={handleTagsChange}
+        availableTags={availableTags}
         sortingServer={{
           sortBy,
           sortDir,
