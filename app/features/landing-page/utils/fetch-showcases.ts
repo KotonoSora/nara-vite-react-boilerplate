@@ -149,38 +149,6 @@ export async function fetchShowcases(
       : and(...allConditions)
     : undefined;
 
-  // Get filtered IDs and total count
-  const filteredIds = await db
-    .select({ id: showcase.id })
-    .from(showcase)
-    .where(finalWhere)
-    .all();
-  const totalCount = filteredIds.length;
-
-  if (totalCount === 0) {
-    return {
-      items: [],
-      page: params.page,
-      pageSize: params.pageSize,
-      total: 0,
-    };
-  }
-
-  // Apply pagination to filtered IDs
-  const startIndex = (params.page - 1) * params.pageSize;
-  const paginatedIds = filteredIds
-    .slice(startIndex, startIndex + params.pageSize)
-    .map((r) => r.id);
-
-  if (paginatedIds.length === 0) {
-    return {
-      items: [],
-      page: params.page,
-      pageSize: params.pageSize,
-      total: totalCount,
-    };
-  }
-
   // Determine sort column and direction
   const orderColumn =
     params.sortBy === "name"
@@ -191,8 +159,26 @@ export async function fetchShowcases(
   const orderBy =
     params.sortDir === "asc" ? asc(orderColumn) : desc(orderColumn);
 
-  // Fetch full showcase details for paginated IDs
-  const pageItems = await db
+  // Get total count of filtered results
+  const countResult = await db
+    .select({ count: sql<number>`cast(count(*) as integer)` })
+    .from(showcase)
+    .where(finalWhere)
+    .get();
+  const totalCount = countResult?.count ?? 0;
+
+  if (totalCount === 0) {
+    return {
+      items: [],
+      page: params.page,
+      pageSize: params.pageSize,
+      total: 0,
+    };
+  }
+
+  // Fetch paginated sorted results with filter and sort applied at database level
+  const startIndex = (params.page - 1) * params.pageSize;
+  const paginatedShowcases = await db
     .select({
       id: showcase.id,
       name: showcase.name,
@@ -206,11 +192,22 @@ export async function fetchShowcases(
       deletedAt: showcase.deletedAt,
     })
     .from(showcase)
-    .where(inArray(showcase.id, paginatedIds))
+    .where(finalWhere)
     .orderBy(orderBy)
+    .limit(params.pageSize)
+    .offset(startIndex)
     .all();
 
-  const pageIds = pageItems.map((r) => r.id);
+  if (paginatedShowcases.length === 0) {
+    return {
+      items: [],
+      page: params.page,
+      pageSize: params.pageSize,
+      total: totalCount,
+    };
+  }
+
+  const pageIds = paginatedShowcases.map((r) => r.id);
 
   // Fetch tags for paginated showcases
   const tagRows = await db
@@ -222,7 +219,9 @@ export async function fetchShowcases(
   // Fetch author details for showcases with authors
   const authorIds = [
     ...new Set(
-      pageItems.map((r) => r.authorId).filter((id): id is string => !!id),
+      paginatedShowcases
+        .map((r) => r.authorId)
+        .filter((id): id is string => !!id),
     ),
   ];
 
@@ -231,7 +230,7 @@ export async function fetchShowcases(
       ? await db
           .select({ id: user.id, email: user.email, name: user.name })
           .from(user)
-          .where(inArray(user.id, authorIds))
+          .where(inArray(user.id, authorIds as string[]))
           .all()
       : [];
 
@@ -240,7 +239,7 @@ export async function fetchShowcases(
   // Build final showcase items with tags and author details
   const map = new Map<string, ShowcaseItem>();
 
-  for (const row of pageItems) {
+  for (const row of paginatedShowcases) {
     const key = String(row.id);
     const author = row.authorId ? authorMap.get(row.authorId) : undefined;
 

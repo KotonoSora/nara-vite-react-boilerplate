@@ -39,14 +39,26 @@ export const dashboardMiddleware: MiddlewareFunction = async (
   const url = new URL(request.url);
   const pageParam = url.searchParams.get("page");
   const pageSizeParam = url.searchParams.get("pageSize");
+  const sortByParam = url.searchParams.get("sortBy");
+  const sortDirParam = url.searchParams.get("sortDir");
   const page = Math.max(1, Number(pageParam) || 1);
   const pageSize = Math.max(1, Number(pageSizeParam) || 10);
+  const sortBy =
+    sortByParam === "name" ||
+    sortByParam === "publishedAt" ||
+    sortByParam === "createdAt"
+      ? sortByParam
+      : ("createdAt" as const);
+  const sortDir =
+    sortDirParam === "asc" || sortDirParam === "desc"
+      ? (sortDirParam as "asc" | "desc")
+      : ("desc" as const);
 
   const showcases = await fetchShowcases(db, {
     page,
     pageSize,
-    sortBy: "createdAt",
-    sortDir: "desc",
+    sortBy,
+    sortDir,
     // authorId: user.id,
   });
 

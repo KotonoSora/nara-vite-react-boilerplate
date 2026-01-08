@@ -17,6 +17,18 @@ export const ManageShowcase: FC = () => {
   const { showcases } = useLoaderData<DashboardContentProps>();
   const { items, total, page, pageSize } = showcases;
   const [searchParams, setSearchParams] = useSearchParams();
+  const sortByParam = searchParams.get("sortBy");
+  const sortDirParam = searchParams.get("sortDir");
+  const sortBy =
+    sortByParam === "name" ||
+    sortByParam === "publishedAt" ||
+    sortByParam === "createdAt"
+      ? sortByParam
+      : ("createdAt" as const);
+  const sortDir =
+    sortDirParam === "asc" || sortDirParam === "desc"
+      ? (sortDirParam as "asc" | "desc")
+      : ("desc" as const);
 
   /**
    * Handles create new showcase action.
@@ -46,6 +58,18 @@ export const ManageShowcase: FC = () => {
       <ShowcasesDataTable
         columns={showcasesColumns}
         data={items}
+        sortingServer={{
+          sortBy,
+          sortDir,
+          onSortChange: (nextBy, nextDir) => {
+            const sp = new URLSearchParams(searchParams);
+            sp.set("sortBy", nextBy);
+            sp.set("sortDir", nextDir);
+            sp.set("page", "1");
+            sp.set("pageSize", String(pageSize));
+            setSearchParams(sp);
+          },
+        }}
         pagination={{
           page,
           pageSize,

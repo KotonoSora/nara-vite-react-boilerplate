@@ -1,4 +1,10 @@
-import { Edit, ExternalLink, MoreHorizontal, Trash2 } from "lucide-react";
+import {
+  ArrowUpDown,
+  Edit,
+  ExternalLink,
+  MoreHorizontal,
+  Trash2,
+} from "lucide-react";
 
 import type { ColumnDef } from "@tanstack/react-table";
 
@@ -56,7 +62,16 @@ export const showcasesColumns: ColumnDef<ShowcaseItem>[] = [
   },
   {
     accessorKey: "name",
-    header: "Name",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        className="-ml-3"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Name
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
       const showcase = row.original;
       return (
@@ -118,7 +133,16 @@ export const showcasesColumns: ColumnDef<ShowcaseItem>[] = [
   },
   {
     accessorKey: "publishedAt",
-    header: "Published",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        className="-ml-3"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Published
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
       const date = row.getValue("publishedAt") as Date | undefined;
       return (
@@ -128,7 +152,16 @@ export const showcasesColumns: ColumnDef<ShowcaseItem>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Created",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        className="-ml-3"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Created
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
       const date = row.getValue("createdAt") as Date | undefined;
       return (

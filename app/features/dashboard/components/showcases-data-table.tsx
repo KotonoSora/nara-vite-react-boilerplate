@@ -41,10 +41,19 @@ interface ServerPaginationProps {
   onNext: () => void;
 }
 
+type SortKey = "name" | "createdAt" | "publishedAt";
+
+interface ServerSortingProps {
+  sortBy: SortKey;
+  sortDir: "asc" | "desc";
+  onSortChange: (sortBy: SortKey, sortDir: "asc" | "desc") => void;
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   pagination?: ServerPaginationProps;
+  sortingServer?: ServerSortingProps;
 }
 
 /**
@@ -55,8 +64,22 @@ export function ShowcasesDataTable<TData, TValue>({
   columns,
   data,
   pagination,
+  sortingServer,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const initialSorting = React.useMemo<SortingState>(() => {
+    if (!sortingServer) return [];
+    return [
+      {
+        id: sortingServer.sortBy,
+        desc: sortingServer.sortDir === "desc",
+      },
+    ];
+  }, [sortingServer?.sortBy, sortingServer?.sortDir]);
+
+  const [sorting, setSorting] = React.useState<SortingState>(initialSorting);
+  React.useEffect(() => {
+    setSorting(initialSorting);
+  }, [initialSorting]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
@@ -67,7 +90,6 @@ export function ShowcasesDataTable<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
-    onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -75,6 +97,25 @@ export function ShowcasesDataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onSortingChange: (updater) => {
+      const next = typeof updater === "function" ? updater(sorting) : updater;
+      // Always update local state for header indicators
+      setSorting(next);
+      if (sortingServer) {
+        const first = next[0];
+        if (
+          first &&
+          (first.id === "name" ||
+            first.id === "createdAt" ||
+            first.id === "publishedAt")
+        ) {
+          sortingServer.onSortChange(
+            first.id as SortKey,
+            first.desc ? "desc" : "asc",
+          );
+        }
+      }
+    },
     state: {
       sorting,
       columnFilters,
