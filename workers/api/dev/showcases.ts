@@ -1,12 +1,17 @@
 import { zValidator } from "@hono/zod-validator";
+import { endOfDay, isValid, parse, parseISO, startOfDay } from "date-fns";
 import {
   and,
   asc,
   desc,
   eq,
+  gte,
   inArray,
   isNotNull,
   isNull,
+  like,
+  lte,
+  or,
   sql,
 } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
@@ -29,6 +34,11 @@ const seedShowcaseSchema = z.object({
         url: z.url(),
         image: z.url().optional(),
         tags: z.array(z.string().min(1)).default([]),
+        authorId: z.string().optional(),
+        publishedAt: z
+          .union([z.number(), z.coerce.date()])
+          .transform((val) => (typeof val === "number" ? new Date(val) : val))
+          .optional(),
       }),
     )
     .min(1, "Provide at least one showcase to seed."),
@@ -39,7 +49,49 @@ const listQuerySchema = z.object({
   pageSize: z.coerce.number().int().min(1).max(50).default(20),
   sortBy: z.enum(["name", "createdAt", "publishedAt"]).default("createdAt"),
   sortDir: z.enum(["asc", "desc"]).default("desc"),
+  search: z.string().min(1).optional(),
+  tags: z
+    .union([z.string(), z.array(z.string())])
+    .transform((val) => (typeof val === "string" ? [val.trim()] : val))
+    .optional(),
   authorId: z.string().min(1).optional(),
+  authorName: z.string().min(1).optional(),
+  publishedAfter: z
+    .union([
+      z.coerce.number().transform((val) => new Date(val)),
+      z.coerce.date(),
+      z.string().transform((val) => {
+        // Try YYYY-MM-DD format first
+        if (/^\d{4}-\d{2}-\d{2}$/.test(val)) {
+          const parsed = parse(val, "yyyy-MM-dd", new Date());
+          if (!isValid(parsed)) throw new Error("Invalid date format");
+          return startOfDay(parsed);
+        }
+        // Try ISO 8601 format
+        const parsed = parseISO(val);
+        if (!isValid(parsed)) throw new Error("Invalid ISO date format");
+        return parsed;
+      }),
+    ])
+    .optional(),
+  publishedBefore: z
+    .union([
+      z.coerce.number().transform((val) => new Date(val)),
+      z.coerce.date(),
+      z.string().transform((val) => {
+        // Try YYYY-MM-DD format first
+        if (/^\d{4}-\d{2}-\d{2}$/.test(val)) {
+          const parsed = parse(val, "yyyy-MM-dd", new Date());
+          if (!isValid(parsed)) throw new Error("Invalid date format");
+          return endOfDay(parsed);
+        }
+        // Try ISO 8601 format
+        const parsed = parseISO(val);
+        if (!isValid(parsed)) throw new Error("Invalid ISO date format");
+        return parsed;
+      }),
+    ])
+    .optional(),
   deleted: z.enum(["true", "false"]).optional(),
 });
 
@@ -115,8 +167,25 @@ devShowcaseApi.get("/list", zValidator("query", listQuerySchema), async (c) => {
 
   const whereClauses = [] as ReturnType<typeof eq>[];
 
+  if (query.search) {
+    whereClauses.push(
+      or(
+        like(showcase.name, `%${query.search}%`),
+        like(showcase.description, `%${query.search}%`),
+      )!,
+    );
+  }
+
   if (query.authorId) {
     whereClauses.push(eq(showcase.authorId, query.authorId));
+  }
+
+  if (query.publishedAfter) {
+    whereClauses.push(gte(showcase.publishedAt, query.publishedAfter));
+  }
+
+  if (query.publishedBefore) {
+    whereClauses.push(lte(showcase.publishedAt, query.publishedBefore));
   }
 
   if (query.deleted === "true") {
@@ -125,11 +194,79 @@ devShowcaseApi.get("/list", zValidator("query", listQuerySchema), async (c) => {
     whereClauses.push(isNull(showcase.deletedAt));
   }
 
-  const where = whereClauses.length
-    ? whereClauses.length === 1
-      ? whereClauses[0]
-      : and(...whereClauses)
+  const allConditions: typeof whereClauses = [...whereClauses];
+
+  if (query.tags && query.tags.length > 0) {
+    const showcaseIdsWithTags = await db
+      .select({ showcaseId: showcaseTag.showcaseId })
+      .from(showcaseTag)
+      .where(inArray(showcaseTag.tag, query.tags))
+      .groupBy(showcaseTag.showcaseId)
+      .all();
+
+    const validIds = showcaseIdsWithTags.map((r) => r.showcaseId);
+    if (validIds.length === 0) {
+      return c.json(
+        { items: [], page: query.page, pageSize: query.pageSize, total: 0 },
+        200,
+      );
+    }
+    allConditions.push(inArray(showcase.id, validIds));
+  }
+
+  if (query.authorName) {
+    const authorsWithName = await db
+      .select({ id: user.id })
+      .from(user)
+      .where(like(user.name, `%${query.authorName}%`))
+      .all();
+
+    const validAuthorIds = authorsWithName.map((a) => a.id);
+    if (validAuthorIds.length === 0) {
+      return c.json(
+        { items: [], page: query.page, pageSize: query.pageSize, total: 0 },
+        200,
+      );
+    }
+    allConditions.push(inArray(showcase.authorId, validAuthorIds));
+  }
+
+  const finalWhere = allConditions.length
+    ? allConditions.length === 1
+      ? allConditions[0]
+      : and(...allConditions)
     : undefined;
+
+  const filteredIds = await db
+    .select({ id: showcase.id })
+    .from(showcase)
+    .where(finalWhere)
+    .all();
+  const totalCount = filteredIds.length;
+
+  if (totalCount === 0) {
+    return c.json(
+      { items: [], page: query.page, pageSize: query.pageSize, total: 0 },
+      200,
+    );
+  }
+
+  const startIndex = (query.page - 1) * query.pageSize;
+  const paginatedIds = filteredIds
+    .slice(startIndex, startIndex + query.pageSize)
+    .map((r) => r.id);
+
+  if (paginatedIds.length === 0) {
+    return c.json(
+      {
+        items: [],
+        page: query.page,
+        pageSize: query.pageSize,
+        total: totalCount,
+      },
+      200,
+    );
+  }
 
   const orderColumn =
     query.sortBy === "name"
@@ -154,31 +291,11 @@ devShowcaseApi.get("/list", zValidator("query", listQuerySchema), async (c) => {
       deletedAt: showcase.deletedAt,
     })
     .from(showcase)
-    .where(where)
+    .where(inArray(showcase.id, paginatedIds))
     .orderBy(orderBy)
-    .limit(query.pageSize)
-    .offset((query.page - 1) * query.pageSize)
     .all();
 
   const pageIds = pageItems.map((r) => r.id);
-
-  const totalRow = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(showcase)
-    .where(where)
-    .get();
-
-  if (pageIds.length === 0) {
-    return c.json(
-      {
-        items: [],
-        page: query.page,
-        pageSize: query.pageSize,
-        total: totalRow?.count ?? 0,
-      },
-      200,
-    );
-  }
 
   const tagRows = await db
     .select({ showcaseId: showcaseTag.showcaseId, tag: showcaseTag.tag })
@@ -243,7 +360,7 @@ devShowcaseApi.get("/list", zValidator("query", listQuerySchema), async (c) => {
       items: Array.from(map.values()),
       page: query.page,
       pageSize: query.pageSize,
-      total: totalRow?.count ?? 0,
+      total: totalCount,
     },
     200,
   );
