@@ -52,6 +52,8 @@ interface ServerSortingProps {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  searchValue?: string;
+  onSearchChange?: (value: string) => void;
   pagination?: ServerPaginationProps;
   sortingServer?: ServerSortingProps;
 }
@@ -65,6 +67,8 @@ export function ShowcasesDataTable<TData, TValue>({
   data,
   pagination,
   sortingServer,
+  searchValue,
+  onSearchChange,
 }: DataTableProps<TData, TValue>) {
   const initialSorting = React.useMemo<SortingState>(() => {
     if (!sortingServer) return [];
@@ -129,10 +133,16 @@ export function ShowcasesDataTable<TData, TValue>({
       {/* Filters and Controls */}
       <div className="flex items-center justify-between">
         <Input
-          placeholder="Filter by name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter by name or description..."
+          value={
+            searchValue !== undefined
+              ? searchValue
+              : ((table.getColumn("name")?.getFilterValue() as string) ?? "")
+          }
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            onSearchChange
+              ? onSearchChange(event.target.value)
+              : table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

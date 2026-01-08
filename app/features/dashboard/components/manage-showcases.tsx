@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react";
+import { useCallback } from "react";
 import { useLoaderData, useSearchParams } from "react-router";
 
 import type { FC } from "react";
@@ -19,6 +20,7 @@ export const ManageShowcase: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortByParam = searchParams.get("sortBy");
   const sortDirParam = searchParams.get("sortDir");
+  const searchParam = searchParams.get("search") || "";
   const sortBy =
     sortByParam === "name" ||
     sortByParam === "publishedAt" ||
@@ -37,6 +39,24 @@ export const ManageShowcase: FC = () => {
     console.log("Create new showcase");
     // TODO: Implement create functionality
   };
+
+  /**
+   * Handles search input change and updates URL.
+   */
+  const handleSearchChange = useCallback(
+    (value: string) => {
+      const sp = new URLSearchParams(searchParams);
+      if (value.trim()) {
+        sp.set("search", value);
+      } else {
+        sp.delete("search");
+      }
+      sp.set("page", "1");
+      sp.set("pageSize", String(pageSize));
+      setSearchParams(sp);
+    },
+    [searchParams, pageSize, setSearchParams],
+  );
 
   return (
     <div className="space-y-6">
@@ -58,6 +78,8 @@ export const ManageShowcase: FC = () => {
       <ShowcasesDataTable
         columns={showcasesColumns}
         data={items}
+        searchValue={searchParam}
+        onSearchChange={handleSearchChange}
         sortingServer={{
           sortBy,
           sortDir,

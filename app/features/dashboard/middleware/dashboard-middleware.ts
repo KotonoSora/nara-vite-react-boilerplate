@@ -41,6 +41,7 @@ export const dashboardMiddleware: MiddlewareFunction = async (
   const pageSizeParam = url.searchParams.get("pageSize");
   const sortByParam = url.searchParams.get("sortBy");
   const sortDirParam = url.searchParams.get("sortDir");
+  const searchParam = url.searchParams.get("search");
   const page = Math.max(1, Number(pageParam) || 1);
   const pageSize = Math.max(1, Number(pageSizeParam) || 10);
   const sortBy =
@@ -59,6 +60,7 @@ export const dashboardMiddleware: MiddlewareFunction = async (
     pageSize,
     sortBy,
     sortDir,
+    search: searchParam || undefined,
     // authorId: user.id,
   });
 
