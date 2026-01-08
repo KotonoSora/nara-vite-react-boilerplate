@@ -36,12 +36,18 @@ export const dashboardMiddleware: MiddlewareFunction = async (
 
   const recentActivity = getRecentActivity(language, user.createdAt);
   const stats = getStats(user.createdAt);
+  const url = new URL(request.url);
+  const pageParam = url.searchParams.get("page");
+  const pageSizeParam = url.searchParams.get("pageSize");
+  const page = Math.max(1, Number(pageParam) || 1);
+  const pageSize = Math.max(1, Number(pageSizeParam) || 10);
+
   const showcases = await fetchShowcases(db, {
-    page: 1,
-    pageSize: 20,
+    page,
+    pageSize,
     sortBy: "createdAt",
     sortDir: "desc",
-    authorId: user.id,
+    // authorId: user.id,
   });
 
   const contextValue = {
