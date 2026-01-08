@@ -5,7 +5,7 @@ import type { MiddlewareFunction } from "react-router";
 import type { UserSchema } from "~/lib/authentication/types/user";
 
 export type AuthContextType = {
-  userId: number | null;
+  userId: string | null;
   user: UserSchema | null;
 };
 

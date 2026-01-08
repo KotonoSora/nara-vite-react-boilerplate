@@ -25,13 +25,16 @@ export async function getShowcases(db: DrizzleD1Database<typeof schema>) {
       tag: showcaseTag.tag,
     })
     .from(showcase)
-    .leftJoin(showcaseTag, eq(showcase.id, showcaseTag.showcaseId));
+    .leftJoin(showcaseTag, eq(showcase.id, showcaseTag.showcaseId))
+    .all();
 
-  const map = new Map<number, ProjectInfo>();
+  const map = new Map<string, ProjectInfo>();
 
   for (const row of rows) {
-    if (!map.has(row.id)) {
-      map.set(row.id, {
+    const key = String(row.id);
+
+    if (!map.has(key)) {
+      map.set(key, {
         id: row.id,
         name: row.name,
         description: row.description,
@@ -42,7 +45,7 @@ export async function getShowcases(db: DrizzleD1Database<typeof schema>) {
     }
 
     if (row.tag) {
-      map.get(row.id)!.tags.push(row.tag);
+      map.get(key)!.tags.push(row.tag);
     }
   }
 

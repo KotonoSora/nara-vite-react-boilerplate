@@ -17,33 +17,31 @@ export async function seedShowcases(
   showcases: ProjectInfoWithoutID[],
 ) {
   try {
-    await db.delete(showcase).execute();
-    await db.delete(showcaseTag).execute();
+    if (!showcases?.length) return;
 
-    const existingShowcase = await db
-      .select({ id: showcase.id })
-      .from(showcase)
-      .limit(1);
+    await db.transaction(async (tx) => {
+      await tx.delete(showcaseTag).run();
+      await tx.delete(showcase).run();
 
-    if (!existingShowcase.length && showcases) {
-      await db.insert(showcase).values(showcases);
+      const showcasesWithIds = showcases.map((item) => ({
+        ...item,
+        id: crypto.randomUUID(),
+      }));
 
-      const insertedShowcases = await db
-        .select({ id: showcase.id })
-        .from(showcase)
-        .execute();
+      await tx.insert(showcase).values(showcasesWithIds).run();
 
-      for (const [index, showcase] of insertedShowcases.entries()) {
-        if (showcases[index].tags) {
-          await db.insert(showcaseTag).values(
-            showcases[index].tags.map((tag) => ({
-              showcaseId: showcase.id,
-              tag,
-            })),
-          );
-        }
+      const tagRows = showcasesWithIds.flatMap(({ id, tags }) =>
+        (tags ?? []).map((tag) => ({
+          id: crypto.randomUUID(),
+          showcaseId: id,
+          tag,
+        })),
+      );
+
+      if (tagRows.length) {
+        await tx.insert(showcaseTag).values(tagRows).run();
       }
-    }
+    });
   } catch (error) {
     console.error("Error seeding showcases:", error);
   }

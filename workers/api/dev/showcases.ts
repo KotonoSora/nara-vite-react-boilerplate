@@ -41,7 +41,7 @@ devShowcaseApi.use("*", async (c, next) => {
 });
 
 devShowcaseApi.post(
-  "/seed-showcases",
+  "/seed",
   zValidator("json", seedShowcaseSchema),
   async (c) => {
     const { showcases } = c.req.valid("json");
