@@ -8,6 +8,7 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { ProjectInfoWithoutID } from "~/features/landing-page/types/type";
 
 import * as showcaseSchema from "~/database/schema/showcase";
+import { getShowcases } from "~/features/landing-page/utils/get-showcases";
 import { seedShowcases } from "~/features/landing-page/utils/seed-showcase";
 
 const seedShowcaseSchema = z.object({
@@ -62,5 +63,19 @@ devShowcaseApi.post(
     }
   },
 );
+
+devShowcaseApi.get("/list", async (c) => {
+  const db: DrizzleD1Database<typeof showcaseSchema> = drizzle(c.env.DB, {
+    schema: showcaseSchema,
+  });
+
+  try {
+    const showcases = await getShowcases(db);
+    return c.json({ showcases }, 200);
+  } catch (error) {
+    console.error("Get showcases failed", error);
+    return c.json({ error: "Failed to showcases" }, 500);
+  }
+});
 
 export default devShowcaseApi;
