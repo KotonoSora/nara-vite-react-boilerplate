@@ -12,6 +12,7 @@ import type { CreateShowcaseFormData } from "./create-showcase-modal";
 import { Button } from "~/components/ui/button";
 
 import { CreateShowcaseModal } from "./create-showcase-modal";
+import { DeleteShowcaseDialog } from "./delete-showcase-dialog";
 import { showcasesColumns } from "./showcases-columns";
 import { ShowcasesDataTable } from "./showcases-data-table";
 
@@ -29,6 +30,10 @@ export const ManageShowcase: FC = () => {
   const [serverFieldErrors, setServerFieldErrors] = useState<
     Record<string, string>
   >({});
+  const [showcaseToDelete, setShowcaseToDelete] = useState<string | null>(null);
+  const [lastSubmittedAction, setLastSubmittedAction] = useState<
+    "create" | "delete" | null
+  >(null);
   const sortByParam = searchParams.get("sortBy");
   const sortDirParam = searchParams.get("sortDir");
   const searchParam = searchParams.get("search") || "";
@@ -56,9 +61,20 @@ export const ManageShowcase: FC = () => {
    * Handles showcase deletion (soft delete via action).
    */
   const handleDelete = (showcaseId: string) => {
+    setShowcaseToDelete(showcaseId);
+  };
+
+  /**
+   * Confirms and submits the showcase deletion.
+   */
+  const confirmDelete = () => {
+    if (!showcaseToDelete) return;
+
     const fd = new FormData();
-    fd.append("showcaseId", showcaseId);
+    fd.append("showcaseId", showcaseToDelete);
+    setLastSubmittedAction("delete");
     fetcher.submit(fd, { method: "post", action: "/action/showcase/delete" });
+    setShowcaseToDelete(null);
   };
 
   /**
@@ -75,6 +91,7 @@ export const ManageShowcase: FC = () => {
     for (const t of data.tags) fd.append("tags", t);
     fd.append("authorId", String(user.id));
 
+    setLastSubmittedAction("create");
     fetcher.submit(fd, { method: "post", action: "/action/showcase/new" });
 
     // Optimistically refresh the table
@@ -102,19 +119,18 @@ export const ManageShowcase: FC = () => {
         toast.error(result.error);
         setIsCreateModalOpen(false);
         setServerFieldErrors({});
+        setLastSubmittedAction(null);
         const sp = new URLSearchParams(searchParams);
         sp.set("page", "1");
         sp.set("pageSize", String(pageSize));
         setSearchParams(sp);
       } else if (result.success) {
-        // Handle both create and delete success
-        const formData = fetcher.formData as FormData | undefined;
-        if (formData?.get("name")) {
-          // Create success: closing modal and form
+        if (lastSubmittedAction === "create") {
+          // Create success: close modal and reset form
           toast.success("Showcase created successfully");
           setIsCreateModalOpen(false);
           setServerFieldErrors({});
-        } else if (formData?.get("showcaseId")) {
+        } else if (lastSubmittedAction === "delete") {
           // Delete success: refresh table
           toast.success("Showcase deleted successfully");
           const sp = new URLSearchParams(searchParams);
@@ -122,12 +138,13 @@ export const ManageShowcase: FC = () => {
           sp.set("pageSize", String(pageSize));
           setSearchParams(sp);
         }
+        setLastSubmittedAction(null);
       }
     }
   }, [
     fetcher.state,
     fetcher.data,
-    fetcher.formData,
+    lastSubmittedAction,
     searchParams,
     pageSize,
     setSearchParams,
@@ -230,6 +247,16 @@ export const ManageShowcase: FC = () => {
         onSubmit={handleCreateSubmit}
         availableTags={availableTags}
         serverFieldErrors={serverFieldErrors}
+      />
+
+      {/* Delete Showcase Confirmation Dialog */}
+      <DeleteShowcaseDialog
+        open={showcaseToDelete !== null}
+        onOpenChange={(open) => {
+          if (!open) setShowcaseToDelete(null);
+        }}
+        onConfirm={confirmDelete}
+        isLoading={fetcher.state === "submitting"}
       />
     </div>
   );
