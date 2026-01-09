@@ -1,3 +1,5 @@
+import type { FetchShowcasesResult } from "~/features/landing-page/utils/fetch-showcases";
+
 export type ProjectInfo = {
   id: number | string;
   name: string;
@@ -8,6 +10,6 @@ export type ProjectInfo = {
 };
 
 export type PageInformation = {
-  showcases: Promise<ProjectInfo[]>;
+  showcases: Promise<FetchShowcasesResult>;
   builtInDemos: ProjectInfo[];
 };

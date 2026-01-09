@@ -12,7 +12,7 @@ export function CommunitySection() {
   const t = useTranslation();
   const { showcases: fetchShowcases, builtInDemos } =
     useLoaderData<PageInformation>();
-  const showcases = use(fetchShowcases);
+  const { items: showcases } = use(fetchShowcases);
   const hasBuiltInDemos =
     Array.isArray(builtInDemos) && builtInDemos.length > 0;
   const hasShowcases = Array.isArray(showcases) && showcases.length > 0;

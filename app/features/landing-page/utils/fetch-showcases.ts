@@ -29,6 +29,7 @@ export type FetchShowcasesParams = {
   publishedAfter?: Date;
   publishedBefore?: Date;
   deleted?: "true" | "false";
+  published?: "true" | "false";
 };
 
 export type ShowcaseItem = {
@@ -97,6 +98,13 @@ export async function fetchShowcases(
     whereClauses.push(isNotNull(showcase.deletedAt));
   } else {
     whereClauses.push(isNull(showcase.deletedAt));
+  }
+
+  // Filter by published status
+  if (params.published === "true") {
+    whereClauses.push(isNotNull(showcase.publishedAt));
+  } else if (params.published === "false") {
+    whereClauses.push(isNull(showcase.publishedAt));
   }
 
   const allConditions: typeof whereClauses = [...whereClauses];
