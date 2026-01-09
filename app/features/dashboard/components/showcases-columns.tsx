@@ -2,7 +2,9 @@ import {
   ArrowUpDown,
   Edit,
   ExternalLink,
+  FileX,
   MoreHorizontal,
+  Send,
   Trash2,
 } from "lucide-react";
 
@@ -39,6 +41,8 @@ const formatDate = (date?: Date): string => {
  */
 export const showcasesColumns = (
   onDelete?: (showcaseId: string) => void,
+  onPublish?: (showcaseId: string) => void,
+  onUnpublish?: (showcaseId: string) => void,
 ): ColumnDef<ShowcaseItem>[] => [
   {
     id: "select",
@@ -141,14 +145,27 @@ export const showcasesColumns = (
         className="-ml-3"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Published
+        Status
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
     cell: ({ row }) => {
       const date = row.getValue("publishedAt") as Date | undefined;
+      const isPublished = !!date;
       return (
-        <div className="text-muted-foreground text-xs">{formatDate(date)}</div>
+        <div className="flex flex-col items-center justify-start gap-2">
+          <Badge
+            variant={isPublished ? "default" : "secondary"}
+            className="text-xs"
+          >
+            {isPublished ? "Published" : "Draft"}
+          </Badge>
+          {isPublished && (
+            <span className="text-muted-foreground text-xs">
+              {formatDate(date)}
+            </span>
+          )}
+        </div>
       );
     },
   },
@@ -175,6 +192,7 @@ export const showcasesColumns = (
     id: "actions",
     cell: ({ row }) => {
       const showcase = row.original;
+      const isPublished = !!showcase.publishedAt;
 
       return (
         <DropdownMenu>
@@ -195,6 +213,17 @@ export const showcasesColumns = (
               <Edit className="mr-2 h-4 w-4" />
               Edit
             </DropdownMenuItem>
+            {!isPublished ? (
+              <DropdownMenuItem onClick={() => onPublish?.(showcase.id)}>
+                <Send className="mr-2 h-4 w-4" />
+                Publish
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem onClick={() => onUnpublish?.(showcase.id)}>
+                <FileX className="mr-2 h-4 w-4" />
+                Unpublish
+              </DropdownMenuItem>
+            )}
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-destructive focus:text-destructive"

@@ -5,11 +5,6 @@ import type { Route } from "./+types/action.showcase.new";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as dbSchema from "~/database/schema";
-import {
-  createShowcaseSchema,
-  parseValidationErrors,
-} from "~/features/landing-page/schemas/create-showcase.schema";
-import { createShowcase } from "~/features/landing-page/utils/create-showcase";
 
 export function loader({ request }: Route.LoaderArgs) {
   return data(
@@ -36,6 +31,11 @@ export async function action({ request, context }: Route.ActionArgs) {
       authorId: formData.get("authorId") ?? "",
       tags: formData.getAll("tags"),
     };
+
+    const { createShowcaseSchema, parseValidationErrors } =
+      await import("~/features/landing-page/schemas/create-showcase.schema");
+    const { createShowcase } =
+      await import("~/features/landing-page/utils/create-showcase");
 
     const result = createShowcaseSchema.safeParse(raw);
     if (!result.success) {

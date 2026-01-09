@@ -32,7 +32,7 @@ export const ManageShowcase: FC = () => {
   >({});
   const [showcaseToDelete, setShowcaseToDelete] = useState<string | null>(null);
   const [lastSubmittedAction, setLastSubmittedAction] = useState<
-    "create" | "delete" | null
+    "create" | "delete" | "publish" | "unpublish" | null
   >(null);
   const sortByParam = searchParams.get("sortBy");
   const sortDirParam = searchParams.get("sortDir");
@@ -62,6 +62,31 @@ export const ManageShowcase: FC = () => {
    */
   const handleDelete = (showcaseId: string) => {
     setShowcaseToDelete(showcaseId);
+  };
+
+  /**
+   * Handles showcase publishing.
+   * Sets publishedAt to current time.
+   */
+  const handlePublish = (showcaseId: string) => {
+    const fd = new FormData();
+    fd.append("showcaseId", showcaseId);
+    setLastSubmittedAction("publish");
+    fetcher.submit(fd, { method: "post", action: "/action/showcase/publish" });
+  };
+
+  /**
+   * Handles showcase unpublishing.
+   * Removes publishedAt to revert to draft.
+   */
+  const handleUnpublish = (showcaseId: string) => {
+    const fd = new FormData();
+    fd.append("showcaseId", showcaseId);
+    setLastSubmittedAction("unpublish");
+    fetcher.submit(fd, {
+      method: "post",
+      action: "/action/showcase/unpublish",
+    });
   };
 
   /**
@@ -137,6 +162,20 @@ export const ManageShowcase: FC = () => {
           sp.set("page", "1");
           sp.set("pageSize", String(pageSize));
           setSearchParams(sp);
+        } else if (lastSubmittedAction === "publish") {
+          // Publish success: refresh table
+          toast.success("Showcase published successfully");
+          const sp = new URLSearchParams(searchParams);
+          sp.set("page", "1");
+          sp.set("pageSize", String(pageSize));
+          setSearchParams(sp);
+        } else if (lastSubmittedAction === "unpublish") {
+          // Unpublish success: refresh table
+          toast.success("Showcase unpublished successfully");
+          const sp = new URLSearchParams(searchParams);
+          sp.set("page", "1");
+          sp.set("pageSize", String(pageSize));
+          setSearchParams(sp);
         }
         setLastSubmittedAction(null);
       }
@@ -199,7 +238,7 @@ export const ManageShowcase: FC = () => {
 
       {/* Data Table */}
       <ShowcasesDataTable
-        columns={showcasesColumns(handleDelete)}
+        columns={showcasesColumns(handleDelete, handlePublish, handleUnpublish)}
         data={items}
         searchValue={searchParam}
         onSearchChange={handleSearchChange}
