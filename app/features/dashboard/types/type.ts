@@ -1,6 +1,7 @@
 import type { FetchShowcasesResult } from "~/features/landing-page/utils/fetch-showcases";
 
 export type User = {
+  id: string;
   name: string;
   email: string;
   role: "admin" | "user";

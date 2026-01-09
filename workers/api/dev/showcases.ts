@@ -9,6 +9,7 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { ProjectInfoWithoutID } from "~/features/landing-page/types/type";
 
 import * as schema from "~/database/schema";
+import { createShowcase } from "~/features/landing-page/utils/create-showcase";
 import { fetchShowcaseTags } from "~/features/landing-page/utils/fetch-showcase-tags";
 import { fetchShowcases } from "~/features/landing-page/utils/fetch-showcases";
 import { seedShowcases } from "~/features/landing-page/utils/seed-showcase";
@@ -91,26 +92,33 @@ const tagsQuerySchema = z.object({
   deleted: z.enum(["true", "false"]).optional(),
 });
 
-type ShowcaseApiItem = {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-  image?: string;
-  tags: string[];
-  authorId?: string;
-  author?: { id: string; email: string; name: string };
-  publishedAt?: Date;
-  createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
-};
+const createShowcaseSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  description: z.string().min(1, "Description is required"),
+  url: z.url("Invalid URL"),
+  image: z.url("Invalid image URL").optional(),
+  publishedAt: z
+    .union([z.number(), z.string()])
+    .transform((val) =>
+      typeof val === "string"
+        ? val
+          ? new Date(val)
+          : undefined
+        : new Date(val),
+    )
+    .optional(),
+  tags: z.array(z.string().min(1)).default([]),
+  authorId: z.string().min(1).optional(),
+});
 
 /**
  * Dev-only API routes for seeding showcase content.
  */
 const devShowcaseApi = new Hono<{ Bindings: Env }>();
 
+/**
+ * Middleware to restrict access to development environment only.
+ */
 devShowcaseApi.use("*", async (c, next) => {
   if (import.meta.env.MODE !== "development") {
     return c.json(
@@ -122,6 +130,13 @@ devShowcaseApi.use("*", async (c, next) => {
   return next();
 });
 
+/**
+ * POST /api/dev/showcases/seed - Seed showcases into the database.
+ * Dev environment only.
+ *
+ * @body {Object} SeedShowcaseSchema - Array of showcases to seed.
+ * @returns {Object} Message with count of seeded showcases.
+ */
 devShowcaseApi.post(
   "/seed",
   zValidator("json", seedShowcaseSchema),
@@ -145,6 +160,12 @@ devShowcaseApi.post(
   },
 );
 
+/**
+ * GET /api/dev/showcases/list - Fetch list of showcases with filters.
+ * Dev environment only
+ * @query {Object} ListQuerySchema - Query parameters for filtering and pagination.
+ * @returns {Object} Paginated list of showcases.
+ */
 devShowcaseApi.get("/list", zValidator("query", listQuerySchema), async (c) => {
   const query = c.req.valid("query");
   const db: DrizzleD1Database<typeof schema> = drizzle(c.env.DB, {
@@ -160,6 +181,12 @@ devShowcaseApi.get("/list", zValidator("query", listQuerySchema), async (c) => {
   }
 });
 
+/**
+ * GET /api/dev/showcases/tags - Fetch list of showcase tags with counts.
+ * Dev environment only
+ * @query {Object} TagsQuerySchema - Query parameters for pagination and sorting.
+ * @returns {Object} Paginated list of tags with counts.
+ */
 devShowcaseApi.get("/tags", zValidator("query", tagsQuerySchema), async (c) => {
   const query = c.req.valid("query");
   const db: DrizzleD1Database<typeof schema> = drizzle(c.env.DB, {
@@ -174,5 +201,36 @@ devShowcaseApi.get("/tags", zValidator("query", tagsQuerySchema), async (c) => {
     return c.json({ error: "Failed to fetch showcase tags" }, 500);
   }
 });
+
+/**
+ * POST /api/showcases - Create a new showcase.
+ * Dev environment only
+ * @body {Object} CreateShowcaseSchema - Showcase data with tags.
+ * @returns {Object} Created showcase with tags.
+ */
+devShowcaseApi.post(
+  "/new",
+  zValidator("json", createShowcaseSchema),
+  async (c) => {
+    const data = c.req.valid("json");
+
+    const db: DrizzleD1Database<typeof schema> = drizzle(c.env.DB, {
+      schema,
+    });
+
+    try {
+      const result = await createShowcase(db, data);
+      return c.json(result, 201);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Unknown error occurred";
+      console.error("Failed to create showcase:", message);
+      return c.json(
+        { error: "Failed to create showcase", details: message },
+        500,
+      );
+    }
+  },
+);
 
 export default devShowcaseApi;
