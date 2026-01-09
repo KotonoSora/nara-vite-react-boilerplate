@@ -1,7 +1,9 @@
-import { X } from "lucide-react";
+import { Check, ChevronsUpDown, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import type { FC } from "react";
+
+import type { FieldError } from "~/features/landing-page/schemas/create-showcase.schema";
 
 import {
   AlertDialog,
@@ -13,6 +15,14 @@ import {
 } from "~/components/ui/alert-dialog";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "~/components/ui/command";
 import {
   Dialog,
   DialogContent,
@@ -27,6 +37,10 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { Textarea } from "~/components/ui/textarea";
+import {
+  createShowcaseSchema,
+  parseValidationErrors,
+} from "~/features/landing-page/schemas/create-showcase.schema";
 import { cn } from "~/lib/utils";
 
 interface CreateShowcaseModalProps {
@@ -34,6 +48,7 @@ interface CreateShowcaseModalProps {
   onOpenChange: (open: boolean) => void;
   onSubmit: (data: CreateShowcaseFormData) => Promise<void>;
   availableTags: string[];
+  serverFieldErrors?: FieldError;
 }
 
 export interface CreateShowcaseFormData {
@@ -54,6 +69,7 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
   onOpenChange,
   onSubmit,
   availableTags,
+  serverFieldErrors,
 }) => {
   const [formData, setFormData] = useState<CreateShowcaseFormData>({
     name: "",
@@ -67,7 +83,10 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [openTagsPopover, setOpenTagsPopover] = useState(false);
+  const [openTagsCombobox, setOpenTagsCombobox] = useState(false);
+  const [tagSearchValue, setTagSearchValue] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<FieldError>({});
 
   // Track unsaved changes
   useEffect(() => {
@@ -81,21 +100,76 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
     setHasUnsavedChanges(hasChanges);
   }, [formData]);
 
-  // Reset form when modal closes
+  // Sync server field errors when modal opens or data changes
   useEffect(() => {
-    if (!open) {
-      setFormData({
-        name: "",
-        description: "",
-        url: "",
-        image: "",
-        publishedAt: undefined,
-        tags: [],
-      });
-      setHasUnsavedChanges(false);
-      setOpenTagsPopover(false);
+    if (serverFieldErrors && Object.keys(serverFieldErrors).length > 0) {
+      setFieldErrors(serverFieldErrors);
+      setErrorMessage("Please fix the validation errors");
     }
+  }, [serverFieldErrors]);
+
+  // Reset form whenever modal is opened fresh
+  useEffect(() => {
+    if (!open) return;
+    setFormData({
+      name: "",
+      description: "",
+      url: "",
+      image: "",
+      publishedAt: undefined,
+      tags: [],
+    });
+    setFieldErrors({});
+    setErrorMessage("");
+    setHasUnsavedChanges(false);
   }, [open]);
+
+  // Clear global error message when all field errors are resolved
+  useEffect(() => {
+    if (Object.keys(fieldErrors).length === 0) {
+      setErrorMessage("");
+    }
+  }, [fieldErrors]);
+
+  /**
+   * Handles field blur event to validate and clear errors for valid fields.
+   * Validates only the blurred field using the schema to avoid cross-field noise.
+   */
+  const handleFieldBlur = (
+    field: keyof CreateShowcaseFormData,
+    value: string | Date | undefined,
+  ) => {
+    if (typeof value === undefined || value === "") {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+      return;
+    }
+
+    // Validate only this field to prevent other empty fields from blocking clearance
+    const fieldSchema = createShowcaseSchema.pick({ [field]: true });
+    const result = fieldSchema.safeParse({ [field]: value });
+
+    if (!result.success) {
+      const errors = parseValidationErrors(result);
+      if (errors) {
+        setFieldErrors((prev) => ({ ...prev, ...errors }));
+        setErrorMessage("Please fix the errors below");
+      }
+      return;
+    }
+
+    if (result.success && fieldErrors[field]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+      return;
+    }
+  };
 
   /**
    * Handles input changes for all form fields.
@@ -111,15 +185,21 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
   };
 
   /**
-   * Toggles a tag in the selected tags list.
+   * Handles tag selection/deselection from combobox.
+   * Supports adding new custom tags that don't exist in availableTags.
    */
-  const handleTagToggle = (tag: string) => {
+  const handleSelectTag = (tagValue: string) => {
+    const trimmedTag = tagValue.trim();
+    if (!trimmedTag) return;
+
     setFormData((prev) => {
-      const tags = prev.tags.includes(tag)
-        ? prev.tags.filter((t) => t !== tag)
-        : [...prev.tags, tag];
+      const isSelected = prev.tags.includes(trimmedTag);
+      const tags = isSelected
+        ? prev.tags.filter((t) => t !== trimmedTag)
+        : [...prev.tags, trimmedTag];
       return { ...prev, tags };
     });
+    setTagSearchValue("");
   };
 
   /**
@@ -140,6 +220,20 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
       setShowWarning(true);
       return;
     }
+    // When closing, reset form to pristine state
+    if (!newOpen) {
+      setFormData({
+        name: "",
+        description: "",
+        url: "",
+        image: "",
+        publishedAt: undefined,
+        tags: [],
+      });
+      setFieldErrors({});
+      setErrorMessage("");
+      setHasUnsavedChanges(false);
+    }
     onOpenChange(newOpen);
   };
 
@@ -152,28 +246,41 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
   };
 
   /**
-   * Handles form submission.
+   * Handles form submission with client-side validation first.
    */
   const handleSubmit = async () => {
-    if (
-      !formData.name.trim() ||
-      !formData.description.trim() ||
-      !formData.url.trim()
-    ) {
-      // TODO: Add toast error for validation
-      console.error("Please fill in all required fields");
+    setErrorMessage("");
+    setFieldErrors({});
+
+    // Client-side validation
+    const result = createShowcaseSchema.safeParse({
+      name: formData.name,
+      description: formData.description,
+      url: formData.url,
+      image: formData.image,
+      publishedAt: formData.publishedAt,
+      tags: formData.tags,
+    });
+
+    if (!result.success) {
+      const errors = parseValidationErrors(result);
+      if (errors) {
+        setFieldErrors(errors);
+        setErrorMessage("Please fix the errors below");
+      }
       return;
     }
 
+    // Validation passed, submit to server
     setIsSubmitting(true);
     try {
       await onSubmit(formData);
-      onOpenChange(false);
+      // Modal will close only on success (handled in manage-showcases)
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Failed to create showcase";
+      setErrorMessage(message);
       console.error("Failed to create showcase:", message);
-      // TODO: Add toast error
     } finally {
       setIsSubmitting(false);
     }
@@ -188,6 +295,13 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
           </DialogHeader>
 
           <div className="space-y-4">
+            {/* Error Message */}
+            {errorMessage && (
+              <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
+                {errorMessage}
+              </div>
+            )}
+
             {/* Name Field */}
             <div className="space-y-2">
               <Label htmlFor="name">Name *</Label>
@@ -196,8 +310,13 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
                 placeholder="Showcase name"
                 value={formData.name}
                 onChange={(e) => handleInputChange("name", e.target.value)}
+                onBlur={() => handleFieldBlur("name", formData.name)}
                 disabled={isSubmitting}
+                className={fieldErrors.name ? "border-destructive" : ""}
               />
+              {fieldErrors.name && (
+                <p className="text-sm text-destructive">{fieldErrors.name}</p>
+              )}
             </div>
 
             {/* Description Field */}
@@ -210,9 +329,18 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
                 onChange={(e) =>
                   handleInputChange("description", e.target.value)
                 }
+                onBlur={() =>
+                  handleFieldBlur("description", formData.description)
+                }
                 disabled={isSubmitting}
                 rows={4}
+                className={fieldErrors.description ? "border-destructive" : ""}
               />
+              {fieldErrors.description && (
+                <p className="text-sm text-destructive">
+                  {fieldErrors.description}
+                </p>
+              )}
             </div>
 
             {/* URL Field */}
@@ -224,8 +352,13 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
                 placeholder="https://example.com"
                 value={formData.url}
                 onChange={(e) => handleInputChange("url", e.target.value)}
+                onBlur={() => handleFieldBlur("url", formData.url)}
                 disabled={isSubmitting}
+                className={fieldErrors.url ? "border-destructive" : ""}
               />
+              {fieldErrors.url && (
+                <p className="text-sm text-destructive">{fieldErrors.url}</p>
+              )}
             </div>
 
             {/* Image Field */}
@@ -237,8 +370,13 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
                 placeholder="https://example.com/image.jpg"
                 value={formData.image || ""}
                 onChange={(e) => handleInputChange("image", e.target.value)}
+                onBlur={() => handleFieldBlur("image", formData.image)}
                 disabled={isSubmitting}
+                className={fieldErrors.image ? "border-destructive" : ""}
               />
+              {fieldErrors.image && (
+                <p className="text-sm text-destructive">{fieldErrors.image}</p>
+              )}
             </div>
 
             {/* Publish Date Field */}
@@ -266,37 +404,96 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
             {/* Tags Field */}
             <div className="space-y-2">
               <Label>Tags</Label>
-              <Popover open={openTagsPopover} onOpenChange={setOpenTagsPopover}>
+              <Popover
+                open={openTagsCombobox}
+                onOpenChange={setOpenTagsCombobox}
+              >
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
-                    className="w-full justify-start text-left font-normal"
+                    role="combobox"
+                    aria-expanded={openTagsCombobox}
+                    className="w-full justify-between"
                     disabled={isSubmitting}
                   >
-                    {formData.tags.length === 0
-                      ? "Select tags..."
-                      : `${formData.tags.length} tag(s) selected`}
+                    <span className="truncate">
+                      {formData.tags.length === 0
+                        ? "Select or add tags..."
+                        : `${formData.tags.length} tag(s) selected`}
+                    </span>
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-full p-3" align="start">
-                  <div className="space-y-3">
-                    <div className="space-y-2 max-h-48 overflow-y-auto">
-                      {availableTags.map((tag) => (
-                        <label
-                          key={tag}
-                          className="flex items-center gap-2 cursor-pointer hover:bg-accent p-2 rounded transition-colors"
-                        >
-                          <input
-                            type="checkbox"
-                            checked={formData.tags.includes(tag)}
-                            onChange={() => handleTagToggle(tag)}
-                            className="rounded border-gray-300"
-                          />
-                          <span className="text-sm">{tag}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
+                <PopoverContent
+                  className="w-[--radix-popover-trigger-width] p-0"
+                  align="start"
+                >
+                  <Command>
+                    <CommandInput
+                      placeholder="Search or add new tag..."
+                      value={tagSearchValue}
+                      onValueChange={setTagSearchValue}
+                    />
+                    <CommandList>
+                      <CommandEmpty>
+                        <div className="space-y-2 py-2">
+                          <p className="text-sm text-muted-foreground">
+                            No tags found.
+                          </p>
+                          {tagSearchValue.trim() && (
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              className="w-full"
+                              onClick={() => handleSelectTag(tagSearchValue)}
+                            >
+                              Add "{tagSearchValue.trim()}"
+                            </Button>
+                          )}
+                        </div>
+                      </CommandEmpty>
+                      <CommandGroup heading="Available Tags">
+                        {availableTags.map((tag) => {
+                          const isSelected = formData.tags.includes(tag);
+                          return (
+                            <CommandItem
+                              key={tag}
+                              value={tag}
+                              onSelect={() => handleSelectTag(tag)}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  isSelected ? "opacity-100" : "opacity-0",
+                                )}
+                              />
+                              {tag}
+                            </CommandItem>
+                          );
+                        })}
+                      </CommandGroup>
+                      {tagSearchValue.trim() &&
+                        !availableTags.includes(tagSearchValue.trim()) &&
+                        tagSearchValue.trim().toLowerCase() !==
+                          availableTags
+                            .find(
+                              (t) =>
+                                t.toLowerCase() ===
+                                tagSearchValue.trim().toLowerCase(),
+                            )
+                            ?.toLowerCase() && (
+                          <CommandGroup heading="Add New">
+                            <CommandItem
+                              value={tagSearchValue}
+                              onSelect={() => handleSelectTag(tagSearchValue)}
+                            >
+                              <Check className="mr-2 h-4 w-4 opacity-0" />
+                              Add "{tagSearchValue.trim()}"
+                            </CommandItem>
+                          </CommandGroup>
+                        )}
+                    </CommandList>
+                  </Command>
                 </PopoverContent>
               </Popover>
 
@@ -329,7 +526,14 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
             >
               Cancel
             </Button>
-            <Button onClick={handleSubmit} disabled={isSubmitting}>
+            <Button
+              onClick={handleSubmit}
+              disabled={
+                isSubmitting ||
+                !hasUnsavedChanges ||
+                Object.keys(fieldErrors).length > 0
+              }
+            >
               {isSubmitting ? "Creating..." : "Create Showcase"}
             </Button>
           </div>

@@ -65,7 +65,7 @@ export const dashboardMiddleware: MiddlewareFunction = async (
     sortDir,
     search: searchParam || undefined,
     tags: tagsParam.length ? tagsParam : undefined,
-    // authorId: user.id,
+    authorId: user.id,
   });
 
   // Get global available tags for filtering (not limited to current page)
@@ -76,7 +76,9 @@ export const dashboardMiddleware: MiddlewareFunction = async (
     sortDir: "asc",
     deleted: "false",
   });
-  const availableTags = Array.from(new Set(tagsResult.items.map((t) => t.tag)));
+  const availableTags = Array.from(
+    new Set(tagsResult.items.map((t) => t.name)),
+  );
 
   const contextValue = {
     title: t("dashboard.meta.title"),

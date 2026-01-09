@@ -1,19 +1,10 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-import { user } from "./user";
-
-export const showcase = sqliteTable("showcases", {
+export const tag = sqliteTable("tags", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
-  description: text("description").notNull(),
-  url: text("url").notNull(),
-  image: text("image"),
+  slug: text("slug").notNull().unique(),
 
-  authorId: text("author_id").references(() => user.id, {
-    onDelete: "set null",
-  }),
-
-  publishedAt: integer("published_at", { mode: "timestamp" }),
   createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
     () => new Date(),
   ),

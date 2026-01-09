@@ -1,6 +1,7 @@
 import { Plus } from "lucide-react";
-import { useCallback, useState } from "react";
-import { useLoaderData, useSearchParams } from "react-router";
+import { useCallback, useEffect, useState } from "react";
+import { useFetcher, useLoaderData, useSearchParams } from "react-router";
+import { toast } from "sonner";
 
 import type { FC } from "react";
 
@@ -21,9 +22,13 @@ import { ShowcasesDataTable } from "./showcases-data-table";
 export const ManageShowcase: FC = () => {
   const { showcases, availableTags, user } =
     useLoaderData<DashboardContentProps>();
+  const fetcher = useFetcher();
   const { items, total, page, pageSize } = showcases;
   const [searchParams, setSearchParams] = useSearchParams();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [serverFieldErrors, setServerFieldErrors] = useState<
+    Record<string, string>
+  >({});
   const sortByParam = searchParams.get("sortBy");
   const sortDirParam = searchParams.get("sortDir");
   const searchParam = searchParams.get("search") || "";
@@ -51,48 +56,55 @@ export const ManageShowcase: FC = () => {
    * Handles showcase creation form submission.
    */
   const handleCreateSubmit = async (data: CreateShowcaseFormData) => {
-    try {
-      const response = await fetch("/api/showcases", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: data.name,
-          description: data.description,
-          url: data.url,
-          image: data.image ? data.image : undefined,
-          publishedAt: data.publishedAt,
-          tags: data.tags,
-          authorId: user.id,
-        }),
-      });
+    const fd = new FormData();
+    fd.append("name", data.name);
+    fd.append("description", data.description);
+    fd.append("url", data.url);
+    if (data.image) fd.append("image", data.image);
+    if (data.publishedAt)
+      fd.append("publishedAt", data.publishedAt.toISOString());
+    for (const t of data.tags) fd.append("tags", t);
+    fd.append("authorId", String(user.id));
 
-      if (!response.ok) {
-        let errorMessage = "Failed to create showcase";
-        try {
-          const errorData = (await response.json()) as { error?: string };
-          if (typeof errorData.error === "string") {
-            errorMessage = errorData.error;
-          }
-        } catch {
-          // If JSON parsing fails, use default message
-        }
-        throw new Error(errorMessage);
-      }
+    fetcher.submit(fd, { method: "post", action: "/action/showcase/new" });
 
-      // Refresh the data by resetting to page 1
-      const sp = new URLSearchParams(searchParams);
-      sp.set("page", "1");
-      sp.set("pageSize", String(pageSize));
-      setSearchParams(sp);
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Failed to create showcase";
-      console.error("Error creating showcase:", message);
-      throw new Error(message);
-    }
+    // Optimistically refresh the table
+    const sp = new URLSearchParams(searchParams);
+    sp.set("page", "1");
+    sp.set("pageSize", String(pageSize));
+    setSearchParams(sp);
   };
+
+  // Surface server outcome via toast after fetcher completes
+  useEffect(() => {
+    if (fetcher.state === "idle" && fetcher.data) {
+      const result = fetcher.data as {
+        error?: string;
+        fieldErrors?: Record<string, string>;
+        success?: boolean;
+      };
+
+      if (result.fieldErrors) {
+        // Field validation errors: keep modal open, show field errors in modal
+        setServerFieldErrors(result.fieldErrors);
+        toast.error("Please fix the validation errors");
+      } else if (result.error) {
+        // Non-field errors: close modal, show toast, refresh table
+        toast.error(result.error);
+        setIsCreateModalOpen(false);
+        setServerFieldErrors({});
+        const sp = new URLSearchParams(searchParams);
+        sp.set("page", "1");
+        sp.set("pageSize", String(pageSize));
+        setSearchParams(sp);
+      } else if (result.success) {
+        // Success: close modal, show toast, table already refreshed optimistically
+        toast.success("Showcase created successfully");
+        setIsCreateModalOpen(false);
+        setServerFieldErrors({});
+      }
+    }
+  }, [fetcher.state, fetcher.data, searchParams, pageSize, setSearchParams]);
 
   /**
    * Handles search input change and updates URL.
@@ -190,6 +202,7 @@ export const ManageShowcase: FC = () => {
         onOpenChange={setIsCreateModalOpen}
         onSubmit={handleCreateSubmit}
         availableTags={availableTags}
+        serverFieldErrors={serverFieldErrors}
       />
     </div>
   );

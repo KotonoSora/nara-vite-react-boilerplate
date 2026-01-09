@@ -193,32 +193,28 @@ export function ShowcasesDataTable<TData, TValue>({
                 <CommandList>
                   <CommandEmpty>No tags found.</CommandEmpty>
                   <CommandGroup>
-                    {allTags.length ? (
-                      allTags.map((tag) => {
-                        const checked = !!tagsValue?.includes(tag);
-                        return (
-                          <CommandItem
-                            key={tag}
-                            onSelect={() => {
-                              if (!onTagsChange) return;
-                              const next = new Set(tagsValue ?? []);
-                              if (next.has(tag)) next.delete(tag);
-                              else next.add(tag);
-                              onTagsChange(Array.from(next));
-                            }}
-                          >
-                            <Check
-                              className={`mr-2 h-4 w-4 ${checked ? "opacity-100" : "opacity-0"}`}
-                            />
-                            {tag}
-                          </CommandItem>
-                        );
-                      })
-                    ) : (
-                      <div className="text-muted-foreground px-2 py-1 text-sm">
-                        No tags
-                      </div>
-                    )}
+                    {allTags.length
+                      ? allTags.map((tag) => {
+                          const checked = !!tagsValue?.includes(tag);
+                          return (
+                            <CommandItem
+                              key={tag}
+                              onSelect={() => {
+                                if (!onTagsChange) return;
+                                const next = new Set(tagsValue ?? []);
+                                if (next.has(tag)) next.delete(tag);
+                                else next.add(tag);
+                                onTagsChange(Array.from(next));
+                              }}
+                            >
+                              <Check
+                                className={`mr-2 h-4 w-4 ${checked ? "opacity-100" : "opacity-0"}`}
+                              />
+                              {tag}
+                            </CommandItem>
+                          );
+                        })
+                      : null}
                   </CommandGroup>
                 </CommandList>
               </Command>

@@ -14,12 +14,10 @@ type FetchShowcaseTagsParams = {
 
 type ShowcaseTagItem = {
   id: string;
-  showcaseId: string;
-  tag: string;
+  name: string;
+  slug: string;
   count: number;
   createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
 };
 
 type FetchShowcaseTagsResult = {
@@ -40,7 +38,7 @@ export async function fetchShowcaseTags(
   db: DrizzleD1Database<typeof schema>,
   params: FetchShowcaseTagsParams,
 ): Promise<FetchShowcaseTagsResult> {
-  const { showcase, showcaseTag } = schema;
+  const { showcase, showcaseTag, tag } = schema;
 
   // Filter by soft delete status
   const deletedFilter =
@@ -55,8 +53,8 @@ export async function fetchShowcaseTags(
   const orderBy =
     params.sortBy === "tag"
       ? params.sortDir === "asc"
-        ? asc(showcaseTag.tag)
-        : desc(showcaseTag.tag)
+        ? asc(tag.name)
+        : desc(tag.name)
       : params.sortDir === "asc"
         ? asc(countColumn)
         : desc(countColumn);
@@ -64,18 +62,17 @@ export async function fetchShowcaseTags(
   // Fetch tags with counts, filtered by deleted status
   const tagsWithCount = await db
     .select({
-      id: showcaseTag.id,
-      showcaseId: showcaseTag.showcaseId,
-      tag: showcaseTag.tag,
+      id: tag.id,
+      name: tag.name,
+      slug: tag.slug,
       count: countColumn,
-      createdAt: showcaseTag.createdAt,
-      updatedAt: showcaseTag.updatedAt,
-      deletedAt: showcaseTag.deletedAt,
+      createdAt: tag.createdAt,
     })
-    .from(showcaseTag)
+    .from(tag)
+    .leftJoin(showcaseTag, eq(showcaseTag.tagId, tag.id))
     .leftJoin(showcase, eq(showcaseTag.showcaseId, showcase.id))
     .where(deletedFilter)
-    .groupBy(showcaseTag.tag)
+    .groupBy(tag.id, tag.name, tag.slug, tag.createdAt)
     .orderBy(orderBy)
     .all();
 
@@ -89,8 +86,6 @@ export async function fetchShowcaseTags(
     .map((item) => ({
       ...item,
       createdAt: item.createdAt ?? undefined,
-      updatedAt: item.updatedAt ?? undefined,
-      deletedAt: item.deletedAt ?? undefined,
     }));
 
   return {

@@ -64,7 +64,7 @@ export async function fetchShowcases(
   db: DrizzleD1Database<typeof schema>,
   params: FetchShowcasesParams,
 ): Promise<FetchShowcasesResult> {
-  const { showcase, showcaseTag, user } = schema;
+  const { showcase, showcaseTag, tag, user } = schema;
 
   const whereClauses = [] as ReturnType<typeof eq>[];
 
@@ -106,7 +106,8 @@ export async function fetchShowcases(
     const showcaseIdsWithTags = await db
       .select({ showcaseId: showcaseTag.showcaseId })
       .from(showcaseTag)
-      .where(inArray(showcaseTag.tag, params.tags))
+      .innerJoin(tag, eq(showcaseTag.tagId, tag.id))
+      .where(inArray(tag.name, params.tags))
       .groupBy(showcaseTag.showcaseId)
       .all();
 
@@ -211,8 +212,9 @@ export async function fetchShowcases(
 
   // Fetch tags for paginated showcases
   const tagRows = await db
-    .select({ showcaseId: showcaseTag.showcaseId, tag: showcaseTag.tag })
+    .select({ showcaseId: showcaseTag.showcaseId, tagName: tag.name })
     .from(showcaseTag)
+    .innerJoin(tag, eq(showcaseTag.tagId, tag.id))
     .where(inArray(showcaseTag.showcaseId, pageIds))
     .all();
 
@@ -269,7 +271,7 @@ export async function fetchShowcases(
   for (const tr of tagRows) {
     const key = String(tr.showcaseId);
     if (map.has(key)) {
-      map.get(key)!.tags.push(tr.tag);
+      map.get(key)!.tags.push(tr.tagName);
     }
   }
 

@@ -1,8 +1,10 @@
+import { eq } from "drizzle-orm";
+
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as schema from "~/database/schema";
 
-const { showcase, showcaseTag } = schema;
+const { showcase, showcaseTag, tag } = schema;
 
 export type CreateShowcaseData = {
   name: string;
@@ -56,15 +58,47 @@ export async function createShowcase(
 
   const createdShowcase = result[0];
 
-  // Insert tags
+  // Insert tags: create tags if they don't exist, then link to showcase
   if (data.tags && data.tags.length > 0) {
-    const tagsToInsert = data.tags.map((tag) => ({
-      id: crypto.randomUUID(),
-      showcaseId: showcaseId,
-      tag,
-    }));
+    const tagIds: string[] = [];
 
-    await db.insert(showcaseTag).values(tagsToInsert);
+    for (const tagName of data.tags) {
+      // Generate slug from tag name
+      const slug = tagName.toLowerCase().replace(/\s+/g, "-");
+
+      // Check if tag exists by slug
+      const existingTag = await db
+        .select()
+        .from(tag)
+        .where(eq(tag.slug, slug))
+        .get();
+
+      let tagId: string;
+
+      if (existingTag) {
+        tagId = existingTag.id;
+      } else {
+        // Create new tag
+        tagId = crypto.randomUUID();
+        await db.insert(tag).values({
+          id: tagId,
+          name: tagName,
+          slug: slug,
+        });
+      }
+
+      tagIds.push(tagId);
+    }
+
+    // Insert into showcase_tags junction table
+    if (tagIds.length > 0) {
+      const junctionRecords = tagIds.map((tagId) => ({
+        showcaseId: showcaseId,
+        tagId: tagId,
+      }));
+
+      await db.insert(showcaseTag).values(junctionRecords);
+    }
   }
 
   return {

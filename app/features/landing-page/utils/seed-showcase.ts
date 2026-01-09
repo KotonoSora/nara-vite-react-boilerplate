@@ -1,10 +1,12 @@
+import { eq } from "drizzle-orm";
+
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import type { ProjectInfoWithoutID } from "../types/type";
 
-import * as schema from "~/database/schema/showcase";
+import * as schema from "~/database/schema";
 
-const { showcase, showcaseTag } = schema;
+const { showcase, showcaseTag, tag } = schema;
 
 /**
  * Seeds the database with showcase information.
@@ -33,18 +35,39 @@ export async function seedShowcases(
       await db.insert(showcase).values(batch).run();
     }
 
-    const tagRows = showcasesWithIds.flatMap(({ id, tags }) =>
-      (tags ?? []).map((tag) => ({
-        id: crypto.randomUUID(),
-        showcaseId: id,
-        tag,
-      })),
-    );
+    // Create/find tags and link them to showcases
+    for (const { id: showcaseId, tags: tagNames } of showcasesWithIds) {
+      if (!tagNames?.length) continue;
 
-    if (tagRows.length) {
-      for (let i = 0; i < tagRows.length; i += chunkSize) {
-        const batch = tagRows.slice(i, i + chunkSize);
-        await db.insert(showcaseTag).values(batch).run();
+      for (const tagName of tagNames) {
+        const slug = tagName.toLowerCase().replace(/\s+/g, "-");
+
+        // Check if tag exists
+        const existingTag = await db
+          .select()
+          .from(tag)
+          .where(eq(tag.slug, slug))
+          .get();
+
+        let tagId: string;
+
+        if (existingTag) {
+          tagId = existingTag.id;
+        } else {
+          // Create new tag
+          tagId = crypto.randomUUID();
+          await db.insert(tag).values({
+            id: tagId,
+            name: tagName,
+            slug: slug,
+          });
+        }
+
+        // Link showcase to tag
+        await db.insert(showcaseTag).values({
+          showcaseId,
+          tagId,
+        });
       }
     }
   } catch (error) {

@@ -4,9 +4,9 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import type { ProjectInfo } from "~/features/showcases/types/type";
 
-import * as schema from "~/database/schema/showcase";
+import * as schema from "~/database/schema";
 
-const { showcase, showcaseTag } = schema;
+const { showcase, showcaseTag, tag } = schema;
 
 /**
  * Get the showcases from the database.
@@ -22,10 +22,11 @@ export async function getShowcases(db: DrizzleD1Database<typeof schema>) {
       description: showcase.description,
       url: showcase.url,
       image: showcase.image,
-      tag: showcaseTag.tag,
+      tagName: tag.name,
     })
     .from(showcase)
     .leftJoin(showcaseTag, eq(showcase.id, showcaseTag.showcaseId))
+    .leftJoin(tag, eq(showcaseTag.tagId, tag.id))
     .all();
 
   const map = new Map<string, ProjectInfo>();
@@ -44,8 +45,8 @@ export async function getShowcases(db: DrizzleD1Database<typeof schema>) {
       });
     }
 
-    if (row.tag) {
-      map.get(key)!.tags.push(row.tag);
+    if (row.tagName) {
+      map.get(key)!.tags.push(row.tagName);
     }
   }
 
