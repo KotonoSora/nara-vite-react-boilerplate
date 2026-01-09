@@ -53,6 +53,15 @@ export const ManageShowcase: FC = () => {
   };
 
   /**
+   * Handles showcase deletion (soft delete via action).
+   */
+  const handleDelete = (showcaseId: string) => {
+    const fd = new FormData();
+    fd.append("showcaseId", showcaseId);
+    fetcher.submit(fd, { method: "post", action: "/action/showcase/delete" });
+  };
+
+  /**
    * Handles showcase creation form submission.
    */
   const handleCreateSubmit = async (data: CreateShowcaseFormData) => {
@@ -98,13 +107,31 @@ export const ManageShowcase: FC = () => {
         sp.set("pageSize", String(pageSize));
         setSearchParams(sp);
       } else if (result.success) {
-        // Success: close modal, show toast, table already refreshed optimistically
-        toast.success("Showcase created successfully");
-        setIsCreateModalOpen(false);
-        setServerFieldErrors({});
+        // Handle both create and delete success
+        const formData = fetcher.formData as FormData | undefined;
+        if (formData?.get("name")) {
+          // Create success: closing modal and form
+          toast.success("Showcase created successfully");
+          setIsCreateModalOpen(false);
+          setServerFieldErrors({});
+        } else if (formData?.get("showcaseId")) {
+          // Delete success: refresh table
+          toast.success("Showcase deleted successfully");
+          const sp = new URLSearchParams(searchParams);
+          sp.set("page", "1");
+          sp.set("pageSize", String(pageSize));
+          setSearchParams(sp);
+        }
       }
     }
-  }, [fetcher.state, fetcher.data, searchParams, pageSize, setSearchParams]);
+  }, [
+    fetcher.state,
+    fetcher.data,
+    fetcher.formData,
+    searchParams,
+    pageSize,
+    setSearchParams,
+  ]);
 
   /**
    * Handles search input change and updates URL.
@@ -155,7 +182,7 @@ export const ManageShowcase: FC = () => {
 
       {/* Data Table */}
       <ShowcasesDataTable
-        columns={showcasesColumns}
+        columns={showcasesColumns(handleDelete)}
         data={items}
         searchValue={searchParam}
         onSearchChange={handleSearchChange}

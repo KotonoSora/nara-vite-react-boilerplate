@@ -37,7 +37,9 @@ const formatDate = (date?: Date): string => {
 /**
  * Column definitions for showcases data table.
  */
-export const showcasesColumns: ColumnDef<ShowcaseItem>[] = [
+export const showcasesColumns = (
+  onDelete?: (showcaseId: string) => void,
+): ColumnDef<ShowcaseItem>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -196,10 +198,7 @@ export const showcasesColumns: ColumnDef<ShowcaseItem>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-destructive focus:text-destructive"
-              onClick={() => {
-                console.log("Delete showcase:", showcase.id);
-                // TODO: Implement delete functionality (soft delete)
-              }}
+              onClick={() => onDelete?.(showcase.id)}
             >
               <Trash2 className="mr-2 h-4 w-4" />
               Delete
