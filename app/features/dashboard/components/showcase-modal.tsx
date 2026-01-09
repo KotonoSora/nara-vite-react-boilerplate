@@ -43,15 +43,17 @@ import {
 } from "~/features/landing-page/schemas/create-showcase.schema";
 import { cn } from "~/lib/utils";
 
-interface CreateShowcaseModalProps {
+interface ShowcaseModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (data: CreateShowcaseFormData) => Promise<void>;
+  onSubmit: (data: ShowcaseFormData) => Promise<void>;
   availableTags: string[];
   serverFieldErrors?: FieldError;
+  mode?: "create" | "edit";
+  showcase?: ShowcaseFormData & { id: string };
 }
 
-export interface CreateShowcaseFormData {
+export interface ShowcaseFormData {
   name: string;
   description: string;
   url: string;
@@ -64,14 +66,16 @@ export interface CreateShowcaseFormData {
  * Modal for creating a new showcase with form validation and unsaved changes warning.
  * Shows an alert dialog if user attempts to close with unsaved data.
  */
-export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
+export const ShowcaseModal: FC<ShowcaseModalProps> = ({
   open,
   onOpenChange,
   onSubmit,
   availableTags,
   serverFieldErrors,
+  mode = "create",
+  showcase,
 }) => {
-  const [formData, setFormData] = useState<CreateShowcaseFormData>({
+  const [formData, setFormData] = useState<ShowcaseFormData>({
     name: "",
     description: "",
     url: "",
@@ -111,18 +115,33 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
   // Reset form whenever modal is opened fresh
   useEffect(() => {
     if (!open) return;
-    setFormData({
-      name: "",
-      description: "",
-      url: "",
-      image: "",
-      publishedAt: undefined,
-      tags: [],
-    });
+
+    if (mode === "edit" && showcase) {
+      // Pre-fill form with showcase data in edit mode
+      setFormData({
+        name: showcase.name,
+        description: showcase.description,
+        url: showcase.url,
+        image: showcase.image || "",
+        publishedAt: showcase.publishedAt,
+        tags: showcase.tags,
+      });
+    } else {
+      // Reset to empty form in create mode
+      setFormData({
+        name: "",
+        description: "",
+        url: "",
+        image: "",
+        publishedAt: undefined,
+        tags: [],
+      });
+    }
+
     setFieldErrors({});
     setErrorMessage("");
     setHasUnsavedChanges(false);
-  }, [open]);
+  }, [open, mode, showcase]);
 
   // Clear global error message when all field errors are resolved
   useEffect(() => {
@@ -136,7 +155,7 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
    * Validates only the blurred field using the schema to avoid cross-field noise.
    */
   const handleFieldBlur = (
-    field: keyof CreateShowcaseFormData,
+    field: keyof ShowcaseFormData,
     value: string | Date | undefined,
   ) => {
     if (typeof value === undefined || value === "") {
@@ -175,7 +194,7 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
    * Handles input changes for all form fields.
    */
   const handleInputChange = (
-    field: keyof CreateShowcaseFormData,
+    field: keyof ShowcaseFormData,
     value: string | Date | undefined,
   ) => {
     setFormData((prev) => ({
@@ -291,7 +310,9 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Create New Showcase</DialogTitle>
+            <DialogTitle>
+              {mode === "edit" ? "Edit Showcase" : "Create New Showcase"}
+            </DialogTitle>
           </DialogHeader>
 
           <div className="space-y-4">
@@ -534,7 +555,13 @@ export const CreateShowcaseModal: FC<CreateShowcaseModalProps> = ({
                 Object.keys(fieldErrors).length > 0
               }
             >
-              {isSubmitting ? "Creating..." : "Create Showcase"}
+              {isSubmitting
+                ? mode === "edit"
+                  ? "Updating..."
+                  : "Creating..."
+                : mode === "edit"
+                  ? "Update Showcase"
+                  : "Create Showcase"}
             </Button>
           </div>
         </DialogContent>

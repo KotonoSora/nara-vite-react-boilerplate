@@ -43,6 +43,7 @@ export const showcasesColumns = (
   onDelete?: (showcaseId: string) => void,
   onPublish?: (showcaseId: string) => void,
   onUnpublish?: (showcaseId: string) => void,
+  onEdit?: (showcaseId: string) => void,
 ): ColumnDef<ShowcaseItem>[] => [
   {
     id: "select",
@@ -204,12 +205,7 @@ export const showcasesColumns = (
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => {
-                console.log("Edit showcase:", showcase);
-                // TODO: Implement edit functionality
-              }}
-            >
+            <DropdownMenuItem onClick={() => onEdit?.(showcase.id)}>
               <Edit className="mr-2 h-4 w-4" />
               Edit
             </DropdownMenuItem>

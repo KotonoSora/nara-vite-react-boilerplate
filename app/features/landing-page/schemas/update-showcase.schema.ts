@@ -1,11 +1,7 @@
 import { z } from "zod";
 
-/**
- * Zod schema for showcase creation validation.
- * Used across: modal (client-side), action route, and API routes.
- * Supports both string and Date types for publishedAt to handle different input sources.
- */
-export const createShowcaseSchema = z.object({
+export const updateShowcaseSchema = z.object({
+  showcaseId: z.string().min(1, "Showcase ID is required"),
   name: z
     .string()
     .trim()
@@ -24,11 +20,10 @@ export const createShowcaseSchema = z.object({
       z.string().transform((val) => (val ? new Date(val) : undefined)),
     ])
     .optional(),
-  authorId: z.string().trim().optional(),
   tags: z.array(z.string().trim().min(1, "Tag cannot be empty")).default([]),
 });
 
-export type CreateShowcaseInput = z.infer<typeof createShowcaseSchema>;
+export type UpdateShowcaseData = z.infer<typeof updateShowcaseSchema>;
 
 /**
  * Type for field-level validation errors.
@@ -37,13 +32,10 @@ export type CreateShowcaseInput = z.infer<typeof createShowcaseSchema>;
 export type FieldError = Record<string, string>;
 
 /**
- * Parse Zod validation result and return field errors or null.
- *
- * @param result - SafeParse result from Zod
- * @returns FieldError object if validation fails, null if successful
+ * Parses Zod validation errors into field-level error messages.
  */
 export function parseValidationErrors(
-  result: ReturnType<typeof createShowcaseSchema.safeParse>,
+  result: ReturnType<typeof updateShowcaseSchema.safeParse>,
 ): FieldError | null {
   if (result.success) return null;
 

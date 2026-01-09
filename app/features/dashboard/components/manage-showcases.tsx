@@ -5,14 +5,15 @@ import { toast } from "sonner";
 
 import type { FC } from "react";
 
-import type { DashboardContentProps } from "~/features/dashboard/types/type";
+import type { ShowcaseItem } from "~/features/landing-page/utils/fetch-showcases";
 
-import type { CreateShowcaseFormData } from "./create-showcase-modal";
+import type { DashboardContentProps } from "../types/type";
+import type { ShowcaseFormData } from "./showcase-modal";
 
 import { Button } from "~/components/ui/button";
 
-import { CreateShowcaseModal } from "./create-showcase-modal";
 import { DeleteShowcaseDialog } from "./delete-showcase-dialog";
+import { ShowcaseModal } from "./showcase-modal";
 import { showcasesColumns } from "./showcases-columns";
 import { ShowcasesDataTable } from "./showcases-data-table";
 
@@ -31,8 +32,11 @@ export const ManageShowcase: FC = () => {
     Record<string, string>
   >({});
   const [showcaseToDelete, setShowcaseToDelete] = useState<string | null>(null);
+  const [showcaseToEdit, setShowcaseToEdit] = useState<ShowcaseItem | null>(
+    null,
+  );
   const [lastSubmittedAction, setLastSubmittedAction] = useState<
-    "create" | "delete" | "publish" | "unpublish" | null
+    "create" | "delete" | "publish" | "unpublish" | "update" | null
   >(null);
   const sortByParam = searchParams.get("sortBy");
   const sortDirParam = searchParams.get("sortDir");
@@ -62,6 +66,17 @@ export const ManageShowcase: FC = () => {
    */
   const handleDelete = (showcaseId: string) => {
     setShowcaseToDelete(showcaseId);
+  };
+
+  /**
+   * Handles showcase editing.
+   * Opens the edit modal with showcase data.
+   */
+  const handleEdit = (showcaseId: string) => {
+    const showcase = items.find((item) => item.id === showcaseId);
+    if (showcase) {
+      setShowcaseToEdit(showcase);
+    }
   };
 
   /**
@@ -103,21 +118,38 @@ export const ManageShowcase: FC = () => {
   };
 
   /**
-   * Handles showcase creation form submission.
+   * Handles showcase creation/update form submission.
    */
-  const handleCreateSubmit = async (data: CreateShowcaseFormData) => {
+  const handleCreateSubmit = async (data: ShowcaseFormData) => {
     const fd = new FormData();
-    fd.append("name", data.name);
-    fd.append("description", data.description);
-    fd.append("url", data.url);
-    if (data.image) fd.append("image", data.image);
-    if (data.publishedAt)
-      fd.append("publishedAt", data.publishedAt.toISOString());
-    for (const t of data.tags) fd.append("tags", t);
-    fd.append("authorId", String(user.id));
 
-    setLastSubmittedAction("create");
-    fetcher.submit(fd, { method: "post", action: "/action/showcase/new" });
+    if (showcaseToEdit) {
+      // Update mode
+      fd.append("showcaseId", showcaseToEdit.id);
+      fd.append("name", data.name);
+      fd.append("description", data.description);
+      fd.append("url", data.url);
+      if (data.image) fd.append("image", data.image);
+      if (data.publishedAt)
+        fd.append("publishedAt", data.publishedAt.toISOString());
+      for (const t of data.tags) fd.append("tags", t);
+
+      setLastSubmittedAction("update");
+      fetcher.submit(fd, { method: "post", action: "/action/showcase/update" });
+    } else {
+      // Create mode
+      fd.append("name", data.name);
+      fd.append("description", data.description);
+      fd.append("url", data.url);
+      if (data.image) fd.append("image", data.image);
+      if (data.publishedAt)
+        fd.append("publishedAt", data.publishedAt.toISOString());
+      for (const t of data.tags) fd.append("tags", t);
+      fd.append("authorId", String(user.id));
+
+      setLastSubmittedAction("create");
+      fetcher.submit(fd, { method: "post", action: "/action/showcase/new" });
+    }
 
     // Optimistically refresh the table
     const sp = new URLSearchParams(searchParams);
@@ -143,6 +175,7 @@ export const ManageShowcase: FC = () => {
         // Non-field errors: close modal, show toast, refresh table
         toast.error(result.error);
         setIsCreateModalOpen(false);
+        setShowcaseToEdit(null);
         setServerFieldErrors({});
         setLastSubmittedAction(null);
         const sp = new URLSearchParams(searchParams);
@@ -155,6 +188,15 @@ export const ManageShowcase: FC = () => {
           toast.success("Showcase created successfully");
           setIsCreateModalOpen(false);
           setServerFieldErrors({});
+        } else if (lastSubmittedAction === "update") {
+          // Update success: close modal and reset form
+          toast.success("Showcase updated successfully");
+          setShowcaseToEdit(null);
+          setServerFieldErrors({});
+          const sp = new URLSearchParams(searchParams);
+          sp.set("page", String(page));
+          sp.set("pageSize", String(pageSize));
+          setSearchParams(sp);
         } else if (lastSubmittedAction === "delete") {
           // Delete success: refresh table
           toast.success("Showcase deleted successfully");
@@ -238,7 +280,12 @@ export const ManageShowcase: FC = () => {
 
       {/* Data Table */}
       <ShowcasesDataTable
-        columns={showcasesColumns(handleDelete, handlePublish, handleUnpublish)}
+        columns={showcasesColumns(
+          handleDelete,
+          handlePublish,
+          handleUnpublish,
+          handleEdit,
+        )}
         data={items}
         searchValue={searchParam}
         onSearchChange={handleSearchChange}
@@ -279,13 +326,33 @@ export const ManageShowcase: FC = () => {
         }}
       />
 
-      {/* Create Showcase Modal */}
-      <CreateShowcaseModal
-        open={isCreateModalOpen}
-        onOpenChange={setIsCreateModalOpen}
+      {/* Create/Edit Showcase Modal */}
+      <ShowcaseModal
+        open={isCreateModalOpen || showcaseToEdit !== null}
+        onOpenChange={(open) => {
+          if (!open) {
+            setIsCreateModalOpen(false);
+            setShowcaseToEdit(null);
+            setServerFieldErrors({});
+          }
+        }}
         onSubmit={handleCreateSubmit}
         availableTags={availableTags}
         serverFieldErrors={serverFieldErrors}
+        mode={showcaseToEdit ? "edit" : "create"}
+        showcase={
+          showcaseToEdit
+            ? {
+                id: showcaseToEdit.id,
+                name: showcaseToEdit.name,
+                description: showcaseToEdit.description,
+                url: showcaseToEdit.url,
+                image: showcaseToEdit.image,
+                publishedAt: showcaseToEdit.publishedAt,
+                tags: showcaseToEdit.tags,
+              }
+            : undefined
+        }
       />
 
       {/* Delete Showcase Confirmation Dialog */}
