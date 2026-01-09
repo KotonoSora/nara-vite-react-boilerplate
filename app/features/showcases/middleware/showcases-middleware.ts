@@ -6,8 +6,8 @@ import { getBuiltInDemos } from "~/features/landing-page/utils/get-built-in-demo
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 
-export const { showcasesMiddlewareContext } =
-  createMiddlewareContext<PageInformation>("showcasesMiddlewareContext");
+export const { ShowcasesMiddlewareContext } =
+  createMiddlewareContext<PageInformation>("ShowcasesMiddlewareContext");
 
 export const showcasesMiddleware: MiddlewareFunction = async (
   { context },
@@ -26,7 +26,7 @@ export const showcasesMiddleware: MiddlewareFunction = async (
     builtInDemos: getBuiltInDemos(t),
   };
 
-  context.set(showcasesMiddlewareContext, contextValue);
+  context.set(ShowcasesMiddlewareContext, contextValue);
 
   return await next();
 };
