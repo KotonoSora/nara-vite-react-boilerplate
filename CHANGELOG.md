@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.6.19 (2025-01-10)
+
+- Implemented management showcases by users
+
 ## 4.6.18 (2025-12-26)
 
 - Create scripts for automation generate i18n json files

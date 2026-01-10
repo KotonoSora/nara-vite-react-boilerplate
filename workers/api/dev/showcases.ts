@@ -203,7 +203,7 @@ devShowcaseApi.get("/tags", zValidator("query", tagsQuerySchema), async (c) => {
 });
 
 /**
- * POST /api/showcases - Create a new showcase.
+ * POST /api/dev/showcases/new - Create a new showcase.
  * Dev environment only
  * @body {Object} CreateShowcaseSchema - Showcase data with tags.
  * @returns {Object} Created showcase with tags.
