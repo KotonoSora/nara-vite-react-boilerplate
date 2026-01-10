@@ -31,6 +31,7 @@ export type FetchShowcasesParams = {
   publishedBefore?: Date;
   deleted?: "true" | "false";
   published?: "true" | "false";
+  minScore?: number;
 };
 
 export type ShowcaseItem = {
@@ -110,6 +111,11 @@ export async function fetchShowcases(
     whereClauses.push(isNotNull(showcase.publishedAt));
   } else if (params.published === "false") {
     whereClauses.push(isNull(showcase.publishedAt));
+  }
+
+  // Filter by minimum score
+  if (params.minScore !== undefined) {
+    whereClauses.push(gte(showcase.score, params.minScore));
   }
 
   const allConditions: typeof whereClauses = [...whereClauses];

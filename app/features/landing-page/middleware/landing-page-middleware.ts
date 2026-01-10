@@ -22,7 +22,7 @@ export const landingPageMiddleware: MiddlewareFunction = async (
   const { db } = context;
   const { t } = context.get(I18nReactRouterContext);
 
-  // Prepare showcases: published, non-deleted, page 1 size 4, ordered by publishedAt desc
+  // Prepare showcases: published, non-deleted, page 1 size 4, ordered by publishedAt desc, score > 0
   const showcases = fetchShowcases(db, {
     page: 1,
     pageSize: 4,
@@ -30,6 +30,7 @@ export const landingPageMiddleware: MiddlewareFunction = async (
     sortDir: "desc",
     published: "true",
     deleted: "false",
+    minScore: 1,
   });
 
   // Build context object
