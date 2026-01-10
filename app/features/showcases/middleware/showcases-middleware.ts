@@ -5,6 +5,7 @@ import type { PageInformation } from "../types/type";
 import { fetchShowcases } from "~/features/landing-page/utils/fetch-showcases";
 import { getBuiltInDemos } from "~/features/landing-page/utils/get-built-in-demos";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
+import { AuthContext } from "~/middleware/auth";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 
 export const { ShowcasesMiddlewareContext } =
@@ -16,6 +17,7 @@ export const showcasesMiddleware: MiddlewareFunction = async (
 ) => {
   const { db } = context;
   const { t } = context.get(I18nReactRouterContext);
+  const { userId } = context.get(AuthContext);
 
   // Parse pagination and filter params from URL search params
   const url = new URL(request.url);
@@ -48,6 +50,7 @@ export const showcasesMiddleware: MiddlewareFunction = async (
     tags: tagsParam.length ? tagsParam : undefined,
     deleted: "false",
     published: "true",
+    authorId: userId || undefined,
   });
 
   const contextValue = {
