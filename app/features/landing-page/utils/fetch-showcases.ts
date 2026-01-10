@@ -13,6 +13,7 @@ import {
   sql,
 } from "drizzle-orm";
 
+import type { SQL } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as schema from "~/database/schema";
@@ -41,10 +42,14 @@ export type ShowcaseItem = {
   tags: string[];
   authorId?: string;
   author?: { id: string; email: string; name: string };
+  upvotes?: number;
+  downvotes?: number;
+  score?: number;
   publishedAt?: Date;
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date;
+  userVote?: -1 | 1;
 };
 
 export type FetchShowcasesResult = {
@@ -65,9 +70,9 @@ export async function fetchShowcases(
   db: DrizzleD1Database<typeof schema>,
   params: FetchShowcasesParams,
 ): Promise<FetchShowcasesResult> {
-  const { showcase, showcaseTag, tag, user } = schema;
+  const { showcase, showcaseTag, tag, user, showcaseVote } = schema;
 
-  const whereClauses = [] as ReturnType<typeof eq>[];
+  const whereClauses: SQL[] = [];
 
   // Text search on name and description
   if (params.search) {
@@ -169,11 +174,12 @@ export async function fetchShowcases(
     params.sortDir === "asc" ? asc(orderColumn) : desc(orderColumn);
 
   // Get total count of filtered results
-  const countResult = await db
+  const countQuery = db
     .select({ count: sql<number>`cast(count(*) as integer)` })
-    .from(showcase)
-    .where(finalWhere)
-    .get();
+    .from(showcase);
+  const countResult = finalWhere
+    ? await countQuery.where(finalWhere).get()
+    : await countQuery.get();
   const totalCount = countResult?.count ?? 0;
 
   if (totalCount === 0) {
@@ -187,7 +193,7 @@ export async function fetchShowcases(
 
   // Fetch paginated sorted results with filter and sort applied at database level
   const startIndex = (params.page - 1) * params.pageSize;
-  const paginatedShowcases = await db
+  const baseRecordsQuery = db
     .select({
       id: showcase.id,
       name: showcase.name,
@@ -195,13 +201,35 @@ export async function fetchShowcases(
       url: showcase.url,
       image: showcase.image,
       authorId: showcase.authorId,
+      upvotes: showcase.upvotes,
+      downvotes: showcase.downvotes,
+      score: showcase.score,
       publishedAt: showcase.publishedAt,
       createdAt: showcase.createdAt,
       updatedAt: showcase.updatedAt,
       deletedAt: showcase.deletedAt,
+      userVote: params.authorId
+        ? showcaseVote.value
+        : sql<-1 | 1 | null>`NULL`.as("userVote"),
     })
     .from(showcase)
-    .where(finalWhere)
+    .$dynamic();
+
+  const queryWithJoin = params.authorId
+    ? baseRecordsQuery.leftJoin(
+        showcaseVote,
+        and(
+          eq(showcaseVote.showcaseId, showcase.id),
+          eq(showcaseVote.userId, params.authorId),
+        ),
+      )
+    : baseRecordsQuery;
+
+  const filteredRecordsQuery = finalWhere
+    ? queryWithJoin.where(finalWhere)
+    : queryWithJoin;
+
+  const paginatedShowcases = await filteredRecordsQuery
     .orderBy(orderBy)
     .limit(params.pageSize)
     .offset(startIndex)
@@ -268,10 +296,14 @@ export async function fetchShowcases(
             name: author.name,
           }
         : undefined,
+      upvotes: row.upvotes ?? undefined,
+      downvotes: row.downvotes ?? undefined,
+      score: row.score ?? undefined,
       publishedAt: row.publishedAt ?? undefined,
       createdAt: row.createdAt ?? undefined,
       updatedAt: row.updatedAt ?? undefined,
       deletedAt: row.deletedAt ?? undefined,
+      userVote: row.userVote ?? undefined,
     });
   }
 

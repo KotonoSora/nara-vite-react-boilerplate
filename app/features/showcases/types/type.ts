@@ -7,6 +7,10 @@ export type ProjectInfo = {
   url: string;
   image?: string;
   tags: string[];
+  upvotes?: number;
+  downvotes?: number;
+  score?: number;
+  userVote?: -1 | 1 | null;
 };
 
 export type PageInformation = {
