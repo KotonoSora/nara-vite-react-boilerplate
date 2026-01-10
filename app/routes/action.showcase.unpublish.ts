@@ -62,7 +62,7 @@ export async function action({ request, context }: Route.ActionArgs) {
       return data({ error: "Forbidden" }, { status: 403 });
     }
 
-    const showcase = await unpublishShowcase(db, showcaseId);
+    await unpublishShowcase(db, showcaseId);
 
     return data({ success: true }, { status: 200 });
   } catch (error) {
