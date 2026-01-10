@@ -17,7 +17,7 @@ export function ShowcaseSection() {
   const t = useTranslation();
   const { showcases: fetchShowcases, builtInDemos } =
     useLoaderData<LandingPageContextType>();
-  const showcases = use(fetchShowcases);
+  const { items: showcases } = use(fetchShowcases);
 
   return (
     <section className="py-16 px-6 lg:px-24 bg-background content-visibility-auto">

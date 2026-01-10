@@ -39,6 +39,7 @@ export async function createUser(
   const [newUser] = await db
     .insert(user)
     .values({
+      id: crypto.randomUUID(),
       email: userData.email,
       passwordHash,
       name: userData.name,
@@ -68,11 +69,11 @@ export async function getUserByEmail(
   db: DrizzleD1Database<typeof schema>,
   email: string,
 ): Promise<UserSchema | null> {
-  const [foundUser] = await db
+  const foundUser = await db
     .select()
     .from(user)
     .where(eq(user.email, email))
-    .limit(1);
+    .get();
 
   return foundUser || null;
 }
@@ -86,13 +87,9 @@ export async function getUserByEmail(
  */
 export async function getUserById(
   db: DrizzleD1Database<typeof schema>,
-  id: number,
+  id: string,
 ): Promise<UserSchema | null> {
-  const [foundUser] = await db
-    .select()
-    .from(user)
-    .where(eq(user.id, id))
-    .limit(1);
+  const foundUser = await db.select().from(user).where(eq(user.id, id)).get();
 
   return foundUser || null;
 }
@@ -162,11 +159,11 @@ export async function verifyEmailWithToken(
     }
 
     // Find user with the token
-    const [foundUser] = await db
+    const foundUser = await db
       .select()
       .from(user)
       .where(eq(user.emailVerificationToken, token))
-      .limit(1);
+      .get();
 
     if (!foundUser) {
       return {
@@ -252,7 +249,8 @@ export async function requestPasswordReset(
       passwordResetExpires: resetExpires,
       updatedAt: new Date(),
     })
-    .where(eq(user.id, foundUser.id));
+    .where(eq(user.id, foundUser.id))
+    .run();
 
   // Send email confirm reset password with token
   if (import.meta.env.DEV) {
@@ -276,7 +274,7 @@ export async function resetPasswordWithToken(
   token: string,
   newPassword: string,
 ): Promise<{ success: boolean; user?: UserSchema; error?: string }> {
-  const [foundUser] = await db
+  const foundUser = await db
     .select()
     .from(user)
     .where(
@@ -285,7 +283,7 @@ export async function resetPasswordWithToken(
         gt(user.passwordResetExpires!, new Date()),
       ),
     )
-    .limit(1);
+    .get();
 
   if (!foundUser) {
     return { success: false, error: "Invalid or expired reset token" };

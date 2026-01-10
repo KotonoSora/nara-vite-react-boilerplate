@@ -4,7 +4,7 @@ import type { MiddlewareFunction } from "react-router";
 
 import {
   landingPageMiddleware,
-  landingPageMiddlewareContext,
+  LandingPageReactRouterContext,
 } from "~/features/landing-page/middleware/landing-page-middleware";
 import { ContentPage } from "~/features/landing-page/page";
 import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
@@ -16,7 +16,7 @@ export const middleware: MiddlewareFunction[] = [landingPageMiddleware];
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
   const i18nContent = context.get(I18nReactRouterContext);
-  const pageContent = context.get(landingPageMiddlewareContext);
+  const pageContent = context.get(LandingPageReactRouterContext);
   return { ...generalInformation, ...i18nContent, ...pageContent };
 }
 

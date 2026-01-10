@@ -1,10 +1,10 @@
-import type { Route } from "./+types/($lang).dashboard";
+import type { Route } from "./+types/($lang).dashboard._index";
 
 import type { MiddlewareFunction } from "react-router";
 
 import {
   dashboardMiddleware,
-  dashboardMiddlewareContext,
+  DashboardMiddlewareContext,
 } from "~/features/dashboard/middleware/dashboard-middleware";
 import { ContentDashboardPage } from "~/features/dashboard/page";
 import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
@@ -16,7 +16,7 @@ export const middleware: MiddlewareFunction[] = [dashboardMiddleware];
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
   const i18nContent = context.get(I18nReactRouterContext);
-  const dashboardContent = context.get(dashboardMiddlewareContext);
+  const dashboardContent = context.get(DashboardMiddlewareContext);
   return { ...generalInformation, ...i18nContent, ...dashboardContent };
 }
 

@@ -36,7 +36,7 @@ export function ContentPage() {
       <LicenseSection />
 
       {/* Showcase Section */}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={null}>
         <ShowcaseSection />
       </Suspense>
 

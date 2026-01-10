@@ -1,4 +1,7 @@
+import type { FetchShowcasesResult } from "~/features/landing-page/utils/fetch-showcases";
+
 export type User = {
+  id: string;
   name: string;
   email: string;
   role: "admin" | "user";
@@ -25,4 +28,6 @@ export type DashboardContentProps = {
   user: User;
   recentActivity: Activity[];
   stats: Stats;
+  showcases: FetchShowcasesResult;
+  availableTags: string[];
 };
