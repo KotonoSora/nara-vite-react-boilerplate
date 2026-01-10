@@ -1,5 +1,5 @@
 import { FolderOpen } from "lucide-react";
-import { use, useState } from "react";
+import { use, useMemo, useState } from "react";
 import { useLoaderData } from "react-router";
 
 import type { PageInformation, ProjectInfo } from "../types/type";
@@ -17,6 +17,27 @@ export function CommunitySection() {
   const [selectedProject, setSelectedProject] = useState<ProjectInfo | null>(
     null,
   );
+
+  const handleVoteUpdate = (
+    showcaseId: string | number,
+    voteData: {
+      userVote?: -1 | 1;
+      upvotes: number;
+      downvotes: number;
+      score: number;
+    },
+  ) => {
+    if (selectedProject?.id === showcaseId) {
+      setSelectedProject((prev) => (prev ? { ...prev, ...voteData } : null));
+    }
+  };
+
+  const currentSelectedProject = useMemo(() => {
+    return (
+      showcases.find((s) => s.id === selectedProject?.id) ?? selectedProject
+    );
+  }, [showcases, selectedProject]);
+
   const hasBuiltInDemos =
     Array.isArray(builtInDemos) && builtInDemos.length > 0;
   const hasShowcases = Array.isArray(showcases) && showcases.length > 0;
@@ -64,9 +85,10 @@ export function CommunitySection() {
       </div>
 
       <ShowcaseDetailModal
-        project={selectedProject}
+        project={currentSelectedProject}
         isOpen={!!selectedProject}
         onClose={() => setSelectedProject(null)}
+        onVoteUpdate={handleVoteUpdate}
       />
     </div>
   );
