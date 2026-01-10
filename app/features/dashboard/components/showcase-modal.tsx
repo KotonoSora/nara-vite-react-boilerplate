@@ -577,12 +577,9 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
           </AlertDialogDescription>
           <div className="flex justify-end gap-2">
             <AlertDialogCancel>Keep Editing</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleConfirmClose}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            >
+            <Button onClick={handleConfirmClose} variant="destructive">
               Discard
-            </AlertDialogAction>
+            </Button>
           </div>
         </AlertDialogContent>
       </AlertDialog>

@@ -11,26 +11,39 @@ import { useAuth } from "~/lib/authentication/hooks/use-auth";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { cn } from "~/lib/utils";
 
-export function ShowcaseItem({ project }: { project: ProjectInfo }) {
+export function ShowcaseItem({
+  project,
+  onItemClick,
+}: {
+  project: ProjectInfo;
+  onItemClick: (project: ProjectInfo) => void;
+}) {
   const fetcher = useFetcher();
   const { user, isAuthenticated } = useAuth();
   const t = useTranslation();
 
   const isSubmitting = fetcher.state !== "idle";
 
-  const handleVote = (value: -1 | 1) => {
-    if (!user?.id || !project.id) return;
+  const handleVote =
+    (value: -1 | 1) => (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
 
-    const fd = new FormData();
-    fd.append("showcaseId", String(project.id));
-    fd.append("userId", String(user.id));
-    fd.append("value", String(value));
+      if (!user?.id || !project.id) return;
 
-    fetcher.submit(fd, { method: "post", action: "/action/showcase/vote" });
-  };
+      const fd = new FormData();
+      fd.append("showcaseId", String(project.id));
+      fd.append("userId", String(user.id));
+      fd.append("value", String(value));
+
+      fetcher.submit(fd, { method: "post", action: "/action/showcase/vote" });
+    };
 
   return (
-    <Card className="overflow-hidden py-0 gap-0 content-visibility-auto">
+    <Card
+      className="overflow-hidden py-0 gap-0 content-visibility-auto cursor-pointer hover:shadow-md transition-shadow"
+      onClick={() => onItemClick(project)}
+    >
       <CardHeader className="p-0 gap-0">
         <img
           src={project.image ?? SocialPreview}
@@ -70,7 +83,7 @@ export function ShowcaseItem({ project }: { project: ProjectInfo }) {
               variant="ghost"
               className={cn("h-9 gap-1 cursor-pointer")}
               disabled={!isAuthenticated || isSubmitting}
-              onClick={() => handleVote(1)}
+              onClick={handleVote(1)}
               aria-pressed={project.userVote === 1}
               aria-label="Upvote showcase"
             >
@@ -87,7 +100,7 @@ export function ShowcaseItem({ project }: { project: ProjectInfo }) {
               variant="ghost"
               className={cn("h-9 gap-1 cursor-pointer")}
               disabled={!isAuthenticated || isSubmitting}
-              onClick={() => handleVote(-1)}
+              onClick={handleVote(-1)}
               aria-pressed={project.userVote === -1}
               aria-label="Downvote showcase"
             >

@@ -2,12 +2,12 @@ import { type FC } from "react";
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogTitle,
 } from "~/components/ui/alert-dialog";
+import { Button } from "~/components/ui/button";
 
 interface DeleteShowcaseDialogProps {
   open: boolean;
@@ -42,13 +42,13 @@ export const DeleteShowcaseDialog: FC<DeleteShowcaseDialogProps> = ({
           <AlertDialogCancel onClick={handleCancel} disabled={isLoading}>
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction
+          <Button
             onClick={onConfirm}
             disabled={isLoading}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 disabled:opacity-50"
+            variant="destructive"
           >
             {isLoading ? "Deleting..." : "Delete"}
-          </AlertDialogAction>
+          </Button>
         </div>
       </AlertDialogContent>
     </AlertDialog>

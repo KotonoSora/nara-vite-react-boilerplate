@@ -1,11 +1,12 @@
 import { FolderOpen } from "lucide-react";
-import { use } from "react";
+import { use, useState } from "react";
 import { useLoaderData } from "react-router";
 
-import type { PageInformation } from "../types/type";
+import type { PageInformation, ProjectInfo } from "../types/type";
 
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
+import { ShowcaseDetailModal } from "./showcase-detail-modal";
 import { ShowcaseItem } from "./showcase-item";
 
 export function CommunitySection() {
@@ -13,6 +14,9 @@ export function CommunitySection() {
   const { showcases: fetchShowcases, builtInDemos } =
     useLoaderData<PageInformation>();
   const { items: showcases } = use(fetchShowcases);
+  const [selectedProject, setSelectedProject] = useState<ProjectInfo | null>(
+    null,
+  );
   const hasBuiltInDemos =
     Array.isArray(builtInDemos) && builtInDemos.length > 0;
   const hasShowcases = Array.isArray(showcases) && showcases.length > 0;
@@ -35,7 +39,11 @@ export function CommunitySection() {
         {hasShowcases ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-3 lg:gap-4">
             {showcases.map((project) => (
-              <ShowcaseItem key={project.id} project={project} />
+              <ShowcaseItem
+                key={project.id}
+                project={project}
+                onItemClick={setSelectedProject}
+              />
             ))}
           </div>
         ) : (
@@ -54,6 +62,12 @@ export function CommunitySection() {
           </div>
         )}
       </div>
+
+      <ShowcaseDetailModal
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </div>
   );
 }
