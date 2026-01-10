@@ -3,3 +3,4 @@ export * from "./schema/session";
 export * from "./schema/showcase";
 export * from "./schema/tag";
 export * from "./schema/showcaseTag";
+export * from "./schema/showcaseVote";

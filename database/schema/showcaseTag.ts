@@ -8,6 +8,10 @@ import {
 import { showcase } from "./showcase";
 import { tag } from "./tag";
 
+/**
+ * Join table linking showcases and tags (many-to-many).
+ * Composite PK (showcaseId, tagId) enforces uniqueness per pair.
+ */
 export const showcaseTag = sqliteTable(
   "showcase_tags",
   {
@@ -23,7 +27,5 @@ export const showcaseTag = sqliteTable(
       () => new Date(),
     ),
   },
-  (t) => ({
-    pk: primaryKey({ columns: [t.showcaseId, t.tagId] }),
-  }),
+  (table) => [primaryKey({ columns: [table.showcaseId, table.tagId] })],
 );

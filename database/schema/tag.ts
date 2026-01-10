@@ -1,5 +1,9 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
+/**
+ * Tags used to categorize showcases.
+ * Unique slug supports stable URLs linking and lookup.
+ */
 export const tag = sqliteTable("tags", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),

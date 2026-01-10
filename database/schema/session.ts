@@ -2,6 +2,10 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 import { user } from "./user";
 
+/**
+ * Sessions associated with users for authentication.
+ * Cascades on user deletion to remove related sessions.
+ */
 export const session = sqliteTable("sessions", {
   id: text("id").primaryKey(),
   userId: text("user_id")

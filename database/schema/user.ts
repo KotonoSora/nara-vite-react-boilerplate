@@ -1,5 +1,9 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
+/**
+ * Users table for authentication and profile data.
+ * Enforces unique email and stores verification/reset tokens with expirations.
+ */
 export const user = sqliteTable("users", {
   id: text("id").primaryKey(),
   email: text("email").notNull().unique(),
