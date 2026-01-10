@@ -1,3 +1,16 @@
+-- Drop tables in reverse dependency order to respect foreign keys
+DROP TABLE IF EXISTS `showcase_votes`;
+--> statement-breakpoint
+DROP TABLE IF EXISTS `showcase_tags`;
+--> statement-breakpoint
+DROP TABLE IF EXISTS `sessions`;
+--> statement-breakpoint
+DROP TABLE IF EXISTS `showcases`;
+--> statement-breakpoint
+DROP TABLE IF EXISTS `tags`;
+--> statement-breakpoint
+DROP TABLE IF EXISTS `users`;
+--> statement-breakpoint
 CREATE TABLE `users` (
 	`id` text PRIMARY KEY NOT NULL,
 	`email` text NOT NULL,
