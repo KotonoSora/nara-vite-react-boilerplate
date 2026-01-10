@@ -30,7 +30,7 @@ export const landingPageMiddleware: MiddlewareFunction = async (
     sortDir: "desc",
     published: "true",
     deleted: "false",
-    minScore: 1,
+    minScore: 0,
   });
 
   // Build context object

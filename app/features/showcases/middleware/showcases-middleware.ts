@@ -50,7 +50,7 @@ export const showcasesMiddleware: MiddlewareFunction = async (
     tags: tagsParam.length ? tagsParam : undefined,
     deleted: "false",
     published: "true",
-    authorId: userId || undefined,
+    viewerId: userId || undefined,
   });
 
   const contextValue = {

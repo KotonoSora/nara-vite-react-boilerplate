@@ -32,6 +32,7 @@ export type FetchShowcasesParams = {
   deleted?: "true" | "false";
   published?: "true" | "false";
   minScore?: number;
+  viewerId?: string;
 };
 
 export type ShowcaseItem = {
@@ -214,19 +215,19 @@ export async function fetchShowcases(
       createdAt: showcase.createdAt,
       updatedAt: showcase.updatedAt,
       deletedAt: showcase.deletedAt,
-      userVote: params.authorId
+      userVote: params.viewerId
         ? showcaseVote.value
         : sql<-1 | 1 | null>`NULL`.as("userVote"),
     })
     .from(showcase)
     .$dynamic();
 
-  const queryWithJoin = params.authorId
+  const queryWithJoin = params.viewerId
     ? baseRecordsQuery.leftJoin(
         showcaseVote,
         and(
           eq(showcaseVote.showcaseId, showcase.id),
-          eq(showcaseVote.userId, params.authorId),
+          eq(showcaseVote.userId, params.viewerId),
         ),
       )
     : baseRecordsQuery;

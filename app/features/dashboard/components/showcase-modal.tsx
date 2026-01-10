@@ -7,7 +7,6 @@ import type { FieldError } from "~/features/landing-page/schemas/create-showcase
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -158,7 +157,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
     field: keyof ShowcaseFormData,
     value: string | Date | undefined,
   ) => {
-    if (typeof value === undefined || value === "") {
+    if (value === undefined || value === "") {
       setFieldErrors((prev) => {
         const next = { ...prev };
         delete next[field];
