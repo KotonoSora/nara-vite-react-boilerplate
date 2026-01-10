@@ -47,6 +47,7 @@ export async function updateShowcase(
     .update(showcase)
     .set({
       ...updateFields,
+      image: updateFields.image ?? null,
       updatedAt: new Date(),
     })
     .where(eq(showcase.id, showcaseId))
