@@ -153,7 +153,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
 
   /**
    * Handles field blur event to validate and clear errors for valid fields.
-   * Validates only the blurred field using the schema to avoid cross-field noise.
+   * Validates the field in context of the full form to avoid cross-field noise.
    */
   const handleFieldBlur = (
     field: keyof ShowcaseFormData,
@@ -168,19 +168,19 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
       return;
     }
 
-    // Validate only this field to prevent other empty fields from blocking clearance
-    const fieldSchema = createShowcaseSchema.pick({ [field]: true });
-    const result = fieldSchema.safeParse({ [field]: value });
+    // Validate full schema and extract only this field's error
+    const result = createShowcaseSchema.safeParse(formData);
 
     if (!result.success) {
       const errors = parseValidationErrors(result);
-      if (errors) {
-        setFieldErrors((prev) => ({ ...prev, ...errors }));
+      if (errors && errors[field]) {
+        setFieldErrors((prev) => ({ ...prev, [field]: errors[field] }));
         setErrorMessage(t("dashboard.showcaseModal.fieldError"));
       }
       return;
     }
 
+    // Validation passed, clear this field's error
     if (result.success && fieldErrors[field]) {
       setFieldErrors((prev) => {
         const next = { ...prev };
@@ -469,7 +469,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent
-                  className="w-[--radix-popover-trigger-width] p-0"
+                  className="w-(--radix-popover-trigger-width) p-0"
                   align="start"
                 >
                   <Command>
