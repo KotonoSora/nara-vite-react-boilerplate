@@ -153,7 +153,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
 
   /**
    * Handles field blur event to validate and clear errors for valid fields.
-   * Validates only the blurred field using the schema to avoid cross-field noise.
+   * Validates against the latest value instead of potentially stale state.
    */
   const handleFieldBlur = (
     field: keyof ShowcaseFormData,
@@ -168,26 +168,34 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
       return;
     }
 
-    // Validate only this field to prevent other empty fields from blocking clearance
-    const fieldSchema = createShowcaseSchema.pick({ [field]: true });
-    const result = fieldSchema.safeParse({ [field]: value });
+    const nextFormData: ShowcaseFormData = {
+      ...formData,
+      [field]: value,
+    };
+
+    const result = createShowcaseSchema.safeParse(nextFormData);
 
     if (!result.success) {
       const errors = parseValidationErrors(result);
-      if (errors) {
-        setFieldErrors((prev) => ({ ...prev, ...errors }));
+      if (errors && errors[field]) {
+        setFieldErrors((prev) => ({ ...prev, [field]: errors[field] }));
         setErrorMessage(t("dashboard.showcaseModal.fieldError"));
+      } else if (fieldErrors[field]) {
+        setFieldErrors((prev) => {
+          const next = { ...prev };
+          delete next[field];
+          return next;
+        });
       }
       return;
     }
 
-    if (result.success && fieldErrors[field]) {
+    if (fieldErrors[field]) {
       setFieldErrors((prev) => {
         const next = { ...prev };
         delete next[field];
         return next;
       });
-      return;
     }
   };
 
@@ -469,7 +477,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent
-                  className="w-[--radix-popover-trigger-width] p-0"
+                  className="w-(--radix-popover-trigger-width) p-0"
                   align="start"
                 >
                   <Command>
