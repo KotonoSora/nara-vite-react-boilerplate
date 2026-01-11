@@ -8,8 +8,24 @@
     "description": "Examples and demonstrations of the boilerplate features",
     "components": "Components",
     "examples": "Examples",
-    "demos": "Demos"
+    "demos": "Demos",
+    "descriptionLabel": "Description",
+    "upvote": "Upvote showcase",
+    "downvote": "Downvote showcase",
+    "visitShowcase": "Visit Showcase"
   },
   "emptyTitle": "No Community Showcases Yet",
-  "emptyMessage": "Showcases are coming soon. Check back later to explore!"
+  "emptyMessage": "Showcases are coming soon. Check back later to explore!",
+  "validation": {
+    "nameRequired": "Name is required",
+    "nameMinLength": "Name must be at least 3 characters",
+    "descriptionRequired": "Description is required",
+    "descriptionMinLength": "Description must be at least 10 characters",
+    "urlInvalid": "Please enter a valid URL",
+    "imageUrlInvalid": "Invalid image URL",
+    "tagEmpty": "Tag cannot be empty",
+    "showcaseIdRequired": "Showcase ID is required",
+    "userIdRequired": "User ID is required",
+    "voteValueInvalid": "Vote value must be -1 or 1"
+  }
 }

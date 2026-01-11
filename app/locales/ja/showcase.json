@@ -8,8 +8,24 @@
     "description": "ボイラープレート機能の例とデモンストレーション",
     "components": "コンポーネント",
     "examples": "例",
-    "demos": "デモ"
+    "demos": "デモ",
+    "descriptionLabel": "説明",
+    "upvote": "ショーケースを高評価",
+    "downvote": "ショーケースを低評価",
+    "visitShowcase": "ショーケースを開く"
   },
   "emptyTitle": "コミュニティショーケースはまだありません",
-  "emptyMessage": "ショーケースは近日中に登場します。後でもう一度チェックしてください！"
+  "emptyMessage": "ショーケースは近日中に登場します。後でもう一度チェックしてください！",
+  "validation": {
+    "nameRequired": "名前は必須です",
+    "nameMinLength": "名前は少なくとも3文字である必要があります",
+    "descriptionRequired": "説明は必須です",
+    "descriptionMinLength": "説明は少なくとも10文字である必要があります",
+    "urlInvalid": "有効なURLを入力してください",
+    "imageUrlInvalid": "無効な画像URL",
+    "tagEmpty": "タグを空にすることはできません",
+    "showcaseIdRequired": "ショーケースIDは必須です",
+    "userIdRequired": "ユーザーIDは必須です",
+    "voteValueInvalid": "投票値は-1または1である必要があります"
+  }
 }

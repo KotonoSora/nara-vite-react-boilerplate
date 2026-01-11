@@ -8,6 +8,7 @@ import {
   AlertDialogTitle,
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 interface DeleteShowcaseDialogProps {
   open: boolean;
@@ -26,6 +27,8 @@ export const DeleteShowcaseDialog: FC<DeleteShowcaseDialogProps> = ({
   onConfirm,
   isLoading = false,
 }) => {
+  const t = useTranslation();
+
   const handleCancel = () => {
     onOpenChange(false);
   };
@@ -33,21 +36,22 @@ export const DeleteShowcaseDialog: FC<DeleteShowcaseDialogProps> = ({
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
-        <AlertDialogTitle>Delete Showcase</AlertDialogTitle>
+        <AlertDialogTitle>
+          {t("dashboard.deleteShowcase.title")}
+        </AlertDialogTitle>
         <AlertDialogDescription>
-          Are you sure you want to delete this showcase? This action cannot be
-          undone.
+          {t("dashboard.deleteShowcase.description")}
         </AlertDialogDescription>
         <div className="flex justify-end gap-3">
           <AlertDialogCancel onClick={handleCancel} disabled={isLoading}>
-            Cancel
+            {t("cancel")}
           </AlertDialogCancel>
           <Button
             onClick={onConfirm}
             disabled={isLoading}
             variant="destructive"
           >
-            {isLoading ? "Deleting..." : "Delete"}
+            {isLoading ? t("dashboard.deleteShowcase.deleting") : t("delete")}
           </Button>
         </div>
       </AlertDialogContent>

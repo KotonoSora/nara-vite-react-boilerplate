@@ -45,6 +45,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 interface ServerPaginationProps {
   page: number;
@@ -89,6 +90,7 @@ export function ShowcasesDataTable<TData, TValue>({
   onTagsChange,
   availableTags,
 }: DataTableProps<TData, TValue>) {
+  const t = useTranslation();
   const initialSorting = React.useMemo<SortingState>(() => {
     if (!sortingServer) return [];
     return [
@@ -160,7 +162,7 @@ export function ShowcasesDataTable<TData, TValue>({
     <div className="w-full space-y-4">
       <div className="flex items-center justify-between gap-2">
         <Input
-          placeholder="Filter by name or description..."
+          placeholder={t("dashboard.showcasesTable.filterPlaceholder")}
           value={
             searchValue !== undefined
               ? searchValue
@@ -180,18 +182,22 @@ export function ShowcasesDataTable<TData, TValue>({
                 variant="outline"
                 role="combobox"
                 aria-expanded={false}
-                aria-label="Select tags"
+                aria-label={t("dashboard.showcasesTable.selectTags")}
               >
-                Tags
+                {t("dashboard.showcasesTable.tags")}
                 {tagsValue && tagsValue.length ? ` (${tagsValue.length})` : ""}
                 <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </PopoverTrigger>
             <PopoverContent align="end" className="w-64 p-0">
               <Command>
-                <CommandInput placeholder="Search tags..." />
+                <CommandInput
+                  placeholder={t("dashboard.showcasesTable.searchTags")}
+                />
                 <CommandList>
-                  <CommandEmpty>No tags found.</CommandEmpty>
+                  <CommandEmpty>
+                    {t("dashboard.showcasesTable.noTags")}
+                  </CommandEmpty>
                   <CommandGroup>
                     {allTags.length
                       ? allTags.map((tag) => {
@@ -226,7 +232,7 @@ export function ShowcasesDataTable<TData, TValue>({
                     onClick={() => onTagsChange([])}
                     className="w-full"
                   >
-                    Clear tags
+                    {t("dashboard.showcasesTable.clearTags")}
                   </Button>
                 </div>
               ) : null}
@@ -236,7 +242,8 @@ export function ShowcasesDataTable<TData, TValue>({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
-                Columns <ChevronDown className="ml-2 h-4 w-4" />
+                {t("dashboard.showcasesTable.columns")}
+                <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -306,7 +313,7 @@ export function ShowcasesDataTable<TData, TValue>({
                   className="h-24 text-center"
                 >
                   <div className="text-muted-foreground">
-                    No showcases found. Create your first showcase!
+                    {t("dashboard.showcasesTable.empty")}
                   </div>
                 </TableCell>
               </TableRow>
@@ -317,8 +324,10 @@ export function ShowcasesDataTable<TData, TValue>({
 
       <div className="flex items-center justify-between space-x-2">
         <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {t("dashboard.showcasesTable.selected", {
+            selected: table.getFilteredSelectedRowModel().rows.length,
+            total: table.getFilteredRowModel().rows.length,
+          })}
         </div>
         <div className="flex items-center space-x-2">
           {pagination ? (
@@ -329,11 +338,16 @@ export function ShowcasesDataTable<TData, TValue>({
                 onClick={pagination.onPrevious}
                 disabled={pagination.page <= 1}
               >
-                Previous
+                {t("dashboard.showcasesTable.previous")}
               </Button>
               <div className="text-sm text-muted-foreground">
-                Page {pagination.page} of{" "}
-                {Math.max(1, Math.ceil(pagination.total / pagination.pageSize))}
+                {t("dashboard.showcasesTable.pageOf", {
+                  page: pagination.page,
+                  totalPages: Math.max(
+                    1,
+                    Math.ceil(pagination.total / pagination.pageSize),
+                  ),
+                })}
               </div>
               <Button
                 variant="outline"
@@ -343,7 +357,7 @@ export function ShowcasesDataTable<TData, TValue>({
                   pagination.page * pagination.pageSize >= pagination.total
                 }
               >
-                Next
+                {t("dashboard.showcasesTable.next")}
               </Button>
             </>
           ) : (
@@ -354,7 +368,7 @@ export function ShowcasesDataTable<TData, TValue>({
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
-                Previous
+                {t("dashboard.showcasesTable.previous")}
               </Button>
               <Button
                 variant="outline"
@@ -362,7 +376,7 @@ export function ShowcasesDataTable<TData, TValue>({
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
-                Next
+                {t("dashboard.showcasesTable.next")}
               </Button>
             </>
           )}

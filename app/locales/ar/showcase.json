@@ -8,8 +8,24 @@
     "description": "أمثلة وعروض توضيحية لميزات النموذج الأساسي",
     "components": "المكونات",
     "examples": "الأمثلة",
-    "demos": "العروض التوضيحية"
+    "demos": "العروض التوضيحية",
+    "descriptionLabel": "الوصف",
+    "upvote": "إعجاب بالعرض",
+    "downvote": "عدم إعجاب بالعرض",
+    "visitShowcase": "زيارة العرض"
   },
   "emptyTitle": "لا توجد عروض توضيحية من المجتمع حتى الآن",
-  "emptyMessage": "العروض التوضيحية قادمة قريبًا. تحقق مرة أخرى لاحقًا لاستكشافها!"
+  "emptyMessage": "العروض التوضيحية قادمة قريبًا. تحقق مرة أخرى لاحقًا لاستكشافها!",
+  "validation": {
+    "nameRequired": "الاسم مطلوب",
+    "nameMinLength": "يجب أن يكون الاسم 3 أحرف على الأقل",
+    "descriptionRequired": "الوصف مطلوب",
+    "descriptionMinLength": "يجب أن يكون الوصف 10 أحرف على الأقل",
+    "urlInvalid": "الرجاء إدخال عنوان URL صالح",
+    "imageUrlInvalid": "عنوان URL للصورة غير صالح",
+    "tagEmpty": "لا يمكن أن تكون العلامة فارغة",
+    "showcaseIdRequired": "معرف العرض مطلوب",
+    "userIdRequired": "معرف المستخدم مطلوب",
+    "voteValueInvalid": "يجب أن تكون قيمة التصويت -1 أو 1"
+  }
 }

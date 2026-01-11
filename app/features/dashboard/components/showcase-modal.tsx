@@ -40,6 +40,7 @@ import {
   createShowcaseSchema,
   parseValidationErrors,
 } from "~/features/landing-page/schemas/create-showcase.schema";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { cn } from "~/lib/utils";
 
 interface ShowcaseModalProps {
@@ -74,6 +75,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
   mode = "create",
   showcase,
 }) => {
+  const t = useTranslation();
   const [formData, setFormData] = useState<ShowcaseFormData>({
     name: "",
     description: "",
@@ -107,9 +109,9 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
   useEffect(() => {
     if (serverFieldErrors && Object.keys(serverFieldErrors).length > 0) {
       setFieldErrors(serverFieldErrors);
-      setErrorMessage("Please fix the validation errors");
+      setErrorMessage(t("dashboard.showcaseModal.validationError"));
     }
-  }, [serverFieldErrors]);
+  }, [serverFieldErrors, t]);
 
   // Reset form whenever modal is opened fresh
   useEffect(() => {
@@ -174,7 +176,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
       const errors = parseValidationErrors(result);
       if (errors) {
         setFieldErrors((prev) => ({ ...prev, ...errors }));
-        setErrorMessage("Please fix the errors below");
+        setErrorMessage(t("dashboard.showcaseModal.fieldError"));
       }
       return;
     }
@@ -284,7 +286,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
       const errors = parseValidationErrors(result);
       if (errors) {
         setFieldErrors(errors);
-        setErrorMessage("Please fix the errors below");
+        setErrorMessage(t("dashboard.showcaseModal.fieldError"));
       }
       return;
     }
@@ -296,7 +298,9 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
       // Modal will close only on success (handled in manage-showcases)
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : "Failed to create showcase";
+        error instanceof Error
+          ? error.message
+          : t("dashboard.showcaseModal.submitError");
       setErrorMessage(message);
       console.error("Failed to create showcase:", message);
     } finally {
@@ -310,7 +314,9 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>
-              {mode === "edit" ? "Edit Showcase" : "Create New Showcase"}
+              {mode === "edit"
+                ? t("dashboard.showcaseModal.titleEdit")
+                : t("dashboard.showcaseModal.titleCreate")}
             </DialogTitle>
           </DialogHeader>
 
@@ -324,10 +330,12 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
 
             {/* Name Field */}
             <div className="space-y-2">
-              <Label htmlFor="name">Name *</Label>
+              <Label htmlFor="name">
+                {t("dashboard.showcaseModal.nameLabel")}
+              </Label>
               <Input
                 id="name"
-                placeholder="Showcase name"
+                placeholder={t("dashboard.showcaseModal.namePlaceholder")}
                 value={formData.name}
                 onChange={(e) => handleInputChange("name", e.target.value)}
                 onBlur={() => handleFieldBlur("name", formData.name)}
@@ -335,16 +343,22 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                 className={fieldErrors.name ? "border-destructive" : ""}
               />
               {fieldErrors.name && (
-                <p className="text-sm text-destructive">{fieldErrors.name}</p>
+                <p className="text-sm text-destructive">
+                  {t(fieldErrors.name)}
+                </p>
               )}
             </div>
 
             {/* Description Field */}
             <div className="space-y-2">
-              <Label htmlFor="description">Description *</Label>
+              <Label htmlFor="description">
+                {t("dashboard.showcaseModal.descriptionLabel")}
+              </Label>
               <Textarea
                 id="description"
-                placeholder="Showcase description"
+                placeholder={t(
+                  "dashboard.showcaseModal.descriptionPlaceholder",
+                )}
                 value={formData.description}
                 onChange={(e) =>
                   handleInputChange("description", e.target.value)
@@ -358,18 +372,20 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
               />
               {fieldErrors.description && (
                 <p className="text-sm text-destructive">
-                  {fieldErrors.description}
+                  {t(fieldErrors.description)}
                 </p>
               )}
             </div>
 
             {/* URL Field */}
             <div className="space-y-2">
-              <Label htmlFor="url">URL *</Label>
+              <Label htmlFor="url">
+                {t("dashboard.showcaseModal.urlLabel")}
+              </Label>
               <Input
                 id="url"
                 type="url"
-                placeholder="https://example.com"
+                placeholder={t("dashboard.showcaseModal.urlPlaceholder")}
                 value={formData.url}
                 onChange={(e) => handleInputChange("url", e.target.value)}
                 onBlur={() => handleFieldBlur("url", formData.url)}
@@ -377,17 +393,19 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                 className={fieldErrors.url ? "border-destructive" : ""}
               />
               {fieldErrors.url && (
-                <p className="text-sm text-destructive">{fieldErrors.url}</p>
+                <p className="text-sm text-destructive">{t(fieldErrors.url)}</p>
               )}
             </div>
 
             {/* Image Field */}
             <div className="space-y-2">
-              <Label htmlFor="image">Image URL</Label>
+              <Label htmlFor="image">
+                {t("dashboard.showcaseModal.imageLabel")}
+              </Label>
               <Input
                 id="image"
                 type="url"
-                placeholder="https://example.com/image.jpg"
+                placeholder={t("dashboard.showcaseModal.imagePlaceholder")}
                 value={formData.image || ""}
                 onChange={(e) => handleInputChange("image", e.target.value)}
                 onBlur={() => handleFieldBlur("image", formData.image)}
@@ -395,13 +413,17 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                 className={fieldErrors.image ? "border-destructive" : ""}
               />
               {fieldErrors.image && (
-                <p className="text-sm text-destructive">{fieldErrors.image}</p>
+                <p className="text-sm text-destructive">
+                  {t(fieldErrors.image)}
+                </p>
               )}
             </div>
 
             {/* Publish Date Field */}
             <div className="space-y-2">
-              <Label htmlFor="publishedAt">Publish Date</Label>
+              <Label htmlFor="publishedAt">
+                {t("dashboard.showcaseModal.publishedAtLabel")}
+              </Label>
               <Input
                 id="publishedAt"
                 type="datetime-local"
@@ -423,7 +445,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
 
             {/* Tags Field */}
             <div className="space-y-2">
-              <Label>Tags</Label>
+              <Label>{t("dashboard.showcaseModal.tagsLabel")}</Label>
               <Popover
                 open={openTagsCombobox}
                 onOpenChange={setOpenTagsCombobox}
@@ -438,8 +460,10 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                   >
                     <span className="truncate">
                       {formData.tags.length === 0
-                        ? "Select or add tags..."
-                        : `${formData.tags.length} tag(s) selected`}
+                        ? t("dashboard.showcaseModal.tagsButtonEmpty")
+                        : t("dashboard.showcaseModal.tagsButtonCount", {
+                            count: formData.tags.length,
+                          })}
                     </span>
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
@@ -450,7 +474,9 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                 >
                   <Command>
                     <CommandInput
-                      placeholder="Search or add new tag..."
+                      placeholder={t(
+                        "dashboard.showcaseModal.tagsSearchPlaceholder",
+                      )}
                       value={tagSearchValue}
                       onValueChange={setTagSearchValue}
                     />
@@ -458,7 +484,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                       <CommandEmpty>
                         <div className="space-y-2 py-2">
                           <p className="text-sm text-muted-foreground">
-                            No tags found.
+                            {t("dashboard.showcaseModal.tagsNoResults")}
                           </p>
                           {tagSearchValue.trim() && (
                             <Button
@@ -467,12 +493,18 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                               className="w-full"
                               onClick={() => handleSelectTag(tagSearchValue)}
                             >
-                              Add "{tagSearchValue.trim()}"
+                              {t("dashboard.showcaseModal.tagsAdd", {
+                                tag: tagSearchValue.trim(),
+                              })}
                             </Button>
                           )}
                         </div>
                       </CommandEmpty>
-                      <CommandGroup heading="Available Tags">
+                      <CommandGroup
+                        heading={t(
+                          "dashboard.showcaseModal.tagsAvailableHeading",
+                        )}
+                      >
                         {availableTags.map((tag) => {
                           const isSelected = formData.tags.includes(tag);
                           return (
@@ -502,13 +534,19 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                                 tagSearchValue.trim().toLowerCase(),
                             )
                             ?.toLowerCase() && (
-                          <CommandGroup heading="Add New">
+                          <CommandGroup
+                            heading={t(
+                              "dashboard.showcaseModal.tagsAddHeading",
+                            )}
+                          >
                             <CommandItem
                               value={tagSearchValue}
                               onSelect={() => handleSelectTag(tagSearchValue)}
                             >
                               <Check className="mr-2 h-4 w-4 opacity-0" />
-                              Add "{tagSearchValue.trim()}"
+                              {t("dashboard.showcaseModal.tagsAdd", {
+                                tag: tagSearchValue.trim(),
+                              })}
                             </CommandItem>
                           </CommandGroup>
                         )}
@@ -526,7 +564,9 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
                       <button
                         onClick={() => handleRemoveTag(tag)}
                         className="ml-1 hover:text-destructive transition-colors"
-                        aria-label={`Remove ${tag}`}
+                        aria-label={t("dashboard.showcaseModal.tagRemoveAria", {
+                          tag,
+                        })}
                       >
                         <X className="h-3 w-3" />
                       </button>
@@ -544,7 +584,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
               onClick={() => handleOpenChange(false)}
               disabled={isSubmitting}
             >
-              Cancel
+              {t("dashboard.showcaseModal.actionsCancel")}
             </Button>
             <Button
               onClick={handleSubmit}
@@ -556,11 +596,11 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
             >
               {isSubmitting
                 ? mode === "edit"
-                  ? "Updating..."
-                  : "Creating..."
+                  ? t("dashboard.showcaseModal.actionsUpdating")
+                  : t("dashboard.showcaseModal.actionsCreating")
                 : mode === "edit"
-                  ? "Update Showcase"
-                  : "Create Showcase"}
+                  ? t("dashboard.showcaseModal.actionsUpdate")
+                  : t("dashboard.showcaseModal.actionsCreate")}
             </Button>
           </div>
         </DialogContent>
@@ -569,15 +609,18 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
       {/* Unsaved Changes Warning */}
       <AlertDialog open={showWarning} onOpenChange={setShowWarning}>
         <AlertDialogContent>
-          <AlertDialogTitle>Discard Changes?</AlertDialogTitle>
+          <AlertDialogTitle>
+            {t("dashboard.showcaseModal.unsavedTitle")}
+          </AlertDialogTitle>
           <AlertDialogDescription>
-            You have unsaved changes in the showcase form. Are you sure you want
-            to close without saving?
+            {t("dashboard.showcaseModal.unsavedDescription")}
           </AlertDialogDescription>
           <div className="flex justify-end gap-2">
-            <AlertDialogCancel>Keep Editing</AlertDialogCancel>
+            <AlertDialogCancel>
+              {t("dashboard.showcaseModal.unsavedKeepEditing")}
+            </AlertDialogCancel>
             <Button onClick={handleConfirmClose} variant="destructive">
-              Discard
+              {t("dashboard.showcaseModal.unsavedDiscard")}
             </Button>
           </div>
         </AlertDialogContent>

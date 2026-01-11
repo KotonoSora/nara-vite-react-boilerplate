@@ -11,6 +11,9 @@ import { useAuth } from "~/lib/authentication/hooks/use-auth";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { cn } from "~/lib/utils";
 
+/**
+ * Renders a showcase card with voting actions and external project link.
+ */
 export function ShowcaseItem({
   project,
   onItemClick,
@@ -60,7 +63,7 @@ export function ShowcaseItem({
               to={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={t("landing.github.seeMore")}
+              aria-label={t("showcase.showcase.visitShowcase")}
             >
               <ExternalLink className="w-4 h-4" />
             </Link>
@@ -85,7 +88,7 @@ export function ShowcaseItem({
               disabled={!isAuthenticated || isSubmitting}
               onClick={handleVote(1)}
               aria-pressed={project.userVote === 1}
-              aria-label="Upvote showcase"
+              aria-label={t("showcase.showcase.upvote")}
             >
               {project.userVote === 1 ? (
                 <ThumbsUp className="h-4 w-4" fill="" />
@@ -102,7 +105,7 @@ export function ShowcaseItem({
               disabled={!isAuthenticated || isSubmitting}
               onClick={handleVote(-1)}
               aria-pressed={project.userVote === -1}
-              aria-label="Downvote showcase"
+              aria-label={t("showcase.showcase.downvote")}
             >
               {project.userVote === -1 ? (
                 <ThumbsDown className="h-4 w-4" fill="" />

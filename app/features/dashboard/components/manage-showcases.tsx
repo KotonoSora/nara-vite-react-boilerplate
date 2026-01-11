@@ -11,6 +11,7 @@ import type { DashboardContentProps } from "../types/type";
 import type { ShowcaseFormData } from "./showcase-modal";
 
 import { Button } from "~/components/ui/button";
+import { useI18n } from "~/lib/i18n/hooks/use-i18n";
 
 import { DeleteShowcaseDialog } from "./delete-showcase-dialog";
 import { ShowcaseModal } from "./showcase-modal";
@@ -22,6 +23,7 @@ import { ShowcasesDataTable } from "./showcases-data-table";
  * Built with TanStack Table and shadcn/ui data-table pattern.
  */
 export const ManageShowcase: FC = () => {
+  const { t, language } = useI18n();
   const { showcases, availableTags, user } =
     useLoaderData<DashboardContentProps>();
   const fetcher = useFetcher();
@@ -132,7 +134,7 @@ export const ManageShowcase: FC = () => {
       if (data.image) fd.append("image", data.image);
       if (data.publishedAt)
         fd.append("publishedAt", data.publishedAt.toISOString());
-      for (const t of data.tags) fd.append("tags", t);
+      for (const tag of data.tags) fd.append("tags", tag);
 
       setLastSubmittedAction("update");
       fetcher.submit(fd, { method: "post", action: "/action/showcase/update" });
@@ -144,7 +146,7 @@ export const ManageShowcase: FC = () => {
       if (data.image) fd.append("image", data.image);
       if (data.publishedAt)
         fd.append("publishedAt", data.publishedAt.toISOString());
-      for (const t of data.tags) fd.append("tags", t);
+      for (const tag of data.tags) fd.append("tags", tag);
       fd.append("authorId", String(user.id));
 
       setLastSubmittedAction("create");
@@ -170,7 +172,7 @@ export const ManageShowcase: FC = () => {
       if (result.fieldErrors) {
         // Field validation errors: keep modal open, show field errors in modal
         setServerFieldErrors(result.fieldErrors);
-        toast.error("Please fix the validation errors");
+        toast.error(t("dashboard.manageShowcases.fixValidationErrors"));
       } else if (result.error) {
         // Non-field errors: close modal, show toast, refresh table
         toast.error(result.error);
@@ -185,12 +187,12 @@ export const ManageShowcase: FC = () => {
       } else if (result.success) {
         if (lastSubmittedAction === "create") {
           // Create success: close modal and reset form
-          toast.success("Showcase created successfully");
+          toast.success(t("dashboard.manageShowcases.created"));
           setIsCreateModalOpen(false);
           setServerFieldErrors({});
         } else if (lastSubmittedAction === "update") {
           // Update success: close modal and reset form
-          toast.success("Showcase updated successfully");
+          toast.success(t("dashboard.manageShowcases.updated"));
           setShowcaseToEdit(null);
           setServerFieldErrors({});
           const sp = new URLSearchParams(searchParams);
@@ -199,21 +201,21 @@ export const ManageShowcase: FC = () => {
           setSearchParams(sp);
         } else if (lastSubmittedAction === "delete") {
           // Delete success: refresh table
-          toast.success("Showcase deleted successfully");
+          toast.success(t("dashboard.manageShowcases.deleted"));
           const sp = new URLSearchParams(searchParams);
           sp.set("page", "1");
           sp.set("pageSize", String(pageSize));
           setSearchParams(sp);
         } else if (lastSubmittedAction === "publish") {
           // Publish success: refresh table
-          toast.success("Showcase published successfully");
+          toast.success(t("dashboard.manageShowcases.published"));
           const sp = new URLSearchParams(searchParams);
           sp.set("page", "1");
           sp.set("pageSize", String(pageSize));
           setSearchParams(sp);
         } else if (lastSubmittedAction === "unpublish") {
           // Unpublish success: refresh table
-          toast.success("Showcase unpublished successfully");
+          toast.success(t("dashboard.manageShowcases.unpublished"));
           const sp = new URLSearchParams(searchParams);
           sp.set("page", "1");
           sp.set("pageSize", String(pageSize));
@@ -229,6 +231,8 @@ export const ManageShowcase: FC = () => {
     searchParams,
     pageSize,
     setSearchParams,
+    t,
+    page,
   ]);
 
   /**
@@ -267,20 +271,24 @@ export const ManageShowcase: FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">My Showcases</h2>
+          <h2 className="text-2xl font-bold tracking-tight">
+            {t("dashboard.myShowcases.title")}
+          </h2>
           <p className="text-muted-foreground text-sm">
-            Manage your showcase portfolio ({total} total)
+            {t("dashboard.myShowcases.description", { total })}
           </p>
         </div>
         <Button onClick={handleCreate} className="gap-2">
           <Plus className="h-4 w-4" />
-          Add Showcase
+          {t("dashboard.myShowcases.addButton")}
         </Button>
       </div>
 
       {/* Data Table */}
       <ShowcasesDataTable
         columns={showcasesColumns(
+          t,
+          language,
           handleDelete,
           handlePublish,
           handleUnpublish,
