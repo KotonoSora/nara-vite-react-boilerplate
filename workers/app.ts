@@ -26,7 +26,7 @@ app.notFound((c) => c.json({ error: "Not Found" }, 404));
 
 // Add more routes here
 app.get("/health", (c) => c.json({ status: "ok" }));
-app.route("/api/dev", devShowcaseApi);
+app.route("/api/dev/showcases", devShowcaseApi);
 
 // Main request handler
 app.all("*", (c) => {

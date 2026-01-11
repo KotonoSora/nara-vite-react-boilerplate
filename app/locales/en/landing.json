@@ -177,5 +177,8 @@
   },
   "github": {
     "seeMore": "See More"
+  },
+  "donate": {
+    "label": "Buy Me a Coffee"
   }
 }

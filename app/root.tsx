@@ -49,7 +49,6 @@ export const links: Route.LinksFunction = () => {
   const links: ReturnType<Route.LinksFunction> = [
     { rel: "preload", href: appCssUrl, as: "style" },
     { rel: "stylesheet", href: appCssUrl },
-    { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
   ];
 
   // Preload Inter only in production to avoid dev warnings and keep fast paint in prod

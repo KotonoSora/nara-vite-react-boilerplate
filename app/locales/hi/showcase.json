@@ -8,8 +8,24 @@
     "description": "बॉयलरप्लेट फीचर्स के उदाहरण और प्रदर्शन",
     "components": "कंपोनेंट्स",
     "examples": "उदाहरण",
-    "demos": "डेमो"
+    "demos": "डेमो",
+    "descriptionLabel": "विवरण",
+    "upvote": "शोकेस को अपवोट करें",
+    "downvote": "शोकेस को डाउनवोट करें",
+    "visitShowcase": "शोकेस देखें"
   },
   "emptyTitle": "अभी तक कोई कम्युनिटी शोकेस नहीं",
-  "emptyMessage": "शोकेस जल्द ही आ रहे हैं। अन्वेषण के लिए बाद में वापस जांचें!"
+  "emptyMessage": "शोकेस जल्द ही आ रहे हैं। अन्वेषण के लिए बाद में वापस जांचें!",
+  "validation": {
+    "nameRequired": "नाम आवश्यक है",
+    "nameMinLength": "नाम कम से कम 3 वर्ण का होना चाहिए",
+    "descriptionRequired": "विवरण आवश्यक है",
+    "descriptionMinLength": "विवरण कम से कम 10 वर्ण का होना चाहिए",
+    "urlInvalid": "कृपया एक मान्य URL दर्ज करें",
+    "imageUrlInvalid": "अमान्य छवि URL",
+    "tagEmpty": "टैग खाली नहीं हो सकता",
+    "showcaseIdRequired": "शोकेस ID आवश्यक है",
+    "userIdRequired": "उपयोगकर्ता ID आवश्यक है",
+    "voteValueInvalid": "वोट मूल्य -1 या 1 होना चाहिए"
+  }
 }

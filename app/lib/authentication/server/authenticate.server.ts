@@ -20,7 +20,7 @@ const { getSession, commitSession, destroySession } =
  * @param redirectTo - The URL to redirect the user to after the session is created.
  * @returns A `Response` object with a 302 redirect and the session cookie set.
  */
-export async function createUserSession(userId: number, redirectTo: string) {
+export async function createUserSession(userId: string, redirectTo: string) {
   const session = await getSession();
   session.set("userId", userId);
   return new Response(null, {
@@ -47,12 +47,12 @@ export async function getUserSession(request: Request) {
  * Retrieves the user ID from the session associated with the given request.
  *
  * @param request - The incoming HTTP request object.
- * @returns A promise that resolves to the user ID as a number if present in the session, or `null` if not found or not a number.
+ * @returns A promise that resolves to the user ID as a string if present in the session, or `null` if not found or not a string.
  */
-export async function getUserId(request: Request): Promise<number | null> {
+export async function getUserId(request: Request): Promise<string | null> {
   const session = await getUserSession(request);
   const userId = session.get("userId");
-  return typeof userId === "number" ? userId : null;
+  return typeof userId === "string" ? userId : null;
 }
 
 /**
