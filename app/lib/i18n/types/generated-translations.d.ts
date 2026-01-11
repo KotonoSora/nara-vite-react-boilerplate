@@ -389,6 +389,87 @@ export interface DashboardTranslations {
       learnMore: string;
     };
   };
+  deleteShowcase: {
+    title: string;
+    description: string;
+    deleting: string;
+  };
+  myShowcases: {
+    title: string;
+    description: string;
+    addButton: string;
+  };
+  manageShowcases: {
+    fixValidationErrors: string;
+    created: string;
+    updated: string;
+    deleted: string;
+    published: string;
+    unpublished: string;
+  };
+  showcasesTable: {
+    selectAll: string;
+    selectRow: string;
+    name: string;
+    description: string;
+    tags: string;
+    moreTags: string;
+    status: string;
+    published: string;
+    draft: string;
+    created: string;
+    actions: string;
+    openMenu: string;
+    edit: string;
+    publish: string;
+    unpublish: string;
+    delete: string;
+    filterPlaceholder: string;
+    selectTags: string;
+    searchTags: string;
+    noTags: string;
+    clearTags: string;
+    columns: string;
+    empty: string;
+    selected: string;
+    previous: string;
+    next: string;
+    pageOf: string;
+  };
+  showcaseModal: {
+    validationError: string;
+    fieldError: string;
+    submitError: string;
+    titleCreate: string;
+    titleEdit: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    descriptionLabel: string;
+    descriptionPlaceholder: string;
+    urlLabel: string;
+    urlPlaceholder: string;
+    imageLabel: string;
+    imagePlaceholder: string;
+    publishedAtLabel: string;
+    tagsLabel: string;
+    tagsButtonEmpty: string;
+    tagsButtonCount: string;
+    tagsSearchPlaceholder: string;
+    tagsNoResults: string;
+    tagsAdd: string;
+    tagsAvailableHeading: string;
+    tagsAddHeading: string;
+    tagRemoveAria: string;
+    actionsCancel: string;
+    actionsCreate: string;
+    actionsUpdate: string;
+    actionsCreating: string;
+    actionsUpdating: string;
+    unsavedTitle: string;
+    unsavedDescription: string;
+    unsavedKeepEditing: string;
+    unsavedDiscard: string;
+  };
 }
 
 /**
@@ -808,9 +889,25 @@ export interface ShowcaseTranslations {
     components: string;
     examples: string;
     demos: string;
+    descriptionLabel: string;
+    upvote: string;
+    downvote: string;
+    visitShowcase: string;
   };
   emptyTitle: string;
   emptyMessage: string;
+  validation: {
+    nameRequired: string;
+    nameMinLength: string;
+    descriptionRequired: string;
+    descriptionMinLength: string;
+    urlInvalid: string;
+    imageUrlInvalid: string;
+    tagEmpty: string;
+    showcaseIdRequired: string;
+    userIdRequired: string;
+    voteValueInvalid: string;
+  };
 }
 
 /**

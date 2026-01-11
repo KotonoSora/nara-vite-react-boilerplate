@@ -11,6 +11,7 @@ import {
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type { ShowcaseItem } from "~/features/landing-page/utils/fetch-showcases";
+import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -23,23 +24,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-
-/**
- * Formats date to readable string.
- */
-const formatDate = (date?: Date): string => {
-  if (!date) return "—";
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
+import { type useTranslation } from "~/lib/i18n/hooks/use-translation";
+import { formatDate } from "~/lib/i18n/utils/datetime/format-date";
 
 /**
  * Column definitions for showcases data table.
  */
 export const showcasesColumns = (
+  t: ReturnType<typeof useTranslation>,
+  language: SupportedLanguage,
   onDelete?: (showcaseId: string) => void,
   onPublish?: (showcaseId: string) => void,
   onUnpublish?: (showcaseId: string) => void,
@@ -54,14 +47,14 @@ export const showcasesColumns = (
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label={t("dashboard.showcasesTable.selectAll")}
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label={t("dashboard.showcasesTable.selectRow")}
       />
     ),
     enableSorting: false,
@@ -75,7 +68,7 @@ export const showcasesColumns = (
         className="-ml-3"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Name
+        {t("dashboard.showcasesTable.name")}
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -100,7 +93,7 @@ export const showcasesColumns = (
   },
   {
     accessorKey: "description",
-    header: "Description",
+    header: t("dashboard.showcasesTable.description"),
     cell: ({ row }) => {
       const description = row.getValue("description") as string;
       return (
@@ -112,7 +105,7 @@ export const showcasesColumns = (
   },
   {
     accessorKey: "tags",
-    header: "Tags",
+    header: t("dashboard.showcasesTable.tags"),
     cell: ({ row }) => {
       const tags = row.getValue("tags") as string[];
       return (
@@ -126,7 +119,9 @@ export const showcasesColumns = (
               ))}
               {tags.length > 3 && (
                 <Badge variant="outline" className="text-xs">
-                  +{tags.length - 3}
+                  {t("dashboard.showcasesTable.moreTags", {
+                    count: tags.length - 3,
+                  })}
                 </Badge>
               )}
             </>
@@ -146,7 +141,7 @@ export const showcasesColumns = (
         className="-ml-3"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Status
+        {t("dashboard.showcasesTable.status")}
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -159,11 +154,13 @@ export const showcasesColumns = (
             variant={isPublished ? "default" : "secondary"}
             className="text-xs"
           >
-            {isPublished ? "Published" : "Draft"}
+            {isPublished
+              ? t("dashboard.showcasesTable.published")
+              : t("dashboard.showcasesTable.draft")}
           </Badge>
           {isPublished && (
             <span className="text-muted-foreground text-xs">
-              {formatDate(date)}
+              {formatDate(date, language)}
             </span>
           )}
         </div>
@@ -178,14 +175,16 @@ export const showcasesColumns = (
         className="-ml-3"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Created
+        {t("dashboard.showcasesTable.created")}
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
     cell: ({ row }) => {
       const date = row.getValue("createdAt") as Date | undefined;
       return (
-        <div className="text-muted-foreground text-xs">{formatDate(date)}</div>
+        <div className="text-muted-foreground text-xs">
+          {date && formatDate(date, language)}
+        </div>
       );
     },
   },
@@ -199,25 +198,29 @@ export const showcasesColumns = (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
+              <span className="sr-only">
+                {t("dashboard.showcasesTable.openMenu")}
+              </span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>
+              {t("dashboard.showcasesTable.actions")}
+            </DropdownMenuLabel>
             <DropdownMenuItem onClick={() => onEdit?.(showcase.id)}>
               <Edit className="mr-2 h-4 w-4" />
-              Edit
+              {t("dashboard.showcasesTable.edit")}
             </DropdownMenuItem>
             {!isPublished ? (
               <DropdownMenuItem onClick={() => onPublish?.(showcase.id)}>
                 <Send className="mr-2 h-4 w-4" />
-                Publish
+                {t("dashboard.showcasesTable.publish")}
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem onClick={() => onUnpublish?.(showcase.id)}>
                 <FileX className="mr-2 h-4 w-4" />
-                Unpublish
+                {t("dashboard.showcasesTable.unpublish")}
               </DropdownMenuItem>
             )}
             <DropdownMenuSeparator />
@@ -226,7 +229,7 @@ export const showcasesColumns = (
               onClick={() => onDelete?.(showcase.id)}
             >
               <Trash2 className="mr-2 h-4 w-4" />
-              Delete
+              {t("dashboard.showcasesTable.delete")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

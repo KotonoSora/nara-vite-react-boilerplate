@@ -8,8 +8,24 @@
     "description": "ตัวอย่างและการสาธิตคุณสมบัติของ boilerplate",
     "components": "คอมโพเนนต์",
     "examples": "ตัวอย่าง",
-    "demos": "เดโม"
+    "demos": "เดโม",
+    "descriptionLabel": "คำอธิบาย",
+    "upvote": "โหวตถูกใจโชว์เคส",
+    "downvote": "โหวตไม่ถูกใจโชว์เคส",
+    "visitShowcase": "เยี่ยมชมโชว์เคส"
   },
   "emptyTitle": "ยังไม่มีโชว์เคสจากชุมชน",
-  "emptyMessage": "โชว์เคสจะมาเร็ว ๆ นี้ โปรดกลับมาตรวจสอบอีกครั้งเพื่อสำรวจ!"
+  "emptyMessage": "โชว์เคสจะมาเร็ว ๆ นี้ โปรดกลับมาตรวจสอบอีกครั้งเพื่อสำรวจ!",
+  "validation": {
+    "nameRequired": "ชื่อเป็นข้อมูลที่จำเป็น",
+    "nameMinLength": "ชื่อต้องมีอย่างน้อย 3 ตัวอักษร",
+    "descriptionRequired": "คำอธิบายเป็นข้อมูลที่จำเป็น",
+    "descriptionMinLength": "คำอธิบายต้องมีอย่างน้อย 10 ตัวอักษร",
+    "urlInvalid": "โปรดป้อน URL ที่ถูกต้อง",
+    "imageUrlInvalid": "URL รูปภาพไม่ถูกต้อง",
+    "tagEmpty": "แท็กไม่สามารถว่างเปล่าได้",
+    "showcaseIdRequired": "ID โชว์เคสเป็นข้อมูลที่จำเป็น",
+    "userIdRequired": "ID ผู้ใช้เป็นข้อมูลที่จำเป็น",
+    "voteValueInvalid": "ค่าการโหวตต้องเป็น -1 หรือ 1"
+  }
 }

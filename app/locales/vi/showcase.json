@@ -8,8 +8,24 @@
     "description": "Các ví dụ và minh họa về các tính năng của boilerplate",
     "components": "Thành phần",
     "examples": "Ví dụ",
-    "demos": "Demo"
+    "demos": "Demo",
+    "descriptionLabel": "Mô tả",
+    "upvote": "Bình chọn ủng hộ",
+    "downvote": "Bình chọn không ủng hộ",
+    "visitShowcase": "Xem showcase"
   },
   "emptyTitle": "Chưa Có Sản Phẩm Từ Cộng Đồng",
-  "emptyMessage": "Các sản phẩm sẽ sớm ra mắt. Hãy quay lại sau để khám phá!"
+  "emptyMessage": "Các sản phẩm sẽ sớm ra mắt. Hãy quay lại sau để khám phá!",
+  "validation": {
+    "nameRequired": "Tên là bắt buộc",
+    "nameMinLength": "Tên phải có ít nhất 3 ký tự",
+    "descriptionRequired": "Mô tả là bắt buộc",
+    "descriptionMinLength": "Mô tả phải có ít nhất 10 ký tự",
+    "urlInvalid": "Vui lòng nhập URL hợp lệ",
+    "imageUrlInvalid": "URL hình ảnh không hợp lệ",
+    "tagEmpty": "Thẻ không được để trống",
+    "showcaseIdRequired": "ID showcase là bắt buộc",
+    "userIdRequired": "ID người dùng là bắt buộc",
+    "voteValueInvalid": "Giá trị bình chọn phải là -1 hoặc 1"
+  }
 }

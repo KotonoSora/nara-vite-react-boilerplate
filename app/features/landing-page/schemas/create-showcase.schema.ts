@@ -9,15 +9,19 @@ export const createShowcaseSchema = z.object({
   name: z
     .string()
     .trim()
-    .min(1, "Name is required")
-    .min(3, "Name must be at least 3 characters"),
+    .min(1, "showcase.validation.nameRequired")
+    .min(3, "showcase.validation.nameMinLength"),
   description: z
     .string()
     .trim()
-    .min(1, "Description is required")
-    .min(10, "Description must be at least 10 characters"),
-  url: z.url("Please enter a valid URL").trim(),
-  image: z.url("Invalid image URL").trim().or(z.literal("")).optional(),
+    .min(1, "showcase.validation.descriptionRequired")
+    .min(10, "showcase.validation.descriptionMinLength"),
+  url: z.url("showcase.validation.urlInvalid").trim(),
+  image: z
+    .url("showcase.validation.imageUrlInvalid")
+    .trim()
+    .or(z.literal(""))
+    .optional(),
   publishedAt: z
     .union([
       z.date(),
@@ -25,7 +29,9 @@ export const createShowcaseSchema = z.object({
     ])
     .optional(),
   authorId: z.string().trim().optional(),
-  tags: z.array(z.string().trim().min(1, "Tag cannot be empty")).default([]),
+  tags: z
+    .array(z.string().trim().min(1, "showcase.validation.tagEmpty"))
+    .default([]),
 });
 
 export type CreateShowcaseInput = z.infer<typeof createShowcaseSchema>;

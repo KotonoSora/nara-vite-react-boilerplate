@@ -9,6 +9,7 @@ import { Button } from "~/components/ui/button";
 import { Dialog, DialogContent } from "~/components/ui/dialog";
 import SocialPreview from "~/features/shared/assets/social-preview.svg?no-inline";
 import { useAuth } from "~/lib/authentication/hooks/use-auth";
+import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { cn } from "~/lib/utils";
 
 interface ShowcaseDetailModalProps {
@@ -34,6 +35,8 @@ export function ShowcaseDetailModal({
 }: ShowcaseDetailModalProps) {
   const fetcher = useFetcher();
   const { user, isAuthenticated } = useAuth();
+
+  const t = useTranslation();
 
   const isSubmitting = fetcher.state !== "idle";
 
@@ -133,7 +136,7 @@ export function ShowcaseDetailModal({
             disabled={!isAuthenticated || isSubmitting}
             onClick={handleVote(1)}
             aria-pressed={project.userVote === 1}
-            aria-label="Upvote showcase"
+            aria-label={t("showcase.showcase.upvote")}
           >
             {project.userVote === 1 ? (
               <ThumbsUp className="h-4 w-4" fill="" />
@@ -150,7 +153,7 @@ export function ShowcaseDetailModal({
             disabled={!isAuthenticated || isSubmitting}
             onClick={handleVote(-1)}
             aria-pressed={project.userVote === -1}
-            aria-label="Downvote showcase"
+            aria-label={t("showcase.showcase.downvote")}
           >
             {project.userVote === -1 ? (
               <ThumbsDown className="h-4 w-4" fill="" />
@@ -162,7 +165,9 @@ export function ShowcaseDetailModal({
 
           {/* DESCRIPTION */}
           <div className="space-y-2">
-            <h3 className="text-sm font-medium">Description</h3>
+            <h3 className="text-sm font-medium">
+              {t("showcase.showcase.descriptionLabel")}
+            </h3>
             <p className="text-sm leading-relaxed text-muted-foreground">
               {project.description}
             </p>
@@ -174,7 +179,7 @@ export function ShowcaseDetailModal({
           <Button asChild className="w-full">
             <Link to={project.url} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="mr-2 h-4 w-4" />
-              Visit Showcase
+              {t("showcase.showcase.visitShowcase")}
             </Link>
           </Button>
         </div>
