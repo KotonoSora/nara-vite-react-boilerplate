@@ -153,7 +153,7 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
 
   /**
    * Handles field blur event to validate and clear errors for valid fields.
-   * Validates the field in context of the full form to avoid cross-field noise.
+   * Validates against the latest value instead of potentially stale state.
    */
   const handleFieldBlur = (
     field: keyof ShowcaseFormData,
@@ -168,26 +168,34 @@ export const ShowcaseModal: FC<ShowcaseModalProps> = ({
       return;
     }
 
-    // Validate full schema and extract only this field's error
-    const result = createShowcaseSchema.safeParse(formData);
+    const nextFormData: ShowcaseFormData = {
+      ...formData,
+      [field]: value,
+    };
+
+    const result = createShowcaseSchema.safeParse(nextFormData);
 
     if (!result.success) {
       const errors = parseValidationErrors(result);
       if (errors && errors[field]) {
         setFieldErrors((prev) => ({ ...prev, [field]: errors[field] }));
         setErrorMessage(t("dashboard.showcaseModal.fieldError"));
+      } else if (fieldErrors[field]) {
+        setFieldErrors((prev) => {
+          const next = { ...prev };
+          delete next[field];
+          return next;
+        });
       }
       return;
     }
 
-    // Validation passed, clear this field's error
-    if (result.success && fieldErrors[field]) {
+    if (fieldErrors[field]) {
       setFieldErrors((prev) => {
         const next = { ...prev };
         delete next[field];
         return next;
       });
-      return;
     }
   };
 
