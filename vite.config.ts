@@ -63,7 +63,6 @@ export default defineConfig(() => ({
       "date-fns",
       "qrcode.react",
     ],
-    exclude: ["@kotonosora/nara-utils"],
   },
   build: {
     rollupOptions: {

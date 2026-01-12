@@ -1,3 +1,7 @@
+import {
+  cancelIdleCallback,
+  scheduleIdleCallback,
+} from "@kotonosora/scheduler";
 import clsx from "clsx";
 import { lazy, Suspense, useEffect, useState } from "react";
 import {
@@ -26,10 +30,6 @@ import { HeadScriptTrackingTag } from "~/features/google-analytics/components/he
 import { usePageView } from "~/features/google-analytics/hooks/use-page-view";
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/authentication/react/provider";
-import {
-  cancelIdleCallback,
-  scheduleIdleCallback,
-} from "~/lib/helper/idle.client";
 import { DEFAULT_LANGUAGE } from "~/lib/i18n/constants/common";
 import { I18nProvider } from "~/lib/i18n/react/provider";
 import { isRTLLanguage } from "~/lib/i18n/utils/common/is-rtl-language";

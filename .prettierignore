@@ -32,3 +32,5 @@
 !database/**
 !scripts/
 !scripts/**
+!packages/
+!packages/**
