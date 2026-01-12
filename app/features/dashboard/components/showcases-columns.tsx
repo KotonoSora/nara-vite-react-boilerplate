@@ -1,3 +1,4 @@
+import { formatDate } from "@kotonosora/i18n";
 import {
   ArrowUpDown,
   Edit,
@@ -25,7 +26,6 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { type useTranslation } from "~/lib/i18n/hooks/use-translation";
-import { formatDate } from "~/lib/i18n/utils/datetime/format-date";
 
 /**
  * Column definitions for showcases data table.

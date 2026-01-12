@@ -1,12 +1,12 @@
+import { createTranslationFunction } from "@kotonosora/i18n";
 import { useState } from "react";
 import { useFetcher } from "react-router";
 
+import type { SupportedLanguage } from "@kotonosora/i18n";
 import type { JSX } from "react";
 
-import type { SupportedLanguage } from "../types/common";
 import type { I18nProviderProps } from "../types/context";
 
-import { createTranslationFunction } from "../utils/translations/create-translation-function";
 import { I18nReactContext } from "./context";
 
 /**

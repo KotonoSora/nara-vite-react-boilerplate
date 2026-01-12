@@ -1,8 +1,10 @@
-import type { SupportedLanguage } from "../types/common";
+import {
+  DEFAULT_LANGUAGE,
+  detectLanguageFromAcceptLanguage,
+  getLanguageFromPath,
+} from "@kotonosora/i18n";
 
-import { DEFAULT_LANGUAGE } from "../constants/common";
-import { detectLanguageFromAcceptLanguage } from "../utils/common/detect-language-from-accept-language";
-import { getLanguageFromPath } from "../utils/common/get-language-from-path";
+import type { SupportedLanguage } from "@kotonosora/i18n";
 
 /**
  * Resolves the preferred language for a given HTTP request.

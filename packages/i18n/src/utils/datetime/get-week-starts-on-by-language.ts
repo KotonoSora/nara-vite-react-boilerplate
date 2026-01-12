@@ -1,6 +1,6 @@
 import type { Day } from "date-fns";
 
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
+import type { SupportedLanguage } from "../../types/common";
 
 import { getDateFNSLocaleByLanguage } from "./get-date-fns-locale-by-language";
 

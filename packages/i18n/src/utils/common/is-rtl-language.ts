@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from "../../types/common";
 
-import { RTL_LANGUAGES } from "../../constants/common";
+import { RTL_LANGUAGES } from "../../constants/rtl";
 
 /**
  * Determines whether the specified language uses right-to-left (RTL) text direction.

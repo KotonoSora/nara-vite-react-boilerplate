@@ -1,6 +1,6 @@
 import type { Locale } from "date-fns";
 
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
+import type { SupportedLanguage } from "../../types/common";
 
 /**
  * Cache for loaded date-fns locales to avoid re-importing

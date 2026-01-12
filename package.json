@@ -7,9 +7,14 @@
   "private": true,
   "version": "4.6.19",
   "type": "module",
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "catalog": {
+      "date-fns": "4.1.0"
+    }
+  },
   "scripts": {
     "build": "react-router build",
     "db:generate": "dotenv -- drizzle-kit generate",
@@ -38,7 +43,7 @@
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "cmdk": "1.1.1",
-    "date-fns": "4.1.0",
+    "date-fns": "catalog:",
     "drizzle-orm": "~0.45.1",
     "embla-carousel-react": "8.6.0",
     "hono": "4.11.3",

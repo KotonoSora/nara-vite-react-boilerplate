@@ -1,16 +1,15 @@
+import { createTranslationFunctionWithData } from "@kotonosora/i18n";
 import { createContext } from "react-router";
-
-import type { SupportedLanguage } from "@kotonosora/i18n";
-import type { MiddlewareFunction } from "react-router";
 
 import type {
   NestedTranslationObject,
+  SupportedLanguage,
   TranslationFunction,
-} from "~/lib/i18n/types/translations";
+} from "@kotonosora/i18n";
+import type { MiddlewareFunction } from "react-router";
 
 import { loadDataTranslations } from "~/lib/i18n/server/load-data-translations.server";
 import { resolveRequestLanguage } from "~/lib/i18n/server/request-language.server";
-import { createTranslationFunctionWithData } from "~/lib/i18n/utils/translations/create-translation-function-with-data";
 
 export type I18nReactRouterContextType = {
   language: SupportedLanguage;

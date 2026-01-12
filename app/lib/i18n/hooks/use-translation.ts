@@ -1,4 +1,4 @@
-import type { TranslationFunction } from "../types/translations";
+import type { TranslationFunction } from "@kotonosora/i18n";
 
 import { useI18n } from "./use-i18n";
 

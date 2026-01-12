@@ -6,12 +6,19 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const LOCALES_DIR = join(process.cwd(), "app", "locales", "en");
+const LOCALES_DIR = join(
+  process.cwd(),
+  "packages",
+  "i18n",
+  "src",
+  "locales",
+  "en",
+);
 const OUTPUT_FILE = join(
   process.cwd(),
-  "app",
-  "lib",
+  "packages",
   "i18n",
+  "src",
   "types",
   "generated-translations.d.ts",
 );
@@ -28,7 +35,9 @@ function generateInterfaceFromJson(obj, indent = 0) {
   let result = "";
 
   for (const [key, value] of Object.entries(obj)) {
-    if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+    if (Array.isArray(value)) {
+      result += `${spaces}${key}: string[];\n`;
+    } else if (typeof value === "object" && value !== null) {
       result += `${spaces}${key}: {\n`;
       result += generateInterfaceFromJson(value, indent + 1);
       result += `${spaces}};\n`;
@@ -95,7 +104,7 @@ function generateTypes() {
   typeDefinitions += `/**
  * Complete namespace translation structure combining all translation namespaces
  * Provides full static typing for all translation keys
- */\nexport type NamespaceTranslations = ${baseInterface} & {\n`;
+ */\nexport type AppNamespaceTranslations = ${baseInterface} & {\n`;
 
   for (const { namespace } of namespaceList) {
     if (namespace === "common") continue;
@@ -109,21 +118,25 @@ function generateTypes() {
 
   typeDefinitions += `};\n\n`;
 
+  typeDefinitions += `export type NamespaceTranslations = AppNamespaceTranslations;\n\n`;
+
   typeDefinitions += `/**
  * Type-safe key path helper for translation keys
  * Provides IntelliSense support for nested translation keys
  */
-export type TranslationKeyPath<T extends object> = {
-  [K in keyof T]: T[K] extends object
-    ? \`\${K & string}.\${TranslationKeyPath<T[K]>}\`
+export type AppTranslationKeyPath<T extends object> = {
+  [K in keyof T & string]: T[K] extends object
+    ? \`\${K}.\${AppTranslationKeyPath<T[K]>}\`
     : K;
-}[keyof T];
+}[keyof T & string];
+
+export type TranslationKeyPath<T extends object> = AppTranslationKeyPath<T>;
 
 /**
  * Generic translation provider with static type support
  */
 export type TranslationProvider<
-  T extends NamespaceTranslations = NamespaceTranslations,
+  T extends AppNamespaceTranslations = AppNamespaceTranslations,
 > = {
   get<K extends TranslationKeyPath<T>>(
     key: K,
@@ -137,8 +150,8 @@ export type TranslationProvider<
  * Available globally without imports
  */
 declare global {
-  type NamespaceTranslations = NamespaceTranslations;
-  type TranslationKeyPath = TranslationKeyPath<NamespaceTranslations>;
+  type NamespaceTranslations = AppNamespaceTranslations;
+  type TranslationKeyPath = AppTranslationKeyPath<AppNamespaceTranslations>;
 }
 `;
 

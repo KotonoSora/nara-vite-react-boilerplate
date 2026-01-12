@@ -1,3 +1,4 @@
+import { formatSecondsToMinutesSeconds } from "@kotonosora/i18n";
 import { useEffect, useReducer, useRef, useState } from "react";
 
 import type { ForestAction, ForestState } from "../types/common";
@@ -5,7 +6,6 @@ import type { ForestAction, ForestState } from "../types/common";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { useLanguage } from "~/lib/i18n/hooks/use-language";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
-import { formatSecondsToMinutesSeconds } from "~/lib/i18n/utils/datetime/format-seconds-to-minutes-seconds";
 
 import {
   FOREST_ACTIONS,

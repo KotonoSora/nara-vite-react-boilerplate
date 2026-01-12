@@ -678,27 +678,27 @@ export interface LandingTranslations {
       charts: {
         name: string;
         description: string;
-        tags: string;
+        tags: string[];
       };
       calendar: {
         name: string;
         description: string;
-        tags: string;
+        tags: string[];
       };
       forest: {
         name: string;
         description: string;
-        tags: string;
+        tags: string[];
       };
       blog: {
         name: string;
         description: string;
-        tags: string;
+        tags: string[];
       };
       qrGenerator: {
         name: string;
         description: string;
-        tags: string;
+        tags: string[];
       };
     };
   };
@@ -736,7 +736,7 @@ export interface LegalTranslations {
       responsibilities: {
         title: string;
         content: string;
-        items: string;
+        items: string[];
       };
       intellectual: {
         title: string;
@@ -770,22 +770,22 @@ export interface LegalTranslations {
         content: string;
         personal: {
           title: string;
-          items: string;
+          items: string[];
         };
         usage: {
           title: string;
-          items: string;
+          items: string[];
         };
       };
       usage: {
         title: string;
         content: string;
-        items: string;
+        items: string[];
       };
       sharing: {
         title: string;
         content: string;
-        items: string;
+        items: string[];
       };
       security: {
         title: string;
@@ -798,7 +798,7 @@ export interface LegalTranslations {
       rights: {
         title: string;
         content: string;
-        items: string;
+        items: string[];
       };
       cookies: {
         title: string;
@@ -945,7 +945,7 @@ export interface TimeTranslations {
  * Complete namespace translation structure combining all translation namespaces
  * Provides full static typing for all translation keys
  */
-export type NamespaceTranslations = CommonTranslations & {
+export type AppNamespaceTranslations = CommonTranslations & {
   about: AboutTranslations;
   admin: AdminTranslations;
   auth: AuthTranslations;
@@ -963,21 +963,25 @@ export type NamespaceTranslations = CommonTranslations & {
   time: TimeTranslations;
 };
 
+export type NamespaceTranslations = AppNamespaceTranslations;
+
 /**
  * Type-safe key path helper for translation keys
  * Provides IntelliSense support for nested translation keys
  */
-export type TranslationKeyPath<T extends object> = {
-  [K in keyof T]: T[K] extends object
-    ? `${K & string}.${TranslationKeyPath<T[K]>}`
+export type AppTranslationKeyPath<T extends object> = {
+  [K in keyof T & string]: T[K] extends object
+    ? `${K}.${AppTranslationKeyPath<T[K]>}`
     : K;
-}[keyof T];
+}[keyof T & string];
+
+export type TranslationKeyPath<T extends object> = AppTranslationKeyPath<T>;
 
 /**
  * Generic translation provider with static type support
  */
 export type TranslationProvider<
-  T extends NamespaceTranslations = NamespaceTranslations,
+  T extends AppNamespaceTranslations = AppNamespaceTranslations,
 > = {
   get<K extends TranslationKeyPath<T>>(
     key: K,
@@ -991,6 +995,6 @@ export type TranslationProvider<
  * Available globally without imports
  */
 declare global {
-  type NamespaceTranslations = NamespaceTranslations;
-  type TranslationKeyPath = TranslationKeyPath<NamespaceTranslations>;
+  type NamespaceTranslations = AppNamespaceTranslations;
+  type TranslationKeyPath = AppTranslationKeyPath<AppNamespaceTranslations>;
 }

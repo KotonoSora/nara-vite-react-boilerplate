@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link, useActionData, useLoaderData } from "react-router";
 import { z } from "zod";
 
-import type { TranslationFunction } from "~/lib/i18n/types/translations";
+import type { TranslationFunction } from "@kotonosora/i18n";
 
 import type { ResetPasswordPageProps } from "../types/type";
 

@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
+import type { SupportedLanguage } from "../../types/common";
 
 import { getIntlLocaleByLanguage } from "./get-intl-locale-by-language";
 
