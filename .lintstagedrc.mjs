@@ -1,5 +1,5 @@
 export default {
-  "(app|database|workers)/**/*.{ts,tsx}": (filenames) => {
+  "(app|database|workers|packages)/**/*.{ts,tsx}": (filenames) => {
     const quotedFiles = filenames.map((file) => `"${file}"`).join(" ");
     return [
       `bun run prettier ${quotedFiles} --write`,
