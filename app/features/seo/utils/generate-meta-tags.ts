@@ -16,20 +16,35 @@ import {
   twitterHandle,
 } from "../constants/common";
 
-const canonicalUrl =
-  import.meta.env.VITE_DOMAIN_ENV === "production"
-    ? import.meta.env.VITE_PROD_DOMAIN
-    : import.meta.env.VITE_DEV_DOMAIN;
-
+/**
+ * Generates SEO meta tags for a page.
+ *
+ * Implementation notes:
+ * - Computes `canonicalUrl` lazily at call time to avoid module-load env access.
+ * - Falls back to a bundled social preview if domain envs are absent.
+ */
 export function generateMetaTags({
   title = import.meta.env.VITE_LANDING_PAGE_TITLE,
   description = import.meta.env.VITE_LANDING_PAGE_DESCRIPTION,
   language = DEFAULT_LANGUAGE,
 }: GenerateMetaTagsParams): GenerateMetaTagsResponse {
   const locale = getIntlLocaleByLanguage(language);
-  const socialImage = canonicalUrl + "/assets/png/social-media.png";
-  const fallbackSocialImage = SocialPreview;
-  const imageContent = socialImage ?? fallbackSocialImage;
+
+  // Compute canonical URL at runtime to avoid module-load env dependency
+  const isProd = import.meta.env.VITE_DOMAIN_ENV === "production";
+  const domain = isProd
+    ? import.meta.env.VITE_PROD_DOMAIN
+    : import.meta.env.VITE_DEV_DOMAIN;
+  const canonicalUrl = domain ?? "";
+
+  const socialImageUrl = canonicalUrl
+    ? `${canonicalUrl}/assets/png/social-media.png`
+    : undefined;
+  const fallbackImageUrl = SocialPreview;
+  const seoImageUrl = socialImageUrl ?? fallbackImageUrl;
+  const faviconHref = canonicalUrl
+    ? `${canonicalUrl}/favicon.ico`
+    : "/favicon.ico";
 
   return [
     { title },
@@ -52,7 +67,7 @@ export function generateMetaTags({
       content: publisherUrl,
     },
     { property: "article:modified_time", content: modifiedTime },
-    { property: "og:image", content: imageContent },
+    { property: "og:image", content: seoImageUrl },
     { property: "og:image:width", content: "1280" },
     { property: "og:image:height", content: "640" },
     { property: "og:image:type", content: "image/png" },
@@ -60,9 +75,9 @@ export function generateMetaTags({
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
     { name: "twitter:site", content: twitterHandle },
-    { name: "twitter:image", content: imageContent },
+    { name: "twitter:image", content: seoImageUrl },
     { name: "keywords", content: keywords },
     { name: "author", content: author },
-    { rel: "icon", href: `${canonicalUrl}/favicon.ico`, type: "image/x-icon" },
+    { rel: "icon", href: faviconHref, type: "image/x-icon" },
   ];
 }

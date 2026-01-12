@@ -8,8 +8,24 @@
     "description": "样板功能的示例和演示",
     "components": "组件",
     "examples": "示例",
-    "demos": "演示"
+    "demos": "演示",
+    "descriptionLabel": "描述",
+    "upvote": "为展示点赞",
+    "downvote": "为展示点踩",
+    "visitShowcase": "访问展示"
   },
   "emptyTitle": "暂无社区展示",
-  "emptyMessage": "展示即将上线，敬请期待！"
+  "emptyMessage": "展示即将上线，敬请期待！",
+  "validation": {
+    "nameRequired": "名称为必填项",
+    "nameMinLength": "名称至少需要3个字符",
+    "descriptionRequired": "描述为必填项",
+    "descriptionMinLength": "描述至少需要10个字符",
+    "urlInvalid": "请输入有效的URL",
+    "imageUrlInvalid": "图片URL无效",
+    "tagEmpty": "标签不能为空",
+    "showcaseIdRequired": "展示ID为必填项",
+    "userIdRequired": "用户ID为必填项",
+    "voteValueInvalid": "投票值必须为-1或1"
+  }
 }

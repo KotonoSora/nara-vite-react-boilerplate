@@ -1,3 +1,4 @@
+import type { FetchShowcasesResult } from "~/features/landing-page/utils/fetch-showcases";
 import type { ProjectInfo } from "~/features/showcases/types/type";
 
 export type ProjectInfoWithoutID = Omit<ProjectInfo, "id">;
@@ -24,7 +25,7 @@ export type FeatureCardConfig = {
 };
 
 export type LandingPageContextType = {
-  showcases: Promise<ProjectInfo[]>;
+  showcases: Promise<FetchShowcasesResult>;
   builtInDemos: ProjectInfo[];
   steps: Step[];
   featuresConfig: FeatureCardConfig[];

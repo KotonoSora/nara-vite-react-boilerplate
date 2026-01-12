@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.6.19 (2025-01-11)
+
+- Implemented management showcases by users
+- Implemented internalization for management showcase features
+
 ## 4.6.18 (2025-12-26)
 
 - Create scripts for automation generate i18n json files

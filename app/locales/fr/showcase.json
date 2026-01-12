@@ -8,8 +8,24 @@
     "description": "Exemples et démonstrations des fonctionnalités du boilerplate",
     "components": "Composants",
     "examples": "Exemples",
-    "demos": "Démos"
+    "demos": "Démos",
+    "descriptionLabel": "Description",
+    "upvote": "Vote positif",
+    "downvote": "Vote négatif",
+    "visitShowcase": "Visiter la vitrine"
   },
   "emptyTitle": "Aucune Vitrine de la Communauté pour le Moment",
-  "emptyMessage": "Les vitrines arrivent bientôt. Revenez plus tard pour explorer !"
+  "emptyMessage": "Les vitrines arrivent bientôt. Revenez plus tard pour explorer !",
+  "validation": {
+    "nameRequired": "Le nom est requis",
+    "nameMinLength": "Le nom doit contenir au moins 3 caractères",
+    "descriptionRequired": "La description est requise",
+    "descriptionMinLength": "La description doit contenir au moins 10 caractères",
+    "urlInvalid": "Veuillez entrer une URL valide",
+    "imageUrlInvalid": "URL d'image invalide",
+    "tagEmpty": "L'étiquette ne peut pas être vide",
+    "showcaseIdRequired": "L'ID de la vitrine est requis",
+    "userIdRequired": "L'ID utilisateur est requis",
+    "voteValueInvalid": "La valeur du vote doit être -1 ou 1"
+  }
 }

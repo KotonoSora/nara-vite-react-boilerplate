@@ -1,10 +1,12 @@
+import { eq } from "drizzle-orm";
+
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import type { ProjectInfoWithoutID } from "../types/type";
 
-import * as schema from "~/database/schema/showcase";
+import * as schema from "~/database/schema";
 
-const { showcase, showcaseTag } = schema;
+const { showcase, showcaseTag, tag } = schema;
 
 /**
  * Seeds the database with showcase information.
@@ -17,31 +19,55 @@ export async function seedShowcases(
   showcases: ProjectInfoWithoutID[],
 ) {
   try {
-    await db.delete(showcase).execute();
-    await db.delete(showcaseTag).execute();
+    if (!showcases?.length) return;
+    await db.delete(showcaseTag).run();
+    await db.delete(showcase).run();
 
-    const existingShowcase = await db
-      .select({ id: showcase.id })
-      .from(showcase)
-      .limit(1);
+    const chunkSize = 10;
 
-    if (!existingShowcase.length && showcases) {
-      await db.insert(showcase).values(showcases);
+    const showcasesWithIds = showcases.map((item) => ({
+      ...item,
+      id: crypto.randomUUID(),
+    }));
 
-      const insertedShowcases = await db
-        .select({ id: showcase.id })
-        .from(showcase)
-        .execute();
+    for (let i = 0; i < showcasesWithIds.length; i += chunkSize) {
+      const batch = showcasesWithIds.slice(i, i + chunkSize);
+      await db.insert(showcase).values(batch).run();
+    }
 
-      for (const [index, showcase] of insertedShowcases.entries()) {
-        if (showcases[index].tags) {
-          await db.insert(showcaseTag).values(
-            showcases[index].tags.map((tag) => ({
-              showcaseId: showcase.id,
-              tag,
-            })),
-          );
+    // Create/find tags and link them to showcases
+    for (const { id: showcaseId, tags: tagNames } of showcasesWithIds) {
+      if (!tagNames?.length) continue;
+
+      for (const tagName of tagNames) {
+        const slug = tagName.toLowerCase().replace(/\s+/g, "-");
+
+        // Check if tag exists
+        const existingTag = await db
+          .select()
+          .from(tag)
+          .where(eq(tag.slug, slug))
+          .get();
+
+        let tagId: string;
+
+        if (existingTag) {
+          tagId = existingTag.id;
+        } else {
+          // Create new tag
+          tagId = crypto.randomUUID();
+          await db.insert(tag).values({
+            id: tagId,
+            name: tagName,
+            slug: slug,
+          });
         }
+
+        // Link showcase to tag
+        await db.insert(showcaseTag).values({
+          showcaseId,
+          tagId,
+        });
       }
     }
   } catch (error) {
