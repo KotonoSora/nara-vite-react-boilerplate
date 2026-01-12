@@ -7,6 +7,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "date-fns": "catalog:"
+    "date-fns": "catalog:",
+    "@kotonosora/i18n-locales": "workspace:*"
   }
 }

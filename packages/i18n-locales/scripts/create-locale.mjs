@@ -30,7 +30,7 @@ const __dirname = dirname(__filename);
 
 // Get the project root directory
 const projectRoot = join(__dirname, "..");
-const localesDir = join(projectRoot, "app", "locales");
+const localesDir = join(projectRoot, "src", "translations", "locales");
 
 /**
  * Get all existing language directories
@@ -119,7 +119,9 @@ async function main() {
     const languages = await getLanguageDirectories();
 
     if (languages.length === 0) {
-      console.log("\n❌ No language directories found in app/locales");
+      console.log(
+        "\n❌ No language directories found in src/translations/locales",
+      );
       rl.close();
       return;
     }

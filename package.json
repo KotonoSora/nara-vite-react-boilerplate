@@ -24,17 +24,14 @@
     "dev": "react-router dev",
     "start": "wrangler dev",
     "wrangler:types": "wrangler types",
-    "pretypecheck": "wrangler types && node scripts/generate-i18n-types.mjs",
+    "pretypecheck": "wrangler types && node packages/i18n-locales/scripts/generate-i18n-types.mjs",
     "typecheck": "react-router typegen",
     "posttypecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",
     "prepare": "husky",
     "lint:commitlint": "commitlint --edit",
     "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "generate:i18n-types": "node scripts/generate-i18n-types.mjs",
-    "generate:i18n-locales": "node scripts/generate-missing-locales.mjs",
-    "create:locale": "node scripts/create-locale.mjs"
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@hono/zod-validator": "0.7.6",

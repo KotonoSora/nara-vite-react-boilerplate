@@ -2,7 +2,7 @@
 
 /**
  * Script to auto-generate missing JSON locale files for all languages
- * based on the English locale files in app/locales/en/
+ * based on the English locale files in src/translations/locales/en/
  *
  * Usage:
  *   node scripts/generate-missing-locales.mjs
@@ -25,7 +25,7 @@ const __dirname = dirname(__filename);
 
 // Get the project root directory
 const projectRoot = join(__dirname, "..");
-const localesDir = join(projectRoot, "app", "locales");
+const localesDir = join(projectRoot, "src", "translations", "locales");
 const baseLanguage = "en";
 
 /**

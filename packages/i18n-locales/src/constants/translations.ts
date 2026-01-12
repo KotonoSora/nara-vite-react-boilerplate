@@ -1,5 +1,7 @@
-import type { SupportedLanguage } from "../types/common";
-import type { NestedTranslationObject } from "../types/translations";
+import type {
+  NestedTranslationObject,
+  SupportedLanguage,
+} from "@kotonosora/i18n";
 
 // Import translation files
 import { arabicTranslations } from "./locales/arabic";
