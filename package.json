@@ -7,6 +7,9 @@
   "private": true,
   "version": "4.6.19",
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "react-router build",
     "db:generate": "dotenv -- drizzle-kit generate",
@@ -29,6 +32,7 @@
     "create:locale": "node scripts/create-locale.mjs"
   },
   "dependencies": {
+    "@kotonosora/nara-utils": "workspace:*",
     "@hono/zod-validator": "0.7.6",
     "@hookform/resolvers": "5.2.2",
     "@tanstack/react-table": "8.21.3",

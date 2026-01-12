@@ -2,7 +2,8 @@
   "files": [],
   "references": [
     { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.cloudflare.json" }
+    { "path": "./tsconfig.cloudflare.json" },
+    { "path": "./packages/utils" }
   ],
   "compilerOptions": {
     "checkJs": true,
@@ -16,7 +17,8 @@
     "paths": {
       "~/workers/*": ["./workers/*"],
       "~/database/*": ["./database/*"],
-      "~/*": ["./app/*"]
+      "~/*": ["./app/*"],
+      "@kotonosora/nara-utils": ["./packages/utils/src/index.ts"]
     }
   }
 }
