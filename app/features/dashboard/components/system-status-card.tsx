@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Activity } from "lucide-react";
 
 import { Badge } from "~/components/ui/badge";
@@ -9,7 +10,6 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function SystemStatusCard() {
   const t = useTranslation();

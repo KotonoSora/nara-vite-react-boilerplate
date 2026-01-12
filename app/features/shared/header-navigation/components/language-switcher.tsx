@@ -5,6 +5,7 @@ import {
   LANGUAGE_NAMES,
   SUPPORTED_LANGUAGES,
 } from "@kotonosora/i18n";
+import { useLanguage, useTranslation } from "@kotonosora/i18n-react";
 import clsx from "clsx";
 import { Globe } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -13,8 +14,6 @@ import { useLocation, useNavigate } from "react-router";
 import { Button } from "~/components/ui/button";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { useLazyImport } from "~/hooks/use-lazy-import";
-import { useLanguage } from "~/lib/i18n/hooks/use-language";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 // Lazy-load dropdown primitives only when needed to trim initial JS
 export function LanguageSwitcher() {

@@ -1,10 +1,10 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Link, useLoaderData } from "react-router";
 
 import type { GeneralInformationType } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import GitHubLogoDark from "../assets/github-invertocat-dark.svg?no-inline";
 import GitHubLogoLight from "../assets/github-invertocat-light.svg?no-inline";

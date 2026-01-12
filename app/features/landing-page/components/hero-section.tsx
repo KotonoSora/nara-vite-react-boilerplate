@@ -1,10 +1,10 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { ArrowRight, ExternalLink, Rocket, Sparkles, Star } from "lucide-react";
 import { Link, useLoaderData } from "react-router";
 
 import type { GeneralInformationType } from "~/features/shared/types/type";
 
 import { Button } from "~/components/ui/button";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { heroDecorationConfig } from "../constants/background-decoration";
 import { BackgroundDecoration } from "./background-decoration";

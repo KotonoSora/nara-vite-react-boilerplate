@@ -83,6 +83,14 @@
         "date-fns": "catalog:",
       },
     },
+    "packages/i18n-react": {
+      "name": "@kotonosora/i18n-react",
+      "version": "0.0.1",
+      "dependencies": {
+        "@kotonosora/i18n": "workspace:*",
+        "date-fns": "catalog:",
+      },
+    },
     "packages/scheduler": {
       "name": "@kotonosora/scheduler",
       "version": "0.0.1",
@@ -367,6 +375,8 @@
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.29", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ=="],
 
     "@kotonosora/i18n": ["@kotonosora/i18n@workspace:packages/i18n"],
+
+    "@kotonosora/i18n-react": ["@kotonosora/i18n-react@workspace:packages/i18n-react"],
 
     "@kotonosora/scheduler": ["@kotonosora/scheduler@workspace:packages/scheduler"],
 

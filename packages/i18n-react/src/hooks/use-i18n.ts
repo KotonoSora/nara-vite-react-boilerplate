@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import type { I18nReactContextValue } from "../types/context";
 
-import { I18nReactContext } from "../react/context";
+import { I18nReactContext } from "../context/context";
 
 /**
  * Custom hook to access the i18n context for internationalization.

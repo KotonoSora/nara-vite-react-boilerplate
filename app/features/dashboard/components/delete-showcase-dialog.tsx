@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { type FC } from "react";
 
 import {
@@ -8,7 +9,6 @@ import {
   AlertDialogTitle,
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 interface DeleteShowcaseDialogProps {
   open: boolean;

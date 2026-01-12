@@ -1,6 +1,7 @@
+import { useTranslation } from "@kotonosora/i18n-react";
+
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { QRCodeGenerator } from "./components/qr-code-generator";
 

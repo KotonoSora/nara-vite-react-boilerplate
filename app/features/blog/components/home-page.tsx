@@ -1,8 +1,7 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { useLoaderData } from "react-router";
 
 import type { HomePageLoaderData } from "../types/type";
-
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { BlogPostCard } from "../components/blog-post-card";
 

@@ -1,8 +1,8 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function DonateSection() {
   const t = useTranslation();

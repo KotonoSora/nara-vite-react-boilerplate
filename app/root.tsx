@@ -1,4 +1,5 @@
 import { DEFAULT_LANGUAGE, isRTLLanguage } from "@kotonosora/i18n";
+import { I18nProvider } from "@kotonosora/i18n-react";
 import {
   cancelIdleCallback,
   scheduleIdleCallback,
@@ -30,7 +31,6 @@ import { HeadScriptTrackingTag } from "~/features/google-analytics/components/he
 import { usePageView } from "~/features/google-analytics/hooks/use-page-view";
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/authentication/react/provider";
-import { I18nProvider } from "~/lib/i18n/react/provider";
 import { AuthContext, authMiddleware } from "~/middleware/auth";
 import { i18nMiddleware, I18nReactRouterContext } from "~/middleware/i18n";
 import { generalInformationMiddleware } from "~/middleware/information";

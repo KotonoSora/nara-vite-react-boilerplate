@@ -1,10 +1,10 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Menu, X } from "lucide-react";
 
 import type { MenuTriggerProps } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { PopoverTrigger } from "~/components/ui/popover";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { LanguageSwitcher } from "./language-switcher";
 import { ModeSwitcher } from "./mode-switcher";

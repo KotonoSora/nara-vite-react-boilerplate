@@ -1,9 +1,9 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Link } from "react-router";
 
 import type { AuthenticatedMenuProps } from "../types/type";
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { getUserInitial } from "../utils/get-user-initial";
 

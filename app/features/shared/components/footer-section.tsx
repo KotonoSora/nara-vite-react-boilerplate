@@ -1,4 +1,4 @@
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
+import { useTranslation } from "@kotonosora/i18n-react";
 
 export function FooterSection() {
   const t = useTranslation();
