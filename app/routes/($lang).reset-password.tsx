@@ -1,3 +1,4 @@
+import { generateMetaTags } from "@kotonosora/seo";
 import { redirect } from "react-router";
 
 import type { Route } from "./+types/($lang).reset-password";
@@ -13,7 +14,6 @@ import {
   tokenMiddlewareContext,
 } from "~/features/reset-password/middleware/token";
 import { ResetPasswordPage } from "~/features/reset-password/page";
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { isStrongPassword } from "~/lib/authentication/utils/common/is-strong-password";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";

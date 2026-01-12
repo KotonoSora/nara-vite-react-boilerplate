@@ -1,3 +1,5 @@
+import { generateMetaTags } from "@kotonosora/seo";
+
 import type { Route } from "./+types/($lang).admin";
 
 import type { MiddlewareFunction } from "react-router";
@@ -7,7 +9,6 @@ import {
   adminMiddlewareContext,
 } from "~/features/admin/middleware/admin-middleware";
 import { ContentAdminPage } from "~/features/admin/page";
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 

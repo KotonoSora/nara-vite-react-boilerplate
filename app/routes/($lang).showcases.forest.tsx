@@ -1,8 +1,9 @@
+import { generateMetaTags } from "@kotonosora/seo";
+
 import type { Route } from "./+types/($lang).showcases.forest";
 
 import type { MiddlewareFunction } from "react-router";
 
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { BACKGROUND_COLOR } from "~/features/showcases-forest/constants/ui";
 import {
   forestMiddleware,

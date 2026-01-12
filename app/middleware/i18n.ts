@@ -1,8 +1,8 @@
 import { createContext } from "react-router";
 
+import type { SupportedLanguage } from "@kotonosora/i18n";
 import type { MiddlewareFunction } from "react-router";
 
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
 import type {
   NestedTranslationObject,
   TranslationFunction,

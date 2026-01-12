@@ -1,7 +1,8 @@
+import { generateMetaTags } from "@kotonosora/seo";
+
 import type { Route } from "./+types/($lang).calendar";
 
 import { ContentCalendarInfinityPage } from "~/features/calendar/page";
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 

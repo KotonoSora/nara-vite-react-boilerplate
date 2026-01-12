@@ -1,8 +1,7 @@
+import type { SupportedLanguage } from "@kotonosora/i18n";
 import type { Day } from "date-fns";
 import type { RefObject } from "react";
 import type { VirtuosoGridHandle } from "react-virtuoso";
-
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 export type CurrentMonthNavigationProps = {
   language: SupportedLanguage;

@@ -76,8 +76,16 @@
         "wrangler": "4.58.0",
       },
     },
+    "packages/i18n": {
+      "name": "@kotonosora/i18n",
+      "version": "0.0.1",
+    },
     "packages/scheduler": {
       "name": "@kotonosora/scheduler",
+      "version": "0.0.1",
+    },
+    "packages/seo": {
+      "name": "@kotonosora/seo",
       "version": "0.0.1",
     },
     "packages/utils": {
@@ -352,7 +360,11 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.29", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ=="],
 
+    "@kotonosora/i18n": ["@kotonosora/i18n@workspace:packages/i18n"],
+
     "@kotonosora/scheduler": ["@kotonosora/scheduler@workspace:packages/scheduler"],
+
+    "@kotonosora/seo": ["@kotonosora/seo@workspace:packages/seo"],
 
     "@kotonosora/utils": ["@kotonosora/utils@workspace:packages/utils"],
 

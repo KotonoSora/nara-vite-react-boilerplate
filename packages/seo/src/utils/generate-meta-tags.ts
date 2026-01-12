@@ -1,11 +1,9 @@
+import { DEFAULT_LANGUAGE, getIntlLocaleByLanguage } from "@kotonosora/i18n";
+
 import type {
   GenerateMetaTagsParams,
   GenerateMetaTagsResponse,
-} from "../types/generate-meta-tags";
-
-import SocialPreview from "~/features/shared/assets/social-preview.svg?no-inline";
-import { DEFAULT_LANGUAGE } from "~/lib/i18n/constants/common";
-import { getIntlLocaleByLanguage } from "~/lib/i18n/utils/datetime/get-intl-locale-by-language";
+} from "../types";
 
 import {
   author,
@@ -40,7 +38,7 @@ export function generateMetaTags({
   const socialImageUrl = canonicalUrl
     ? `${canonicalUrl}/assets/png/social-media.png`
     : undefined;
-  const fallbackImageUrl = SocialPreview;
+  const fallbackImageUrl = "/assets/png/social-media.png";
   const seoImageUrl = socialImageUrl ?? fallbackImageUrl;
   const faviconHref = canonicalUrl
     ? `${canonicalUrl}/favicon.ico`

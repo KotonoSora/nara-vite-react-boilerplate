@@ -8,10 +8,10 @@ import {
   Trash2,
 } from "lucide-react";
 
+import type { SupportedLanguage } from "@kotonosora/i18n";
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type { ShowcaseItem } from "~/features/landing-page/utils/fetch-showcases";
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";

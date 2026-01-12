@@ -1,9 +1,9 @@
+import { getIntlLocaleByLanguage } from "@kotonosora/i18n";
 import { Link } from "react-router";
 
 import type { BlogPostCardProps } from "../types/type";
 
 import { useI18n } from "~/lib/i18n/hooks/use-i18n";
-import { getIntlLocaleByLanguage } from "~/lib/i18n/utils/datetime/get-intl-locale-by-language";
 
 import { formatDate } from "../utils/format-date";
 

@@ -1,3 +1,4 @@
+import { SUPPORTED_LANGUAGES } from "@kotonosora/i18n";
 import clsx from "clsx";
 import { Globe } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -6,10 +7,7 @@ import { useLocation, useNavigate } from "react-router";
 import { Button } from "~/components/ui/button";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { useLazyImport } from "~/hooks/use-lazy-import";
-import {
-  LANGUAGE_NAMES,
-  SUPPORTED_LANGUAGES,
-} from "~/lib/i18n/constants/common";
+import { LANGUAGE_NAMES } from "~/lib/i18n/constants/common";
 import { useLanguage } from "~/lib/i18n/hooks/use-language";
 import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { addLanguageToPath } from "~/lib/i18n/utils/common/add-language-to-path";
