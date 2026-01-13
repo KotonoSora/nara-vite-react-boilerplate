@@ -2,11 +2,11 @@ import { createContext } from "react-router";
 
 import type { MiddlewareFunction } from "react-router";
 
-import type { UserSchema } from "~/lib/authentication/types/user";
+import type { User } from "~/database/schema";
 
 export type AuthContextType = {
   userId: string | null;
-  user: UserSchema | null;
+  user: User | null;
 };
 
 export const AuthContext = createContext<AuthContextType>();

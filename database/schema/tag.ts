@@ -17,3 +17,6 @@ export const tag = sqliteTable("tags", {
   ),
   deletedAt: integer("deleted_at", { mode: "timestamp" }),
 });
+
+export type Tag = typeof tag.$inferSelect;
+export type NewTag = typeof tag.$inferInsert;

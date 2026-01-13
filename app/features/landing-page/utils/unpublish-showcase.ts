@@ -11,7 +11,7 @@ import * as dbSchema from "~/database/schema";
 export async function unpublishShowcase(
   db: DrizzleD1Database<typeof dbSchema>,
   showcaseId: string,
-): Promise<typeof dbSchema.showcase.$inferSelect | undefined> {
+): Promise<dbSchema.Showcase | undefined> {
   const result = await db
     .update(dbSchema.showcase)
     .set({ publishedAt: null })

@@ -35,3 +35,6 @@ export const showcaseVote = sqliteTable(
   },
   (table) => [primaryKey({ columns: [table.showcaseId, table.userId] })],
 );
+
+export type ShowcaseVote = typeof showcaseVote.$inferSelect;
+export type NewShowcaseVote = typeof showcaseVote.$inferInsert;
