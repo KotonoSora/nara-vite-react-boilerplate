@@ -1,4 +1,4 @@
-import type { TranslationFunction } from "@kotonosora/i18n";
+import type { TranslationFunction } from "@kotonosora/i18n-locales";
 
 import type { ProjectInfo } from "~/features/showcases/types/type";
 

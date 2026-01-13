@@ -3,9 +3,9 @@ import { createContext } from "react-router";
 
 import type {
   NestedTranslationObject,
+  SupportedLanguage,
   TranslationFunction,
-} from "@kotonosora/i18n";
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+} from "@kotonosora/i18n-locales";
 import type { MiddlewareFunction } from "react-router";
 
 import { loadDataTranslations } from "~/lib/i18n/server/load-data-translations.server";

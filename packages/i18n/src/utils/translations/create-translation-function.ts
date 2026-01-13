@@ -1,6 +1,7 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
-
-import type { TranslationKey } from "../../types/translations";
+import type {
+  SupportedLanguage,
+  TranslationKey,
+} from "@kotonosora/i18n-locales";
 
 import { getTranslation } from "./get-translation";
 

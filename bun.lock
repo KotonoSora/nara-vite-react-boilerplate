@@ -96,6 +96,7 @@
       "version": "0.0.1",
       "dependencies": {
         "@kotonosora/i18n": "workspace:*",
+        "@kotonosora/i18n-locales": "workspace:*",
         "date-fns": "catalog:",
       },
     },
@@ -106,6 +107,10 @@
     "packages/seo": {
       "name": "@kotonosora/seo",
       "version": "0.0.1",
+      "dependencies": {
+        "@kotonosora/i18n": "workspace:*",
+        "@kotonosora/i18n-locales": "workspace:*",
+      },
     },
     "packages/utils": {
       "name": "@kotonosora/utils",

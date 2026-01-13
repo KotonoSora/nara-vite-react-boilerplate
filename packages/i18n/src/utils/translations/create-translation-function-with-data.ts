@@ -1,9 +1,8 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
-
 import type {
   NestedTranslationObject,
+  SupportedLanguage,
   TranslationKey,
-} from "../../types/translations";
+} from "@kotonosora/i18n-locales";
 
 import { getNestedValue } from "./get-nested-value";
 

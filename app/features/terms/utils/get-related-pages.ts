@@ -1,4 +1,4 @@
-import type { TranslationFunction } from "@kotonosora/i18n";
+import type { TranslationFunction } from "@kotonosora/i18n-locales";
 
 export function getRelatedPages(t: TranslationFunction) {
   return [

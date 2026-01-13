@@ -2,6 +2,8 @@ import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 import type { PluralCategory } from "../../types/pluralization";
 
+import { getIntlLocaleByLanguage } from "../datetime/get-intl-locale-by-language";
+
 /**
  * Returns the plural category for a given count and language.
  *
@@ -16,19 +18,7 @@ export function getPluralCategory(
   count: number,
   language: SupportedLanguage,
 ): PluralCategory {
-  const localeMap: Record<SupportedLanguage, string> = {
-    en: "en",
-    es: "es",
-    fr: "fr",
-    zh: "zh",
-    hi: "hi",
-    ar: "ar",
-    vi: "vi",
-    ja: "ja",
-    th: "th",
-  };
-
-  const locale = localeMap[language];
+  const locale = getIntlLocaleByLanguage(language);
   const pr = new Intl.PluralRules(locale);
   return pr.select(count) as PluralCategory;
 }

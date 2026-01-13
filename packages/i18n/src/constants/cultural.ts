@@ -1,4 +1,5 @@
-import type { SupportedLanguage } from "../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+
 import type { AddressFormat, NameFormat, PhoneFormat } from "../types/cultural";
 
 export const ADDRESS_FORMATS: Record<SupportedLanguage, AddressFormat> = {

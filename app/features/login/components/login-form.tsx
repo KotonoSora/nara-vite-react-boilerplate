@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { Form, Link, useActionData } from "react-router";
 import { z } from "zod";
 
-import type { TranslationFunction } from "@kotonosora/i18n";
+import type { TranslationFunction } from "@kotonosora/i18n-locales";
 
 import { Button } from "~/components/ui/button";
 import {

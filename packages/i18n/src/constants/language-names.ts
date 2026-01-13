@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 export const LANGUAGE_NAMES: Record<SupportedLanguage, string> = {
   en: "English",

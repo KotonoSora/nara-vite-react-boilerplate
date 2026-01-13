@@ -1,4 +1,5 @@
-import type { SupportedLanguage } from "../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+
 import type { PluralRules } from "../types/pluralization";
 
 // Common pluralization patterns for each language

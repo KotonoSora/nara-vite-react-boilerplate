@@ -1,4 +1,4 @@
-import type { NestedTranslationObject } from "../../types/translations";
+import type { NestedTranslationObject } from "@kotonosora/i18n-locales";
 
 /**
  * Retrieves a nested value from an object using a dot-notation path string.

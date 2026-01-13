@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 // Locale mapping for Intl APIs
 export const INTL_LOCALE_MAP: Record<SupportedLanguage, string> = {
