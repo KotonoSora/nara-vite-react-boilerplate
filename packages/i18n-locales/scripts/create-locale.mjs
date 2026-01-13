@@ -30,7 +30,7 @@ const __dirname = dirname(__filename);
 
 // Get the project root directory
 const projectRoot = join(__dirname, "..");
-const localesDir = join(projectRoot, "src", "translations", "locales");
+const localesDir = join(projectRoot, "src", "locales");
 
 /**
  * Get all existing language directories

@@ -4,15 +4,25 @@ import type {
 } from "@kotonosora/i18n";
 
 // Import translation files
-import { arabicTranslations } from "./locales/arabic";
-import { chineseTranslations } from "./locales/chinese";
-import { englishTranslations } from "./locales/english";
-import { frenchTranslations } from "./locales/french";
-import { hindiTranslations } from "./locales/hindi";
-import { japaneseTranslations } from "./locales/japanese";
-import { spanishTranslations } from "./locales/spanish";
-import { thaiTranslations } from "./locales/thai";
-import { vietnameseTranslations } from "./locales/vietnamese";
+import { arabicTranslations } from "./ar";
+import { englishTranslations } from "./en";
+import { spanishTranslations } from "./es";
+import { frenchTranslations } from "./fr";
+import { hindiTranslations } from "./hi";
+import { japaneseTranslations } from "./ja";
+import { thaiTranslations } from "./th";
+import { vietnameseTranslations } from "./vi";
+import { chineseTranslations } from "./zh";
+
+export * from "./ar";
+export * from "./zh";
+export * from "./en";
+export * from "./fr";
+export * from "./hi";
+export * from "./ja";
+export * from "./es";
+export * from "./th";
+export * from "./vi";
 
 /**
  * A record mapping supported language codes to their respective translation objects.

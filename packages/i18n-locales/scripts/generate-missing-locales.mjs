@@ -2,7 +2,7 @@
 
 /**
  * Script to auto-generate missing JSON locale files for all languages
- * based on the English locale files in src/translations/locales/en/
+ * based on the English locale files in src/locales/en/
  *
  * Usage:
  *   node scripts/generate-missing-locales.mjs
@@ -10,7 +10,7 @@
  *   bun scripts/generate-missing-locales.mjs
  *
  * This script will:
- * 1. Read all JSON files from app/locales/en/
+ * 1. Read all JSON files from src/locales/en/
  * 2. For each other language directory, check which files are missing
  * 3. Generate missing files with English content as placeholders
  * 4. Add a comment header indicating the file needs translation
@@ -25,7 +25,7 @@ const __dirname = dirname(__filename);
 
 // Get the project root directory
 const projectRoot = join(__dirname, "..");
-const localesDir = join(projectRoot, "src", "translations", "locales");
+const localesDir = join(projectRoot, "src", "locales");
 const baseLanguage = "en";
 
 /**
