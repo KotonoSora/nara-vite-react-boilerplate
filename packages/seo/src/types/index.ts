@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "@kotonosora/i18n";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 export type GenerateMetaTagsParams = {
   title?: string;

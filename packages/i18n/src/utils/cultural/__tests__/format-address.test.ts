@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import type { SupportedLanguage } from "../../../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+
 import type { Address } from "../../../types/cultural";
 
 import { formatAddress } from "../format-address";

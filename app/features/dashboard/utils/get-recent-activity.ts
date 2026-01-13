@@ -1,6 +1,6 @@
 import { formatTimeAgo } from "@kotonosora/i18n";
 
-import type { SupportedLanguage } from "@kotonosora/i18n";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 import type { Icon } from "../types/type";
 

@@ -1,6 +1,6 @@
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_LANGUAGE } from "../../../constants/common";
 import { detectLanguageFromAcceptLanguage } from "../detect-language-from-accept-language";
 
 describe("detectLanguageFromAcceptLanguage", () => {

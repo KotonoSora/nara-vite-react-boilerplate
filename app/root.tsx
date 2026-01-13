@@ -1,4 +1,5 @@
-import { DEFAULT_LANGUAGE, isRTLLanguage } from "@kotonosora/i18n";
+import { isRTLLanguage } from "@kotonosora/i18n";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
 import { I18nProvider } from "@kotonosora/i18n-react";
 import {
   cancelIdleCallback,
@@ -24,7 +25,7 @@ import {
 
 import type { Route } from "./+types/root";
 
-import type { SupportedLanguage } from "@kotonosora/i18n";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 import type { MiddlewareFunction } from "react-router";
 
 import { HeadScriptTrackingTag } from "~/features/google-analytics/components/head-script-tracking-tag";

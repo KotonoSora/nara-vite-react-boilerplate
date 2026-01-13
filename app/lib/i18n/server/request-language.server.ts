@@ -1,10 +1,10 @@
 import {
-  DEFAULT_LANGUAGE,
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
 } from "@kotonosora/i18n";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
 
-import type { SupportedLanguage } from "@kotonosora/i18n";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 /**
  * Resolves the preferred language for a given HTTP request.

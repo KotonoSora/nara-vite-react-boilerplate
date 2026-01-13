@@ -1,6 +1,6 @@
 import { addDays, format, startOfWeek } from "date-fns";
 
-import type { SupportedLanguage } from "../../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 import { getDateFNSLocaleByLanguage } from "./get-date-fns-locale-by-language";
 import { getWeekStartsOnByLanguage } from "./get-week-starts-on-by-language";

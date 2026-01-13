@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "../../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 import { COMMON_PLURALS } from "../../constants/pluralization";
 import { pluralize } from "./pluralize";

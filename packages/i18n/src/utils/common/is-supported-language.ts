@@ -1,6 +1,6 @@
-import type { SupportedLanguage } from "../../types/common";
+import { SUPPORTED_LANGUAGES } from "@kotonosora/i18n-locales";
 
-import { SUPPORTED_LANGUAGES } from "../../constants/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 /**
  * Type guard that checks if a given language string is a supported language.

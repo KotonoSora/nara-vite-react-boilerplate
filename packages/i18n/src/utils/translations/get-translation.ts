@@ -1,9 +1,9 @@
-import { translations } from "@kotonosora/i18n-locales";
+import { DEFAULT_LANGUAGE, translations } from "@kotonosora/i18n-locales";
 
-import type { SupportedLanguage } from "../../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+
 import type { TranslationKey } from "../../types/translations";
 
-import { DEFAULT_LANGUAGE } from "../../constants/common";
 import { getNestedValue } from "./get-nested-value";
 
 /**

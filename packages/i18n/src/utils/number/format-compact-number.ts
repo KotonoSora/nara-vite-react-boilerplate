@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "../../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 import { getIntlLocaleByLanguage } from "../datetime/get-intl-locale-by-language";
 

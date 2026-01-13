@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "../../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 import { INTL_LOCALE_MAP } from "../../constants/intl-locale-map";
 

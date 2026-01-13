@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+
 import { isRTLLanguage } from "../is-rtl-language";
 
 describe("isRTLLanguage", () => {
@@ -14,9 +16,7 @@ describe("isRTLLanguage", () => {
     ["hi", false],
     ["th", false],
   ])("returns %s for RTL check: %s", (lang, expected) => {
-    expect(
-      isRTLLanguage(lang as import("../../../types/common").SupportedLanguage),
-    ).toBe(expected);
+    expect(isRTLLanguage(lang as SupportedLanguage)).toBe(expected);
   });
 
   it("returns false for invalid language input (type assertion)", () => {

@@ -1,6 +1,7 @@
-import type { SupportedLanguage } from "../../types/common";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
 
-import { DEFAULT_LANGUAGE } from "../../constants/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+
 import { removeLanguageFromPath } from "./remove-language-from-path";
 
 /**

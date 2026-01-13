@@ -19,7 +19,7 @@
  * - Pretty-printed JSON output
  */
 import { existsSync } from "node:fs";
-import { mkdir, readdir, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { stdin as input, stdout as output } from "node:process";
 import * as readline from "node:readline/promises";
@@ -53,6 +53,136 @@ async function getLanguageDirectories() {
  */
 function isValidNamespace(name) {
   return /^[a-z][a-z0-9-]*$/.test(name);
+}
+
+/**
+ * Convert kebab-case to camelCase
+ */
+function toCamelCase(str) {
+  return str.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+
+/**
+ * Read and parse index.ts file
+ */
+async function readIndexFile(language) {
+  const indexPath = join(localesDir, language, "index.ts");
+  if (!existsSync(indexPath)) {
+    return null;
+  }
+
+  const content = await readFile(indexPath, "utf-8");
+  return content;
+}
+
+/**
+ * Update index.ts file with new namespace
+ */
+async function updateIndexFile(language, namespace) {
+  const indexPath = join(localesDir, language, "index.ts");
+  const content = await readIndexFile(language);
+
+  if (!content) {
+    console.log(`⚠️  Warning: index.ts not found for ${language}`);
+    return false;
+  }
+
+  // Convert namespace to camelCase for the property name
+  const camelCaseName = toCamelCase(namespace);
+
+  // For variable names: prefix + PascalCase of the namespace
+  // e.g., viCommon, enAbout, frQrGenerator
+  const pascalCaseName =
+    camelCaseName.charAt(0).toUpperCase() + camelCaseName.slice(1);
+  const varName = `${language}${pascalCaseName}`;
+
+  // Check if namespace already exists
+  if (content.includes(`from "./${namespace}.json"`)) {
+    return false; // Already exists
+  }
+
+  // Find the last import statement
+  const importLines = content.split("\n");
+  let lastImportIndex = -1;
+
+  for (let i = 0; i < importLines.length; i++) {
+    const line = importLines[i].trim();
+    if (
+      line.startsWith("import ") &&
+      line.includes('from "./') &&
+      line.endsWith('.json";')
+    ) {
+      lastImportIndex = i;
+    }
+  }
+
+  if (lastImportIndex === -1) {
+    console.log(
+      `⚠️  Warning: Could not find import section in ${language}/index.ts`,
+    );
+    return false;
+  }
+
+  // Add new import after the last import
+  const newImport = `import ${varName} from "./${namespace}.json";`;
+  importLines.splice(lastImportIndex + 1, 0, newImport);
+
+  // Find the export object and add new namespace
+  const exportStartIndex = importLines.findIndex(
+    (line) =>
+      line.includes("Translations = {") || line.includes("export const"),
+  );
+
+  if (exportStartIndex === -1) {
+    console.log(
+      `⚠️  Warning: Could not find export section in ${language}/index.ts`,
+    );
+    return false;
+  }
+
+  // Find the closing brace of the export object
+  let braceCount = 0;
+  let exportEndIndex = -1;
+  let insideExportObject = false;
+
+  for (let i = exportStartIndex; i < importLines.length; i++) {
+    const line = importLines[i];
+
+    if (!insideExportObject && line.includes("= {")) {
+      insideExportObject = true;
+    }
+
+    if (insideExportObject) {
+      braceCount += (line.match(/{/g) || []).length;
+      braceCount -= (line.match(/}/g) || []).length;
+
+      if (braceCount === 0 && line.includes("}") && line.trim() === "};") {
+        exportEndIndex = i;
+        break;
+      }
+    }
+  }
+
+  if (exportEndIndex === -1) {
+    console.log(
+      `⚠️  Warning: Could not find end of export object in ${language}/index.ts`,
+    );
+    return false;
+  }
+
+  // Insert new property before the closing brace
+  // Use quotes for kebab-case, plain identifier for camelCase
+  const propertyName = namespace.includes("-")
+    ? `"${namespace}"`
+    : camelCaseName;
+  const newProperty = `  ${propertyName}: ${varName},`;
+  importLines.splice(exportEndIndex, 0, newProperty);
+
+  // Write updated content
+  const updatedContent = importLines.join("\n");
+  await writeFile(indexPath, updatedContent, "utf-8");
+
+  return true;
 }
 
 /**
@@ -134,6 +264,8 @@ async function main() {
     const results = {
       created: [],
       skipped: [],
+      indexUpdated: [],
+      indexFailed: [],
     };
 
     for (const lang of languages) {
@@ -142,6 +274,16 @@ async function main() {
       if (result.created) {
         results.created.push(lang);
         console.log(`✅ Created: ${lang}/${namespace}.json`);
+
+        // Update index.ts file
+        const indexUpdated = await updateIndexFile(lang, namespace);
+        if (indexUpdated) {
+          results.indexUpdated.push(lang);
+          console.log(`   ✅ Updated: ${lang}/index.ts`);
+        } else {
+          results.indexFailed.push(lang);
+          console.log(`   ⚠️  Warning: Could not update ${lang}/index.ts`);
+        }
       } else {
         results.skipped.push(lang);
         console.log(`⏭️  Skipped: ${lang}/${namespace}.json (already exists)`);
@@ -156,6 +298,18 @@ async function main() {
     if (results.created.length > 0) {
       console.log(
         `\n✅ Created ${results.created.length} new file(s): ${results.created.join(", ")}`,
+      );
+    }
+
+    if (results.indexUpdated.length > 0) {
+      console.log(
+        `✅ Updated ${results.indexUpdated.length} index.ts file(s): ${results.indexUpdated.join(", ")}`,
+      );
+    }
+
+    if (results.indexFailed.length > 0) {
+      console.log(
+        `⚠️  Failed to update ${results.indexFailed.length} index.ts file(s): ${results.indexFailed.join(", ")}`,
       );
     }
 

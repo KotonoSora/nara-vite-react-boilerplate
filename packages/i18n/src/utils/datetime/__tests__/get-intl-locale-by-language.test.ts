@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { SupportedLanguage } from "../../../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 import { getIntlLocaleByLanguage } from "../get-intl-locale-by-language";
 

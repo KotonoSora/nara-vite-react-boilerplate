@@ -1,6 +1,5 @@
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 import type { Locale } from "date-fns";
-
-import type { SupportedLanguage } from "../../types/common";
 
 /**
  * Cache for loaded date-fns locales to avoid re-importing

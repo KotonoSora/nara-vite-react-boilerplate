@@ -1,6 +1,5 @@
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 import type { Day } from "date-fns";
-
-import type { SupportedLanguage } from "../../types/common";
 
 import { getDateFNSLocaleByLanguage } from "./get-date-fns-locale-by-language";
 

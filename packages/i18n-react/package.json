@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "date-fns": "catalog:",
-    "@kotonosora/i18n": "workspace:*"
+    "@kotonosora/i18n": "workspace:*",
+    "@kotonosora/i18n-locales": "workspace:*"
   }
 }

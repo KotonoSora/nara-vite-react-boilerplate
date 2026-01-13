@@ -1,10 +1,9 @@
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
 import { describe, expect, it } from "vitest";
 
-import type { SupportedLanguage } from "../../../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
-import { DEFAULT_LANGUAGE } from "../../../constants/common";
 import { addLanguageToPath } from "../add-language-to-path";
-import { removeLanguageFromPath } from "../remove-language-from-path";
 
 describe("addLanguageToPath", () => {
   it.each([

@@ -3,8 +3,8 @@ import {
   getLanguageFromPath,
   isRTLLanguage,
   LANGUAGE_NAMES,
-  SUPPORTED_LANGUAGES,
 } from "@kotonosora/i18n";
+import { SUPPORTED_LANGUAGES } from "@kotonosora/i18n-locales";
 import { useLanguage, useTranslation } from "@kotonosora/i18n-react";
 import clsx from "clsx";
 import { Globe } from "lucide-react";

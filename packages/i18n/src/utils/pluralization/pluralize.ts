@@ -1,4 +1,5 @@
-import type { SupportedLanguage } from "../../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+
 import type { PluralCategory } from "../../types/pluralization";
 
 import { getPluralCategory } from "./get-plural-category";
