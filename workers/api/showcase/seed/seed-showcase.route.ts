@@ -1,7 +1,7 @@
-import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 
 import { devOnlyMiddleware } from "~/workers/api/_shared/middleware/dev-only.middleware";
+import { zValidator } from "~/workers/api/_shared/middleware/validators/zod.validator";
 
 import { seedShowcaseController } from "./seed-showcase.controller";
 import { seedShowcaseValidator } from "./seed-showcase.validator";
