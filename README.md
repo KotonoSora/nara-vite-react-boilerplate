@@ -1,8 +1,9 @@
 # NARA (Non‑Abstract Reusable App) boilerplate
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![CI – PR Quality Checks](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/ci-pr-check.yml/badge.svg)](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/ci-pr-check.yml)
-[![Manual Deploy](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/manual-deploy-cloudflare.yml/badge.svg)](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/manual-deploy-cloudflare.yml)
+
+<!-- [![CI – PR Quality Checks](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/ci-pr-check.yml/badge.svg)](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/ci-pr-check.yml) -->
+<!-- [![Manual Deploy](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/manual-deploy-cloudflare.yml/badge.svg)](https://github.com/KotonoSora/nara-vite-react-boilerplate/actions/workflows/manual-deploy-cloudflare.yml) -->
 
 ---
 
@@ -10,7 +11,7 @@
 
 A fast, opinionated starter template for building full-stack React apps powered by **React Router v7**, **Cloudflare Workers**, and **modern tooling**. Built with a focus on **type safety, performance**, and **developer ergonomics**.
 
-📖 See [Project Overview](docs/PROJECT_OVERVIEW.md) for detailed project structure and tech stack.
+<!-- 📖 See [Project Overview](docs/PROJECT_OVERVIEW.md) for detailed project structure and tech stack. -->
 
 ---
 
@@ -36,4 +37,4 @@ A commercial version with extended features and a non-AGPL license is available 
 
 ---
 
-Built with ❤️ by KotonoSora — to help you ship faster and with confidence.
+<!-- Built with ❤️ by KotonoSora — to help you ship faster and with confidence. -->
