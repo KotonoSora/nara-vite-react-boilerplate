@@ -1,3 +1,4 @@
+import { generateMetaTags } from "@kotonosora/seo";
 import { sql } from "drizzle-orm";
 
 import type { Route } from "./+types/($lang).register";
@@ -10,7 +11,6 @@ import {
   pageMiddlewareContext,
 } from "~/features/register/middleware/page-middleware";
 import { ContentRegisterPage } from "~/features/register/page";
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { MAX_USERS } from "~/features/shared/constants/limit";
 import { authMiddleware } from "~/features/shared/middleware/auth";
 import { I18nReactRouterContext } from "~/middleware/i18n";

@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { type FC } from "react";
 
 import type { QRCodeOptions } from "../types/type";
@@ -10,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import {
   QR_ERROR_CORRECTION_OPTIONS,

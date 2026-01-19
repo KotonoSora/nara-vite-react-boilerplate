@@ -1,8 +1,8 @@
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
+import { formatTimeAgo } from "@kotonosora/i18n";
+
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 import type { Icon } from "../types/type";
-
-import { formatTimeAgo } from "~/lib/i18n/utils/datetime/format-time-ago";
 
 export function getRecentActivity(
   language: SupportedLanguage,

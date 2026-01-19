@@ -1,3 +1,4 @@
+import { useI18n } from "@kotonosora/i18n-react";
 import { Plus } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useFetcher, useLoaderData, useSearchParams } from "react-router";
@@ -11,7 +12,6 @@ import type { DashboardContentProps } from "../types/type";
 import type { ShowcaseFormData } from "./showcase-modal";
 
 import { Button } from "~/components/ui/button";
-import { useI18n } from "~/lib/i18n/hooks/use-i18n";
 
 import { DeleteShowcaseDialog } from "./delete-showcase-dialog";
 import { ShowcaseModal } from "./showcase-modal";

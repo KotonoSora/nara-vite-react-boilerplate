@@ -1,11 +1,11 @@
-import type { UserSchema } from "./user";
+import type { User } from "~/database/schema";
 
 export interface AuthContextValue {
-  user: UserSchema | null;
+  user: User | null;
   isAuthenticated: boolean;
 }
 
 export interface AuthProviderProps {
   children: React.ReactNode;
-  user: UserSchema | null;
+  user: User | null;
 }

@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Suspense } from "react";
 import { useLoaderData } from "react-router";
 
@@ -6,7 +7,6 @@ import type { PageInformation } from "./types/type";
 import { Separator } from "~/components/ui/separator";
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { ButtonScrollToTop } from "../shared/components/button-scroll-to-top";
 import { BuiltInDemoItem } from "./components/built-in-demo-item";

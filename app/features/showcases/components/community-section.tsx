@@ -1,10 +1,9 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { FolderOpen } from "lucide-react";
 import { use, useMemo, useState } from "react";
 import { useLoaderData } from "react-router";
 
 import type { PageInformation, ProjectInfo } from "../types/type";
-
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { ShowcaseDetailModal } from "./showcase-detail-modal";
 import { ShowcaseItem } from "./showcase-item";

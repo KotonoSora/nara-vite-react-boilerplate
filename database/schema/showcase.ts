@@ -34,3 +34,6 @@ export const showcase = sqliteTable("showcases", {
   ),
   deletedAt: integer("deleted_at", { mode: "timestamp" }),
 });
+
+export type Showcase = typeof showcase.$inferSelect;
+export type NewShowcase = typeof showcase.$inferInsert;

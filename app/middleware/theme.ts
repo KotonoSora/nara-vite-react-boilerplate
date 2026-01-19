@@ -13,7 +13,8 @@ export const themeMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
-  const { themeSessionResolver } = await import("~/lib/theme/sessions.server");
+  const { themeSessionResolver } =
+    await import("~/lib/theme/server/sessions.server");
 
   const { getTheme } = await themeSessionResolver(request);
   const theme = getTheme();

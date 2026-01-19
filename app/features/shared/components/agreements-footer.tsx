@@ -1,6 +1,5 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Link } from "react-router";
-
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function AgreementsFooter() {
   const t = useTranslation();

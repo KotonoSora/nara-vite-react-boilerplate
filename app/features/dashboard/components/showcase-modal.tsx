@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -40,7 +41,6 @@ import {
   createShowcaseSchema,
   parseValidationErrors,
 } from "~/features/landing-page/schemas/create-showcase.schema";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { cn } from "~/lib/utils";
 
 interface ShowcaseModalProps {

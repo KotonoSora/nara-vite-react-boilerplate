@@ -29,3 +29,6 @@ export const showcaseTag = sqliteTable(
   },
   (table) => [primaryKey({ columns: [table.showcaseId, table.tagId] })],
 );
+
+export type ShowcaseTag = typeof showcaseTag.$inferSelect;
+export type NewShowcaseTag = typeof showcaseTag.$inferInsert;

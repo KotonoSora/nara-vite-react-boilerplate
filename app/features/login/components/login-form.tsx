@@ -1,11 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Form, Link, useActionData } from "react-router";
 import { z } from "zod";
 
-import type { TranslationFunction } from "~/lib/i18n/types/translations";
+import type { TranslationFunction } from "@kotonosora/i18n-locales";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -24,7 +25,6 @@ import {
   Form as FormProvider,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 const createLoginSchema = (t: TranslationFunction) =>
   z.object({

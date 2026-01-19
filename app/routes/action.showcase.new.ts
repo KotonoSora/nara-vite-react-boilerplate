@@ -34,8 +34,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 
     const { createShowcaseSchema, parseValidationErrors } =
       await import("~/features/landing-page/schemas/create-showcase.schema");
-    const { createShowcase } =
-      await import("~/features/landing-page/utils/create-showcase");
+    const { createShowcaseService } =
+      await import("~/workers/api/showcase/create/create-showcase.service");
 
     const result = createShowcaseSchema.safeParse(raw);
     if (!result.success) {
@@ -51,7 +51,7 @@ export async function action({ request, context }: Route.ActionArgs) {
     const authorIdValue = authorId && authorId.length ? authorId : undefined;
 
     const { db } = context as { db: DrizzleD1Database<typeof dbSchema> };
-    const showcase = await createShowcase(db, {
+    const showcase = await createShowcaseService(db, {
       name,
       description,
       url,

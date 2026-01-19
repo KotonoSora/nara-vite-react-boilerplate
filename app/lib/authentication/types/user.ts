@@ -1,6 +1,4 @@
-import { user } from "~/database/schema/user";
-
-export type UserSchema = typeof user.$inferSelect;
+import type { User } from "~/database/schema";
 
 export type CreateUserDataSchema = {
   email: string;
@@ -10,7 +8,7 @@ export type CreateUserDataSchema = {
 };
 
 export type EmailVerificationResultSchema =
-  | { success: true; user: UserSchema }
+  | { success: true; user: User }
   | {
       success: false;
       error: string;

@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Settings, Shield, TrendingUp, User } from "lucide-react";
 import { Link, useLoaderData } from "react-router";
 
@@ -11,7 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function QuickActionsCard() {
   const { user } = useLoaderData<DashboardContentProps>();
