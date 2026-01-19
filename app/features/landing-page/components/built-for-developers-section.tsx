@@ -1,6 +1,5 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Clock, Code, Heart, Shield } from "lucide-react";
-
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function BuiltForDevelopersSection() {
   const t = useTranslation();

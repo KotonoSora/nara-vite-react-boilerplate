@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 4.6.20 (2025-01-19)
+
+- Implemented Bun workspaces support for monorepo structure
+- Implemented packages seo, scheduler, i18n to Bun workspaces
+- Refactored source code workers support API by Hono.js framework
+- Optimize loading showcase chart by lazy loading
+
 ## 4.6.19 (2025-01-11)
 
 - Implemented management showcases by users

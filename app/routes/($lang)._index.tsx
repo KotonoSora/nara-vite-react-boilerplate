@@ -1,3 +1,5 @@
+import { generateMetaTags } from "@kotonosora/seo";
+
 import type { Route } from "./+types/($lang)._index";
 
 import type { MiddlewareFunction } from "react-router";
@@ -7,7 +9,6 @@ import {
   LandingPageReactRouterContext,
 } from "~/features/landing-page/middleware/landing-page-middleware";
 import { ContentPage } from "~/features/landing-page/page";
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 

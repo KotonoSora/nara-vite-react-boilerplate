@@ -1,6 +1,7 @@
+import { useLanguage } from "@kotonosora/i18n-react";
+
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
-import { useLanguage } from "~/lib/i18n/hooks/use-language";
 
 import { DayGrids } from "./components/day-grids";
 import { MonthNavigation } from "./components/month-navigation";

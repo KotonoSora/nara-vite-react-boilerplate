@@ -1,8 +1,9 @@
+import { generateMetaTags } from "@kotonosora/seo";
+
 import type { Route } from "./+types/($lang).showcases.qr-generator";
 
 import type { MiddlewareFunction } from "react-router";
 
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import {
   qrGeneratorMiddleware,
   qrGeneratorMiddlewareContext,

@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { CheckCircle2 } from "lucide-react";
 import { Link, useActionData } from "react-router";
 
@@ -10,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function SuccessVerificationToken() {
   const actionData = useActionData();

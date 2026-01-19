@@ -1,10 +1,10 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Download } from "lucide-react";
 import { type FC } from "react";
 
 import type { QRCodeFormat } from "../types/type";
 
 import { Button } from "~/components/ui/button";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 interface QRDownloadButtonsProps {
   onDownload: (format: QRCodeFormat) => void;

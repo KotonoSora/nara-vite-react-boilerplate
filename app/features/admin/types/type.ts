@@ -1,5 +1,5 @@
-import type { UserSchema } from "~/lib/authentication/types/user";
+import type { User } from "~/database/schema";
 
 export type AdminContentProps = {
-  user?: UserSchema;
+  user?: User;
 };

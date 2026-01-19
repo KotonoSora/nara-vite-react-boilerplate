@@ -1,3 +1,5 @@
+import { generateMetaTags } from "@kotonosora/seo";
+
 import type { Route } from "./+types/($lang).blog";
 
 import type { MiddlewareFunction } from "react-router";
@@ -7,7 +9,6 @@ import {
   BlogReactRouterContext,
 } from "~/features/blog/middleware/blog-middleware";
 import { BlogPage } from "~/features/blog/page";
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 

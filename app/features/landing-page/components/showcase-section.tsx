@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { CircleChevronRight } from "lucide-react";
 import { use } from "react";
 import { Link, useLoaderData } from "react-router";
@@ -8,7 +9,6 @@ import type { LandingPageContextType } from "../types/type";
 
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { BuiltInDemoItem } from "../components/built-in-demo-item";
 import { ShowcaseItem } from "../components/showcase-item";

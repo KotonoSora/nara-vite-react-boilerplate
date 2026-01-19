@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { AlertCircle } from "lucide-react";
 import { Link, useActionData } from "react-router";
 
@@ -12,7 +13,6 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function RequestEmailForm() {
   const actionData = useActionData();

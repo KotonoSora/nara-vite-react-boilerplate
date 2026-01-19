@@ -16,7 +16,8 @@ export function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action(args: Route.ActionArgs) {
-  const { themeSessionResolver } = await import("~/lib/theme/sessions.server");
+  const { themeSessionResolver } =
+    await import("~/lib/theme/server/sessions.server");
 
   return createThemeAction(themeSessionResolver)(args);
 }

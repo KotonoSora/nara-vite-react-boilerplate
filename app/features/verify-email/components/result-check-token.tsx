@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { CheckCircle, XCircle } from "lucide-react";
 import { Link } from "react-router";
 
@@ -12,7 +13,6 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function ResultCheckToken({
   isSuccess,

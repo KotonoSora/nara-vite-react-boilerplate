@@ -1,8 +1,7 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Link } from "react-router";
 
 import type { BlogErrorProps } from "../types/type";
-
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function BlogError({ error }: BlogErrorProps) {
   const t = useTranslation();

@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Link } from "react-router";
 
 import type { MenuCloseHandler } from "../types/type";
@@ -6,7 +7,6 @@ import { Button } from "~/components/ui/button";
 import { PopoverContent } from "~/components/ui/popover";
 import { GitHubButton } from "~/features/shared/components/github-button";
 import { useAuth } from "~/lib/authentication/hooks/use-auth";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { AuthenticatedMenuContent } from "./authenticated-menu-content";
 import { GuestMenuContent } from "./guest-menu-content";

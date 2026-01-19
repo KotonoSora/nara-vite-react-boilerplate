@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Shield } from "lucide-react";
 import { Link, useLoaderData } from "react-router";
 
@@ -7,7 +8,6 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function LicenseSection() {
   const t = useTranslation();

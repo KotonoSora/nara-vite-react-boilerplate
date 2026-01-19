@@ -1,3 +1,9 @@
+import {
+  formatMonthLabelByLanguage,
+  getWeekDayLabels,
+  getWeekStartsOnByLanguage,
+  isRTLLanguage,
+} from "@kotonosora/i18n";
 import { addMonths, startOfMonth, subMonths } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 
@@ -8,11 +14,6 @@ import type {
   CurrentMonthNavigationProps,
   CurrentMonthNavigationReturn,
 } from "../types/hook";
-
-import { isRTLLanguage } from "~/lib/i18n/utils/common/is-rtl-language";
-import { formatMonthLabelByLanguage } from "~/lib/i18n/utils/datetime/format-month-label-by-language";
-import { getWeekDayLabels } from "~/lib/i18n/utils/datetime/get-week-day-labels";
-import { getWeekStartsOnByLanguage } from "~/lib/i18n/utils/datetime/get-week-starts-on-by-language";
 
 import { getIndexCurrentMonth } from "../utils/get-index-current-month";
 import { getStartDateFirstWeekOfYear } from "../utils/get-start-date-first-week-of-year";

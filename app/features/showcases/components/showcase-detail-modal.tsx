@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { ExternalLink, ThumbsDown, ThumbsUp, X } from "lucide-react";
 import { useEffect } from "react";
 import { Link, useFetcher } from "react-router";
@@ -9,7 +10,6 @@ import { Button } from "~/components/ui/button";
 import { Dialog, DialogContent } from "~/components/ui/dialog";
 import SocialPreview from "~/features/shared/assets/social-preview.svg?no-inline";
 import { useAuth } from "~/lib/authentication/hooks/use-auth";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { cn } from "~/lib/utils";
 
 interface ShowcaseDetailModalProps {

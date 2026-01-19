@@ -1,3 +1,5 @@
+import { generateMetaTags } from "@kotonosora/seo";
+
 import type { Route } from "./+types/($lang).login";
 
 import type { MiddlewareFunction } from "react-router";
@@ -7,7 +9,6 @@ import {
   pageMiddlewareContext,
 } from "~/features/login/middleware/page-middleware";
 import { ContentLoginPage } from "~/features/login/page";
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import { authMiddleware } from "~/features/shared/middleware/auth";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";

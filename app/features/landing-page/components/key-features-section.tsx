@@ -1,9 +1,8 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Rocket } from "lucide-react";
 import { useLoaderData } from "react-router";
 
 import type { LandingPageContextType } from "../types/type";
-
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { keyFeaturesDecorationConfig } from "../constants/background-decoration";
 import { BackgroundDecoration } from "./background-decoration";

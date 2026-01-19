@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import {
   flexRender,
   getCoreRowModel,
@@ -45,7 +46,6 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 interface ServerPaginationProps {
   page: number;
