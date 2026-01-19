@@ -1,8 +1,9 @@
+import { generateMetaTags } from "@kotonosora/seo";
+
 import type { Route } from "./+types/($lang).showcases._index";
 
 import type { MiddlewareFunction } from "react-router";
 
-import { generateMetaTags } from "~/features/seo/utils/generate-meta-tags";
 import {
   showcasesMiddleware,
   ShowcasesMiddlewareContext,

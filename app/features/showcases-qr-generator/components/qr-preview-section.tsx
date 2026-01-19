@@ -1,9 +1,8 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { QRCodeSVG } from "qrcode.react";
 import { type FC, type RefObject } from "react";
 
 import type { QRCodeOptions } from "../types/type";
-
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 interface QRPreviewSectionProps {
   qrRef: RefObject<HTMLDivElement | null>;

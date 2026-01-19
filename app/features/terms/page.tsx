@@ -1,5 +1,6 @@
+import { useTranslation } from "@kotonosora/i18n-react";
+
 import { LegalPageLayout } from "~/features/shared/layout/legal-page-layout";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 import { getRelatedPages } from "./utils/get-related-pages";
 import { getSections } from "./utils/get-sections";

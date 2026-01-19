@@ -1,9 +1,11 @@
+import {
+  formatFirstDayOfMonthByLanguage,
+  formatNumber,
+} from "@kotonosora/i18n";
 import { addDays, format, isSameMonth, isToday } from "date-fns";
 
 import type { ItemContentProps } from "../types/component";
 
-import { formatFirstDayOfMonthByLanguage } from "~/lib/i18n/utils/datetime/format-first-day-of-month-by-language";
-import { formatNumber } from "~/lib/i18n/utils/number/format-number";
 import { cn } from "~/lib/utils";
 
 export function ItemContent({

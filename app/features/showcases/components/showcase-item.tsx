@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { ExternalLink, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Link, useFetcher } from "react-router";
 
@@ -8,7 +9,6 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import SocialPreview from "~/features/shared/assets/social-preview.svg?no-inline";
 import { useAuth } from "~/lib/authentication/hooks/use-auth";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { cn } from "~/lib/utils";
 
 /**

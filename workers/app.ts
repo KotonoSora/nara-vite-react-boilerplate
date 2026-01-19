@@ -6,7 +6,7 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 import * as schema from "~/database/schema";
 
-import devShowcaseApi from "./api/dev/showcases";
+import { registerRoutes } from "./routes";
 
 declare module "react-router" {
   export interface RouterContextProvider {
@@ -25,8 +25,7 @@ const app = new Hono<{ Bindings: Env }>();
 app.notFound((c) => c.json({ error: "Not Found" }, 404));
 
 // Add more routes here
-app.get("/health", (c) => c.json({ status: "ok" }));
-app.route("/api/dev/showcases", devShowcaseApi);
+registerRoutes(app);
 
 // Main request handler
 app.all("*", (c) => {

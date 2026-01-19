@@ -1,6 +1,5 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { type FC } from "react";
-
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export const QREmptyState: FC = () => {
   const t = useTranslation();

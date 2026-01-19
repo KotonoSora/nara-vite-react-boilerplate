@@ -1,3 +1,5 @@
+import { formatDate } from "@kotonosora/i18n";
+import { type useTranslation } from "@kotonosora/i18n-react";
 import {
   ArrowUpDown,
   Edit,
@@ -8,10 +10,10 @@ import {
   Trash2,
 } from "lucide-react";
 
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type { ShowcaseItem } from "~/features/landing-page/utils/fetch-showcases";
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -24,8 +26,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { type useTranslation } from "~/lib/i18n/hooks/use-translation";
-import { formatDate } from "~/lib/i18n/utils/datetime/format-date";
 
 /**
  * Column definitions for showcases data table.

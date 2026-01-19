@@ -1,3 +1,10 @@
+import { isRTLLanguage } from "@kotonosora/i18n";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
+import { I18nProvider } from "@kotonosora/i18n-react";
+import {
+  cancelIdleCallback,
+  scheduleIdleCallback,
+} from "@kotonosora/scheduler";
 import clsx from "clsx";
 import { lazy, Suspense, useEffect, useState } from "react";
 import {
@@ -18,21 +25,13 @@ import {
 
 import type { Route } from "./+types/root";
 
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 import type { MiddlewareFunction } from "react-router";
-
-import type { SupportedLanguage } from "~/lib/i18n/types/common";
 
 import { HeadScriptTrackingTag } from "~/features/google-analytics/components/head-script-tracking-tag";
 import { usePageView } from "~/features/google-analytics/hooks/use-page-view";
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/authentication/react/provider";
-import {
-  cancelIdleCallback,
-  scheduleIdleCallback,
-} from "~/lib/helper/idle.client";
-import { DEFAULT_LANGUAGE } from "~/lib/i18n/constants/common";
-import { I18nProvider } from "~/lib/i18n/react/provider";
-import { isRTLLanguage } from "~/lib/i18n/utils/common/is-rtl-language";
 import { AuthContext, authMiddleware } from "~/middleware/auth";
 import { i18nMiddleware, I18nReactRouterContext } from "~/middleware/i18n";
 import { generalInformationMiddleware } from "~/middleware/information";

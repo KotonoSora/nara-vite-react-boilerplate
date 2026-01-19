@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { ChevronRight, Clock, FileText, Printer, Share2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router";
@@ -9,7 +10,6 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 import { cn } from "~/lib/utils";
 
 import { ButtonScrollToTop } from "../components/button-scroll-to-top";

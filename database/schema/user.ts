@@ -28,3 +28,6 @@ export const user = sqliteTable("users", {
     .notNull()
     .$defaultFn(() => new Date()),
 });
+
+export type User = typeof user.$inferSelect;
+export type NewUser = typeof user.$inferInsert;

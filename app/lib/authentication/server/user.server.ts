@@ -5,7 +5,6 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type {
   CreateUserDataSchema,
   EmailVerificationResultSchema,
-  UserSchema,
 } from "../types/user";
 
 import * as schema from "~/database/schema";
@@ -31,7 +30,7 @@ const { user } = schema;
 export async function createUser(
   db: DrizzleD1Database<typeof schema>,
   userData: CreateUserDataSchema,
-): Promise<UserSchema> {
+): Promise<schema.User> {
   const passwordHash = await hashPassword(userData.password);
   const emailVerificationToken = generateEmailVerificationToken();
   const emailVerificationExpires = getEmailVerificationExpiry();
@@ -68,7 +67,7 @@ export async function createUser(
 export async function getUserByEmail(
   db: DrizzleD1Database<typeof schema>,
   email: string,
-): Promise<UserSchema | null> {
+): Promise<schema.User | null> {
   const foundUser = await db
     .select()
     .from(user)
@@ -88,7 +87,7 @@ export async function getUserByEmail(
 export async function getUserById(
   db: DrizzleD1Database<typeof schema>,
   id: string,
-): Promise<UserSchema | null> {
+): Promise<schema.User | null> {
   const foundUser = await db.select().from(user).where(eq(user.id, id)).get();
 
   return foundUser || null;
@@ -106,7 +105,7 @@ export async function authenticateUser(
   db: DrizzleD1Database<typeof schema>,
   email: string,
   password: string,
-): Promise<UserSchema | null> {
+): Promise<schema.User | null> {
   const foundUser = await getUserByEmail(db, email);
 
   if (!foundUser) {
@@ -273,7 +272,7 @@ export async function resetPasswordWithToken(
   db: DrizzleD1Database<typeof schema>,
   token: string,
   newPassword: string,
-): Promise<{ success: boolean; user?: UserSchema; error?: string }> {
+): Promise<{ success: boolean; user?: schema.User; error?: string }> {
   const foundUser = await db
     .select()
     .from(user)

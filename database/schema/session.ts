@@ -16,3 +16,6 @@ export const session = sqliteTable("sessions", {
     .notNull()
     .$defaultFn(() => new Date()),
 });
+
+export type Session = typeof session.$inferSelect;
+export type NewSession = typeof session.$inferInsert;

@@ -1,4 +1,4 @@
-import type { TranslationFunction } from "~/lib/i18n/types/translations";
+import type { TranslationFunction } from "@kotonosora/i18n-locales";
 
 export function getSteps(t: TranslationFunction) {
   return [

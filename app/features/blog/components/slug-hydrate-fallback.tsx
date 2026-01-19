@@ -1,3 +1,4 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
@@ -10,7 +11,6 @@ import {
   EmptyTitle,
 } from "~/components/ui/empty";
 import { Spinner } from "~/components/ui/spinner";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function SlugHydrateFallback() {
   const t = useTranslation();

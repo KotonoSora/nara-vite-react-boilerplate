@@ -1,10 +1,10 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { Home, LogOut } from "lucide-react";
 import { Form, Link } from "react-router";
 
 import type { MenuCloseHandler } from "../types/type";
 
 import { Button } from "~/components/ui/button";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 export function UserActions({ onClose }: MenuCloseHandler) {
   const t = useTranslation();

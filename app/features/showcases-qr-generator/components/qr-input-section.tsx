@@ -1,8 +1,8 @@
+import { useTranslation } from "@kotonosora/i18n-react";
 import { type FC } from "react";
 
 import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
-import { useTranslation } from "~/lib/i18n/hooks/use-translation";
 
 interface QRInputSectionProps {
   text: string;

@@ -1,39 +1,37 @@
-import type { SupportedLanguage } from "../types/common";
+import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 
 export async function loadDataTranslations(language: SupportedLanguage) {
   switch (language) {
     case "en": {
-      return (await import(`../constants/locales/english`)).englishTranslations;
+      return (await import(`@kotonosora/i18n-locales`)).englishTranslations;
     }
     case "es": {
-      return (await import(`../constants/locales/spanish`)).spanishTranslations;
+      return (await import(`@kotonosora/i18n-locales`)).spanishTranslations;
     }
     case "fr": {
-      return (await import(`../constants/locales/french`)).frenchTranslations;
+      return (await import(`@kotonosora/i18n-locales`)).frenchTranslations;
     }
     case "zh": {
-      return (await import(`../constants/locales/chinese`)).chineseTranslations;
+      return (await import(`@kotonosora/i18n-locales`)).chineseTranslations;
     }
     case "hi": {
-      return (await import(`../constants/locales/hindi`)).hindiTranslations;
+      return (await import(`@kotonosora/i18n-locales`)).hindiTranslations;
     }
     case "ar": {
-      return (await import(`../constants/locales/arabic`)).arabicTranslations;
+      return (await import(`@kotonosora/i18n-locales`)).arabicTranslations;
     }
     case "vi": {
-      return (await import(`../constants/locales/vietnamese`))
-        .vietnameseTranslations;
+      return (await import(`@kotonosora/i18n-locales`)).vietnameseTranslations;
     }
     case "ja": {
-      return (await import(`../constants/locales/japanese`))
-        .japaneseTranslations;
+      return (await import(`@kotonosora/i18n-locales`)).japaneseTranslations;
     }
     case "th": {
-      return (await import(`../constants/locales/thai`)).thaiTranslations;
+      return (await import(`@kotonosora/i18n-locales`)).thaiTranslations;
     }
     default: {
       // Fallback to English if language not supported
-      return (await import(`../constants/locales/english`)).englishTranslations;
+      return (await import(`@kotonosora/i18n-locales`)).englishTranslations;
     }
   }
 }
