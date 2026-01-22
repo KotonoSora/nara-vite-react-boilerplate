@@ -43,9 +43,9 @@
     "date-fns": "catalog:",
     "drizzle-orm": "~0.45.1",
     "embla-carousel-react": "8.6.0",
-    "hono": "4.11.4",
+    "hono": "4.11.5",
     "input-otp": "1.4.2",
-    "isbot": "5.1.32",
+    "isbot": "5.1.33",
     "lucide-react": "0.562.0",
     "qrcode.react": "4.2.0",
     "radix-ui": "1.4.3",
@@ -66,7 +66,7 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "7.28.5",
-    "@cloudflare/vite-plugin": "1.21.0",
+    "@cloudflare/vite-plugin": "1.21.2",
     "@commitlint/cli": "20.3.1",
     "@commitlint/config-conventional": "20.3.1",
     "@ianvs/prettier-plugin-sort-imports": "4.7.0",
@@ -76,9 +76,9 @@
     "@react-router/dev": "7.12.0",
     "@react-router/fs-routes": "7.12.0",
     "@tailwindcss/vite": "4.1.18",
-    "@types/node": "24",
+    "@types/node": "^24.10.9",
     "@types/qrcode.react": "3.0.0",
-    "@types/react": "19.2.8",
+    "@types/react": "19.2.9",
     "@types/react-dom": "19.2.3",
     "@vitest/coverage-istanbul": "3.2.4",
     "@vitest/ui": "3.2.4",
@@ -88,7 +88,7 @@
     "husky": "9.1.7",
     "lint-staged": "16.2.7",
     "mdx-mermaid": "2.0.3",
-    "prettier": "3.8.0",
+    "prettier": "3.8.1",
     "prettier-plugin-tailwindcss": "0.7.2",
     "rehype-highlight": "7.0.2",
     "rehype-mathjax": "7.1.0",
@@ -102,7 +102,7 @@
     "vite-plugin-babel": "1.4.1",
     "vite-tsconfig-paths": "6.0.4",
     "vitest": "3.2.4",
-    "wrangler": "4.59.2"
+    "wrangler": "4.60.0"
   },
   "engines": {
     "node": "24.10.0"
