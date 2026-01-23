@@ -41,7 +41,7 @@ import appCssUrl from "~/app.css?url";
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
 const ToasterLazy = lazy(async () => ({
-  default: (await import("~/components/ui/sonner")).Toaster,
+  default: (await import("@kotonosora/ui/components/ui/sonner")).Toaster,
 }));
 
 export const links: Route.LinksFunction = () => {

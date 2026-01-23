@@ -1,6 +1,6 @@
+import { Popover } from "@kotonosora/ui/components/ui/popover";
 import { useState } from "react";
 
-import { Popover } from "~/components/ui/popover";
 import { BrandLogo } from "~/features/shared/components/brand-logo";
 
 import { Menu } from "./components/navigation-menu";

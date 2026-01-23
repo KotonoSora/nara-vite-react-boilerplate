@@ -1,11 +1,10 @@
+import { Badge } from "@kotonosora/ui/components/ui/badge";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { Card, CardContent } from "@kotonosora/ui/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 
 import type { ProjectInfo } from "~/features/showcases/types/type";
-
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
-import { Card, CardContent } from "~/components/ui/card";
 
 export function BuiltInDemoItem({ project }: { project: ProjectInfo }) {
   return (

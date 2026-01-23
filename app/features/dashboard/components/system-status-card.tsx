@@ -1,15 +1,14 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { Activity } from "lucide-react";
-
-import { Badge } from "~/components/ui/badge";
+import { Badge } from "@kotonosora/ui/components/ui/badge";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
-import { Separator } from "~/components/ui/separator";
+} from "@kotonosora/ui/components/ui/card";
+import { Separator } from "@kotonosora/ui/components/ui/separator";
+import { Activity } from "lucide-react";
 
 export function SystemStatusCard() {
   const t = useTranslation();

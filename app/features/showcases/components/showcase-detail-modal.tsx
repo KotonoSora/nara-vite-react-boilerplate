@@ -1,16 +1,16 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Badge } from "@kotonosora/ui/components/ui/badge";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { Dialog, DialogContent } from "@kotonosora/ui/components/ui/dialog";
+import { cn } from "@kotonosora/ui/lib/utils";
 import { ExternalLink, ThumbsDown, ThumbsUp, X } from "lucide-react";
 import { useEffect } from "react";
 import { Link, useFetcher } from "react-router";
 
 import type { ProjectInfo } from "~/features/showcases/types/type";
 
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
-import { Dialog, DialogContent } from "~/components/ui/dialog";
 import SocialPreview from "~/features/shared/assets/social-preview.svg?no-inline";
 import { useAuth } from "~/lib/authentication/hooks/use-auth";
-import { cn } from "~/lib/utils";
 
 interface ShowcaseDetailModalProps {
   project: ProjectInfo | null;

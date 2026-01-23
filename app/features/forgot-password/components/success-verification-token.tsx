@@ -1,16 +1,19 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { CheckCircle2 } from "lucide-react";
-import { Link, useActionData } from "react-router";
-
-import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
-import { Button } from "~/components/ui/button";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@kotonosora/ui/components/ui/alert";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
+import { CheckCircle2 } from "lucide-react";
+import { Link, useActionData } from "react-router";
 
 export function SuccessVerificationToken() {
   const actionData = useActionData();

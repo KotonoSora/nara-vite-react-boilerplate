@@ -1,10 +1,10 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { PopoverContent } from "@kotonosora/ui/components/ui/popover";
 import { Link } from "react-router";
 
 import type { MenuCloseHandler } from "../types/type";
 
-import { Button } from "~/components/ui/button";
-import { PopoverContent } from "~/components/ui/popover";
 import { GitHubButton } from "~/features/shared/components/github-button";
 import { useAuth } from "~/lib/authentication/hooks/use-auth";
 

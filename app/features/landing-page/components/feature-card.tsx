@@ -1,12 +1,12 @@
-import type { FeatureCardProps } from "../types/type";
-
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
+
+import type { FeatureCardProps } from "../types/type";
 
 import { getIconComponent } from "../utils/get-icon-component";
 

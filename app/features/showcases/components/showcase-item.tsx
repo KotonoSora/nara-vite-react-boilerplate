@@ -1,15 +1,19 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Badge } from "@kotonosora/ui/components/ui/badge";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+} from "@kotonosora/ui/components/ui/card";
+import { cn } from "@kotonosora/ui/lib/utils";
 import { ExternalLink, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Link, useFetcher } from "react-router";
 
 import type { ProjectInfo } from "~/features/showcases/types/type";
 
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
-import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import SocialPreview from "~/features/shared/assets/social-preview.svg?no-inline";
 import { useAuth } from "~/lib/authentication/hooks/use-auth";
-import { cn } from "~/lib/utils";
 
 /**
  * Renders a showcase card with voting actions and external project link.

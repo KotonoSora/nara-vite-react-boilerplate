@@ -6,12 +6,12 @@ import {
 } from "@kotonosora/i18n";
 import { SUPPORTED_LANGUAGES } from "@kotonosora/i18n-locales";
 import { useLanguage, useTranslation } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import clsx from "clsx";
 import { Globe } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-import { Button } from "~/components/ui/button";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { useLazyImport } from "~/hooks/use-lazy-import";
 
@@ -24,7 +24,7 @@ export function LanguageSwitcher() {
 
   // Dynamically import the dropdown menu module on demand
   const [menuMod, loadMenu] = useLazyImport(
-    () => import("~/components/ui/dropdown-menu"),
+    () => import("@kotonosora/ui/components/ui/dropdown-menu"),
   );
   const [open, setOpen] = useState(false);
   const pendingOpenRef = useRef(false);

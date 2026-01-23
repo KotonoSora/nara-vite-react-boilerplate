@@ -1,4 +1,6 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { Separator } from "@kotonosora/ui/components/ui/separator";
 import { CircleChevronRight } from "lucide-react";
 import { use } from "react";
 import { Link, useLoaderData } from "react-router";
@@ -6,9 +8,6 @@ import { Link, useLoaderData } from "react-router";
 import type { ProjectInfo } from "~/features/showcases/types/type";
 
 import type { LandingPageContextType } from "../types/type";
-
-import { Button } from "~/components/ui/button";
-import { Separator } from "~/components/ui/separator";
 
 import { BuiltInDemoItem } from "../components/built-in-demo-item";
 import { ShowcaseItem } from "../components/showcase-item";

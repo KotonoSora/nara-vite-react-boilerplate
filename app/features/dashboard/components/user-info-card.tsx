@@ -1,18 +1,17 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { User } from "lucide-react";
-import { useLoaderData } from "react-router";
-
-import type { DashboardContentProps } from "../types/type";
-
-import { Badge } from "~/components/ui/badge";
+import { Badge } from "@kotonosora/ui/components/ui/badge";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
-import { Separator } from "~/components/ui/separator";
+} from "@kotonosora/ui/components/ui/card";
+import { Separator } from "@kotonosora/ui/components/ui/separator";
+import { User } from "lucide-react";
+import { useLoaderData } from "react-router";
+
+import type { DashboardContentProps } from "../types/type";
 
 export function UserInfoCard() {
   const { user } = useLoaderData<DashboardContentProps>();

@@ -1,7 +1,11 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@kotonosora/ui/components/ui/card";
 import { Zap } from "lucide-react";
-
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 export function TechStackSection() {
   const t = useTranslation();

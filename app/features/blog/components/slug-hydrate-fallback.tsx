@@ -1,7 +1,5 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { Link } from "react-router";
-
-import { Button } from "~/components/ui/button";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -9,8 +7,9 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "~/components/ui/empty";
-import { Spinner } from "~/components/ui/spinner";
+} from "@kotonosora/ui/components/ui/empty";
+import { Spinner } from "@kotonosora/ui/components/ui/spinner";
+import { Link } from "react-router";
 
 export function SlugHydrateFallback() {
   const t = useTranslation();

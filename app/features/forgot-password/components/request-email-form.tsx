@@ -1,18 +1,17 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { AlertCircle } from "lucide-react";
-import { Link, useActionData } from "react-router";
-
-import { Alert, AlertTitle } from "~/components/ui/alert";
-import { Button } from "~/components/ui/button";
+import { Alert, AlertTitle } from "@kotonosora/ui/components/ui/alert";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
+} from "@kotonosora/ui/components/ui/card";
+import { Input } from "@kotonosora/ui/components/ui/input";
+import { Label } from "@kotonosora/ui/components/ui/label";
+import { AlertCircle } from "lucide-react";
+import { Link, useActionData } from "react-router";
 
 export function RequestEmailForm() {
   const actionData = useActionData();

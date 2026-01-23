@@ -1,10 +1,14 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@kotonosora/ui/components/ui/card";
 import { Activity, Calendar, TrendingUp, Users } from "lucide-react";
 import { useLoaderData } from "react-router";
 
 import type { DashboardContentProps } from "../types/type";
-
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 export function StatsOverviewSection() {
   const { stats } = useLoaderData<DashboardContentProps>();

@@ -1,4 +1,36 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogTitle,
+} from "@kotonosora/ui/components/ui/alert-dialog";
+import { Badge } from "@kotonosora/ui/components/ui/badge";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@kotonosora/ui/components/ui/command";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@kotonosora/ui/components/ui/dialog";
+import { Input } from "@kotonosora/ui/components/ui/input";
+import { Label } from "@kotonosora/ui/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@kotonosora/ui/components/ui/popover";
+import { Textarea } from "@kotonosora/ui/components/ui/textarea";
+import { cn } from "@kotonosora/ui/lib/utils";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -7,41 +39,9 @@ import type { FC } from "react";
 import type { FieldError } from "~/features/landing-page/schemas/create-showcase.schema";
 
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogTitle,
-} from "~/components/ui/alert-dialog";
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "~/components/ui/command";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "~/components/ui/dialog";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
-import { Textarea } from "~/components/ui/textarea";
-import {
   createShowcaseSchema,
   parseValidationErrors,
 } from "~/features/landing-page/schemas/create-showcase.schema";
-import { cn } from "~/lib/utils";
 
 interface ShowcaseModalProps {
   open: boolean;
