@@ -16,11 +16,29 @@ export const { LandingPageReactRouterContext } =
   );
 
 export const landingPageMiddleware: MiddlewareFunction = async (
-  { context },
+  { request, context },
   next,
 ) => {
   const { db } = context;
-  const { t } = context.get(I18nReactRouterContext);
+
+  let t;
+  try {
+    t = context.get(I18nReactRouterContext).t;
+  } catch {
+    const { resolveRequestLanguage } =
+      await import("~/lib/i18n/server/request-language.server");
+    const { loadDataTranslations } =
+      await import("~/lib/i18n/server/load-data-translations.server");
+    const { createTranslationFunctionWithData } =
+      await import("@kotonosora/i18n");
+
+    const language = await resolveRequestLanguage(request);
+    const translations = await loadDataTranslations(language);
+    t = createTranslationFunctionWithData(translations, language);
+
+    // Make the i18n context available for downstream middleware/handlers
+    context.set(I18nReactRouterContext, { language, t });
+  }
 
   // Prepare showcases: published, non-deleted, page 1 size 4, ordered by publishedAt desc, score > 0
   const showcases = fetchShowcases(db, {

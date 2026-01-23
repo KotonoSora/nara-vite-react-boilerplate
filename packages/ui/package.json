@@ -59,6 +59,8 @@
     "./lib/utils": "./src/lib/utils.ts",
     "./styles/globals": "./src/styles/globals.css"
   },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "style": "src/styles/globals.css",
   "files": [
     "src/components/ui/accordion.tsx",
@@ -118,8 +120,6 @@
     "src/lib/utils.ts",
     "src/styles/globals.css"
   ],
-  "main": "src/index.ts",
-  "types": "src/index.ts",
   "dependencies": {
     "@hookform/resolvers": "5.2.2",
     "class-variance-authority": "0.7.1",
