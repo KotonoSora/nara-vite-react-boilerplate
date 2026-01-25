@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@hono/zod-validator": "0.7.6",
+    "@tailwindcss/vite": "4.1.18",
     "@tanstack/react-table": "8.21.3",
     "drizzle-orm": "~0.45.1",
     "hono": "4.11.5",
@@ -43,7 +44,8 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-router": "7.13.0",
-    "react-virtuoso": "4.18.1"
+    "react-virtuoso": "4.18.1",
+    "tailwindcss": "4.1.18"
   },
   "devDependencies": {
     "@babel/preset-typescript": "7.28.5",
@@ -56,7 +58,6 @@
     "@mdx-js/rollup": "3.1.1",
     "@react-router/dev": "7.13.0",
     "@react-router/fs-routes": "7.13.0",
-    "@tailwindcss/vite": "4.1.18",
     "@types/node": "24.10.9",
     "@types/qrcode.react": "3.0.0",
     "@types/react": "19.2.9",
@@ -85,6 +86,6 @@
     "wrangler": "4.60.0"
   },
   "engines": {
-    "node": "24.10.0"
+    "node": "24.13.0"
   }
 }
