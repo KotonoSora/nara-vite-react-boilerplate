@@ -30,6 +30,7 @@ import type { MiddlewareFunction } from "react-router";
 
 import { HeadScriptTrackingTag } from "~/features/google-analytics/components/head-script-tracking-tag";
 import { usePageView } from "~/features/google-analytics/hooks/use-page-view";
+import { landingPageMiddleware } from "~/features/landing-page/middleware/landing-page-middleware";
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/authentication/react/provider";
 import { AuthContext, authMiddleware } from "~/middleware/auth";
@@ -69,6 +70,7 @@ export const middleware: MiddlewareFunction[] = [
   i18nMiddleware,
   themeMiddleware,
   authMiddleware,
+  landingPageMiddleware,
 ];
 
 export async function loader({ request, context }: Route.LoaderArgs) {
