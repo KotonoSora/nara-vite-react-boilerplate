@@ -1,10 +1,9 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { PopoverTrigger } from "@kotonosora/ui/components/ui/popover";
 import { Menu, X } from "lucide-react";
 
 import type { MenuTriggerProps } from "../types/type";
-
-import { Button } from "~/components/ui/button";
-import { PopoverTrigger } from "~/components/ui/popover";
 
 import { LanguageSwitcher } from "./language-switcher";
 import { ModeSwitcher } from "./mode-switcher";

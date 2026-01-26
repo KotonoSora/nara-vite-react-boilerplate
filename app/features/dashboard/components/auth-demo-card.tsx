@@ -1,15 +1,14 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { Activity, TrendingUp } from "lucide-react";
-import { Link } from "react-router";
-
-import { Button } from "~/components/ui/button";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
+import { Activity, TrendingUp } from "lucide-react";
+import { Link } from "react-router";
 
 export function AuthDemoCard() {
   const t = useTranslation();

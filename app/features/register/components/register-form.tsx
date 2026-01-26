@@ -1,30 +1,32 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "@kotonosora/i18n-react";
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Form, Link, useActionData } from "react-router";
-import { z } from "zod";
-
-import type { TranslationFunction } from "@kotonosora/i18n-locales";
-
-import { Button } from "~/components/ui/button";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
 import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Form as FormProvider,
-} from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@kotonosora/ui/components/ui/field";
+import { Input } from "@kotonosora/ui/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@kotonosora/ui/components/ui/input-group";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { Form, Link, useActionData } from "react-router";
+import { z } from "zod";
+
+import type { TranslationFunction } from "@kotonosora/i18n-locales";
 
 const createRegisterSchema = (t: TranslationFunction) =>
   z
@@ -73,156 +75,174 @@ export function RegisterForm() {
         <CardDescription>{t("auth.register.description")}</CardDescription>
       </CardHeader>
       <CardContent>
-        <FormProvider {...form}>
-          <Form method="post" className="space-y-4">
-            {error && (
-              <div className="p-3 text-sm text-red-600 bg-red-50 rounded-md border border-red-200">
-                {error}
-              </div>
-            )}
+        <Form method="post" className="space-y-4">
+          {error && (
+            <div className="p-3 text-sm text-red-600 bg-red-50 rounded-md border border-red-200">
+              {error}
+            </div>
+          )}
 
-            <FormField
+          <FieldGroup>
+            <Controller
               control={form.control}
               name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t("auth.register.form.name.label")}</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder={t("auth.register.form.name.placeholder")}
-                      autoComplete="name"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="form-new-name">
+                    {t("auth.register.form.name.label")}
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="form-new-name"
+                    aria-invalid={fieldState.invalid}
+                    type="text"
+                    placeholder={t("auth.register.form.name.placeholder")}
+                    autoComplete="name"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
               )}
             />
 
-            <FormField
+            <Controller
               control={form.control}
               name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t("auth.register.form.email.label")}</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      placeholder={t("auth.register.form.email.placeholder")}
-                      autoComplete="email"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="form-new-email">
+                    {t("auth.register.form.email.label")}
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="form-new-email"
+                    aria-invalid={fieldState.invalid}
+                    type="email"
+                    placeholder={t("auth.register.form.email.placeholder")}
+                    autoComplete="email"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
               )}
             />
 
-            <FormField
+            <Controller
               control={form.control}
               name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="form-new-password">
                     {t("auth.register.form.password.label")}
-                  </FormLabel>
-                  <div className="relative">
-                    <FormControl>
-                      <Input
-                        type={showPassword ? "text" : "password"}
-                        placeholder={t(
-                          "auth.register.form.password.placeholder",
+                  </FieldLabel>
+                  <InputGroup>
+                    <InputGroupInput
+                      {...field}
+                      id="form-new-password"
+                      aria-invalid={fieldState.invalid}
+                      type={showPassword ? "text" : "password"}
+                      placeholder={t("auth.register.form.password.placeholder")}
+                      autoComplete="new-password"
+                    />
+                    <InputGroupAddon align="inline-end">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                        onClick={() => setShowPassword(!showPassword)}
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
                         )}
-                        autoComplete="new-password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                      onClick={() => setShowPassword(!showPassword)}
-                      aria-label={
-                        showPassword ? "Hide password" : "Show password"
-                      }
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                  <FormMessage />
-                </FormItem>
+                      </Button>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
               )}
             />
 
-            <FormField
+            <Controller
               control={form.control}
               name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="form-confirm-password">
                     {t("auth.register.form.confirmPassword.label")}
-                  </FormLabel>
-                  <div className="relative">
-                    <FormControl>
-                      <Input
-                        type={showConfirmPassword ? "text" : "password"}
-                        placeholder={t(
-                          "auth.register.form.confirmPassword.placeholder",
-                        )}
-                        autoComplete="new-password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
-                      aria-label={
-                        showConfirmPassword ? "Hide password" : "Show password"
-                      }
-                    >
-                      {showConfirmPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
+                  </FieldLabel>
+                  <InputGroup>
+                    <InputGroupInput
+                      {...field}
+                      id="form-confirm-password"
+                      aria-invalid={fieldState.invalid}
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder={t(
+                        "auth.register.form.confirmPassword.placeholder",
                       )}
-                    </Button>
-                  </div>
-                  <FormMessage />
-                </FormItem>
+                      autoComplete="new-password"
+                    />
+
+                    <InputGroupAddon align="inline-end">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                        aria-label={
+                          showConfirmPassword
+                            ? "Hide password"
+                            : "Show password"
+                        }
+                      >
+                        {showConfirmPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </InputGroupAddon>
+                  </InputGroup>
+
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
               )}
             />
+          </FieldGroup>
 
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting
-                ? t("auth.register.form.submitting")
-                : t("auth.register.form.submit")}
-            </Button>
+          <Button
+            type="submit"
+            className="w-full cursor-pointer"
+            disabled={form.formState.isSubmitting || !form.formState.isValid}
+          >
+            {form.formState.isSubmitting
+              ? t("auth.register.form.submitting")
+              : t("auth.register.form.submit")}
+          </Button>
 
-            <div className="text-center text-sm">
-              <span className="text-muted-foreground">
-                {t("auth.register.hasAccount")}{" "}
-              </span>
-              <Link to="/login" className="underline underline-offset-4">
-                {t("auth.register.signInLink")}
-              </Link>
-            </div>
-          </Form>
-        </FormProvider>
+          <div className="text-center text-sm">
+            <span className="text-muted-foreground">
+              {t("auth.register.hasAccount")}{" "}
+            </span>
+            <Link to="/login" className="underline underline-offset-4">
+              {t("auth.register.signInLink")}
+            </Link>
+          </div>
+        </Form>
       </CardContent>
     </Card>
   );

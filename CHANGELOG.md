@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.6.21 (2025-01-26)
+
+- Implemented packages shadcn/ui to Bun workspaces
+
 ## 4.6.20 (2025-01-19)
 
 - Implemented Bun workspaces support for monorepo structure

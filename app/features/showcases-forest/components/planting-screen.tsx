@@ -1,8 +1,7 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
 
 import type { PlantingScreenProps } from "../types/common";
-
-import { Button } from "~/components/ui/button";
 
 import { RANGE_MAX, RANGE_MIN } from "../constants/common";
 import { useForestContext } from "../context/forest-context";

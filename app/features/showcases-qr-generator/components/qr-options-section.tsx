@@ -1,16 +1,15 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { type FC } from "react";
-
-import type { QRCodeOptions } from "../types/type";
-
-import { Label } from "~/components/ui/label";
+import { Label } from "@kotonosora/ui/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "~/components/ui/select";
+} from "@kotonosora/ui/components/ui/select";
+import { type FC } from "react";
+
+import type { QRCodeOptions } from "../types/type";
 
 import {
   QR_ERROR_CORRECTION_OPTIONS,

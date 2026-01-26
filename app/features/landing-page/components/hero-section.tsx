@@ -1,10 +1,9 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import { ArrowRight, ExternalLink, Rocket, Sparkles, Star } from "lucide-react";
 import { Link, useLoaderData } from "react-router";
 
 import type { GeneralInformationType } from "~/features/shared/types/type";
-
-import { Button } from "~/components/ui/button";
 
 import { heroDecorationConfig } from "../constants/background-decoration";
 import { BackgroundDecoration } from "./background-decoration";

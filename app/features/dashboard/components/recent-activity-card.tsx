@@ -1,16 +1,15 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { Calendar, Clock, Settings, User } from "lucide-react";
-import { useLoaderData } from "react-router";
-
-import type { DashboardContentProps } from "../types/type";
-
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
+import { Calendar, Clock, Settings, User } from "lucide-react";
+import { useLoaderData } from "react-router";
+
+import type { DashboardContentProps } from "../types/type";
 
 export function RecentActivityCard() {
   const { recentActivity } = useLoaderData<DashboardContentProps>();

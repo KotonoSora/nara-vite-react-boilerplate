@@ -1,9 +1,8 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { cn } from "@kotonosora/ui/lib/utils";
 import { ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
-
-import { Button } from "~/components/ui/button";
-import { cn } from "~/lib/utils";
 
 export function ButtonScrollToTop() {
   const t = useTranslation();

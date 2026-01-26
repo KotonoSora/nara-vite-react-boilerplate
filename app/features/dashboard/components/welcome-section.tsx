@@ -1,11 +1,10 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Avatar, AvatarFallback } from "@kotonosora/ui/components/ui/avatar";
+import { Badge } from "@kotonosora/ui/components/ui/badge";
 import { Shield } from "lucide-react";
 import { useLoaderData } from "react-router";
 
 import type { DashboardContentProps } from "../types/type";
-
-import { Avatar, AvatarFallback } from "~/components/ui/avatar";
-import { Badge } from "~/components/ui/badge";
 
 export function WelcomeSection() {
   const { user } = useLoaderData<DashboardContentProps>();

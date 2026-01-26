@@ -1,6 +1,6 @@
-import type { DayCellProps } from "../types/type";
+import { cn } from "@kotonosora/ui/lib/utils";
 
-import { cn } from "~/lib/utils";
+import type { DayCellProps } from "../types/type";
 
 import { useCalendar } from "../context/calendar-context";
 import { dayToIndex, startOfDay } from "../utils/helper-date";

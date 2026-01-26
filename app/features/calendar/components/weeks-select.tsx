@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "~/components/ui/select";
+} from "@kotonosora/ui/components/ui/select";
 
 import { usePageContext } from "../context/page-context";
 

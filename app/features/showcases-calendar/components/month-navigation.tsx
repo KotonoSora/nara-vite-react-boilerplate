@@ -1,10 +1,9 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import { format } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import type { MonthNavigationProps } from "../types/component";
-
-import { Button } from "~/components/ui/button";
 
 export function MonthNavigation({
   goToToday,

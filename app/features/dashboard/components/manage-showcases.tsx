@@ -1,4 +1,5 @@
 import { useI18n } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import { Plus } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useFetcher, useLoaderData, useSearchParams } from "react-router";
@@ -10,8 +11,6 @@ import type { ShowcaseItem } from "~/features/landing-page/utils/fetch-showcases
 
 import type { DashboardContentProps } from "../types/type";
 import type { ShowcaseFormData } from "./showcase-modal";
-
-import { Button } from "~/components/ui/button";
 
 import { DeleteShowcaseDialog } from "./delete-showcase-dialog";
 import { ShowcaseModal } from "./showcase-modal";

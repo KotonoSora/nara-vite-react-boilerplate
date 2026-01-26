@@ -1,29 +1,28 @@
-import * as React from "react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-
-import type { ChartConfig } from "~/components/ui/chart";
-
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
 import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "~/components/ui/chart";
+} from "@kotonosora/ui/components/ui/chart";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "~/components/ui/select";
+} from "@kotonosora/ui/components/ui/select";
+import { useState } from "react";
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+
+import type { ChartConfig } from "@kotonosora/ui/components/ui/chart";
 
 export const description = "An interactive area chart";
 
@@ -136,7 +135,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ChartAreaInteractive() {
-  const [timeRange, setTimeRange] = React.useState("90d");
+  const [timeRange, setTimeRange] = useState("90d");
 
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date);

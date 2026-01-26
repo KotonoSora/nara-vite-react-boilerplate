@@ -1,6 +1,5 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-
-import { Button } from "~/components/ui/button";
+import { Button } from "@kotonosora/ui/components/ui/button";
 
 import { STATUS } from "../constants/common";
 import { useForestContext } from "../context/forest-context";

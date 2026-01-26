@@ -1,8 +1,3 @@
-import { TrendingUp } from "lucide-react";
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
-
-import type { ChartConfig } from "~/components/ui/chart";
-
 import {
   Card,
   CardContent,
@@ -10,12 +5,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "~/components/ui/chart";
+} from "@kotonosora/ui/components/ui/chart";
+import { TrendingUp } from "lucide-react";
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
+
+import type { ChartConfig } from "@kotonosora/ui/components/ui/chart";
 
 export const description = "A radar chart";
 

@@ -1,17 +1,16 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { Settings, Shield, TrendingUp, User } from "lucide-react";
-import { Link, useLoaderData } from "react-router";
-
-import type { DashboardContentProps } from "../types/type";
-
-import { Button } from "~/components/ui/button";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
+import { Settings, Shield, TrendingUp, User } from "lucide-react";
+import { Link, useLoaderData } from "react-router";
+
+import type { DashboardContentProps } from "../types/type";
 
 export function QuickActionsCard() {
   const { user } = useLoaderData<DashboardContentProps>();

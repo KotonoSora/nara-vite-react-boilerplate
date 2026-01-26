@@ -1,16 +1,15 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Badge } from "@kotonosora/ui/components/ui/badge";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { Card, CardContent } from "@kotonosora/ui/components/ui/card";
+import { ScrollArea } from "@kotonosora/ui/components/ui/scroll-area";
+import { Separator } from "@kotonosora/ui/components/ui/separator";
+import { cn } from "@kotonosora/ui/lib/utils";
 import { ChevronRight, Clock, FileText, Printer, Share2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router";
 
 import type { GeneralInformationType } from "../types/type";
-
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
-import { Card, CardContent } from "~/components/ui/card";
-import { ScrollArea } from "~/components/ui/scroll-area";
-import { Separator } from "~/components/ui/separator";
-import { cn } from "~/lib/utils";
 
 import { ButtonScrollToTop } from "../components/button-scroll-to-top";
 import { FooterSection } from "../components/footer-section";

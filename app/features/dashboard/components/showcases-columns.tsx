@@ -1,5 +1,16 @@
 import { formatDate } from "@kotonosora/i18n";
 import { type useTranslation } from "@kotonosora/i18n-react";
+import { Badge } from "@kotonosora/ui/components/ui/badge";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { Checkbox } from "@kotonosora/ui/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@kotonosora/ui/components/ui/dropdown-menu";
 import {
   ArrowUpDown,
   Edit,
@@ -14,18 +25,6 @@ import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type { ShowcaseItem } from "~/features/landing-page/utils/fetch-showcases";
-
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
-import { Checkbox } from "~/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
 
 /**
  * Column definitions for showcases data table.
