@@ -10,17 +10,19 @@ import {
   CardTitle,
 } from "@kotonosora/ui/components/ui/card";
 import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Form as FormProvider,
-} from "@kotonosora/ui/components/ui/form";
-import { Input } from "@kotonosora/ui/components/ui/input";
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@kotonosora/ui/components/ui/field";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@kotonosora/ui/components/ui/input-group";
 import { AlertCircle, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Form, Link, useActionData, useLoaderData } from "react-router";
 import { z } from "zod";
 
@@ -110,30 +112,35 @@ export function ResetPasswordForm() {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <FormProvider {...form}>
-          <Form method="post" className="space-y-4">
-            <input type="hidden" name="token" value={token} />
+        <Form method="post" className="space-y-4">
+          {error && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
 
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("auth.resetPassword.passwordLabel")}
-                    </FormLabel>
-                    <div className="relative">
-                      <FormControl>
-                        <Input
-                          type={showPassword ? "text" : "password"}
-                          placeholder={t(
-                            "auth.resetPassword.passwordPlaceholder",
-                          )}
-                          autoComplete="new-password"
-                          {...field}
-                        />
-                      </FormControl>
+          <input type="hidden" name="token" value={token} />
+
+          <FieldGroup>
+            <Controller
+              control={form.control}
+              name="password"
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="form-new-password">
+                    {t("auth.resetPassword.passwordLabel")}
+                  </FieldLabel>
+                  <InputGroup>
+                    <InputGroupInput
+                      {...field}
+                      id="form-new-password"
+                      aria-invalid={fieldState.invalid}
+                      type={showPassword ? "text" : "password"}
+                      placeholder={t("auth.resetPassword.passwordPlaceholder")}
+                      autoComplete="new-password"
+                    />
+                    <InputGroupAddon align="inline-end">
                       <Button
                         type="button"
                         variant="ghost"
@@ -150,31 +157,33 @@ export function ResetPasswordForm() {
                           <Eye className="h-4 w-4" />
                         )}
                       </Button>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                    </InputGroupAddon>
+                  </InputGroup>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
 
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("auth.resetPassword.confirmPasswordLabel")}
-                    </FormLabel>
-                    <div className="relative">
-                      <FormControl>
-                        <Input
-                          type={showConfirmPassword ? "text" : "password"}
-                          placeholder={t(
-                            "auth.resetPassword.confirmPasswordPlaceholder",
-                          )}
-                          autoComplete="new-password"
-                          {...field}
-                        />
-                      </FormControl>
+            <Controller
+              control={form.control}
+              name="confirmPassword"
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="form-confirm-password">
+                    {t("auth.resetPassword.confirmPasswordLabel")}
+                  </FieldLabel>
+                  <InputGroup>
+                    <InputGroupInput
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder={t(
+                        "auth.resetPassword.confirmPasswordPlaceholder",
+                      )}
+                      autoComplete="new-password"
+                      {...field}
+                    />
+                    <InputGroupAddon align="inline-end">
                       <Button
                         type="button"
                         variant="ghost"
@@ -195,55 +204,50 @@ export function ResetPasswordForm() {
                           <Eye className="h-4 w-4" />
                         )}
                       </Button>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+          </FieldGroup>
 
-            {/* Real-time password requirements */}
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-muted-foreground">
-                {t("auth.resetPassword.passwordRequirements")}
-              </p>
-              <ul className="space-y-1">
-                <PasswordRequirement met={requirements.minLength}>
-                  {t("auth.resetPassword.requirementLength")}
-                </PasswordRequirement>
-                <PasswordRequirement met={requirements.hasUppercase}>
-                  {t("auth.resetPassword.requirementUppercase")}
-                </PasswordRequirement>
-                <PasswordRequirement met={requirements.hasLowercase}>
-                  {t("auth.resetPassword.requirementLowercase")}
-                </PasswordRequirement>
-                <PasswordRequirement met={requirements.hasNumber}>
-                  {t("auth.resetPassword.requirementNumber")}
-                </PasswordRequirement>
-                <PasswordRequirement met={requirements.hasSpecialChar}>
-                  {t("auth.resetPassword.requirementSpecial")}
-                </PasswordRequirement>
-              </ul>
-            </div>
+          {/* Real-time password requirements */}
+          <div className="space-y-2">
+            <p className="text-sm font-medium text-muted-foreground">
+              {t("auth.resetPassword.passwordRequirements")}
+            </p>
+            <ul className="space-y-1">
+              <PasswordRequirement met={requirements.minLength}>
+                {t("auth.resetPassword.requirementLength")}
+              </PasswordRequirement>
+              <PasswordRequirement met={requirements.hasUppercase}>
+                {t("auth.resetPassword.requirementUppercase")}
+              </PasswordRequirement>
+              <PasswordRequirement met={requirements.hasLowercase}>
+                {t("auth.resetPassword.requirementLowercase")}
+              </PasswordRequirement>
+              <PasswordRequirement met={requirements.hasNumber}>
+                {t("auth.resetPassword.requirementNumber")}
+              </PasswordRequirement>
+              <PasswordRequirement met={requirements.hasSpecialChar}>
+                {t("auth.resetPassword.requirementSpecial")}
+              </PasswordRequirement>
+            </ul>
+          </div>
 
-            {error && (
-              <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting
-                ? t("auth.resetPassword.submitting")
-                : t("auth.resetPassword.submitButton")}
-            </Button>
-          </Form>
-        </FormProvider>
+          <Button
+            type="submit"
+            className="w-full cursor-pointer"
+            disabled={form.formState.isSubmitting || !form.formState.isValid}
+          >
+            {form.formState.isSubmitting
+              ? t("auth.resetPassword.submitting")
+              : t("auth.resetPassword.submitButton")}
+          </Button>
+        </Form>
 
         <div className="text-center">
           <Button variant="link" asChild className="p-0">
