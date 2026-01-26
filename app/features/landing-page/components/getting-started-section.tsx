@@ -1,12 +1,16 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@kotonosora/ui/components/ui/card";
 import { Check, Copy, Play, Terminal } from "lucide-react";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
 
 import type { LandingPageContextType, Step } from "../types/type";
-
-import { Button } from "~/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 export function GettingStartedSection() {
   const t = useTranslation();

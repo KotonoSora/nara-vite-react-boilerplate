@@ -1,9 +1,8 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Avatar, AvatarFallback } from "@kotonosora/ui/components/ui/avatar";
 import { Link } from "react-router";
 
 import type { AuthenticatedMenuProps } from "../types/type";
-
-import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 
 import { getUserInitial } from "../utils/get-user-initial";
 

@@ -1,7 +1,7 @@
+import { Button } from "@kotonosora/ui/components/ui/button";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Theme, useTheme } from "remix-themes";
 
-import { Button } from "~/components/ui/button";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 
 export function getNextTheme(theme: Theme | null) {

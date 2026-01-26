@@ -1,8 +1,7 @@
+import { cn } from "@kotonosora/ui/lib/utils";
 import { Link } from "react-router";
 
 import type { BrandLogoProps } from "../../landing-page/types/type";
-
-import { cn } from "~/lib/utils";
 
 export function BrandLogo(props: BrandLogoProps) {
   const { url, onClick, className } = props;

@@ -1,14 +1,13 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { type FC } from "react";
-
 import {
   AlertDialog,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogTitle,
-} from "~/components/ui/alert-dialog";
-import { Button } from "~/components/ui/button";
+} from "@kotonosora/ui/components/ui/alert-dialog";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { type FC } from "react";
 
 interface DeleteShowcaseDialogProps {
   open: boolean;

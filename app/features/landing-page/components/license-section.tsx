@@ -1,12 +1,12 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Badge } from "@kotonosora/ui/components/ui/badge";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { Card, CardContent } from "@kotonosora/ui/components/ui/card";
 import { Shield } from "lucide-react";
 import { Link, useLoaderData } from "react-router";
 
 import type { GeneralInformationType } from "~/features/shared/types/type";
 
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
-import { Card, CardContent } from "~/components/ui/card";
 import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 
 export function LicenseSection() {

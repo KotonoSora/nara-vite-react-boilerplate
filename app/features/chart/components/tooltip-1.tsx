@@ -1,19 +1,18 @@
-import { Bar, BarChart, XAxis } from "recharts";
-
-import type { ChartConfig } from "~/components/ui/chart";
-
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "~/components/ui/chart";
+} from "@kotonosora/ui/components/ui/chart";
+import { Bar, BarChart, XAxis } from "recharts";
+
+import type { ChartConfig } from "@kotonosora/ui/components/ui/chart";
 
 export const description = "A stacked bar chart with a legend";
 export const iframeHeight = "600px";

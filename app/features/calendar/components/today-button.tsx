@@ -1,7 +1,7 @@
-import type { TodayButtonProps } from "../types/type";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { cn } from "@kotonosora/ui/lib/utils";
 
-import { Button } from "~/components/ui/button";
-import { cn } from "~/lib/utils";
+import type { TodayButtonProps } from "../types/type";
 
 export function TodayButton({ onClick, className }: TodayButtonProps) {
   return (

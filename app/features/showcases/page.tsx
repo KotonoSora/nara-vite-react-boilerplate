@@ -1,10 +1,10 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Separator } from "@kotonosora/ui/components/ui/separator";
 import { Suspense } from "react";
 import { useLoaderData } from "react-router";
 
 import type { PageInformation } from "./types/type";
 
-import { Separator } from "~/components/ui/separator";
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
 

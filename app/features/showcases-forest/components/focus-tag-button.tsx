@@ -1,13 +1,12 @@
-import { Pencil } from "lucide-react";
-
-import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { Input } from "@kotonosora/ui/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "~/components/ui/popover";
-import { cn } from "~/lib/utils";
+} from "@kotonosora/ui/components/ui/popover";
+import { cn } from "@kotonosora/ui/lib/utils";
+import { Pencil } from "lucide-react";
 
 import { LIMIT_LABEL_TAGS_CHARACTERS, TAG_COLORS } from "../constants/common";
 import { useForestContext } from "../context/forest-context";

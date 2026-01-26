@@ -1,18 +1,21 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { CheckCircle, XCircle } from "lucide-react";
-import { Link } from "react-router";
-
-import type { VerifyEmailPageProps } from "../types/type";
-
-import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
-import { Button } from "~/components/ui/button";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@kotonosora/ui/components/ui/alert";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
+import { CheckCircle, XCircle } from "lucide-react";
+import { Link } from "react-router";
+
+import type { VerifyEmailPageProps } from "../types/type";
 
 export function ResultCheckToken({
   isSuccess,

@@ -1,20 +1,19 @@
-import * as React from "react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
-
-import type { ChartConfig } from "~/components/ui/chart";
-
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "@kotonosora/ui/components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "~/components/ui/chart";
+} from "@kotonosora/ui/components/ui/chart";
+import { useState } from "react";
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+
+import type { ChartConfig } from "@kotonosora/ui/components/ui/chart";
 
 export const description = "An interactive line chart";
 
@@ -128,7 +127,7 @@ const chartConfig = {
 
 export function ChartLineInteractive() {
   const [activeChart, setActiveChart] =
-    React.useState<keyof typeof chartConfig>("desktop");
+    useState<keyof typeof chartConfig>("desktop");
 
   const total = {
     desktop: chartData.reduce((acc, curr) => acc + curr.desktop, 0),

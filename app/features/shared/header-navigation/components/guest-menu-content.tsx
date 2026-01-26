@@ -1,9 +1,8 @@
 import { useTranslation } from "@kotonosora/i18n-react";
+import { Button } from "@kotonosora/ui/components/ui/button";
 import { Link } from "react-router";
 
 import type { MenuCloseHandler } from "../types/type";
-
-import { Button } from "~/components/ui/button";
 
 export function GuestMenuContent({ onClose }: MenuCloseHandler) {
   const t = useTranslation();

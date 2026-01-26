@@ -1,6 +1,6 @@
-import type { BackgroundDecorationProps } from "../types/background-decoration";
+import { cn } from "@kotonosora/ui/lib/utils";
 
-import { cn } from "~/lib/utils";
+import type { BackgroundDecorationProps } from "../types/background-decoration";
 
 import { colorClasses, sizeClasses } from "../constants/background-decoration";
 

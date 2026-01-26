@@ -2,11 +2,10 @@ import {
   formatFirstDayOfMonthByLanguage,
   formatNumber,
 } from "@kotonosora/i18n";
+import { cn } from "@kotonosora/ui/lib/utils";
 import { addDays, format, isSameMonth, isToday } from "date-fns";
 
 import type { ItemContentProps } from "../types/component";
-
-import { cn } from "~/lib/utils";
 
 export function ItemContent({
   dayIndex,

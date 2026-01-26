@@ -9,10 +9,17 @@ import {
   LandingPageReactRouterContext,
 } from "~/features/landing-page/middleware/landing-page-middleware";
 import { ContentPage } from "~/features/landing-page/page";
-import { I18nReactRouterContext } from "~/middleware/i18n";
-import { GeneralInformationContext } from "~/middleware/information";
+import { i18nMiddleware, I18nReactRouterContext } from "~/middleware/i18n";
+import {
+  GeneralInformationContext,
+  generalInformationMiddleware,
+} from "~/middleware/information";
 
-export const middleware: MiddlewareFunction[] = [landingPageMiddleware];
+export const middleware: MiddlewareFunction[] = [
+  generalInformationMiddleware,
+  i18nMiddleware,
+  landingPageMiddleware,
+];
 
 export async function loader({ context }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
