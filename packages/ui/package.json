@@ -24,7 +24,6 @@
     "./components/ui/dropdown-menu": "./src/components/ui/dropdown-menu.tsx",
     "./components/ui/empty": "./src/components/ui/empty.tsx",
     "./components/ui/field": "./src/components/ui/field.tsx",
-    "./components/ui/form": "./src/components/ui/form.tsx",
     "./components/ui/hover-card": "./src/components/ui/hover-card.tsx",
     "./components/ui/input-group": "./src/components/ui/input-group.tsx",
     "./components/ui/input-otp": "./src/components/ui/input-otp.tsx",
@@ -59,8 +58,6 @@
     "./lib/utils": "./src/lib/utils.ts",
     "./styles/globals": "./src/styles/globals.css"
   },
-  "main": "src/index.ts",
-  "types": "src/index.ts",
   "style": "src/styles/globals.css",
   "files": [
     "src/components/ui/accordion.tsx",
@@ -85,7 +82,6 @@
     "src/components/ui/dropdown-menu.tsx",
     "src/components/ui/empty.tsx",
     "src/components/ui/field.tsx",
-    "src/components/ui/form.tsx",
     "src/components/ui/hover-card.tsx",
     "src/components/ui/input-group.tsx",
     "src/components/ui/input-otp.tsx",
