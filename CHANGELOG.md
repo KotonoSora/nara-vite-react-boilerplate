@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.6.22 (2025-02-01)
+
+- Implemented vitest v4
+- Config bun installer linker hoisted
+- Upgraded dependency versions
+
 ## 4.6.21 (2025-01-26)
 
 - Implemented packages shadcn/ui to Bun workspaces
