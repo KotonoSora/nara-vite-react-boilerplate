@@ -1,5 +1,3 @@
-/// <reference types="vitest/config" />
-
 import { cloudflare } from "@cloudflare/vite-plugin";
 import mdx from "@mdx-js/rollup";
 import { reactRouter } from "@react-router/dev/vite";
@@ -44,58 +42,4 @@ export default defineConfig(() => ({
       },
     }),
   ],
-  optimizeDeps: {
-    include: [
-      "react",
-      "react-dom",
-      "recharts",
-      "lucide-react",
-      "@mdx-js/rollup",
-      "@mdx-js/react",
-      "remark-math",
-      "mdx-mermaid",
-      "remark-gfm",
-      "remark-frontmatter",
-      "remark-mdx-frontmatter",
-      "rehype-highlight",
-      "rehype-mathjax",
-      "react-virtuoso",
-      "date-fns",
-      "qrcode.react",
-    ],
-  },
-  build: {
-    rollupOptions: {
-      output: {
-        advancedChunks: {
-          groups: [
-            { name: "react", test: /\/(react)($|\/)/ },
-            { name: "react-dom", test: /\/(react-dom)($|\/)/ },
-            { name: "recharts", test: /\/(recharts)($|\/)/ },
-            { name: "lucide-react", test: /\/(lucide-react)($|\/)/ },
-            {
-              name: "mdx",
-              test: /\/(@mdx-js\/react|@mdx-js\/mdx)($|\/)/,
-            },
-            {
-              name: "mdx-plugins",
-              test: /\/(rehype-highlight|rehype-mathjax|remark-gfm|remark-math|remark-frontmatter|remark-mdx-frontmatter)($|\/)/,
-            },
-            {
-              name: "virtualized",
-              test: /\/(react-virtuoso)($|\/)/,
-            },
-            {
-              name: "date-fns",
-              test: /\/(date-fns)($|\/)/,
-            },
-            {
-              name: "qrcode.react",
-              test: /\/(qrcode.react)($|\/)/,
-            },
-          ],
-        },
-      },
-    },
-  },
 }));

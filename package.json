@@ -62,8 +62,7 @@
     "@types/qrcode.react": "3.0.0",
     "@types/react": "19.2.9",
     "@types/react-dom": "19.2.3",
-    "@vitest/coverage-istanbul": "3.2.4",
-    "@vitest/ui": "3.2.4",
+    "@vitest/coverage-istanbul": "4.0.18",
     "babel-plugin-react-compiler": "1.0.0",
     "dotenv-cli": "11.0.0",
     "drizzle-kit": "~0.31.8",
@@ -82,7 +81,7 @@
     "vite": "npm:rolldown-vite@latest",
     "vite-plugin-babel": "1.4.1",
     "vite-tsconfig-paths": "6.0.5",
-    "vitest": "3.2.4",
+    "vitest": "4.0.18",
     "wrangler": "4.60.0"
   },
   "engines": {
