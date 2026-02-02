@@ -7,6 +7,7 @@
       "dependencies": {
         "@hono/zod-validator": "0.7.6",
         "@hookform/resolvers": "catalog:",
+        "@kotonosora/google-analytics": "workspace:*",
         "@kotonosora/i18n": "workspace:*",
         "@kotonosora/i18n-locales": "workspace:*",
         "@kotonosora/i18n-react": "workspace:*",
@@ -47,10 +48,10 @@
         "@mdx-js/rollup": "3.1.1",
         "@react-router/dev": "7.13.0",
         "@react-router/fs-routes": "7.13.0",
-        "@types/node": "24.10.9",
+        "@types/node": "catalog:",
         "@types/qrcode.react": "3.0.0",
-        "@types/react": "19.2.10",
-        "@types/react-dom": "19.2.3",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
         "@vitest/coverage-istanbul": "4.0.18",
         "babel-plugin-react-compiler": "1.0.0",
         "dotenv-cli": "11.0.0",
@@ -72,6 +73,18 @@
         "vite-tsconfig-paths": "6.0.5",
         "vitest": "4.0.18",
         "wrangler": "4.61.1",
+      },
+    },
+    "packages/google-analytics": {
+      "name": "@kotonosora/google-analytics",
+      "version": "0.0.1",
+      "dependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:",
+      },
+      "devDependencies": {
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
       },
     },
     "packages/i18n": {
@@ -139,6 +152,8 @@
       },
       "devDependencies": {
         "@types/lodash": "4.17.23",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
       },
     },
     "packages/utils": {
@@ -148,6 +163,9 @@
   },
   "catalog": {
     "@hookform/resolvers": "5.2.2",
+    "@types/node": "24.10.9",
+    "@types/react": "19.2.10",
+    "@types/react-dom": "19.2.3",
     "clsx": "2.1.1",
     "date-fns": "4.1.0",
     "lucide-react": "0.563.0",
@@ -440,6 +458,8 @@
     "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.5.5", "", {}, "sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og=="],
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
+
+    "@kotonosora/google-analytics": ["@kotonosora/google-analytics@workspace:packages/google-analytics"],
 
     "@kotonosora/i18n": ["@kotonosora/i18n@workspace:packages/i18n"],
 

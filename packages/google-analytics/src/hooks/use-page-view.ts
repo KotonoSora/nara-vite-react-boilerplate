@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router";
 
-import { trackingId } from "../constants/tracking-id";
-
 /**
  * Custom React hook that sends a Google Analytics page view event
  * whenever the current location changes.
@@ -11,20 +9,22 @@ import { trackingId } from "../constants/tracking-id";
  * detect route changes and triggers the `gtag` page_view event with
  * the updated path and query string.
  */
-export function usePageView() {
+export function usePageView({
+  isProd,
+  trackingId,
+}: {
+  isProd: boolean;
+  trackingId: string | undefined;
+}) {
   const location = useLocation();
 
   useEffect(() => {
-    if (
-      !import.meta.env.PROD ||
-      typeof window.gtag !== "function" ||
-      !trackingId
-    ) {
+    if (!isProd || typeof window.gtag !== "function" || !trackingId) {
       return;
     }
 
     window.gtag("event", "page_view", {
       page_path: location.pathname + location.search,
     });
-  }, [location]);
+  }, [location, isProd, trackingId]);
 }

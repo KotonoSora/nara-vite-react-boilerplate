@@ -1,8 +1,7 @@
+import { trackCustomEvents } from "@kotonosora/google-analytics";
 import { useTranslation } from "@kotonosora/i18n-react";
 import { Button } from "@kotonosora/ui/components/ui/button";
 import { Link } from "react-router";
-
-import { trackCustomEvents } from "~/features/google-analytics";
 
 export function DonateSection() {
   const t = useTranslation();
@@ -21,8 +20,12 @@ export function DonateSection() {
           onClick={() => {
             // tracking event open donate link
             trackCustomEvents({
-              event_category: "Button",
-              event_label: "Click to open the Donate link",
+              isProd: import.meta.env.PROD,
+              trackingId: import.meta.env.VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+              event: {
+                event_category: "Button",
+                event_label: "Click to open the Donate link",
+              },
             });
           }}
         >

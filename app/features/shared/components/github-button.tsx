@@ -1,10 +1,9 @@
+import { trackCustomEvents } from "@kotonosora/google-analytics";
 import { useTranslation } from "@kotonosora/i18n-react";
 import { Button } from "@kotonosora/ui/components/ui/button";
 import { Link, useLoaderData } from "react-router";
 
 import type { GeneralInformationType } from "../types/type";
-
-import { trackCustomEvents } from "~/features/google-analytics";
 
 import GitHubLogoDark from "../assets/github-invertocat-dark.svg?no-inline";
 import GitHubLogoLight from "../assets/github-invertocat-light.svg?no-inline";
@@ -28,8 +27,12 @@ export function GitHubButton() {
         onClick={() => {
           // tracking event open open source
           trackCustomEvents({
-            event_category: "Button",
-            event_label: "Click to open the Open Source link",
+            isProd: import.meta.env.PROD,
+            trackingId: import.meta.env.VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+            event: {
+              event_category: "Button",
+              event_label: "Click to open the Open Source link",
+            },
           });
         }}
       >

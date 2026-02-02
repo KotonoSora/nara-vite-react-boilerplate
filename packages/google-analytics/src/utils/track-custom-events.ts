@@ -1,7 +1,5 @@
 import type { TrackingEvent } from "../types/tracking-event";
 
-import { trackingId } from "../constants/tracking-id";
-
 /**
  * Tracks custom events using Google Analytics via the `gtag` function.
  *
@@ -10,13 +8,16 @@ import { trackingId } from "../constants/tracking-id";
  *
  * @param event - The custom event data to be tracked. Must conform to the `TrackingEvent` type.
  */
-export function trackCustomEvents(event: TrackingEvent) {
-  if (
-    !import.meta.env.PROD ||
-    typeof window.gtag !== "function" ||
-    !trackingId ||
-    !event
-  ) {
+export function trackCustomEvents({
+  event,
+  isProd,
+  trackingId,
+}: {
+  event: TrackingEvent;
+  isProd: boolean;
+  trackingId: string | undefined;
+}) {
+  if (!isProd || typeof window.gtag !== "function" || !trackingId || !event) {
     return;
   }
 

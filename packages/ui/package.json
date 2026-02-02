@@ -141,6 +141,8 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/lodash": "4.17.23"
+    "@types/lodash": "4.17.23",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:"
   }
 }

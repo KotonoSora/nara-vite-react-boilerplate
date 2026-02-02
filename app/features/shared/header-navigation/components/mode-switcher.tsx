@@ -1,8 +1,7 @@
+import { trackCustomEvents } from "@kotonosora/google-analytics";
 import { Button } from "@kotonosora/ui/components/ui/button";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Theme, useTheme } from "remix-themes";
-
-import { trackCustomEvents } from "~/features/google-analytics";
 
 export function getNextTheme(theme: Theme | null) {
   return theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
@@ -16,8 +15,12 @@ export function ModeSwitcher() {
 
     // tracking switch theme event
     trackCustomEvents({
-      event_category: "Switch",
-      event_label: `Switch to the new theme ${getNextTheme(theme)}`,
+      isProd: import.meta.env.PROD,
+      trackingId: import.meta.env.VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+      event: {
+        event_category: "Switch",
+        event_label: `Switch to the new theme ${getNextTheme(theme)}`,
+      },
     });
   };
 

@@ -1,10 +1,9 @@
+import { trackCustomEvents } from "@kotonosora/google-analytics";
 import { formatSecondsToMinutesSeconds } from "@kotonosora/i18n";
 import { useLanguage, useTranslation } from "@kotonosora/i18n-react";
 import { useEffect, useReducer, useRef, useState } from "react";
 
 import type { ForestAction, ForestState } from "../types/common";
-
-import { trackCustomEvents } from "~/features/google-analytics";
 
 import {
   FOREST_ACTIONS,
@@ -137,10 +136,14 @@ export function useForestPage() {
     startTimeRef.current = Date.now();
     // Log Google Analytics event for planting
     trackCustomEvents({
-      event_category: "Button",
-      event_action: "forest_plant_tree",
-      event_label: `Forest | ${tagLabel} | ${minutes}m`,
-      event_value: `tag: ${tagLabel} | minutes: ${minutes} | color: ${tagColor}`,
+      isProd: import.meta.env.PROD,
+      trackingId: import.meta.env.VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+      event: {
+        event_category: "Button",
+        event_action: "forest_plant_tree",
+        event_label: `Forest | ${tagLabel} | ${minutes}m`,
+        event_value: `tag: ${tagLabel} | minutes: ${minutes} | color: ${tagColor}`,
+      },
     });
     dispatch({ type: FOREST_ACTIONS.START_GROWING, payload: { minutes } });
   };
