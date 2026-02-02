@@ -7,7 +7,7 @@ import { Link, useLoaderData } from "react-router";
 
 import type { GeneralInformationType } from "~/features/shared/types/type";
 
-import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
+import { trackCustomEvents } from "~/features/google-analytics";
 
 export function LicenseSection() {
   const t = useTranslation();

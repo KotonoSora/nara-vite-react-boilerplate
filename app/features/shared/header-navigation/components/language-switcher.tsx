@@ -12,7 +12,7 @@ import { Globe } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
+import { trackCustomEvents } from "~/features/google-analytics";
 import { useLazyImport } from "~/hooks/use-lazy-import";
 
 // Lazy-load dropdown primitives only when needed to trim initial JS

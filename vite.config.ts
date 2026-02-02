@@ -31,8 +31,12 @@ export default defineConfig(() => ({
     reactRouter(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     babel({
-      filter: /\.[jt]sx?$/,
-      exclude: [/node_modules/, /\.server\./],
+      filter: (id) => {
+        if (id.includes("node_modules")) return false;
+        if (id.includes("deps_ssr")) return false;
+        if (id.includes(".server.")) return false;
+        return /\.[jt]sx?$/.test(id);
+      },
       babelConfig: {
         presets: [
           ["@babel/preset-react", { runtime: "automatic" }],

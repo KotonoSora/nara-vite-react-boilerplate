@@ -2,7 +2,7 @@ import { Link, useLoaderData } from "react-router";
 
 import type { AboutPageContextType } from "./types/type";
 
-import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
+import { trackCustomEvents } from "~/features/google-analytics";
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
 

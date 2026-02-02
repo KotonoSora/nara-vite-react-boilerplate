@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import type { QRCodeFormat, QRCodeOptions } from "../types/type";
 
-import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
+import { trackCustomEvents } from "~/features/google-analytics";
 
 import {
   DEFAULT_QR_OPTIONS,

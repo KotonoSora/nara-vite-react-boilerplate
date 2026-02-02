@@ -28,8 +28,10 @@ import type { Route } from "./+types/root";
 import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 import type { MiddlewareFunction } from "react-router";
 
-import { HeadScriptTrackingTag } from "~/features/google-analytics/components/head-script-tracking-tag";
-import { usePageView } from "~/features/google-analytics/hooks/use-page-view";
+import {
+  HeadScriptTrackingTag,
+  usePageView,
+} from "~/features/google-analytics";
 import { landingPageMiddleware } from "~/features/landing-page/middleware/landing-page-middleware";
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/authentication/react/provider";

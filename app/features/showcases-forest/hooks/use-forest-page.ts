@@ -4,7 +4,7 @@ import { useEffect, useReducer, useRef, useState } from "react";
 
 import type { ForestAction, ForestState } from "../types/common";
 
-import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
+import { trackCustomEvents } from "~/features/google-analytics";
 
 import {
   FOREST_ACTIONS,
