@@ -1,3 +1,4 @@
+import { trackCustomEvents } from "@kotonosora/google-analytics";
 import {
   addLanguageToPath,
   getLanguageFromPath,
@@ -12,7 +13,6 @@ import { Globe } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { useLazyImport } from "~/hooks/use-lazy-import";
 
 // Lazy-load dropdown primitives only when needed to trim initial JS
@@ -57,8 +57,12 @@ export function LanguageSwitcher() {
 
     // tracking switch language event
     trackCustomEvents({
-      event_category: "Switch",
-      event_label: `Switch to the new language ${newLanguage}`,
+      isProd: import.meta.env.PROD,
+      trackingId: import.meta.env.VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+      event: {
+        event_category: "Switch",
+        event_label: `Switch to the new language ${newLanguage}`,
+      },
     });
   };
 

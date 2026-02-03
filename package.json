@@ -23,6 +23,9 @@
       "remix-themes": "2.0.4",
       "sonner": "2.0.7",
       "tailwindcss": "4.1.18",
+      "@types/node": "24.10.9",
+      "@types/react": "19.2.10",
+      "@types/react-dom": "19.2.3",
       "zod": "4.3.6"
     }
   },
@@ -47,6 +50,7 @@
   "dependencies": {
     "@hono/zod-validator": "0.7.6",
     "@hookform/resolvers": "catalog:",
+    "@kotonosora/google-analytics": "workspace:*",
     "@kotonosora/i18n": "workspace:*",
     "@kotonosora/i18n-locales": "workspace:*",
     "@kotonosora/i18n-react": "workspace:*",
@@ -87,10 +91,10 @@
     "@mdx-js/rollup": "3.1.1",
     "@react-router/dev": "7.13.0",
     "@react-router/fs-routes": "7.13.0",
-    "@types/node": "24.10.9",
+    "@types/node": "catalog:",
     "@types/qrcode.react": "3.0.0",
-    "@types/react": "19.2.10",
-    "@types/react-dom": "19.2.3",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@vitest/coverage-istanbul": "4.0.18",
     "babel-plugin-react-compiler": "1.0.0",
     "dotenv-cli": "11.0.0",
