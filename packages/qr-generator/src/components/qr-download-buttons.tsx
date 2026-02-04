@@ -2,9 +2,8 @@ import { useTranslation } from "@kotonosora/i18n-react";
 import { Button } from "@kotonosora/ui/components/ui/button";
 import { Download } from "lucide-react";
 
+import type { QRDownloadButtonsProps } from "../types/download-button-type";
 import type { QRCodeFormat } from "../types/format-type";
-
-import { QRDownloadButtonsProps } from "@/types/download-button-type";
 
 export function QRDownloadButtons({ onDownload }: QRDownloadButtonsProps) {
   const t = useTranslation();

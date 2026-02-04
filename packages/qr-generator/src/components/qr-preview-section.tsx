@@ -1,7 +1,7 @@
 import { useTranslation } from "@kotonosora/i18n-react";
 import { QRCodeSVG } from "qrcode.react";
 
-import { QRPreviewSectionProps } from "@/types/preview-section-type";
+import type { QRPreviewSectionProps } from "../types/preview-section-type";
 
 export function QRPreviewSection({
   qrRef,
