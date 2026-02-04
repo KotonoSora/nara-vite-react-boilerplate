@@ -1,4 +1,4 @@
-import type { QRCodeFormat } from "../types/type";
+import type { QRCodeFormat } from "../types/format-type";
 
 /**
  * Downloads a QR code as an image file (PNG or JPG)

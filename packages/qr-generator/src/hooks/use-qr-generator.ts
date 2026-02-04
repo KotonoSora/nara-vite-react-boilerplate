@@ -1,7 +1,7 @@
 import { trackCustomEvents } from "@kotonosora/google-analytics";
 import { useRef, useState } from "react";
 
-import type { QRCodeFormat, QRCodeOptions } from "../types/type";
+import type { QRCodeFormat, QRCodeOptions } from "../types/format-type";
 
 import {
   DEFAULT_QR_OPTIONS,
@@ -9,7 +9,13 @@ import {
 } from "../constants/qr-options";
 import { downloadQRCode } from "../utils/download-qr-code";
 
-export const useQRGenerator = () => {
+export const useQRGenerator = ({
+  isProd,
+  trackingId,
+}: {
+  isProd: boolean;
+  trackingId: string | undefined;
+}) => {
   const qrRef = useRef<HTMLDivElement>(null);
   const [text, setText] = useState<string>("");
   const [options, setOptions] = useState<QRCodeOptions>(DEFAULT_QR_OPTIONS);
@@ -27,8 +33,8 @@ export const useQRGenerator = () => {
     if (!svg || !text) return;
 
     trackCustomEvents({
-      isProd: import.meta.env.PROD,
-      trackingId: import.meta.env.VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+      isProd,
+      trackingId,
       event: {
         event_category: "QR Generator",
         event_label: "QR Code Downloaded",

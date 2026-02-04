@@ -1,5 +1,3 @@
-import { type FC } from "react";
-
 import { useQRGenerator } from "../hooks/use-qr-generator";
 import { QRDownloadButtons } from "./qr-download-buttons";
 import { QREmptyState } from "./qr-empty-state";
@@ -7,7 +5,13 @@ import { QRInputSection } from "./qr-input-section";
 import { QROptionsSection } from "./qr-options-section";
 import { QRPreviewSection } from "./qr-preview-section";
 
-export const QRCodeGenerator: FC = () => {
+export function QRCodeGenerator({
+  isProd,
+  trackingId,
+}: {
+  isProd: boolean;
+  trackingId: string | undefined;
+}) {
   const {
     qrRef,
     text,
@@ -16,7 +20,10 @@ export const QRCodeGenerator: FC = () => {
     handleTextChange,
     handleDownload,
     updateOptions,
-  } = useQRGenerator();
+  } = useQRGenerator({
+    isProd,
+    trackingId,
+  });
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-8">
@@ -41,4 +48,4 @@ export const QRCodeGenerator: FC = () => {
       )}
     </div>
   );
-};
+}

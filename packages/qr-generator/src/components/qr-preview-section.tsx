@@ -1,20 +1,13 @@
 import { useTranslation } from "@kotonosora/i18n-react";
 import { QRCodeSVG } from "qrcode.react";
-import { type FC, type RefObject } from "react";
 
-import type { QRCodeOptions } from "../types/type";
+import type { QRPreviewSectionProps } from "../types/preview-section-type";
 
-interface QRPreviewSectionProps {
-  qrRef: RefObject<HTMLDivElement | null>;
-  text: string;
-  options: QRCodeOptions;
-}
-
-export const QRPreviewSection: FC<QRPreviewSectionProps> = ({
+export function QRPreviewSection({
   qrRef,
   text,
   options,
-}) => {
+}: QRPreviewSectionProps) {
   const t = useTranslation();
 
   return (
@@ -35,4 +28,4 @@ export const QRPreviewSection: FC<QRPreviewSectionProps> = ({
       </div>
     </div>
   );
-};
+}

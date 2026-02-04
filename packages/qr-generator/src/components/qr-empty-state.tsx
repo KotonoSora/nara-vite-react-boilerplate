@@ -1,7 +1,6 @@
 import { useTranslation } from "@kotonosora/i18n-react";
-import { type FC } from "react";
 
-export const QREmptyState: FC = () => {
+export function QREmptyState() {
   const t = useTranslation();
 
   return (
@@ -9,4 +8,4 @@ export const QREmptyState: FC = () => {
       <p className="text-muted-foreground">{t("qrGenerator.emptyState")}</p>
     </div>
   );
-};
+}

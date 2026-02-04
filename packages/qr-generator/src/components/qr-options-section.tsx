@@ -7,9 +7,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@kotonosora/ui/components/ui/select";
-import { type FC } from "react";
 
-import type { QRCodeOptions } from "../types/type";
+import type { QRCodeOptions } from "../types/format-type";
+import type { QROptionsSectionProps } from "../types/option-section-type";
 
 import {
   QR_ERROR_CORRECTION_OPTIONS,
@@ -17,15 +17,10 @@ import {
   QR_SIZE_OPTIONS,
 } from "../constants/qr-options";
 
-interface QROptionsSectionProps {
-  options: QRCodeOptions;
-  onUpdateOptions: (newOptions: Partial<QRCodeOptions>) => void;
-}
-
-export const QROptionsSection: FC<QROptionsSectionProps> = ({
+export function QROptionsSection({
   options,
   onUpdateOptions,
-}) => {
+}: QROptionsSectionProps) {
   const t = useTranslation();
 
   return (
@@ -94,4 +89,4 @@ export const QROptionsSection: FC<QROptionsSectionProps> = ({
       </div>
     </div>
   );
-};
+}
