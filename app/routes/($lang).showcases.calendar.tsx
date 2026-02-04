@@ -1,14 +1,16 @@
+import { ContentCalendarInfinityPage } from "@kotonosora/calendar";
 import { generateMetaTags } from "@kotonosora/seo";
 
 import type { Route } from "./+types/($lang).showcases.calendar";
 
 import type { MiddlewareFunction } from "react-router";
 
+import { FooterSection } from "~/features/shared/components/footer-section";
+import { HeaderNavigation } from "~/features/shared/header-navigation";
 import {
   calendarMiddleware,
   calendarMiddlewareContext,
 } from "~/features/showcases-calendar/middleware/calendar-middleware";
-import { ContentCalendarInfinityPage } from "~/features/showcases-calendar/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
@@ -27,5 +29,15 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function Page({}: Route.ComponentProps) {
-  return <ContentCalendarInfinityPage />;
+  return (
+    <main className="min-h-svh bg-background content-visibility-auto">
+      {/* Header navigation */}
+      <HeaderNavigation />
+
+      <ContentCalendarInfinityPage />
+
+      {/* Footer section */}
+      <FooterSection />
+    </main>
+  );
 }
