@@ -84,7 +84,13 @@ function reducer(state: ForestState, action: ForestAction): ForestState {
   }
 }
 
-export function useForestPage() {
+export function useForestPage({
+  isProd,
+  trackingId,
+}: {
+  isProd: boolean;
+  trackingId: string | undefined;
+}) {
   const intervalRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
   const t = useTranslation();
@@ -136,8 +142,8 @@ export function useForestPage() {
     startTimeRef.current = Date.now();
     // Log Google Analytics event for planting
     trackCustomEvents({
-      isProd: import.meta.env.PROD,
-      trackingId: import.meta.env.VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+      isProd,
+      trackingId,
       event: {
         event_category: "Button",
         event_action: "forest_plant_tree",

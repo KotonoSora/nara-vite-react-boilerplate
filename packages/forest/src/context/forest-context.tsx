@@ -20,8 +20,19 @@ interface ForestContextValue {
 
 const ForestContext = createContext<ForestContextValue | undefined>(undefined);
 
-export function ForestProvider({ children }: { children: ReactNode }) {
-  const ctx = useForestPage();
+export function ForestProvider({
+  children,
+  isProd,
+  trackingId,
+}: {
+  children: ReactNode;
+  isProd: boolean;
+  trackingId: string | undefined;
+}) {
+  const ctx = useForestPage({
+    isProd,
+    trackingId,
+  });
   const value = useMemo(
     () => ({
       state: ctx.state,
