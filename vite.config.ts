@@ -33,8 +33,10 @@ export default defineConfig(() => ({
     babel({
       filter: (id) => {
         if (id.includes("node_modules")) return false;
+        if (id.includes(".vite/deps_ssr")) return false;
         if (id.includes("deps_ssr")) return false;
         if (id.includes("packages")) return false;
+        if (id.includes("workers")) return false;
         if (id.includes(".server.")) return false;
         return /\.[jt]sx?$/.test(id);
       },

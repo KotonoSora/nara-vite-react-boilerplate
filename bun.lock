@@ -7,6 +7,7 @@
       "dependencies": {
         "@hono/zod-validator": "0.7.6",
         "@hookform/resolvers": "catalog:",
+        "@kotonosora/calendar": "workspace:*",
         "@kotonosora/forest": "workspace:*",
         "@kotonosora/google-analytics": "workspace:*",
         "@kotonosora/i18n": "workspace:*",
@@ -30,7 +31,6 @@
         "react-dom": "catalog:",
         "react-hook-form": "catalog:",
         "react-router": "7.13.0",
-        "react-virtuoso": "4.18.1",
         "recharts": "catalog:",
         "remix-themes": "catalog:",
         "sonner": "catalog:",
@@ -74,6 +74,24 @@
         "vite-tsconfig-paths": "6.0.5",
         "vitest": "4.0.18",
         "wrangler": "4.61.1",
+      },
+    },
+    "packages/calendar": {
+      "name": "@kotonosora/calendar",
+      "version": "0.0.1",
+      "dependencies": {
+        "@kotonosora/google-analytics": "workspace:*",
+        "@kotonosora/i18n-react": "workspace:*",
+        "@kotonosora/ui": "workspace:*",
+        "date-fns": "catalog:",
+        "lucide-react": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "react-virtuoso": "4.18.1",
+      },
+      "devDependencies": {
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
       },
     },
     "packages/forest": {
@@ -492,6 +510,8 @@
     "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.5.5", "", {}, "sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og=="],
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
+
+    "@kotonosora/calendar": ["@kotonosora/calendar@workspace:packages/calendar"],
 
     "@kotonosora/forest": ["@kotonosora/forest@workspace:packages/forest"],
 

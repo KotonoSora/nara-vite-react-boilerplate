@@ -1,8 +1,5 @@
 import { useLanguage } from "@kotonosora/i18n-react";
 
-import { FooterSection } from "~/features/shared/components/footer-section";
-import { HeaderNavigation } from "~/features/shared/header-navigation";
-
 import { DayGrids } from "./components/day-grids";
 import { MonthNavigation } from "./components/month-navigation";
 import { WeekdayHeaders } from "./components/weekday-headers";
@@ -22,10 +19,7 @@ export function ContentCalendarInfinityPage() {
   } = useCurrentMonthNavigation({ language });
 
   return (
-    <main className="min-h-svh bg-background content-visibility-auto">
-      {/* Header navigation */}
-      <HeaderNavigation />
-
+    <>
       {/* Month navigation */}
       <section className="container mx-auto sticky top-14 z-40 bg-white dark:bg-black">
         <MonthNavigation
@@ -51,9 +45,6 @@ export function ContentCalendarInfinityPage() {
           virtuosoRef={virtuosoRef}
         />
       </section>
-
-      {/* Footer section */}
-      <FooterSection />
-    </main>
+    </>
   );
 }
