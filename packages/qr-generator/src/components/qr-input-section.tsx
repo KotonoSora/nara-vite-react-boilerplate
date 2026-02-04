@@ -1,19 +1,14 @@
 import { useTranslation } from "@kotonosora/i18n-react";
 import { Label } from "@kotonosora/ui/components/ui/label";
 import { Textarea } from "@kotonosora/ui/components/ui/textarea";
-import { type FC } from "react";
 
-interface QRInputSectionProps {
-  text: string;
-  maxLength: number;
-  onTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
+import type { QRInputSectionProps } from "../types/input-section-type";
 
-export const QRInputSection: FC<QRInputSectionProps> = ({
+export function QRInputSection({
   text,
   maxLength,
   onTextChange,
-}) => {
+}: QRInputSectionProps) {
   const t = useTranslation();
 
   return (
@@ -39,4 +34,4 @@ export const QRInputSection: FC<QRInputSectionProps> = ({
       )}
     </div>
   );
-};
+}
