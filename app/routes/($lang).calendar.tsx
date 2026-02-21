@@ -1,12 +1,19 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).calendar";
 
-import { ContentCalendarInfinityPage } from "~/features/calendar/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
 import styleUrl from "~/features/calendar/style/custom.css?url";
+
+// Lazy load the calendar to prevent react-virtuoso from being bundled in SSR
+const ContentCalendarInfinityPage = lazy(() =>
+  import("~/features/calendar/page").then((module) => ({
+    default: module.ContentCalendarInfinityPage,
+  })),
+);
 
 export function links() {
   return [{ rel: "stylesheet", href: styleUrl }];

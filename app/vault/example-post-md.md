@@ -20,10 +20,12 @@ Files in the app vault folder are:
 ## When to Use Markdown vs MDX
 
 **Use `/app/vault/*.md` for:**
+
 - Simple markdown posts without React components
 - Lightweight content that does not need custom components
 
 **Use `/app/vault/*.mdx` for:**
+
 - Blog posts with interactive React components
 - Content that uses custom components or styling
 

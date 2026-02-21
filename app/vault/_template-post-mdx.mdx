@@ -2,7 +2,7 @@
 title: "Your Post Title Here"
 description: "A brief description of your post (for SEO and previews)"
 date: "2026-02-21"
-published: false  # Set to true when ready to publish
+published: false # Set to true when ready to publish
 author: "Your Name"
 tags: ["tag1", "tag2"]
 # Optional fields:
@@ -10,6 +10,8 @@ tags: ["tag1", "tag2"]
 # category: "Tutorial"
 # readTime: "5 min read"
 ---
+
+import { Button } from "@kotonosora/ui/components/ui/button";
 
 # Your Post Title
 
@@ -25,17 +27,24 @@ More detailed content.
 
 ## Using React Components
 
-Since this is an MDX file, you can import and use React components:
+Since this is an MDX file, you can import and use React components directly:
+
+### Example: Button Component
+
+<Button>Click me</Button>
+
+### How to use:
 
 ```typescript
-import { Button } from "@kotonosora/ui";
+import { Button } from "@kotonosora/ui/components/ui/button";
 ```
 
-Then use them in your content:
+Then use it in your MDX content:
 
-{/* Uncomment to use:
+```jsx
 <Button>Click me</Button>
-*/}
+```
+
 
 ## Code Examples
 
@@ -56,11 +65,13 @@ function Component() {
 ## Lists
 
 ### Unordered List
+
 - Item 1
 - Item 2
 - Item 3
 
 ### Ordered List
+
 1. First item
 2. Second item
 3. Third item
@@ -71,16 +82,16 @@ function Component() {
 
 ## Images
 
-![Alt text](/images/example.jpg)
+![Alt text](/assets/png/social-media.png)
 
 ## Links
 
-[Link text](https://example.com)
+[Link text](https://kotonosora.com)
 
 ## Tables
 
 | Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
+| -------- | -------- | -------- |
 | Data 1   | Data 2   | Data 3   |
 | Data 4   | Data 5   | Data 6   |
 

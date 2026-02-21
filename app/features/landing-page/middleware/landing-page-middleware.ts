@@ -20,6 +20,9 @@ export const landingPageMiddleware: MiddlewareFunction = async (
   next,
 ) => {
   const { db } = context;
+  if (!db) {
+    return await next();
+  }
 
   let t;
   try {

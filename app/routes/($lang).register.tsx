@@ -1,5 +1,6 @@
 import { generateMetaTags } from "@kotonosora/seo";
 import { sql } from "drizzle-orm";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).register";
 
@@ -10,11 +11,17 @@ import {
   pageMiddleware,
   pageMiddlewareContext,
 } from "~/features/register/middleware/page-middleware";
-import { ContentRegisterPage } from "~/features/register/page";
 import { MAX_USERS } from "~/features/shared/constants/limit";
 import { authMiddleware } from "~/features/shared/middleware/auth";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the register page to prevent react-hook-form from being bundled in SSR
+const ContentRegisterPage = lazy(() =>
+  import("~/features/register/page").then((module) => ({
+    default: module.ContentRegisterPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [
   authMiddleware,

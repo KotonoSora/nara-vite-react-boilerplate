@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).terms";
 
@@ -8,9 +9,15 @@ import {
   termsMiddleware,
   termsMiddlewareContext,
 } from "~/features/terms/middleware/terms-middleware";
-import { ContentTermsPage } from "~/features/terms/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the terms page to prevent @radix-ui/react-scroll-area from being bundled in SSR
+const ContentTermsPage = lazy(() =>
+  import("~/features/terms/page").then((module) => ({
+    default: module.ContentTermsPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [termsMiddleware];
 

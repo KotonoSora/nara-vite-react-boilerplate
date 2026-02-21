@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).login";
 
@@ -8,10 +9,16 @@ import {
   pageMiddleware,
   pageMiddlewareContext,
 } from "~/features/login/middleware/page-middleware";
-import { ContentLoginPage } from "~/features/login/page";
 import { authMiddleware } from "~/features/shared/middleware/auth";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the login page to prevent react-hook-form from being bundled in SSR
+const ContentLoginPage = lazy(() =>
+  import("~/features/login/page").then((module) => ({
+    default: module.ContentLoginPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [
   authMiddleware,

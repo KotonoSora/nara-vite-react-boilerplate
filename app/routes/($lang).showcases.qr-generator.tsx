@@ -1,5 +1,5 @@
-import { QRGeneratorPage } from "@kotonosora/qr-generator";
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).showcases.qr-generator";
 
@@ -13,6 +13,13 @@ import {
 } from "~/features/showcases-qr-generator/middleware/qr-generator-middleware";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load QRGeneratorPage to prevent qrcode.react from being bundled in SSR
+const QRGeneratorPage = lazy(() =>
+  import("@kotonosora/qr-generator").then((module) => ({
+    default: module.QRGeneratorPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [qrGeneratorMiddleware];
 

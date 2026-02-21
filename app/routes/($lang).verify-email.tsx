@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).verify-email";
 
@@ -8,9 +9,15 @@ import {
   pageMiddleware,
   pageMiddlewareContext,
 } from "~/features/verify-email/middleware/page-middleware";
-import { VerifyEmailPage } from "~/features/verify-email/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the verify email page
+const VerifyEmailPage = lazy(() =>
+  import("~/features/verify-email/page").then((module) => ({
+    default: module.VerifyEmailPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [pageMiddleware];
 

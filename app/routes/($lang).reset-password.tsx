@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 import { redirect } from "react-router";
 
 import type { Route } from "./+types/($lang).reset-password";
@@ -13,10 +14,16 @@ import {
   tokenMiddleware,
   tokenMiddlewareContext,
 } from "~/features/reset-password/middleware/token";
-import { ResetPasswordPage } from "~/features/reset-password/page";
 import { isStrongPassword } from "~/lib/authentication/utils/common/is-strong-password";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the reset password page to prevent react-hook-form from being bundled in SSR
+const ResetPasswordPage = lazy(() =>
+  import("~/features/reset-password/page").then((module) => ({
+    default: module.ResetPasswordPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [
   tokenMiddleware,

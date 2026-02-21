@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang)._index";
 
@@ -8,12 +9,18 @@ import {
   landingPageMiddleware,
   LandingPageReactRouterContext,
 } from "~/features/landing-page/middleware/landing-page-middleware";
-import { ContentPage } from "~/features/landing-page/page";
 import { i18nMiddleware, I18nReactRouterContext } from "~/middleware/i18n";
 import {
   GeneralInformationContext,
   generalInformationMiddleware,
 } from "~/middleware/information";
+
+// Lazy load the landing page
+const ContentPage = lazy(() =>
+  import("~/features/landing-page/page").then((module) => ({
+    default: module.ContentPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [
   generalInformationMiddleware,
