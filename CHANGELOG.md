@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.6.23 (2025-02-21)
+
+- Implemented packages blog
+- Upgraded dependency versions
+- Installed [Core Skill Documentation](https://github.com/remix-run/agent-skills)
+
 ## 4.6.22 (2025-02-01)
 
 - Implemented vitest v4
