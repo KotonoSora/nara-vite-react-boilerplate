@@ -26,19 +26,26 @@ export default defineConfig(() => ({
         remarkFrontmatter,
         [remarkMdxFrontmatter, { name: "frontmatter" }],
       ],
-      rehypePlugins: [
-        [rehypeHighlight, { ignoreMissing: true, subset: false }],
-        rehypeMathjax,
-      ],
+      rehypePlugins: [rehypeHighlight, rehypeMathjax],
     }),
     reactRouter(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     babel({
-      filter: /\.[jt]sx?$/,
-      exclude: /node_modules/,
+      filter: (id) => {
+        if (id.includes("node_modules")) return false;
+        if (id.includes(".vite/deps_ssr")) return false;
+        if (id.includes("deps_ssr")) return false;
+        if (id.includes("packages")) return false;
+        if (id.includes("workers")) return false;
+        if (id.includes(".server")) return false;
+        return /\.[jt]sx?$/.test(id);
+      },
       babelConfig: {
-        presets: ["@babel/preset-typescript"],
-        plugins: ["babel-plugin-react-compiler"],
+        presets: [
+          ["@babel/preset-react", { runtime: "automatic" }],
+          "@babel/preset-typescript",
+        ],
+        plugins: [["babel-plugin-react-compiler", { target: "19" }]],
       },
     }),
   ],

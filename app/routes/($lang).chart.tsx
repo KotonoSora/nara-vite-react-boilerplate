@@ -1,10 +1,17 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).chart";
 
-import { ContentChartPage } from "~/features/chart/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the chart page to prevent recharts from being bundled in SSR
+const ContentChartPage = lazy(() =>
+  import("~/features/chart/page").then((module) => ({
+    default: module.ContentChartPage,
+  })),
+);
 
 export function loader({ context }: Route.LoaderArgs) {
   const pageInformation = context.get(GeneralInformationContext);

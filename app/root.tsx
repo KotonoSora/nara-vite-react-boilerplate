@@ -1,3 +1,9 @@
+// Initialize blog MDX modules
+import { configureMdxModules } from "@kotonosora/blog";
+import {
+  HeadScriptTrackingTag,
+  usePageView,
+} from "@kotonosora/google-analytics";
 import { isRTLLanguage } from "@kotonosora/i18n";
 import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
 import { I18nProvider } from "@kotonosora/i18n-react";
@@ -28,8 +34,7 @@ import type { Route } from "./+types/root";
 import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 import type { MiddlewareFunction } from "react-router";
 
-import { HeadScriptTrackingTag } from "~/features/google-analytics/components/head-script-tracking-tag";
-import { usePageView } from "~/features/google-analytics/hooks/use-page-view";
+import { blogMdxModules } from "~/features/blog/blog-config";
 import { landingPageMiddleware } from "~/features/landing-page/middleware/landing-page-middleware";
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/authentication/react/provider";
@@ -39,6 +44,8 @@ import { generalInformationMiddleware } from "~/middleware/information";
 import { ThemeContext, themeMiddleware } from "~/middleware/theme";
 
 import appCssUrl from "~/app.css?url";
+
+configureMdxModules(blogMdxModules);
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
 const ToasterLazy = lazy(async () => ({
@@ -99,7 +106,10 @@ function InnerLayout({
     return () => cancelIdleCallback(id);
   }, []);
 
-  usePageView();
+  usePageView({
+    isProd: import.meta.env.PROD,
+    trackingId: import.meta.env.VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+  });
 
   return (
     <html lang={language} dir={direction} className={clsx("font-sans", theme)}>
@@ -109,7 +119,10 @@ function InnerLayout({
         <Meta />
         <PreventFlashOnWrongTheme ssrTheme={ssrTheme} />
         <Links />
-        <HeadScriptTrackingTag />
+        <HeadScriptTrackingTag
+          isProd={import.meta.env.PROD}
+          trackingId={import.meta.env.VITE_GOOGLE_ANALYTIC_TRACKING_ID}
+        />
       </head>
       <body>
         {children}

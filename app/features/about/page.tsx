@@ -1,8 +1,8 @@
+import { trackCustomEvents } from "@kotonosora/google-analytics";
 import { Link, useLoaderData } from "react-router";
 
 import type { AboutPageContextType } from "./types/type";
 
-import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 import { FooterSection } from "~/features/shared/components/footer-section";
 import { HeaderNavigation } from "~/features/shared/header-navigation";
 
@@ -35,8 +35,12 @@ export function AboutPage() {
             onClick={() => {
               // tracking event open open source
               trackCustomEvents({
-                event_category: "Button",
-                event_label: "Click to open the email contact link",
+                isProd: import.meta.env.PROD,
+                trackingId: import.meta.env.VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+                event: {
+                  event_category: "Button",
+                  event_label: "Click to open the email contact link",
+                },
               });
             }}
           >

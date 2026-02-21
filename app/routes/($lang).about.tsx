@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).about";
 
@@ -8,9 +9,15 @@ import {
   aboutMiddleware,
   aboutMiddlewareContext,
 } from "~/features/about/middleware/about-middleware";
-import { AboutPage } from "~/features/about/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the about page
+const AboutPage = lazy(() =>
+  import("~/features/about/page").then((module) => ({
+    default: module.AboutPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [aboutMiddleware];
 

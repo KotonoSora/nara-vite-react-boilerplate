@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).forgot-password";
 
@@ -8,9 +9,15 @@ import {
   forgotPasswordMiddleware,
   forgotPasswordMiddlewareContext,
 } from "~/features/forgot-password/middleware/forgot-password-middleware";
-import { ForgotPasswordPage } from "~/features/forgot-password/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the forgot password page to prevent react-hook-form from being bundled in SSR
+const ForgotPasswordPage = lazy(() =>
+  import("~/features/forgot-password/page").then((module) => ({
+    default: module.ForgotPasswordPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [forgotPasswordMiddleware];
 

@@ -1,3 +1,4 @@
+import { trackCustomEvents } from "@kotonosora/google-analytics";
 import { useTranslation } from "@kotonosora/i18n-react";
 import { Badge } from "@kotonosora/ui/components/ui/badge";
 import { Button } from "@kotonosora/ui/components/ui/button";
@@ -6,8 +7,6 @@ import { Shield } from "lucide-react";
 import { Link, useLoaderData } from "react-router";
 
 import type { GeneralInformationType } from "~/features/shared/types/type";
-
-import { trackCustomEvents } from "~/features/google-analytics/utils/track-custom-events";
 
 export function LicenseSection() {
   const t = useTranslation();
@@ -75,8 +74,13 @@ export function LicenseSection() {
                   onClick={() => {
                     // tracking event open open source
                     trackCustomEvents({
-                      event_category: "Button",
-                      event_label: "Click to open the Open Source link",
+                      isProd: import.meta.env.PROD,
+                      trackingId: import.meta.env
+                        .VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+                      event: {
+                        event_category: "Button",
+                        event_label: "Click to open the Open Source link",
+                      },
                     });
                   }}
                 >
@@ -132,8 +136,13 @@ export function LicenseSection() {
                     onClick={() => {
                       // tracking event open commercial
                       trackCustomEvents({
-                        event_category: "Button",
-                        event_label: "Click to open the Commercial link",
+                        isProd: import.meta.env.PROD,
+                        trackingId: import.meta.env
+                          .VITE_GOOGLE_ANALYTIC_TRACKING_ID,
+                        event: {
+                          event_category: "Button",
+                          event_label: "Click to open the Commercial link",
+                        },
                       });
                     }}
                   >

@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).privacy";
 
@@ -8,9 +9,15 @@ import {
   privacyMiddleware,
   privacyMiddlewareContext,
 } from "~/features/privacy/middleware/page-middleware";
-import { ContentPrivacyPage } from "~/features/privacy/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the privacy page to prevent @radix-ui/react-scroll-area from being bundled in SSR
+const ContentPrivacyPage = lazy(() =>
+  import("~/features/privacy/page").then((module) => ({
+    default: module.ContentPrivacyPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [privacyMiddleware];
 

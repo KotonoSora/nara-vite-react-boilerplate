@@ -1,16 +1,22 @@
+import { BlogError, SlugHydrateFallback } from "@kotonosora/blog";
+import { lazy } from "react";
 import { isRouteErrorResponse } from "react-router";
 
 import type { Route } from "./+types/($lang).blog.$";
 
 import type { MiddlewareFunction } from "react-router";
 
-import { BlogError } from "~/features/blog/components/blog-error";
-import { SlugHydrateFallback } from "~/features/blog/components/slug-hydrate-fallback";
-import { SlugPage } from "~/features/blog/components/slug-page";
 import {
   slugBlogMiddleware,
   SlugBlogReactRouterContext,
 } from "~/features/blog/middleware/slug-blog-middleware";
+
+// Lazy load SlugPage to prevent blog package from being bundled in SSR
+const SlugPage = lazy(() =>
+  import("@kotonosora/blog").then((module) => ({
+    default: module.SlugPage,
+  })),
+);
 
 export const clientMiddleware: MiddlewareFunction[] = [slugBlogMiddleware];
 
