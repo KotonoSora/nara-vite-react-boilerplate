@@ -31,7 +31,9 @@ function escapeRegExp(str: string): string {
  */
 export function extractSlugFromPath(path: string): string {
   // Build regex pattern from supported extensions
-  const extensionPattern = `(${Object.values(BLOG_FILE_EXTENSIONS).join("|").replace(/\./g, "\\.")})$`;
+  const extensionPattern = `(${Object.values(BLOG_FILE_EXTENSIONS)
+    .map((extension) => escapeRegExp(extension))
+    .join("|")})$`;
 
   // Try each base path
   for (const basePath of Object.values(CONTENT_BASE_PATHS)) {
