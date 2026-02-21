@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).showcases._index";
 
@@ -8,9 +9,15 @@ import {
   showcasesMiddleware,
   ShowcasesMiddlewareContext,
 } from "~/features/showcases/middleware/showcases-middleware";
-import { ContentShowcasePage } from "~/features/showcases/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the showcases page
+const ContentShowcasePage = lazy(() =>
+  import("~/features/showcases/page").then((module) => ({
+    default: module.ContentShowcasePage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [showcasesMiddleware];
 

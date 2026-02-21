@@ -5,7 +5,10 @@ import type { Config } from "@react-router/dev/config";
 
 const APP_VAULT_DIR = path.resolve("app/vault");
 
-async function collectVaultSlugs(dir: string, baseDir: string): Promise<string[]> {
+async function collectVaultSlugs(
+  dir: string,
+  baseDir: string,
+): Promise<string[]> {
   const entries = await readdir(dir, { withFileTypes: true });
   const slugs: string[] = [];
 

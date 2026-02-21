@@ -1,5 +1,6 @@
 import customStyleUrl from "@kotonosora/blog/styles/custom?url";
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).blog";
 
@@ -9,9 +10,15 @@ import {
   blogMiddleware,
   BlogReactRouterContext,
 } from "~/features/blog/middleware/blog-middleware";
-import { BlogPage } from "~/features/blog/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the blog page
+const BlogPage = lazy(() =>
+  import("~/features/blog/page").then((module) => ({
+    default: module.BlogPage,
+  })),
+);
 
 export function links() {
   return [{ rel: "stylesheet", href: customStyleUrl }];

@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).admin";
 
@@ -8,9 +9,15 @@ import {
   adminMiddleware,
   adminMiddlewareContext,
 } from "~/features/admin/middleware/admin-middleware";
-import { ContentAdminPage } from "~/features/admin/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the admin page
+const ContentAdminPage = lazy(() =>
+  import("~/features/admin/page").then((module) => ({
+    default: module.ContentAdminPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [adminMiddleware];
 

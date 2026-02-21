@@ -1,4 +1,5 @@
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).dashboard._index";
 
@@ -8,9 +9,15 @@ import {
   dashboardMiddleware,
   DashboardMiddlewareContext,
 } from "~/features/dashboard/middleware/dashboard-middleware";
-import { ContentDashboardPage } from "~/features/dashboard/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the dashboard page to prevent @tanstack/react-table from being bundled in SSR
+const ContentDashboardPage = lazy(() =>
+  import("~/features/dashboard/page").then((module) => ({
+    default: module.ContentDashboardPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [dashboardMiddleware];
 

@@ -1,6 +1,7 @@
-import { BACKGROUND_COLOR, ForestPage } from "@kotonosora/forest";
+import { BACKGROUND_COLOR } from "@kotonosora/forest";
 import customStyleUrl from "@kotonosora/forest/styles/custom?url";
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).showcases.forest";
 
@@ -12,6 +13,13 @@ import {
 } from "~/features/showcases-forest/middleware/forest-middleware";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load ForestPage to prevent cytoscape from being bundled in SSR
+const ForestPage = lazy(() =>
+  import("@kotonosora/forest").then((module) => ({
+    default: module.ForestPage,
+  })),
+);
 
 export function links() {
   return [{ rel: "stylesheet", href: customStyleUrl }];

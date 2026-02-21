@@ -1,5 +1,5 @@
-import { ContentCalendarInfinityPage } from "@kotonosora/calendar";
 import { generateMetaTags } from "@kotonosora/seo";
+import { lazy } from "react";
 
 import type { Route } from "./+types/($lang).showcases.calendar";
 
@@ -13,6 +13,13 @@ import {
 } from "~/features/showcases-calendar/middleware/calendar-middleware";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
+
+// Lazy load the calendar to prevent react-virtuoso from being bundled in SSR
+const ContentCalendarInfinityPage = lazy(() =>
+  import("@kotonosora/calendar").then((module) => ({
+    default: module.ContentCalendarInfinityPage,
+  })),
+);
 
 export const middleware: MiddlewareFunction[] = [calendarMiddleware];
 
