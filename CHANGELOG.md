@@ -1,29 +1,29 @@
 # CHANGELOG
 
-## 4.6.23 (2025-02-21)
+## 4.6.23 (2026-02-21)
 
 - Implemented packages blog
 - Upgraded dependency versions
 - Installed [Core Skill Documentation](https://github.com/remix-run/agent-skills)
 
-## 4.6.22 (2025-02-01)
+## 4.6.22 (2026-02-01)
 
 - Implemented vitest v4
 - Config bun installer linker hoisted
 - Upgraded dependency versions
 
-## 4.6.21 (2025-01-26)
+## 4.6.21 (2026-01-26)
 
 - Implemented packages shadcn/ui to Bun workspaces
 
-## 4.6.20 (2025-01-19)
+## 4.6.20 (2026-01-19)
 
 - Implemented Bun workspaces support for monorepo structure
 - Implemented packages seo, scheduler, i18n to Bun workspaces
 - Refactored source code workers support API by Hono.js framework
 - Optimize loading showcase chart by lazy loading
 
-## 4.6.19 (2025-01-11)
+## 4.6.19 (2026-01-11)
 
 - Implemented management showcases by users
 - Implemented internalization for management showcase features
