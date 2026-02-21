@@ -1,10 +1,37 @@
-import { Mermaid } from "mdx-mermaid/lib/Mermaid";
+import { lazy, Suspense } from "react";
 
+import type { MermaidProps } from "mdx-mermaid/lib/Mermaid";
 import type { ComponentPropsWithoutRef, JSX } from "react";
 
 type MDXComponents = {
   [key: string]: (props: any) => JSX.Element;
 };
+
+const isBrowser = typeof window !== "undefined";
+const MermaidLazy = isBrowser
+  ? lazy(async () => {
+      const module = await import("mdx-mermaid/lib/Mermaid");
+      return { default: module.Mermaid };
+    })
+  : null;
+
+function MermaidClient(props: MermaidProps) {
+  if (!MermaidLazy) {
+    return (
+      <div className="text-sm text-muted-foreground">Diagram placeholder</div>
+    );
+  }
+
+  return (
+    <Suspense
+      fallback={
+        <div className="text-sm text-muted-foreground">Loading diagram...</div>
+      }
+    >
+      <MermaidLazy {...props} />
+    </Suspense>
+  );
+}
 
 export const mdxComponents: MDXComponents = {
   table: (props: ComponentPropsWithoutRef<"table">) => (
@@ -96,5 +123,5 @@ export const mdxComponents: MDXComponents = {
   hr: (props: ComponentPropsWithoutRef<"hr">) => (
     <hr className="my-8 border-border" {...props} />
   ),
-  mermaid: Mermaid,
+  mermaid: MermaidClient,
 };
