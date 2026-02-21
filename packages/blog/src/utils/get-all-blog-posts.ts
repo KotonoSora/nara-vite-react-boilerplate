@@ -1,7 +1,7 @@
-import type { BlogPost } from "../types/mdx";
+import type { BlogPost } from "@/types/mdx";
 
 import { extractSlugFromPath } from "./extract-slug-from-path";
-import { mdxModules } from "./mdx-loader";
+import { getMdxModules } from "./mdx-loader";
 
 /**
  * Retrieves all blog posts from MDX modules and returns them sorted by date.
@@ -27,23 +27,27 @@ import { mdxModules } from "./mdx-loader";
  */
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
   const posts: BlogPost[] = [];
+  const modules = getMdxModules();
 
-  for (const [path, loader] of Object.entries(mdxModules)) {
+  for (const [path, loader] of Object.entries(modules)) {
     try {
       const module = await loader();
       const slug = extractSlugFromPath(path);
 
-      if (module.frontmatter?.published !== false) {
-        posts.push({
-          slug,
-          content: module.default,
-          frontmatter: module.frontmatter || {
-            title: slug,
-            description: "",
-            published: true,
-          },
-        });
+      // Skip posts without a valid slug or marked as unpublished
+      if (!slug || module.frontmatter?.published === false) {
+        continue;
       }
+
+      posts.push({
+        slug,
+        content: module.default,
+        frontmatter: module.frontmatter || {
+          title: slug,
+          description: "",
+          published: true,
+        },
+      });
     } catch (error) {
       console.error(`Error loading blog post at ${path}:`, error);
     }

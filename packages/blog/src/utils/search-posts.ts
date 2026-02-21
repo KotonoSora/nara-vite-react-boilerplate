@@ -1,4 +1,4 @@
-import type { BlogPost } from "../types/mdx";
+import type { BlogPost } from "@/types/mdx";
 
 /**
  * Searches through an array of blog posts and filters them based on a query string.

@@ -1,7 +1,7 @@
 import { useTranslation } from "@kotonosora/i18n-react";
 import { useLoaderData } from "react-router";
 
-import type { HomePageLoaderData } from "../types/type";
+import type { HomePageLoaderData } from "../types/mdx";
 
 import { BlogPostCard } from "../components/blog-post-card";
 

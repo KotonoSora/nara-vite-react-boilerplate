@@ -1,4 +1,4 @@
-import type { BlogPost } from "../types/mdx";
+import type { BlogPost } from "@/types/mdx";
 
 /**
  * Retrieves a sorted array of unique authors from an array of blog posts.

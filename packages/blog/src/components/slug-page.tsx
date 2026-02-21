@@ -2,7 +2,7 @@ import { getIntlLocaleByLanguage } from "@kotonosora/i18n";
 import { useI18n } from "@kotonosora/i18n-react";
 import { useLoaderData } from "react-router";
 
-import type { SlugBlogLoaderData } from "../types/type";
+import type { SlugBlogLoaderData } from "../types/mdx";
 
 export function SlugPage() {
   const { t, language } = useI18n();

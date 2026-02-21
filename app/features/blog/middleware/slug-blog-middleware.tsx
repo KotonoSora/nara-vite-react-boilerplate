@@ -1,3 +1,4 @@
+import { loadBlogPost, mdxComponents } from "@kotonosora/blog";
 import { MDXProvider } from "@mdx-js/react";
 import { data } from "react-router";
 
@@ -6,9 +7,6 @@ import type { MiddlewareFunction } from "react-router";
 import type { SlugBlogContext } from "../types/type";
 
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
-
-import { mdxComponents } from "../config/mdx-components";
-import { loadBlogPost } from "../utils/load-blog-post";
 
 export const { SlugBlogReactRouterContext } =
   createMiddlewareContext<SlugBlogContext>("SlugBlogReactRouterContext");

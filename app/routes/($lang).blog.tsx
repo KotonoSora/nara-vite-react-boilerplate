@@ -1,3 +1,4 @@
+import customStyleUrl from "@kotonosora/blog/styles/custom?url";
 import { generateMetaTags } from "@kotonosora/seo";
 
 import type { Route } from "./+types/($lang).blog";
@@ -12,10 +13,8 @@ import { BlogPage } from "~/features/blog/page";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
-import styleUrl from "~/features/blog/style/custom.css?url";
-
 export function links() {
-  return [{ rel: "stylesheet", href: styleUrl }];
+  return [{ rel: "stylesheet", href: customStyleUrl }];
 }
 
 export const middleware: MiddlewareFunction[] = [blogMiddleware];

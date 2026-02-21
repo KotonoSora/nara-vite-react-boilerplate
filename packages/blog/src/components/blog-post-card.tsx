@@ -2,23 +2,34 @@ import { getIntlLocaleByLanguage } from "@kotonosora/i18n";
 import { useI18n } from "@kotonosora/i18n-react";
 import { Link } from "react-router";
 
-import type { BlogPostCardProps } from "../types/type";
+import type { BlogPostCardProps } from "../types/mdx";
 
 import { formatDate } from "../utils/format-date";
 
 export function BlogPostCard({ post }: BlogPostCardProps) {
   const { t, language } = useI18n();
   const locale = getIntlLocaleByLanguage(language);
+  const postUrl = post.url ?? `/blog/${post.slug}`;
+  const isExternal = Boolean(post.url);
 
   return (
     <article className="flex flex-col p-6 rounded-lg border bg-card hover:shadow-lg transition-shadow">
       <header className="mb-4">
-        <Link
-          to={`/blog/${post.slug}`}
-          className="text-2xl font-semibold hover:text-primary transition-colors"
-        >
-          {post.frontmatter.title}
-        </Link>
+        {isExternal ? (
+          <a
+            href={postUrl}
+            className="text-2xl font-semibold hover:text-primary transition-colors"
+          >
+            {post.frontmatter.title}
+          </a>
+        ) : (
+          <Link
+            to={postUrl}
+            className="text-2xl font-semibold hover:text-primary transition-colors"
+          >
+            {post.frontmatter.title}
+          </Link>
+        )}
         {post.frontmatter.date && (
           <time
             dateTime={post.frontmatter.date}
@@ -51,12 +62,21 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
             {t("blog.card.by")} {post.frontmatter.author}
           </span>
         )}
-        <Link
-          to={`/blog/${post.slug}`}
-          className="text-sm font-medium text-primary hover:underline"
-        >
-          {t("blog.card.readMore")} →
-        </Link>
+        {isExternal ? (
+          <a
+            href={postUrl}
+            className="text-sm font-medium text-primary hover:underline"
+          >
+            {t("blog.card.readMore")} →
+          </a>
+        ) : (
+          <Link
+            to={postUrl}
+            className="text-sm font-medium text-primary hover:underline"
+          >
+            {t("blog.card.readMore")} →
+          </Link>
+        )}
       </footer>
     </article>
   );

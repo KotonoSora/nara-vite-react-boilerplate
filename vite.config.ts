@@ -37,7 +37,7 @@ export default defineConfig(() => ({
         if (id.includes("deps_ssr")) return false;
         if (id.includes("packages")) return false;
         if (id.includes("workers")) return false;
-        if (id.includes(".server.")) return false;
+        if (id.includes(".server")) return false;
         return /\.[jt]sx?$/.test(id);
       },
       babelConfig: {

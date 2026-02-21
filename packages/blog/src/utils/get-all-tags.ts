@@ -1,4 +1,4 @@
-import type { BlogPost } from "../types/mdx";
+import type { BlogPost } from "@/types/mdx";
 
 /**
  * Extracts all unique tags from a collection of blog posts and returns them in sorted order.
