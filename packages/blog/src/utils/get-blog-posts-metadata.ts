@@ -1,5 +1,5 @@
 import { extractSlugFromPath } from "./extract-slug-from-path";
-import { mdxModules } from "./mdx-loader";
+import { getMdxModules } from "./mdx-loader";
 
 /**
  * Retrieves metadata for all blog posts.
@@ -12,7 +12,7 @@ export function getBlogPostsMetadata(): Array<{
   slug: string;
   path: string;
 }> {
-  return Object.keys(mdxModules).map((path) => ({
+  return Object.keys(getMdxModules()).map((path) => ({
     slug: extractSlugFromPath(path),
     path,
   }));

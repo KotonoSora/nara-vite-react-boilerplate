@@ -1,12 +1,10 @@
+import { BlogError, SlugHydrateFallback, SlugPage } from "@kotonosora/blog";
 import { isRouteErrorResponse } from "react-router";
 
 import type { Route } from "./+types/($lang).blog.$";
 
 import type { MiddlewareFunction } from "react-router";
 
-import { BlogError } from "~/features/blog/components/blog-error";
-import { SlugHydrateFallback } from "~/features/blog/components/slug-hydrate-fallback";
-import { SlugPage } from "~/features/blog/components/slug-page";
 import {
   slugBlogMiddleware,
   SlugBlogReactRouterContext,

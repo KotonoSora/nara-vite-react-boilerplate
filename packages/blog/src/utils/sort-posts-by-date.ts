@@ -1,4 +1,4 @@
-import type { BlogPost } from "../types/mdx";
+import type { BlogPost } from "@/types/mdx";
 
 /**
  * Sorts an array of blog posts by their publication date.

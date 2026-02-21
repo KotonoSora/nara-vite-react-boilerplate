@@ -1,4 +1,4 @@
-import type { BlogPost } from "../types/mdx";
+import type { BlogPost } from "@/types/mdx";
 
 /**
  * Filters an array of blog posts by a specific tag.

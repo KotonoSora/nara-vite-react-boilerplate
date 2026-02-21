@@ -1,3 +1,5 @@
+// Initialize blog MDX modules
+import { configureMdxModules } from "@kotonosora/blog";
 import {
   HeadScriptTrackingTag,
   usePageView,
@@ -32,6 +34,7 @@ import type { Route } from "./+types/root";
 import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 import type { MiddlewareFunction } from "react-router";
 
+import { blogMdxModules } from "~/features/blog/blog-config";
 import { landingPageMiddleware } from "~/features/landing-page/middleware/landing-page-middleware";
 import { DemoTag } from "~/features/shared/components/demo-tag";
 import { AuthProvider } from "~/lib/authentication/react/provider";
@@ -41,6 +44,8 @@ import { generalInformationMiddleware } from "~/middleware/information";
 import { ThemeContext, themeMiddleware } from "~/middleware/theme";
 
 import appCssUrl from "~/app.css?url";
+
+configureMdxModules(blogMdxModules);
 
 // Lazy-load notifications to avoid pulling them into the initial bundle
 const ToasterLazy = lazy(async () => ({
