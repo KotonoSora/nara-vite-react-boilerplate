@@ -27,7 +27,7 @@ export function extractSlugFromPath(path: string): string {
     // Remove trailing slash for consistency
     const cleanBasePath = basePath.replace(/\/$/, "");
     // Escape special regex characters and build pattern
-    const escapedPath = cleanBasePath.replace(/\//, "\\/");
+    const escapedPath = cleanBasePath.replace(/\//g, "\\/");
     const pattern = new RegExp(`${escapedPath}\/(.+)${extensionPattern}`);
 
     const match = path.match(pattern);
