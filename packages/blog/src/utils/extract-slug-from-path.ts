@@ -1,6 +1,17 @@
 import { BLOG_FILE_EXTENSIONS, CONTENT_BASE_PATHS } from "../config/constants";
 
 /**
+ * Escapes special regex characters in a string.
+ * Backslashes are escaped first to prevent double-escaping issues.
+ *
+ * @param str - The string to escape
+ * @returns The escaped string safe for use in RegExp
+ */
+function escapeRegExp(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
  * Extracts a slug from a file path.
  *
  * Matches file paths ending with `.md` or `.mdx` extensions from various content directories
@@ -27,7 +38,7 @@ export function extractSlugFromPath(path: string): string {
     // Remove trailing slash for consistency
     const cleanBasePath = basePath.replace(/\/$/, "");
     // Escape special regex characters and build pattern
-    const escapedPath = cleanBasePath.replace(/\//g, "\\/");
+    const escapedPath = escapeRegExp(cleanBasePath);
     const pattern = new RegExp(`${escapedPath}\/(.+)${extensionPattern}`);
 
     const match = path.match(pattern);
