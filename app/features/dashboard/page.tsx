@@ -10,7 +10,7 @@ export function ContentDashboardPage() {
       <HeaderNavigation />
 
       {/* Main Section */}
-      <section className="container mx-auto px-4 py-8">
+      <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12 max-w-7xl">
         <ManageShowcase />
       </section>
 
