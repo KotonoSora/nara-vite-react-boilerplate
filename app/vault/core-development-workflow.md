@@ -60,6 +60,7 @@ bun dev
 ```
 
 Features during development:
+
 - Hot Module Replacement (HMR) for instant component updates
 - Auto-discovery of routes from `app/routes/`
 - TypeScript real-time compilation
@@ -111,6 +112,7 @@ npm run db:migrate-production
 ```
 
 **Workflow:**
+
 1. Edit `database/schema.ts`
 2. Run `npm run db:generate`
 3. Review generated migration in `drizzle/`
@@ -203,17 +205,17 @@ Accessible via `react-router.config.ts` vault slug collection.
 Edit `database/schema.ts`:
 
 ```typescript
-import { sqliteTable, text, integer, relations } from 'drizzle-orm/sqlite-core'
+import { integer, relations, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-export const users = sqliteTable('users', {
-  id: text('id').primaryKey(),
-  email: text('email').unique().notNull(),
-  name: text('name'),
-  createdAt: integer('created_at').default(sql`CURRENT_TIMESTAMP`),
-})
+export const users = sqliteTable("users", {
+  id: text("id").primaryKey(),
+  email: text("email").unique().notNull(),
+  name: text("name"),
+  createdAt: integer("created_at").default(sql`CURRENT_TIMESTAMP`),
+});
 
-export type User = typeof users.$inferSelect
-export type NewUser = typeof users.$inferInsert
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
 ```
 
 ### Migration Generation
@@ -223,6 +225,7 @@ npm run db:generate
 ```
 
 Generates migration file:
+
 ```sql
 -- drizzle/0001_add_users_table.sql
 CREATE TABLE users (
@@ -254,54 +257,61 @@ Applies migrations to Cloudflare D1 in production.
 ### Query Examples
 
 ```typescript
-import { db } from '~/lib/database'
-import { users } from '~/database/schema'
-import { eq } from 'drizzle-orm'
+import { eq } from "drizzle-orm";
+
+import { users } from "~/database/schema";
+import { db } from "~/lib/database";
 
 // Insert
-const newUser = await db.insert(users).values({
-  id: crypto.randomUUID(),
-  email: 'user@example.com',
-  name: 'John',
-}).returning()
+const newUser = await db
+  .insert(users)
+  .values({
+    id: crypto.randomUUID(),
+    email: "user@example.com",
+    name: "John",
+  })
+  .returning();
 
 // Select
 const user = await db.query.users.findFirst({
-  where: eq(users.id, userId)
-})
+  where: eq(users.id, userId),
+});
 
 // Update
-await db.update(users)
-  .set({ name: 'Jane' })
-  .where(eq(users.id, userId))
+await db.update(users).set({ name: "Jane" }).where(eq(users.id, userId));
 
 // Delete
-await db.delete(users).where(eq(users.id, userId))
+await db.delete(users).where(eq(users.id, userId));
 ```
 
 ### In React Router Actions
 
 ```typescript
-import { redirect } from 'react-router'
-import type { Route } from './+types/profile'
-import { users } from '~/database/schema'
+import { redirect } from "react-router";
+
+import type { Route } from "./+types/profile";
+
+import { users } from "~/database/schema";
 
 export const action = async ({ request, context }: Route.ActionArgs) => {
-  if (request.method !== 'POST') {
-    return null
+  if (request.method !== "POST") {
+    return null;
   }
 
-  const formData = await request.formData()
-  const { db } = context
-  
-  const user = await db.insert(users).values({
-    id: crypto.randomUUID(),
-    email: formData.get('email'),
-    name: formData.get('name'),
-  }).returning()
+  const formData = await request.formData();
+  const { db } = context;
 
-  return redirect(`/profile/${user.id}`)
-}
+  const user = await db
+    .insert(users)
+    .values({
+      id: crypto.randomUUID(),
+      email: formData.get("email"),
+      name: formData.get("name"),
+    })
+    .returning();
+
+  return redirect(`/profile/${user.id}`);
+};
 ```
 
 ## Form Handling
@@ -343,26 +353,26 @@ export function LoginForm() {
 ### Server-Side Validation
 
 ```typescript
-import { z } from 'zod'
+import { z } from "zod";
 
 const loginSchema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Password too short'),
-})
+  email: z.string().email("Invalid email"),
+  password: z.string().min(8, "Password too short"),
+});
 
 export const action = async ({ request }: Route.ActionArgs) => {
-  const formData = await request.formData()
+  const formData = await request.formData();
   const parsed = loginSchema.safeParse({
-    email: formData.get('email'),
-    password: formData.get('password'),
-  })
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
 
   if (!parsed.success) {
-    return { errors: parsed.error.flatten() }
+    return { errors: parsed.error.flatten() };
   }
 
   // Process valid form data
-}
+};
 ```
 
 ## TypeScript Type Generation
@@ -377,22 +387,22 @@ Generates `routes.ts` with typed route parameters:
 
 ```typescript
 // Auto-generated from route files
-import type { Route } from './+types/dashboard'
+import type { Route } from "./+types/dashboard";
 
 export const loader = ({ params }: Route.LoaderArgs) => {
   // params is typed based on dynamic segments
-  console.log(params.lang)  // TypeScript knows this exists
-}
+  console.log(params.lang); // TypeScript knows this exists
+};
 ```
 
 ### Drizzle Schema Types
 
 ```typescript
 // Automatic type inference
-import { users } from '~/database/schema'
+import { users } from "~/database/schema";
 
-type User = typeof users.$inferSelect     // For reading
-type NewUser = typeof users.$inferInsert  // For inserting
+type User = typeof users.$inferSelect; // For reading
+type NewUser = typeof users.$inferInsert; // For inserting
 
 // Use in functions
 async function getUser(id: string): Promise<User | undefined> {
@@ -407,24 +417,25 @@ async function getUser(id: string): Promise<User | undefined> {
 `app/middleware/custom.ts`:
 
 ```typescript
-import { createContext } from 'react-router'
-import type { MiddlewareFunction } from 'react-router'
+import { createContext } from "react-router";
 
-export const CustomContext = createContext()
+import type { MiddlewareFunction } from "react-router";
+
+export const CustomContext = createContext();
 
 export const customMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
   // Process request
-  const data = await someProcessing(request)
-  
+  const data = await someProcessing(request);
+
   // Store in context
-  context.set(CustomContext, data)
-  
+  context.set(CustomContext, data);
+
   // Call next middleware
-  return await next()
-}
+  return await next();
+};
 ```
 
 ### Registering Middleware
@@ -432,10 +443,10 @@ export const customMiddleware: MiddlewareFunction = async (
 In `app/root.tsx`:
 
 ```typescript
-import { customMiddleware } from '~/middleware/custom'
-import { authMiddleware } from '~/middleware/auth'
+import { authMiddleware } from "~/middleware/auth";
+import { customMiddleware } from "~/middleware/custom";
 
-export const middleware = [customMiddleware, authMiddleware]
+export const middleware = [customMiddleware, authMiddleware];
 ```
 
 Middleware executes in sequence on every request.
@@ -447,15 +458,16 @@ Middleware executes in sequence on every request.
 `app/utils/__tests__/formatDate.test.ts`:
 
 ```typescript
-import { describe, it, expect } from 'vitest'
-import { formatDate } from '../formatDate'
+import { describe, expect, it } from "vitest";
 
-describe('formatDate', () => {
-  it('formats date correctly', () => {
-    const date = new Date('2026-02-22')
-    expect(formatDate(date)).toBe('Feb 22, 2026')
-  })
-})
+import { formatDate } from "../formatDate";
+
+describe("formatDate", () => {
+  it("formats date correctly", () => {
+    const date = new Date("2026-02-22");
+    expect(formatDate(date)).toBe("Feb 22, 2026");
+  });
+});
 ```
 
 ### Component Tests
@@ -493,11 +505,13 @@ Development server runs on `localhost:5173` with React DevTools extension suppor
 ```typescript
 // Log on server side
 export const loader = async ({ request, context }: Route.LoaderArgs) => {
-  console.log('Request:', request.url)
-  console.log('User:', context.get(AuthContext))
-  
-  return { /* data */ }
-}
+  console.log("Request:", request.url);
+  console.log("User:", context.get(AuthContext));
+
+  return {
+    /* data */
+  };
+};
 ```
 
 Logs appear in terminal running `npm run dev`.

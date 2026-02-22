@@ -19,7 +19,7 @@ tags: ["ui", "components", "tailwind", "design-system"]
 - **Version**: 0.0.1
 - **Type**: React component library (published to workspace)
 - **Location**: `packages/ui/`
-- **Dependencies**: 
+- **Dependencies**:
   - `react`, `react-dom` (19.2.4)
   - `@tailwindcss/vite` (4.2.0)
   - `lucide-react` (0.563.0) - Icon library
@@ -44,6 +44,7 @@ The package exports individual components via granular export paths in `package.
 ### Component Categories
 
 #### **Form Components**
+
 - `button` - Clickable action element
 - `input` - Text input field
 - `input-otp` - One-time password input
@@ -55,6 +56,7 @@ The package exports individual components via granular export paths in `package.
 - `label` - Form field label
 
 #### **Dialog & Modal Components**
+
 - `dialog` - Modal dialog
 - `alert-dialog` - Alert confirmation
 - `drawer` - Slide-out panel
@@ -62,6 +64,7 @@ The package exports individual components via granular export paths in `package.
 - `hover-card` - Hover-triggered card
 
 #### **Navigation Components**
+
 - `breadcrumb` - Navigation trail
 - `menubar` - Application menu bar
 - `navigation-menu` - Navigation structure
@@ -69,6 +72,7 @@ The package exports individual components via granular export paths in `package.
 - `tabs` - Tabbed content
 
 #### **Display Components**
+
 - `card` - Content container
 - `alert` - Alert/notification box
 - `badge` - Small label/status
@@ -78,12 +82,14 @@ The package exports individual components via granular export paths in `package.
 - `item` - List item wrapper
 
 #### **Data Components**
+
 - `chart` - Chart rendering
 - `table` - Data table (via @tanstack/react-table)
 - `progress` - Progress bar
 - `slider` - Range slider
 
 #### **Layout Components**
+
 - `separator` - Visual divider
 - `scroll-area` - Scrollable content
 - `resizable` - Resizable panels
@@ -91,6 +97,7 @@ The package exports individual components via granular export paths in `package.
 - `sheet` - Sheet modal variant
 
 #### **Utility Components**
+
 - `button-group` - Grouped buttons
 - `field` - Form field wrapper
 - `command` - Command palette
@@ -138,10 +145,10 @@ export function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <Label htmlFor="email">Email</Label>
-        <Input 
-          id="email" 
-          type="email" 
-          {...register('email')} 
+        <Input
+          id="email"
+          type="email"
+          {...register('email')}
         />
       </div>
       <Button type="submit">Login</Button>
@@ -208,15 +215,12 @@ All components use Tailwind CSS utility classes. Customization via Tailwind conf
 export default {
   theme: {
     colors: {
-      primary: 'var(--color-primary)',
-      secondary: 'var(--color-secondary)',
+      primary: "var(--color-primary)",
+      secondary: "var(--color-secondary)",
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
-}
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+};
 ```
 
 ### CSS Variables for Theming
@@ -241,12 +245,12 @@ import { clsx } from 'clsx'
 
 export function CustomButton({ variant = 'default', ...props }) {
   return (
-    <Button 
+    <Button
       className={clsx(
         variant === 'danger' && 'bg-red-500 hover:bg-red-600',
         variant === 'success' && 'bg-green-500 hover:bg-green-600',
       )}
-      {...props} 
+      {...props}
     />
   )
 }
@@ -259,7 +263,7 @@ export function CustomButton({ variant = 'default', ...props }) {
 ```typescript
 import { Button } from '@kotonosora/ui/components/ui/button'
 
-<Button 
+<Button
   variant="default" | "secondary" | "outline" | "ghost" | "danger"
   size="default" | "sm" | "lg" | "icon"
   disabled={boolean}
@@ -305,11 +309,11 @@ import { Card, CardContent, CardHeader, CardFooter } from '@kotonosora/ui/compon
 ### Dialog Components
 
 ```typescript
-import { 
-  Dialog, 
-  DialogTrigger, 
-  DialogContent, 
-  DialogHeader, 
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
   DialogTitle,
   DialogDescription,
   DialogFooter,
@@ -430,10 +434,9 @@ Components are granularly exported so only imported components are bundled:
 
 ```typescript
 // Only button.tsx is included in bundle
-import { Button } from '@kotonosora/ui/components/ui/button'
-
+import { Button } from "@kotonosora/ui/components/ui/button";
 // If you import another component, only that is added
-import { Dialog } from '@kotonosora/ui/components/ui/dialog'
+import { Dialog } from "@kotonosora/ui/components/ui/dialog";
 ```
 
 ### Lazy Loading Components
@@ -464,7 +467,7 @@ describe('Button', () => {
   it('handles click events', async () => {
     const handleClick = vi.fn()
     render(<Button onClick={handleClick}>Click</Button>)
-    
+
     await userEvent.click(screen.getByText('Click'))
     expect(handleClick).toHaveBeenCalled()
   })
