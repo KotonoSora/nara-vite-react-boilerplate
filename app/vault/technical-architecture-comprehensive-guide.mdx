@@ -1,0 +1,377 @@
+---
+title: "Technical Architecture Comprehensive Guide"
+description: "Full-stack system architecture, tech stack, build pipeline, and deployment strategy for NARA boilerplate"
+date: "2026-02-22"
+published: true
+author: "Development Team"
+tags: ["architecture", "tech-stack", "infrastructure", "react-router", "cloudflare"]
+---
+
+# Technical Architecture Comprehensive Guide
+
+## Overview
+
+NARA (Non-Abstract Reusable App) is a full-stack React application framework built on modern tooling and cloud infrastructure. This guide explains the complete system architecture, technology stack, and how all components interact.
+
+## Technology Stack
+
+### Frontend & Build Tools
+
+| Technology | Version | Purpose |
+|---|---|---|
+| **React** | 19.2.4 | Core UI framework and component library |
+| **React Router** | 7.13.0 | Framework mode routing with loaders, actions, and SSR |
+| **Vite** | Latest | Build tool and development server (configured via vite.config.ts) |
+| **TypeScript** | Latest | Type-safe development across entire project |
+| **Tailwind CSS** | 4.1.18 | Utility-first CSS framework with vite plugin integration |
+| **MDX** | Latest | Markdown + JSX support for interactive documentation and content |
+
+### Backend & Database
+
+| Technology | Purpose |
+|---|---|
+| **Hono** | Lightweight web framework running on Cloudflare Workers |
+| **Drizzle ORM** | Type-safe SQL query builder with SQLite dialect |
+| **D1 (Cloudflare SQLite)** | Serverless SQL database backend |
+| **Cloudflare Workers** | Edge computing platform for backend execution |
+
+### UI & Component System
+
+| Package | Purpose |
+|---|---|
+| **@kotonosora/ui** | Comprehensive component library with 40+ UI components (Button, Dialog, Calendar, etc.) |
+| **@tailwindcss/vite** | Vite plugin for Tailwind CSS integration |
+| **lucide-react** | Icon library (used across UI components) |
+| **recharts** | Chart/visualization library for analytics |
+
+### State Management & Forms
+
+| Package | Purpose |
+|---|---|
+| **react-hook-form** | Performant form state management |
+| **@hookform/resolvers** | Schema validation resolvers |
+| **zod** | TypeScript-first schema validation |
+
+### Other Core Dependencies
+
+| Package | Purpose |
+|---|---|
+| **react-router** | Full-stack framework mode with SSR |
+| **@hono/zod-validator** | Zod validation middleware for Hono |
+| **remix-themes** | Theme system (light/dark mode) |
+| **sonner** | Toast notifications |
+| **date-fns** | Date manipulation library |
+| **isbot** | Bot detection for SSR optimization |
+| **highlight.js** | Code syntax highlighting |
+| **react-virtuoso** | Virtual scrolling for performance |
+
+## System Architecture
+
+### Three-Layer Architecture
+
+```
+┌─────────────────────────────────────────┐
+│   CLIENT LAYER (React SSR)              │
+│ - React Components                      │
+│ - React Router Navigation               │
+│ - Form State (react-hook-form)          │
+│ - UI Components (@kotonosora/ui)        │
+└──────────────┬──────────────────────────┘
+               │ API Calls / Actions
+┌──────────────▼──────────────────────────┐
+│   EDGE LAYER (Cloudflare Workers)       │
+│ - Hono routing                          │
+│ - Request validation (Zod)              │
+│ - Authentication middleware             │
+│ - Request/response processing           │
+└──────────────┬──────────────────────────┘
+               │ Database queries
+┌──────────────▼──────────────────────────┐
+│   DATABASE LAYER (D1 SQLite)            │
+│ - Data persistence                      │
+│ - Drizzle ORM schema                    │
+│ - Migrations (drizzle-kit)              │
+└─────────────────────────────────────────┘
+```
+
+### Request Flow
+
+1. **User Action**: Browser/client initiates action or navigation
+2. **React Router**: Framework mode routes to loader/action
+3. **API Call**: Request sent to Cloudflare Worker endpoints
+4. **Middleware**: Auth, validation, and business logic processing
+5. **Database**: Drizzle ORM executes queries against D1
+6. **Response**: Data returned and re-renders React components
+7. **SSR**: Server-side rendering for initial page load
+
+## Directory Structure
+
+### Root Organization
+
+```
+nara-vite-react-boilerplate/
+├── app/                          # Application source code
+│   ├── routes/                   # React Router file-based routes
+│   ├── middleware/               # Request/response middleware
+│   ├── features/                 # Feature-specific components/logic
+│   ├── hooks/                    # React hooks
+│   ├── lib/                      # Shared libraries (auth, i18n, theme)
+│   ├── styles/                   # Global CSS
+│   ├── vault/                    # Documentation & MDX blog content
+│   ├── root.tsx                  # Root layout component
+│   ├── entry.server.tsx          # Server entry point for SSR
+│   ├── app.css                   # Global styles
+│   └── routes.ts                 # Route configuration
+├── packages/                     # Workspace packages (monorepo)
+│   ├── ui/                       # UI component library
+│   ├── blog/                     # Blog engine implementation
+│   ├── calendar/                 # Calendar component system
+│   ├── commerce/                 # Not listed but structure ready
+│   ├── forest/                   # Visual showcase package
+│   ├── google-analytics/         # Analytics integration
+│   ├── i18n/                     # Internationalization core
+│   ├── i18n-locales/             # Translation data
+│   ├── i18n-react/               # React i18n hooks
+│   ├── qr-generator/             # QR code generation
+│   ├── scheduler/                # Task scheduling utility
+│   ├── seo/                      # SEO optimization utilities
+│   └── utils/                    # Shared utility functions
+├── workers/                      # Cloudflare Worker code
+│   ├── app.ts                    # Worker application entry
+│   ├── routes.ts                 # API route configuration
+│   └── api/                      # API endpoints
+├── database/                     # Database schema & contracts
+│   ├── schema.ts                 # Drizzle ORM schema
+│   └── schema/                   # Database contract definitions
+├── drizzle/                      # Migration files
+├── build/                        # Build outputs
+│   ├── client/                   # Client bundle
+│   └── server/                   # Server bundle
+├── public/                       # Static assets
+├── vite.config.ts                # Vite configuration
+├── react-router.config.ts        # React Router framework config
+├── drizzle.config.ts             # Drizzle migrations config
+├── tsconfig.json                 # TypeScript configuration
+└── package.json                  # Workspace root package
+```
+
+## Build Pipeline
+
+### Development Server (`npm run dev`)
+
+1. **Vite Dev Server**: Hot module replacement (HMR) for instant updates
+2. **React Router**: Auto-discovery of routes from `app/routes/`
+3. **MDX Processing**: Routes converted to components with frontmatter
+4. **Type Checking**: TypeScript compilation in parallel
+5. **Middleware**: Auth, i18n, theme applied to requests
+
+### Production Build (`npm run build`)
+
+```
+Source Code → TypeScript Compilation → Vite Bundling
+    ↓
+Client Bundle: Optimized JS chunks for browser
+Server Bundle: SSR-ready React components for Workers
+    ↓
+Static Assets: Optimized images, fonts, CSS
+    ↓
+Migration Files: Database schema migrations
+    ↓
+Deployment Package: Ready for Cloudflare
+```
+
+### Deployment Flow
+
+```
+npm run build
+    ↓
+wrangler deploy
+    ↓
+Cloudflare Global Network
+    ↓
+Edge Execution (Workers)
+    ↓
+D1 Database Replication (if configured)
+```
+
+## Middleware System
+
+Middleware chain processes every request. Located in `app/middleware/`:
+
+| Middleware | Responsibility |
+|---|---|
+| **auth.ts** | Extract user context from session/token |
+| **i18n.ts** | Detect language from URL/headers, load translations |
+| **theme.ts** | Apply user's theme preference |
+| **information.ts** | Attach request metadata (IP, user agent, etc.) |
+
+Middleware execution order established in `root.tsx` and `entry.server.tsx`.
+
+## React Router Framework Mode
+
+### Route Types
+
+1. **Page Routes** (`($lang).dashboard._index.tsx`)
+   - Exports React component
+   - Automatic SSR rendering
+   - Client-side hydration
+
+2. **Action Routes** (`action.logout.ts`)
+   - Export async `action()` function
+   - Handle form submissions and mutations
+   - Execute server-side only
+
+3. **Loader Routes**
+   - Export async `loader()` function
+   - Fetch data before component renders
+   - Passed to component via hooks
+
+### Naming Convention
+
+- Parentheses `($lang)` = path parameter
+- Leading underscore `_` = layout route (doesn't affect URL)
+- Dots `.` = hierarchy separator
+- Dollar sign `$` = catch-all segment
+
+Examples:
+- `($lang)._index.tsx` → `/[lang]/`
+- `($lang).blog.$.tsx` → `/[lang]/blog/*` (catch-all for slug)
+- `action.login.ts` → POST to `/login` action
+
+## Package System (Monorepo)
+
+All packages use workspace protocol `workspace:*` references:
+
+```json
+{
+  "dependencies": {
+    "@kotonosora/ui": "workspace:*",
+    "@kotonosora/i18n": "workspace:*"
+  }
+}
+```
+
+### Dependency Graph
+
+```
+root (nara-vite-react-boilerplate)
+├── @kotonosora/ui
+│   ├── tailwindcss, lucide-react, recharts
+│   └── react, react-dom
+├── @kotonosora/blog
+│   ├── @kotonosora/ui
+│   ├── @kotonosora/i18n-react
+│   ├── @kotonosora/google-analytics
+│   └── react-virtuoso
+├── @kotonosora/calendar
+│   ├── @kotonosora/ui
+│   ├── @kotonosora/i18n-react
+│   └── date-fns
+├── @kotonosora/i18n
+│   ├── @kotonosora/i18n-locales
+│   └── date-fns
+├── @kotonosora/i18n-react
+│   ├── @kotonosora/i18n
+│   ├── @kotonosora/i18n-locales
+│   └── date-fns
+├── @kotonosora/forest
+├── @kotonosora/qr-generator
+├── @kotonosora/google-analytics
+├── @kotonosora/seo
+├── @kotonosora/scheduler
+└── @kotonosora/utils
+```
+
+## Type Safety
+
+### Global Type Definitions
+
+- `tsconfig.json`: Path aliases (`~` → `app/`, `@` → `packages/`)
+- `worker-configuration.d.ts`: Types for Cloudflare Worker context
+- TypeScript strict mode enabled for type checking
+- React Router code generation: `npm run typecheck`
+
+### Zod Schema Integration
+
+```typescript
+// Define schema
+const input = z.object({ email: z.string().email() })
+
+// Use in actions
+export const action = async ({ request }: Route.ActionArgs) => {
+  const formData = await request.formData()
+  const parsed = input.safeParse(Object.fromEntries(formData))
+  // ...
+}
+
+// Validate in Hono routes
+import { zValidator } from '@hono/zod-validator'
+app.post('/api/users', zValidator('form', userSchema), (c) => {
+  // ...
+})
+```
+
+## Performance Considerations
+
+### Code Splitting
+
+- **Automatic**: React Router + Vite split at route boundaries
+- **Manual**: Dynamic imports for heavy packages
+
+### SSR Strategy
+
+- Initial page load: Server-renders HTML
+- Subsequent navigation: Client-side React Router navigation
+- Actions/loaders trigger API calls to Workers
+
+### Database Access
+
+- D1 access through Drizzle ORM in Worker context
+- Connection pooling handled by Cloudflare
+- Migrations run via `drizzle-kit` during deployments
+
+## Security Architecture
+
+### Authentication Flow
+
+1. User logs in via `($lang).login.tsx` route
+2. Action validates credentials against database
+3. Session token stored (implementation in `lib/authentication/server/`)
+4. Auth middleware extracts token from request
+5. User context available in all routes via `AuthContext`
+
+### Data Validation
+
+- Form validation: `react-hook-form` + `zod` on client
+- Action validation: Re-validate with `zod` server-side
+- API validation: `@hono/zod-validator` on Worker routes
+- Database: Type verification through Drizzle schema
+
+### Environment Configuration
+
+- Worker: `wrangler.jsonc` + environment variables
+- Database: `drizzle.config.ts` with Cloudflare credentials
+- Build: `tsconfig.json` and `vite.config.ts` settings
+
+## Deployment Target
+
+### Cloudflare Infrastructure
+
+- **Compute**: Cloudflare Workers (globally distributed)
+- **Database**: D1 (SQLite, globally replicated)
+- **Storage**: R2 (S3-compatible object storage)
+- **CDN**: Automatic caching of static assets
+- **Edge**: Sub-100ms latency worldwide
+
+### Environment Setup
+
+```bash
+# .env.local or wrangler env
+CLOUDFLARE_ACCOUNT_ID=your-account-id
+CLOUDFLARE_API_TOKEN=your-api-token
+CLOUDFLARE_D1_DATABASE_ID=your-db-id
+```
+
+---
+
+This architecture enables rapid development with full type safety, scalability through edge computing, and excellent developer experience through hot module replacement and automatic code generation.
