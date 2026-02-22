@@ -8,6 +8,14 @@ export { SlugPage } from "./components/slug-page";
 export { mdxComponents } from "./config/mdx-components";
 export { loadBlogPost } from "./utils/load-blog-post";
 export { HomePage } from "./components/home-page";
+export { getMdxModulePath } from "./utils/get-mdx-module-path";
+
+// Content cache utilities
+export {
+  setContentCache,
+  getContentCache,
+  clearContentCache,
+} from "./utils/content-cache";
 
 // MDX configuration
 export { configureMdxModules, getMdxModules } from "./utils/mdx-loader";

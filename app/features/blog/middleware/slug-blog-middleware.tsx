@@ -1,10 +1,9 @@
-import { loadBlogPost, mdxComponents } from "@kotonosora/blog";
-import { MDXProvider } from "@mdx-js/react";
+import { getMdxModulePath, loadBlogPost } from "@kotonosora/blog";
 import { data } from "react-router";
 
 import type { MiddlewareFunction } from "react-router";
 
-import type { SlugBlogContext } from "../types/type";
+import type { LoadingState, SlugBlogContext } from "../types/type";
 
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
 
@@ -24,22 +23,30 @@ export const slugBlogMiddleware: MiddlewareFunction = async (
   // Remove trailing slash from slug
   const slug = rawSlug.replace(/\/$/, "");
 
+  const loadingState: LoadingState = {
+    isLoading: true,
+    loaded: 0,
+    total: 1,
+    currentSlug: slug,
+  };
+
   const post = await loadBlogPost(slug);
 
   if (!post) {
     throw data({ error: "Blog post not found" }, { status: 404 });
   }
 
-  const MDXContent = post.content;
+  // Get the module path for client-side loading
+  const modulePath = getMdxModulePath(slug);
+
+  loadingState.loaded = 1;
+  loadingState.isLoading = false;
 
   const contextValue: SlugBlogContext = {
     slug: post.slug,
     frontmatter: post.frontmatter,
-    content: (
-      <MDXProvider components={mdxComponents}>
-        <MDXContent />
-      </MDXProvider>
-    ),
+    modulePath,
+    loading: loadingState,
   };
 
   context.set(SlugBlogReactRouterContext, contextValue);

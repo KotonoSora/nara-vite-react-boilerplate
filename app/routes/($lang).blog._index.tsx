@@ -18,11 +18,19 @@ const HomePage = lazy(() =>
   })),
 );
 
+export const middleware: MiddlewareFunction[] = [allBlogMiddleware];
 export const clientMiddleware: MiddlewareFunction[] = [allBlogMiddleware];
-export async function clientLoader({ context }: Route.ClientLoaderArgs) {
-  const { posts } = context.get(AllBlogReactRouterContext);
 
-  return { posts };
+export async function loader({ context }: Route.LoaderArgs) {
+  const { posts, loading } = context.get(AllBlogReactRouterContext);
+
+  return { posts, loading };
+}
+
+export async function clientLoader({ context }: Route.ClientLoaderArgs) {
+  const { posts, loading } = context.get(AllBlogReactRouterContext);
+
+  return { posts, loading };
 }
 
 clientLoader.hydrate = true as const;

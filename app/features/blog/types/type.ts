@@ -7,11 +7,20 @@ export type BlogPageContextType = {
 };
 
 export type SlugBlogContext = {
-  content: JSX.Element;
   frontmatter: BlogFrontmatter;
   slug: string;
+  modulePath?: string;
+  loading?: LoadingState;
+};
+
+export type LoadingState = {
+  isLoading: boolean;
+  loaded: number;
+  total: number;
+  currentSlug?: string;
 };
 
 export type AllBlogContext = {
   posts: BlogPost[];
+  loading?: LoadingState;
 };
