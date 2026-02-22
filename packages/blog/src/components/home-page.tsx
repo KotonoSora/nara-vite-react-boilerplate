@@ -10,7 +10,7 @@ export function HomePage() {
   const { posts } = useLoaderData<HomePageLoaderData>();
 
   return (
-    <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12">
+    <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12 max-w-7xl">
       {/* Home blog content */}
       <div className="space-y-8">
         <header>

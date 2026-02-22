@@ -11,7 +11,7 @@ export function SlugPage() {
   const { title, description, tags, author, date } = frontmatter;
 
   return (
-    <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12">
+    <section className="container mx-auto px-4 py-6 sm:py-8 lg:py-12 max-w-7xl">
       {/* Custom meta tags with slug blog content */}
       <title>{title}</title>
       <meta name="description" content={description} />

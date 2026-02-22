@@ -19,6 +19,7 @@ export function UserProfile({
       to="/dashboard"
       onClick={onClose}
       aria-label={t("navigation.dashboard")}
+      discover="none"
     >
       <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-2">
         <Avatar>
