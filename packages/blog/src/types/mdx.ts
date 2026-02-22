@@ -24,6 +24,12 @@ export type BlogPost = {
 
 export type HomePageLoaderData = {
   posts: BlogPost[];
+  loading?: {
+    isLoading: boolean;
+    loaded: number;
+    total: number;
+    currentSlug?: string;
+  };
 };
 
 export type BlogPostCardProps = {
@@ -31,9 +37,16 @@ export type BlogPostCardProps = {
 };
 
 export type SlugBlogLoaderData = {
-  content: JSX.Element;
   frontmatter: BlogFrontmatter;
   slug: string;
+  modulePath?: string;
+  contentComponent?: React.ComponentType<any>;
+  loading?: {
+    isLoading: boolean;
+    loaded: number;
+    total: number;
+    currentSlug?: string;
+  };
 };
 
 export type BlogErrorProps = {
