@@ -4,7 +4,8 @@ description: "Full-stack system architecture, tech stack, build pipeline, and de
 date: "2026-02-22"
 published: true
 author: "Development Team"
-tags: ["architecture", "tech-stack", "infrastructure", "react-router", "cloudflare"]
+tags:
+  ["architecture", "tech-stack", "infrastructure", "react-router", "cloudflare"]
 ---
 
 # Technical Architecture Comprehensive Guide
@@ -17,53 +18,53 @@ NARA (Non-Abstract Reusable App) is a full-stack React application framework bui
 
 ### Frontend & Build Tools
 
-| Technology | Version | Purpose |
-|---|---|---|
-| **React** | 19.2.4 | Core UI framework and component library |
-| **React Router** | 7.13.0 | Framework mode routing with loaders, actions, and SSR |
-| **Vite** | Latest | Build tool and development server (configured via vite.config.ts) |
-| **TypeScript** | Latest | Type-safe development across entire project |
-| **Tailwind CSS** | 4.1.18 | Utility-first CSS framework with vite plugin integration |
-| **MDX** | Latest | Markdown + JSX support for interactive documentation and content |
+| Technology       | Version | Purpose                                                           |
+| ---------------- | ------- | ----------------------------------------------------------------- |
+| **React**        | 19.2.4  | Core UI framework and component library                           |
+| **React Router** | 7.13.0  | Framework mode routing with loaders, actions, and SSR             |
+| **Vite**         | Latest  | Build tool and development server (configured via vite.config.ts) |
+| **TypeScript**   | Latest  | Type-safe development across entire project                       |
+| **Tailwind CSS** | 4.1.18  | Utility-first CSS framework with vite plugin integration          |
+| **MDX**          | Latest  | Markdown + JSX support for interactive documentation and content  |
 
 ### Backend & Database
 
-| Technology | Purpose |
-|---|---|
-| **Hono** | Lightweight web framework running on Cloudflare Workers |
-| **Drizzle ORM** | Type-safe SQL query builder with SQLite dialect |
-| **D1 (Cloudflare SQLite)** | Serverless SQL database backend |
-| **Cloudflare Workers** | Edge computing platform for backend execution |
+| Technology                 | Purpose                                                 |
+| -------------------------- | ------------------------------------------------------- |
+| **Hono**                   | Lightweight web framework running on Cloudflare Workers |
+| **Drizzle ORM**            | Type-safe SQL query builder with SQLite dialect         |
+| **D1 (Cloudflare SQLite)** | Serverless SQL database backend                         |
+| **Cloudflare Workers**     | Edge computing platform for backend execution           |
 
 ### UI & Component System
 
-| Package | Purpose |
-|---|---|
-| **@kotonosora/ui** | Comprehensive component library with 40+ UI components (Button, Dialog, Calendar, etc.) |
-| **@tailwindcss/vite** | Vite plugin for Tailwind CSS integration |
-| **lucide-react** | Icon library (used across UI components) |
-| **recharts** | Chart/visualization library for analytics |
+| Package               | Purpose                                                                                 |
+| --------------------- | --------------------------------------------------------------------------------------- |
+| **@kotonosora/ui**    | Comprehensive component library with 40+ UI components (Button, Dialog, Calendar, etc.) |
+| **@tailwindcss/vite** | Vite plugin for Tailwind CSS integration                                                |
+| **lucide-react**      | Icon library (used across UI components)                                                |
+| **recharts**          | Chart/visualization library for analytics                                               |
 
 ### State Management & Forms
 
-| Package | Purpose |
-|---|---|
-| **react-hook-form** | Performant form state management |
-| **@hookform/resolvers** | Schema validation resolvers |
-| **zod** | TypeScript-first schema validation |
+| Package                 | Purpose                            |
+| ----------------------- | ---------------------------------- |
+| **react-hook-form**     | Performant form state management   |
+| **@hookform/resolvers** | Schema validation resolvers        |
+| **zod**                 | TypeScript-first schema validation |
 
 ### Other Core Dependencies
 
-| Package | Purpose |
-|---|---|
-| **react-router** | Full-stack framework mode with SSR |
+| Package                 | Purpose                            |
+| ----------------------- | ---------------------------------- |
+| **react-router**        | Full-stack framework mode with SSR |
 | **@hono/zod-validator** | Zod validation middleware for Hono |
-| **remix-themes** | Theme system (light/dark mode) |
-| **sonner** | Toast notifications |
-| **date-fns** | Date manipulation library |
-| **isbot** | Bot detection for SSR optimization |
-| **highlight.js** | Code syntax highlighting |
-| **react-virtuoso** | Virtual scrolling for performance |
+| **remix-themes**        | Theme system (light/dark mode)     |
+| **sonner**              | Toast notifications                |
+| **date-fns**            | Date manipulation library          |
+| **isbot**               | Bot detection for SSR optimization |
+| **highlight.js**        | Code syntax highlighting           |
+| **react-virtuoso**      | Virtual scrolling for performance  |
 
 ## System Architecture
 
@@ -198,12 +199,12 @@ D1 Database Replication (if configured)
 
 Middleware chain processes every request. Located in `app/middleware/`:
 
-| Middleware | Responsibility |
-|---|---|
-| **auth.ts** | Extract user context from session/token |
-| **i18n.ts** | Detect language from URL/headers, load translations |
-| **theme.ts** | Apply user's theme preference |
-| **information.ts** | Attach request metadata (IP, user agent, etc.) |
+| Middleware         | Responsibility                                      |
+| ------------------ | --------------------------------------------------- |
+| **auth.ts**        | Extract user context from session/token             |
+| **i18n.ts**        | Detect language from URL/headers, load translations |
+| **theme.ts**       | Apply user's theme preference                       |
+| **information.ts** | Attach request metadata (IP, user agent, etc.)      |
 
 Middleware execution order established in `root.tsx` and `entry.server.tsx`.
 
@@ -234,6 +235,7 @@ Middleware execution order established in `root.tsx` and `entry.server.tsx`.
 - Dollar sign `$` = catch-all segment
 
 Examples:
+
 - `($lang)._index.tsx` → `/[lang]/`
 - `($lang).blog.$.tsx` → `/[lang]/blog/*` (catch-all for slug)
 - `action.login.ts` → POST to `/login` action
@@ -294,21 +296,22 @@ root (nara-vite-react-boilerplate)
 ### Zod Schema Integration
 
 ```typescript
+// Validate in Hono routes
+import { zValidator } from "@hono/zod-validator";
+
 // Define schema
-const input = z.object({ email: z.string().email() })
+const input = z.object({ email: z.string().email() });
 
 // Use in actions
 export const action = async ({ request }: Route.ActionArgs) => {
-  const formData = await request.formData()
-  const parsed = input.safeParse(Object.fromEntries(formData))
+  const formData = await request.formData();
+  const parsed = input.safeParse(Object.fromEntries(formData));
   // ...
-}
+};
 
-// Validate in Hono routes
-import { zValidator } from '@hono/zod-validator'
-app.post('/api/users', zValidator('form', userSchema), (c) => {
+app.post("/api/users", zValidator("form", userSchema), (c) => {
   // ...
-})
+});
 ```
 
 ## Performance Considerations

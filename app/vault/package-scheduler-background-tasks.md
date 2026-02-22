@@ -65,19 +65,19 @@ A unit of work to be executed:
 
 ```typescript
 interface Job {
-  id: string
-  name: string
-  handler: () => Promise<void> | void
-  schedule: string | number | Date
-  maxRetries: number
-  retryDelay: number
-  timeout: number
-  priority: 'low' | 'normal' | 'high'
-  status: 'pending' | 'running' | 'completed' | 'failed'
-  lastRun?: Date
-  nextRun?: Date
-  result?: any
-  error?: Error
+  id: string;
+  name: string;
+  handler: () => Promise<void> | void;
+  schedule: string | number | Date;
+  maxRetries: number;
+  retryDelay: number;
+  timeout: number;
+  priority: "low" | "normal" | "high";
+  status: "pending" | "running" | "completed" | "failed";
+  lastRun?: Date;
+  nextRun?: Date;
+  result?: any;
+  error?: Error;
 }
 ```
 
@@ -89,8 +89,8 @@ Main scheduler instance managing job lifecycle:
 const scheduler = new Scheduler({
   maxConcurrentJobs: 5,
   persistState: true,
-  storageKey: 'nara_scheduler_state'
-})
+  storageKey: "nara_scheduler_state",
+});
 ```
 
 ### Queue
@@ -99,11 +99,11 @@ Job queue for ordered execution:
 
 ```typescript
 interface Queue {
-  add(job: Job): void
-  remove(jobId: string): void
-  process(): Promise<void>
-  clear(): void
-  status(): QueueStatus
+  add(job: Job): void;
+  remove(jobId: string): void;
+  process(): Promise<void>;
+  clear(): void;
+  status(): QueueStatus;
 }
 ```
 
@@ -114,27 +114,27 @@ interface Queue {
 Execute a task once after a delay:
 
 ```typescript
-import { Scheduler } from '@kotonosora/scheduler'
+import { Scheduler } from "@kotonosora/scheduler";
 
-const scheduler = new Scheduler()
+const scheduler = new Scheduler();
 
 // Execute after 5 seconds
 scheduler.schedule(
-  'send_welcome_email',
+  "send_welcome_email",
   async () => {
-    await sendWelcomeEmail(userId)
+    await sendWelcomeEmail(userId);
   },
-  { delay: 5000 }
-)
+  { delay: 5000 },
+);
 
 // Execute at specific time
 scheduler.schedule(
-  'daily_report',
+  "daily_report",
   async () => {
-    await generateReport()
+    await generateReport();
   },
-  { at: new Date('2026-02-22T09:00:00') }
-)
+  { at: new Date("2026-02-22T09:00:00") },
+);
 ```
 
 ### Repeated Tasks
@@ -144,21 +144,21 @@ Execute task at regular intervals:
 ```typescript
 // Every 5 minutes
 scheduler.repeat(
-  'check_status',
+  "check_status",
   async () => {
-    await checkApplicationStatus()
+    await checkApplicationStatus();
   },
-  { interval: 300000 }  // 5 minutes in ms
-)
+  { interval: 300000 }, // 5 minutes in ms
+);
 
 // Every 24 hours starting now
 scheduler.repeat(
-  'daily_cleanup',
+  "daily_cleanup",
   async () => {
-    await cleanupOldData()
+    await cleanupOldData();
   },
-  { interval: '24h' }  // Human-readable
-)
+  { interval: "24h" }, // Human-readable
+);
 ```
 
 ### Cron Jobs
@@ -166,46 +166,46 @@ scheduler.repeat(
 Complex scheduling using cron expressions:
 
 ```typescript
-import { Scheduler } from '@kotonosora/scheduler'
+import { Scheduler } from "@kotonosora/scheduler";
 
-const scheduler = new Scheduler()
+const scheduler = new Scheduler();
 
 // Every morning at 8 AM
 scheduler.cron(
-  'morning_report',
+  "morning_report",
   async () => {
-    const report = await generateReport()
-    await sendReport(report)
+    const report = await generateReport();
+    await sendReport(report);
   },
-  '0 8 * * *'  // Cron expression
-)
+  "0 8 * * *", // Cron expression
+);
 
 // Every Monday at 9 AM
 scheduler.cron(
-  'weekly_standup_reminder',
+  "weekly_standup_reminder",
   async () => {
-    await notifyTeam('Weekly standup in 1 hour')
+    await notifyTeam("Weekly standup in 1 hour");
   },
-  '0 9 * * 1'  // Monday at 9 AM
-)
+  "0 9 * * 1", // Monday at 9 AM
+);
 
 // Every 15 minutes
 scheduler.cron(
-  'sync_data',
+  "sync_data",
   async () => {
-    await syncData()
+    await syncData();
   },
-  '*/15 * * * *'
-)
+  "*/15 * * * *",
+);
 
 // Twice daily (9 AM and 5 PM)
 scheduler.cron(
-  'daily_digest',
+  "daily_digest",
   async () => {
-    await sendDigest()
+    await sendDigest();
   },
-  '0 9,17 * * *'
-)
+  "0 9,17 * * *",
+);
 ```
 
 ## Advanced Scheduling
@@ -213,70 +213,59 @@ scheduler.cron(
 ### Retry Policy
 
 ```typescript
-import { Scheduler, RetryPolicy } from '@kotonosora/scheduler'
+import { RetryPolicy, Scheduler } from "@kotonosora/scheduler";
 
-const scheduler = new Scheduler()
+const scheduler = new Scheduler();
 
 scheduler.schedule(
-  'fetch_external_data',
+  "fetch_external_data",
   async () => {
-    const data = await fetchFromAPI()
-    return data
+    const data = await fetchFromAPI();
+    return data;
   },
   {
     maxRetries: 3,
-    retryDelay: 5000,    // Start with 5 seconds
-    backoff: 'exponential', // Double delay each retry
+    retryDelay: 5000, // Start with 5 seconds
+    backoff: "exponential", // Double delay each retry
     onRetry: (attempt, error) => {
-      console.log(`Retry attempt ${attempt}:`, error)
-    }
-  }
-)
+      console.log(`Retry attempt ${attempt}:`, error);
+    },
+  },
+);
 ```
 
 ### Priority Queue
 
 ```typescript
 const scheduler = new Scheduler({
-  maxConcurrentJobs: 3
-})
+  maxConcurrentJobs: 3,
+});
 
 // High priority job runs first
-scheduler.schedule(
-  'urgent_task',
-  urgentTask,
-  { priority: 'high' }
-)
+scheduler.schedule("urgent_task", urgentTask, { priority: "high" });
 
 // Normal priority
-scheduler.schedule(
-  'normal_task',
-  normalTask,
-  { priority: 'normal' }
-)
+scheduler.schedule("normal_task", normalTask, { priority: "normal" });
 
 // Low priority (runs last)
-scheduler.schedule(
-  'background_task',
-  backgroundTask,
-  { priority: 'low' }
-)
+scheduler.schedule("background_task", backgroundTask, { priority: "low" });
 ```
 
 ### Job Dependencies
 
 ```typescript
-const scheduler = new Scheduler()
+const scheduler = new Scheduler();
 
 // Job B runs after Job A completes
-scheduler.schedule('job_a', () => processData())
-  .then(() => scheduler.schedule('job_b', () => uploadData()))
+scheduler
+  .schedule("job_a", () => processData())
+  .then(() => scheduler.schedule("job_b", () => uploadData()));
 
 // Or using Promise
-const jobA = scheduler.schedule('job_a', taskA)
+const jobA = scheduler.schedule("job_a", taskA);
 jobA.then(() => {
-  scheduler.schedule('job_b', taskB)
-})
+  scheduler.schedule("job_b", taskB);
+});
 ```
 
 ## Real-World Use Cases
@@ -284,159 +273,150 @@ jobA.then(() => {
 ### Email Queue
 
 ```typescript
-import { Scheduler } from '@kotonosora/scheduler'
+import { Scheduler } from "@kotonosora/scheduler";
 
 const emailScheduler = new Scheduler({
-  maxConcurrentJobs: 2,  // Send 2 emails at a time
-  persistState: true
-})
+  maxConcurrentJobs: 2, // Send 2 emails at a time
+  persistState: true,
+});
 
 // Queue email for later sending
 export function scheduleEmail(email: Email) {
   emailScheduler.schedule(
     `email_${email.id}`,
     async () => {
-      await sendEmail(email)
+      await sendEmail(email);
     },
     {
       delay: email.sendAt ? email.sendAt.getTime() - Date.now() : 0,
       maxRetries: 3,
-      priority: email.priority || 'normal'
-    }
-  )
+      priority: email.priority || "normal",
+    },
+  );
 }
 ```
 
 ### Data Processing Pipeline
 
 ```typescript
-import { Scheduler } from '@kotonosora/scheduler'
+import { Scheduler } from "@kotonosora/scheduler";
 
-const dataScheduler = new Scheduler()
+const dataScheduler = new Scheduler();
 
 async function processDataPipeline(dataId: string) {
   // Step 1: Extract
-  await dataScheduler.schedule(
-    `extract_${dataId}`,
-    async () => {
-      const data = await extractData(dataId)
-      return data
-    }
-  )
+  await dataScheduler.schedule(`extract_${dataId}`, async () => {
+    const data = await extractData(dataId);
+    return data;
+  });
 
   // Step 2: Transform (after extract)
-  await dataScheduler.schedule(
-    `transform_${dataId}`,
-    async () => {
-      const extracted = await getExtractedData(dataId)
-      const transformed = transformData(extracted)
-      return transformed
-    }
-  )
+  await dataScheduler.schedule(`transform_${dataId}`, async () => {
+    const extracted = await getExtractedData(dataId);
+    const transformed = transformData(extracted);
+    return transformed;
+  });
 
   // Step 3: Load (after transform)
-  await dataScheduler.schedule(
-    `load_${dataId}`,
-    async () => {
-      const transformed = await getTransformedData(dataId)
-      await loadToDatabase(transformed)
-    }
-  )
+  await dataScheduler.schedule(`load_${dataId}`, async () => {
+    const transformed = await getTransformedData(dataId);
+    await loadToDatabase(transformed);
+  });
 }
 ```
 
 ### Maintenance Tasks
 
 ```typescript
-import { Scheduler } from '@kotonosora/scheduler'
+import { Scheduler } from "@kotonosora/scheduler";
 
-const maintenanceScheduler = new Scheduler()
+const maintenanceScheduler = new Scheduler();
 
 // Daily cleanup at 2 AM
 maintenanceScheduler.cron(
-  'daily_cleanup',
+  "daily_cleanup",
   async () => {
-    await deleteExpiredSessions()
-    await deleteOldLogs()
-    await optimizeDatabaseIndexes()
+    await deleteExpiredSessions();
+    await deleteOldLogs();
+    await optimizeDatabaseIndexes();
   },
-  '0 2 * * *'
-)
+  "0 2 * * *",
+);
 
 // Weekly report generation
 maintenanceScheduler.cron(
-  'weekly_report',
+  "weekly_report",
   async () => {
-    const report = await generateWeeklyReport()
-    await archiveReport(report)
+    const report = await generateWeeklyReport();
+    await archiveReport(report);
   },
-  '0 0 * * 0'  // Every Sunday at midnight
-)
+  "0 0 * * 0", // Every Sunday at midnight
+);
 
 // Monthly backup
 maintenanceScheduler.cron(
-  'monthly_backup',
+  "monthly_backup",
   async () => {
-    const backup = await createBackup()
-    await uploadToCloud(backup)
+    const backup = await createBackup();
+    await uploadToCloud(backup);
   },
-  '0 0 1 * *'  // First day of month at midnight
-)
+  "0 0 1 * *", // First day of month at midnight
+);
 ```
 
 ### Cache Management
 
 ```typescript
-import { Scheduler } from '@kotonosora/scheduler'
+import { Scheduler } from "@kotonosora/scheduler";
 
-const cacheScheduler = new Scheduler()
+const cacheScheduler = new Scheduler();
 
 // Refresh cache every 30 minutes
 cacheScheduler.repeat(
-  'refresh_cache',
+  "refresh_cache",
   async () => {
-    const freshData = await fetchLatestData()
-    updateCache(freshData)
+    const freshData = await fetchLatestData();
+    updateCache(freshData);
   },
-  { interval: '30m' }
-)
+  { interval: "30m" },
+);
 
 // Clear expired cache entries every hour
 cacheScheduler.repeat(
-  'cleanup_cache',
+  "cleanup_cache",
   async () => {
-    const expiredKeys = findExpiredCacheKeys()
-    expiredKeys.forEach(key => deleteFromCache(key))
+    const expiredKeys = findExpiredCacheKeys();
+    expiredKeys.forEach((key) => deleteFromCache(key));
   },
-  { interval: '1h' }
-)
+  { interval: "1h" },
+);
 ```
 
 ### API Polling
 
 ```typescript
-import { Scheduler } from '@kotonosora/scheduler'
+import { Scheduler } from "@kotonosora/scheduler";
 
-const pollScheduler = new Scheduler()
+const pollScheduler = new Scheduler();
 
 // Poll external API every 5 minutes
 pollScheduler.repeat(
-  'poll_external_api',
+  "poll_external_api",
   async () => {
     try {
-      const data = await fetchExternalAPI()
-      await processNewData(data)
+      const data = await fetchExternalAPI();
+      await processNewData(data);
     } catch (error) {
-      console.error('Poll failed:', error)
+      console.error("Poll failed:", error);
       // Retry will happen automatically
     }
   },
   {
-    interval: '5m',
+    interval: "5m",
     maxRetries: 3,
-    backoff: 'exponential'
-  }
-)
+    backoff: "exponential",
+  },
+);
 ```
 
 ## Job Management
@@ -444,71 +424,71 @@ pollScheduler.repeat(
 ### Get Job Status
 
 ```typescript
-const scheduler = new Scheduler()
+const scheduler = new Scheduler();
 
-const job = await scheduler.schedule('my_task', () => doWork())
+const job = await scheduler.schedule("my_task", () => doWork());
 
 // Check status
-console.log(job.status)     // 'pending', 'running', 'completed', 'failed'
-console.log(job.nextRun)    // Next execution time
-console.log(job.lastRun)    // Previous execution time
-console.log(job.result)     // Job result
-console.log(job.error)      // Error if failed
+console.log(job.status); // 'pending', 'running', 'completed', 'failed'
+console.log(job.nextRun); // Next execution time
+console.log(job.lastRun); // Previous execution time
+console.log(job.result); // Job result
+console.log(job.error); // Error if failed
 ```
 
 ### Cancel Job
 
 ```typescript
-const scheduler = new Scheduler()
+const scheduler = new Scheduler();
 
-const jobId = scheduler.schedule('my_task', () => doWork())
+const jobId = scheduler.schedule("my_task", () => doWork());
 
 // Cancel execution
-scheduler.cancel(jobId)
+scheduler.cancel(jobId);
 
 // Clear all jobs
-scheduler.clear()
+scheduler.clear();
 ```
 
 ### List Jobs
 
 ```typescript
-const scheduler = new Scheduler()
+const scheduler = new Scheduler();
 
 // Get all jobs
-const allJobs = scheduler.getJobs()
+const allJobs = scheduler.getJobs();
 
 // Get jobs by status
-const pending = scheduler.getJobs({ status: 'pending' })
-const failed = scheduler.getJobs({ status: 'failed' })
+const pending = scheduler.getJobs({ status: "pending" });
+const failed = scheduler.getJobs({ status: "failed" });
 
 // Get jobs by priority
-const high = scheduler.getJobs({ priority: 'high' })
+const high = scheduler.getJobs({ priority: "high" });
 ```
 
 ## Event Handling
 
 ```typescript
-import { Scheduler } from '@kotonosora/scheduler'
+import { Scheduler } from "@kotonosora/scheduler";
 
-const scheduler = new Scheduler()
+const scheduler = new Scheduler();
 
 // Listen to job events
-scheduler.on('job:start', (job) => {
-  console.log(`Job ${job.name} starting`)
-})
+scheduler.on("job:start", (job) => {
+  console.log(`Job ${job.name} starting`);
+});
 
-scheduler.on('job:complete', (job) => {
-  console.log(`Job ${job.name} completed`, job.result)
-})
+scheduler.on("job:complete", (job) => {
+  console.log(`Job ${job.name} completed`, job.result);
+});
 
-scheduler.on('job:error', (job, error) => {
-  console.error(`Job ${job.name} failed:`, error)
-})
+scheduler.on("job:error", (job, error) => {
+  console.error(`Job ${job.name} failed:`, error);
+});
 
-scheduler.on('job:retry', (job, attempt) => {
-  console.log(`Job ${job.name} retrying (attempt ${attempt})`)
-})
+scheduler.on("job:retry", (job, attempt) => {
+  console.log(`Job ${job.name} retrying (attempt ${attempt})`);
+});
 ```
 
 ## Persistence
@@ -518,9 +498,9 @@ Save scheduler state for recovery:
 ```typescript
 const scheduler = new Scheduler({
   persistState: true,
-  storageKey: 'scheduler_state',
-  storage: localStorage  // or your custom storage
-})
+  storageKey: "scheduler_state",
+  storage: localStorage, // or your custom storage
+});
 
 // Automatically saves state on job completion
 // Loads state on initialization for failed/pending jobs
@@ -528,16 +508,16 @@ const scheduler = new Scheduler({
 
 ## Cron Expression Reference
 
-| Expression | Meaning |
-|---|---|
-| `0 0 * * *` | Daily at midnight |
-| `0 8 * * *` | Every day at 8 AM |
-| `0 0 * * 0` | Weekly (Sunday midnight) |
-| `0 0 1 * *` | Monthly (1st day midnight) |
-| `*/30 * * * *` | Every 30 minutes |
-| `0 */4 * * *` | Every 4 hours |
-| `0 9-17 * * 1-5` | Weekdays 9 AM-5 PM hourly |
-| `30 2 * * *` | Daily at 2:30 AM |
+| Expression       | Meaning                    |
+| ---------------- | -------------------------- |
+| `0 0 * * *`      | Daily at midnight          |
+| `0 8 * * *`      | Every day at 8 AM          |
+| `0 0 * * 0`      | Weekly (Sunday midnight)   |
+| `0 0 1 * *`      | Monthly (1st day midnight) |
+| `*/30 * * * *`   | Every 30 minutes           |
+| `0 */4 * * *`    | Every 4 hours              |
+| `0 9-17 * * 1-5` | Weekdays 9 AM-5 PM hourly  |
+| `30 2 * * *`     | Daily at 2:30 AM           |
 
 ## Performance Tips
 

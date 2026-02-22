@@ -26,7 +26,9 @@ export function SlugHydrateFallback() {
         </EmptyHeader>
         <EmptyContent>
           <Button variant="outline" asChild size="sm">
-            <Link to="/blog">{t("blog.loading.cancel")}</Link>
+            <Link to="/blog" discover="none">
+              {t("blog.loading.cancel")}
+            </Link>
           </Button>
         </EmptyContent>
       </Empty>

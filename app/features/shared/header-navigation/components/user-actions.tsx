@@ -11,7 +11,12 @@ export function UserActions({ onClose }: MenuCloseHandler) {
   return (
     <div className="flex gap-4">
       <Button variant="outline" size="sm" asChild className="cursor-pointer">
-        <Link to="/" onClick={onClose} title={t("navigation.home")}>
+        <Link
+          to="/"
+          onClick={onClose}
+          title={t("navigation.home")}
+          discover="none"
+        >
           <Home className="h-4 w-4" />
         </Link>
       </Button>

@@ -75,7 +75,7 @@ export function BlogsPage() {
   ]
 
   return (
-    <BlogPostList 
+    <BlogPostList
       posts={posts}
       onPostClick={(post) => navigate(`/blog/${post.id}`)}
       isLoading={false}
@@ -85,6 +85,7 @@ export function BlogsPage() {
 ```
 
 **Features:**
+
 - Virtual scrolling for thousands of posts
 - Automatic height calculation
 - Smooth scrolling performance
@@ -114,6 +115,7 @@ export function PostInList({ post }) {
 ```
 
 **Card Properties:**
+
 - Post title, excerpt, author
 - Publication date with formatting
 - Cover image with fallback
@@ -141,6 +143,7 @@ export function FullPost({ post, relatedPosts }) {
 ```
 
 **Features:**
+
 - Full markdown/MDX rendering
 - Table of contents generation
 - Code syntax highlighting
@@ -208,7 +211,7 @@ Fetch and manage blog posts:
 import { useBlogPosts } from '@kotonosora/blog'
 
 export function BlogPage() {
-  const { 
+  const {
     posts,
     totalCount,
     isLoading,
@@ -236,6 +239,7 @@ export function BlogPage() {
 ```
 
 **Options:**
+
 - `pageSize` - Posts per page (default: 10)
 - `category` - Filter by category
 - `sortBy` - Sort field (published_at, updated_at, title)
@@ -274,6 +278,7 @@ export function SearchComponent() {
 ```
 
 **Features:**
+
 - Debounced search queries
 - Minimum character threshold
 - Case-insensitive matching
@@ -287,7 +292,7 @@ Track blog engagement:
 import { useBlogAnalytics } from '@kotonosora/blog'
 
 export function BlogPostWithTracking({ post }) {
-  const { 
+  const {
     trackPostView,
     trackTimeSpent,
     trackScroll
@@ -295,7 +300,7 @@ export function BlogPostWithTracking({ post }) {
 
   useEffect(() => {
     trackPostView(post.id)
-    
+
     return () => {
       trackTimeSpent(post.id, timeOnPage)
     }
@@ -306,6 +311,7 @@ export function BlogPostWithTracking({ post }) {
 ```
 
 **Events Tracked:**
+
 - `trackPostView(postId)` - User viewed post
 - `trackTimeSpent(postId, seconds)` - Time spent on post
 - `trackScroll(postId, scrollPercent)` - Scroll depth
@@ -318,25 +324,25 @@ export function BlogPostWithTracking({ post }) {
 
 ```typescript
 interface BlogPost {
-  id: string
-  title: string
-  slug: string
-  excerpt: string
-  content: string  // Markdown/MDX
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string; // Markdown/MDX
   author: {
-    name: string
-    email: string
-    avatar?: string
-  }
-  category: string
-  tags: string[]
-  image?: string  // Cover image URL
-  published: boolean
-  publishedAt: Date
-  updatedAt: Date
-  readTime: number  // Minutes
-  views: number
-  likes: number
+    name: string;
+    email: string;
+    avatar?: string;
+  };
+  category: string;
+  tags: string[];
+  image?: string; // Cover image URL
+  published: boolean;
+  publishedAt: Date;
+  updatedAt: Date;
+  readTime: number; // Minutes
+  views: number;
+  likes: number;
 }
 ```
 
@@ -450,7 +456,7 @@ export function OptimizedCard({ post }) {
 
 ```typescript
 // Pagination approach
-<BlogPostList 
+<BlogPostList
   posts={currentPagePosts}
   pagination={{
     currentPage,

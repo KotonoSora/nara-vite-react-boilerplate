@@ -14,6 +14,7 @@ export function BrandLogo(props: BrandLogoProps) {
         className,
       )}
       onClick={onClick}
+      discover="none"
     >
       <img
         src="/assets/logo-dark.svg"

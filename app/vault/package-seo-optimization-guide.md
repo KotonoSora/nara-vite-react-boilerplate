@@ -62,32 +62,32 @@ Standard meta tags for SEO and social sharing:
 
 ```typescript
 interface MetaTags {
-  title: string
-  description: string
-  keywords?: string[]
-  canonical?: string
-  robots?: string
-  viewport?: string
-  charset?: string
-  language?: string
-  
+  title: string;
+  description: string;
+  keywords?: string[];
+  canonical?: string;
+  robots?: string;
+  viewport?: string;
+  charset?: string;
+  language?: string;
+
   // Open Graph (Social)
-  ogTitle?: string
-  ogDescription?: string
-  ogImage?: string
-  ogUrl?: string
-  ogType?: string
-  
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogUrl?: string;
+  ogType?: string;
+
   // Twitter Card
-  twitterCard?: string
-  twitterTitle?: string
-  twitterDescription?: string
-  twitterImage?: string
-  
+  twitterCard?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+
   // Apple
-  appleIcon?: string
-  appleTouchIcon?: string
-  appleWebAppCapable?: boolean
+  appleIcon?: string;
+  appleTouchIcon?: string;
+  appleWebAppCapable?: boolean;
 }
 ```
 
@@ -97,8 +97,8 @@ Machine-readable schema markup:
 
 ```typescript
 interface StructuredData {
-  '@context': 'https://schema.org'
-  '@type': string
+  "@context": "https://schema.org";
+  "@type": string;
   // Type-specific properties
 }
 ```
@@ -210,106 +210,106 @@ export function ProductPage({ product }) {
 ### Article Schema
 
 ```typescript
-import { useStructuredData } from '@kotonosora/seo'
+import { useStructuredData } from "@kotonosora/seo";
 
 export function ArticleSetup({ article }) {
   useStructuredData({
-    '@context': 'https://schema.org',
-    '@type': 'Article',
+    "@context": "https://schema.org",
+    "@type": "Article",
     headline: article.title,
     description: article.excerpt,
     image: article.image,
     datePublished: article.publishedAt,
     dateModified: article.updatedAt,
     author: {
-      '@type': 'Person',
+      "@type": "Person",
       name: article.author,
-      url: article.authorUrl
+      url: article.authorUrl,
     },
     wordCount: article.wordCount,
-    keywords: article.tags.join(', ')
-  })
+    keywords: article.tags.join(", "),
+  });
 }
 ```
 
 ### Organization Schema
 
 ```typescript
-import { useStructuredData } from '@kotonosora/seo'
+import { useStructuredData } from "@kotonosora/seo";
 
 export function OrganizationSetup() {
   useStructuredData({
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'NARA',
-    url: 'https://example.com',
-    logo: 'https://example.com/logo.png',
-    description: 'Build amazing web applications',
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "NARA",
+    url: "https://example.com",
+    logo: "https://example.com/logo.png",
+    description: "Build amazing web applications",
     sameAs: [
-      'https://twitter.com/example',
-      'https://github.com/example',
-      'https://linkedin.com/company/example'
+      "https://twitter.com/example",
+      "https://github.com/example",
+      "https://linkedin.com/company/example",
     ],
     contactPoint: {
-      '@type': 'ContactPoint',
-      telephone: '+1-555-0123',
-      contactType: 'Customer Support'
-    }
-  })
+      "@type": "ContactPoint",
+      telephone: "+1-555-0123",
+      contactType: "Customer Support",
+    },
+  });
 }
 ```
 
 ### Event Schema
 
 ```typescript
-import { useStructuredData } from '@kotonosora/seo'
+import { useStructuredData } from "@kotonosora/seo";
 
 export function EventSetup({ event }) {
   useStructuredData({
-    '@context': 'https://schema.org',
-    '@type': 'Event',
+    "@context": "https://schema.org",
+    "@type": "Event",
     name: event.title,
     description: event.description,
     startDate: event.startDate.toISOString(),
     endDate: event.endDate.toISOString(),
     location: {
-      '@type': 'Place',
+      "@type": "Place",
       name: event.location,
       address: {
-        '@type': 'PostalAddress',
-        addressCountry: event.country
-      }
+        "@type": "PostalAddress",
+        addressCountry: event.country,
+      },
     },
     image: event.image,
     offers: {
-      '@type': 'Offer',
+      "@type": "Offer",
       url: window.location.href,
       price: event.price,
-      priceCurrency: 'USD',
-      availability: 'Available'
-    }
-  })
+      priceCurrency: "USD",
+      availability: "Available",
+    },
+  });
 }
 ```
 
 ### FAQ Schema
 
 ```typescript
-import { useStructuredData } from '@kotonosora/seo'
+import { useStructuredData } from "@kotonosora/seo";
 
 export function FAQSetup({ faqs }) {
   useStructuredData({
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map(faq => ({
-      '@type': 'Question',
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
       name: faq.question,
       acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer
-      }
-    }))
-  })
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  });
 }
 ```
 
@@ -323,8 +323,8 @@ Main hook for SEO setup:
 import { useSEO } from '@kotonosora/seo'
 
 export function Page() {
-  const { 
-    setTitle, 
+  const {
+    setTitle,
     setDescription,
     addMetaTag,
     setCanonical,
@@ -358,7 +358,7 @@ export function Component() {
   useEffect(() => {
     addTag('og:title', 'My Page')
     addTag('og:description', 'Description')
-    
+
     return () => {
       removeTag('og:title')
       removeTag('og:description')
@@ -393,23 +393,23 @@ export function ProductCard({ product }) {
 Generate sitemap:
 
 ```typescript
-import { useSitemap } from '@kotonosora/seo'
+import { useSitemap } from "@kotonosora/seo";
 
 export function SitemapPage() {
-  const { generateSitemap } = useSitemap()
+  const { generateSitemap } = useSitemap();
 
   useEffect(() => {
     const pages = [
-      { url: '/', changefreq: 'weekly', priority: 1.0 },
-      { url: '/blog', changefreq: 'daily', priority: 0.8 },
-      { url: '/products', changefreq: 'daily', priority: 0.8 }
-    ]
+      { url: "/", changefreq: "weekly", priority: 1.0 },
+      { url: "/blog", changefreq: "daily", priority: 0.8 },
+      { url: "/products", changefreq: "daily", priority: 0.8 },
+    ];
 
-    const sitemapXml = generateSitemap(pages, 'https://example.com')
+    const sitemapXml = generateSitemap(pages, "https://example.com");
     // Serve sitemapXml at /sitemap.xml
-  }, [])
+  }, []);
 
-  return null
+  return null;
 }
 ```
 
@@ -453,22 +453,22 @@ export function ShareableContent({ content }) {
 ### Robots Meta Tags
 
 ```typescript
-import { useSEO } from '@kotonosora/seo'
+import { useSEO } from "@kotonosora/seo";
 
 // Standard indexing (default)
 useSEO({
-  robots: 'index, follow'
-})
+  robots: "index, follow",
+});
 
 // No indexing (for admin pages)
 useSEO({
-  robots: 'noindex, nofollow'
-})
+  robots: "noindex, nofollow",
+});
 
 // Don't follow external links
 useSEO({
-  robots: 'index, nofollow'
-})
+  robots: "index, nofollow",
+});
 ```
 
 ### robots.txt
@@ -482,7 +482,7 @@ Disallow: /admin
 Disallow: /private
 
 Sitemap: https://example.com/sitemap.xml
-`
+`;
 
 // Serve at /public/robots.txt
 ```
@@ -490,22 +490,22 @@ Sitemap: https://example.com/sitemap.xml
 ## Performance & Core Web Vitals
 
 ```typescript
-import { useSEO } from '@kotonosora/seo'
-import { getCLS, getFID, getFCP } from 'web-vitals'
+import { useSEO } from "@kotonosora/seo";
+import { getCLS, getFCP, getFID } from "web-vitals";
 
 export function PerformanceMonitoring() {
   useSEO({
     // Performance hints
-    viewport: 'width=device-width, initial-scale=1',
-    charset: 'UTF-8'
-  })
+    viewport: "width=device-width, initial-scale=1",
+    charset: "UTF-8",
+  });
 
   useEffect(() => {
     // Monitor Core Web Vitals
-    getCLS(metric => console.log('CLS:', metric.value))
-    getFID(metric => console.log('FID:', metric.value))
-    getFCP(metric => console.log('FCP:', metric.value))
-  }, [])
+    getCLS((metric) => console.log("CLS:", metric.value));
+    getFID((metric) => console.log("FID:", metric.value));
+    getFCP((metric) => console.log("FCP:", metric.value));
+  }, []);
 }
 ```
 

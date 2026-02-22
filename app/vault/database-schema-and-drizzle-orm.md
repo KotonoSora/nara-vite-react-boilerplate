@@ -20,19 +20,19 @@ NARA uses **Drizzle ORM** with **SQLite (D1)** on Cloudflare for type-safe datab
 `drizzle.config.ts`:
 
 ```typescript
-import type { Config } from 'drizzle-kit'
+import type { Config } from "drizzle-kit";
 
 export default {
-  out: './drizzle',                      // Migration output
-  schema: './database/schema.ts',        // Schema definition
-  dialect: 'sqlite',                     // Database type
-  driver: 'd1-http',                     // Cloudflare D1 driver
+  out: "./drizzle", // Migration output
+  schema: "./database/schema.ts", // Schema definition
+  dialect: "sqlite", // Database type
+  driver: "d1-http", // Cloudflare D1 driver
   dbCredentials: {
-    databaseId: 'your-database-id',
+    databaseId: "your-database-id",
     accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
     token: process.env.CLOUDFLARE_API_TOKEN!,
-  }
-} satisfies Config
+  },
+} satisfies Config;
 ```
 
 ### File Structure
@@ -62,46 +62,61 @@ drizzle/
 `database/schema.ts`:
 
 ```typescript
-import { sql } from 'drizzle-orm'
-import { sqliteTable, text, integer, real, blob } from 'drizzle-orm/sqlite-core'
-import { relations } from 'drizzle-orm'
+import { relations, sql } from "drizzle-orm";
+import {
+  blob,
+  integer,
+  real,
+  sqliteTable,
+  text,
+} from "drizzle-orm/sqlite-core";
 
 // Users table
-export const users = sqliteTable('users', {
-  id: text('id').primaryKey(),
-  email: text('email').unique().notNull(),
-  name: text('name').notNull(),
-  passwordHash: text('password_hash').notNull(),
-  picture: text('picture'),
-  bio: text('bio'),
-  role: text('role').default('user'), // admin, moderator, user
-  status: text('status').default('active'), // active, inactive, banned
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-})
+export const users = sqliteTable("users", {
+  id: text("id").primaryKey(),
+  email: text("email").unique().notNull(),
+  name: text("name").notNull(),
+  passwordHash: text("password_hash").notNull(),
+  picture: text("picture"),
+  bio: text("bio"),
+  role: text("role").default("user"), // admin, moderator, user
+  status: text("status").default("active"), // active, inactive, banned
+  createdAt: integer("created_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+});
 
 // Posts table
-export const posts = sqliteTable('posts', {
-  id: text('id').primaryKey(),
-  userId: text('user_id').notNull().references(() => users.id),
-  title: text('title').notNull(),
-  slug: text('slug').unique().notNull(),
-  content: text('content').notNull(), // Markdown/MDX content
-  excerpt: text('excerpt'),
-  category: text('category'),
-  published: integer('published', { mode: 'boolean' }).default(false),
-  views: integer('views').default(0),
-  likes: integer('likes').default(0),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-})
+export const posts = sqliteTable("posts", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id),
+  title: text("title").notNull(),
+  slug: text("slug").unique().notNull(),
+  content: text("content").notNull(), // Markdown/MDX content
+  excerpt: text("excerpt"),
+  category: text("category"),
+  published: integer("published", { mode: "boolean" }).default(false),
+  views: integer("views").default(0),
+  likes: integer("likes").default(0),
+  createdAt: integer("created_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+});
 
 // Type exports for use in app
-export type User = typeof users.$inferSelect      // For reading
-export type NewUser = typeof users.$inferInsert   // For creating
+export type User = typeof users.$inferSelect; // For reading
+export type NewUser = typeof users.$inferInsert; // For creating
 
-export type Post = typeof posts.$inferSelect
-export type NewPost = typeof posts.$inferInsert
+export type Post = typeof posts.$inferSelect;
+export type NewPost = typeof posts.$inferInsert;
 ```
 
 ## Table Relationships
@@ -109,12 +124,12 @@ export type NewPost = typeof posts.$inferInsert
 ### One-to-Many Relationship
 
 ```typescript
-import { relations } from 'drizzle-orm'
+import { relations } from "drizzle-orm";
 
 export const usersRelations = relations(users, ({ many }) => ({
   posts: many(posts),
   comments: many(comments),
-}))
+}));
 
 export const postsRelations = relations(posts, ({ one, many }) => ({
   author: one(users, {
@@ -122,30 +137,38 @@ export const postsRelations = relations(posts, ({ one, many }) => ({
     references: [users.id],
   }),
   comments: many(comments),
-}))
+}));
 ```
 
 ### Many-to-Many Relationship
 
 ```typescript
 // Junction table
-export const postTags = sqliteTable('post_tags', {
-  postId: text('post_id').notNull().references(() => posts.id),
-  tagId: text('tag_id').notNull().references(() => tags.id),
-}, (table) => ({
-  pk: primaryKey({ columns: [table.postId, table.tagId] }),
-}))
+export const postTags = sqliteTable(
+  "post_tags",
+  {
+    postId: text("post_id")
+      .notNull()
+      .references(() => posts.id),
+    tagId: text("tag_id")
+      .notNull()
+      .references(() => tags.id),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.postId, table.tagId] }),
+  }),
+);
 
-export const tags = sqliteTable('tags', {
-  id: text('id').primaryKey(),
-  name: text('name').unique().notNull(),
-  slug: text('slug').unique().notNull(),
-})
+export const tags = sqliteTable("tags", {
+  id: text("id").primaryKey(),
+  name: text("name").unique().notNull(),
+  slug: text("slug").unique().notNull(),
+});
 
 // Relations
 export const postsRelations = relations(posts, ({ many }) => ({
   tags: many(postTags),
-}))
+}));
 
 export const postTagsRelations = relations(postTags, ({ one }) => ({
   post: one(posts, {
@@ -156,7 +179,7 @@ export const postTagsRelations = relations(postTags, ({ one }) => ({
     fields: [postTags.tagId],
     references: [tags.id],
   }),
-}))
+}));
 ```
 
 ## Data Types
@@ -165,45 +188,47 @@ export const postTagsRelations = relations(postTags, ({ one }) => ({
 
 ```typescript
 import {
-  sqliteTable,
-  text,                    // String/TEXT
-  integer,                 // Integer
-  real,                    // Float/REAL
-  blob,                    // Binary data
-  primaryKey,
-  unique,
-  notNull,
-  references,
+  blob, // Binary data
   check,
-} from 'drizzle-orm/sqlite-core'
+  integer, // Integer
+  notNull,
+  primaryKey,
+  real, // Float/REAL
+  references,
+  sqliteTable,
+  text, // String/TEXT
+  unique,
+} from "drizzle-orm/sqlite-core";
 
 // Column definitions with constraints
-export const exampleTable = sqliteTable('example', {
-  id: text('id').primaryKey(),
-  
+export const exampleTable = sqliteTable("example", {
+  id: text("id").primaryKey(),
+
   // String types
-  email: text('email').unique().notNull(),
-  slug: text('slug'),
-  
+  email: text("email").unique().notNull(),
+  slug: text("slug"),
+
   // Date as integer (Unix timestamp)
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`),
-  
+  createdAt: integer("created_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`,
+  ),
+
   // Number types
-  count: integer('count').default(0),
-  rating: real('rating'),
-  
+  count: integer("count").default(0),
+  rating: real("rating"),
+
   // Boolean as integer (0/1)
-  isActive: integer('is_active', { mode: 'boolean' }).default(true),
-  
+  isActive: integer("is_active", { mode: "boolean" }).default(true),
+
   // Binary data
-  metadata: blob('metadata', { mode: 'json' }),
-  
+  metadata: blob("metadata", { mode: "json" }),
+
   // Default values
-  status: text('status').default('pending'),
-  
+  status: text("status").default("pending"),
+
   // Check constraints
-  age: integer('age').check(sql`age >= 0 and age <= 150`),
-})
+  age: integer("age").check(sql`age >= 0 and age <= 150`),
+});
 ```
 
 ## Query Patterns
@@ -211,57 +236,65 @@ export const exampleTable = sqliteTable('example', {
 ### Insert
 
 ```typescript
-import { db } from '~/lib/database'
-import { users } from '~/database/schema'
+import { users } from "~/database/schema";
+import { db } from "~/lib/database";
 
 // Single insert
-const newUser = await db.insert(users).values({
-  id: crypto.randomUUID(),
-  email: 'user@example.com',
-  name: 'John Doe',
-  passwordHash: hashedPassword,
-}).returning()
+const newUser = await db
+  .insert(users)
+  .values({
+    id: crypto.randomUUID(),
+    email: "user@example.com",
+    name: "John Doe",
+    passwordHash: hashedPassword,
+  })
+  .returning();
 
 // Bulk insert
 await db.insert(users).values([
-  { id: '1', email: 'user1@example.com', name: 'User 1', passwordHash: '...' },
-  { id: '2', email: 'user2@example.com', name: 'User 2', passwordHash: '...' },
-])
+  { id: "1", email: "user1@example.com", name: "User 1", passwordHash: "..." },
+  { id: "2", email: "user2@example.com", name: "User 2", passwordHash: "..." },
+]);
 ```
 
 ### Select
 
 ```typescript
-import { db } from '~/lib/database'
-import { users, posts } from '~/database/schema'
-import { eq, like, and, or, gt, lt } from 'drizzle-orm'
+import { and, eq, gt, like, lt, or } from "drizzle-orm";
+
+import { posts, users } from "~/database/schema";
+import { db } from "~/lib/database";
 
 // Select all
-const allUsers = await db.select().from(users)
+const allUsers = await db.select().from(users);
 
 // Select with condition
-const user = await db.select().from(users)
-  .where(eq(users.email, 'user@example.com'))
+const user = await db
+  .select()
+  .from(users)
+  .where(eq(users.email, "user@example.com"));
 
 // Select specific columns
-const userEmails = await db.select({ 
-  id: users.id,
-  email: users.email 
-}).from(users)
+const userEmails = await db
+  .select({
+    id: users.id,
+    email: users.email,
+  })
+  .from(users);
 
 // Multiple conditions
-const activePosts = await db.select().from(posts)
-  .where(and(
-    eq(posts.published, true),
-    gt(posts.views, 100)
-  ))
+const activePosts = await db
+  .select()
+  .from(posts)
+  .where(and(eq(posts.published, true), gt(posts.views, 100)));
 
 // OR condition
-const results = await db.select().from(users)
-  .where(or(
-    like(users.email, '%@gmail.com'),
-    like(users.email, '%@outlook.com')
-  ))
+const results = await db
+  .select()
+  .from(users)
+  .where(
+    or(like(users.email, "%@gmail.com"), like(users.email, "%@outlook.com")),
+  );
 ```
 
 ### Find First
@@ -270,10 +303,10 @@ const results = await db.select().from(users)
 // Helper function patterns
 export const getUserById = async (db: Database, userId: string) => {
   const user = await db.query.users.findFirst({
-    where: eq(users.id, userId)
-  })
-  return user
-}
+    where: eq(users.id, userId),
+  });
+  return user;
+};
 
 // With relations
 export const getPostWithAuthor = async (db: Database, postId: string) => {
@@ -281,10 +314,10 @@ export const getPostWithAuthor = async (db: Database, postId: string) => {
     where: eq(posts.id, postId),
     with: {
       author: true,
-    }
-  })
-  return post
-}
+    },
+  });
+  return post;
+};
 
 // Nested relations
 const postWithAll = await db.query.posts.findFirst({
@@ -294,91 +327,94 @@ const postWithAll = await db.query.posts.findFirst({
     comments: {
       with: {
         author: true,
-      }
+      },
     },
     tags: {
       with: {
         tag: true,
-      }
-    }
-  }
-})
+      },
+    },
+  },
+});
 ```
 
 ### Update
 
 ```typescript
-import { db } from '~/lib/database'
-import { users } from '~/database/schema'
-import { eq } from 'drizzle-orm'
+import { eq } from "drizzle-orm";
+
+import { users } from "~/database/schema";
+import { db } from "~/lib/database";
 
 // Simple update
-await db.update(users)
-  .set({ name: 'Jane Doe' })
-  .where(eq(users.id, userId))
+await db.update(users).set({ name: "Jane Doe" }).where(eq(users.id, userId));
 
 // Update with returning
-const updated = await db.update(users)
-  .set({ 
-    name: 'Jane Doe',
-    updatedAt: new Date()
+const updated = await db
+  .update(users)
+  .set({
+    name: "Jane Doe",
+    updatedAt: new Date(),
   })
   .where(eq(users.id, userId))
-  .returning()
+  .returning();
 
 // Increment column
-await db.update(posts)
+await db
+  .update(posts)
   .set({ views: sql`views + 1` })
-  .where(eq(posts.id, postId))
+  .where(eq(posts.id, postId));
 ```
 
 ### Delete
 
 ```typescript
-import { db } from '~/lib/database'
-import { users } from '~/database/schema'
-import { eq } from 'drizzle-orm'
+import { eq } from "drizzle-orm";
+
+import { users } from "~/database/schema";
+import { db } from "~/lib/database";
 
 // Simple delete
-await db.delete(users)
-  .where(eq(users.id, userId))
+await db.delete(users).where(eq(users.id, userId));
 
 // Delete with returning
-const deleted = await db.delete(users)
-  .where(eq(users.id, userId))
-  .returning()
+const deleted = await db.delete(users).where(eq(users.id, userId)).returning();
 
 // Delete multiple
-await db.delete(posts)
-  .where(and(
-    eq(posts.userId, userId),
-    lt(posts.createdAt, oneMonthAgo)
-  ))
+await db
+  .delete(posts)
+  .where(and(eq(posts.userId, userId), lt(posts.createdAt, oneMonthAgo)));
 ```
 
 ## Transactions
 
 ```typescript
-import { db } from '~/lib/database'
+import { db } from "~/lib/database";
 
 // Database transaction
 const result = await db.transaction(async (trx) => {
-  const user = await trx.insert(users).values({
-    id: '123',
-    email: 'user@example.com',
-    name: 'John'
-  }).returning()
+  const user = await trx
+    .insert(users)
+    .values({
+      id: "123",
+      email: "user@example.com",
+      name: "John",
+    })
+    .returning();
 
-  const post = await trx.insert(posts).values({
-    id: '456',
-    userId: user[0].id,
-    title: 'First Post',
-    slug: 'first-post',
-    content: 'Content'
-  }).returning()
+  const post = await trx
+    .insert(posts)
+    .values({
+      id: "456",
+      userId: user[0].id,
+      title: "First Post",
+      slug: "first-post",
+      content: "Content",
+    })
+    .returning();
 
-  return { user: user[0], post: post[0] }
-})
+  return { user: user[0], post: post[0] };
+});
 ```
 
 ## Migrations
@@ -421,24 +457,28 @@ npm run db:migrate-production
 ### Example Schema Migration Workflow
 
 1. **Add new column to schema**:
+
    ```typescript
-   export const users = sqliteTable('users', {
+   export const users = sqliteTable("users", {
      // ... existing columns
-     phoneNumber: text('phone_number'),  // NEW
-   })
+     phoneNumber: text("phone_number"), // NEW
+   });
    ```
 
 2. **Generate migration**:
+
    ```bash
    npm run db:generate
    ```
 
 3. **Review migration** in `drizzle/`:
+
    ```sql
    ALTER TABLE `users` ADD COLUMN `phone_number` text;
    ```
 
 4. **Apply locally**:
+
    ```bash
    npm run db:migrate
    ```
@@ -457,21 +497,25 @@ npm run db:migrate-production
 Improve query performance:
 
 ```typescript
-import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
+import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-export const posts = sqliteTable('posts', {
-  id: text('id').primaryKey(),
-  userId: text('user_id').notNull(),
-  slug: text('slug').unique().notNull(),
-  published: integer('published', { mode: 'boolean' }),
-  createdAt: integer('created_at', { mode: 'timestamp' }),
-}, (table) => ({
-  // Create indexes
-  userIdIdx: index('posts_user_id_idx').on(table.userId),
-  slugIdx: index('posts_slug_idx').on(table.slug),
-  publishedIdx: index('posts_published_idx').on(table.published),
-  createdAtIdx: index('posts_created_at_idx').on(table.createdAt),
-}))
+export const posts = sqliteTable(
+  "posts",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").notNull(),
+    slug: text("slug").unique().notNull(),
+    published: integer("published", { mode: "boolean" }),
+    createdAt: integer("created_at", { mode: "timestamp" }),
+  },
+  (table) => ({
+    // Create indexes
+    userIdIdx: index("posts_user_id_idx").on(table.userId),
+    slugIdx: index("posts_slug_idx").on(table.slug),
+    publishedIdx: index("posts_published_idx").on(table.published),
+    createdAtIdx: index("posts_created_at_idx").on(table.createdAt),
+  }),
+);
 ```
 
 ## Constraints
@@ -479,26 +523,30 @@ export const posts = sqliteTable('posts', {
 ### Unique Constraint
 
 ```typescript
-unique: text('email').unique().notNull();
+unique: text("email").unique().notNull();
 ```
 
 ### Foreign Key
 
 ```typescript
-userId: text('user_id').notNull().references(() => users.id)
+userId: text("user_id")
+  .notNull()
+  .references(() => users.id);
 ```
 
 ### Check Constraint
 
 ```typescript
-age: integer('age').check(sql`age >= 0 and age <= 150`)
+age: integer("age").check(sql`age >= 0 and age <= 150`);
 ```
 
 ### Default Values
 
 ```typescript
-status: text('status').default('active')
-createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`)
+status: text("status").default("active");
+createdAt: integer("created_at", { mode: "timestamp" }).default(
+  sql`CURRENT_TIMESTAMP`,
+);
 ```
 
 ## Usage in Loaders
@@ -508,7 +556,7 @@ import type { Route } from './+types/blog'
 
 export const loader = async ({ params, context }: Route.LoaderArgs) => {
   const { db } = context
-  
+
   const post = await db.query.posts.findFirst({
     where: eq(posts.slug, params['*']),
     with: {
@@ -542,72 +590,81 @@ export default function BlogPost({ loaderData }: Route.ComponentProps) {
 ## Usage in Actions
 
 ```typescript
-import type { Route } from './+types/create-post'
+import type { Route } from "./+types/create-post";
 
 export const action = async ({ request, context }: Route.ActionArgs) => {
-  if (request.method !== 'POST') {
-    return null
+  if (request.method !== "POST") {
+    return null;
   }
 
-  const { db } = context
-  const { user } = context.get(AuthContext)
+  const { db } = context;
+  const { user } = context.get(AuthContext);
 
   if (!user) {
-    throw new Response('Unauthorized', { status: 401 })
+    throw new Response("Unauthorized", { status: 401 });
   }
 
-  const formData = await request.formData()
-  
-  const post = await db.insert(posts).values({
-    id: crypto.randomUUID(),
-    userId: user.id,
-    title: formData.get('title') as string,
-    slug: slugify(formData.get('title') as string),
-    content: formData.get('content') as string,
-    excerpt: formData.get('excerpt') as string,
-    category: formData.get('category') as string,
-  }).returning()
+  const formData = await request.formData();
 
-  return redirect(`/blog/${post[0].slug}`)
-}
+  const post = await db
+    .insert(posts)
+    .values({
+      id: crypto.randomUUID(),
+      userId: user.id,
+      title: formData.get("title") as string,
+      slug: slugify(formData.get("title") as string),
+      content: formData.get("content") as string,
+      excerpt: formData.get("excerpt") as string,
+      category: formData.get("category") as string,
+    })
+    .returning();
+
+  return redirect(`/blog/${post[0].slug}`);
+};
 ```
 
 ## Testing with Seed Data
 
 ```typescript
 // scripts/seed.ts
-import { db } from '~/lib/database'
-import { users, posts } from '~/database/schema'
+import { posts, users } from "~/database/schema";
+import { db } from "~/lib/database";
 
 async function seed() {
   // Clear existing data
-  await db.delete(posts)
-  await db.delete(users)
+  await db.delete(posts);
+  await db.delete(users);
 
   // Insert seed data
-  const users = await db.insert(users).values([
-    {
-      id: '1',
-      email: 'john@example.com',
-      name: 'John Doe',
-      passwordHash: 'hashed_password_1'
-    }
-  ]).returning()
+  const users = await db
+    .insert(users)
+    .values([
+      {
+        id: "1",
+        email: "john@example.com",
+        name: "John Doe",
+        passwordHash: "hashed_password_1",
+      },
+    ])
+    .returning();
 
-  const posts = await db.insert(posts).values([
-    {
-      id: '1',
-      userId: users[0].id,
-      title: 'First Post',
-      slug: 'first-post',
-      content: 'Content...'
-    }
-  ]).returning()
+  const posts = await db
+    .insert(posts)
+    .values([
+      {
+        id: "1",
+        userId: users[0].id,
+        title: "First Post",
+        slug: "first-post",
+        content: "Content...",
+      },
+    ])
+    .returning();
 
-  console.log('Seed complete')
+  console.log("Seed complete");
 }
 
-seed()
+seed();
 ```
 
 ## Best Practices

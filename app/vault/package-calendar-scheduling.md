@@ -82,6 +82,7 @@ export function CalendarPage() {
 ```
 
 **Features:**
+
 - Month view display
 - Day/week/year switching
 - Event indicators on dates
@@ -319,48 +320,48 @@ export function ScheduleManager() {
 
 ```typescript
 interface Event {
-  id: string
-  title: string
-  description?: string
-  startDate: Date
-  endDate: Date
-  startTime: string    // 'HH:mm'
-  endTime: string      // 'HH:mm'
-  
-  type: 'meeting' | 'task' | 'reminder' | 'block'
-  category?: string
-  priority: 'low' | 'medium' | 'high'
-  
-  location?: string
-  attendees?: Attendee[]
-  
-  isAllDay: boolean
-  isRecurring: boolean
-  recurrence?: RecurrenceRule
-  
-  reminders: Reminder[]
-  
-  status: 'scheduled' | 'confirmed' | 'cancelled' | 'completed'
-  
-  color?: string
-  tags: string[]
-  
-  createdAt: Date
-  updatedAt: Date
+  id: string;
+  title: string;
+  description?: string;
+  startDate: Date;
+  endDate: Date;
+  startTime: string; // 'HH:mm'
+  endTime: string; // 'HH:mm'
+
+  type: "meeting" | "task" | "reminder" | "block";
+  category?: string;
+  priority: "low" | "medium" | "high";
+
+  location?: string;
+  attendees?: Attendee[];
+
+  isAllDay: boolean;
+  isRecurring: boolean;
+  recurrence?: RecurrenceRule;
+
+  reminders: Reminder[];
+
+  status: "scheduled" | "confirmed" | "cancelled" | "completed";
+
+  color?: string;
+  tags: string[];
+
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface Attendee {
-  id: string
-  name: string
-  email: string
-  status: 'pending' | 'accepted' | 'declined'
+  id: string;
+  name: string;
+  email: string;
+  status: "pending" | "accepted" | "declined";
 }
 
 interface RecurrenceRule {
-  frequency: 'daily' | 'weekly' | 'monthly' | 'yearly'
-  interval: number
-  endDate?: Date
-  count?: number
+  frequency: "daily" | "weekly" | "monthly" | "yearly";
+  interval: number;
+  endDate?: Date;
+  count?: number;
 }
 ```
 
@@ -564,7 +565,7 @@ function findAvailableSlots(params: FindSlotsParams): TimeSlot[] {
 function checkConflict(
   startTime: Date,
   endTime: Date,
-  attendees: User[]
+  attendees: User[],
 ): boolean {
   // Check if any attendee has event in time range
   // Account for overrides and break time

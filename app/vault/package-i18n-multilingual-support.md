@@ -4,7 +4,8 @@ description: "Internationalization system supporting multiple languages, transla
 date: "2026-02-22"
 published: true
 author: "Development Team"
-tags: ["i18n", "internationalization", "locales", "translations", "multilingual"]
+tags:
+  ["i18n", "internationalization", "locales", "translations", "multilingual"]
 ---
 
 # @kotonosora/i18n Multilingual Support
@@ -24,15 +25,16 @@ The `@kotonosora/i18n` ecosystem provides comprehensive internationalization (i1
 - **Location**: `packages/i18n/`
 - **Type**: Core utility library
 - **Purpose**: Base internationalization configuration and utilities
-- **Dependencies**: 
+- **Dependencies**:
   - `@kotonosora/i18n-locales` (workspace)
   - `date-fns` (4.1.0) - Date locale support
 
 **Key Exports**:
+
 ```typescript
-export { getLocale, setLocale } from './locale'
-export { t, translate } from './translate'
-export type { Locale, TranslationKey } from './types'
+export { getLocale, setLocale } from "./locale";
+export { t, translate } from "./translate";
+export type { Locale, TranslationKey } from "./types";
 ```
 
 ### @kotonosora/i18n-locales (Locale Data)
@@ -40,10 +42,11 @@ export type { Locale, TranslationKey } from './types'
 - **Location**: `packages/i18n-locales/`
 - **Type**: Locale data and management
 - **Purpose**: Translation files, locale strings, and generation scripts
-- **Dependencies**: 
+- **Dependencies**:
   - `@kotonosora/i18n` (workspace)
 
 **Scripts**:
+
 - `npm run create:locale` - Add new language
 - `npm run generate:i18n-locales` - Generate missing translations
 - `npm run generate:i18n-types` - Generate TypeScript types
@@ -59,9 +62,10 @@ export type { Locale, TranslationKey } from './types'
   - `date-fns` (4.1.0)
 
 **Exports**:
+
 ```typescript
-export { useTranslation, useLocale } from './hooks'
-export { I18nProvider } from './provider'
+export { useTranslation, useLocale } from "./hooks";
+export { I18nProvider } from "./provider";
 ```
 
 ## Directory Structure
@@ -107,31 +111,31 @@ packages/
 ### Basic Translation
 
 ```typescript
-import { t } from '@kotonosora/i18n'
+import { t } from "@kotonosora/i18n";
 
 // Simple string
-const greeting = t('hello')  // 'Hello' or 'Hola' depending on locale
+const greeting = t("hello"); // 'Hello' or 'Hola' depending on locale
 
 // With parameters
-const welcome = t('welcome.user', { name: 'John' })  
+const welcome = t("welcome.user", { name: "John" });
 // 'Welcome, John!' or 'Bienvenido, John!'
 
 // Nested keys
-const errorMessage = t('errors.validation.email')
+const errorMessage = t("errors.validation.email");
 ```
 
 ### Locale Management
 
 ```typescript
-import { getLocale, setLocale } from '@kotonosora/i18n'
+import { getLocale, setLocale } from "@kotonosora/i18n";
 
 // Get current locale
-const current = getLocale()  // 'en', 'es', etc.
+const current = getLocale(); // 'en', 'es', etc.
 
 // Set locale
-setLocale('es')
-setLocale('fr')
-setLocale('ja')
+setLocale("es");
+setLocale("fr");
+setLocale("ja");
 ```
 
 ## React Integration
@@ -148,7 +152,7 @@ export function MyComponent() {
     <div>
       <h1>{t('hello')}</h1>
       <p>{t('current.language')}: {locale}</p>
-      
+
       <button onClick={() => setLocale('en')}>English</button>
       <button onClick={() => setLocale('es')}>Español</button>
       <button onClick={() => setLocale('fr')}>Français</button>
@@ -286,11 +290,11 @@ npm run generate:i18n-types
 This enables type-safe translation lookups:
 
 ```typescript
-import type { TranslationKey } from '@kotonosora/i18n-locales'
+import type { TranslationKey } from "@kotonosora/i18n-locales";
 
 // Type-safe - won't compile with typos
-const key: TranslationKey = 'hello'  // ✅
-const key: TranslationKey = 'helo'   // ❌ TypeScript error
+const key: TranslationKey = "hello"; // ✅
+const key: TranslationKey = "helo"; // ❌ TypeScript error
 ```
 
 ## Advanced Usage
@@ -298,6 +302,7 @@ const key: TranslationKey = 'helo'   // ❌ TypeScript error
 ### Parameterized Translations
 
 Translation file:
+
 ```json
 {
   "greet": "Hello, {{name}}! You are {{age}} years old."
@@ -305,8 +310,9 @@ Translation file:
 ```
 
 Use with parameters:
+
 ```typescript
-const message = t('greet', { name: 'Alice', age: 30 })
+const message = t("greet", { name: "Alice", age: 30 });
 // "Hello, Alice! You are 30 years old."
 ```
 
@@ -322,23 +328,22 @@ const message = t('greet', { name: 'Alice', age: 30 })
 ```
 
 ```typescript
-const text = t('items', { count: 5 })  // "You have 5 items"
-const text = t('items', { count: 1 })  // "You have 1 item"
+const text = t("items", { count: 5 }); // "You have 5 items"
+const text = t("items", { count: 1 }); // "You have 1 item"
 ```
 
 ### Date and Time Localization
 
 ```typescript
-import { formatDate, formatTime } from '@kotonosora/i18n-react'
-import { useLocale } from '@kotonosora/i18n-react'
+import { formatDate, formatTime, useLocale } from "@kotonosora/i18n-react";
 
 export function DateTime() {
-  const { locale } = useLocale()
-  
-  const date = new Date('2026-02-22')
-  
+  const { locale } = useLocale();
+
+  const date = new Date("2026-02-22");
+
   // Automatically uses current locale from date-fns
-  const formatted = formatDate(date)  // "2/22/2026" (en), "22/2/2026" (es)
+  const formatted = formatDate(date); // "2/22/2026" (en), "22/2/2026" (es)
 }
 ```
 
@@ -357,8 +362,8 @@ export function DateTime() {
 ```
 
 ```typescript
-const title = t('user.profile.title')
-const edit = t('user.profile.edit')
+const title = t("user.profile.title");
+const edit = t("user.profile.edit");
 ```
 
 ## Language Detection
@@ -370,7 +375,7 @@ import { I18nProvider } from '@kotonosora/i18n-react'
 
 export default function App() {
   return (
-    <I18nProvider 
+    <I18nProvider
       initialLocale={detectLanguage()}  // Auto-detect from browser
       fallbackLocale="en"
     >
@@ -397,7 +402,7 @@ import type { Route } from './+types/index'
 export const loader = ({ params }: Route.LoaderArgs) => {
   const { lang } = params
   setLocale(lang || 'en')
-  
+
   return { locale: lang }
 }
 
@@ -421,7 +426,7 @@ import { BlogPost } from '@kotonosora/blog'
 
 export function BlogComponent({ post }) {
   const { t } = useTranslation()
-  
+
   return (
     <div>
       <h2>{t('blog.title')}</h2>
@@ -440,7 +445,7 @@ import { Calendar } from '@kotonosora/calendar'
 
 export function LocalizedCalendar() {
   const { locale } = useLocale()
-  
+
   return <Calendar locale={locale} />
 }
 ```
@@ -451,10 +456,11 @@ export function LocalizedCalendar() {
 
 ```typescript
 // Only load needed language
-import en from '@kotonosora/i18n-locales/locales/en.json'
+import en from "@kotonosora/i18n-locales/locales/en.json";
+
 // import es from '@kotonosora/i18n-locales/locales/es.json'  // Don't import unused
 
-setLocale('en', en)
+setLocale("en", en);
 ```
 
 ### Memoize Translation Results
@@ -465,12 +471,12 @@ import { useTranslation } from '@kotonosora/i18n-react'
 
 export function Component() {
   const { t } = useTranslation()
-  
+
   const messages = useMemo(() => ({
     title: t('page.title'),
     description: t('page.description'),
   }), [t])
-  
+
   return <div>{messages.title}</div>
 }
 ```

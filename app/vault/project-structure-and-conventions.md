@@ -13,21 +13,21 @@ tags: ["structure", "conventions", "routing", "file-organization"]
 
 ### Root Level
 
-| File/Folder | Purpose |
-|---|---|
-| `app/` | Application source code (routes, components, middleware) |
-| `packages/` | Workspace packages for features and libraries |
-| `workers/` | Cloudflare Worker backend implementation |
-| `database/` | Database schema and migration contracts |
-| `drizzle/` | Generated migration files |
-| `build/` | Build output (client and server bundles) |
-| `public/` | Static assets (robots.txt, fonts, images) |
-| `vite.config.ts` | Vite build configuration |
-| `react-router.config.ts` | React Router SSR configuration |
-| `drizzle.config.ts` | Database migration configuration |
-| `tsconfig.json` | TypeScript configuration |
-| `package.json` | Workspace root dependencies |
-| `wrangler.jsonc` | Cloudflare Worker configuration |
+| File/Folder              | Purpose                                                  |
+| ------------------------ | -------------------------------------------------------- |
+| `app/`                   | Application source code (routes, components, middleware) |
+| `packages/`              | Workspace packages for features and libraries            |
+| `workers/`               | Cloudflare Worker backend implementation                 |
+| `database/`              | Database schema and migration contracts                  |
+| `drizzle/`               | Generated migration files                                |
+| `build/`                 | Build output (client and server bundles)                 |
+| `public/`                | Static assets (robots.txt, fonts, images)                |
+| `vite.config.ts`         | Vite build configuration                                 |
+| `react-router.config.ts` | React Router SSR configuration                           |
+| `drizzle.config.ts`      | Database migration configuration                         |
+| `tsconfig.json`          | TypeScript configuration                                 |
+| `package.json`           | Workspace root dependencies                              |
+| `wrangler.jsonc`         | Cloudflare Worker configuration                          |
 
 ### App Directory Structure
 
@@ -177,30 +177,30 @@ workers/
 
 ### File Naming
 
-| Type | Convention | Examples |
-|---|---|---|
-| React Components | PascalCase `.tsx` | `Dashboard.tsx`, `UserCard.tsx` |
-| Hooks | camelCase with `use` prefix | `useThemeMode.ts`, `useAuth.ts` |
-| Utilities | camelCase `.ts` | `formatDate.ts`, `parseUrl.ts` |
-| Middleware | camelCase `.ts` | `auth.ts`, `i18n.ts` |
-| Database Schema | camelCase `.ts` | `schema.ts`, `contracts.ts` |
-| Types/Interfaces | PascalCase `.ts` or `.d.ts` | `User.ts`, `Database.types.ts` |
-| Constants | UPPER_SNAKE_CASE | `API_ENDPOINTS.ts`, `CONFIG.ts` |
-| Tests | `.test.ts` or `.spec.ts` suffix | `auth.test.ts` |
+| Type             | Convention                      | Examples                        |
+| ---------------- | ------------------------------- | ------------------------------- |
+| React Components | PascalCase `.tsx`               | `Dashboard.tsx`, `UserCard.tsx` |
+| Hooks            | camelCase with `use` prefix     | `useThemeMode.ts`, `useAuth.ts` |
+| Utilities        | camelCase `.ts`                 | `formatDate.ts`, `parseUrl.ts`  |
+| Middleware       | camelCase `.ts`                 | `auth.ts`, `i18n.ts`            |
+| Database Schema  | camelCase `.ts`                 | `schema.ts`, `contracts.ts`     |
+| Types/Interfaces | PascalCase `.ts` or `.d.ts`     | `User.ts`, `Database.types.ts`  |
+| Constants        | UPPER_SNAKE_CASE                | `API_ENDPOINTS.ts`, `CONFIG.ts` |
+| Tests            | `.test.ts` or `.spec.ts` suffix | `auth.test.ts`                  |
 
 ### Route File Naming
 
 React Router uses file system routing with special conventions:
 
-| Pattern | URL | Notes |
-|---|---|---|
-| `index.tsx` | `/` | Root route |
-| `dashboard.tsx` | `/dashboard` | Simple route |
-| `($lang).dashboard.tsx` | `/:lang/dashboard` | Path parameter |
-| `blog.$.tsx` | `/blog/*` | Catch-all/splat route |
-| `_layout.tsx` | *(no URL)* | Layout route (underscore prefix) |
-| `action.login.ts` | POST `/login` | Form action handler |
-| `loader.data.ts` | GET on route | Data loader |
+| Pattern                 | URL                | Notes                            |
+| ----------------------- | ------------------ | -------------------------------- |
+| `index.tsx`             | `/`                | Root route                       |
+| `dashboard.tsx`         | `/dashboard`       | Simple route                     |
+| `($lang).dashboard.tsx` | `/:lang/dashboard` | Path parameter                   |
+| `blog.$.tsx`            | `/blog/*`          | Catch-all/splat route            |
+| `_layout.tsx`           | _(no URL)_         | Layout route (underscore prefix) |
+| `action.login.ts`       | POST `/login`      | Form action handler              |
+| `loader.data.ts`        | GET on route       | Data loader                      |
 
 ### Action/Loader Naming
 
@@ -211,6 +211,7 @@ loader.[feature].ts          # Data loader for feature
 ```
 
 Examples:
+
 - `action.logout.ts` → Logout action
 - `action.showcase.publish.ts` → Publish showcase action
 - `loader.dashboard.ts` → Load dashboard data
@@ -277,20 +278,19 @@ app/features/shared/
 
 ```typescript
 // Feature components
-import { DashboardLayout } from '~/features/dashboard'
-import { MainLayout } from '~/features/shared'
-
+import { useI18n } from "@kotonosora/i18n-react";
 // Packages
-import { Button } from '@kotonosora/ui/components/ui/button'
-import { useI18n } from '@kotonosora/i18n-react'
-import { formatCurrency } from '@kotonosora/utils'
+import { Button } from "@kotonosora/ui/components/ui/button";
+import { formatCurrency } from "@kotonosora/utils";
 
+import { DashboardLayout } from "~/features/dashboard";
+import { MainLayout } from "~/features/shared";
+import { useThemeMode } from "~/hooks/use-theme-mode";
 // App utilities
-import { authMiddleware } from '~/middleware/auth'
-import { useThemeMode } from '~/hooks/use-theme-mode'
+import { authMiddleware } from "~/middleware/auth";
 
 // Relative imports (less preferred)
-import { calculateStats } from '../utils/calculateStats'
+import { calculateStats } from "../utils/calculateStats";
 ```
 
 ## Middleware Chains
@@ -298,18 +298,18 @@ import { calculateStats } from '../utils/calculateStats'
 Middleware processes requests in order. In `root.tsx`:
 
 ```typescript
-import { authMiddleware } from '~/middleware/auth'
-import { i18nMiddleware } from '~/middleware/i18n'
-import { themeMiddleware } from '~/middleware/theme'
-import { infoMiddleware } from '~/middleware/information'
+import { authMiddleware } from "~/middleware/auth";
+import { i18nMiddleware } from "~/middleware/i18n";
+import { infoMiddleware } from "~/middleware/information";
+import { themeMiddleware } from "~/middleware/theme";
 
 // Applied in sequence
 export const middleware = [
-  infoMiddleware,        // 1. Request metadata
-  i18nMiddleware,        // 2. Language detection
-  themeMiddleware,       // 3. Theme application
-  authMiddleware,        // 4. User authentication (last so context is complete)
-]
+  infoMiddleware, // 1. Request metadata
+  i18nMiddleware, // 2. Language detection
+  themeMiddleware, // 3. Theme application
+  authMiddleware, // 4. User authentication (last so context is complete)
+];
 ```
 
 ## Database Conventions
@@ -318,37 +318,37 @@ export const middleware = [
 
 ```typescript
 // tables/schemas are lowercase_snake_case
-export const users = sqliteTable('users', {
-  id: text('id').primaryKey(),
-  email: text('email').unique().notNull(),
-  createdAt: integer('created_at').default(sql`CURRENT_TIMESTAMP`),
-})
+export const users = sqliteTable("users", {
+  id: text("id").primaryKey(),
+  email: text("email").unique().notNull(),
+  createdAt: integer("created_at").default(sql`CURRENT_TIMESTAMP`),
+});
 
 // Relations use camelCase in TypeScript
 export const usersRelations = relations(users, ({ many }) => ({
   posts: many(posts),
-}))
+}));
 ```
 
 ### Type Exports
 
 ```typescript
 // From database/schema.ts
-export type User = typeof users.$inferSelect  // For reading
-export type NewUser = typeof users.$inferInsert  // For creating
+export type User = typeof users.$inferSelect; // For reading
+export type NewUser = typeof users.$inferInsert; // For creating
 ```
 
 ## Environment Configuration
 
 ### Configuration Files
 
-| File | Purpose |
-|---|---|
-| `.env.local` | Local secrets (git-ignored) |
-| `wrangler.jsonc` | Worker configuration |
-| `vite.config.ts` | Build configuration |
-| `tsconfig.json` | TypeScript configuration |
-| `drizzle.config.ts` | Database configuration |
+| File                | Purpose                     |
+| ------------------- | --------------------------- |
+| `.env.local`        | Local secrets (git-ignored) |
+| `wrangler.jsonc`    | Worker configuration        |
+| `vite.config.ts`    | Build configuration         |
+| `tsconfig.json`     | TypeScript configuration    |
+| `drizzle.config.ts` | Database configuration      |
 
 ### Environment Variables
 
@@ -361,12 +361,13 @@ CLOUDFLARE_D1_DATABASE_ID=db-id
 ```
 
 Accessed in code:
+
 ```typescript
 // On server
-const accountId = process.env.CLOUDFLARE_ACCOUNT_ID
+const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
 
 // On client (public only)
-const apiUrl = import.meta.env.VITE_API_URL
+const apiUrl = import.meta.env.VITE_API_URL;
 ```
 
 ## Code Organization Best Practices
@@ -381,10 +382,10 @@ const apiUrl = import.meta.env.VITE_API_URL
 
 ```typescript
 // Feature barrel export (index.ts)
-export { DashboardLayout } from './components/DashboardLayout'
-export { StatsCard } from './components/StatsCard'
-export { useDashboardData } from './hooks/useDashboardData'
-export * as DashboardTypes from './types'
+export { DashboardLayout } from "./components/DashboardLayout";
+export { StatsCard } from "./components/StatsCard";
+export { useDashboardData } from "./hooks/useDashboardData";
+export * as DashboardTypes from "./types";
 ```
 
 ### Avoid Circular Dependencies
@@ -400,12 +401,12 @@ In `workers/api/`:
 ```typescript
 // Each domain gets a file
 // api/users.ts
-export const router = new Hono()
+export const router = new Hono();
 
-router.post('/', validateRequest, createUser)
-router.get('/:id', getUser)
-router.put('/:id', updateUser)
-router.delete('/:id', deleteUser)
+router.post("/", validateRequest, createUser);
+router.get("/:id", getUser);
+router.put("/:id", updateUser);
+router.delete("/:id", deleteUser);
 ```
 
 ---

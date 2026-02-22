@@ -78,17 +78,17 @@ export default function App() {
 
 ```typescript
 // .env.local
-VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
-VITE_GA_DEBUG_MODE=true
+VITE_GA_MEASUREMENT_ID = G - XXXXXXXXXX;
+VITE_GA_DEBUG_MODE = true;
 ```
 
 ```typescript
 const initAnalytics = async () => {
-  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID
-  
+  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+
   // Initialize Google Analytics
-  window.dataLayer = window.dataLayer || []
-}
+  window.dataLayer = window.dataLayer || [];
+};
 ```
 
 ## Core Hooks
@@ -123,6 +123,7 @@ export function MyComponent() {
 ```
 
 **Available Methods:**
+
 - `trackEvent(name, parameters)` - Track custom events
 - `trackPageView(path, title)` - Page navigation
 - `trackConversion(conversionName, value)` - Goal completions
@@ -135,16 +136,16 @@ export function MyComponent() {
 Automatic page view tracking:
 
 ```typescript
-import { usePageView } from '@kotonosora/google-analytics'
-import { useLocation } from 'react-router'
+import { usePageView } from "@kotonosora/google-analytics";
+import { useLocation } from "react-router";
 
 export function PageWrapper({ children }) {
-  const location = useLocation()
-  
-  // Automatically tracks page views
-  usePageView(location.pathname, document.title)
+  const location = useLocation();
 
-  return children
+  // Automatically tracks page views
+  usePageView(location.pathname, document.title);
+
+  return children;
 }
 ```
 
@@ -169,16 +170,16 @@ export function FormComponent() {
 
   const handleSubmit = async (data) => {
     trackFormStart('contact_form')
-    
+
     try {
       await submitForm(data)
-      trackFormComplete('contact_form', { 
+      trackFormComplete('contact_form', {
         source: 'web',
-        duration: timeSpent 
+        duration: timeSpent
       })
     } catch (error) {
-      trackFormError('contact_form', { 
-        error_type: error.code 
+      trackFormError('contact_form', {
+        error_type: error.code
       })
     }
   }
@@ -246,15 +247,15 @@ export function InteractiveComponent() {
 
   return (
     <div>
-      <button onClick={() => trackEvent('button_click', { 
+      <button onClick={() => trackEvent('button_click', {
         button_id: 'cta_button',
         button_text: 'Learn More'
       })}>
         Learn More
       </button>
 
-      <input onChange={() => trackEvent('search', { 
-        search_term: event.target.value 
+      <input onChange={() => trackEvent('search', {
+        search_term: event.target.value
       })} />
 
       <video onPlay={() => trackEvent('video_play', {
@@ -375,46 +376,46 @@ export function RegistrationForm() {
 
 ```typescript
 // Page load performance
-trackEvent('page_performance', {
-  page_load_time: 2500,  // milliseconds
+trackEvent("page_performance", {
+  page_load_time: 2500, // milliseconds
   first_paint: 1200,
-  first_contentful_paint: 1500
-})
+  first_contentful_paint: 1500,
+});
 ```
 
 ### Engagement Events
 
 ```typescript
 // Content engagement
-trackEvent('engagement', {
-  content_type: 'article',
-  content_id: 'post-123',
-  engagement_type: 'scroll',
-  scroll_depth: 75  // percentage
-})
+trackEvent("engagement", {
+  content_type: "article",
+  content_id: "post-123",
+  engagement_type: "scroll",
+  scroll_depth: 75, // percentage
+});
 ```
 
 ### Error Events
 
 ```typescript
 // Application errors
-trackEvent('app_error', {
-  error_type: 'network_error',
-  error_message: 'Failed to fetch data',
-  error_code: 'ERR_NETWORK_TIMEOUT',
-  page: window.location.pathname
-})
+trackEvent("app_error", {
+  error_type: "network_error",
+  error_message: "Failed to fetch data",
+  error_code: "ERR_NETWORK_TIMEOUT",
+  page: window.location.pathname,
+});
 ```
 
 ### Social Events
 
 ```typescript
 // Social interactions
-trackEvent('social_engagement', {
-  social_platform: 'twitter',
-  social_action: 'share',
-  content_title: 'Article Title'
-})
+trackEvent("social_engagement", {
+  social_platform: "twitter",
+  social_action: "share",
+  content_title: "Article Title",
+});
 ```
 
 ## User Properties
@@ -447,17 +448,17 @@ export function ProfileSetup() {
 ### Custom Dimensions
 
 ```typescript
-const { trackEvent, setUserProperties } = useGoogleAnalytics()
+const { trackEvent, setUserProperties } = useGoogleAnalytics();
 
-trackEvent('purchase', {
-  currency: 'USD',
+trackEvent("purchase", {
+  currency: "USD",
   value: 99.99,
-  
+
   // Custom dimensions
-  user_tier: 'premium',
-  referral_source: 'email_campaign',
-  ab_test_variant: 'variant_b'
-})
+  user_tier: "premium",
+  referral_source: "email_campaign",
+  ab_test_variant: "variant_b",
+});
 ```
 
 ## Content Grouping
@@ -502,21 +503,21 @@ Google Analytics debugger browser extension shows all events in real-time.
 Track page performance metrics:
 
 ```typescript
-import { useGoogleAnalytics } from '@kotonosora/google-analytics'
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals'
+import { useGoogleAnalytics } from "@kotonosora/google-analytics";
+import { getCLS, getFCP, getFID, getLCP, getTTFB } from "web-vitals";
 
 export function WebVitalsTracker() {
-  const { trackEvent } = useGoogleAnalytics()
+  const { trackEvent } = useGoogleAnalytics();
 
   useEffect(() => {
-    getCLS(metric => trackEvent('CLS', { value: metric.value }))
-    getFID(metric => trackEvent('FID', { value: metric.value }))
-    getFCP(metric => trackEvent('FCP', { value: metric.value }))
-    getLCP(metric => trackEvent('LCP', { value: metric.value }))
-    getTTFB(metric => trackEvent('TTFB', { value: metric.value }))
-  }, [])
+    getCLS((metric) => trackEvent("CLS", { value: metric.value }));
+    getFID((metric) => trackEvent("FID", { value: metric.value }));
+    getFCP((metric) => trackEvent("FCP", { value: metric.value }));
+    getLCP((metric) => trackEvent("LCP", { value: metric.value }));
+    getTTFB((metric) => trackEvent("TTFB", { value: metric.value }));
+  }, []);
 
-  return null
+  return null;
 }
 ```
 
@@ -564,10 +565,10 @@ import { useGoogleAnalytics } from '@kotonosora/google-analytics'
 describe('Analytics', () => {
   it('tracks events correctly', () => {
     const trackSpy = vi.fn()
-    
+
     function TestComponent() {
       const { trackEvent } = useGoogleAnalytics()
-      
+
       return (
         <button onClick={() => trackEvent('test_event', { value: 123 })}>
           Test

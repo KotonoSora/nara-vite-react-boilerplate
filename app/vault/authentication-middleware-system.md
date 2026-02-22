@@ -20,36 +20,40 @@ The NARA authentication system provides comprehensive user authentication, sessi
 Located in `app/middleware/auth.ts`:
 
 ```typescript
-import { createContext } from 'react-router'
-import type { MiddlewareFunction } from 'react-router'
-import type { User } from '~/database/schema'
+import { createContext } from "react-router";
+
+import type { MiddlewareFunction } from "react-router";
+
+import type { User } from "~/database/schema";
 
 export type AuthContextType = {
-  userId: string | null
-  user: User | null
-}
+  userId: string | null;
+  user: User | null;
+};
 
-export const AuthContext = createContext<AuthContextType>()
+export const AuthContext = createContext<AuthContextType>();
 
 export const authMiddleware: MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
   // 1. Extract user ID from session/token
-  const { getUserId } = await import('~/lib/authentication/server/authenticate.server')
-  
-  // 2. Fetch user data if ID exists
-  const { getUserById } = await import('~/lib/authentication/server/user.server')
+  const { getUserId } =
+    await import("~/lib/authentication/server/authenticate.server");
 
-  const { db } = context
-  const userId = await getUserId(request)
-  const user = userId && db ? await getUserById(db, userId) : null
+  // 2. Fetch user data if ID exists
+  const { getUserById } =
+    await import("~/lib/authentication/server/user.server");
+
+  const { db } = context;
+  const userId = await getUserId(request);
+  const user = userId && db ? await getUserById(db, userId) : null;
 
   // 3. Attach auth context to request
-  context.set(AuthContext, { userId, user })
+  context.set(AuthContext, { userId, user });
 
-  return await next()
-}
+  return await next();
+};
 ```
 
 ## Authentication Flow
@@ -58,55 +62,58 @@ export const authMiddleware: MiddlewareFunction = async (
 
 ```typescript
 // Route: action.login.ts
-import { redirect } from 'react-router'
-import type { Route } from './+types/action.login'
-import { z } from 'zod'
+import { redirect } from "react-router";
+import { z } from "zod";
+
+import type { Route } from "./+types/action.login";
 
 const loginSchema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Invalid password')
-})
+  email: z.string().email("Invalid email"),
+  password: z.string().min(8, "Invalid password"),
+});
 
 export const action = async ({ request, context }: Route.ActionArgs) => {
-  if (request.method !== 'POST') {
-    return null
+  if (request.method !== "POST") {
+    return null;
   }
 
-  const formData = await request.formData()
+  const formData = await request.formData();
   const parsed = loginSchema.safeParse({
-    email: formData.get('email'),
-    password: formData.get('password')
-  })
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
 
   if (!parsed.success) {
-    return { errors: parsed.error.flatten() }
+    return { errors: parsed.error.flatten() };
   }
 
   // Verify credentials
-  const { verifyCredentials } = await import('~/lib/authentication/server/authenticate.server')
-  const { db } = context
-  
+  const { verifyCredentials } =
+    await import("~/lib/authentication/server/authenticate.server");
+  const { db } = context;
+
   const user = await verifyCredentials(
     db,
     parsed.data.email,
-    parsed.data.password
-  )
+    parsed.data.password,
+  );
 
   if (!user) {
-    return { error: 'Invalid credentials' }
+    return { error: "Invalid credentials" };
   }
 
   // Create session
-  const { createSession } = await import('~/lib/authentication/server/session.server')
-  const session = await createSession(user.id)
+  const { createSession } =
+    await import("~/lib/authentication/server/session.server");
+  const session = await createSession(user.id);
 
   // Return redirect with session cookie
-  return redirect('/dashboard', {
+  return redirect("/dashboard", {
     headers: {
-      'Set-Cookie': session.cookie
-    }
-  })
-}
+      "Set-Cookie": session.cookie,
+    },
+  });
+};
 ```
 
 ### 2. Session Management
@@ -115,45 +122,45 @@ export const action = async ({ request, context }: Route.ActionArgs) => {
 // lib/authentication/server/session.server.ts
 
 interface Session {
-  userId: string
-  token: string
-  expiresAt: Date
-  cookie: string
+  userId: string;
+  token: string;
+  expiresAt: Date;
+  cookie: string;
 }
 
 export async function createSession(userId: string): Promise<Session> {
-  const token = generateSecureToken()
-  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
-  
+  const token = generateSecureToken();
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+
   // Store in database or Redis
   await storeSession({
     userId,
     token,
-    expiresAt
-  })
+    expiresAt,
+  });
 
-  const cookie = serialize('session', token, {
+  const cookie = serialize("session", token, {
     httpOnly: true,
     secure: true,
-    sameSite: 'lax',
+    sameSite: "lax",
     maxAge: 7 * 24 * 60 * 60,
-    path: '/'
-  })
+    path: "/",
+  });
 
-  return { userId, token, expiresAt, cookie }
+  return { userId, token, expiresAt, cookie };
 }
 
 export async function getSession(request: Request): Promise<Session | null> {
-  const cookies = parseCookies(request.headers.get('Cookie'))
-  const token = cookies.session
+  const cookies = parseCookies(request.headers.get("Cookie"));
+  const token = cookies.session;
 
   if (!token) {
-    return null
+    return null;
   }
 
   // Validate token against database
-  const session = await validateSession(token)
-  return session
+  const session = await validateSession(token);
+  return session;
 }
 ```
 
@@ -188,58 +195,61 @@ export function Dashboard() {
 Standard email and password authentication:
 
 ```typescript
-import { hashPassword, verifyPassword } from '~/lib/authentication/crypto'
+import { hashPassword, verifyPassword } from "~/lib/authentication/crypto";
 
 export async function registerUser(
   db: Database,
   email: string,
   password: string,
-  name: string
+  name: string,
 ) {
   // Check if user exists
   const existing = await db.query.users.findFirst({
-    where: eq(users.email, email)
-  })
+    where: eq(users.email, email),
+  });
 
   if (existing) {
-    throw new Error('User already exists')
+    throw new Error("User already exists");
   }
 
   // Hash password
-  const hashedPassword = await hashPassword(password)
+  const hashedPassword = await hashPassword(password);
 
   // Create user
-  const user = await db.insert(users).values({
-    id: crypto.randomUUID(),
-    email,
-    name,
-    passwordHash: hashedPassword,
-    createdAt: new Date()
-  }).returning()
+  const user = await db
+    .insert(users)
+    .values({
+      id: crypto.randomUUID(),
+      email,
+      name,
+      passwordHash: hashedPassword,
+      createdAt: new Date(),
+    })
+    .returning();
 
-  return user[0]
+  return user[0];
 }
 
 export async function verifyCredentials(
   db: Database,
   email: string,
-  password: string
+  password: string,
 ) {
   const user = await db.query.users.findFirst({
-    where: eq(users.email, email)
-  })
+    where: eq(users.email, email),
+  });
 
   if (!user) {
-    return null
+    return null;
   }
 
-  const valid = await verifyPassword(password, user.passwordHash)
-  
+  const valid = await verifyPassword(password, user.passwordHash);
+
   if (!valid) {
-    return null
+    return null;
   }
 
-  return user
+  return user;
 }
 ```
 
@@ -248,43 +258,46 @@ export async function verifyCredentials(
 Third-party authentication:
 
 ```typescript
-import { OAuthClient } from '~/lib/authentication/oauth'
+import { OAuthClient } from "~/lib/authentication/oauth";
 
 export const googleOAuthClient = new OAuthClient({
   clientId: process.env.GOOGLE_CLIENT_ID!,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-  redirectUri: `${process.env.APP_URL}/auth/callback/google`
-})
+  redirectUri: `${process.env.APP_URL}/auth/callback/google`,
+});
 
 // Handle OAuth callback
 export const action = async ({ request }: Route.ActionArgs) => {
-  const { code } = Object.fromEntries(new URL(request.url).searchParams)
+  const { code } = Object.fromEntries(new URL(request.url).searchParams);
 
-  const token = await googleOAuthClient.getToken(code)
-  const profile = await googleOAuthClient.getUserProfile(token)
+  const token = await googleOAuthClient.getToken(code);
+  const profile = await googleOAuthClient.getUserProfile(token);
 
   // Find or create user
   let user = await db.query.users.findFirst({
-    where: eq(users.email, profile.email)
-  })
+    where: eq(users.email, profile.email),
+  });
 
   if (!user) {
-    user = await db.insert(users).values({
-      id: crypto.randomUUID(),
-      email: profile.email,
-      name: profile.name,
-      picture: profile.picture,
-      authProvider: 'google',
-      authId: profile.id
-    }).returning()
+    user = await db
+      .insert(users)
+      .values({
+        id: crypto.randomUUID(),
+        email: profile.email,
+        name: profile.name,
+        picture: profile.picture,
+        authProvider: "google",
+        authId: profile.id,
+      })
+      .returning();
   }
 
   // Create session and redirect
-  const session = await createSession(user[0].id)
-  return redirect('/dashboard', {
-    headers: { 'Set-Cookie': session.cookie }
-  })
-}
+  const session = await createSession(user[0].id);
+  return redirect("/dashboard", {
+    headers: { "Set-Cookie": session.cookie },
+  });
+};
 ```
 
 ## Authorization & Permissions
@@ -293,29 +306,29 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 ```typescript
 export enum UserRole {
-  Admin = 'admin',
-  Moderator = 'moderator',
-  User = 'user'
+  Admin = "admin",
+  Moderator = "moderator",
+  User = "user",
 }
 
 // Check role in middleware
 export const requireRole = (allowedRoles: UserRole[]) => {
   return async ({ request, context }, next) => {
-    const { user } = context.get(AuthContext)
+    const { user } = context.get(AuthContext);
 
     if (!user || !allowedRoles.includes(user.role)) {
-      return new Response('Forbidden', { status: 403 })
+      return new Response("Forbidden", { status: 403 });
     }
 
-    return await next()
-  }
-}
+    return await next();
+  };
+};
 
 // Usage in routes
 export const middleware = [
   authMiddleware,
-  requireRole([UserRole.Admin, UserRole.Moderator])
-]
+  requireRole([UserRole.Admin, UserRole.Moderator]),
+];
 ```
 
 ### Permission-Based Access
@@ -348,34 +361,36 @@ export function DeleteButton({ resourceId }) {
 
 ```typescript
 // Route: action.logout.ts
-import { redirect } from 'react-router'
-import type { Route } from './+types/action.logout'
+import { redirect } from "react-router";
+
+import type { Route } from "./+types/action.logout";
 
 export const action = async ({ request, context }: Route.ActionArgs) => {
-  if (request.method !== 'POST') {
-    return null
+  if (request.method !== "POST") {
+    return null;
   }
 
   // Get current session
-  const { getSession } = await import('~/lib/authentication/server/session.server')
-  const session = await getSession(request)
+  const { getSession } =
+    await import("~/lib/authentication/server/session.server");
+  const session = await getSession(request);
 
   if (session) {
     // Invalidate session
-    await invalidateSession(session.token)
+    await invalidateSession(session.token);
   }
 
   // Clear session cookie
-  const cookie = serialize('session', '', {
+  const cookie = serialize("session", "", {
     httpOnly: true,
     maxAge: 0,
-    path: '/'
-  })
+    path: "/",
+  });
 
-  return redirect('/login', {
-    headers: { 'Set-Cookie': cookie }
-  })
-}
+  return redirect("/login", {
+    headers: { "Set-Cookie": cookie },
+  });
+};
 ```
 
 ## Protected Routes
@@ -433,26 +448,26 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 // Request password reset
 export async function requestPasswordReset(email: string) {
   const user = await db.query.users.findFirst({
-    where: eq(users.email, email)
-  })
+    where: eq(users.email, email),
+  });
 
   if (!user) {
     // Don't reveal if email exists (security best practice)
-    return
+    return;
   }
 
   // Generate reset token
-  const token = generateSecureToken()
-  const expiresAt = new Date(Date.now() + 1 * 60 * 60 * 1000) // 1 hour
+  const token = generateSecureToken();
+  const expiresAt = new Date(Date.now() + 1 * 60 * 60 * 1000); // 1 hour
 
   await db.insert(passwordResets).values({
     userId: user.id,
     token,
-    expiresAt
-  })
+    expiresAt,
+  });
 
   // Send email with reset link
-  await sendPasswordResetEmail(email, token)
+  await sendPasswordResetEmail(email, token);
 }
 
 // Reset password with token
@@ -461,63 +476,67 @@ export async function resetPassword(token: string, newPassword: string) {
   const reset = await db.query.passwordResets.findFirst({
     where: and(
       eq(passwordResets.token, token),
-      gt(passwordResets.expiresAt, new Date())
-    )
-  })
+      gt(passwordResets.expiresAt, new Date()),
+    ),
+  });
 
   if (!reset) {
-    throw new Error('Invalid or expired token')
+    throw new Error("Invalid or expired token");
   }
 
   // Hash new password
-  const hashedPassword = await hashPassword(newPassword)
+  const hashedPassword = await hashPassword(newPassword);
 
   // Update user password
-  await db.update(users)
+  await db
+    .update(users)
     .set({ passwordHash: hashedPassword })
-    .where(eq(users.id, reset.userId))
+    .where(eq(users.id, reset.userId));
 
   // Delete reset record
-  await db.delete(passwordResets)
-    .where(eq(passwordResets.id, reset.id))
+  await db.delete(passwordResets).where(eq(passwordResets.id, reset.id));
 }
 ```
 
 ## Two-Factor Authentication (2FA)
 
 ```typescript
-import { TOTP } from 'otpauth'
+import { TOTP } from "otpauth";
 
 export async function enableTwoFA(userId: string) {
   const secret = new TOTP({
-    issuer: 'NARA',
-    label: `NARA (${userId})`
-  }).secret
+    issuer: "NARA",
+    label: `NARA (${userId})`,
+  }).secret;
 
   // Generate QR code
-  const qrCode = new TOTP({ secret }).toDataURL()
+  const qrCode = new TOTP({ secret }).toDataURL();
 
   // Store secret (encrypted)
-  await db.update(users)
+  await db
+    .update(users)
     .set({ twoFactorSecret: encrypt(secret) })
-    .where(eq(users.id, userId))
+    .where(eq(users.id, userId));
 
-  return { qrCode, secret }
+  return { qrCode, secret };
 }
 
-export async function verifyTwoFA(userId: string, code: string): Promise<boolean> {
+export async function verifyTwoFA(
+  userId: string,
+  code: string,
+): Promise<boolean> {
   const user = await db.query.users.findFirst({
-    where: eq(users.id, userId)
-  })
+    where: eq(users.id, userId),
+  });
 
   if (!user?.twoFactorSecret) {
-    return false
+    return false;
   }
 
-  const secret = decrypt(user.twoFactorSecret)
-  const totp = new TOTP({ secret })
+  const secret = decrypt(user.twoFactorSecret);
+  const totp = new TOTP({ secret });
 
-  return totp.validate(code) !== null
+  return totp.validate(code) !== null;
 }
 ```
 
@@ -526,37 +545,42 @@ export async function verifyTwoFA(userId: string, code: string): Promise<boolean
 ### CSRF Protection
 
 ```typescript
-import { csrf } from '~/lib/authentication/csrf'
+import { csrf } from "~/lib/authentication/csrf";
 
 // Generate CSRF token
 export const loader = () => {
-  const token = csrf.generate()
-  return { csrfToken: token }
-}
+  const token = csrf.generate();
+  return { csrfToken: token };
+};
 
 // Validate in actions
 export const action = async ({ request }) => {
-  const formData = await request.formData()
-  const token = formData.get('_csrf')
+  const formData = await request.formData();
+  const token = formData.get("_csrf");
 
   if (!csrf.validate(token)) {
-    throw new Response('Invalid CSRF token', { status: 403 })
+    throw new Response("Invalid CSRF token", { status: 403 });
   }
 
   // Process form
-}
+};
 ```
 
 ### CORS Configuration
 
 ```typescript
 // Worker setup
-app.use('*', cors({
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5173'],
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
-}))
+app.use(
+  "*",
+  cors({
+    origin: process.env.ALLOWED_ORIGINS?.split(",") || [
+      "http://localhost:5173",
+    ],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  }),
+);
 ```
 
 ## Best Practices

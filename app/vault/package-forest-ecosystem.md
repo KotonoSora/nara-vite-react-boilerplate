@@ -101,6 +101,7 @@ export function ForestPage() {
 ```
 
 **Features:**
+
 - Organized by category
 - Search and filter functionality
 - Live preview with code display
@@ -127,6 +128,7 @@ export function ButtonDemo() {
 ```
 
 Displays:
+
 - All variant combinations
 - Different sizes
 - Interactive states
@@ -161,6 +163,7 @@ export function FormDemo() {
 ```
 
 **Includes:**
+
 - Various input types
 - Validation states
 - Error messages
@@ -191,6 +194,7 @@ export function DialogDemo() {
 ```
 
 Demonstrates:
+
 - Different dialog types
 - Animation states
 - Size variations
@@ -329,6 +333,7 @@ export function GalleryWithCode() {
 ```
 
 Shows both:
+
 - Visual component rendering
 - Source code
 - Copy-to-clipboard button
@@ -384,11 +389,11 @@ export function FilteredGallery() {
 
   return (
     <div>
-      <CategoryFilter 
-        selected={selectedCategory} 
+      <CategoryFilter
+        selected={selectedCategory}
         onChange={setCategory}
       />
-      <SearchBox 
+      <SearchBox
         value={searchQuery}
         onChange={setSearch}
       />
@@ -467,13 +472,13 @@ export function SearchableGallery() {
 
   return (
     <>
-      <input 
+      <input
         placeholder="Search components..."
         value={searchQuery}
         onChange={(e) => setSearch(e.target.value)}
       />
-      
-      <select 
+
+      <select
         value={selectedCategory}
         onChange={(e) => setCategory(e.target.value)}
       >
@@ -548,7 +553,7 @@ Forest components use custom CSS for showcase styling:
   color: #f3f4f6;
   padding: 1rem;
   border-radius: 0.25rem;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 0.875rem;
   overflow-x: auto;
 }
@@ -568,6 +573,7 @@ Forest components use custom CSS for showcase styling:
 ## Forest as Learning Tool
 
 Forest serves as:
+
 - **Reference implementation** for other developers
 - **API documentation** through live examples
 - **Design system standard** for consistency

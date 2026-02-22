@@ -83,6 +83,7 @@ export function SimpleQR() {
 ```
 
 **Props:**
+
 - `value` - Data to encode (string/URL)
 - `size` - Pixel size (integer)
 - `level` - Error correction ('L', 'M', 'Q', 'H')
@@ -117,6 +118,7 @@ export function GeneratorPage() {
 ```
 
 **Features:**
+
 - Real-time preview
 - Multiple input formats
 - Color customization
@@ -205,7 +207,7 @@ export function QRCodeManager() {
         onChange={(e) => generate(e.target.value)}
         placeholder="Enter URL or text"
       />
-      
+
       <div>
         {isValidating && <span>Validating...</span>}
         {dataUrl && <img src={dataUrl} alt="QR Code" />}
@@ -216,6 +218,7 @@ export function QRCodeManager() {
 ```
 
 **Features:**
+
 - Value validation
 - Auto-regeneration
 - Settings management
@@ -295,19 +298,19 @@ export function DownloadQR() {
 
 ```typescript
 // URL
-const urlQR = 'https://example.com'
+const urlQR = "https://example.com";
 
 // Email
-const emailQR = 'mailto:user@example.com?subject=Hello'
+const emailQR = "mailto:user@example.com?subject=Hello";
 
 // Phone Number
-const phoneQR = 'tel:+1-555-0123'
+const phoneQR = "tel:+1-555-0123";
 
 // SMS
-const smsQR = 'smsto:+1-555-0123:Hello'
+const smsQR = "smsto:+1-555-0123:Hello";
 
 // WiFi (WPA)
-const wifiQR = 'WIFI:T:WPA;S:NetworkName;P:password;;'
+const wifiQR = "WIFI:T:WPA;S:NetworkName;P:password;;";
 
 // vCard (Contact)
 const vcardQR = `BEGIN:VCARD
@@ -315,7 +318,7 @@ VERSION:3.0
 FN:John Doe
 TEL:+1-555-0123
 EMAIL:john@example.com
-END:VCARD`
+END:VCARD`;
 
 // Calendar Event (iCal)
 const calQR = `BEGIN:VCALENDAR
@@ -325,10 +328,10 @@ DTSTART:20260222T090000Z
 DTEND:20260222T100000Z
 SUMMARY:Meeting
 END:VEVENT
-END:VCALENDAR`
+END:VCALENDAR`;
 
 // Geo Location
-const geoQR = 'geo:37.7749,-122.4194'
+const geoQR = "geo:37.7749,-122.4194";
 ```
 
 ## Usage Examples
@@ -360,7 +363,7 @@ import { QRCode } from '@kotonosora/qr-generator'
 
 export function EmailQR() {
   const emailQR = 'mailto:contact@example.com?subject=Inquiry'
-  
+
   return (
     <QRCode
       value={emailQR}
@@ -378,7 +381,7 @@ import { QRCode } from '@kotonosora/qr-generator'
 
 export function ProductLabel({ productId }) {
   const productUrl = `https://example.com/product/${productId}`
-  
+
   return (
     <div style={{ textAlign: 'center', padding: '1rem' }}>
       <h3>Product Code</h3>
@@ -432,7 +435,7 @@ import { QRCode } from '@kotonosora/qr-generator'
 
 export function EventTicket({ eventId, ticketNumber }) {
   const ticketData = `TICKET:${eventId}-${ticketNumber}`
-  
+
   return (
     <div className="ticket">
       <h2>Event Ticket</h2>
@@ -496,12 +499,12 @@ export function LocalizedQRGenerator() {
 
 ## Error Correction Levels
 
-| Level | Recovery Capacity | Use Case |
-|-------|---|---|
-| **L** | ~7% | Decorative, low damage risk |
-| **M** | ~15% | General use, moderate damage |
-| **Q** | ~25% | Exposed to moisture/wear |
-| **H** | ~30% | High damage risk, outdoor |
+| Level | Recovery Capacity | Use Case                     |
+| ----- | ----------------- | ---------------------------- |
+| **L** | ~7%               | Decorative, low damage risk  |
+| **M** | ~15%              | General use, moderate damage |
+| **Q** | ~25%              | Exposed to moisture/wear     |
+| **H** | ~30%              | High damage risk, outdoor    |
 
 Choose 'H' for outdoor/printed labels, 'L' for digital displays.
 

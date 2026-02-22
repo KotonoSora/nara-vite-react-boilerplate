@@ -15,11 +15,14 @@ export const slugBlogMiddleware: MiddlewareFunction = async (
   { context, params },
   next,
 ) => {
-  const slug = params["*"] as string;
+  const rawSlug = params["*"] as string;
 
-  if (!slug) {
+  if (!rawSlug) {
     throw data({ error: "Slug parameter is required" }, { status: 400 });
   }
+
+  // Remove trailing slash from slug
+  const slug = rawSlug.replace(/\/$/, "");
 
   const post = await loadBlogPost(slug);
 
