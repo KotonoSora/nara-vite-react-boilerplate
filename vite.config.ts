@@ -11,9 +11,8 @@ import remarkMath from "remark-math";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { defineConfig } from "vite";
 
-import type { Plugin, UserConfig } from "vite";
-
 import type { Options as MdxOptions } from "@mdx-js/rollup";
+import type { Plugin, UserConfig } from "vite";
 
 const mdxOptions: MdxOptions = {
   providerImportSource: "@mdx-js/react",

@@ -1,17 +1,26 @@
 ---
 title: "Package @kotonosora/ui System Deep Dive"
-description: "Comprehensive UI component library with 40+ components, styling system, and usage patterns"
-date: "2026-02-22"
+description: "Comprehensive UI component library with shadcn refresh automation, dependency policy enforcement, and modern usage patterns"
+date: "2026-03-29"
 published: true
 author: "Development Team"
-tags: ["ui", "components", "tailwind", "design-system"]
+tags: ["ui", "components", "tailwind", "design-system", "shadcn", "workflow"]
 ---
 
 # @kotonosora/ui System Deep Dive
 
 ## Overview
 
-`@kotonosora/ui` is a comprehensive React component library featuring **40+ production-ready UI components** built with TypeScript, styled with Tailwind CSS, and designed for accessibility and consistency.
+`@kotonosora/ui` is a comprehensive React component library featuring **50+ production-ready UI component modules** built with TypeScript, styled with Tailwind CSS, and designed for accessibility and consistency.
+
+## What Changed Recently
+
+Recent enhancements improved reliability and consistency after component refresh:
+
+- Automated shadcn refresh flow with explicit dry-run behavior.
+- Post-refresh cleanup and normalization for UI package manifests.
+- Sonner theming aligned to `remix-themes` with `Theme.LIGHT` fallback.
+- Dependency policy enforcement to keep shared dependencies on `catalog:` and avoid caret (`^`) ranges.
 
 ## Package Information
 
@@ -20,24 +29,29 @@ tags: ["ui", "components", "tailwind", "design-system"]
 - **Type**: React component library (published to workspace)
 - **Location**: `packages/ui/`
 - **Dependencies**:
-  - `react`, `react-dom` (19.2.4)
-  - `@tailwindcss/vite` (4.2.0)
+  - `react`, `react-dom` (workspace catalog)
+  - `tailwindcss` (workspace catalog)
   - `lucide-react` (0.563.0) - Icon library
+  - `radix-ui` (1.4.3) - Primitive component suite
+  - `@base-ui/react` (1.3.0) - Additional headless primitives
+  - `remix-themes` (workspace catalog) - Theme source for UI integrations
+  - `sonner` (workspace catalog) - Toast notifications
   - `recharts` (2.15.4) - Chart components
   - `@types/react`, `@types/react-dom`
 
 ## Component Library Structure
 
-### Exported Components (40+)
+### Exported Components (50+)
 
 The package exports individual components via granular export paths in `package.json`:
 
 ```json
 "exports": {
   "./components/ui/accordion": "./src/components/ui/accordion.tsx",
+  "./components/ui/alert": "./src/components/ui/alert.tsx",
   "./components/ui/alert-dialog": "./src/components/ui/alert-dialog.tsx",
   "./components/ui/button": "./src/components/ui/button.tsx",
-  // ... 37 more components
+  // ... many more components
 }
 ```
 
@@ -187,22 +201,49 @@ export function DeleteConfirm() {
 ### Toast Notifications
 
 ```typescript
-import { Toaster, toast } from '@kotonosora/ui/components/ui/sonner'
+import { Toaster } from '@kotonosora/ui/components/ui/sonner'
+import { toast } from 'sonner'
 
 export function Notifications() {
-  useEffect(() => {
-    Toaster() // Add once at app root
-  }, [])
-
   const notify = () => {
     toast.success('Operation successful!')
     toast.error('Something went wrong')
     toast.loading('Processing...')
   }
 
-  return <Button onClick={notify}>Notify</Button>
+  return (
+    <>
+      <Toaster />
+      <Button onClick={notify}>Notify</Button>
+    </>
+  )
 }
 ```
+
+Notes:
+
+- Mount `<Toaster />` once near app root in real apps.
+- The toaster theme is derived from `remix-themes` to match app-level theme state.
+
+### UI Refresh and Policy Workflow
+
+Use root-level scripts for safe, repeatable updates:
+
+```bash
+# Refresh shadcn components in packages/ui
+bun run ui:shadcn:refresh
+
+# Preview operations without changing files
+bun run ui:shadcn:refresh:dry-run
+
+# Ensure shared dependencies use catalog and avoid caret ranges
+bun run deps:policy:check
+
+# Apply policy fixes when needed
+bun run deps:policy:fix
+```
+
+This workflow keeps generated component updates aligned with workspace dependency standards.
 
 ## Styling System
 
