@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## 4.6.24 (2026-03-29)
+
+### build
+
+- Upgraded Vite from `npm:rolldown-vite@latest` to official `vite@8.0.3` (Rolldown 1.0.0-rc.12)
+- Removed `vite-tsconfig-paths` plugin — replaced by native `resolve.tsconfigPaths: true` (Vite 8 standard)
+- Removed Babel pipeline: `vite-plugin-babel@1.5.1`, `@babel/preset-react@7.28.5`, `@babel/preset-typescript@7.28.5`, `babel-plugin-react-compiler@1.0.0` — Vite 8's native Oxc transform handles React 19 JSX without Babel
+- Extracted MDX plugin options into typed `mdxOptions` constant for improved maintainability — `@mdx-js/rollup` confirmed compatible under Rolldown
+- Upgraded `@tailwindcss/vite` 4.2.0 → 4.2.2, `@cloudflare/vite-plugin` 1.25.2 → 1.30.2
+- Upgraded `@vitest/coverage-istanbul` 4.0.18 → 4.1.2, `vitest` 4.0.18 → 4.1.2
+
+### features
+
+- Enhanced blog middleware: `all-blog-middleware.ts`, `slug-blog-middleware.ts` for MDX route handling
+- Updated blog route types and MDX module path resolution
+- Enhanced header navigation with improved user actions and profile menus
+- Improved brand logo component and guest menu content
+
+### docs
+
+- Added comprehensive architecture and workflow documentation in vault
+- Blog engine features, calendar scheduling, forest ecosystem documentation
+- Database schema and Drizzle ORM setup guide
+- Cloudflare Workers backend setup guide
+- SEO optimization, i18n multilingual support, QR generator implementation guides
+- Package documentation for UI system, utils, and scheduler
+
+### chore
+
+- Upgraded dependency versions across the board
+- Added `.nvmrc` for Node version management
+
 ## 4.6.23 (2026-02-21)
 
 - Implemented packages blog

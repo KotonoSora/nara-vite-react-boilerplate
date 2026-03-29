@@ -2,7 +2,7 @@
 title: "Public Markdown Document"
 description: "This is a simple markdown file available for AI/LLM context"
 date: "2026-02-21"
-published: true
+published: false
 ---
 
 # App Vault Markdown Document

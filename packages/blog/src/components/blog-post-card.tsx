@@ -26,6 +26,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
           <Link
             to={postUrl}
             className="text-2xl font-semibold hover:text-primary transition-colors"
+            discover="none"
           >
             {post.frontmatter.title}
           </Link>

@@ -1,4 +1,8 @@
-import { BlogError, SlugHydrateFallback } from "@kotonosora/blog";
+import {
+  BlogError,
+  getMdxModules,
+  SlugHydrateFallback,
+} from "@kotonosora/blog";
 import { lazy } from "react";
 import { isRouteErrorResponse } from "react-router";
 
@@ -18,13 +22,41 @@ const SlugPage = lazy(() =>
   })),
 );
 
+export const middleware: MiddlewareFunction[] = [slugBlogMiddleware];
 export const clientMiddleware: MiddlewareFunction[] = [slugBlogMiddleware];
 
-export async function clientLoader({ context }: Route.ClientLoaderArgs) {
-  const { content, frontmatter, slug } = context.get(
+export async function loader({ context }: Route.LoaderArgs) {
+  const { frontmatter, slug, modulePath, loading } = context.get(
     SlugBlogReactRouterContext,
   );
-  return { content, frontmatter, slug };
+  // Server doesn't load the MDX content - just metadata
+  return { frontmatter, slug, modulePath, loading };
+}
+
+export async function clientLoader({ context }: Route.ClientLoaderArgs) {
+  const { frontmatter, slug, modulePath, loading } = context.get(
+    SlugBlogReactRouterContext,
+  );
+
+  // Load MDX content only on client
+  let contentComponent: React.ComponentType<any> | undefined;
+
+  if (modulePath) {
+    const mdxModules = getMdxModules();
+
+    // Find and load the module
+    const loader = mdxModules[modulePath];
+    if (loader) {
+      try {
+        const module = await loader();
+        contentComponent = module.default;
+      } catch (error) {
+        console.error(`Error loading MDX content for slug "${slug}":`, error);
+      }
+    }
+  }
+
+  return { frontmatter, slug, modulePath, contentComponent, loading };
 }
 
 clientLoader.hydrate = true as const;
