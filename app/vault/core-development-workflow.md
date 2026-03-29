@@ -1,7 +1,7 @@
 ---
 title: "Core Development Workflow"
 description: "Getting started, development scripts, database setup, type checking, and testing procedures"
-date: "2026-02-22"
+date: "2026-03-29"
 published: true
 author: "Development Team"
 tags: ["development", "workflow", "setup", "scripts", "database"]
@@ -141,6 +141,34 @@ npm run prepare
 # Validate commit message format
 npm run lint:commitlint
 ```
+
+### UI Package Maintenance
+
+Use root scripts to manage `packages/ui` refresh and export synchronization:
+
+```bash
+# Refresh shadcn components in packages/ui
+bun run ui:shadcn:refresh
+
+# Preview refresh steps without file changes
+bun run ui:shadcn:refresh:dry-run
+
+# Regenerate exports/files map for packages/ui
+bun run ui:sync-exports
+
+# Check dependency policy (shared deps -> catalog, no caret ranges)
+bun run deps:policy:check
+
+# Apply dependency policy fixes automatically
+bun run deps:policy:fix
+```
+
+Notes:
+
+- Dry-run mode is non-mutating and reports simulated removal behavior.
+- Real refresh runs enforce cleanup of `next-themes` from `packages/ui/package.json`.
+- Sonner post-refresh fixes are applied automatically to keep `remix-themes` behavior.
+- Policy enforcement runs after refresh to keep shared dependencies on `catalog:` and normalize versions.
 
 ### Deployment
 

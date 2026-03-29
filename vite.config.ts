@@ -12,6 +12,7 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { defineConfig } from "vite";
 
 import type { Options as MdxOptions } from "@mdx-js/rollup";
+import type { Plugin, UserConfig } from "vite";
 
 const mdxOptions: MdxOptions = {
   providerImportSource: "@mdx-js/react",
@@ -25,14 +26,52 @@ const mdxOptions: MdxOptions = {
   rehypePlugins: [rehypeHighlight, rehypeMathjax],
 };
 
+const reactRouterWithOxcCompat = (): Plugin[] => {
+  return reactRouter().map((plugin) => {
+    if (!plugin.config) {
+      return plugin;
+    }
+
+    const originalConfig = plugin.config;
+
+    return {
+      ...plugin,
+      async config(...args) {
+        const result =
+          typeof originalConfig === "function"
+            ? await originalConfig.apply(this, args as never)
+            : originalConfig;
+
+        if (!result || typeof result !== "object" || Array.isArray(result)) {
+          return result;
+        }
+
+        const viteConfig = { ...result } as UserConfig & {
+          esbuild?: Record<string, unknown> | false;
+        };
+
+        delete viteConfig.esbuild;
+        return viteConfig;
+      },
+    } as Plugin;
+  });
+};
+
 export default defineConfig(() => ({
+  build: {
+    rolldownOptions: {
+      checks: {
+        pluginTimings: false,
+      },
+    },
+  },
   resolve: {
     tsconfigPaths: true,
   },
   plugins: [
     tailwindcss(),
     mdx(mdxOptions),
-    reactRouter(),
+    ...reactRouterWithOxcCompat(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
   ],
 }));

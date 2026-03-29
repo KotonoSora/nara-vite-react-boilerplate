@@ -52,6 +52,38 @@ This will launch an interactive prompt to help you write a properly formatted co
 
 Thank you for helping make this project better!
 
+## Dependency Management Workflow
+
+This repository uses Bun workspaces and a catalog-first dependency strategy.
+
+### Core Commands
+
+```bash
+bun run deps:audit
+bun run deps:audit:strict
+bun run deps:outdated
+bun run deps:upgrade
+bun run deps:upgrade:apply -- --target react@19.2.4 --scope root
+bun run deps:validate
+```
+
+### Rules
+
+1. Use `catalog:` for shared dependencies.
+2. Keep internal package links as `workspace:*`.
+3. Run strict audit before release PRs.
+
+## UI Component Maintenance (packages/ui)
+
+The `packages/ui` workspace keeps the custom `radix-vega` style and uses helper scripts.
+
+```bash
+bun run ui:sync-exports
+bun run ui:add -- stats-card
+```
+
+`ui:add` creates a component scaffold and updates exports and metadata automatically.
+
 ---
 
 Built with ❤️ by KotonoSora — to help you ship faster and with confidence.
