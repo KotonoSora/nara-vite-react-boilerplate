@@ -59,6 +59,13 @@ const reactRouterWithOxcCompat = (): Plugin[] => {
 };
 
 export default defineConfig(() => ({
+  build: {
+    rolldownOptions: {
+      checks: {
+        pluginTimings: false,
+      },
+    },
+  },
   resolve: {
     tsconfigPaths: true,
   },
