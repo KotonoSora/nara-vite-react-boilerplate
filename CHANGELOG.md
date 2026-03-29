@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## 4.6.24 (2026-03-29)
+
+### build
+
+- Upgraded Vite to v8.0.3 (Rolldown 1.0.0-rc.12 powered) with fully native configuration
+- Removed `vite-tsconfig-paths` plugin — replaced by native `resolve.tsconfigPaths: true` (Vite 8+)
+- Removed Babel pipeline: `vite-plugin-babel`, `@babel/preset-react`, `@babel/preset-typescript`, `babel-plugin-react-compiler` — Vite 8 Oxc transform handles React 19 JSX natively; SSR build time improved from ~18s to ~13s
+- Confirmed `@mdx-js/rollup` compatible under Rolldown — no adapter migration required; remark/rehype/frontmatter plugins unaffected
+- Validated Rolldown native CJS interop — no `build.commonjsOptions`, `ssr.noExternal`, or `optimizeDeps.include` shims required
+- Confirmed LightningCSS minification pipeline via `@tailwindcss/vite` — Tailwind v4 bundle 252 kB (32 kB gzip), ≤3 lines output
+
+### test
+
+- Added `tests/vite-v8-migration.test.ts` — 5 guardrails: v8 future flags, no deprecated Rollup config keys, native tsconfig paths, no user-added Babel plugin, exact 4-factory plugin pipeline
+- Added `tests/mdx-prerender-migration.test.ts` — 2 guardrails: vault `.md`/`.mdx` routes discovered, slugs are extension-less
+- Added `tests/cjs-interop-css-migration.test.ts` — 6 guardrails: no CJS compat shims, CSS bundle non-empty, minified (≤10 lines), contains Tailwind v4 marker
+
+### chore
+
+- Upgraded dependency versions
+
 ## 4.6.23 (2026-02-21)
 
 - Implemented packages blog
