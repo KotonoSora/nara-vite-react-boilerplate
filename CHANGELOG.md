@@ -4,22 +4,33 @@
 
 ### build
 
-- Upgraded Vite to v8.0.3 (Rolldown 1.0.0-rc.12 powered) with fully native configuration
-- Removed `vite-tsconfig-paths` plugin — replaced by native `resolve.tsconfigPaths: true` (Vite 8+)
-- Removed Babel pipeline: `vite-plugin-babel`, `@babel/preset-react`, `@babel/preset-typescript`, `babel-plugin-react-compiler` — Vite 8 Oxc transform handles React 19 JSX natively; SSR build time improved from ~18s to ~13s
-- Confirmed `@mdx-js/rollup` compatible under Rolldown — no adapter migration required; remark/rehype/frontmatter plugins unaffected
-- Validated Rolldown native CJS interop — no `build.commonjsOptions`, `ssr.noExternal`, or `optimizeDeps.include` shims required
-- Confirmed LightningCSS minification pipeline via `@tailwindcss/vite` — Tailwind v4 bundle 252 kB (32 kB gzip), ≤3 lines output
+- Upgraded Vite from `npm:rolldown-vite@latest` to official `vite@8.0.3` (Rolldown 1.0.0-rc.12)
+- Removed `vite-tsconfig-paths` plugin — replaced by native `resolve.tsconfigPaths: true` (Vite 8 standard)
+- Removed Babel pipeline: `vite-plugin-babel@1.5.1`, `@babel/preset-react@7.28.5`, `@babel/preset-typescript@7.28.5`, `babel-plugin-react-compiler@1.0.0` — Vite 8's native Oxc transform handles React 19 JSX without Babel
+- Extracted MDX plugin options into typed `mdxOptions` constant for improved maintainability — `@mdx-js/rollup` confirmed compatible under Rolldown
+- Upgraded `@tailwindcss/vite` 4.2.0 → 4.2.2, `@cloudflare/vite-plugin` 1.25.2 → 1.30.2
+- Upgraded `@vitest/coverage-istanbul` 4.0.18 → 4.1.2, `vitest` 4.0.18 → 4.1.2
 
-### test
+### features
 
-- Added `tests/vite-v8-migration.test.ts` — 5 guardrails: v8 future flags, no deprecated Rollup config keys, native tsconfig paths, no user-added Babel plugin, exact 4-factory plugin pipeline
-- Added `tests/mdx-prerender-migration.test.ts` — 2 guardrails: vault `.md`/`.mdx` routes discovered, slugs are extension-less
-- Added `tests/cjs-interop-css-migration.test.ts` — 6 guardrails: no CJS compat shims, CSS bundle non-empty, minified (≤10 lines), contains Tailwind v4 marker
+- Enhanced blog middleware: `all-blog-middleware.ts`, `slug-blog-middleware.ts` for MDX route handling
+- Updated blog route types and MDX module path resolution
+- Enhanced header navigation with improved user actions and profile menus
+- Improved brand logo component and guest menu content
+
+### docs
+
+- Added comprehensive architecture and workflow documentation in vault
+- Blog engine features, calendar scheduling, forest ecosystem documentation
+- Database schema and Drizzle ORM setup guide
+- Cloudflare Workers backend setup guide
+- SEO optimization, i18n multilingual support, QR generator implementation guides
+- Package documentation for UI system, utils, and scheduler
 
 ### chore
 
-- Upgraded dependency versions
+- Upgraded dependency versions across the board
+- Added `.nvmrc` for Node version management
 
 ## 4.6.23 (2026-02-21)
 
