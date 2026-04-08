@@ -34,3 +34,5 @@
 !scripts/**
 !packages/
 !packages/**
+packages/ui/src/
+packages/ui/src/**

@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## 4.6.25 (2026-04-08)
+
+### docs
+
+- Updated vault blog content guides in `app/vault/*.md` for authoring rules, frontmatter requirements, and publishing checklist
+- Updated development workflow guide with `ui:shadcn:refresh`, `ui:shadcn:refresh:dry-run`, and `ui:sync-exports` usage
+
+### chore
+
+- Hardened `packages/ui/scripts/shadcn-refresh.mjs` with deterministic script-relative paths and explicit subprocess working directory
+- Improved dry-run messaging to clearly indicate simulated dependency cleanup behavior
+- Enforced post-refresh validation to fail real runs when `next-themes` remains declared
+- Added dependency policy automation script `scripts/deps-policy-enforce.mjs` with check/fix commands
+- Enforced policy after `ui:shadcn:refresh` to normalize shared deps to `catalog:` and remove caret ranges
+- Updated `deps:audit:strict` to report and fail on caret ranges (`^`)
+
+- Added dependency governance scripts: `deps:audit`, `deps:audit:strict`, `deps:upgrade`, `deps:upgrade:apply`, `deps:validate`
+- Added `UPGRADE.md` runbook for Bun workspace package upgrades
+- Added `packages/ui` automation scripts: `ui:add`, `ui:sync-exports`
+- Added `packages/ui/.component-metadata.json` for component sync tracking
+- Updated `CONTRIBUTING.md` with dependency and UI component maintenance workflow
+
+### Upgraded dependencies
+
+- Upgraded dependencies versions
+
 ## 4.6.24 (2026-03-29)
 
 ### build

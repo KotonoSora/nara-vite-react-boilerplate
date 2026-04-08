@@ -1,10 +1,10 @@
 ---
 title: "Package @kotonosora/blog Engine Features"
-description: "Blog publishing system with content rendering, virtual scrolling, and analytics integration"
-date: "2026-02-22"
+description: "Blog publishing system with content rendering, virtual scrolling, analytics integration, and enhanced vault authoring workflow"
+date: "2026-03-29"
 published: true
 author: "Development Team"
-tags: ["blog", "content", "publishing", "blog-engine"]
+tags: ["blog", "content", "publishing", "blog-engine", "vault", "workflow"]
 ---
 
 # @kotonosora/blog Engine Features
@@ -12,6 +12,65 @@ tags: ["blog", "content", "publishing", "blog-engine"]
 ## Overview
 
 `@kotonosora/blog` is a blog publishing and rendering engine providing components for displaying blog posts, handling content virtualization for performance, and integrating with analytics tracking.
+
+## Recent Vault Enhancements (March 2026)
+
+The app/vault authoring workflow now includes stronger automation and consistency checks:
+
+- Unified authoring flow for Markdown and MDX content under `app/vault/`.
+- Post-refresh UI maintenance now keeps theme behavior aligned with `remix-themes` in toast components.
+- Dependency policy automation is enforced after UI refreshes so shared packages use `catalog:` and caret ranges are normalized.
+- Dry-run refresh output now clearly separates simulated actions from real file mutations.
+
+## Vault Content Authoring Guide
+
+Blog documentation content is stored in `app/vault/*.md` and exposed through the blog middleware and slug routing pipeline.
+
+### Required Frontmatter
+
+Each article should include these fields:
+
+- `title` - Human-readable article title
+- `description` - One-sentence article summary
+- `date` - Publication date in `YYYY-MM-DD`
+- `published` - `true` for visible posts
+- `author` - Content owner
+- `tags` - Array of searchable topics
+
+### Content Rules
+
+- Use one H1 heading (`#`) that matches article intent.
+- Use H2/H3 headings to structure sections for TOC parsing.
+- Keep code samples executable and TypeScript-first.
+- Prefer package names and paths that match the current monorepo layout.
+- Update related guides when package scripts or architecture behavior changes.
+
+### Publishing Checklist
+
+1. Add or update the markdown file in `app/vault/`.
+2. Verify frontmatter values and date format.
+3. Run project checks (`bun run typecheck`, `bun run build`, `bun test`).
+4. Confirm route rendering and slug discovery in local dev.
+5. Run dependency policy checks when UI refresh changes package manifests (`bun run deps:policy:check`).
+6. Add a changelog entry for notable documentation updates.
+
+## Maintenance Commands
+
+Use these commands when vault/blog updates are shipped with UI component refreshes:
+
+```bash
+# Refresh UI components used by blog screens
+bun run ui:shadcn:refresh
+
+# Preview refresh behavior without mutating files
+bun run ui:shadcn:refresh:dry-run
+
+# Verify dependency policy after refresh
+bun run deps:policy:check
+
+# Auto-fix policy violations when needed
+bun run deps:policy:fix
+```
 
 ## Package Information
 
