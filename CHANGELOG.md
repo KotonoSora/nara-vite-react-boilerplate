@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 4.6.25 (2026-03-30)
+## 4.6.25 (2026-04-08)
 
 ### docs
 
@@ -21,6 +21,10 @@
 - Added `packages/ui` automation scripts: `ui:add`, `ui:sync-exports`
 - Added `packages/ui/.component-metadata.json` for component sync tracking
 - Updated `CONTRIBUTING.md` with dependency and UI component maintenance workflow
+
+### Upgraded dependencies
+
+- Upgraded dependencies versions
 
 ## 4.6.24 (2026-03-29)
 
