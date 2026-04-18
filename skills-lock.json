@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "react-router-framework-mode": {
+      "source": "remix-run/agent-skills",
+      "sourceType": "github",
+      "computedHash": "a3294459f3a5065c837929d9700fe7d35730d5051f2979090e0f715e8fea693f"
+    },
+    "shadcn": {
+      "source": "shadcn/ui",
+      "sourceType": "github",
+      "computedHash": "642a177bee320618caa49f5106cadb4e7594c606e867f61ba7b56d19cf745cd5"
+    }
+  }
+}
