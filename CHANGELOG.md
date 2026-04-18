@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 4.6.26 (2026-04-18)
+
+### docs
+
+- Added comprehensive skill documentation and references for shadcn and react-router-framework-mode in `.agents/skills/`, `.claude/skills/`, and `.github/`
+- Added new assets and images for skill documentation
+
+### chore
+
+- Updated `bun.lock`, `package.json`, and `skills-lock.json` for new dependencies
+- Minor updates to UI component files and config in `packages/ui`
+
+### Upgraded dependencies
+
+- Upgraded dependencies versions
+
 ## 4.6.25 (2026-04-08)
 
 ### docs
