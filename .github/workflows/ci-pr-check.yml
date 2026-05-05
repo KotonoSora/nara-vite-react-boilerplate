@@ -57,3 +57,5 @@ jobs:
 
       - name: Run unit tests
         run: bun run test --run --silent 'passed-only' --passWithNoTests
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true

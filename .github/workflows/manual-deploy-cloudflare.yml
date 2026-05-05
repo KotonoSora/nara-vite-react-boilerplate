@@ -96,3 +96,4 @@ jobs:
       VITE_DONATE_LINK: ${{ vars.VITE_DONATE_LINK }}
       VITE_PROD_DOMAIN: https://${{ vars.VITE_PROD_DOMAIN }}
       VITE_DEV_DOMAIN: https://${{ vars.VITE_DEV_DOMAIN }}
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
