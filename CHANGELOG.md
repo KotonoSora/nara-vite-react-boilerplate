@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.6.27 (2026-05-05)
+
+- Upgraded dependencies versions
+- Update config GitHub Actions with Node.js 24
+
 ## 4.6.26 (2026-04-18)
 
 ### docs
