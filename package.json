@@ -81,7 +81,7 @@
     "date-fns": "catalog:",
     "drizzle-orm": "~0.45.2",
     "highlight.js": "11.11.1",
-    "hono": "4.12.16",
+    "hono": "4.12.18",
     "isbot": "5.1.39",
     "lucide-react": "catalog:",
     "react": "catalog:",
