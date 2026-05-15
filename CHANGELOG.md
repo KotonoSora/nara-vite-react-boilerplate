@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.6.28 (2026-05-15)
+
+- Upgraded dependencies versions
+- Fix warnings ineffective dynamic import in build output
+
 ## 4.6.27 (2026-05-05)
 
 - Upgraded dependencies versions
