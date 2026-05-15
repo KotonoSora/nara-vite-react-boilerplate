@@ -1,17 +1,16 @@
 import type { SupportedLanguage } from "@kotonosora/i18n-locales";
 import type { Locale } from "date-fns";
 
+import { DATE_FNS_LOCALE_MAP } from "../../constants/date-fns-locale-map";
+
 /**
  * Cache for loaded date-fns locales to avoid re-importing
  */
 const localeCacheMap = new Map<SupportedLanguage, Locale>();
 
 /**
- * Dynamically loads date-fns locale for a specific language.
- * Only the requested language locale is loaded, reducing initial bundle size.
- *
- * Date-fns locales are large (~10-20KB each). Loading all 9 locales eagerly
- * adds ~100-150KB to the bundle. Dynamic loading reduces this to ~15KB per language.
+ * Loads a date-fns locale for a specific language from the shared static locale map.
+ * The async API is preserved for compatibility with existing callers.
  *
  * @param language - The language code to load locale for
  * @returns Promise resolving to the date-fns Locale object
@@ -30,41 +29,9 @@ export async function loadDateFnsLocale(
     return localeCacheMap.get(language)!;
   }
 
-  // Dynamically import only the requested locale
-  let locale: Locale;
-
-  switch (language) {
-    case "en":
-      locale = (await import("date-fns/locale/en-US")).enUS;
-      break;
-    case "es":
-      locale = (await import("date-fns/locale/es")).es;
-      break;
-    case "fr":
-      locale = (await import("date-fns/locale/fr")).fr;
-      break;
-    case "zh":
-      locale = (await import("date-fns/locale/zh-CN")).zhCN;
-      break;
-    case "hi":
-      locale = (await import("date-fns/locale/hi")).hi;
-      break;
-    case "ar":
-      locale = (await import("date-fns/locale/ar")).ar;
-      break;
-    case "vi":
-      locale = (await import("date-fns/locale/vi")).vi;
-      break;
-    case "ja":
-      locale = (await import("date-fns/locale/ja")).ja;
-      break;
-    case "th":
-      locale = (await import("date-fns/locale/th")).th;
-      break;
-    default:
-      // Fallback to English if language not supported
-      locale = (await import("date-fns/locale/en-US")).enUS;
-  }
+  const locale =
+    (DATE_FNS_LOCALE_MAP[language] as Locale | undefined) ||
+    (DATE_FNS_LOCALE_MAP.en as Locale);
 
   // Cache the loaded locale
   localeCacheMap.set(language, locale);
