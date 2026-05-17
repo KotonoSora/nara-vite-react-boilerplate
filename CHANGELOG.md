@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.6.29 (2026-05-17)
+
+- Upgraded dependencies versions
+- Config packages ui as git submodules
+
 ## 4.6.28 (2026-05-15)
 
 - Upgraded dependencies versions
