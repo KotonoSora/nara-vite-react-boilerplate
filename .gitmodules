@@ -1,0 +1,4 @@
+[submodule "packages/ui"]
+	path = packages/ui
+	url = git@github.com:KotonoSora/nara-ui-library.git
+	branch = release/1.0.0
