@@ -49,7 +49,7 @@
     "lint": "tsc --noEmit",
     "lint:commitlint": "commitlint --edit",
     "prepare": "husky",
-    "start": "wrangler dev --env development",
+    "start": "wrangler dev",
     "test": "vitest",
     "ui:add": "bun run --cwd packages/ui ui:add",
     "ui:shadcn:refresh": "bun run --cwd packages/ui ui:shadcn:refresh",
@@ -58,8 +58,7 @@
     "pretypecheck": "wrangler types && node packages/i18n-locales/scripts/generate-i18n-types.mjs",
     "typecheck": "react-router typegen",
     "posttypecheck": "tsc --noEmit",
-    "wrangler:types": "wrangler types",
-    "wrangler:generate": "dotenv -- node scripts/generate-wrangler-config.mjs"
+    "wrangler:types": "wrangler types"
   },
   "dependencies": {
     "@hono/zod-validator": "0.8.0",
