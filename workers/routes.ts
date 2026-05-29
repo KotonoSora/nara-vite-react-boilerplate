@@ -12,7 +12,9 @@ import tagsShowcaseRoute from "./api/showcase/tags/tags-showcase.route";
  * Centralized route registration.
  * Mounts all API routes onto the main Hono app.
  */
-export const registerRoutes = (app: Hono<{ Bindings: Env }>) => {
+export const registerRoutes = <TBindings extends Env>(
+  app: Hono<{ Bindings: TBindings }>,
+) => {
   app.use("*", logger());
   app.use("*", cors());
 
