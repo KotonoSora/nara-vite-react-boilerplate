@@ -9,6 +9,7 @@ import { getStats } from "~/features/dashboard/utils/get-stats";
 import { fetchShowcaseTags } from "~/features/landing-page/utils/fetch-showcase-tags";
 import { fetchShowcases } from "~/features/landing-page/utils/fetch-showcases";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
+import { DatabaseContext } from "~/lib/context/server";
 import { AuthContext } from "~/middleware/auth";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 
@@ -28,17 +29,17 @@ export const { DashboardMiddlewareContext } =
   );
 
 export const dashboardMiddleware: MiddlewareFunction = async (
-  { request, context },
+  { context, url },
   next,
 ) => {
-  const { db } = context;
+  const db = context.get(DatabaseContext);
+  if (!db) throw redirect("/");
   const { language, t } = context.get(I18nReactRouterContext);
   const { user } = context.get(AuthContext);
   if (!user) throw redirect("/");
 
   const recentActivity = getRecentActivity(language, user.createdAt);
   const stats = getStats(user.createdAt);
-  const url = new URL(request.url);
   const pageParam = url.searchParams.get("page");
   const pageSizeParam = url.searchParams.get("pageSize");
   const sortByParam = url.searchParams.get("sortBy");

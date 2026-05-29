@@ -10,6 +10,7 @@ import {
   pageMiddlewareContext,
 } from "~/features/login/middleware/page-middleware";
 import { authMiddleware } from "~/features/shared/middleware/auth";
+import { DatabaseContext } from "~/lib/context/server";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
@@ -55,7 +56,10 @@ export async function action({ request, context }: Route.ActionArgs) {
   }
 
   const { email, password } = result.data;
-  const { db } = context;
+  const db = context.get(DatabaseContext);
+  if (!db) {
+    return { error: t("errors.common.internalServerError") };
+  }
 
   const { authenticateUser } =
     await import("~/lib/authentication/server/user.server");

@@ -4,6 +4,8 @@ import type { MiddlewareFunction } from "react-router";
 
 import type { User } from "~/database/schema";
 
+import { DatabaseContext } from "~/lib/context/server";
+
 export type AuthContextType = {
   userId: string | null;
   user: User | null;
@@ -20,7 +22,7 @@ export const authMiddleware: MiddlewareFunction = async (
   const { getUserById } =
     await import("~/lib/authentication/server/user.server");
 
-  const { db } = context;
+  const db = context.get(DatabaseContext);
   const userId = await getUserId(request);
   const user = userId && db ? await getUserById(db, userId) : null;
 

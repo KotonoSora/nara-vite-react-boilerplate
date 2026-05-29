@@ -12,10 +12,9 @@ export const { tokenMiddlewareContext } =
   createMiddlewareContext<TokenPageContextType>("tokenMiddlewareContext");
 
 export const tokenMiddleware: MiddlewareFunction = async (
-  { request, context },
+  { context, url },
   next,
 ) => {
-  const url = new URL(request.url);
   const token = url.searchParams.get("token");
 
   if (!token) {
