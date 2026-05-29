@@ -42,7 +42,6 @@ You should have:
 
 Recommended module split (one exported symbol per file):
 
-- `workers/middleware/dev-domain-basic-auth/BasicAuthBindings.ts`
 - `workers/middleware/dev-domain-basic-auth/normalizeHost.ts`
 - `workers/middleware/dev-domain-basic-auth/hasValidBasicAuth.ts`
 - `workers/middleware/dev-domain-basic-auth/devDomainBasicAuthMiddleware.ts`
@@ -54,19 +53,7 @@ Usage entry point:
 
 ## Implementation Steps
 
-### 1) Define middleware bindings
-
-Create a binding type with optional secrets and dev domain:
-
-```typescript
-export type BasicAuthBindings = {
-  BASIC_AUTH_USERNAME?: string;
-  BASIC_AUTH_PASSWORD?: string;
-  VITE_DEV_DOMAIN?: string;
-};
-```
-
-### 2) Normalize host values
+### 1) Normalize host values
 
 Normalize host from both incoming requests and env values to avoid mismatch caused by protocol/casing/path differences.
 
@@ -77,23 +64,30 @@ export function normalizeHost(value: string | undefined): string | null {
   const trimmed = value.trim();
   if (!trimmed) return null;
 
+  // Accept "example.com", "https://example.com", "http://example.com",
+  // and accidental chained schemes like "https://https://example.com".
+  const withoutProtocol = trimmed.replace(/^(?:(?:https?):\/\/)+/i, "");
+  if (!withoutProtocol) return null;
+
+  // Reject non-http(s) scheme injection after stripping leading protocols.
+  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(withoutProtocol)) return null;
+
   try {
-    const withProtocol = /^https?:\/\//i.test(trimmed)
-      ? trimmed
-      : `https://${trimmed}`;
-    return new URL(withProtocol).host.toLowerCase();
+    return new URL(`https://${withoutProtocol}`).host.toLowerCase();
   } catch {
-    return (
-      trimmed
-        .toLowerCase()
-        .replace(/^https?:\/\//i, "")
-        .split("/")[0] || null
-    );
+    const fallbackHost = withoutProtocol
+      .toLowerCase()
+      .split("/")[0]
+      .split("?")[0]
+      .split("#")[0];
+    return fallbackHost || null;
   }
 }
 ```
 
-### 3) Validate Basic Auth credentials
+This normalization is intentionally defensive for CI/CD env values that may already contain `https://`, including accidental duplicated protocol prefixes.
+
+### 2) Validate Basic Auth credentials
 
 Parse Authorization header and compare decoded credentials.
 
@@ -124,23 +118,22 @@ export function hasValidBasicAuth(
 }
 ```
 
-### 4) Build dev-domain-only middleware
+### 3) Build dev-domain-only middleware
 
 Apply challenge only when request host matches development domain.
 
 ```typescript
 import type { MiddlewareHandler } from "hono";
 
-import type { BasicAuthBindings } from "./BasicAuthBindings";
-
 import { hasValidBasicAuth } from "./hasValidBasicAuth";
 import { normalizeHost } from "./normalizeHost";
 
 export const devDomainBasicAuthMiddleware: MiddlewareHandler<{
-  Bindings: Env & BasicAuthBindings;
+  Bindings: Env;
 }> = async (c, next) => {
   const requestHost = normalizeHost(new URL(c.req.url).host);
-  const devHost = normalizeHost(c.env.VITE_DEV_DOMAIN);
+  const configuredDevDomain = import.meta.env.VITE_DEV_DOMAIN;
+  const devHost = normalizeHost(configuredDevDomain);
 
   if (requestHost && devHost && requestHost === devHost) {
     const username = c.env.BASIC_AUTH_USERNAME;
@@ -161,16 +154,14 @@ export const devDomainBasicAuthMiddleware: MiddlewareHandler<{
 };
 ```
 
-### 5) Register middleware in worker app
+### 4) Register middleware in worker app
 
 Register globally before route handling.
 
 ```typescript
-import type { BasicAuthBindings } from "./middleware/dev-domain-basic-auth";
-
 import { devDomainBasicAuthMiddleware } from "./middleware/dev-domain-basic-auth";
 
-const app = new Hono<{ Bindings: Env & BasicAuthBindings }>();
+const app = new Hono<{ Bindings: Env }>();
 
 app.use("*", devDomainBasicAuthMiddleware);
 ```
@@ -190,6 +181,12 @@ if [ "${{ github.event.inputs.branch }}" != "main" ]; then
   [ -z "${{ secrets.BASIC_AUTH_USERNAME }}" ] && missing+=("BASIC_AUTH_USERNAME")
   [ -z "${{ secrets.BASIC_AUTH_PASSWORD }}" ] && missing+=("BASIC_AUTH_PASSWORD")
 fi
+```
+
+Deploy command should target the selected Cloudflare environment:
+
+```bash
+bun run deploy -- --env="$CLOUDFLARE_ENV"
 ```
 
 ## Behavior Matrix
@@ -223,6 +220,7 @@ fi
 - Confirm request host exactly matches normalized `VITE_DEV_DOMAIN`.
 - Confirm middleware is registered before routes.
 - Confirm deployment branch maps to development route.
+- Confirm deploy uses `--env="$CLOUDFLARE_ENV"` so the `development` environment is actually selected.
 
 ### Prompt appears on production
 
@@ -285,8 +283,10 @@ Why:
 How:
 
 - Read request host from `new URL(c.req.url).host`.
-- Normalize both request host and configured `VITE_DEV_DOMAIN`.
+- Read development domain from `import.meta.env.VITE_DEV_DOMAIN`.
+- Normalize both request host and `VITE_DEV_DOMAIN`.
 - Enforce auth only when they match.
+- Strip repeated `http://` or `https://` prefixes and reject non-http(s) scheme injection patterns.
 
 ### 2) Return a standards-compliant challenge
 
