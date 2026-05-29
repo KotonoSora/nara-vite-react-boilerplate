@@ -16,24 +16,34 @@ jobs:
     name: Manual Deploy to Cloudflare
     runs-on: ubuntu-latest
     if: github.repository == 'KotonoSora/nara-vite-react-boilerplate'
-    environment: production
+    environment: ${{ github.event.inputs.branch == 'main' && 'production' || 'development' }}
 
     steps:
-      - name: Validate required secrets
+      - name: Validate required secrets and variables
         run: |
-          missing=()
-          [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && missing+=("CLOUDFLARE_API_TOKEN")
-          [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ] && missing+=("CLOUDFLARE_ACCOUNT_ID")
-          [ -z "${{ secrets.D1_DATABASE_ID }}" ] && missing+=("D1_DATABASE_ID")
-          [ -z "${{ secrets.D1_DATABASE_NAME }}" ] && missing+=("D1_DATABASE_NAME")
+          missing_secrets=()
+          missing_vars=()
+
+          [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && missing_secrets+=("CLOUDFLARE_API_TOKEN")
+          [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ] && missing_secrets+=("CLOUDFLARE_ACCOUNT_ID")
+          [ -z "${{ secrets.D1_DATABASE_ID }}" ] && missing_secrets+=("D1_DATABASE_ID")
+          [ -z "${{ secrets.D1_DATABASE_NAME }}" ] && missing_secrets+=("D1_DATABASE_NAME")
 
           if [ "${{ github.event.inputs.branch }}" != "main" ]; then
-            [ -z "${{ secrets.BASIC_AUTH_USERNAME }}" ] && missing+=("BASIC_AUTH_USERNAME")
-            [ -z "${{ secrets.BASIC_AUTH_PASSWORD }}" ] && missing+=("BASIC_AUTH_PASSWORD")
+            [ -z "${{ secrets.BASIC_AUTH_USERNAME }}" ] && missing_secrets+=("BASIC_AUTH_USERNAME")
+            [ -z "${{ secrets.BASIC_AUTH_PASSWORD }}" ] && missing_secrets+=("BASIC_AUTH_PASSWORD")
+            [ -z "${{ vars.VITE_DEV_DOMAIN }}" ] && missing_vars+=("VITE_DEV_DOMAIN")
+          else
+            [ -z "${{ vars.VITE_PROD_DOMAIN }}" ] && missing_vars+=("VITE_PROD_DOMAIN")
           fi
 
-          if [ ${#missing[@]} -ne 0 ]; then
-            echo "❌ Missing secrets: ${missing[*]}"
+          if [ ${#missing_secrets[@]} -ne 0 ]; then
+            echo "❌ Missing secrets: ${missing_secrets[*]}"
+            exit 1
+          fi
+
+          if [ ${#missing_vars[@]} -ne 0 ]; then
+            echo "❌ Missing variables: ${missing_vars[*]}"
             exit 1
           fi
 
@@ -64,7 +74,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Disable wrangler telemetry
-        run: bun wrangler telemetry disable
+        run: bun run wrangler telemetry disable
 
       - name: Inject D1 config
         run: |
@@ -85,8 +95,10 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         run: |
+          echo "${{ secrets.BASIC_AUTH_USERNAME }}" | bun run wrangler secret put BASIC_AUTH_USERNAME
+          echo "${{ secrets.BASIC_AUTH_PASSWORD }}" | bun run wrangler secret put BASIC_AUTH_PASSWORD
           bun run build
-          bun run deploy -- --env="$CLOUDFLARE_ENV"
+          bun run deploy
 
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -107,6 +119,6 @@ jobs:
       VITE_DONATE_LINK: ${{ vars.VITE_DONATE_LINK }}
       VITE_PROD_DOMAIN: https://${{ vars.VITE_PROD_DOMAIN }}
       VITE_DEV_DOMAIN: https://${{ vars.VITE_DEV_DOMAIN }}
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       BASIC_AUTH_USERNAME: ${{ secrets.BASIC_AUTH_USERNAME }}
       BASIC_AUTH_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true

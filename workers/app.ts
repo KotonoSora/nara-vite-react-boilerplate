@@ -28,11 +28,10 @@ app.all("*", (c) => {
 
   const request = c.req.raw; // Get the raw Request object
   const env = c.env; // Cloudflare environment
-  const ctx = c.executionCtx; // Cloudflare execution context
 
   const db = drizzle(env.DB, { schema });
   const context = new RouterContextProvider();
-  context.set(CloudflareContext, { env, ctx });
+  context.set(CloudflareContext, { env });
   context.set(DatabaseContext, db);
 
   return requestHandler(request, context);

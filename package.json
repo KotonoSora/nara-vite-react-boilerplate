@@ -13,8 +13,8 @@
     ],
     "catalog": {
       "@hookform/resolvers": "5.2.2",
-      "@types/node": "24.10.9",
-      "@types/react": "19.2.10",
+      "@types/node": "24.12.4",
+      "@types/react": "19.2.15",
       "@types/react-dom": "19.2.3",
       "clsx": "2.1.1",
       "date-fns": "4.1.0",
