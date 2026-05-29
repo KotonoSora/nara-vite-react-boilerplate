@@ -6,7 +6,6 @@ import * as schema from "~/database/schema";
 
 export type CloudflareContextType = {
   env: Env;
-  ctx: ExecutionContext;
 };
 
 export const CloudflareContext = createContext<CloudflareContextType>();
