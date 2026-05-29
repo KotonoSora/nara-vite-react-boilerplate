@@ -15,6 +15,7 @@ import {
   tokenMiddlewareContext,
 } from "~/features/reset-password/middleware/token";
 import { isStrongPassword } from "~/lib/authentication/utils/common/is-strong-password";
+import { DatabaseContext } from "~/lib/context/server";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
@@ -82,7 +83,10 @@ export async function action({ request, context }: Route.ActionArgs) {
   if (!passwordCheck.isValid) {
     return { error: t("auth.resetPassword.errorWeakPassword") };
   }
-  const { db } = context;
+  const db = context.get(DatabaseContext);
+  if (!db) {
+    return { error: t("errors.common.internalServerError") };
+  }
 
   const { resetPasswordWithToken } =
     await import("~/lib/authentication/server/user.server");

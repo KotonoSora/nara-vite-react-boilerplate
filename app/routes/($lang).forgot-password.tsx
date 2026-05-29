@@ -9,6 +9,7 @@ import {
   forgotPasswordMiddleware,
   forgotPasswordMiddlewareContext,
 } from "~/features/forgot-password/middleware/forgot-password-middleware";
+import { DatabaseContext } from "~/lib/context/server";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
@@ -44,7 +45,10 @@ export async function action({ request, context, url }: Route.ActionArgs) {
     return { error: t("auth.forgotPassword.errorInvalidEmail") };
   }
   const { email } = result.data;
-  const { db } = context;
+  const db = context.get(DatabaseContext);
+  if (!db) {
+    return { error: t("errors.common.internalServerError") };
+  }
 
   const baseUrl = url.origin;
 

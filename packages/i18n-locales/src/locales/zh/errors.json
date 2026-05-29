@@ -5,6 +5,7 @@
   "tryAgain": "重试",
   "common": {
     "checkInput": "请检查您的输入",
-    "somethingWentWrong": "出了点问题。请重试。"
+    "somethingWentWrong": "出了点问题。请重试。",
+    "internalServerError": "发生了内部服务器错误。请稍后重试。"
   }
 }

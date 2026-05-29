@@ -5,6 +5,7 @@
   "tryAgain": "再試行",
   "common": {
     "checkInput": "入力内容を確認してください",
-    "somethingWentWrong": "何かがうまくいきませんでした。もう一度お試しください。"
+    "somethingWentWrong": "何かがうまくいきませんでした。もう一度お試しください。",
+    "internalServerError": "サーバー内部エラーが発生しました。しばらくしてからもう一度お試しください。"
   }
 }

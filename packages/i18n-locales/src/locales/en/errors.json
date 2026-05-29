@@ -5,6 +5,7 @@
   "tryAgain": "Try Again",
   "common": {
     "checkInput": "Please check your input",
-    "somethingWentWrong": "Something went wrong. Please try again."
+    "somethingWentWrong": "Something went wrong. Please try again.",
+    "internalServerError": "An internal server error occurred. Please try again later."
   }
 }

@@ -5,6 +5,7 @@ import type { PageInformation } from "../types/type";
 import { fetchShowcases } from "~/features/landing-page/utils/fetch-showcases";
 import { getBuiltInDemos } from "~/features/landing-page/utils/get-built-in-demos";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
+import { DatabaseContext } from "~/lib/context/server";
 import { AuthContext } from "~/middleware/auth";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 
@@ -15,7 +16,8 @@ export const showcasesMiddleware: MiddlewareFunction = async (
   { context, url },
   next,
 ) => {
-  const { db } = context;
+  const db = context.get(DatabaseContext);
+  if (!db) return await next();
   const { t } = context.get(I18nReactRouterContext);
   const { userId } = context.get(AuthContext);
 

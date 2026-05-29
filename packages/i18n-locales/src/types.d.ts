@@ -499,6 +499,7 @@ export interface ErrorsTranslations {
   common: {
     checkInput: string;
     somethingWentWrong: string;
+    internalServerError: string;
   };
 }
 

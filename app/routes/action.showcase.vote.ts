@@ -2,9 +2,7 @@ import { data } from "react-router";
 
 import type { Route } from "./+types/action.showcase.vote";
 
-import type { DrizzleD1Database } from "drizzle-orm/d1";
-
-import * as dbSchema from "~/database/schema";
+import { DatabaseContext } from "~/lib/context/server";
 import { AuthContext } from "~/middleware/auth";
 
 export function loader({ request }: Route.LoaderArgs) {
@@ -56,7 +54,10 @@ export async function action({ request, context }: Route.ActionArgs) {
       return data({ error: "Forbidden" }, { status: 403 });
     }
 
-    const { db } = context as { db: DrizzleD1Database<typeof dbSchema> };
+    const db = context.get(DatabaseContext);
+    if (!db) {
+      return data({ error: "Database not available" }, { status: 500 });
+    }
     const voteResult = await voteShowcase(db, {
       showcaseId,
       userId: currentUserId,

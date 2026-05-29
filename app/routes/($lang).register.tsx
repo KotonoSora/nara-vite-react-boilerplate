@@ -13,6 +13,7 @@ import {
 } from "~/features/register/middleware/page-middleware";
 import { MAX_USERS } from "~/features/shared/constants/limit";
 import { authMiddleware } from "~/features/shared/middleware/auth";
+import { DatabaseContext } from "~/lib/context/server";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
@@ -71,7 +72,10 @@ export async function action({ request, context }: Route.ActionArgs) {
   }
 
   const { name, email, password } = result.data;
-  const { db } = context;
+  const db = context.get(DatabaseContext);
+  if (!db) {
+    return { error: t("errors.common.internalServerError") };
+  }
   const { user } = schema;
 
   const userCount = await db
