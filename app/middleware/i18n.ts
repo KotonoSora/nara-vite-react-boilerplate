@@ -20,10 +20,13 @@ export const I18nReactRouterContext =
   createContext<I18nReactRouterContextType>();
 
 export const i18nMiddleware: MiddlewareFunction = async (
-  { request, context },
+  { request, context, url },
   next,
 ) => {
-  const language: SupportedLanguage = await resolveRequestLanguage(request);
+  const language: SupportedLanguage = await resolveRequestLanguage(
+    request,
+    url,
+  );
   const translations: NestedTranslationObject =
     await loadDataTranslations(language);
   const t = createTranslationFunctionWithData(translations, language);

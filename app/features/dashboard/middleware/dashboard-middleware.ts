@@ -28,7 +28,7 @@ export const { DashboardMiddlewareContext } =
   );
 
 export const dashboardMiddleware: MiddlewareFunction = async (
-  { request, context },
+  { context, url },
   next,
 ) => {
   const { db } = context;
@@ -38,7 +38,6 @@ export const dashboardMiddleware: MiddlewareFunction = async (
 
   const recentActivity = getRecentActivity(language, user.createdAt);
   const stats = getStats(user.createdAt);
-  const url = new URL(request.url);
   const pageParam = url.searchParams.get("page");
   const pageSizeParam = url.searchParams.get("pageSize");
   const sortByParam = url.searchParams.get("sortBy");

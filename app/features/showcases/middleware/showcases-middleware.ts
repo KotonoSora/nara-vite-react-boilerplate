@@ -12,7 +12,7 @@ export const { ShowcasesMiddlewareContext } =
   createMiddlewareContext<PageInformation>("ShowcasesMiddlewareContext");
 
 export const showcasesMiddleware: MiddlewareFunction = async (
-  { context, request },
+  { context, url },
   next,
 ) => {
   const { db } = context;
@@ -20,7 +20,6 @@ export const showcasesMiddleware: MiddlewareFunction = async (
   const { userId } = context.get(AuthContext);
 
   // Parse pagination and filter params from URL search params
-  const url = new URL(request.url);
   const pageParam = url.searchParams.get("page");
   const pageSizeParam = url.searchParams.get("pageSize");
   const sortByParam = url.searchParams.get("sortBy");
