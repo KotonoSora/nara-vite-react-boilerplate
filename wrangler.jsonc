@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "nara-vite-react-boilerplate",
   "compatibility_date": "2026-05-29",
-  "compatibility_flags": ["nodejs_compat_v2"],
+  "compatibility_flags": ["nodejs_compat"],
   "main": "./workers/app.ts",
   "secrets": {
     "required": [
@@ -34,6 +34,26 @@
   ],
   "env": {
     "production": {
+      "vars": {
+        "VITE_CONTACT_EMAIL": "$VITE_CONTACT_EMAIL",
+        "VITE_DEV_DOMAIN": "$VITE_DEV_DOMAIN",
+        "VITE_DONATE_LINK": "$VITE_DONATE_LINK",
+        "VITE_GOOGLE_ANALYTIC_TRACKING_ID": "$VITE_GOOGLE_ANALYTIC_TRACKING_ID",
+        "VITE_LANDING_PAGE_COMMERCIAL_LINK": "$VITE_LANDING_PAGE_COMMERCIAL_LINK",
+        "VITE_LANDING_PAGE_DESCRIPTION": "$VITE_LANDING_PAGE_DESCRIPTION",
+        "VITE_LANDING_PAGE_REPOSITORY": "$VITE_LANDING_PAGE_REPOSITORY",
+        "VITE_LANDING_PAGE_TITLE": "$VITE_LANDING_PAGE_TITLE",
+        "VITE_MAX_USERS": "$VITE_MAX_USERS",
+        "VITE_PROD_DOMAIN": "$VITE_PROD_DOMAIN",
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "$D1_DATABASE_NAME",
+          "database_id": "$D1_DATABASE_ID",
+          "migrations_dir": "drizzle",
+        },
+      ],
       "workers_dev": false,
       "preview_urls": false,
       "routes": [
@@ -44,6 +64,26 @@
       ],
     },
     "development": {
+      "vars": {
+        "VITE_CONTACT_EMAIL": "$VITE_CONTACT_EMAIL",
+        "VITE_DEV_DOMAIN": "$VITE_DEV_DOMAIN",
+        "VITE_DONATE_LINK": "$VITE_DONATE_LINK",
+        "VITE_GOOGLE_ANALYTIC_TRACKING_ID": "$VITE_GOOGLE_ANALYTIC_TRACKING_ID",
+        "VITE_LANDING_PAGE_COMMERCIAL_LINK": "$VITE_LANDING_PAGE_COMMERCIAL_LINK",
+        "VITE_LANDING_PAGE_DESCRIPTION": "$VITE_LANDING_PAGE_DESCRIPTION",
+        "VITE_LANDING_PAGE_REPOSITORY": "$VITE_LANDING_PAGE_REPOSITORY",
+        "VITE_LANDING_PAGE_TITLE": "$VITE_LANDING_PAGE_TITLE",
+        "VITE_MAX_USERS": "$VITE_MAX_USERS",
+        "VITE_PROD_DOMAIN": "$VITE_PROD_DOMAIN",
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "$D1_DATABASE_NAME",
+          "database_id": "$D1_DATABASE_ID",
+          "migrations_dir": "drizzle",
+        },
+      ],
       "workers_dev": false,
       "preview_urls": false,
       "routes": [

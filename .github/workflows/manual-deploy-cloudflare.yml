@@ -79,6 +79,22 @@ jobs:
       - name: Generate Wrangler types
         run: bun run wrangler types
 
+      - name: Sync development Basic Auth secrets to Cloudflare
+        if: env.CLOUDFLARE_ENV == 'development'
+        run: |
+          secrets_file="$(mktemp)"
+
+          jq -n \
+            --arg username "$BASIC_AUTH_USERNAME" \
+            --arg password "$BASIC_AUTH_PASSWORD" \
+            '{
+              BASIC_AUTH_USERNAME: $username,
+              BASIC_AUTH_PASSWORD: $password
+            }' > "$secrets_file"
+
+          bun wrangler secret bulk --env="$CLOUDFLARE_ENV" "$secrets_file"
+          rm -f "$secrets_file"
+
       - name: Run Drizzle migrations
         run: bun run db:migrate-production
 
