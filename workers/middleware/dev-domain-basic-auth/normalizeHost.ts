@@ -4,17 +4,22 @@ export function normalizeHost(value: string | undefined): string | null {
   const trimmed = value.trim();
   if (!trimmed) return null;
 
+  // Accept "example.com", "https://example.com", "http://example.com",
+  // and accidental chained schemes like "https://https://example.com".
+  const withoutProtocol = trimmed.replace(/^(?:(?:https?):\/\/)+/i, "");
+  if (!withoutProtocol) return null;
+
+  // Reject non-http(s) scheme injection after stripping leading protocols.
+  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(withoutProtocol)) return null;
+
   try {
-    const withProtocol = /^https?:\/\//i.test(trimmed)
-      ? trimmed
-      : `https://${trimmed}`;
-    return new URL(withProtocol).host.toLowerCase();
+    return new URL(`https://${withoutProtocol}`).host.toLowerCase();
   } catch {
-    return (
-      trimmed
-        .toLowerCase()
-        .replace(/^https?:\/\//i, "")
-        .split("/")[0] || null
-    );
+    const fallbackHost = withoutProtocol
+      .toLowerCase()
+      .split("/")[0]
+      .split("?")[0]
+      .split("#")[0];
+    return fallbackHost || null;
   }
 }

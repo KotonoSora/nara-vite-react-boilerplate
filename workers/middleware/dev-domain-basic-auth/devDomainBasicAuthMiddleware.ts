@@ -1,15 +1,14 @@
 import type { MiddlewareHandler } from "hono";
 
-import type { BasicAuthBindings } from "./BasicAuthBindings";
-
 import { hasValidBasicAuth } from "./hasValidBasicAuth";
 import { normalizeHost } from "./normalizeHost";
 
 export const devDomainBasicAuthMiddleware: MiddlewareHandler<{
-  Bindings: Env & BasicAuthBindings;
+  Bindings: Env;
 }> = async (c, next) => {
   const requestHost = normalizeHost(new URL(c.req.url).host);
-  const devHost = normalizeHost(c.env.VITE_DEV_DOMAIN);
+  const configuredDevDomain = import.meta.env.VITE_DEV_DOMAIN;
+  const devHost = normalizeHost(configuredDevDomain);
 
   // Enforce basic auth only on the development domain.
   if (requestHost && devHost && requestHost === devHost) {

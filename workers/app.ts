@@ -2,8 +2,6 @@ import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import { createRequestHandler, RouterContextProvider } from "react-router";
 
-import type { BasicAuthBindings } from "./middleware/dev-domain-basic-auth";
-
 import * as schema from "~/database/schema";
 import { CloudflareContext, DatabaseContext } from "~/lib/context/server";
 
@@ -11,7 +9,7 @@ import { devDomainBasicAuthMiddleware } from "./middleware/dev-domain-basic-auth
 import { registerRoutes } from "./routes";
 
 // Init app
-const app = new Hono<{ Bindings: Env & BasicAuthBindings }>();
+const app = new Hono<{ Bindings: Env }>();
 
 app.use("*", devDomainBasicAuthMiddleware);
 
