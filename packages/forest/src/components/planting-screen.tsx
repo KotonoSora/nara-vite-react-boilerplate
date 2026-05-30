@@ -1,8 +1,6 @@
 import { useTranslation } from "@kotonosora/i18n-react";
 import { Button } from "@kotonosora/ui/components/ui/button";
 
-import type { PlantingScreenProps } from "../types/common";
-
 import { RANGE_MAX, RANGE_MIN } from "../constants/common";
 import { useForestContext } from "../context/forest-context";
 import { FocusTagButton } from "./focus-tag-button";
@@ -23,7 +21,7 @@ export function PlantingScreen() {
       <TreeStatusProgress status="planting" />
 
       <div className="flex flex-col items-center justify-center gap-6">
-        <div className="w-[300px] bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
+        <div className="w-75 bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
           <input
             type="range"
             min={RANGE_MIN}

@@ -9,6 +9,8 @@
   "dependencies": {
     "@kotonosora/i18n": "workspace:*",
     "@kotonosora/i18n-locales": "workspace:*",
-    "date-fns": "catalog:"
+    "date-fns": "catalog:",
+    "react": "catalog:",
+    "react-router": "catalog:"
   }
 }

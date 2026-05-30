@@ -2,7 +2,7 @@ import { Flame, Leaf } from "lucide-react";
 
 export function HeaderBar() {
   return (
-    <section className="h-[30px] mt-2 w-full relative">
+    <section className="h-7.5 mt-2 w-full relative">
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-base leading-none">
         <Flame fill="#ffffff" strokeWidth={0} />
       </div>

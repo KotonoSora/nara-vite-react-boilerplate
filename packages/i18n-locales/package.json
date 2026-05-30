@@ -11,7 +11,5 @@
     "generate:i18n-locales": "node scripts/generate-missing-locales.mjs",
     "generate:i18n-types": "node scripts/generate-i18n-types.mjs"
   },
-  "dependencies": {
-    "@kotonosora/i18n": "workspace:*"
-  }
+  "dependencies": {}
 }
