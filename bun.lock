@@ -147,9 +147,6 @@
     "packages/i18n-locales": {
       "name": "@kotonosora/i18n-locales",
       "version": "0.0.1",
-      "dependencies": {
-        "@kotonosora/i18n": "workspace:*",
-      },
     },
     "packages/i18n-react": {
       "name": "@kotonosora/i18n-react",

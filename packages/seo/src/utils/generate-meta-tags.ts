@@ -1,7 +1,10 @@
 import { getIntlLocaleByLanguage } from "@kotonosora/i18n";
 import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
 
-import type { GenerateMetaTagsParams, GenerateMetaTagsResponse } from "@/types";
+import type {
+  GenerateMetaTagsParams,
+  GenerateMetaTagsResponse,
+} from "../types";
 
 import {
   author,
@@ -10,7 +13,7 @@ import {
   publisherUrl,
   siteName,
   twitterHandle,
-} from "@/constants/common";
+} from "../constants/common";
 
 /**
  * Generates SEO meta tags for a page.
