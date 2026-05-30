@@ -17,6 +17,7 @@
     "@kotonosora/ui": "workspace:*",
     "date-fns": "catalog:",
     "lucide-react": "catalog:",
+    "mdx-mermaid": "2.0.3",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-virtuoso": "catalog:"
