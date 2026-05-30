@@ -6,3 +6,7 @@
 	path = packages/qr-generator
 	url = git@github.com:KotonoSora/nara-showcase-qr-generator.git
 	branch = release/1.0.0
+[submodule "packages/scheduler"]
+	path = packages/scheduler
+	url = git@github.com:KotonoSora/nara-scheduler.git
+	branch = release/1.0.0
