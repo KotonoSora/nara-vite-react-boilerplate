@@ -49,7 +49,6 @@
         "@react-router/dev": "7.16.0",
         "@react-router/fs-routes": "7.16.0",
         "@types/node": "24.12.4",
-        "@types/qrcode.react": "3.0.0",
         "@types/react": "19.2.15",
         "@types/react-dom": "19.2.3",
         "@vitest/coverage-istanbul": "4.1.7",
@@ -922,8 +921,6 @@
     "@types/ms": ["@types/ms@2.1.0", "", {}, "sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA=="],
 
     "@types/node": ["@types/node@24.12.4", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-GUUEShf+PBCGW2KaXwcIt3Yk+e3pkKwWKb9GSyM9WQVE+ep2jzmHdGsHzu4wgcZy5fN9FBdVzjpBQsYlpfpgLA=="],
-
-    "@types/qrcode.react": ["@types/qrcode.react@3.0.0", "", { "dependencies": { "qrcode.react": "*" } }, "sha512-VPHYhnDfvt4LjlWajpYWRBVqmftEEza3GJVhe8sS5Wew0n4nTkg3+2MYunAiU6t04AZt0s/hkkMovefWeENjAQ=="],
 
     "@types/react": ["@types/react@19.2.15", "", { "dependencies": { "csstype": "^3.2.2" } }, "sha512-eRwcGNHve+E8qtEQSSRl6urh+rFop4v8gm6O8rGv25CodbvFdLjA1vVQ1KkiFE0w0UPOnb8tDiFKL5lp0rtY5Q=="],
 

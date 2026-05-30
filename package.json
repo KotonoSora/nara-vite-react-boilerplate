@@ -106,7 +106,6 @@
     "@react-router/dev": "7.16.0",
     "@react-router/fs-routes": "7.16.0",
     "@types/node": "24.12.4",
-    "@types/qrcode.react": "3.0.0",
     "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
     "@vitest/coverage-istanbul": "4.1.7",
