@@ -3,7 +3,7 @@
     "composite": true,
     "strict": true,
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["./src/types/custom-global-window.d.ts"],
+    "types": [],
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "bundler",
