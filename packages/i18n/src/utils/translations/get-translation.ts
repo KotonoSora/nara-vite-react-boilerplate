@@ -1,9 +1,8 @@
-import { DEFAULT_LANGUAGE, translations } from "@kotonosora/i18n-locales";
+import { translations } from "@kotonosora/i18n-locales";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-types";
 
-import type {
-  SupportedLanguage,
-  TranslationKey,
-} from "@kotonosora/i18n-locales";
+import type { TranslationKey } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 import { getNestedValue } from "./get-nested-value";
 
@@ -31,9 +30,9 @@ import { getNestedValue } from "./get-nested-value";
  * getTranslation('en', 'user.welcome', { name: 'John' }) // Returns: "Welcome, John"
  * ```
  */
-export function getTranslation(
+export function getTranslation<TKey extends string = TranslationKey>(
   language: SupportedLanguage,
-  key: TranslationKey,
+  key: TKey,
   params?: Record<string, string | number>,
 ): string {
   const languageTranslations = translations[language];

@@ -1,7 +1,7 @@
-import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-types";
 import { describe, expect, it } from "vitest";
 
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 import { addLanguageToPath } from "../add-language-to-path";
 

@@ -1,7 +1,5 @@
-import type {
-  SupportedLanguage,
-  TranslationKey,
-} from "@kotonosora/i18n-locales";
+import type { TranslationKey } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 import { getTranslation } from "./get-translation";
 
@@ -12,7 +10,9 @@ import { getTranslation } from "./get-translation";
  * @returns A function that takes a translation key and optional parameters,
  *          and returns the translated string for the given language.
  */
-export function createTranslationFunction(language: SupportedLanguage) {
-  return (key: TranslationKey, params?: Record<string, string | number>) =>
-    getTranslation(language, key, params);
+export function createTranslationFunction<TKey extends string = TranslationKey>(
+  language: SupportedLanguage,
+) {
+  return (key: TKey, params?: Record<string, string | number>) =>
+    getTranslation<TKey>(language, key, params);
 }

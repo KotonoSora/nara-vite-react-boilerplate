@@ -21,7 +21,7 @@ import {
   Trash2,
 } from "lucide-react";
 
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type { ShowcaseItem } from "~/features/landing-page/utils/fetch-showcases";

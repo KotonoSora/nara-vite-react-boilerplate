@@ -1,8 +1,8 @@
 import { isSupportedLanguage } from "@kotonosora/i18n";
-import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-types";
 import { createCookieSessionStorage } from "react-router";
 
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 const { getSession, commitSession } = createCookieSessionStorage({
   cookie: {

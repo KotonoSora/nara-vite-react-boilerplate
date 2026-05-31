@@ -1,4 +1,4 @@
-import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-types";
 import { describe, expect, it } from "vitest";
 
 import { detectLanguageFromAcceptLanguage } from "../detect-language-from-accept-language";

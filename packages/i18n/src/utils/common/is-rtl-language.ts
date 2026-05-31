@@ -1,6 +1,6 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import { RTL_LANGUAGES } from "@kotonosora/i18n-locales";
 
-import { RTL_LANGUAGES } from "../../constants/rtl";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 /**
  * Determines whether the specified language uses right-to-left (RTL) text direction.

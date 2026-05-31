@@ -5,8 +5,8 @@ import {
   usePageView,
 } from "@kotonosora/google-analytics";
 import { isRTLLanguage } from "@kotonosora/i18n";
-import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
 import { I18nProvider } from "@kotonosora/i18n-react";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-types";
 import { useClientReady } from "@kotonosora/scheduler";
 import clsx from "clsx";
 import { lazy, Suspense } from "react";
@@ -28,7 +28,7 @@ import {
 
 import type { Route } from "./+types/root";
 
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 import type { MiddlewareFunction } from "react-router";
 
 import { blogMdxModules } from "~/features/blog/blog-config";

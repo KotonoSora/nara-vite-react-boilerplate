@@ -1,8 +1,8 @@
 import type {
   NestedTranslationObject,
-  SupportedLanguage,
   TranslationKey,
 } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 import { getNestedValue } from "./get-nested-value";
 
@@ -32,8 +32,11 @@ import { getNestedValue } from "./get-nested-value";
  * ```
  */
 export const createTranslationFunctionWithData =
-  (translations: NestedTranslationObject, language: SupportedLanguage) =>
-  (key: TranslationKey, params?: Record<string, string | number>) => {
+  <TKey extends string = TranslationKey>(
+    translations: NestedTranslationObject,
+    language: SupportedLanguage,
+  ) =>
+  (key: TKey, params?: Record<string, string | number>) => {
     // Try to get translation from the requested language
     let translation = getNestedValue(translations, key);
 

@@ -1,6 +1,4 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
-
-import type { PluralRules } from "../types/pluralization";
+import type { PluralRules, SupportedLanguage } from "@kotonosora/i18n-types";
 
 // Common pluralization patterns for each language
 export const COMMON_PLURALS: Record<SupportedLanguage, PluralRules> = {

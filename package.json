@@ -71,6 +71,7 @@
     "@kotonosora/i18n": "workspace:*",
     "@kotonosora/i18n-locales": "workspace:*",
     "@kotonosora/i18n-react": "workspace:*",
+    "@kotonosora/i18n-types": "workspace:*",
     "@kotonosora/qr-generator": "workspace:*",
     "@kotonosora/scheduler": "workspace:*",
     "@kotonosora/seo": "workspace:*",

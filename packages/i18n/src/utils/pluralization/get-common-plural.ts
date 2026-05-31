@@ -1,6 +1,7 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import { COMMON_PLURALS } from "@kotonosora/i18n-locales";
 
-import { COMMON_PLURALS } from "../../constants/pluralization";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
+
 import { pluralize } from "./pluralize";
 
 /**
