@@ -8,6 +8,7 @@
   "types": "src/index.ts",
   "dependencies": {
     "@kotonosora/i18n-locales": "workspace:*",
+    "@kotonosora/i18n-types": "workspace:*",
     "date-fns": "catalog:"
   }
 }

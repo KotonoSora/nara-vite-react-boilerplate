@@ -1,7 +1,5 @@
-import type {
-  SupportedLanguage,
-  TranslationFunction,
-} from "@kotonosora/i18n-locales";
+import type { TranslationFunction } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 import type { ReactNode } from "react";
 
 export type I18nReactContextValue = {

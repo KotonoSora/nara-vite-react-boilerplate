@@ -1,7 +1,7 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
-import type { Locale } from "date-fns";
+import { DATE_FNS_LOCALE_MAP } from "@kotonosora/i18n-locales";
 
-import { DATE_FNS_LOCALE_MAP } from "../../constants/date-fns-locale-map";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
+import type { Locale } from "date-fns";
 
 /**
  * Cache for loaded date-fns locales to avoid re-importing

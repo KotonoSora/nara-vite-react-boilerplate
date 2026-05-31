@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 import { formatTime } from "../format-time";
 

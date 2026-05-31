@@ -14,6 +14,7 @@
         "@kotonosora/i18n": "workspace:*",
         "@kotonosora/i18n-locales": "workspace:*",
         "@kotonosora/i18n-react": "workspace:*",
+        "@kotonosora/i18n-types": "workspace:*",
         "@kotonosora/qr-generator": "workspace:*",
         "@kotonosora/scheduler": "workspace:*",
         "@kotonosora/seo": "workspace:*",
@@ -140,12 +141,17 @@
       "version": "0.0.1",
       "dependencies": {
         "@kotonosora/i18n-locales": "workspace:*",
+        "@kotonosora/i18n-types": "workspace:*",
         "date-fns": "catalog:",
       },
     },
     "packages/i18n-locales": {
       "name": "@kotonosora/i18n-locales",
       "version": "0.0.1",
+      "dependencies": {
+        "@kotonosora/i18n-types": "workspace:*",
+        "date-fns": "catalog:",
+      },
     },
     "packages/i18n-react": {
       "name": "@kotonosora/i18n-react",
@@ -153,10 +159,15 @@
       "dependencies": {
         "@kotonosora/i18n": "workspace:*",
         "@kotonosora/i18n-locales": "workspace:*",
+        "@kotonosora/i18n-types": "workspace:*",
         "date-fns": "catalog:",
         "react": "catalog:",
         "react-router": "catalog:",
       },
+    },
+    "packages/i18n-types": {
+      "name": "@kotonosora/i18n-types",
+      "version": "0.0.1",
     },
     "packages/qr-generator": {
       "name": "@kotonosora/qr-generator",
@@ -535,6 +546,8 @@
     "@kotonosora/i18n-locales": ["@kotonosora/i18n-locales@workspace:packages/i18n-locales"],
 
     "@kotonosora/i18n-react": ["@kotonosora/i18n-react@workspace:packages/i18n-react"],
+
+    "@kotonosora/i18n-types": ["@kotonosora/i18n-types@workspace:packages/i18n-types"],
 
     "@kotonosora/qr-generator": ["@kotonosora/qr-generator@workspace:packages/qr-generator"],
 

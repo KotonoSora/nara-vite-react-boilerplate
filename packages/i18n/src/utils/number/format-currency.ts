@@ -1,6 +1,7 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import { CURRENCY_MAP } from "@kotonosora/i18n-locales";
 
-import { CURRENCY_MAP } from "../../constants/currency";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
+
 import { getIntlLocaleByLanguage } from "../datetime/get-intl-locale-by-language";
 
 /**

@@ -14,10 +14,9 @@ import type { NestedTranslationObject } from "@kotonosora/i18n-locales";
  * getNestedValue(translations, "user.invalid.path"); // Returns undefined
  * ```
  */
-export function getNestedValue(
-  obj: NestedTranslationObject,
-  path: string,
-): string | undefined {
+export function getNestedValue<
+  TObj extends NestedTranslationObject = NestedTranslationObject,
+>(obj: TObj, path: string): string | undefined {
   return path.split(".").reduce<unknown>((current, key) => {
     return current &&
       typeof current === "object" &&

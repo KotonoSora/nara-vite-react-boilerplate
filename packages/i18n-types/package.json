@@ -1,0 +1,10 @@
+{
+  "name": "@kotonosora/i18n-types",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {}
+}

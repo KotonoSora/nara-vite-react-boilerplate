@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 // Currency mapping for different locales
 export const CURRENCY_MAP: Record<SupportedLanguage, string> = {

@@ -1,6 +1,6 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import { INTL_LOCALE_MAP } from "@kotonosora/i18n-locales";
 
-import { INTL_LOCALE_MAP } from "../../constants/intl-locale-map";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 /**
  * Returns the corresponding Intl locale string for a given language.
