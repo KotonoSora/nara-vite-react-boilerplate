@@ -9,6 +9,7 @@ import {
   pageMiddleware,
   pageMiddlewareContext,
 } from "~/features/verify-email/middleware/page-middleware";
+import { DatabaseContext } from "~/lib/context/server";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
@@ -21,14 +22,23 @@ const VerifyEmailPage = lazy(() =>
 
 export const middleware: MiddlewareFunction[] = [pageMiddleware];
 
-export async function loader({ context, request }: Route.LoaderArgs) {
+export async function loader({ context, url }: Route.LoaderArgs) {
   const generalInformation = context.get(GeneralInformationContext);
   const i18nContent = context.get(I18nReactRouterContext);
   const { t } = i18nContent;
   const { title, description } = context.get(pageMiddlewareContext);
-  const { db } = context;
+  const db = context.get(DatabaseContext);
+  if (!db) {
+    return {
+      ...generalInformation,
+      ...i18nContent,
+      title,
+      description,
+      error: t("errors.common.internalServerError"),
+      errorCode: "DATABASE_ERROR",
+    };
+  }
 
-  const url = new URL(request.url);
   const token = url.searchParams.get("token");
 
   const { z } = await import("zod");

@@ -8,21 +8,6 @@
  */
 
 /**
- * Supported language codes
- * Auto-generated from available locale directories
- */
-export type SupportedLanguage =
-  | "ar"
-  | "en"
-  | "es"
-  | "fr"
-  | "hi"
-  | "ja"
-  | "th"
-  | "vi"
-  | "zh";
-
-/**
  * Translations for about namespace
  * Generated from: packages/i18n-locales/src/locales/en/about.json
  */
@@ -499,6 +484,7 @@ export interface ErrorsTranslations {
   common: {
     checkInput: string;
     somethingWentWrong: string;
+    internalServerError: string;
   };
 }
 

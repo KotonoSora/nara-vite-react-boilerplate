@@ -2,9 +2,9 @@ import {
   detectLanguageFromAcceptLanguage,
   getLanguageFromPath,
 } from "@kotonosora/i18n";
-import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-types";
 
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 /**
  * Resolves the preferred language for a given HTTP request.
@@ -20,8 +20,9 @@ import type { SupportedLanguage } from "@kotonosora/i18n-locales";
  */
 export async function resolveRequestLanguage(
   request: Request,
+  normalizedUrl?: URL,
 ): Promise<SupportedLanguage> {
-  const url = new URL(request.url);
+  const url = normalizedUrl ?? new URL(request.url);
 
   // 1) Check URL segment
   const pathLanguage = getLanguageFromPath(url.pathname);

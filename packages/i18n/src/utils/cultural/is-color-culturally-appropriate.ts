@@ -1,6 +1,6 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import { CULTURAL_COLORS } from "@kotonosora/i18n-locales";
 
-import { CULTURAL_COLORS } from "../../constants/cultural";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 /**
  * Determines if a given color is culturally appropriate for a specified language and context.

@@ -5,14 +5,11 @@ import {
   usePageView,
 } from "@kotonosora/google-analytics";
 import { isRTLLanguage } from "@kotonosora/i18n";
-import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
 import { I18nProvider } from "@kotonosora/i18n-react";
-import {
-  cancelIdleCallback,
-  scheduleIdleCallback,
-} from "@kotonosora/scheduler";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-types";
+import { useClientReady } from "@kotonosora/scheduler";
 import clsx from "clsx";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -31,7 +28,7 @@ import {
 
 import type { Route } from "./+types/root";
 
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 import type { MiddlewareFunction } from "react-router";
 
 import { blogMdxModules } from "~/features/blog/blog-config";
@@ -98,13 +95,7 @@ function InnerLayout({
 }) {
   const [theme] = useTheme();
   const direction = isRTLLanguage(language) ? "rtl" : "ltr";
-  const [clientReady, setClientReady] = useState(false);
-
-  useEffect(() => {
-    // Defer notifications to idle to keep hydration fast
-    const id = scheduleIdleCallback(() => setClientReady(true));
-    return () => cancelIdleCallback(id);
-  }, []);
+  const clientReady = useClientReady();
 
   usePageView({
     isProd: import.meta.env.PROD,

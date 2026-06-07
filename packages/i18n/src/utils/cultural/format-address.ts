@@ -1,8 +1,6 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import { ADDRESS_FORMATS } from "@kotonosora/i18n-locales";
 
-import type { Address } from "../../types/cultural";
-
-import { ADDRESS_FORMATS } from "../../constants/cultural";
+import type { Address, SupportedLanguage } from "@kotonosora/i18n-types";
 
 /**
  * Formats an address object into a string according to cultural and language-specific conventions.

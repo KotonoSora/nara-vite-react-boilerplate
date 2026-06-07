@@ -1,5 +1,5 @@
 import { getIntlLocaleByLanguage } from "@kotonosora/i18n";
-import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-locales";
+import { DEFAULT_LANGUAGE } from "@kotonosora/i18n-types";
 
 import type {
   GenerateMetaTagsParams,

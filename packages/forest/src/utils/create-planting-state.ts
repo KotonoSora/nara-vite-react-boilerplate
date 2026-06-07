@@ -1,7 +1,6 @@
 import type { ForestState } from "../types/common";
 
 import { RANGE_MIN, STATUS } from "../constants/common";
-import { getRandomSlogan } from "./get-random-slogan";
 
 /**
  * Creates initial planting state with default timer

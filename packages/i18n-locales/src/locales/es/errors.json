@@ -5,6 +5,7 @@
   "tryAgain": "Intentar de Nuevo",
   "common": {
     "checkInput": "Por favor verifica tu entrada",
-    "somethingWentWrong": "Algo salió mal. Por favor intenta de nuevo."
+    "somethingWentWrong": "Algo salió mal. Por favor intenta de nuevo.",
+    "internalServerError": "Se produjo un error interno del servidor. Por favor, inténtalo de nuevo más tarde."
   }
 }

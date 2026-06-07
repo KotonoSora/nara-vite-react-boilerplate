@@ -37,7 +37,7 @@ export function TreeStatusProgress({
     <div
       id="tree-status-progress"
       className={cn(
-        "w-[150px] h-[150px] rounded-full flex flex-col items-center justify-center relative overflow-hidden",
+        "w-37.5 h-37.5 rounded-full flex flex-col items-center justify-center relative overflow-hidden",
         "bg-(--color-forest-secondary)",
       )}
     >

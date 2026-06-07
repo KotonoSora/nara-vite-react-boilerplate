@@ -3,10 +3,10 @@ import {
   addLanguageToPath,
   getLanguageFromPath,
   isRTLLanguage,
-  LANGUAGE_NAMES,
 } from "@kotonosora/i18n";
-import { SUPPORTED_LANGUAGES } from "@kotonosora/i18n-locales";
+import { LANGUAGE_NAMES } from "@kotonosora/i18n-locales";
 import { useLanguage, useTranslation } from "@kotonosora/i18n-react";
+import { SUPPORTED_LANGUAGES } from "@kotonosora/i18n-types";
 import { Button } from "@kotonosora/ui/components/ui/button";
 import clsx from "clsx";
 import { Globe } from "lucide-react";

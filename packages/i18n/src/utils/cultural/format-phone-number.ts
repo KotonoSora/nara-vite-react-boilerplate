@@ -1,6 +1,6 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import { PHONE_FORMATS } from "@kotonosora/i18n-locales";
 
-import { PHONE_FORMATS } from "../../constants/cultural";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 /**
  * Formats a phone number string according to the specified language's regional format.

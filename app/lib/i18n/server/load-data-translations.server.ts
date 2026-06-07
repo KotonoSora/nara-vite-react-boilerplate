@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from "@kotonosora/i18n-locales";
+import type { SupportedLanguage } from "@kotonosora/i18n-types";
 
 export async function loadDataTranslations(language: SupportedLanguage) {
   switch (language) {

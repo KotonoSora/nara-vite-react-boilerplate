@@ -4,6 +4,7 @@ import type { LandingPageContextType } from "../types/type";
 
 import { fetchShowcases } from "~/features/landing-page/utils/fetch-showcases";
 import { createMiddlewareContext } from "~/features/shared/context/create-middleware-context";
+import { DatabaseContext } from "~/lib/context/server";
 import { I18nReactRouterContext } from "~/middleware/i18n";
 
 import { getBuiltInDemos } from "../utils/get-built-in-demos";
@@ -19,7 +20,7 @@ export const landingPageMiddleware: MiddlewareFunction = async (
   { context },
   next,
 ) => {
-  const { db } = context;
+  const db = context.get(DatabaseContext);
   if (!db) {
     return await next();
   }
