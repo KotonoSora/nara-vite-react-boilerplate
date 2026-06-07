@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# 4.6.30 (2026-06-07)
+
+- Upgraded dependencies versions
+- Configured security basic auth for dev domain
+- Configured packages qr-generator and scheduler as git submodules
+- Refactor source code packages i18n
+
 ## 4.6.29 (2026-05-17)
 
 - Upgraded dependencies versions
