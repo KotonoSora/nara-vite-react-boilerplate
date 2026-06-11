@@ -27,9 +27,9 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description, language } = loaderData;
+  const { title, description, language, locale } = loaderData;
   return [
-    ...generateMetaTags({ title, description, language }),
+    ...generateMetaTags({ title, description, language, locale }),
     { name: "theme-color", content: BACKGROUND_COLOR },
   ];
 }
