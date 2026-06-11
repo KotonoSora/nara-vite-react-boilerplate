@@ -14,3 +14,7 @@
 	path = packages/seo
 	url = git@github.com:KotonoSora/nara-seo.git
 	branch = release/1.0.0
+[submodule "packages/google-analytics"]
+	path = packages/google-analytics
+	url = git@github.com:KotonoSora/nara-google-analytics.git
+	branch = release/1.0.0
