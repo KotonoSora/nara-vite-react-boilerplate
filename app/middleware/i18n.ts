@@ -1,4 +1,7 @@
-import { createTranslationFunctionWithData } from "@kotonosora/i18n";
+import {
+  createTranslationFunctionWithData,
+  getIntlLocaleByLanguage,
+} from "@kotonosora/i18n";
 import { createContext } from "react-router";
 
 import type {
@@ -14,6 +17,7 @@ import { resolveRequestLanguage } from "~/lib/i18n/server/request-language.serve
 export type I18nReactRouterContextType = {
   language: SupportedLanguage;
   t: TranslationFunction;
+  locale: string;
 };
 
 export const I18nReactRouterContext =
@@ -30,8 +34,9 @@ export const i18nMiddleware: MiddlewareFunction = async (
   const translations: NestedTranslationObject =
     await loadDataTranslations(language);
   const t = createTranslationFunctionWithData(translations, language);
+  const locale = getIntlLocaleByLanguage(language);
 
-  context.set(I18nReactRouterContext, { language, t });
+  context.set(I18nReactRouterContext, { language, t, locale });
 
   return await next();
 };
