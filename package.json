@@ -13,7 +13,7 @@
     ],
     "catalog": {
       "@hookform/resolvers": "5.4.0",
-      "@types/node": "24.13.1",
+      "@types/node": "24.13.2",
       "@types/react": "19.2.17",
       "@types/react-dom": "19.2.3",
       "clsx": "2.1.1",
@@ -21,7 +21,7 @@
       "lucide-react": "0.563.0",
       "react": "19.2.7",
       "react-dom": "19.2.7",
-      "react-hook-form": "7.77.0",
+      "react-hook-form": "7.78.0",
       "react-router": "7.17.0",
       "react-virtuoso": "4.18.1",
       "recharts": "2.15.4",
@@ -83,12 +83,12 @@
     "date-fns": "4.4.0",
     "drizzle-orm": "~0.45.2",
     "highlight.js": "11.11.1",
-    "hono": "4.12.23",
-    "isbot": "5.1.41",
+    "hono": "4.12.25",
+    "isbot": "5.1.42",
     "lucide-react": "0.563.0",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "react-hook-form": "7.77.0",
+    "react-hook-form": "7.78.0",
     "react-router": "7.17.0",
     "recharts": "2.15.4",
     "remix-themes": "2.0.4",
@@ -97,7 +97,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.40.0",
+    "@cloudflare/vite-plugin": "1.40.2",
     "@commitlint/cli": "21.0.2",
     "@commitlint/config-conventional": "21.0.2",
     "@ianvs/prettier-plugin-sort-imports": "4.7.1",
@@ -106,7 +106,7 @@
     "@mdx-js/rollup": "3.1.1",
     "@react-router/dev": "7.17.0",
     "@react-router/fs-routes": "7.17.0",
-    "@types/node": "24.13.1",
+    "@types/node": "24.13.2",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "@vitest/coverage-istanbul": "4.1.8",
@@ -115,7 +115,7 @@
     "husky": "9.1.7",
     "lint-staged": "17.0.7",
     "mdx-mermaid": "2.0.3",
-    "prettier": "3.8.3",
+    "prettier": "3.8.4",
     "prettier-plugin-tailwindcss": "0.8.0",
     "rehype-highlight": "7.0.2",
     "rehype-mathjax": "7.1.0",
@@ -126,7 +126,7 @@
     "typescript": "5.9.3",
     "vite": "8.0.16",
     "vitest": "4.1.8",
-    "wrangler": "4.98.0"
+    "wrangler": "4.100.0"
   },
   "engines": {
     "node": "24.16.0"
