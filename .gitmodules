@@ -10,3 +10,7 @@
 	path = packages/scheduler
 	url = git@github.com:KotonoSora/nara-scheduler.git
 	branch = release/1.0.0
+[submodule "packages/seo"]
+	path = packages/seo
+	url = git@github.com:KotonoSora/nara-seo.git
+	branch = release/1.0.0
