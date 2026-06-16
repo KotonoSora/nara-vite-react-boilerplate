@@ -1,78 +1,38 @@
 import { getIntlLocaleByLanguage } from "@kotonosora/i18n";
 import { useI18n } from "@kotonosora/i18n-react";
+import { cn } from "@kotonosora/ui/lib/utils";
 import { MDXProvider } from "@mdx-js/react";
-import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
 import type { SlugBlogLoaderData } from "../types/mdx";
 
 import { mdxComponents } from "../config/mdx-components";
-import { getMdxModules } from "../utils/mdx-loader";
+import { useBlogHeadings } from "../hooks/use-blog-headings";
+import { useBlogMdxContent } from "../hooks/use-blog-mdx-content";
+import { useBlogReader } from "../hooks/use-blog-reader";
+import { BlogHeader } from "./blog-header";
+import { BlogTableOfContents } from "./blog-table-of-contents";
 
 export function SlugPage() {
   const { t, language } = useI18n();
   const locale = getIntlLocaleByLanguage(language);
   const loaderData = useLoaderData<SlugBlogLoaderData>();
   const { frontmatter, slug, modulePath, loading } = loaderData || {};
-  const { title, description, tags, author, date } = frontmatter || {};
-  const [ContentComponent, setContentComponent] =
-    useState<React.ComponentType | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { title, description, tags, author } = frontmatter || {};
 
-  useEffect(() => {
-    let isMounted = true;
+  const { contentComponent: ContentComponent, isLoading } = useBlogMdxContent({
+    slug,
+    modulePath,
+  });
 
-    const loadContent = async () => {
-      if (!modulePath) {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-        return;
-      }
+  const headings = useBlogHeadings({
+    isLoading,
+    contentComponent: ContentComponent,
+  });
 
-      const modules = getMdxModules();
-
-      for (const [path, loader] of Object.entries(modules)) {
-        const fileName = path
-          .split("/")
-          .pop()
-          ?.replace(/\.(mdx?|md)$/, "");
-
-        const isDirectMatch = fileName === slug;
-        const isIndexMatch = fileName === "index" && path.includes(`/${slug}/`);
-
-        if (isDirectMatch || isIndexMatch) {
-          try {
-            const module = await loader();
-            if (isMounted) {
-              setContentComponent(() => module.default || null);
-              setIsLoading(false);
-            }
-          } catch (error) {
-            console.error(
-              `Error loading MDX content for slug "${slug}":`,
-              error,
-            );
-            if (isMounted) {
-              setIsLoading(false);
-            }
-          }
-          return;
-        }
-      }
-
-      if (isMounted) {
-        console.warn(`No MDX module found for slug "${slug}"`);
-        setIsLoading(false);
-      }
-    };
-
-    loadContent();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [slug, modulePath]);
+  const { activeSection, readingProgress, scrollToSection } = useBlogReader({
+    headings,
+  });
 
   if (!frontmatter) {
     return (
@@ -92,71 +52,79 @@ export function SlugPage() {
       <meta name="keywords" content={tags?.join(", ")} />
       <meta name="author" content={author} />
 
-      <article className="prose prose-slate dark:prose-invert max-w-none">
-        {/* Slug blog header */}
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">{title}</h1>
-          {description && (
-            <p className="text-xl text-muted-foreground">{description}</p>
-          )}
-          <div className="flex gap-4 text-sm text-muted-foreground mt-4">
-            {author && (
-              <span>
-                {t("blog.card.by")}&nbsp;{author}
-              </span>
-            )}
-            {date && (
-              <time dateTime={date}>
-                {new Date(date).toLocaleDateString(locale, {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-            )}
-          </div>
-          {tags && tags.length > 0 && (
-            <div className="flex gap-2 mt-4">
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-1 text-xs rounded-full bg-muted"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </header>
+      {/* Reading Progress Bar */}
+      {headings.length > 0 && (
+        <div className="fixed top-0 left-0 right-0 z-60">
+          <div
+            className="h-1 bg-primary transition-all duration-300"
+            style={{ width: `${readingProgress}%` }}
+          />
+        </div>
+      )}
 
-        {/* Slug blog content */}
-        {isLoading ? (
-          <div className="text-center py-12">
-            <div className="space-y-4">
-              <p className="text-muted-foreground">Loading content...</p>
-              {loading && loading.total > 0 && (
-                <div className="space-y-2">
-                  <div className="w-full bg-muted rounded-full h-2">
-                    <div
-                      className="bg-primary h-2 rounded-full transition-all"
-                      style={{
-                        width: `${(loading.loaded / loading.total) * 100}%`,
-                      }}
-                    />
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    {loading.loaded} / {loading.total}
-                  </p>
-                </div>
-              )}
+      {/* Grid container */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
+        {/* Sidebar - Table of Contents */}
+        <div className="lg:col-span-1 order-2 lg:order-1">
+          <div className="lg:sticky lg:top-20 space-y-4 lg:space-y-6">
+            {/* Back Navigation */}
+            <div className="mb-4 lg:mb-6">
+              <Link
+                to="/blog"
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                discover="none"
+              >
+                ← {t("blog.error.viewAllPosts")}
+              </Link>
             </div>
+
+            {/* Table of Contents */}
+            {headings.length > 0 && (
+              <BlogTableOfContents
+                headings={headings}
+                activeSection={activeSection}
+                scrollToSection={scrollToSection}
+              />
+            )}
           </div>
-        ) : ContentComponent ? (
-          <MDXProvider components={mdxComponents}>
-            <ContentComponent />
-          </MDXProvider>
-        ) : null}
-      </article>
+        </div>
+
+        {/* Main Content */}
+        <div className="lg:col-span-3 order-1 lg:order-2">
+          <article className="prose prose-slate dark:prose-invert max-w-none">
+            {/* Slug blog header */}
+            <BlogHeader frontmatter={frontmatter} locale={locale} />
+
+            {/* Slug blog content */}
+            {isLoading ? (
+              <div className="text-center py-12">
+                <div className="space-y-4">
+                  <p className="text-muted-foreground">Loading content...</p>
+                  {loading && loading.total > 0 && (
+                    <div className="space-y-2">
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div
+                          className="bg-primary h-2 rounded-full transition-all"
+                          style={{
+                            width: `${(loading.loaded / loading.total) * 100}%`,
+                          }}
+                        />
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        {loading.loaded} / {loading.total}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : ContentComponent ? (
+              <MDXProvider components={mdxComponents}>
+                <ContentComponent />
+              </MDXProvider>
+            ) : null}
+          </article>
+        </div>
+      </div>
     </section>
   );
 }
