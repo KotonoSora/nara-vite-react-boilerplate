@@ -14,10 +14,4 @@ export { getMdxModulePath } from "./utils/get-mdx-module-path";
 export { configureMdxModules, getMdxModules } from "./utils/mdx-loader";
 
 // Standard paths and config helpers
-export {
-  BLOG_CONTENT_PATHS,
-  CONTENT_BASE_PATHS,
-  BLOG_FILE_EXTENSIONS,
-  getStandardBlogPaths,
-  createBlogModulesConfig,
-} from "./config/paths";
+export { createBlogModulesConfig } from "./config/helpers";

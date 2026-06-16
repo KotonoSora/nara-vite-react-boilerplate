@@ -1,6 +1,4 @@
-import { getIntlLocaleByLanguage } from "@kotonosora/i18n";
 import { useI18n } from "@kotonosora/i18n-react";
-import { cn } from "@kotonosora/ui/lib/utils";
 import { MDXProvider } from "@mdx-js/react";
 import { Link, useLoaderData } from "react-router";
 
@@ -14,8 +12,7 @@ import { BlogHeader } from "./blog-header";
 import { BlogTableOfContents } from "./blog-table-of-contents";
 
 export function SlugPage() {
-  const { t, language } = useI18n();
-  const locale = getIntlLocaleByLanguage(language);
+  const { t } = useI18n();
   const loaderData = useLoaderData<SlugBlogLoaderData>();
   const { frontmatter, slug, modulePath, loading } = loaderData || {};
   const { title, description, tags, author } = frontmatter || {};
@@ -93,7 +90,7 @@ export function SlugPage() {
         <div className="lg:col-span-3 order-1 lg:order-2">
           <article className="prose prose-slate dark:prose-invert max-w-none">
             {/* Slug blog header */}
-            <BlogHeader frontmatter={frontmatter} locale={locale} />
+            <BlogHeader frontmatter={frontmatter} />
 
             {/* Slug blog content */}
             {isLoading ? (

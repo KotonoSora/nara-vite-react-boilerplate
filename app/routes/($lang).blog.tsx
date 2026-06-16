@@ -15,7 +15,7 @@ import { GeneralInformationContext } from "~/middleware/information";
 
 // Lazy load the blog page
 const BlogPage = lazy(() =>
-  import("~/features/blog/page").then((module) => ({
+  import("~/features/blog/layout/page").then((module) => ({
     default: module.BlogPage,
   })),
 );
