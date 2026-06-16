@@ -22,3 +22,7 @@
 	path = packages/forest
 	url = git@github.com:KotonoSora/nara-forest.git
 	branch = release/1.0.0
+[submodule "packages/calendar"]
+	path = packages/calendar
+	url = git@github.com:KotonoSora/nara-calendar.git
+	branch = release/1.0.0
