@@ -1,23 +1,17 @@
 import { generateMetaTags } from "@kotonosora/seo";
 import { lazy } from "react";
 
-import type { Route } from "./+types/($lang).calendar";
+import type { Route } from "./+types/($lang).showcases.chart";
 
 import { I18nReactRouterContext } from "~/middleware/i18n";
 import { GeneralInformationContext } from "~/middleware/information";
 
-import styleUrl from "~/features/calendar/style/custom.css?url";
-
-// Lazy load the calendar to prevent react-virtuoso from being bundled in SSR
-const ContentCalendarInfinityPage = lazy(() =>
-  import("~/features/calendar/page").then((module) => ({
-    default: module.ContentCalendarInfinityPage,
+// Lazy load the chart page to prevent recharts from being bundled in SSR
+const ContentChartPage = lazy(() =>
+  import("~/features/showcases-chart/page").then((module) => ({
+    default: module.ContentChartPage,
   })),
 );
-
-export function links() {
-  return [{ rel: "stylesheet", href: styleUrl }];
-}
 
 export function loader({ context }: Route.LoaderArgs) {
   const pageInformation = context.get(GeneralInformationContext);
@@ -31,5 +25,5 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function Page({}: Route.ComponentProps) {
-  return <ContentCalendarInfinityPage />;
+  return <ContentChartPage />;
 }
