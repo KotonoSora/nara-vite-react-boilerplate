@@ -18,3 +18,7 @@
 	path = packages/google-analytics
 	url = git@github.com:KotonoSora/nara-google-analytics.git
 	branch = release/1.0.0
+[submodule "packages/forest"]
+	path = packages/forest
+	url = git@github.com:KotonoSora/nara-forest.git
+	branch = release/1.0.0
