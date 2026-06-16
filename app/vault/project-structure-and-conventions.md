@@ -278,10 +278,10 @@ app/features/shared/
 
 ```typescript
 // Feature components
+import { formatCurrency } from "@kotonosora/i18n";
 import { useI18n } from "@kotonosora/i18n-react";
 // Packages
 import { Button } from "@kotonosora/ui/components/ui/button";
-import { formatCurrency } from "@kotonosora/utils";
 
 import { DashboardLayout } from "~/features/dashboard";
 import { MainLayout } from "~/features/shared";
