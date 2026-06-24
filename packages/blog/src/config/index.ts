@@ -10,5 +10,4 @@
  * - `mdx-components.tsx` - Default MDX component mappings
  */
 
-export * from "./paths";
 export * from "./mdx-components";

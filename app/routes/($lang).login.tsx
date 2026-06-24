@@ -76,8 +76,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description, language } = loaderData;
-  return generateMetaTags({ title, description, language });
+  const { title, description, language, locale } = loaderData;
+  return generateMetaTags({ title, description, language, locale });
 }
 
 export default function Login({}: Route.ComponentProps) {

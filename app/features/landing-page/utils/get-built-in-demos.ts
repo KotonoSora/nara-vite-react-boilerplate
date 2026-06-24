@@ -14,7 +14,7 @@ export function getBuiltInDemos(t: TranslationFunction): ProjectInfo[] {
       id: "built-in-demo-charts",
       name: t("landing.showcase.demos.charts.name"),
       description: t("landing.showcase.demos.charts.description"),
-      url: "/chart",
+      url: "/showcases/chart",
       tags: [
         t("landing.showcase.demos.charts.tags.0"),
         t("landing.showcase.demos.charts.tags.1"),

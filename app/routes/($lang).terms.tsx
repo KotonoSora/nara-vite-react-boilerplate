@@ -29,8 +29,8 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description, language } = loaderData;
-  return generateMetaTags({ title, description, language });
+  const { title, description, language, locale } = loaderData;
+  return generateMetaTags({ title, description, language, locale });
 }
 
 export default function TermsPage({}: Route.ComponentProps) {

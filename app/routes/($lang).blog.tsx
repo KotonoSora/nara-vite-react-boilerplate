@@ -15,7 +15,7 @@ import { GeneralInformationContext } from "~/middleware/information";
 
 // Lazy load the blog page
 const BlogPage = lazy(() =>
-  import("~/features/blog/page").then((module) => ({
+  import("~/features/blog/layout/page").then((module) => ({
     default: module.BlogPage,
   })),
 );
@@ -34,8 +34,8 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const { title, description, language } = loaderData;
-  return generateMetaTags({ title, description, language });
+  const { title, description, language, locale } = loaderData;
+  return generateMetaTags({ title, description, language, locale });
 }
 
 export default function Page({}: Route.ComponentProps) {
