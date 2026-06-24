@@ -1,7 +1,5 @@
 import type { MDXModule } from "../types/mdx";
 
-import { BLOG_CONTENT_PATHS } from "./constants";
-
 /**
  * Creates a blog modules configuration object from import.meta.glob calls.
  *
@@ -26,22 +24,4 @@ export function createBlogModulesConfig(
     ...modules,
     ...extraModules,
   };
-}
-
-/**
- * Returns an array of all standard blog content path patterns.
- * Use this with import.meta.glob to load blog content.
- *
- * @returns Array of glob patterns for blog content
- *
- * @example
- * ```typescript
- * import { getStandardBlogPaths } from '@kotonosora/blog';
- *
- * const patterns = getStandardBlogPaths();
- * // Returns: ["/app/vault/**\\/*.{md,mdx}"]
- * ```
- */
-export function getStandardBlogPaths(): string[] {
-  return [BLOG_CONTENT_PATHS.APP_MARKDOWN_MDX];
 }
