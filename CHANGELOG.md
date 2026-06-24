@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# 4.6.31 (2026-06-25)
+
+- Upgraded dependencies versions
+- Refactor source code packages blog
+- Removed unused source code calendar infinity scroll
+- Removed unused config agent AI and skills
+- Configured packages calendar, forest, google-analytics and seo as git submodules
+
 # 4.6.30 (2026-06-07)
 
 - Upgraded dependencies versions
