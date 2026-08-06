@@ -29,12 +29,17 @@ import {
   TableRow,
 } from "@kotonosora/ui/components/ui/table";
 import {
+  columnFilteringFeature,
+  columnVisibilityFeature,
+  createFilteredRowModel,
+  createPaginatedRowModel,
+  createSortedRowModel,
   flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
+  rowPaginationFeature,
+  rowSelectionFeature,
+  rowSortingFeature,
+  tableFeatures,
+  useTable,
 } from "@tanstack/react-table";
 import { Check, ChevronDown } from "lucide-react";
 import * as React from "react";
@@ -42,9 +47,23 @@ import * as React from "react";
 import type {
   ColumnDef,
   ColumnFiltersState,
+  ColumnVisibilityState,
+  RowData,
   SortingState,
-  VisibilityState,
 } from "@tanstack/react-table";
+
+const features = tableFeatures({
+  columnFilteringFeature,
+  columnVisibilityFeature,
+  rowSelectionFeature,
+  rowSortingFeature,
+  rowPaginationFeature,
+  filteredRowModel: createFilteredRowModel(),
+  paginatedRowModel: createPaginatedRowModel(),
+  sortedRowModel: createSortedRowModel(),
+});
+
+export type TableFeatures = typeof features;
 
 interface ServerPaginationProps {
   page: number;
@@ -62,8 +81,10 @@ interface ServerSortingProps {
   onSortChange: (sortBy: SortKey, sortDir: "asc" | "desc") => void;
 }
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+// Fixed: Removed single TValue generic constraint because a table array contains columns of multiple varying types.
+// We use `any` for the column value generic to satisfy TanStack's internal `unknown` constraints for useTable.
+interface DataTableProps<TData extends RowData> {
+  columns: ColumnDef<TableFeatures, TData, any>[];
   data: TData[];
   searchValue?: string;
   onSearchChange?: (value: string) => void;
@@ -78,7 +99,7 @@ interface DataTableProps<TData, TValue> {
  * Reusable data table component with sorting, filtering, pagination, and row selection.
  * Built with TanStack Table and shadcn/ui components.
  */
-export function ShowcasesDataTable<TData, TValue>({
+export function ShowcasesDataTable<TData extends RowData>({
   columns,
   data,
   pagination,
@@ -88,7 +109,7 @@ export function ShowcasesDataTable<TData, TValue>({
   tagsValue,
   onTagsChange,
   availableTags,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData>) {
   const t = useTranslation();
   const initialSorting = React.useMemo<SortingState>(() => {
     if (!sortingServer) return [];
@@ -108,7 +129,7 @@ export function ShowcasesDataTable<TData, TValue>({
     [],
   );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+    React.useState<ColumnVisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
   const allTags = React.useMemo(() => {
@@ -121,14 +142,11 @@ export function ShowcasesDataTable<TData, TValue>({
     return Array.from(set).sort((a, b) => a.localeCompare(b));
   }, [availableTags, data]);
 
-  const table = useReactTable({
+  const table = useTable({
+    features,
     data,
     columns,
     onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onSortingChange: (updater) => {
