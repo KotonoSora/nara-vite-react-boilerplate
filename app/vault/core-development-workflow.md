@@ -536,9 +536,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
   console.log("Request:", request.url);
   console.log("User:", context.get(AuthContext));
 
-  return {
-    /* data */
-  };
+  return {/* data */};
 };
 ```
 
