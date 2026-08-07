@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# 4.6.33 (2026-08-07)
+
+- Fix crash website after press vote button on dialog showcase detail
+
 # 4.6.32 (2026-08-06)
 
 - Upgraded dependencies versions
