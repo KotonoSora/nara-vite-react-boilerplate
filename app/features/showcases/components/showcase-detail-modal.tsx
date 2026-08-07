@@ -1,10 +1,15 @@
 import { useTranslation } from "@kotonosora/i18n-react";
 import { Badge } from "@kotonosora/ui/components/ui/badge";
 import { Button } from "@kotonosora/ui/components/ui/button";
-import { Dialog, DialogContent } from "@kotonosora/ui/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@kotonosora/ui/components/ui/dialog";
 import { cn } from "@kotonosora/ui/lib/utils";
 import { ExternalLink, ThumbsDown, ThumbsUp, X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link, useFetcher } from "react-router";
 
 import type { ProjectInfo } from "~/features/showcases/types/type";
@@ -35,13 +40,21 @@ export function ShowcaseDetailModal({
 }: ShowcaseDetailModalProps) {
   const fetcher = useFetcher();
   const { user, isAuthenticated } = useAuth();
+  const handledDataRef = useRef<unknown>(null);
 
   const t = useTranslation();
 
   const isSubmitting = fetcher.state !== "idle";
 
   useEffect(() => {
-    if (fetcher.state === "idle" && fetcher.data) {
+    // Prevent infinite loop by ensuring this fetcher response is only processed once
+    if (
+      fetcher.state === "idle" &&
+      fetcher.data &&
+      fetcher.data !== handledDataRef.current
+    ) {
+      handledDataRef.current = fetcher.data;
+
       const result = fetcher.data as {
         success?: boolean;
         vote?: {
@@ -105,9 +118,9 @@ export function ShowcaseDetailModal({
           </Button>
 
           <div className="absolute bottom-4 left-4 right-4 space-y-2">
-            <h2 className="text-2xl font-semibold text-white">
+            <DialogTitle className="text-2xl font-semibold text-white">
               {project.name}
-            </h2>
+            </DialogTitle>
 
             {project.tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
@@ -168,9 +181,9 @@ export function ShowcaseDetailModal({
             <h3 className="text-sm font-medium">
               {t("showcase.showcase.descriptionLabel")}
             </h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <DialogDescription className="text-sm leading-relaxed text-muted-foreground">
               {project.description}
-            </p>
+            </DialogDescription>
           </div>
         </div>
 
