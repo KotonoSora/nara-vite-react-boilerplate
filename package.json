@@ -79,6 +79,7 @@
     "@tailwindcss/vite": "4.3.3",
     "@tanstack/react-table": "9.2.4",
     "clsx": "2.1.1",
+    "cn": "0.2.6",
     "date-fns": "4.4.0",
     "drizzle-orm": "~0.45.2",
     "highlight.js": "11.12.0",

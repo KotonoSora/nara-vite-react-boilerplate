@@ -30,7 +30,7 @@ import {
   PopoverTrigger,
 } from "@kotonosora/ui/components/ui/popover";
 import { Textarea } from "@kotonosora/ui/components/ui/textarea";
-import { cn } from "@kotonosora/ui/lib/utils";
+import { cn } from "cn";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import { useEffect, useState } from "react";
 

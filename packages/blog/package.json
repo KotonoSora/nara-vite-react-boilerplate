@@ -15,6 +15,7 @@
     "@kotonosora/google-analytics": "workspace:*",
     "@kotonosora/i18n-react": "workspace:*",
     "@kotonosora/ui": "workspace:*",
+    "cn": "0.2.6",
     "date-fns": "catalog:",
     "lucide-react": "catalog:",
     "react": "catalog:",
