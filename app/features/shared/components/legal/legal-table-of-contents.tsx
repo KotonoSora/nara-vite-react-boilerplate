@@ -1,7 +1,7 @@
 import { useTranslation } from "@kotonosora/i18n-react";
 import { Card, CardContent } from "@kotonosora/ui/components/ui/card";
 import { ScrollArea } from "@kotonosora/ui/components/ui/scroll-area";
-import { cn } from "@kotonosora/ui/lib/utils";
+import { cn } from "cn";
 import { ChevronRight, FileText } from "lucide-react";
 import { useState } from "react";
 

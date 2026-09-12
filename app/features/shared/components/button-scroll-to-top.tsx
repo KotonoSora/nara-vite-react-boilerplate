@@ -1,6 +1,6 @@
 import { useTranslation } from "@kotonosora/i18n-react";
 import { Button } from "@kotonosora/ui/components/ui/button";
-import { cn } from "@kotonosora/ui/lib/utils";
+import { cn } from "cn";
 import { ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 

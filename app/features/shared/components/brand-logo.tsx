@@ -1,4 +1,4 @@
-import { cn } from "@kotonosora/ui/lib/utils";
+import { cn } from "cn";
 import { Link } from "react-router";
 
 import type { BrandLogoProps } from "../../landing-page/types/type";
