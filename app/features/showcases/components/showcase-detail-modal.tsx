@@ -7,7 +7,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@kotonosora/ui/components/ui/dialog";
-import { cn } from "@kotonosora/ui/lib/utils";
+import { cn } from "cn";
 import { ExternalLink, ThumbsDown, ThumbsUp, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link, useFetcher } from "react-router";

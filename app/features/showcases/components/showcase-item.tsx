@@ -6,7 +6,7 @@ import {
   CardContent,
   CardHeader,
 } from "@kotonosora/ui/components/ui/card";
-import { cn } from "@kotonosora/ui/lib/utils";
+import { cn } from "cn";
 import { ExternalLink, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Link, useFetcher } from "react-router";
 

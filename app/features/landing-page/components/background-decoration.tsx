@@ -1,4 +1,4 @@
-import { cn } from "@kotonosora/ui/lib/utils";
+import { cn } from "cn";
 
 import type { BackgroundDecorationProps } from "../types/background-decoration";
 

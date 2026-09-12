@@ -1,14 +1,18 @@
 # CHANGELOG
 
-# 4.6.33 (2026-08-07)
-
-- Fix crash website after press vote button on dialog showcase detail
-
-# 4.6.32 (2026-08-06)
+## 4.6.34 (2026-09-12)
 
 - Upgraded dependencies versions
 
-# 4.6.31 (2026-06-25)
+## 4.6.33 (2026-08-07)
+
+- Fix crash website after press vote button on dialog showcase detail
+
+## 4.6.32 (2026-08-06)
+
+- Upgraded dependencies versions
+
+## 4.6.31 (2026-06-25)
 
 - Upgraded dependencies versions
 - Refactor source code packages blog
@@ -16,7 +20,7 @@
 - Removed unused config agent AI and skills
 - Configured packages calendar, forest, google-analytics and seo as git submodules
 
-# 4.6.30 (2026-06-07)
+## 4.6.30 (2026-06-07)
 
 - Upgraded dependencies versions
 - Configured security basic auth for dev domain
@@ -40,7 +44,7 @@
 
 ## 4.6.26 (2026-04-18)
 
-### docs
+### docs 4.6.26
 
 - Added comprehensive skill documentation and references for shadcn and react-router-framework-mode in `.agents/skills/`, `.claude/skills/`, and `.github/`
 - Added new assets and images for skill documentation
@@ -56,33 +60,42 @@
 
 ## 4.6.25 (2026-04-08)
 
-### docs
+### docs 4.6.25
 
 - Updated vault blog content guides in `app/vault/*.md` for authoring rules, frontmatter requirements, and publishing checklist
 - Updated development workflow guide with `ui:shadcn:refresh`, `ui:shadcn:refresh:dry-run`, and `ui:sync-exports` usage
 
-### chore
+### chore 4.6.25
 
 - Hardened `packages/ui/scripts/shadcn-refresh.mjs` with deterministic script-relative paths and explicit subprocess working directory
+
 - Improved dry-run messaging to clearly indicate simulated dependency cleanup behavior
+
 - Enforced post-refresh validation to fail real runs when `next-themes` remains declared
+
 - Added dependency policy automation script `scripts/deps-policy-enforce.mjs` with check/fix commands
+
 - Enforced policy after `ui:shadcn:refresh` to normalize shared deps to `catalog:` and remove caret ranges
+
 - Updated `deps:audit:strict` to report and fail on caret ranges (`^`)
 
 - Added dependency governance scripts: `deps:audit`, `deps:audit:strict`, `deps:upgrade`, `deps:upgrade:apply`, `deps:validate`
+
 - Added `UPGRADE.md` runbook for Bun workspace package upgrades
+
 - Added `packages/ui` automation scripts: `ui:add`, `ui:sync-exports`
+
 - Added `packages/ui/.component-metadata.json` for component sync tracking
+
 - Updated `CONTRIBUTING.md` with dependency and UI component maintenance workflow
 
-### Upgraded dependencies
+### Upgraded dependencies 4.6.25
 
 - Upgraded dependencies versions
 
 ## 4.6.24 (2026-03-29)
 
-### build
+### build 4.6.24
 
 - Upgraded Vite from `npm:rolldown-vite@latest` to official `vite@8.0.3` (Rolldown 1.0.0-rc.12)
 - Removed `vite-tsconfig-paths` plugin — replaced by native `resolve.tsconfigPaths: true` (Vite 8 standard)
@@ -91,14 +104,14 @@
 - Upgraded `@tailwindcss/vite` 4.2.0 → 4.2.2, `@cloudflare/vite-plugin` 1.25.2 → 1.30.2
 - Upgraded `@vitest/coverage-istanbul` 4.0.18 → 4.1.2, `vitest` 4.0.18 → 4.1.2
 
-### features
+### features 4.6.24
 
 - Enhanced blog middleware: `all-blog-middleware.ts`, `slug-blog-middleware.ts` for MDX route handling
 - Updated blog route types and MDX module path resolution
 - Enhanced header navigation with improved user actions and profile menus
 - Improved brand logo component and guest menu content
 
-### docs
+### docs 4.6.24
 
 - Added comprehensive architecture and workflow documentation in vault
 - Blog engine features, calendar scheduling, forest ecosystem documentation
@@ -107,7 +120,7 @@
 - SEO optimization, i18n multilingual support, QR generator implementation guides
 - Package documentation for UI system, utils, and scheduler
 
-### chore
+### chore 4.6.24
 
 - Upgraded dependency versions across the board
 - Added `.nvmrc` for Node version management
