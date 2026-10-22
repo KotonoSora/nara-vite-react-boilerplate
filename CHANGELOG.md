@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.6.35 (2026-10-22)
+
+- Upgraded dependencies versions
+
 ## 4.6.34 (2026-09-12)
 
 - Upgraded dependencies versions
