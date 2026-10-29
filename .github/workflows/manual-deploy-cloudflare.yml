@@ -48,18 +48,20 @@ jobs:
           fi
 
       - name: Checkout branch
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.inputs.branch }}
           submodules: recursive
 
       - name: Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: 26
+          check-latest: true
+          cache: "npm"
 
       - name: Setup Bun cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.bun/install/cache
@@ -119,6 +121,5 @@ jobs:
       VITE_DONATE_LINK: ${{ vars.VITE_DONATE_LINK }}
       VITE_PROD_DOMAIN: https://${{ vars.VITE_PROD_DOMAIN }}
       VITE_DEV_DOMAIN: https://${{ vars.VITE_DEV_DOMAIN }}
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       BASIC_AUTH_USERNAME: ${{ secrets.BASIC_AUTH_USERNAME }}
       BASIC_AUTH_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}

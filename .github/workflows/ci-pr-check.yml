@@ -32,17 +32,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: recursive
 
       - name: Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: 26
+          check-latest: true
+          cache: "npm"
 
       - name: Setup Bun cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.bun/install/cache
@@ -65,4 +67,4 @@ jobs:
       - name: Run unit tests
         run: bun run test --run --silent 'passed-only' --passWithNoTests
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      
