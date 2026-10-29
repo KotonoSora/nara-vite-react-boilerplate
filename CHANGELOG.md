@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.6.36 (2026-10-29)
+
+- Upgraded dependencies versions
+- Upgraded config actions on github workflows
+
 ## 4.6.35 (2026-10-22)
 
 - Upgraded dependencies versions

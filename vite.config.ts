@@ -32,6 +32,7 @@ export default defineConfig(() => ({
         pluginTimings: false,
       },
     },
+    sourcemap: false,
   },
   resolve: {
     tsconfigPaths: true,
@@ -39,8 +40,10 @@ export default defineConfig(() => ({
   plugins: [
     tailwindcss(),
     mdx(mdxOptions),
-    // ...reactRouterWithOxcCompat(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     reactRouter(),
   ],
+  css: {
+    devSourcemap: false,
+  },
 }));

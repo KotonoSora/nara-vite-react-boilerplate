@@ -49,6 +49,12 @@ const ToasterLazy = lazy(async () => ({
   default: (await import("@kotonosora/ui/components/ui/sonner")).Toaster,
 }));
 
+// Lazy-load tooltip provider to avoid pulling them into the initial bundle
+const TooltipProvider = lazy(async () => ({
+  default: (await import("@kotonosora/ui/components/ui/tooltip"))
+    .TooltipProvider,
+}));
+
 export const links: Route.LinksFunction = () => {
   const links: ReturnType<Route.LinksFunction> = [
     { rel: "preload", href: appCssUrl, as: "style" },
@@ -144,7 +150,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             ssrTheme={Boolean(data?.theme)}
             language={data?.language || DEFAULT_LANGUAGE}
           >
-            {children}
+            <TooltipProvider>{children}</TooltipProvider>
           </InnerLayout>
         </AuthProvider>
       </I18nProvider>
