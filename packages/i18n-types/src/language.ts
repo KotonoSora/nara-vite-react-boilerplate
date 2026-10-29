@@ -9,15 +9,7 @@
  * Auto-generated from available locale directories
  */
 export type SupportedLanguage =
-  | "ar"
-  | "en"
-  | "es"
-  | "fr"
-  | "hi"
-  | "ja"
-  | "th"
-  | "vi"
-  | "zh";
+  "ar" | "en" | "es" | "fr" | "hi" | "ja" | "th" | "vi" | "zh";
 
 export const DEFAULT_LANGUAGE = "en" as const;
 
