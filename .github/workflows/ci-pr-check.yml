@@ -65,5 +65,4 @@ jobs:
 
       - name: Run unit tests
         run: bun run test --run --silent 'passed-only' --passWithNoTests
-    env:
       
